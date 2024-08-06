@@ -1,0 +1,236 @@
+[
+  {
+    "role": "adminRole",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "User",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "User",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "User",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "User",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "User",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "User",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "User",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "User",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "User",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Department",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Department",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Department",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Department",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Department",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Department",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Department",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Department",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Department",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Department",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Department",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Department",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Employee",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Employee",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Employee",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Employee",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Employee",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Employee",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Employee",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Employee",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Employee",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Employee",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Employee",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Employee",
+    "action": "read:any",
+    "attributes": "*"
+  }
+]

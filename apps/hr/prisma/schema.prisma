@@ -14,6 +14,8 @@ model User {
   id        String   @id @default(cuid())
   lastName  String?
   password  String
+  role      Role?    @relation(fields: [roleId], references: [id])
+  roleId    String?
   roles     Json
   updatedAt DateTime @updatedAt
   username  String   @unique
@@ -44,4 +46,13 @@ model Employee {
   remainingBalance Decimal?
   updatedAt        DateTime @updatedAt
   usedBalance      Decimal?
+}
+
+model Role {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  isActive  Boolean?
+  name      String?
+  updatedAt DateTime @updatedAt
+  users     User[]
 }

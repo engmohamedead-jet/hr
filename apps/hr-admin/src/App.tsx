@@ -17,6 +17,10 @@ import { EmployeeList } from "./employee/EmployeeList";
 import { EmployeeCreate } from "./employee/EmployeeCreate";
 import { EmployeeEdit } from "./employee/EmployeeEdit";
 import { EmployeeShow } from "./employee/EmployeeShow";
+import { RoleList } from "./role/RoleList";
+import { RoleCreate } from "./role/RoleCreate";
+import { RoleEdit } from "./role/RoleEdit";
+import { RoleShow } from "./role/RoleShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -63,6 +67,13 @@ const App = (): React.ReactElement => {
           edit={EmployeeEdit}
           create={EmployeeCreate}
           show={EmployeeShow}
+        />
+        <Resource
+          name="Role"
+          list={RoleList}
+          edit={RoleEdit}
+          create={RoleCreate}
+          show={RoleShow}
         />
       </Admin>
     </div>

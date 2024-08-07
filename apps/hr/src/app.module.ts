@@ -5,6 +5,7 @@ import { UserModule } from "./user/user.module";
 import { DepartmentModule } from "./department/department.module";
 import { EmployeeModule } from "./employee/employee.module";
 import { RoleModule } from "./role/role.module";
+import { PrismaSeedsModule } from "./prismaseeds/prismaseeds.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -26,6 +27,7 @@ import { AuthModule } from "./auth/auth.module";
     DepartmentModule,
     EmployeeModule,
     RoleModule,
+    PrismaSeedsModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

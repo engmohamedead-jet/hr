@@ -1,13 +1,14 @@
 import { DepartmentWhereUniqueInput } from "./DepartmentWhereUniqueInput";
-import { DepartmentCreateNestedManyWithoutDepartmentsInput } from "./DepartmentCreateNestedManyWithoutDepartmentsInput";
+import { EmployeeCreateNestedManyWithoutDepartmentsInput } from "./EmployeeCreateNestedManyWithoutDepartmentsInput";
 import { InputJsonValue } from "../../types";
 
 export type DepartmentCreateInput = {
-  departmentId?: DepartmentWhereUniqueInput | null;
-  departments?: DepartmentCreateNestedManyWithoutDepartmentsInput;
+  departments?: DepartmentWhereUniqueInput | null;
   description?: string | null;
+  employees?: EmployeeCreateNestedManyWithoutDepartmentsInput;
   name: string;
   normalizedName: string;
   note?: string | null;
   noteJson?: InputJsonValue;
+  parentDepartmentId?: DepartmentWhereUniqueInput | null;
 };

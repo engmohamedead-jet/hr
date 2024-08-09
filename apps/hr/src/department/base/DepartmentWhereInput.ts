@@ -14,8 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { DepartmentWhereUniqueInput } from "./DepartmentWhereUniqueInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { DepartmentListRelationFilter } from "./DepartmentListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { EmployeeListRelationFilter } from "../../employee/base/EmployeeListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { JsonFilter } from "../../util/JsonFilter";
 
@@ -31,19 +31,7 @@ class DepartmentWhereInput {
   @Field(() => DepartmentWhereUniqueInput, {
     nullable: true,
   })
-  departmentId?: DepartmentWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => DepartmentListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => DepartmentListRelationFilter)
-  @IsOptional()
-  @Field(() => DepartmentListRelationFilter, {
-    nullable: true,
-  })
-  departments?: DepartmentListRelationFilter;
+  departments?: DepartmentWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -55,6 +43,18 @@ class DepartmentWhereInput {
     nullable: true,
   })
   description?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeListRelationFilter)
+  @IsOptional()
+  @Field(() => EmployeeListRelationFilter, {
+    nullable: true,
+  })
+  employees?: EmployeeListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -110,6 +110,18 @@ class DepartmentWhereInput {
     nullable: true,
   })
   noteJson?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DepartmentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DepartmentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DepartmentWhereUniqueInput, {
+    nullable: true,
+  })
+  parentDepartmentId?: DepartmentWhereUniqueInput;
 }
 
 export { DepartmentWhereInput as DepartmentWhereInput };

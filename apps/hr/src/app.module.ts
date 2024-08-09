@@ -5,8 +5,12 @@ import { UserModule } from "./user/user.module";
 import { DepartmentModule } from "./department/department.module";
 import { EmployeeModule } from "./employee/employee.module";
 import { RoleModule } from "./role/role.module";
-import { AdminRoleModule } from "./adminRole/adminRole.module";
-import { HrSpecialistModule } from "./hrSpecialist/hrSpecialist.module";
+import { EmployeeClassModule } from "./employeeClass/employeeClass.module";
+import { SalaryItemModule } from "./salaryItem/salaryItem.module";
+import { FiscalMonthModule } from "./fiscalMonth/fiscalMonth.module";
+import { EmployeeSalaryModule } from "./employeeSalary/employeeSalary.module";
+import { EmployeeSalaryDetailModule } from "./employeeSalaryDetail/employeeSalaryDetail.module";
+import { EmployeeClassSalaryItemValueModule } from "./employeeClassSalaryItemValue/employeeClassSalaryItemValue.module";
 import { PrismaSeedsModule } from "./prismaseeds/prismaseeds.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -29,8 +33,12 @@ import { AuthModule } from "./auth/auth.module";
     DepartmentModule,
     EmployeeModule,
     RoleModule,
-    AdminRoleModule,
-    HrSpecialistModule,
+    EmployeeClassModule,
+    SalaryItemModule,
+    FiscalMonthModule,
+    EmployeeSalaryModule,
+    EmployeeSalaryDetailModule,
+    EmployeeClassSalaryItemValueModule,
     PrismaSeedsModule,
     HealthModule,
     PrismaModule,

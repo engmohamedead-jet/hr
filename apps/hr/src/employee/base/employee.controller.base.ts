@@ -49,10 +49,25 @@ export class EmployeeControllerBase {
     @common.Body() data: EmployeeCreateInput
   ): Promise<Employee> {
     return await this.service.createEmployee({
-      data: data,
+      data: {
+        ...data,
+
+        departmentId: data.departmentId
+          ? {
+              connect: data.departmentId,
+            }
+          : undefined,
+      },
       select: {
         balance: true,
         createdAt: true,
+
+        departmentId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         lastYearBalance: true,
         name: true,
@@ -84,6 +99,13 @@ export class EmployeeControllerBase {
       select: {
         balance: true,
         createdAt: true,
+
+        departmentId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         lastYearBalance: true,
         name: true,
@@ -116,6 +138,13 @@ export class EmployeeControllerBase {
       select: {
         balance: true,
         createdAt: true,
+
+        departmentId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         lastYearBalance: true,
         name: true,
@@ -153,10 +182,25 @@ export class EmployeeControllerBase {
     try {
       return await this.service.updateEmployee({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          departmentId: data.departmentId
+            ? {
+                connect: data.departmentId,
+              }
+            : undefined,
+        },
         select: {
           balance: true,
           createdAt: true,
+
+          departmentId: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           lastYearBalance: true,
           name: true,
@@ -197,6 +241,13 @@ export class EmployeeControllerBase {
         select: {
           balance: true,
           createdAt: true,
+
+          departmentId: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           lastYearBalance: true,
           name: true,

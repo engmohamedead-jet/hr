@@ -13,7 +13,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
+import { DepartmentWhereUniqueInput } from "../../department/base/DepartmentWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 
@@ -29,6 +30,18 @@ class EmployeeWhereInput {
     nullable: true,
   })
   balance?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DepartmentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DepartmentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DepartmentWhereUniqueInput, {
+    nullable: true,
+  })
+  departmentId?: DepartmentWhereUniqueInput;
 
   @ApiProperty({
     required: false,

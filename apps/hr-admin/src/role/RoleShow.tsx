@@ -19,9 +19,10 @@ export const RoleShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
+        <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
         <BooleanField label="isActive" source="isActive" />
-        <TextField label="name" source="name" />
+        <TextField label="Name" source="name" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField reference="User" target="roleId" label="Users">
           <Datagrid rowClick="show">

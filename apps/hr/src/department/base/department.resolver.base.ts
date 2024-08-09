@@ -26,6 +26,8 @@ import { DepartmentFindUniqueArgs } from "./DepartmentFindUniqueArgs";
 import { CreateDepartmentArgs } from "./CreateDepartmentArgs";
 import { UpdateDepartmentArgs } from "./UpdateDepartmentArgs";
 import { DeleteDepartmentArgs } from "./DeleteDepartmentArgs";
+import { EmployeeFindManyArgs } from "../../employee/base/EmployeeFindManyArgs";
+import { Employee } from "../../employee/base/Employee";
 import { DepartmentService } from "../department.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Department)
@@ -95,9 +97,15 @@ export class DepartmentResolverBase {
       data: {
         ...args.data,
 
-        departmentId: args.data.departmentId
+        departments: args.data.departments
           ? {
-              connect: args.data.departmentId,
+              connect: args.data.departments,
+            }
+          : undefined,
+
+        parentDepartmentId: args.data.parentDepartmentId
+          ? {
+              connect: args.data.parentDepartmentId,
             }
           : undefined,
       },
@@ -120,9 +128,15 @@ export class DepartmentResolverBase {
         data: {
           ...args.data,
 
-          departmentId: args.data.departmentId
+          departments: args.data.departments
             ? {
-                connect: args.data.departmentId,
+                connect: args.data.departments,
+              }
+            : undefined,
+
+          parentDepartmentId: args.data.parentDepartmentId
+            ? {
+                connect: args.data.parentDepartmentId,
               }
             : undefined,
         },
@@ -159,17 +173,17 @@ export class DepartmentResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Department], { name: "departments" })
+  @graphql.ResolveField(() => [Employee], { name: "employees" })
   @nestAccessControl.UseRoles({
-    resource: "Department",
+    resource: "Employee",
     action: "read",
     possession: "any",
   })
-  async findDepartments(
+  async findEmployees(
     @graphql.Parent() parent: Department,
-    @graphql.Args() args: DepartmentFindManyArgs
-  ): Promise<Department[]> {
-    const results = await this.service.findDepartments(parent.id, args);
+    @graphql.Args() args: EmployeeFindManyArgs
+  ): Promise<Employee[]> {
+    const results = await this.service.findEmployees(parent.id, args);
 
     if (!results) {
       return [];
@@ -181,17 +195,38 @@ export class DepartmentResolverBase {
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Department, {
     nullable: true,
-    name: "departmentId",
+    name: "departments",
   })
   @nestAccessControl.UseRoles({
     resource: "Department",
     action: "read",
     possession: "any",
   })
-  async getDepartmentId(
+  async getDepartments(
     @graphql.Parent() parent: Department
   ): Promise<Department | null> {
-    const result = await this.service.getDepartmentId(parent.id);
+    const result = await this.service.getDepartments(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Department, {
+    nullable: true,
+    name: "parentDepartmentId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Department",
+    action: "read",
+    possession: "any",
+  })
+  async getParentDepartmentId(
+    @graphql.Parent() parent: Department
+  ): Promise<Department | null> {
+    const result = await this.service.getParentDepartmentId(parent.id);
 
     if (!result) {
       return null;

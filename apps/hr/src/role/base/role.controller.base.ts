@@ -53,6 +53,7 @@ export class RoleControllerBase {
       data: data,
       select: {
         createdAt: true,
+        description: true,
         id: true,
         isActive: true,
         name: true,
@@ -79,6 +80,7 @@ export class RoleControllerBase {
       ...args,
       select: {
         createdAt: true,
+        description: true,
         id: true,
         isActive: true,
         name: true,
@@ -106,6 +108,7 @@ export class RoleControllerBase {
       where: params,
       select: {
         createdAt: true,
+        description: true,
         id: true,
         isActive: true,
         name: true,
@@ -142,6 +145,7 @@ export class RoleControllerBase {
         data: data,
         select: {
           createdAt: true,
+          description: true,
           id: true,
           isActive: true,
           name: true,
@@ -177,6 +181,7 @@ export class RoleControllerBase {
         where: params,
         select: {
           createdAt: true,
+          description: true,
           id: true,
           isActive: true,
           name: true,

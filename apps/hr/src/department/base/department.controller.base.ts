@@ -26,6 +26,9 @@ import { Department } from "./Department";
 import { DepartmentFindManyArgs } from "./DepartmentFindManyArgs";
 import { DepartmentWhereUniqueInput } from "./DepartmentWhereUniqueInput";
 import { DepartmentUpdateInput } from "./DepartmentUpdateInput";
+import { EmployeeFindManyArgs } from "../../employee/base/EmployeeFindManyArgs";
+import { Employee } from "../../employee/base/Employee";
+import { EmployeeWhereUniqueInput } from "../../employee/base/EmployeeWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,16 +55,22 @@ export class DepartmentControllerBase {
       data: {
         ...data,
 
-        departmentId: data.departmentId
+        departments: data.departments
           ? {
-              connect: data.departmentId,
+              connect: data.departments,
+            }
+          : undefined,
+
+        parentDepartmentId: data.parentDepartmentId
+          ? {
+              connect: data.parentDepartmentId,
             }
           : undefined,
       },
       select: {
         createdAt: true,
 
-        departmentId: {
+        departments: {
           select: {
             id: true,
           },
@@ -73,6 +82,13 @@ export class DepartmentControllerBase {
         normalizedName: true,
         note: true,
         noteJson: true,
+
+        parentDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -97,7 +113,7 @@ export class DepartmentControllerBase {
       select: {
         createdAt: true,
 
-        departmentId: {
+        departments: {
           select: {
             id: true,
           },
@@ -109,6 +125,13 @@ export class DepartmentControllerBase {
         normalizedName: true,
         note: true,
         noteJson: true,
+
+        parentDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -134,7 +157,7 @@ export class DepartmentControllerBase {
       select: {
         createdAt: true,
 
-        departmentId: {
+        departments: {
           select: {
             id: true,
           },
@@ -146,6 +169,13 @@ export class DepartmentControllerBase {
         normalizedName: true,
         note: true,
         noteJson: true,
+
+        parentDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -179,16 +209,22 @@ export class DepartmentControllerBase {
         data: {
           ...data,
 
-          departmentId: data.departmentId
+          departments: data.departments
             ? {
-                connect: data.departmentId,
+                connect: data.departments,
+              }
+            : undefined,
+
+          parentDepartmentId: data.parentDepartmentId
+            ? {
+                connect: data.parentDepartmentId,
               }
             : undefined,
         },
         select: {
           createdAt: true,
 
-          departmentId: {
+          departments: {
             select: {
               id: true,
             },
@@ -200,6 +236,13 @@ export class DepartmentControllerBase {
           normalizedName: true,
           note: true,
           noteJson: true,
+
+          parentDepartmentId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -233,7 +276,7 @@ export class DepartmentControllerBase {
         select: {
           createdAt: true,
 
-          departmentId: {
+          departments: {
             select: {
               id: true,
             },
@@ -245,6 +288,13 @@ export class DepartmentControllerBase {
           normalizedName: true,
           note: true,
           noteJson: true,
+
+          parentDepartmentId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -259,21 +309,22 @@ export class DepartmentControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/departments")
-  @ApiNestedQuery(DepartmentFindManyArgs)
+  @common.Get("/:id/employees")
+  @ApiNestedQuery(EmployeeFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "Department",
+    resource: "Employee",
     action: "read",
     possession: "any",
   })
-  async findDepartments(
+  async findEmployees(
     @common.Req() request: Request,
     @common.Param() params: DepartmentWhereUniqueInput
-  ): Promise<Department[]> {
-    const query = plainToClass(DepartmentFindManyArgs, request.query);
-    const results = await this.service.findDepartments(params.id, {
+  ): Promise<Employee[]> {
+    const query = plainToClass(EmployeeFindManyArgs, request.query);
+    const results = await this.service.findEmployees(params.id, {
       ...query,
       select: {
+        balance: true,
         createdAt: true,
 
         departmentId: {
@@ -282,13 +333,14 @@ export class DepartmentControllerBase {
           },
         },
 
-        description: true,
         id: true,
+        lastYearBalance: true,
         name: true,
         normalizedName: true,
         note: true,
-        noteJson: true,
+        remainingBalance: true,
         updatedAt: true,
+        usedBalance: true,
       },
     });
     if (results === null) {
@@ -299,18 +351,18 @@ export class DepartmentControllerBase {
     return results;
   }
 
-  @common.Post("/:id/departments")
+  @common.Post("/:id/employees")
   @nestAccessControl.UseRoles({
     resource: "Department",
     action: "update",
     possession: "any",
   })
-  async connectDepartments(
+  async connectEmployees(
     @common.Param() params: DepartmentWhereUniqueInput,
-    @common.Body() body: DepartmentWhereUniqueInput[]
+    @common.Body() body: EmployeeWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      departments: {
+      employees: {
         connect: body,
       },
     };
@@ -321,18 +373,18 @@ export class DepartmentControllerBase {
     });
   }
 
-  @common.Patch("/:id/departments")
+  @common.Patch("/:id/employees")
   @nestAccessControl.UseRoles({
     resource: "Department",
     action: "update",
     possession: "any",
   })
-  async updateDepartments(
+  async updateEmployees(
     @common.Param() params: DepartmentWhereUniqueInput,
-    @common.Body() body: DepartmentWhereUniqueInput[]
+    @common.Body() body: EmployeeWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      departments: {
+      employees: {
         set: body,
       },
     };
@@ -343,18 +395,18 @@ export class DepartmentControllerBase {
     });
   }
 
-  @common.Delete("/:id/departments")
+  @common.Delete("/:id/employees")
   @nestAccessControl.UseRoles({
     resource: "Department",
     action: "update",
     possession: "any",
   })
-  async disconnectDepartments(
+  async disconnectEmployees(
     @common.Param() params: DepartmentWhereUniqueInput,
-    @common.Body() body: DepartmentWhereUniqueInput[]
+    @common.Body() body: EmployeeWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      departments: {
+      employees: {
         disconnect: body,
       },
     };

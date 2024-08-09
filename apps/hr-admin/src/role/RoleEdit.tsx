@@ -4,8 +4,8 @@ import {
   Edit,
   SimpleForm,
   EditProps,
-  BooleanInput,
   TextInput,
+  BooleanInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
@@ -16,8 +16,9 @@ export const RoleEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <TextInput label="Description" multiline source="description" />
         <BooleanInput label="isActive" source="isActive" />
-        <TextInput label="name" source="name" />
+        <TextInput label="Name" source="name" />
         <ReferenceArrayInput
           source="users"
           reference="User"

@@ -21,14 +21,30 @@ import { RoleList } from "./role/RoleList";
 import { RoleCreate } from "./role/RoleCreate";
 import { RoleEdit } from "./role/RoleEdit";
 import { RoleShow } from "./role/RoleShow";
-import { AdminRoleList } from "./adminRole/AdminRoleList";
-import { AdminRoleCreate } from "./adminRole/AdminRoleCreate";
-import { AdminRoleEdit } from "./adminRole/AdminRoleEdit";
-import { AdminRoleShow } from "./adminRole/AdminRoleShow";
-import { HrSpecialistList } from "./hrSpecialist/HrSpecialistList";
-import { HrSpecialistCreate } from "./hrSpecialist/HrSpecialistCreate";
-import { HrSpecialistEdit } from "./hrSpecialist/HrSpecialistEdit";
-import { HrSpecialistShow } from "./hrSpecialist/HrSpecialistShow";
+import { EmployeeClassList } from "./employeeClass/EmployeeClassList";
+import { EmployeeClassCreate } from "./employeeClass/EmployeeClassCreate";
+import { EmployeeClassEdit } from "./employeeClass/EmployeeClassEdit";
+import { EmployeeClassShow } from "./employeeClass/EmployeeClassShow";
+import { SalaryItemList } from "./salaryItem/SalaryItemList";
+import { SalaryItemCreate } from "./salaryItem/SalaryItemCreate";
+import { SalaryItemEdit } from "./salaryItem/SalaryItemEdit";
+import { SalaryItemShow } from "./salaryItem/SalaryItemShow";
+import { FiscalMonthList } from "./fiscalMonth/FiscalMonthList";
+import { FiscalMonthCreate } from "./fiscalMonth/FiscalMonthCreate";
+import { FiscalMonthEdit } from "./fiscalMonth/FiscalMonthEdit";
+import { FiscalMonthShow } from "./fiscalMonth/FiscalMonthShow";
+import { EmployeeSalaryList } from "./employeeSalary/EmployeeSalaryList";
+import { EmployeeSalaryCreate } from "./employeeSalary/EmployeeSalaryCreate";
+import { EmployeeSalaryEdit } from "./employeeSalary/EmployeeSalaryEdit";
+import { EmployeeSalaryShow } from "./employeeSalary/EmployeeSalaryShow";
+import { EmployeeSalaryDetailList } from "./employeeSalaryDetail/EmployeeSalaryDetailList";
+import { EmployeeSalaryDetailCreate } from "./employeeSalaryDetail/EmployeeSalaryDetailCreate";
+import { EmployeeSalaryDetailEdit } from "./employeeSalaryDetail/EmployeeSalaryDetailEdit";
+import { EmployeeSalaryDetailShow } from "./employeeSalaryDetail/EmployeeSalaryDetailShow";
+import { EmployeeClassSalaryItemValueList } from "./employeeClassSalaryItemValue/EmployeeClassSalaryItemValueList";
+import { EmployeeClassSalaryItemValueCreate } from "./employeeClassSalaryItemValue/EmployeeClassSalaryItemValueCreate";
+import { EmployeeClassSalaryItemValueEdit } from "./employeeClassSalaryItemValue/EmployeeClassSalaryItemValueEdit";
+import { EmployeeClassSalaryItemValueShow } from "./employeeClassSalaryItemValue/EmployeeClassSalaryItemValueShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -84,18 +100,46 @@ const App = (): React.ReactElement => {
           show={RoleShow}
         />
         <Resource
-          name="AdminRole"
-          list={AdminRoleList}
-          edit={AdminRoleEdit}
-          create={AdminRoleCreate}
-          show={AdminRoleShow}
+          name="EmployeeClass"
+          list={EmployeeClassList}
+          edit={EmployeeClassEdit}
+          create={EmployeeClassCreate}
+          show={EmployeeClassShow}
         />
         <Resource
-          name="HrSpecialist"
-          list={HrSpecialistList}
-          edit={HrSpecialistEdit}
-          create={HrSpecialistCreate}
-          show={HrSpecialistShow}
+          name="SalaryItem"
+          list={SalaryItemList}
+          edit={SalaryItemEdit}
+          create={SalaryItemCreate}
+          show={SalaryItemShow}
+        />
+        <Resource
+          name="FiscalMonth"
+          list={FiscalMonthList}
+          edit={FiscalMonthEdit}
+          create={FiscalMonthCreate}
+          show={FiscalMonthShow}
+        />
+        <Resource
+          name="EmployeeSalary"
+          list={EmployeeSalaryList}
+          edit={EmployeeSalaryEdit}
+          create={EmployeeSalaryCreate}
+          show={EmployeeSalaryShow}
+        />
+        <Resource
+          name="EmployeeSalaryDetail"
+          list={EmployeeSalaryDetailList}
+          edit={EmployeeSalaryDetailEdit}
+          create={EmployeeSalaryDetailCreate}
+          show={EmployeeSalaryDetailShow}
+        />
+        <Resource
+          name="EmployeeClassSalaryItemValue"
+          list={EmployeeClassSalaryItemValueList}
+          edit={EmployeeClassSalaryItemValueEdit}
+          create={EmployeeClassSalaryItemValueCreate}
+          show={EmployeeClassSalaryItemValueShow}
         />
       </Admin>
     </div>

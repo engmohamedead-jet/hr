@@ -19,6 +19,7 @@ import {
   MaxLength,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Employee } from "../../employee/base/Employee";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
@@ -40,16 +41,7 @@ class Department {
   @ValidateNested()
   @Type(() => Department)
   @IsOptional()
-  departmentId?: Department | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Department],
-  })
-  @ValidateNested()
-  @Type(() => Department)
-  @IsOptional()
-  departments?: Array<Department>;
+  departments?: Department | null;
 
   @ApiProperty({
     required: false,
@@ -62,6 +54,15 @@ class Department {
     nullable: true,
   })
   description!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Employee],
+  })
+  @ValidateNested()
+  @Type(() => Employee)
+  @IsOptional()
+  employees?: Array<Employee>;
 
   @ApiProperty({
     required: true,
@@ -110,6 +111,15 @@ class Department {
     nullable: true,
   })
   noteJson!: JsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => Department,
+  })
+  @ValidateNested()
+  @Type(() => Department)
+  @IsOptional()
+  parentDepartmentId?: Department | null;
 
   @ApiProperty({
     required: true,

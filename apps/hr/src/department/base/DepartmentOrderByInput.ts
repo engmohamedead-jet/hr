@@ -39,7 +39,7 @@ class DepartmentOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  departmentIdId?: SortOrder;
+  departmentsId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -106,6 +106,17 @@ class DepartmentOrderByInput {
     nullable: true,
   })
   noteJson?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  ID?: SortOrder;
 
   @ApiProperty({
     required: false,

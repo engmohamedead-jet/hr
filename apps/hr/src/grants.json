@@ -325,181 +325,541 @@
   },
   {
     "role": "adminRole",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "adminRole",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "adminRole",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "adminRole",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "adminRole",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "AdminRole",
+    "resource": "EmployeeClass",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "adminRole",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "adminRole",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "adminRole",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "adminRole",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "adminRole",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "hrSpecialist",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "HrSpecialist",
+    "resource": "SalaryItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "FiscalMonth",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "FiscalMonth",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "FiscalMonth",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "FiscalMonth",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "FiscalMonth",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "FiscalMonth",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "FiscalMonth",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "FiscalMonth",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "FiscalMonth",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "FiscalMonth",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "FiscalMonth",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "FiscalMonth",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "FiscalMonth",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "FiscalMonth",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "FiscalMonth",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalary",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalary",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalary",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalary",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalary",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalary",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalary",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalary",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalary",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalary",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalary",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalary",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalary",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalary",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalary",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalaryDetail",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalaryDetail",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalaryDetail",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalaryDetail",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalaryDetail",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalaryDetail",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalaryDetail",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalaryDetail",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalaryDetail",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalaryDetail",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalaryDetail",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalaryDetail",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeSalaryDetail",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeSalaryDetail",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeSalaryDetail",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "EmployeeClassSalaryItemValue",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "EmployeeClassSalaryItemValue",
     "action": "read:any",
     "attributes": "*"
   }

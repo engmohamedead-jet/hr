@@ -322,5 +322,185 @@
     "resource": "Role",
     "action": "read:any",
     "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "AdminRole",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "AdminRole",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "AdminRole",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "AdminRole",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "AdminRole",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "AdminRole",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "AdminRole",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "AdminRole",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "AdminRole",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "AdminRole",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "AdminRole",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "AdminRole",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "AdminRole",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "AdminRole",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "AdminRole",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "HrSpecialist",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "HrSpecialist",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "HrSpecialist",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "HrSpecialist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "HrSpecialist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "HrSpecialist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "HrSpecialist",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "HrSpecialist",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "HrSpecialist",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "HrSpecialist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "HrSpecialist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "HrSpecialist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "HrSpecialist",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "HrSpecialist",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "HrSpecialist",
+    "action": "read:any",
+    "attributes": "*"
   }
 ]

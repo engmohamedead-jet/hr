@@ -21,6 +21,14 @@ import { RoleList } from "./role/RoleList";
 import { RoleCreate } from "./role/RoleCreate";
 import { RoleEdit } from "./role/RoleEdit";
 import { RoleShow } from "./role/RoleShow";
+import { AdminRoleList } from "./adminRole/AdminRoleList";
+import { AdminRoleCreate } from "./adminRole/AdminRoleCreate";
+import { AdminRoleEdit } from "./adminRole/AdminRoleEdit";
+import { AdminRoleShow } from "./adminRole/AdminRoleShow";
+import { HrSpecialistList } from "./hrSpecialist/HrSpecialistList";
+import { HrSpecialistCreate } from "./hrSpecialist/HrSpecialistCreate";
+import { HrSpecialistEdit } from "./hrSpecialist/HrSpecialistEdit";
+import { HrSpecialistShow } from "./hrSpecialist/HrSpecialistShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -74,6 +82,20 @@ const App = (): React.ReactElement => {
           edit={RoleEdit}
           create={RoleCreate}
           show={RoleShow}
+        />
+        <Resource
+          name="AdminRole"
+          list={AdminRoleList}
+          edit={AdminRoleEdit}
+          create={AdminRoleCreate}
+          show={AdminRoleShow}
+        />
+        <Resource
+          name="HrSpecialist"
+          list={HrSpecialistList}
+          edit={HrSpecialistEdit}
+          create={HrSpecialistCreate}
+          show={HrSpecialistShow}
         />
       </Admin>
     </div>

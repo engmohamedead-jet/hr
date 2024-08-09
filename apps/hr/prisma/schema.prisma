@@ -56,3 +56,15 @@ model Role {
   updatedAt DateTime @updatedAt
   users     User[]
 }
+
+model AdminRole {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model HrSpecialist {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}

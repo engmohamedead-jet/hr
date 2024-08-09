@@ -5,6 +5,8 @@ import { UserModule } from "./user/user.module";
 import { DepartmentModule } from "./department/department.module";
 import { EmployeeModule } from "./employee/employee.module";
 import { RoleModule } from "./role/role.module";
+import { AdminRoleModule } from "./adminRole/adminRole.module";
+import { HrSpecialistModule } from "./hrSpecialist/hrSpecialist.module";
 import { PrismaSeedsModule } from "./prismaseeds/prismaseeds.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -27,6 +29,8 @@ import { AuthModule } from "./auth/auth.module";
     DepartmentModule,
     EmployeeModule,
     RoleModule,
+    AdminRoleModule,
+    HrSpecialistModule,
     PrismaSeedsModule,
     HealthModule,
     PrismaModule,

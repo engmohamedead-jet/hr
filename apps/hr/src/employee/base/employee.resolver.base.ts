@@ -26,6 +26,7 @@ import { EmployeeFindUniqueArgs } from "./EmployeeFindUniqueArgs";
 import { CreateEmployeeArgs } from "./CreateEmployeeArgs";
 import { UpdateEmployeeArgs } from "./UpdateEmployeeArgs";
 import { DeleteEmployeeArgs } from "./DeleteEmployeeArgs";
+import { Department } from "../../department/base/Department";
 import { EmployeeService } from "../employee.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Employee)
@@ -92,7 +93,15 @@ export class EmployeeResolverBase {
   ): Promise<Employee> {
     return await this.service.createEmployee({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        departmentId: args.data.departmentId
+          ? {
+              connect: args.data.departmentId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +118,15 @@ export class EmployeeResolverBase {
     try {
       return await this.service.updateEmployee({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          departmentId: args.data.departmentId
+            ? {
+                connect: args.data.departmentId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +157,26 @@ export class EmployeeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Department, {
+    nullable: true,
+    name: "departmentId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Department",
+    action: "read",
+    possession: "any",
+  })
+  async getDepartmentId(
+    @graphql.Parent() parent: Employee
+  ): Promise<Department | null> {
+    const result = await this.service.getDepartmentId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

@@ -3,6 +3,7 @@ import { SortOrder } from "../../util/SortOrder";
 export type EmployeeOrderByInput = {
   balance?: SortOrder;
   createdAt?: SortOrder;
+  departmentIdId?: SortOrder;
   id?: SortOrder;
   lastYearBalance?: SortOrder;
   name?: SortOrder;

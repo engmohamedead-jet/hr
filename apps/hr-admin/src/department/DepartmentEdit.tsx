@@ -6,37 +6,45 @@ import {
   EditProps,
   ReferenceInput,
   SelectInput,
+  TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
-  TextInput,
 } from "react-admin";
 
 import { DepartmentTitle } from "./DepartmentTitle";
+import { EmployeeTitle } from "../employee/EmployeeTitle";
 
 export const DepartmentEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
         <ReferenceInput
-          source="departmentId.id"
+          source="departments.id"
           reference="Department"
-          label="DepartmentId"
+          label="Departments"
         >
           <SelectInput optionText={DepartmentTitle} />
         </ReferenceInput>
+        <TextInput label="Description" multiline source="description" />
         <ReferenceArrayInput
-          source="departments"
-          reference="Department"
+          source="employees"
+          reference="Employee"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={DepartmentTitle} />
+          <SelectArrayInput optionText={EmployeeTitle} />
         </ReferenceArrayInput>
-        <TextInput label="Description" multiline source="description" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
-        <TextInput label="Note" source="note" />
+        <TextInput label="Note" multiline source="note" />
         <div />
+        <ReferenceInput
+          source="parentDepartmentId.id"
+          reference="Department"
+          label="ParentDepartmentId"
+        >
+          <SelectInput optionText={DepartmentTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Edit>
   );

@@ -19,7 +19,7 @@ import {
   MaxLength,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { DepartmentCreateNestedManyWithoutDepartmentsInput } from "./DepartmentCreateNestedManyWithoutDepartmentsInput";
+import { EmployeeCreateNestedManyWithoutDepartmentsInput } from "./EmployeeCreateNestedManyWithoutDepartmentsInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
@@ -36,19 +36,7 @@ class DepartmentCreateInput {
   @Field(() => DepartmentWhereUniqueInput, {
     nullable: true,
   })
-  departmentId?: DepartmentWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => DepartmentCreateNestedManyWithoutDepartmentsInput,
-  })
-  @ValidateNested()
-  @Type(() => DepartmentCreateNestedManyWithoutDepartmentsInput)
-  @IsOptional()
-  @Field(() => DepartmentCreateNestedManyWithoutDepartmentsInput, {
-    nullable: true,
-  })
-  departments?: DepartmentCreateNestedManyWithoutDepartmentsInput;
+  departments?: DepartmentWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -61,6 +49,18 @@ class DepartmentCreateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeCreateNestedManyWithoutDepartmentsInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeCreateNestedManyWithoutDepartmentsInput)
+  @IsOptional()
+  @Field(() => EmployeeCreateNestedManyWithoutDepartmentsInput, {
+    nullable: true,
+  })
+  employees?: EmployeeCreateNestedManyWithoutDepartmentsInput;
 
   @ApiProperty({
     required: true,
@@ -101,6 +101,18 @@ class DepartmentCreateInput {
     nullable: true,
   })
   noteJson?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => DepartmentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DepartmentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DepartmentWhereUniqueInput, {
+    nullable: true,
+  })
+  parentDepartmentId?: DepartmentWhereUniqueInput | null;
 }
 
 export { DepartmentCreateInput as DepartmentCreateInput };

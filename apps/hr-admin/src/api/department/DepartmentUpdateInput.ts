@@ -1,13 +1,14 @@
 import { DepartmentWhereUniqueInput } from "./DepartmentWhereUniqueInput";
-import { DepartmentUpdateManyWithoutDepartmentsInput } from "./DepartmentUpdateManyWithoutDepartmentsInput";
+import { EmployeeUpdateManyWithoutDepartmentsInput } from "./EmployeeUpdateManyWithoutDepartmentsInput";
 import { InputJsonValue } from "../../types";
 
 export type DepartmentUpdateInput = {
-  departmentId?: DepartmentWhereUniqueInput | null;
-  departments?: DepartmentUpdateManyWithoutDepartmentsInput;
+  departments?: DepartmentWhereUniqueInput | null;
   description?: string | null;
+  employees?: EmployeeUpdateManyWithoutDepartmentsInput;
   name?: string;
   normalizedName?: string;
   note?: string | null;
   noteJson?: InputJsonValue;
+  parentDepartmentId?: DepartmentWhereUniqueInput | null;
 };

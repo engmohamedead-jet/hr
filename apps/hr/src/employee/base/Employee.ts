@@ -16,11 +16,13 @@ import {
   Max,
   IsOptional,
   IsDate,
+  ValidateNested,
   IsString,
   MaxLength,
 } from "class-validator";
 import { Decimal } from "decimal.js";
 import { Type } from "class-transformer";
+import { Department } from "../../department/base/Department";
 
 @ObjectType()
 class Employee {
@@ -43,6 +45,15 @@ class Employee {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => Department,
+  })
+  @ValidateNested()
+  @Type(() => Department)
+  @IsOptional()
+  departmentId?: Department | null;
 
   @ApiProperty({
     required: true,

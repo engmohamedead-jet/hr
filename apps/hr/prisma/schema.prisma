@@ -22,37 +22,112 @@ model User {
 }
 
 model Department {
-  createdAt      DateTime     @default(now())
-  departmentId   Department?  @relation(name: "departmentId", fields: [departmentIdId], references: [id])
-  departmentIdId String?
-  departments    Department[] @relation(name: "departmentId")
-  description    String?
-  id             String       @id @default(cuid())
-  name           String       @unique
-  normalizedName String       @unique
-  note           String?
-  noteJson       Json?
-  updatedAt      DateTime     @updatedAt
+  createdAt          DateTime    @default(now())
+  departments        Department? @relation(name: "departments", fields: [departmentsId], references: [id])
+  departmentsId      String?     @unique
+  description        String?
+  employees          Employee[]
+  id                 String      @id @default(cuid())
+  name               String      @unique
+  normalizedName     String      @unique
+  note               String?
+  noteJson           Json?
+  parentDepartmentId Department? @relation(name: "departments")
+  updatedAt          DateTime    @updatedAt
 }
 
 model Employee {
   balance          Decimal?
-  createdAt        DateTime @default(now())
-  id               String   @id @default(cuid())
+  createdAt        DateTime    @default(now())
+  departmentId     Department? @relation(fields: [departmentIdId], references: [id])
+  departmentIdId   String?
+  id               String      @id @default(cuid())
   lastYearBalance  Decimal?
   name             String?
   normalizedName   String?
   note             String?
   remainingBalance Decimal?
-  updatedAt        DateTime @updatedAt
+  updatedAt        DateTime    @updatedAt
   usedBalance      Decimal?
 }
 
 model Role {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  isActive  Boolean?
-  name      String?
-  updatedAt DateTime @updatedAt
-  users     User[]
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  isActive    Boolean?
+  name        String?  @unique
+  updatedAt   DateTime @updatedAt
+  users       User[]
+}
+
+model EmployeeClass {
+  code                          String                         @unique
+  createdAt                     DateTime                       @default(now())
+  description                   String?
+  employeeClassSalaryItemValues EmployeeClassSalaryItemValue[]
+  id                            String                         @id @default(cuid())
+  name                          String                         @unique
+  normalizedName                String                         @unique
+  notes                         String?
+  updatedAt                     DateTime                       @updatedAt
+}
+
+model SalaryItem {
+  code                          String                         @unique
+  createdAt                     DateTime                       @default(now())
+  description                   String?
+  employeeClassSalaryItemValues EmployeeClassSalaryItemValue[]
+  employeeSalaryDetails         EmployeeSalaryDetail[]
+  id                            String                         @id @default(cuid())
+  name                          String                         @unique
+  normalizedName                String                         @unique
+  note                          String?
+  updatedAt                     DateTime                       @updatedAt
+}
+
+model FiscalMonth {
+  code             String           @unique
+  createdAt        DateTime         @default(now())
+  description      String?
+  employeeSalaries EmployeeSalary[]
+  id               String           @id @default(cuid())
+  mormalizedName   String           @unique
+  name             String           @unique
+  note             String?
+  updatedAt        DateTime         @updatedAt
+}
+
+model EmployeeSalary {
+  createdAt       DateTime    @default(now())
+  fiscalMonthId   FiscalMonth @relation(fields: [fiscalMonthIdId], references: [id])
+  fiscalMonthIdId String
+  id              String      @id @default(cuid())
+  netSalary       Decimal
+  note            String?
+  totalDeserved   Decimal
+  totalDiscount   Decimal
+  updatedAt       DateTime    @updatedAt
+}
+
+model EmployeeSalaryDetail {
+  createdAt       DateTime   @default(now())
+  id              String     @id @default(cuid())
+  notes           String?
+  salaryItemId    SalaryItem @relation(fields: [salaryItemIdId], references: [id])
+  salaryItemIdId  String
+  salaryItemValue Decimal
+  serial          Int
+  updatedAt       DateTime   @updatedAt
+}
+
+model EmployeeClassSalaryItemValue {
+  createdAt         DateTime      @default(now())
+  employeeClassId   EmployeeClass @relation(fields: [employeeClassIdId], references: [id])
+  employeeClassIdId String
+  id                String        @id @default(cuid())
+  itemValue         Decimal
+  salaryItemId      SalaryItem    @relation(fields: [salaryItemIdId], references: [id])
+  salaryItemIdId    String
+  updatedAt         DateTime      @updatedAt
 }

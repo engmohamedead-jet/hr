@@ -19,7 +19,7 @@ import {
   MaxLength,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { DepartmentUpdateManyWithoutDepartmentsInput } from "./DepartmentUpdateManyWithoutDepartmentsInput";
+import { EmployeeUpdateManyWithoutDepartmentsInput } from "./EmployeeUpdateManyWithoutDepartmentsInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
@@ -36,19 +36,7 @@ class DepartmentUpdateInput {
   @Field(() => DepartmentWhereUniqueInput, {
     nullable: true,
   })
-  departmentId?: DepartmentWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => DepartmentUpdateManyWithoutDepartmentsInput,
-  })
-  @ValidateNested()
-  @Type(() => DepartmentUpdateManyWithoutDepartmentsInput)
-  @IsOptional()
-  @Field(() => DepartmentUpdateManyWithoutDepartmentsInput, {
-    nullable: true,
-  })
-  departments?: DepartmentUpdateManyWithoutDepartmentsInput;
+  departments?: DepartmentWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -61,6 +49,18 @@ class DepartmentUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeUpdateManyWithoutDepartmentsInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeUpdateManyWithoutDepartmentsInput)
+  @IsOptional()
+  @Field(() => EmployeeUpdateManyWithoutDepartmentsInput, {
+    nullable: true,
+  })
+  employees?: EmployeeUpdateManyWithoutDepartmentsInput;
 
   @ApiProperty({
     required: false,
@@ -107,6 +107,18 @@ class DepartmentUpdateInput {
     nullable: true,
   })
   noteJson?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => DepartmentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DepartmentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DepartmentWhereUniqueInput, {
+    nullable: true,
+  })
+  parentDepartmentId?: DepartmentWhereUniqueInput | null;
 }
 
 export { DepartmentUpdateInput as DepartmentUpdateInput };

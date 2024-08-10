@@ -16,9 +16,12 @@ import {
   MaxLength,
   IsOptional,
   ValidateNested,
+  IsDate,
 } from "class-validator";
 import { EmployeeSalaryUpdateManyWithoutFiscalMonthsInput } from "./EmployeeSalaryUpdateManyWithoutFiscalMonthsInput";
 import { Type } from "class-transformer";
+import { FiscalWeekUpdateManyWithoutFiscalMonthsInput } from "./FiscalWeekUpdateManyWithoutFiscalMonthsInput";
+import { FiscalYearWhereUniqueInput } from "../../fiscalYear/base/FiscalYearWhereUniqueInput";
 
 @InputType()
 class FiscalMonthUpdateInput {
@@ -60,6 +63,41 @@ class FiscalMonthUpdateInput {
 
   @ApiProperty({
     required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  endsOn?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => FiscalWeekUpdateManyWithoutFiscalMonthsInput,
+  })
+  @ValidateNested()
+  @Type(() => FiscalWeekUpdateManyWithoutFiscalMonthsInput)
+  @IsOptional()
+  @Field(() => FiscalWeekUpdateManyWithoutFiscalMonthsInput, {
+    nullable: true,
+  })
+  fiscalWeeks?: FiscalWeekUpdateManyWithoutFiscalMonthsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => FiscalYearWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => FiscalYearWhereUniqueInput)
+  @IsOptional()
+  @Field(() => FiscalYearWhereUniqueInput, {
+    nullable: true,
+  })
+  fiscalYear?: FiscalYearWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -93,6 +131,17 @@ class FiscalMonthUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  startsFrom?: Date | null;
 }
 
 export { FiscalMonthUpdateInput as FiscalMonthUpdateInput };

@@ -28,6 +28,9 @@ import { UpdateFiscalMonthArgs } from "./UpdateFiscalMonthArgs";
 import { DeleteFiscalMonthArgs } from "./DeleteFiscalMonthArgs";
 import { EmployeeSalaryFindManyArgs } from "../../employeeSalary/base/EmployeeSalaryFindManyArgs";
 import { EmployeeSalary } from "../../employeeSalary/base/EmployeeSalary";
+import { FiscalWeekFindManyArgs } from "../../fiscalWeek/base/FiscalWeekFindManyArgs";
+import { FiscalWeek } from "../../fiscalWeek/base/FiscalWeek";
+import { FiscalYear } from "../../fiscalYear/base/FiscalYear";
 import { FiscalMonthService } from "../fiscalMonth.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => FiscalMonth)
@@ -94,7 +97,13 @@ export class FiscalMonthResolverBase {
   ): Promise<FiscalMonth> {
     return await this.service.createFiscalMonth({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        fiscalYear: {
+          connect: args.data.fiscalYear,
+        },
+      },
     });
   }
 
@@ -111,7 +120,13 @@ export class FiscalMonthResolverBase {
     try {
       return await this.service.updateFiscalMonth({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          fiscalYear: {
+            connect: args.data.fiscalYear,
+          },
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -162,5 +177,46 @@ export class FiscalMonthResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [FiscalWeek], { name: "fiscalWeeks" })
+  @nestAccessControl.UseRoles({
+    resource: "FiscalWeek",
+    action: "read",
+    possession: "any",
+  })
+  async findFiscalWeeks(
+    @graphql.Parent() parent: FiscalMonth,
+    @graphql.Args() args: FiscalWeekFindManyArgs
+  ): Promise<FiscalWeek[]> {
+    const results = await this.service.findFiscalWeeks(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => FiscalYear, {
+    nullable: true,
+    name: "fiscalYear",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "FiscalYear",
+    action: "read",
+    possession: "any",
+  })
+  async getFiscalYear(
+    @graphql.Parent() parent: FiscalMonth
+  ): Promise<FiscalYear | null> {
+    const result = await this.service.getFiscalYear(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

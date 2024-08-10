@@ -15,6 +15,8 @@ import {
   Prisma,
   FiscalMonth as PrismaFiscalMonth,
   EmployeeSalary as PrismaEmployeeSalary,
+  FiscalWeek as PrismaFiscalWeek,
+  FiscalYear as PrismaFiscalYear,
 } from "@prisma/client";
 
 export class FiscalMonthServiceBase {
@@ -61,5 +63,24 @@ export class FiscalMonthServiceBase {
         where: { id: parentId },
       })
       .employeeSalaries(args);
+  }
+
+  async findFiscalWeeks(
+    parentId: string,
+    args: Prisma.FiscalWeekFindManyArgs
+  ): Promise<PrismaFiscalWeek[]> {
+    return this.prisma.fiscalMonth
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .fiscalWeeks(args);
+  }
+
+  async getFiscalYear(parentId: string): Promise<PrismaFiscalYear | null> {
+    return this.prisma.fiscalMonth
+      .findUnique({
+        where: { id: parentId },
+      })
+      .fiscalYear();
   }
 }

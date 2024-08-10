@@ -16,6 +16,9 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { EmployeeSalaryListRelationFilter } from "../../employeeSalary/base/EmployeeSalaryListRelationFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { FiscalWeekListRelationFilter } from "../../fiscalWeek/base/FiscalWeekListRelationFilter";
+import { FiscalYearWhereUniqueInput } from "../../fiscalYear/base/FiscalYearWhereUniqueInput";
 
 @InputType()
 class FiscalMonthWhereInput {
@@ -52,6 +55,41 @@ class FiscalMonthWhereInput {
     nullable: true,
   })
   employeeSalaries?: EmployeeSalaryListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  endsOn?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => FiscalWeekListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => FiscalWeekListRelationFilter)
+  @IsOptional()
+  @Field(() => FiscalWeekListRelationFilter, {
+    nullable: true,
+  })
+  fiscalWeeks?: FiscalWeekListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => FiscalYearWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => FiscalYearWhereUniqueInput)
+  @IsOptional()
+  @Field(() => FiscalYearWhereUniqueInput, {
+    nullable: true,
+  })
+  fiscalYear?: FiscalYearWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -96,6 +134,17 @@ class FiscalMonthWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  startsFrom?: DateTimeNullableFilter;
 }
 
 export { FiscalMonthWhereInput as FiscalMonthWhereInput };

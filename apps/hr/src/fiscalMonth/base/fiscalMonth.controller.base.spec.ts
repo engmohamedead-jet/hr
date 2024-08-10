@@ -21,20 +21,24 @@ const CREATE_INPUT = {
   code: "exampleCode",
   createdAt: new Date(),
   description: "exampleDescription",
+  endsOn: new Date(),
   id: "exampleId",
   mormalizedName: "exampleMormalizedName",
   name: "exampleName",
   note: "exampleNote",
+  startsFrom: new Date(),
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   code: "exampleCode",
   createdAt: new Date(),
   description: "exampleDescription",
+  endsOn: new Date(),
   id: "exampleId",
   mormalizedName: "exampleMormalizedName",
   name: "exampleName",
   note: "exampleNote",
+  startsFrom: new Date(),
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -42,10 +46,12 @@ const FIND_MANY_RESULT = [
     code: "exampleCode",
     createdAt: new Date(),
     description: "exampleDescription",
+    endsOn: new Date(),
     id: "exampleId",
     mormalizedName: "exampleMormalizedName",
     name: "exampleName",
     note: "exampleNote",
+    startsFrom: new Date(),
     updatedAt: new Date(),
   },
 ];
@@ -53,10 +59,12 @@ const FIND_ONE_RESULT = {
   code: "exampleCode",
   createdAt: new Date(),
   description: "exampleDescription",
+  endsOn: new Date(),
   id: "exampleId",
   mormalizedName: "exampleMormalizedName",
   name: "exampleName",
   note: "exampleNote",
+  startsFrom: new Date(),
   updatedAt: new Date(),
 };
 
@@ -143,6 +151,8 @@ describe("FiscalMonth", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        endsOn: CREATE_RESULT.endsOn.toISOString(),
+        startsFrom: CREATE_RESULT.startsFrom.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -155,6 +165,8 @@ describe("FiscalMonth", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          endsOn: FIND_MANY_RESULT[0].endsOn.toISOString(),
+          startsFrom: FIND_MANY_RESULT[0].startsFrom.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -178,6 +190,8 @@ describe("FiscalMonth", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        endsOn: FIND_ONE_RESULT.endsOn.toISOString(),
+        startsFrom: FIND_ONE_RESULT.startsFrom.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -191,6 +205,8 @@ describe("FiscalMonth", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        endsOn: CREATE_RESULT.endsOn.toISOString(),
+        startsFrom: CREATE_RESULT.startsFrom.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

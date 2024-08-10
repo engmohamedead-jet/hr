@@ -29,6 +29,9 @@ import { FiscalMonthUpdateInput } from "./FiscalMonthUpdateInput";
 import { EmployeeSalaryFindManyArgs } from "../../employeeSalary/base/EmployeeSalaryFindManyArgs";
 import { EmployeeSalary } from "../../employeeSalary/base/EmployeeSalary";
 import { EmployeeSalaryWhereUniqueInput } from "../../employeeSalary/base/EmployeeSalaryWhereUniqueInput";
+import { FiscalWeekFindManyArgs } from "../../fiscalWeek/base/FiscalWeekFindManyArgs";
+import { FiscalWeek } from "../../fiscalWeek/base/FiscalWeek";
+import { FiscalWeekWhereUniqueInput } from "../../fiscalWeek/base/FiscalWeekWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,15 +55,30 @@ export class FiscalMonthControllerBase {
     @common.Body() data: FiscalMonthCreateInput
   ): Promise<FiscalMonth> {
     return await this.service.createFiscalMonth({
-      data: data,
+      data: {
+        ...data,
+
+        fiscalYear: {
+          connect: data.fiscalYear,
+        },
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
+        endsOn: true,
+
+        fiscalYear: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         mormalizedName: true,
         name: true,
         note: true,
+        startsFrom: true,
         updatedAt: true,
       },
     });
@@ -86,10 +104,19 @@ export class FiscalMonthControllerBase {
         code: true,
         createdAt: true,
         description: true,
+        endsOn: true,
+
+        fiscalYear: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         mormalizedName: true,
         name: true,
         note: true,
+        startsFrom: true,
         updatedAt: true,
       },
     });
@@ -116,10 +143,19 @@ export class FiscalMonthControllerBase {
         code: true,
         createdAt: true,
         description: true,
+        endsOn: true,
+
+        fiscalYear: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         mormalizedName: true,
         name: true,
         note: true,
+        startsFrom: true,
         updatedAt: true,
       },
     });
@@ -150,15 +186,30 @@ export class FiscalMonthControllerBase {
     try {
       return await this.service.updateFiscalMonth({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          fiscalYear: {
+            connect: data.fiscalYear,
+          },
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
+          endsOn: true,
+
+          fiscalYear: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           mormalizedName: true,
           name: true,
           note: true,
+          startsFrom: true,
           updatedAt: true,
         },
       });
@@ -193,10 +244,19 @@ export class FiscalMonthControllerBase {
           code: true,
           createdAt: true,
           description: true,
+          endsOn: true,
+
+          fiscalYear: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           mormalizedName: true,
           name: true,
           note: true,
+          startsFrom: true,
           updatedAt: true,
         },
       });
@@ -306,6 +366,114 @@ export class FiscalMonthControllerBase {
   ): Promise<void> {
     const data = {
       employeeSalaries: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateFiscalMonth({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/fiscalWeeks")
+  @ApiNestedQuery(FiscalWeekFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "FiscalWeek",
+    action: "read",
+    possession: "any",
+  })
+  async findFiscalWeeks(
+    @common.Req() request: Request,
+    @common.Param() params: FiscalMonthWhereUniqueInput
+  ): Promise<FiscalWeek[]> {
+    const query = plainToClass(FiscalWeekFindManyArgs, request.query);
+    const results = await this.service.findFiscalWeeks(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        endsOn: true,
+
+        fiscalMonthId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        startsFrom: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/fiscalWeeks")
+  @nestAccessControl.UseRoles({
+    resource: "FiscalMonth",
+    action: "update",
+    possession: "any",
+  })
+  async connectFiscalWeeks(
+    @common.Param() params: FiscalMonthWhereUniqueInput,
+    @common.Body() body: FiscalWeekWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      fiscalWeeks: {
+        connect: body,
+      },
+    };
+    await this.service.updateFiscalMonth({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/fiscalWeeks")
+  @nestAccessControl.UseRoles({
+    resource: "FiscalMonth",
+    action: "update",
+    possession: "any",
+  })
+  async updateFiscalWeeks(
+    @common.Param() params: FiscalMonthWhereUniqueInput,
+    @common.Body() body: FiscalWeekWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      fiscalWeeks: {
+        set: body,
+      },
+    };
+    await this.service.updateFiscalMonth({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/fiscalWeeks")
+  @nestAccessControl.UseRoles({
+    resource: "FiscalMonth",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectFiscalWeeks(
+    @common.Param() params: FiscalMonthWhereUniqueInput,
+    @common.Body() body: FiscalWeekWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      fiscalWeeks: {
         disconnect: body,
       },
     };

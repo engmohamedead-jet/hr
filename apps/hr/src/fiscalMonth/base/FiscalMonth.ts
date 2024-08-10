@@ -20,6 +20,8 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { EmployeeSalary } from "../../employeeSalary/base/EmployeeSalary";
+import { FiscalWeek } from "../../fiscalWeek/base/FiscalWeek";
+import { FiscalYear } from "../../fiscalYear/base/FiscalYear";
 
 @ObjectType()
 class FiscalMonth {
@@ -62,6 +64,34 @@ class FiscalMonth {
   employeeSalaries?: Array<EmployeeSalary>;
 
   @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  endsOn!: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [FiscalWeek],
+  })
+  @ValidateNested()
+  @Type(() => FiscalWeek)
+  @IsOptional()
+  fiscalWeeks?: Array<FiscalWeek>;
+
+  @ApiProperty({
+    required: true,
+    type: () => FiscalYear,
+  })
+  @ValidateNested()
+  @Type(() => FiscalYear)
+  fiscalYear?: FiscalYear;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
@@ -98,6 +128,17 @@ class FiscalMonth {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  startsFrom!: Date | null;
 
   @ApiProperty({
     required: true,

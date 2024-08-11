@@ -5,7 +5,7 @@ export type Rating = {
   createdAt: Date;
   customers?: Array<Customer>;
   guarantorRatingI?: Array<Customer>;
-  id: string;
+  id: number;
   name: string;
   normalizedName: string;
   note: string | null;

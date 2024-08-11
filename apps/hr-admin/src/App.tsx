@@ -201,6 +201,178 @@ import { OrderStatusList } from "./orderStatus/OrderStatusList";
 import { OrderStatusCreate } from "./orderStatus/OrderStatusCreate";
 import { OrderStatusEdit } from "./orderStatus/OrderStatusEdit";
 import { OrderStatusShow } from "./orderStatus/OrderStatusShow";
+import { PaymentMethodList } from "./paymentMethod/PaymentMethodList";
+import { PaymentMethodCreate } from "./paymentMethod/PaymentMethodCreate";
+import { PaymentMethodEdit } from "./paymentMethod/PaymentMethodEdit";
+import { PaymentMethodShow } from "./paymentMethod/PaymentMethodShow";
+import { PaymentStatusList } from "./paymentStatus/PaymentStatusList";
+import { PaymentStatusCreate } from "./paymentStatus/PaymentStatusCreate";
+import { PaymentStatusEdit } from "./paymentStatus/PaymentStatusEdit";
+import { PaymentStatusShow } from "./paymentStatus/PaymentStatusShow";
+import { PaymentTermList } from "./paymentTerm/PaymentTermList";
+import { PaymentTermCreate } from "./paymentTerm/PaymentTermCreate";
+import { PaymentTermEdit } from "./paymentTerm/PaymentTermEdit";
+import { PaymentTermShow } from "./paymentTerm/PaymentTermShow";
+import { InstallmentSaleFeeList } from "./installmentSaleFee/InstallmentSaleFeeList";
+import { InstallmentSaleFeeCreate } from "./installmentSaleFee/InstallmentSaleFeeCreate";
+import { InstallmentSaleFeeEdit } from "./installmentSaleFee/InstallmentSaleFeeEdit";
+import { InstallmentSaleFeeShow } from "./installmentSaleFee/InstallmentSaleFeeShow";
+import { AttachmentList } from "./attachment/AttachmentList";
+import { AttachmentCreate } from "./attachment/AttachmentCreate";
+import { AttachmentEdit } from "./attachment/AttachmentEdit";
+import { AttachmentShow } from "./attachment/AttachmentShow";
+import { PaymentTypeList } from "./paymentType/PaymentTypeList";
+import { PaymentTypeCreate } from "./paymentType/PaymentTypeCreate";
+import { PaymentTypeEdit } from "./paymentType/PaymentTypeEdit";
+import { PaymentTypeShow } from "./paymentType/PaymentTypeShow";
+import { AttendanceList } from "./attendance/AttendanceList";
+import { AttendanceCreate } from "./attendance/AttendanceCreate";
+import { AttendanceEdit } from "./attendance/AttendanceEdit";
+import { AttendanceShow } from "./attendance/AttendanceShow";
+import { AttributeList } from "./attribute/AttributeList";
+import { AttributeCreate } from "./attribute/AttributeCreate";
+import { AttributeEdit } from "./attribute/AttributeEdit";
+import { AttributeShow } from "./attribute/AttributeShow";
+import { AttributeValueList } from "./attributeValue/AttributeValueList";
+import { AttributeValueCreate } from "./attributeValue/AttributeValueCreate";
+import { AttributeValueEdit } from "./attributeValue/AttributeValueEdit";
+import { AttributeValueShow } from "./attributeValue/AttributeValueShow";
+import { BarcodeTypeList } from "./barcodeType/BarcodeTypeList";
+import { BarcodeTypeCreate } from "./barcodeType/BarcodeTypeCreate";
+import { BarcodeTypeEdit } from "./barcodeType/BarcodeTypeEdit";
+import { BarcodeTypeShow } from "./barcodeType/BarcodeTypeShow";
+import { BillOfMaterialTypeList } from "./billOfMaterialType/BillOfMaterialTypeList";
+import { BillOfMaterialTypeCreate } from "./billOfMaterialType/BillOfMaterialTypeCreate";
+import { BillOfMaterialTypeEdit } from "./billOfMaterialType/BillOfMaterialTypeEdit";
+import { BillOfMaterialTypeShow } from "./billOfMaterialType/BillOfMaterialTypeShow";
+import { BrandList } from "./brand/BrandList";
+import { BrandCreate } from "./brand/BrandCreate";
+import { BrandEdit } from "./brand/BrandEdit";
+import { BrandShow } from "./brand/BrandShow";
+import { PressTypeList } from "./pressType/PressTypeList";
+import { PressTypeCreate } from "./pressType/PressTypeCreate";
+import { PressTypeEdit } from "./pressType/PressTypeEdit";
+import { PressTypeShow } from "./pressType/PressTypeShow";
+import { ControlTypeList } from "./controlType/ControlTypeList";
+import { ControlTypeCreate } from "./controlType/ControlTypeCreate";
+import { ControlTypeEdit } from "./controlType/ControlTypeEdit";
+import { ControlTypeShow } from "./controlType/ControlTypeShow";
+import { ContractStatusList } from "./contractStatus/ContractStatusList";
+import { ContractStatusCreate } from "./contractStatus/ContractStatusCreate";
+import { ContractStatusEdit } from "./contractStatus/ContractStatusEdit";
+import { ContractStatusShow } from "./contractStatus/ContractStatusShow";
+import { DoorTypeList } from "./doorType/DoorTypeList";
+import { DoorTypeCreate } from "./doorType/DoorTypeCreate";
+import { DoorTypeEdit } from "./doorType/DoorTypeEdit";
+import { DoorTypeShow } from "./doorType/DoorTypeShow";
+import { ElevatorTypeList } from "./elevatorType/ElevatorTypeList";
+import { ElevatorTypeCreate } from "./elevatorType/ElevatorTypeCreate";
+import { ElevatorTypeEdit } from "./elevatorType/ElevatorTypeEdit";
+import { ElevatorTypeShow } from "./elevatorType/ElevatorTypeShow";
+import { FailureTypeList } from "./failureType/FailureTypeList";
+import { FailureTypeCreate } from "./failureType/FailureTypeCreate";
+import { FailureTypeEdit } from "./failureType/FailureTypeEdit";
+import { FailureTypeShow } from "./failureType/FailureTypeShow";
+import { ImageCategoryList } from "./imageCategory/ImageCategoryList";
+import { ImageCategoryCreate } from "./imageCategory/ImageCategoryCreate";
+import { ImageCategoryEdit } from "./imageCategory/ImageCategoryEdit";
+import { ImageCategoryShow } from "./imageCategory/ImageCategoryShow";
+import { CalendarList } from "./calendar/CalendarList";
+import { CalendarCreate } from "./calendar/CalendarCreate";
+import { CalendarEdit } from "./calendar/CalendarEdit";
+import { CalendarShow } from "./calendar/CalendarShow";
+import { CashTransferList } from "./cashTransfer/CashTransferList";
+import { CashTransferCreate } from "./cashTransfer/CashTransferCreate";
+import { CashTransferEdit } from "./cashTransfer/CashTransferEdit";
+import { CashTransferShow } from "./cashTransfer/CashTransferShow";
+import { UnitList } from "./unit/UnitList";
+import { UnitCreate } from "./unit/UnitCreate";
+import { UnitEdit } from "./unit/UnitEdit";
+import { UnitShow } from "./unit/UnitShow";
+import { CompoundUnitList } from "./compoundUnit/CompoundUnitList";
+import { CompoundUnitCreate } from "./compoundUnit/CompoundUnitCreate";
+import { CompoundUnitEdit } from "./compoundUnit/CompoundUnitEdit";
+import { CompoundUnitShow } from "./compoundUnit/CompoundUnitShow";
+import { ContractPeriodList } from "./contractPeriod/ContractPeriodList";
+import { ContractPeriodCreate } from "./contractPeriod/ContractPeriodCreate";
+import { ContractPeriodEdit } from "./contractPeriod/ContractPeriodEdit";
+import { ContractPeriodShow } from "./contractPeriod/ContractPeriodShow";
+import { CurrencySettingList } from "./currencySetting/CurrencySettingList";
+import { CurrencySettingCreate } from "./currencySetting/CurrencySettingCreate";
+import { CurrencySettingEdit } from "./currencySetting/CurrencySettingEdit";
+import { CurrencySettingShow } from "./currencySetting/CurrencySettingShow";
+import { CustomerElevatorList } from "./customerElevator/CustomerElevatorList";
+import { CustomerElevatorCreate } from "./customerElevator/CustomerElevatorCreate";
+import { CustomerElevatorEdit } from "./customerElevator/CustomerElevatorEdit";
+import { CustomerElevatorShow } from "./customerElevator/CustomerElevatorShow";
+import { MotorTypeList } from "./motorType/MotorTypeList";
+import { MotorTypeCreate } from "./motorType/MotorTypeCreate";
+import { MotorTypeEdit } from "./motorType/MotorTypeEdit";
+import { MotorTypeShow } from "./motorType/MotorTypeShow";
+import { ElevatorList } from "./elevator/ElevatorList";
+import { ElevatorCreate } from "./elevator/ElevatorCreate";
+import { ElevatorEdit } from "./elevator/ElevatorEdit";
+import { ElevatorShow } from "./elevator/ElevatorShow";
+import { DebitList } from "./debit/DebitList";
+import { DebitCreate } from "./debit/DebitCreate";
+import { DebitEdit } from "./debit/DebitEdit";
+import { DebitShow } from "./debit/DebitShow";
+import { ElevatorSparePartList } from "./elevatorSparePart/ElevatorSparePartList";
+import { ElevatorSparePartCreate } from "./elevatorSparePart/ElevatorSparePartCreate";
+import { ElevatorSparePartEdit } from "./elevatorSparePart/ElevatorSparePartEdit";
+import { ElevatorSparePartShow } from "./elevatorSparePart/ElevatorSparePartShow";
+import { ElevatorStatusList } from "./elevatorStatus/ElevatorStatusList";
+import { ElevatorStatusCreate } from "./elevatorStatus/ElevatorStatusCreate";
+import { ElevatorStatusEdit } from "./elevatorStatus/ElevatorStatusEdit";
+import { ElevatorStatusShow } from "./elevatorStatus/ElevatorStatusShow";
+import { FailureList } from "./failure/FailureList";
+import { FailureCreate } from "./failure/FailureCreate";
+import { FailureEdit } from "./failure/FailureEdit";
+import { FailureShow } from "./failure/FailureShow";
+import { FailureReportingList } from "./failureReporting/FailureReportingList";
+import { FailureReportingCreate } from "./failureReporting/FailureReportingCreate";
+import { FailureReportingEdit } from "./failureReporting/FailureReportingEdit";
+import { FailureReportingShow } from "./failureReporting/FailureReportingShow";
+import { CustomerUserList } from "./customerUser/CustomerUserList";
+import { CustomerUserCreate } from "./customerUser/CustomerUserCreate";
+import { CustomerUserEdit } from "./customerUser/CustomerUserEdit";
+import { CustomerUserShow } from "./customerUser/CustomerUserShow";
+import { InstallationContractList } from "./installationContract/InstallationContractList";
+import { InstallationContractCreate } from "./installationContract/InstallationContractCreate";
+import { InstallationContractEdit } from "./installationContract/InstallationContractEdit";
+import { InstallationContractShow } from "./installationContract/InstallationContractShow";
+import { MaintenanceContractList } from "./maintenanceContract/MaintenanceContractList";
+import { MaintenanceContractCreate } from "./maintenanceContract/MaintenanceContractCreate";
+import { MaintenanceContractEdit } from "./maintenanceContract/MaintenanceContractEdit";
+import { MaintenanceContractShow } from "./maintenanceContract/MaintenanceContractShow";
+import { MaintenanceVisitList } from "./maintenanceVisit/MaintenanceVisitList";
+import { MaintenanceVisitCreate } from "./maintenanceVisit/MaintenanceVisitCreate";
+import { MaintenanceVisitEdit } from "./maintenanceVisit/MaintenanceVisitEdit";
+import { MaintenanceVisitShow } from "./maintenanceVisit/MaintenanceVisitShow";
+import { ProductTypeList } from "./productType/ProductTypeList";
+import { ProductTypeCreate } from "./productType/ProductTypeCreate";
+import { ProductTypeEdit } from "./productType/ProductTypeEdit";
+import { ProductTypeShow } from "./productType/ProductTypeShow";
+import { ProductCategoryList } from "./productCategory/ProductCategoryList";
+import { ProductCategoryCreate } from "./productCategory/ProductCategoryCreate";
+import { ProductCategoryEdit } from "./productCategory/ProductCategoryEdit";
+import { ProductCategoryShow } from "./productCategory/ProductCategoryShow";
+import { ProductDepartmentList } from "./productDepartment/ProductDepartmentList";
+import { ProductDepartmentCreate } from "./productDepartment/ProductDepartmentCreate";
+import { ProductDepartmentEdit } from "./productDepartment/ProductDepartmentEdit";
+import { ProductDepartmentShow } from "./productDepartment/ProductDepartmentShow";
+import { ProductGroupList } from "./productGroup/ProductGroupList";
+import { ProductGroupCreate } from "./productGroup/ProductGroupCreate";
+import { ProductGroupEdit } from "./productGroup/ProductGroupEdit";
+import { ProductGroupShow } from "./productGroup/ProductGroupShow";
+import { SaleTaxList } from "./saleTax/SaleTaxList";
+import { SaleTaxCreate } from "./saleTax/SaleTaxCreate";
+import { SaleTaxEdit } from "./saleTax/SaleTaxEdit";
+import { SaleTaxShow } from "./saleTax/SaleTaxShow";
+import { PeriodicMaintenanceOrderList } from "./periodicMaintenanceOrder/PeriodicMaintenanceOrderList";
+import { PeriodicMaintenanceOrderCreate } from "./periodicMaintenanceOrder/PeriodicMaintenanceOrderCreate";
+import { PeriodicMaintenanceOrderEdit } from "./periodicMaintenanceOrder/PeriodicMaintenanceOrderEdit";
+import { PeriodicMaintenanceOrderShow } from "./periodicMaintenanceOrder/PeriodicMaintenanceOrderShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -569,6 +741,307 @@ const App = (): React.ReactElement => {
           edit={OrderStatusEdit}
           create={OrderStatusCreate}
           show={OrderStatusShow}
+        />
+        <Resource
+          name="PaymentMethod"
+          list={PaymentMethodList}
+          edit={PaymentMethodEdit}
+          create={PaymentMethodCreate}
+          show={PaymentMethodShow}
+        />
+        <Resource
+          name="PaymentStatus"
+          list={PaymentStatusList}
+          edit={PaymentStatusEdit}
+          create={PaymentStatusCreate}
+          show={PaymentStatusShow}
+        />
+        <Resource
+          name="PaymentTerm"
+          list={PaymentTermList}
+          edit={PaymentTermEdit}
+          create={PaymentTermCreate}
+          show={PaymentTermShow}
+        />
+        <Resource
+          name="InstallmentSaleFee"
+          list={InstallmentSaleFeeList}
+          edit={InstallmentSaleFeeEdit}
+          create={InstallmentSaleFeeCreate}
+          show={InstallmentSaleFeeShow}
+        />
+        <Resource
+          name="Attachment"
+          list={AttachmentList}
+          edit={AttachmentEdit}
+          create={AttachmentCreate}
+          show={AttachmentShow}
+        />
+        <Resource
+          name="PaymentType"
+          list={PaymentTypeList}
+          edit={PaymentTypeEdit}
+          create={PaymentTypeCreate}
+          show={PaymentTypeShow}
+        />
+        <Resource
+          name="Attendance"
+          list={AttendanceList}
+          edit={AttendanceEdit}
+          create={AttendanceCreate}
+          show={AttendanceShow}
+        />
+        <Resource
+          name="Attribute"
+          list={AttributeList}
+          edit={AttributeEdit}
+          create={AttributeCreate}
+          show={AttributeShow}
+        />
+        <Resource
+          name="AttributeValue"
+          list={AttributeValueList}
+          edit={AttributeValueEdit}
+          create={AttributeValueCreate}
+          show={AttributeValueShow}
+        />
+        <Resource
+          name="BarcodeType"
+          list={BarcodeTypeList}
+          edit={BarcodeTypeEdit}
+          create={BarcodeTypeCreate}
+          show={BarcodeTypeShow}
+        />
+        <Resource
+          name="BillOfMaterialType"
+          list={BillOfMaterialTypeList}
+          edit={BillOfMaterialTypeEdit}
+          create={BillOfMaterialTypeCreate}
+          show={BillOfMaterialTypeShow}
+        />
+        <Resource
+          name="Brand"
+          list={BrandList}
+          edit={BrandEdit}
+          create={BrandCreate}
+          show={BrandShow}
+        />
+        <Resource
+          name="PressType"
+          list={PressTypeList}
+          edit={PressTypeEdit}
+          create={PressTypeCreate}
+          show={PressTypeShow}
+        />
+        <Resource
+          name="ControlType"
+          list={ControlTypeList}
+          edit={ControlTypeEdit}
+          create={ControlTypeCreate}
+          show={ControlTypeShow}
+        />
+        <Resource
+          name="ContractStatus"
+          list={ContractStatusList}
+          edit={ContractStatusEdit}
+          create={ContractStatusCreate}
+          show={ContractStatusShow}
+        />
+        <Resource
+          name="DoorType"
+          list={DoorTypeList}
+          edit={DoorTypeEdit}
+          create={DoorTypeCreate}
+          show={DoorTypeShow}
+        />
+        <Resource
+          name="ElevatorType"
+          list={ElevatorTypeList}
+          edit={ElevatorTypeEdit}
+          create={ElevatorTypeCreate}
+          show={ElevatorTypeShow}
+        />
+        <Resource
+          name="FailureType"
+          list={FailureTypeList}
+          edit={FailureTypeEdit}
+          create={FailureTypeCreate}
+          show={FailureTypeShow}
+        />
+        <Resource
+          name="ImageCategory"
+          list={ImageCategoryList}
+          edit={ImageCategoryEdit}
+          create={ImageCategoryCreate}
+          show={ImageCategoryShow}
+        />
+        <Resource
+          name="Calendar"
+          list={CalendarList}
+          edit={CalendarEdit}
+          create={CalendarCreate}
+          show={CalendarShow}
+        />
+        <Resource
+          name="CashTransfer"
+          list={CashTransferList}
+          edit={CashTransferEdit}
+          create={CashTransferCreate}
+          show={CashTransferShow}
+        />
+        <Resource
+          name="Unit"
+          list={UnitList}
+          edit={UnitEdit}
+          create={UnitCreate}
+          show={UnitShow}
+        />
+        <Resource
+          name="CompoundUnit"
+          list={CompoundUnitList}
+          edit={CompoundUnitEdit}
+          create={CompoundUnitCreate}
+          show={CompoundUnitShow}
+        />
+        <Resource
+          name="ContractPeriod"
+          list={ContractPeriodList}
+          edit={ContractPeriodEdit}
+          create={ContractPeriodCreate}
+          show={ContractPeriodShow}
+        />
+        <Resource
+          name="CurrencySetting"
+          list={CurrencySettingList}
+          edit={CurrencySettingEdit}
+          create={CurrencySettingCreate}
+          show={CurrencySettingShow}
+        />
+        <Resource
+          name="CustomerElevator"
+          list={CustomerElevatorList}
+          edit={CustomerElevatorEdit}
+          create={CustomerElevatorCreate}
+          show={CustomerElevatorShow}
+        />
+        <Resource
+          name="MotorType"
+          list={MotorTypeList}
+          edit={MotorTypeEdit}
+          create={MotorTypeCreate}
+          show={MotorTypeShow}
+        />
+        <Resource
+          name="Elevator"
+          list={ElevatorList}
+          edit={ElevatorEdit}
+          create={ElevatorCreate}
+          show={ElevatorShow}
+        />
+        <Resource
+          name="Debit"
+          list={DebitList}
+          edit={DebitEdit}
+          create={DebitCreate}
+          show={DebitShow}
+        />
+        <Resource
+          name="ElevatorSparePart"
+          list={ElevatorSparePartList}
+          edit={ElevatorSparePartEdit}
+          create={ElevatorSparePartCreate}
+          show={ElevatorSparePartShow}
+        />
+        <Resource
+          name="ElevatorStatus"
+          list={ElevatorStatusList}
+          edit={ElevatorStatusEdit}
+          create={ElevatorStatusCreate}
+          show={ElevatorStatusShow}
+        />
+        <Resource
+          name="Failure"
+          list={FailureList}
+          edit={FailureEdit}
+          create={FailureCreate}
+          show={FailureShow}
+        />
+        <Resource
+          name="FailureReporting"
+          list={FailureReportingList}
+          edit={FailureReportingEdit}
+          create={FailureReportingCreate}
+          show={FailureReportingShow}
+        />
+        <Resource
+          name="CustomerUser"
+          list={CustomerUserList}
+          edit={CustomerUserEdit}
+          create={CustomerUserCreate}
+          show={CustomerUserShow}
+        />
+        <Resource
+          name="InstallationContract"
+          list={InstallationContractList}
+          edit={InstallationContractEdit}
+          create={InstallationContractCreate}
+          show={InstallationContractShow}
+        />
+        <Resource
+          name="MaintenanceContract"
+          list={MaintenanceContractList}
+          edit={MaintenanceContractEdit}
+          create={MaintenanceContractCreate}
+          show={MaintenanceContractShow}
+        />
+        <Resource
+          name="MaintenanceVisit"
+          list={MaintenanceVisitList}
+          edit={MaintenanceVisitEdit}
+          create={MaintenanceVisitCreate}
+          show={MaintenanceVisitShow}
+        />
+        <Resource
+          name="ProductType"
+          list={ProductTypeList}
+          edit={ProductTypeEdit}
+          create={ProductTypeCreate}
+          show={ProductTypeShow}
+        />
+        <Resource
+          name="ProductCategory"
+          list={ProductCategoryList}
+          edit={ProductCategoryEdit}
+          create={ProductCategoryCreate}
+          show={ProductCategoryShow}
+        />
+        <Resource
+          name="ProductDepartment"
+          list={ProductDepartmentList}
+          edit={ProductDepartmentEdit}
+          create={ProductDepartmentCreate}
+          show={ProductDepartmentShow}
+        />
+        <Resource
+          name="ProductGroup"
+          list={ProductGroupList}
+          edit={ProductGroupEdit}
+          create={ProductGroupCreate}
+          show={ProductGroupShow}
+        />
+        <Resource
+          name="SaleTax"
+          list={SaleTaxList}
+          edit={SaleTaxEdit}
+          create={SaleTaxCreate}
+          show={SaleTaxShow}
+        />
+        <Resource
+          name="PeriodicMaintenanceOrder"
+          list={PeriodicMaintenanceOrderList}
+          edit={PeriodicMaintenanceOrderEdit}
+          create={PeriodicMaintenanceOrderCreate}
+          show={PeriodicMaintenanceOrderShow}
         />
       </Admin>
     </div>

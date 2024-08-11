@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountCategoryWhereUniqueInput } from "../../accountCategory/base/AccountCategoryWhereUniqueInput";
+import { ProductGroupUpdateManyWithoutAccountsInput } from "./ProductGroupUpdateManyWithoutAccountsInput";
 import {
   ValidateNested,
   IsOptional,
@@ -20,11 +20,37 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { AccountCategoryWhereUniqueInput } from "../../accountCategory/base/AccountCategoryWhereUniqueInput";
 import { AccountTypeWhereUniqueInput } from "../../accountType/base/AccountTypeWhereUniqueInput";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
+import { InstallmentSaleFeeUpdateManyWithoutAccountsInput } from "./InstallmentSaleFeeUpdateManyWithoutAccountsInput";
 
 @InputType()
 class AccountUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  ProductGroupPurchaseReturnAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  ProductGroupSaleAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+
   @ApiProperty({
     required: false,
     type: () => AccountCategoryWhereUniqueInput,
@@ -84,6 +110,18 @@ class AccountUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => InstallmentSaleFeeUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => InstallmentSaleFeeUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => InstallmentSaleFeeUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  installmentSaleFees?: InstallmentSaleFeeUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -165,6 +203,78 @@ class AccountUpdateInput {
     nullable: true,
   })
   parentAccountId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  productGroupCostOfGoodsSoldAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  productGroupInventoryAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  productGroupPurchaseAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  productGroupPurchaseDiscountAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  productGroupSaleDiscountAccountIds?: ProductGroupUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  productGroupSaleReturnAccountIds?: ProductGroupUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,

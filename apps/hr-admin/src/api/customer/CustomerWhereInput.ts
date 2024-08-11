@@ -7,6 +7,7 @@ import { CustomerTypeWhereUniqueInput } from "../customerType/CustomerTypeWhereU
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { RatingWhereUniqueInput } from "../rating/RatingWhereUniqueInput";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { MaintenanceContractListRelationFilter } from "../maintenanceContract/MaintenanceContractListRelationFilter";
 import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
 import { SupplierWhereUniqueInput } from "../supplier/SupplierWhereUniqueInput";
 
@@ -37,6 +38,7 @@ export type CustomerWhereInput = {
   isSystem?: BooleanNullableFilter;
   isUnderRevision?: BooleanNullableFilter;
   jobTitle?: StringNullableFilter;
+  maintenanceContracts?: MaintenanceContractListRelationFilter;
   maxAllowedDebit?: DecimalNullableFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;

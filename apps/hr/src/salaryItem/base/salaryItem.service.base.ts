@@ -54,7 +54,7 @@ export class SalaryItemServiceBase {
   }
 
   async findEmployeeClassSalaryItemValues(
-    parentId: string,
+    parentId: number,
     args: Prisma.EmployeeClassSalaryItemValueFindManyArgs
   ): Promise<PrismaEmployeeClassSalaryItemValue[]> {
     return this.prisma.salaryItem
@@ -65,7 +65,7 @@ export class SalaryItemServiceBase {
   }
 
   async findEmployeeSalaryDetails(
-    parentId: string,
+    parentId: number,
     args: Prisma.EmployeeSalaryDetailFindManyArgs
   ): Promise<PrismaEmployeeSalaryDetail[]> {
     return this.prisma.salaryItem

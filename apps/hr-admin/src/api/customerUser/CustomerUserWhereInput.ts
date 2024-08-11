@@ -1,0 +1,37 @@
+import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { ElevatorWhereUniqueInput } from "../elevator/ElevatorWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { FailureReportingListRelationFilter } from "../failureReporting/FailureReportingListRelationFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { MaintenanceContractListRelationFilter } from "../maintenanceContract/MaintenanceContractListRelationFilter";
+import { PeriodicMaintenanceOrderListRelationFilter } from "../periodicMaintenanceOrder/PeriodicMaintenanceOrderListRelationFilter";
+
+export type CustomerUserWhereInput = {
+  accessFailedCount?: IntNullableFilter;
+  elevatorId?: ElevatorWhereUniqueInput;
+  email?: StringFilter;
+  emailConfirmed?: BooleanNullableFilter;
+  entityVersion?: StringNullableFilter;
+  failureReportings?: FailureReportingListRelationFilter;
+  id?: StringFilter;
+  isActive?: BooleanNullableFilter;
+  isExternal?: BooleanNullableFilter;
+  lastPasswordChangeTime?: DateTimeNullableFilter;
+  lockoutEnabled?: BooleanNullableFilter;
+  lockoutEnd?: DateTimeNullableFilter;
+  maintenanceContracts?: MaintenanceContractListRelationFilter;
+  name?: StringFilter;
+  normalizedEmail?: StringFilter;
+  normalizedUserName?: StringFilter;
+  note?: StringNullableFilter;
+  periodicMaintenanceOrders?: PeriodicMaintenanceOrderListRelationFilter;
+  phoneNumber?: StringNullableFilter;
+  phoneNumberConfirmed?: BooleanNullableFilter;
+  securityStamp?: StringNullableFilter;
+  shouldChangePasswordOnNextLogin?: BooleanNullableFilter;
+  surname?: StringNullableFilter;
+  twoFactorEnabled?: BooleanNullableFilter;
+  userName?: StringFilter;
+};

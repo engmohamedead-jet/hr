@@ -26,6 +26,10 @@ import { AccountFindUniqueArgs } from "./AccountFindUniqueArgs";
 import { CreateAccountArgs } from "./CreateAccountArgs";
 import { UpdateAccountArgs } from "./UpdateAccountArgs";
 import { DeleteAccountArgs } from "./DeleteAccountArgs";
+import { ProductGroupFindManyArgs } from "../../productGroup/base/ProductGroupFindManyArgs";
+import { ProductGroup } from "../../productGroup/base/ProductGroup";
+import { InstallmentSaleFeeFindManyArgs } from "../../installmentSaleFee/base/InstallmentSaleFeeFindManyArgs";
+import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
 import { AccountCategory } from "../../accountCategory/base/AccountCategory";
 import { AccountType } from "../../accountType/base/AccountType";
 import { Currency } from "../../currency/base/Currency";
@@ -175,6 +179,228 @@ export class AccountResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductGroup], {
+    name: "productGroupPurchaseReturnAccounts",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findProductGroupPurchaseReturnAccounts(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: ProductGroupFindManyArgs
+  ): Promise<ProductGroup[]> {
+    const results = await this.service.findProductGroupPurchaseReturnAccounts(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductGroup], {
+    name: "productGroupSaleAccounts",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findProductGroupSaleAccounts(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: ProductGroupFindManyArgs
+  ): Promise<ProductGroup[]> {
+    const results = await this.service.findProductGroupSaleAccounts(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [InstallmentSaleFee], {
+    name: "installmentSaleFees",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "InstallmentSaleFee",
+    action: "read",
+    possession: "any",
+  })
+  async findInstallmentSaleFees(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: InstallmentSaleFeeFindManyArgs
+  ): Promise<InstallmentSaleFee[]> {
+    const results = await this.service.findInstallmentSaleFees(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductGroup], {
+    name: "productGroupCostOfGoodsSoldAccounts",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findProductGroupCostOfGoodsSoldAccounts(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: ProductGroupFindManyArgs
+  ): Promise<ProductGroup[]> {
+    const results = await this.service.findProductGroupCostOfGoodsSoldAccounts(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductGroup], {
+    name: "productGroupInventoryAccounts",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findProductGroupInventoryAccounts(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: ProductGroupFindManyArgs
+  ): Promise<ProductGroup[]> {
+    const results = await this.service.findProductGroupInventoryAccounts(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductGroup], {
+    name: "productGroupPurchaseAccounts",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findProductGroupPurchaseAccounts(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: ProductGroupFindManyArgs
+  ): Promise<ProductGroup[]> {
+    const results = await this.service.findProductGroupPurchaseAccounts(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductGroup], {
+    name: "productGroupPurchaseDiscountAccounts",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findProductGroupPurchaseDiscountAccounts(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: ProductGroupFindManyArgs
+  ): Promise<ProductGroup[]> {
+    const results = await this.service.findProductGroupPurchaseDiscountAccounts(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductGroup], {
+    name: "productGroupSaleDiscountAccountIds",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findProductGroupSaleDiscountAccountIds(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: ProductGroupFindManyArgs
+  ): Promise<ProductGroup[]> {
+    const results = await this.service.findProductGroupSaleDiscountAccountIds(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductGroup], {
+    name: "productGroupSaleReturnAccountIds",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findProductGroupSaleReturnAccountIds(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: ProductGroupFindManyArgs
+  ): Promise<ProductGroup[]> {
+    const results = await this.service.findProductGroupSaleReturnAccountIds(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

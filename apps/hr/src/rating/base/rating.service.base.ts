@@ -42,7 +42,7 @@ export class RatingServiceBase {
   }
 
   async findCustomers(
-    parentId: string,
+    parentId: number,
     args: Prisma.CustomerFindManyArgs
   ): Promise<PrismaCustomer[]> {
     return this.prisma.rating
@@ -53,7 +53,7 @@ export class RatingServiceBase {
   }
 
   async findGuarantorRatingI(
-    parentId: string,
+    parentId: number,
     args: Prisma.CustomerFindManyArgs
   ): Promise<PrismaCustomer[]> {
     return this.prisma.rating

@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { EmployeeClassSalaryItemValueListRelationFilter } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValueListRelationFilter";
 import { EmployeeSalaryDetailListRelationFilter } from "../../employeeSalaryDetail/base/EmployeeSalaryDetailListRelationFilter";
+import { IntFilter } from "../../util/IntFilter";
 
 @InputType()
 class SalaryItemWhereInput {
@@ -68,14 +69,14 @@ class SalaryItemWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: IntFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  id?: StringFilter;
+  id?: IntFilter;
 
   @ApiProperty({
     required: false,

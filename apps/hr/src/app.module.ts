@@ -50,6 +50,49 @@ import { CustomerCateogryModule } from "./customerCateogry/customerCateogry.modu
 import { InvoiceTypeModule } from "./invoiceType/invoiceType.module";
 import { NotificationModule } from "./notification/notification.module";
 import { OrderStatusModule } from "./orderStatus/orderStatus.module";
+import { PaymentMethodModule } from "./paymentMethod/paymentMethod.module";
+import { PaymentStatusModule } from "./paymentStatus/paymentStatus.module";
+import { PaymentTermModule } from "./paymentTerm/paymentTerm.module";
+import { InstallmentSaleFeeModule } from "./installmentSaleFee/installmentSaleFee.module";
+import { AttachmentModule } from "./attachment/attachment.module";
+import { PaymentTypeModule } from "./paymentType/paymentType.module";
+import { AttendanceModule } from "./attendance/attendance.module";
+import { AttributeModule } from "./attribute/attribute.module";
+import { AttributeValueModule } from "./attributeValue/attributeValue.module";
+import { BarcodeTypeModule } from "./barcodeType/barcodeType.module";
+import { BillOfMaterialTypeModule } from "./billOfMaterialType/billOfMaterialType.module";
+import { BrandModule } from "./brand/brand.module";
+import { PressTypeModule } from "./pressType/pressType.module";
+import { ControlTypeModule } from "./controlType/controlType.module";
+import { ContractStatusModule } from "./contractStatus/contractStatus.module";
+import { DoorTypeModule } from "./doorType/doorType.module";
+import { ElevatorTypeModule } from "./elevatorType/elevatorType.module";
+import { FailureTypeModule } from "./failureType/failureType.module";
+import { ImageCategoryModule } from "./imageCategory/imageCategory.module";
+import { CalendarModule } from "./calendar/calendar.module";
+import { CashTransferModule } from "./cashTransfer/cashTransfer.module";
+import { UnitModule } from "./unit/unit.module";
+import { CompoundUnitModule } from "./compoundUnit/compoundUnit.module";
+import { ContractPeriodModule } from "./contractPeriod/contractPeriod.module";
+import { CurrencySettingModule } from "./currencySetting/currencySetting.module";
+import { CustomerElevatorModule } from "./customerElevator/customerElevator.module";
+import { MotorTypeModule } from "./motorType/motorType.module";
+import { ElevatorModule } from "./elevator/elevator.module";
+import { DebitModule } from "./debit/debit.module";
+import { ElevatorSparePartModule } from "./elevatorSparePart/elevatorSparePart.module";
+import { ElevatorStatusModule } from "./elevatorStatus/elevatorStatus.module";
+import { FailureModule } from "./failure/failure.module";
+import { FailureReportingModule } from "./failureReporting/failureReporting.module";
+import { CustomerUserModule } from "./customerUser/customerUser.module";
+import { InstallationContractModule } from "./installationContract/installationContract.module";
+import { MaintenanceContractModule } from "./maintenanceContract/maintenanceContract.module";
+import { MaintenanceVisitModule } from "./maintenanceVisit/maintenanceVisit.module";
+import { ProductTypeModule } from "./productType/productType.module";
+import { ProductCategoryModule } from "./productCategory/productCategory.module";
+import { ProductDepartmentModule } from "./productDepartment/productDepartment.module";
+import { ProductGroupModule } from "./productGroup/productGroup.module";
+import { SaleTaxModule } from "./saleTax/saleTax.module";
+import { PeriodicMaintenanceOrderModule } from "./periodicMaintenanceOrder/periodicMaintenanceOrder.module";
 import { PrismaSeedsModule } from "./prismaseeds/prismaseeds.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -117,6 +160,49 @@ import { AuthModule } from "./auth/auth.module";
     InvoiceTypeModule,
     NotificationModule,
     OrderStatusModule,
+    PaymentMethodModule,
+    PaymentStatusModule,
+    PaymentTermModule,
+    InstallmentSaleFeeModule,
+    AttachmentModule,
+    PaymentTypeModule,
+    AttendanceModule,
+    AttributeModule,
+    AttributeValueModule,
+    BarcodeTypeModule,
+    BillOfMaterialTypeModule,
+    BrandModule,
+    PressTypeModule,
+    ControlTypeModule,
+    ContractStatusModule,
+    DoorTypeModule,
+    ElevatorTypeModule,
+    FailureTypeModule,
+    ImageCategoryModule,
+    CalendarModule,
+    CashTransferModule,
+    UnitModule,
+    CompoundUnitModule,
+    ContractPeriodModule,
+    CurrencySettingModule,
+    CustomerElevatorModule,
+    MotorTypeModule,
+    ElevatorModule,
+    DebitModule,
+    ElevatorSparePartModule,
+    ElevatorStatusModule,
+    FailureModule,
+    FailureReportingModule,
+    CustomerUserModule,
+    InstallationContractModule,
+    MaintenanceContractModule,
+    MaintenanceVisitModule,
+    ProductTypeModule,
+    ProductCategoryModule,
+    ProductDepartmentModule,
+    ProductGroupModule,
+    SaleTaxModule,
+    PeriodicMaintenanceOrderModule,
     PrismaSeedsModule,
     HealthModule,
     PrismaModule,

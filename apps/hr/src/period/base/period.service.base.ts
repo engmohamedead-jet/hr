@@ -10,7 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Period as PrismaPeriod } from "@prisma/client";
+import {
+  Prisma,
+  Period as PrismaPeriod,
+  PaymentTerm as PrismaPaymentTerm,
+} from "@prisma/client";
 
 export class PeriodServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -35,5 +39,23 @@ export class PeriodServiceBase {
   }
   async deletePeriod(args: Prisma.PeriodDeleteArgs): Promise<PrismaPeriod> {
     return this.prisma.period.delete(args);
+  }
+
+  async getInstallmentSaleFeePostingPeriod(
+    parentId: string
+  ): Promise<PrismaPaymentTerm | null> {
+    return this.prisma.period
+      .findUnique({
+        where: { id: parentId },
+      })
+      .installmentSaleFeePostingPeriod();
+  }
+
+  async getPaymentTerms(parentId: string): Promise<PrismaPaymentTerm | null> {
+    return this.prisma.period
+      .findUnique({
+        where: { id: parentId },
+      })
+      .paymentTerms();
   }
 }

@@ -1,0 +1,32 @@
+import { ElevatorWhereUniqueInput } from "../elevator/ElevatorWhereUniqueInput";
+import { FailureReportingCreateNestedManyWithoutCustomerUsersInput } from "./FailureReportingCreateNestedManyWithoutCustomerUsersInput";
+import { MaintenanceContractCreateNestedManyWithoutCustomerUsersInput } from "./MaintenanceContractCreateNestedManyWithoutCustomerUsersInput";
+import { PeriodicMaintenanceOrderCreateNestedManyWithoutCustomerUsersInput } from "./PeriodicMaintenanceOrderCreateNestedManyWithoutCustomerUsersInput";
+
+export type CustomerUserCreateInput = {
+  accessFailedCount?: number | null;
+  elevatorId: ElevatorWhereUniqueInput;
+  email: string;
+  emailConfirmed?: boolean | null;
+  entityVersion?: string | null;
+  failureReportings?: FailureReportingCreateNestedManyWithoutCustomerUsersInput;
+  isActive?: boolean | null;
+  isExternal?: boolean | null;
+  lastPasswordChangeTime?: Date | null;
+  lockoutEnabled?: boolean | null;
+  lockoutEnd?: Date | null;
+  maintenanceContracts?: MaintenanceContractCreateNestedManyWithoutCustomerUsersInput;
+  name: string;
+  normalizedEmail: string;
+  normalizedUserName: string;
+  note?: string | null;
+  passwordHash?: string | null;
+  periodicMaintenanceOrders?: PeriodicMaintenanceOrderCreateNestedManyWithoutCustomerUsersInput;
+  phoneNumber?: string | null;
+  phoneNumberConfirmed?: boolean | null;
+  securityStamp?: string | null;
+  shouldChangePasswordOnNextLogin?: boolean | null;
+  surname?: string | null;
+  twoFactorEnabled?: boolean | null;
+  userName: string;
+};

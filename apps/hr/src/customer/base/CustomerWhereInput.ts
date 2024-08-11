@@ -22,6 +22,7 @@ import { CustomerTypeWhereUniqueInput } from "../../customerType/base/CustomerTy
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { RatingWhereUniqueInput } from "../../rating/base/RatingWhereUniqueInput";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { MaintenanceContractListRelationFilter } from "../../maintenanceContract/base/MaintenanceContractListRelationFilter";
 import { SalePriceTypeWhereUniqueInput } from "../../salePriceType/base/SalePriceTypeWhereUniqueInput";
 import { SupplierWhereUniqueInput } from "../../supplier/base/SupplierWhereUniqueInput";
 
@@ -316,6 +317,18 @@ class CustomerWhereInput {
     nullable: true,
   })
   jobTitle?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => MaintenanceContractListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => MaintenanceContractListRelationFilter)
+  @IsOptional()
+  @Field(() => MaintenanceContractListRelationFilter, {
+    nullable: true,
+  })
+  maintenanceContracts?: MaintenanceContractListRelationFilter;
 
   @ApiProperty({
     required: false,

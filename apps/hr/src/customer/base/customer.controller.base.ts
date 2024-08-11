@@ -26,6 +26,9 @@ import { Customer } from "./Customer";
 import { CustomerFindManyArgs } from "./CustomerFindManyArgs";
 import { CustomerWhereUniqueInput } from "./CustomerWhereUniqueInput";
 import { CustomerUpdateInput } from "./CustomerUpdateInput";
+import { MaintenanceContractFindManyArgs } from "../../maintenanceContract/base/MaintenanceContractFindManyArgs";
+import { MaintenanceContract } from "../../maintenanceContract/base/MaintenanceContract";
+import { MaintenanceContractWhereUniqueInput } from "../../maintenanceContract/base/MaintenanceContractWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -658,5 +661,140 @@ export class CustomerControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/maintenanceContracts")
+  @ApiNestedQuery(MaintenanceContractFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "MaintenanceContract",
+    action: "read",
+    possession: "any",
+  })
+  async findMaintenanceContracts(
+    @common.Req() request: Request,
+    @common.Param() params: CustomerWhereUniqueInput
+  ): Promise<MaintenanceContract[]> {
+    const query = plainToClass(MaintenanceContractFindManyArgs, request.query);
+    const results = await this.service.findMaintenanceContracts(params.id, {
+      ...query,
+      select: {
+        confirmDate: true,
+        contactEndTime: true,
+        contactStartTime: true,
+
+        contractPeriodId: {
+          select: {
+            id: true,
+          },
+        },
+
+        contractStartDate: true,
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerUserId: {
+          select: {
+            id: true,
+          },
+        },
+
+        elevatorId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isConfirmed: true,
+        note: true,
+        orderDate: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/maintenanceContracts")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async connectMaintenanceContracts(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: MaintenanceContractWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      maintenanceContracts: {
+        connect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/maintenanceContracts")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async updateMaintenanceContracts(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: MaintenanceContractWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      maintenanceContracts: {
+        set: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/maintenanceContracts")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectMaintenanceContracts(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: MaintenanceContractWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      maintenanceContracts: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

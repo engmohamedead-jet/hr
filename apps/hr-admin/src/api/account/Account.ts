@@ -1,8 +1,12 @@
+import { ProductGroup } from "../productGroup/ProductGroup";
 import { AccountCategory } from "../accountCategory/AccountCategory";
 import { AccountType } from "../accountType/AccountType";
 import { Currency } from "../currency/Currency";
+import { InstallmentSaleFee } from "../installmentSaleFee/InstallmentSaleFee";
 
 export type Account = {
+  ProductGroupPurchaseReturnAccounts?: Array<ProductGroup>;
+  ProductGroupSaleAccounts?: Array<ProductGroup>;
   accountCategory?: AccountCategory | null;
   accountNumber: string | null;
   accountTypeId?: AccountType;
@@ -10,6 +14,7 @@ export type Account = {
   currencyId?: Currency;
   description: string | null;
   id: string;
+  installmentSaleFees?: Array<InstallmentSaleFee>;
   isActive: boolean | null;
   isMasterAccount: boolean;
   isUnderRevision: boolean | null;
@@ -17,6 +22,12 @@ export type Account = {
   normalizedName: string;
   note: string | null;
   parentAccountId: string | null;
+  productGroupCostOfGoodsSoldAccounts?: Array<ProductGroup>;
+  productGroupInventoryAccounts?: Array<ProductGroup>;
+  productGroupPurchaseAccounts?: Array<ProductGroup>;
+  productGroupPurchaseDiscountAccounts?: Array<ProductGroup>;
+  productGroupSaleDiscountAccountIds?: Array<ProductGroup>;
+  productGroupSaleReturnAccountIds?: Array<ProductGroup>;
   referenceNumber: string | null;
   updatedAt: Date;
 };

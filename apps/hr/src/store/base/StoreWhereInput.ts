@@ -18,8 +18,15 @@ import { AccountTransactionListRelationFilter } from "../../accountTransaction/b
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { CustomerElevatorListRelationFilter } from "../../customerElevator/base/CustomerElevatorListRelationFilter";
+import { ElevatorListRelationFilter } from "../../elevator/base/ElevatorListRelationFilter";
+import { FailureReportingListRelationFilter } from "../../failureReporting/base/FailureReportingListRelationFilter";
+import { MaintenanceContractListRelationFilter } from "../../maintenanceContract/base/MaintenanceContractListRelationFilter";
+import { MaintenanceVisitListRelationFilter } from "../../maintenanceVisit/base/MaintenanceVisitListRelationFilter";
 import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 import { OfficeWhereUniqueInput } from "../../office/base/OfficeWhereUniqueInput";
+import { PeriodicMaintenanceOrderListRelationFilter } from "../../periodicMaintenanceOrder/base/PeriodicMaintenanceOrderListRelationFilter";
+import { SaleTaxListRelationFilter } from "../../saleTax/base/SaleTaxListRelationFilter";
 import { StoreTypeWhereUniqueInput } from "../../storeType/base/StoreTypeWhereUniqueInput";
 
 @InputType()
@@ -94,6 +101,42 @@ class StoreWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => CustomerElevatorListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CustomerElevatorListRelationFilter)
+  @IsOptional()
+  @Field(() => CustomerElevatorListRelationFilter, {
+    nullable: true,
+  })
+  customerElevators?: CustomerElevatorListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ElevatorListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ElevatorListRelationFilter)
+  @IsOptional()
+  @Field(() => ElevatorListRelationFilter, {
+    nullable: true,
+  })
+  elevators?: ElevatorListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => FailureReportingListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => FailureReportingListRelationFilter)
+  @IsOptional()
+  @Field(() => FailureReportingListRelationFilter, {
+    nullable: true,
+  })
+  failureReportings?: FailureReportingListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -124,6 +167,30 @@ class StoreWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => MaintenanceContractListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => MaintenanceContractListRelationFilter)
+  @IsOptional()
+  @Field(() => MaintenanceContractListRelationFilter, {
+    nullable: true,
+  })
+  maintenanceContracts?: MaintenanceContractListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => MaintenanceVisitListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => MaintenanceVisitListRelationFilter)
+  @IsOptional()
+  @Field(() => MaintenanceVisitListRelationFilter, {
+    nullable: true,
+  })
+  maintenanceVisits?: MaintenanceVisitListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -181,6 +248,30 @@ class StoreWhereInput {
     nullable: true,
   })
   office?: OfficeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PeriodicMaintenanceOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PeriodicMaintenanceOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => PeriodicMaintenanceOrderListRelationFilter, {
+    nullable: true,
+  })
+  periodicMaintenanceOrders?: PeriodicMaintenanceOrderListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleTaxListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleTaxListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleTaxListRelationFilter, {
+    nullable: true,
+  })
+  saleTaxes?: SaleTaxListRelationFilter;
 
   @ApiProperty({
     required: false,

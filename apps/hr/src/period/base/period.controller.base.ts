@@ -47,15 +47,43 @@ export class PeriodControllerBase {
   })
   async createPeriod(@common.Body() data: PeriodCreateInput): Promise<Period> {
     return await this.service.createPeriod({
-      data: data,
+      data: {
+        ...data,
+
+        installmentSaleFeePostingPeriod: data.installmentSaleFeePostingPeriod
+          ? {
+              connect: data.installmentSaleFeePostingPeriod,
+            }
+          : undefined,
+
+        paymentTerms: data.paymentTerms
+          ? {
+              connect: data.paymentTerms,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+
+        installmentSaleFeePostingPeriod: {
+          select: {
+            id: true,
+          },
+        },
+
         name: true,
         normalizedName: true,
         note: true,
+
+        paymentTerms: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -82,9 +110,23 @@ export class PeriodControllerBase {
         createdAt: true,
         description: true,
         id: true,
+
+        installmentSaleFeePostingPeriod: {
+          select: {
+            id: true,
+          },
+        },
+
         name: true,
         normalizedName: true,
         note: true,
+
+        paymentTerms: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -112,9 +154,23 @@ export class PeriodControllerBase {
         createdAt: true,
         description: true,
         id: true,
+
+        installmentSaleFeePostingPeriod: {
+          select: {
+            id: true,
+          },
+        },
+
         name: true,
         normalizedName: true,
         note: true,
+
+        paymentTerms: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -145,15 +201,43 @@ export class PeriodControllerBase {
     try {
       return await this.service.updatePeriod({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          installmentSaleFeePostingPeriod: data.installmentSaleFeePostingPeriod
+            ? {
+                connect: data.installmentSaleFeePostingPeriod,
+              }
+            : undefined,
+
+          paymentTerms: data.paymentTerms
+            ? {
+                connect: data.paymentTerms,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+
+          installmentSaleFeePostingPeriod: {
+            select: {
+              id: true,
+            },
+          },
+
           name: true,
           normalizedName: true,
           note: true,
+
+          paymentTerms: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -189,9 +273,23 @@ export class PeriodControllerBase {
           createdAt: true,
           description: true,
           id: true,
+
+          installmentSaleFeePostingPeriod: {
+            select: {
+              id: true,
+            },
+          },
+
           name: true,
           normalizedName: true,
           note: true,
+
+          paymentTerms: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

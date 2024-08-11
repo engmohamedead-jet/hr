@@ -10,12 +10,15 @@ import {
   SelectInput,
   DateTimeInput,
   BooleanInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
 
 import { CurrencyTitle } from "../currency/CurrencyTitle";
 import { CustomerCateogryTitle } from "../customerCateogry/CustomerCateogryTitle";
 import { CustomerTypeTitle } from "../customerType/CustomerTypeTitle";
 import { RatingTitle } from "../rating/RatingTitle";
+import { MaintenanceContractTitle } from "../maintenanceContract/MaintenanceContractTitle";
 import { SalePriceTypeTitle } from "../salePriceType/SalePriceTypeTitle";
 import { SupplierTitle } from "../supplier/SupplierTitle";
 
@@ -75,6 +78,14 @@ export const CustomerCreate = (props: CreateProps): React.ReactElement => {
         <BooleanInput label="IsSystem" source="isSystem" />
         <BooleanInput label="IsUnderRevision" source="isUnderRevision" />
         <TextInput label="JobTitle" source="jobTitle" />
+        <ReferenceArrayInput
+          source="maintenanceContracts"
+          reference="MaintenanceContract"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={MaintenanceContractTitle} />
+        </ReferenceArrayInput>
         <NumberInput label="MaxAllowedDebit" source="maxAllowedDebit" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />

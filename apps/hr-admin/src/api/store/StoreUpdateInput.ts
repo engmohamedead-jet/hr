@@ -1,7 +1,14 @@
 import { AccountTransactionDetailUpdateManyWithoutStoresInput } from "./AccountTransactionDetailUpdateManyWithoutStoresInput";
 import { AccountTransactionUpdateManyWithoutStoresInput } from "./AccountTransactionUpdateManyWithoutStoresInput";
+import { CustomerElevatorUpdateManyWithoutStoresInput } from "./CustomerElevatorUpdateManyWithoutStoresInput";
+import { ElevatorUpdateManyWithoutStoresInput } from "./ElevatorUpdateManyWithoutStoresInput";
+import { FailureReportingUpdateManyWithoutStoresInput } from "./FailureReportingUpdateManyWithoutStoresInput";
+import { MaintenanceContractUpdateManyWithoutStoresInput } from "./MaintenanceContractUpdateManyWithoutStoresInput";
+import { MaintenanceVisitUpdateManyWithoutStoresInput } from "./MaintenanceVisitUpdateManyWithoutStoresInput";
 import { NotificationUpdateManyWithoutStoresInput } from "./NotificationUpdateManyWithoutStoresInput";
 import { OfficeWhereUniqueInput } from "../office/OfficeWhereUniqueInput";
+import { PeriodicMaintenanceOrderUpdateManyWithoutStoresInput } from "./PeriodicMaintenanceOrderUpdateManyWithoutStoresInput";
+import { SaleTaxUpdateManyWithoutStoresInput } from "./SaleTaxUpdateManyWithoutStoresInput";
 import { StoreTypeWhereUniqueInput } from "../storeType/StoreTypeWhereUniqueInput";
 
 export type StoreUpdateInput = {
@@ -11,13 +18,20 @@ export type StoreUpdateInput = {
   allowSale?: boolean;
   cellPhoneNumber?: string | null;
   code?: string;
+  customerElevators?: CustomerElevatorUpdateManyWithoutStoresInput;
+  elevators?: ElevatorUpdateManyWithoutStoresInput;
+  failureReportings?: FailureReportingUpdateManyWithoutStoresInput;
   fax?: string | null;
   homePhoneNumber?: string | null;
+  maintenanceContracts?: MaintenanceContractUpdateManyWithoutStoresInput;
+  maintenanceVisits?: MaintenanceVisitUpdateManyWithoutStoresInput;
   name?: string;
   normalizedName?: string;
   note?: string | null;
   notifications?: NotificationUpdateManyWithoutStoresInput;
   office?: OfficeWhereUniqueInput;
+  periodicMaintenanceOrders?: PeriodicMaintenanceOrderUpdateManyWithoutStoresInput;
+  saleTaxes?: SaleTaxUpdateManyWithoutStoresInput;
   storeType?: StoreTypeWhereUniqueInput;
   street?: string | null;
 };

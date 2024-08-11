@@ -1,0 +1,34 @@
+import { Elevator } from "../elevator/Elevator";
+import { FailureReporting } from "../failureReporting/FailureReporting";
+import { MaintenanceContract } from "../maintenanceContract/MaintenanceContract";
+import { PeriodicMaintenanceOrder } from "../periodicMaintenanceOrder/PeriodicMaintenanceOrder";
+
+export type CustomerUser = {
+  accessFailedCount: number | null;
+  createdAt: Date;
+  elevatorId?: Elevator;
+  email: string;
+  emailConfirmed: boolean | null;
+  entityVersion: string | null;
+  failureReportings?: Array<FailureReporting>;
+  id: string;
+  isActive: boolean | null;
+  isExternal: boolean | null;
+  lastPasswordChangeTime: Date | null;
+  lockoutEnabled: boolean | null;
+  lockoutEnd: Date | null;
+  maintenanceContracts?: Array<MaintenanceContract>;
+  name: string;
+  normalizedEmail: string;
+  normalizedUserName: string;
+  note: string | null;
+  periodicMaintenanceOrders?: Array<PeriodicMaintenanceOrder>;
+  phoneNumber: string | null;
+  phoneNumberConfirmed: boolean | null;
+  securityStamp: string | null;
+  shouldChangePasswordOnNextLogin: boolean | null;
+  surname: string | null;
+  twoFactorEnabled: boolean | null;
+  updatedAt: Date;
+  userName: string;
+};

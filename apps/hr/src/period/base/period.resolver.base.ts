@@ -26,6 +26,7 @@ import { PeriodFindUniqueArgs } from "./PeriodFindUniqueArgs";
 import { CreatePeriodArgs } from "./CreatePeriodArgs";
 import { UpdatePeriodArgs } from "./UpdatePeriodArgs";
 import { DeletePeriodArgs } from "./DeletePeriodArgs";
+import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PeriodService } from "../period.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Period)
@@ -88,7 +89,22 @@ export class PeriodResolverBase {
   async createPeriod(@graphql.Args() args: CreatePeriodArgs): Promise<Period> {
     return await this.service.createPeriod({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        installmentSaleFeePostingPeriod: args.data
+          .installmentSaleFeePostingPeriod
+          ? {
+              connect: args.data.installmentSaleFeePostingPeriod,
+            }
+          : undefined,
+
+        paymentTerms: args.data.paymentTerms
+          ? {
+              connect: args.data.paymentTerms,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -105,7 +121,22 @@ export class PeriodResolverBase {
     try {
       return await this.service.updatePeriod({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          installmentSaleFeePostingPeriod: args.data
+            .installmentSaleFeePostingPeriod
+            ? {
+                connect: args.data.installmentSaleFeePostingPeriod,
+              }
+            : undefined,
+
+          paymentTerms: args.data.paymentTerms
+            ? {
+                connect: args.data.paymentTerms,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -136,5 +167,49 @@ export class PeriodResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => PaymentTerm, {
+    nullable: true,
+    name: "installmentSaleFeePostingPeriod",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTerm",
+    action: "read",
+    possession: "any",
+  })
+  async getInstallmentSaleFeePostingPeriod(
+    @graphql.Parent() parent: Period
+  ): Promise<PaymentTerm | null> {
+    const result = await this.service.getInstallmentSaleFeePostingPeriod(
+      parent.id
+    );
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => PaymentTerm, {
+    nullable: true,
+    name: "paymentTerms",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTerm",
+    action: "read",
+    possession: "any",
+  })
+  async getPaymentTerms(
+    @graphql.Parent() parent: Period
+  ): Promise<PaymentTerm | null> {
+    const result = await this.service.getPaymentTerms(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountCategory } from "../../accountCategory/base/AccountCategory";
+import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import {
   ValidateNested,
   IsOptional,
@@ -21,11 +21,31 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { AccountCategory } from "../../accountCategory/base/AccountCategory";
 import { AccountType } from "../../accountType/base/AccountType";
 import { Currency } from "../../currency/base/Currency";
+import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
 
 @ObjectType()
 class Account {
+  @ApiProperty({
+    required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  ProductGroupPurchaseReturnAccounts?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  ProductGroupSaleAccounts?: Array<ProductGroup>;
+
   @ApiProperty({
     required: false,
     type: () => AccountCategory,
@@ -90,6 +110,15 @@ class Account {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [InstallmentSaleFee],
+  })
+  @ValidateNested()
+  @Type(() => InstallmentSaleFee)
+  @IsOptional()
+  installmentSaleFees?: Array<InstallmentSaleFee>;
 
   @ApiProperty({
     required: false,
@@ -162,6 +191,60 @@ class Account {
     nullable: true,
   })
   parentAccountId!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  productGroupCostOfGoodsSoldAccounts?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  productGroupInventoryAccounts?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  productGroupPurchaseAccounts?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  productGroupPurchaseDiscountAccounts?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  productGroupSaleDiscountAccountIds?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  productGroupSaleReturnAccountIds?: Array<ProductGroup>;
 
   @ApiProperty({
     required: false,

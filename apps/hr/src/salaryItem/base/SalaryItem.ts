@@ -17,6 +17,7 @@ import {
   IsDate,
   IsOptional,
   ValidateNested,
+  IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { EmployeeClassSalaryItemValue } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValue";
@@ -73,11 +74,11 @@ class SalaryItem {
 
   @ApiProperty({
     required: true,
-    type: String,
+    type: Number,
   })
-  @IsString()
-  @Field(() => String)
-  id!: string;
+  @IsInt()
+  @Field(() => Number)
+  id!: number;
 
   @ApiProperty({
     required: true,

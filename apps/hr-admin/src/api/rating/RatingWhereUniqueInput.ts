@@ -1,3 +1,3 @@
 export type RatingWhereUniqueInput = {
-  id: string;
+  id: number;
 };

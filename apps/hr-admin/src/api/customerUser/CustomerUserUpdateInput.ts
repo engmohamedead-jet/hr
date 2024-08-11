@@ -1,0 +1,32 @@
+import { ElevatorWhereUniqueInput } from "../elevator/ElevatorWhereUniqueInput";
+import { FailureReportingUpdateManyWithoutCustomerUsersInput } from "./FailureReportingUpdateManyWithoutCustomerUsersInput";
+import { MaintenanceContractUpdateManyWithoutCustomerUsersInput } from "./MaintenanceContractUpdateManyWithoutCustomerUsersInput";
+import { PeriodicMaintenanceOrderUpdateManyWithoutCustomerUsersInput } from "./PeriodicMaintenanceOrderUpdateManyWithoutCustomerUsersInput";
+
+export type CustomerUserUpdateInput = {
+  accessFailedCount?: number | null;
+  elevatorId?: ElevatorWhereUniqueInput;
+  email?: string;
+  emailConfirmed?: boolean | null;
+  entityVersion?: string | null;
+  failureReportings?: FailureReportingUpdateManyWithoutCustomerUsersInput;
+  isActive?: boolean | null;
+  isExternal?: boolean | null;
+  lastPasswordChangeTime?: Date | null;
+  lockoutEnabled?: boolean | null;
+  lockoutEnd?: Date | null;
+  maintenanceContracts?: MaintenanceContractUpdateManyWithoutCustomerUsersInput;
+  name?: string;
+  normalizedEmail?: string;
+  normalizedUserName?: string;
+  note?: string | null;
+  passwordHash?: string | null;
+  periodicMaintenanceOrders?: PeriodicMaintenanceOrderUpdateManyWithoutCustomerUsersInput;
+  phoneNumber?: string | null;
+  phoneNumberConfirmed?: boolean | null;
+  securityStamp?: string | null;
+  shouldChangePasswordOnNextLogin?: boolean | null;
+  surname?: string | null;
+  twoFactorEnabled?: boolean | null;
+  userName?: string;
+};

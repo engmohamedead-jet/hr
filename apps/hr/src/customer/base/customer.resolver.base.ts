@@ -26,6 +26,8 @@ import { CustomerFindUniqueArgs } from "./CustomerFindUniqueArgs";
 import { CreateCustomerArgs } from "./CreateCustomerArgs";
 import { UpdateCustomerArgs } from "./UpdateCustomerArgs";
 import { DeleteCustomerArgs } from "./DeleteCustomerArgs";
+import { MaintenanceContractFindManyArgs } from "../../maintenanceContract/base/MaintenanceContractFindManyArgs";
+import { MaintenanceContract } from "../../maintenanceContract/base/MaintenanceContract";
 import { Currency } from "../../currency/base/Currency";
 import { CustomerCateogry } from "../../customerCateogry/base/CustomerCateogry";
 import { CustomerType } from "../../customerType/base/CustomerType";
@@ -234,6 +236,31 @@ export class CustomerResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [MaintenanceContract], {
+    name: "maintenanceContracts",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "MaintenanceContract",
+    action: "read",
+    possession: "any",
+  })
+  async findMaintenanceContracts(
+    @graphql.Parent() parent: Customer,
+    @graphql.Args() args: MaintenanceContractFindManyArgs
+  ): Promise<MaintenanceContract[]> {
+    const results = await this.service.findMaintenanceContracts(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

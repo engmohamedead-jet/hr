@@ -1,13 +1,18 @@
+import { ProductGroupUpdateManyWithoutAccountsInput } from "./ProductGroupUpdateManyWithoutAccountsInput";
 import { AccountCategoryWhereUniqueInput } from "../accountCategory/AccountCategoryWhereUniqueInput";
 import { AccountTypeWhereUniqueInput } from "../accountType/AccountTypeWhereUniqueInput";
 import { CurrencyWhereUniqueInput } from "../currency/CurrencyWhereUniqueInput";
+import { InstallmentSaleFeeUpdateManyWithoutAccountsInput } from "./InstallmentSaleFeeUpdateManyWithoutAccountsInput";
 
 export type AccountUpdateInput = {
+  ProductGroupPurchaseReturnAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  ProductGroupSaleAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
   accountCategory?: AccountCategoryWhereUniqueInput | null;
   accountNumber?: string | null;
   accountTypeId?: AccountTypeWhereUniqueInput;
   currencyId?: CurrencyWhereUniqueInput;
   description?: string | null;
+  installmentSaleFees?: InstallmentSaleFeeUpdateManyWithoutAccountsInput;
   isActive?: boolean | null;
   isMasterAccount?: boolean;
   isUnderRevision?: boolean | null;
@@ -15,5 +20,11 @@ export type AccountUpdateInput = {
   normalizedName?: string;
   note?: string | null;
   parentAccountId?: string | null;
+  productGroupCostOfGoodsSoldAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  productGroupInventoryAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  productGroupPurchaseAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  productGroupPurchaseDiscountAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  productGroupSaleDiscountAccountIds?: ProductGroupUpdateManyWithoutAccountsInput;
+  productGroupSaleReturnAccountIds?: ProductGroupUpdateManyWithoutAccountsInput;
   referenceNumber?: string | null;
 };

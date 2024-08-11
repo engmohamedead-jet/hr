@@ -21,8 +21,15 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { AccountTransactionCreateNestedManyWithoutStoresInput } from "./AccountTransactionCreateNestedManyWithoutStoresInput";
+import { CustomerElevatorCreateNestedManyWithoutStoresInput } from "./CustomerElevatorCreateNestedManyWithoutStoresInput";
+import { ElevatorCreateNestedManyWithoutStoresInput } from "./ElevatorCreateNestedManyWithoutStoresInput";
+import { FailureReportingCreateNestedManyWithoutStoresInput } from "./FailureReportingCreateNestedManyWithoutStoresInput";
+import { MaintenanceContractCreateNestedManyWithoutStoresInput } from "./MaintenanceContractCreateNestedManyWithoutStoresInput";
+import { MaintenanceVisitCreateNestedManyWithoutStoresInput } from "./MaintenanceVisitCreateNestedManyWithoutStoresInput";
 import { NotificationCreateNestedManyWithoutStoresInput } from "./NotificationCreateNestedManyWithoutStoresInput";
 import { OfficeWhereUniqueInput } from "../../office/base/OfficeWhereUniqueInput";
+import { PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput } from "./PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput";
+import { SaleTaxCreateNestedManyWithoutStoresInput } from "./SaleTaxCreateNestedManyWithoutStoresInput";
 import { StoreTypeWhereUniqueInput } from "../../storeType/base/StoreTypeWhereUniqueInput";
 
 @InputType()
@@ -94,6 +101,42 @@ class StoreCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => CustomerElevatorCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => CustomerElevatorCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => CustomerElevatorCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  customerElevators?: CustomerElevatorCreateNestedManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ElevatorCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => ElevatorCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => ElevatorCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  elevators?: ElevatorCreateNestedManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => FailureReportingCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => FailureReportingCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => FailureReportingCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  failureReportings?: FailureReportingCreateNestedManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -115,6 +158,30 @@ class StoreCreateInput {
     nullable: true,
   })
   homePhoneNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MaintenanceContractCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => MaintenanceContractCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => MaintenanceContractCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  maintenanceContracts?: MaintenanceContractCreateNestedManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => MaintenanceVisitCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => MaintenanceVisitCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => MaintenanceVisitCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  maintenanceVisits?: MaintenanceVisitCreateNestedManyWithoutStoresInput;
 
   @ApiProperty({
     required: true,
@@ -166,6 +233,30 @@ class StoreCreateInput {
   @Type(() => OfficeWhereUniqueInput)
   @Field(() => OfficeWhereUniqueInput)
   office!: OfficeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  periodicMaintenanceOrders?: PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleTaxCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleTaxCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => SaleTaxCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  saleTaxes?: SaleTaxCreateNestedManyWithoutStoresInput;
 
   @ApiProperty({
     required: true,

@@ -15,7 +15,7 @@ export const PaymentVoucherCreate = (
     <Create {...props}>
       <SimpleForm>
         <NumberInput label="Amount" source="amount" />
-        <TextInput label="Note" source="note" />
+        <TextInput label="Note" multiline source="note" />
         <DateTimeInput label="PaymentVoucherDate" source="paymentVoucherDate" />
         <TextInput label="StatementReference" source="statementReference" />
       </SimpleForm>

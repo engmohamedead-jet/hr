@@ -1,7 +1,14 @@
 import { AccountTransactionDetail } from "../accountTransactionDetail/AccountTransactionDetail";
 import { AccountTransaction } from "../accountTransaction/AccountTransaction";
+import { CustomerElevator } from "../customerElevator/CustomerElevator";
+import { Elevator } from "../elevator/Elevator";
+import { FailureReporting } from "../failureReporting/FailureReporting";
+import { MaintenanceContract } from "../maintenanceContract/MaintenanceContract";
+import { MaintenanceVisit } from "../maintenanceVisit/MaintenanceVisit";
 import { Notification } from "../notification/Notification";
 import { Office } from "../office/Office";
+import { PeriodicMaintenanceOrder } from "../periodicMaintenanceOrder/PeriodicMaintenanceOrder";
+import { SaleTax } from "../saleTax/SaleTax";
 import { StoreType } from "../storeType/StoreType";
 
 export type Store = {
@@ -12,14 +19,21 @@ export type Store = {
   cellPhoneNumber: string | null;
   code: string;
   createdAt: Date;
+  customerElevators?: Array<CustomerElevator>;
+  elevators?: Array<Elevator>;
+  failureReportings?: Array<FailureReporting>;
   fax: string | null;
   homePhoneNumber: string | null;
   id: string;
+  maintenanceContracts?: Array<MaintenanceContract>;
+  maintenanceVisits?: Array<MaintenanceVisit>;
   name: string;
   normalizedName: string;
   note: string | null;
   notifications?: Array<Notification>;
   office?: Office;
+  periodicMaintenanceOrders?: Array<PeriodicMaintenanceOrder>;
+  saleTaxes?: Array<SaleTax>;
   storeType?: StoreType;
   street: string | null;
   updatedAt: Date;

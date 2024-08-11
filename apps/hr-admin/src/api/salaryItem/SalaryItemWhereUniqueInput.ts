@@ -1,3 +1,3 @@
 export type SalaryItemWhereUniqueInput = {
-  id: string;
+  id: number;
 };

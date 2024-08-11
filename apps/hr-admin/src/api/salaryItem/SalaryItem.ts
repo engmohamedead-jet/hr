@@ -7,7 +7,7 @@ export type SalaryItem = {
   description: string | null;
   employeeClassSalaryItemValues?: Array<EmployeeClassSalaryItemValue>;
   employeeSalaryDetails?: Array<EmployeeSalaryDetail>;
-  id: string;
+  id: number;
   name: string;
   normalizedName: string;
   note: string | null;

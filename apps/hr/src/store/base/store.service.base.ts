@@ -16,7 +16,14 @@ import {
   Store as PrismaStore,
   AccountTransactionDetail as PrismaAccountTransactionDetail,
   AccountTransaction as PrismaAccountTransaction,
+  CustomerElevator as PrismaCustomerElevator,
+  Elevator as PrismaElevator,
+  FailureReporting as PrismaFailureReporting,
+  MaintenanceContract as PrismaMaintenanceContract,
+  MaintenanceVisit as PrismaMaintenanceVisit,
   Notification as PrismaNotification,
+  PeriodicMaintenanceOrder as PrismaPeriodicMaintenanceOrder,
+  SaleTax as PrismaSaleTax,
   Office as PrismaOffice,
   StoreType as PrismaStoreType,
 } from "@prisma/client";
@@ -66,6 +73,61 @@ export class StoreServiceBase {
       .accountTransactions(args);
   }
 
+  async findCustomerElevators(
+    parentId: string,
+    args: Prisma.CustomerElevatorFindManyArgs
+  ): Promise<PrismaCustomerElevator[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .customerElevators(args);
+  }
+
+  async findElevators(
+    parentId: string,
+    args: Prisma.ElevatorFindManyArgs
+  ): Promise<PrismaElevator[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .elevators(args);
+  }
+
+  async findFailureReportings(
+    parentId: string,
+    args: Prisma.FailureReportingFindManyArgs
+  ): Promise<PrismaFailureReporting[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .failureReportings(args);
+  }
+
+  async findMaintenanceContracts(
+    parentId: string,
+    args: Prisma.MaintenanceContractFindManyArgs
+  ): Promise<PrismaMaintenanceContract[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .maintenanceContracts(args);
+  }
+
+  async findMaintenanceVisits(
+    parentId: string,
+    args: Prisma.MaintenanceVisitFindManyArgs
+  ): Promise<PrismaMaintenanceVisit[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .maintenanceVisits(args);
+  }
+
   async findNotifications(
     parentId: string,
     args: Prisma.NotificationFindManyArgs
@@ -75,6 +137,28 @@ export class StoreServiceBase {
         where: { id: parentId },
       })
       .notifications(args);
+  }
+
+  async findPeriodicMaintenanceOrders(
+    parentId: string,
+    args: Prisma.PeriodicMaintenanceOrderFindManyArgs
+  ): Promise<PrismaPeriodicMaintenanceOrder[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .periodicMaintenanceOrders(args);
+  }
+
+  async findSaleTaxes(
+    parentId: string,
+    args: Prisma.SaleTaxFindManyArgs
+  ): Promise<PrismaSaleTax[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleTaxes(args);
   }
 
   async getOffice(parentId: string): Promise<PrismaOffice | null> {

@@ -14,6 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Customer as PrismaCustomer,
+  MaintenanceContract as PrismaMaintenanceContract,
   Currency as PrismaCurrency,
   CustomerCateogry as PrismaCustomerCateogry,
   CustomerType as PrismaCustomerType,
@@ -53,6 +54,17 @@ export class CustomerServiceBase {
     args: Prisma.CustomerDeleteArgs
   ): Promise<PrismaCustomer> {
     return this.prisma.customer.delete(args);
+  }
+
+  async findMaintenanceContracts(
+    parentId: string,
+    args: Prisma.MaintenanceContractFindManyArgs
+  ): Promise<PrismaMaintenanceContract[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .maintenanceContracts(args);
   }
 
   async getCurrencyId(parentId: string): Promise<PrismaCurrency | null> {

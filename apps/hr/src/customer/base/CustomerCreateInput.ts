@@ -29,6 +29,7 @@ import { Type } from "class-transformer";
 import { CustomerCateogryWhereUniqueInput } from "../../customerCateogry/base/CustomerCateogryWhereUniqueInput";
 import { CustomerTypeWhereUniqueInput } from "../../customerType/base/CustomerTypeWhereUniqueInput";
 import { RatingWhereUniqueInput } from "../../rating/base/RatingWhereUniqueInput";
+import { MaintenanceContractCreateNestedManyWithoutCustomersInput } from "./MaintenanceContractCreateNestedManyWithoutCustomersInput";
 import { SalePriceTypeWhereUniqueInput } from "../../salePriceType/base/SalePriceTypeWhereUniqueInput";
 import { SupplierWhereUniqueInput } from "../../supplier/base/SupplierWhereUniqueInput";
 
@@ -324,6 +325,18 @@ class CustomerCreateInput {
     nullable: true,
   })
   jobTitle?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MaintenanceContractCreateNestedManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => MaintenanceContractCreateNestedManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => MaintenanceContractCreateNestedManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  maintenanceContracts?: MaintenanceContractCreateNestedManyWithoutCustomersInput;
 
   @ApiProperty({
     required: false,

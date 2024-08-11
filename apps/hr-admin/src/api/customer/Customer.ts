@@ -3,6 +3,7 @@ import { Currency } from "../currency/Currency";
 import { CustomerCateogry } from "../customerCateogry/CustomerCateogry";
 import { CustomerType } from "../customerType/CustomerType";
 import { Rating } from "../rating/Rating";
+import { MaintenanceContract } from "../maintenanceContract/MaintenanceContract";
 import { SalePriceType } from "../salePriceType/SalePriceType";
 import { Supplier } from "../supplier/Supplier";
 
@@ -34,6 +35,7 @@ export type Customer = {
   isSystem: boolean | null;
   isUnderRevision: boolean | null;
   jobTitle: string | null;
+  maintenanceContracts?: Array<MaintenanceContract>;
   maxAllowedDebit: Decimal | null;
   name: string;
   normalizedName: string;

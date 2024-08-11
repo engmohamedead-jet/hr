@@ -3,6 +3,7 @@ import { CurrencyWhereUniqueInput } from "../currency/CurrencyWhereUniqueInput";
 import { CustomerCateogryWhereUniqueInput } from "../customerCateogry/CustomerCateogryWhereUniqueInput";
 import { CustomerTypeWhereUniqueInput } from "../customerType/CustomerTypeWhereUniqueInput";
 import { RatingWhereUniqueInput } from "../rating/RatingWhereUniqueInput";
+import { MaintenanceContractCreateNestedManyWithoutCustomersInput } from "./MaintenanceContractCreateNestedManyWithoutCustomersInput";
 import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
 import { SupplierWhereUniqueInput } from "../supplier/SupplierWhereUniqueInput";
 
@@ -32,6 +33,7 @@ export type CustomerCreateInput = {
   isSystem?: boolean | null;
   isUnderRevision?: boolean | null;
   jobTitle?: string | null;
+  maintenanceContracts?: MaintenanceContractCreateNestedManyWithoutCustomersInput;
   maxAllowedDebit?: Decimal | null;
   name: string;
   normalizedName: string;

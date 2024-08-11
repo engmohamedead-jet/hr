@@ -1,18 +1,23 @@
+import { ProductGroupListRelationFilter } from "../productGroup/ProductGroupListRelationFilter";
 import { AccountCategoryWhereUniqueInput } from "../accountCategory/AccountCategoryWhereUniqueInput";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { AccountTypeWhereUniqueInput } from "../accountType/AccountTypeWhereUniqueInput";
 import { CurrencyWhereUniqueInput } from "../currency/CurrencyWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { InstallmentSaleFeeListRelationFilter } from "../installmentSaleFee/InstallmentSaleFeeListRelationFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 
 export type AccountWhereInput = {
+  ProductGroupPurchaseReturnAccounts?: ProductGroupListRelationFilter;
+  ProductGroupSaleAccounts?: ProductGroupListRelationFilter;
   accountCategory?: AccountCategoryWhereUniqueInput;
   accountNumber?: StringNullableFilter;
   accountTypeId?: AccountTypeWhereUniqueInput;
   currencyId?: CurrencyWhereUniqueInput;
   description?: StringNullableFilter;
   id?: StringFilter;
+  installmentSaleFees?: InstallmentSaleFeeListRelationFilter;
   isActive?: BooleanNullableFilter;
   isMasterAccount?: BooleanFilter;
   isUnderRevision?: BooleanNullableFilter;
@@ -20,5 +25,11 @@ export type AccountWhereInput = {
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
   parentAccountId?: StringNullableFilter;
+  productGroupCostOfGoodsSoldAccounts?: ProductGroupListRelationFilter;
+  productGroupInventoryAccounts?: ProductGroupListRelationFilter;
+  productGroupPurchaseAccounts?: ProductGroupListRelationFilter;
+  productGroupPurchaseDiscountAccounts?: ProductGroupListRelationFilter;
+  productGroupSaleDiscountAccountIds?: ProductGroupListRelationFilter;
+  productGroupSaleReturnAccountIds?: ProductGroupListRelationFilter;
   referenceNumber?: StringNullableFilter;
 };

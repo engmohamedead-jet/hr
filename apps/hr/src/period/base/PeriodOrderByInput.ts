@@ -72,6 +72,17 @@ class PeriodOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  installmentSaleFeePostingPeriodId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   name?: SortOrder;
 
   @ApiProperty({
@@ -95,6 +106,17 @@ class PeriodOrderByInput {
     nullable: true,
   })
   note?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  paymentTermsId?: SortOrder;
 
   @ApiProperty({
     required: false,

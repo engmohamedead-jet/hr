@@ -11,8 +11,15 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsDate, IsOptional } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsDate,
+  IsOptional,
+  ValidateNested,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 
 @ObjectType()
 class Period {
@@ -54,6 +61,15 @@ class Period {
   id!: string;
 
   @ApiProperty({
+    required: false,
+    type: () => PaymentTerm,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTerm)
+  @IsOptional()
+  installmentSaleFeePostingPeriod?: PaymentTerm | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
@@ -82,6 +98,15 @@ class Period {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentTerm,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTerm)
+  @IsOptional()
+  paymentTerms?: PaymentTerm | null;
 
   @ApiProperty({
     required: true,

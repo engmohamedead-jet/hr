@@ -1,0 +1,30 @@
+import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { ProductGroupListRelationFilter } from "./ProductGroupListRelationFilter";
+import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
+import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
+
+export type ProductGroupWhereInput = {
+  PurchaseDiscountAccountId?: AccountWhereUniqueInput;
+  SaleReturnAccountId?: AccountWhereUniqueInput;
+  account?: AccountWhereUniqueInput;
+  code?: StringNullableFilter;
+  description?: StringNullableFilter;
+  excludeFromPurchase?: BooleanNullableFilter;
+  excludeFromSale?: BooleanNullableFilter;
+  id?: StringFilter;
+  inventoryAccountId?: AccountWhereUniqueInput;
+  isDefault?: BooleanNullableFilter;
+  name?: StringFilter;
+  normalizedName?: StringFilter;
+  notes?: StringNullableFilter;
+  parentProductGroupId?: ProductGroupListRelationFilter;
+  productGroups?: ProductGroupWhereUniqueInput;
+  purchaseAccountId?: AccountWhereUniqueInput;
+  purchaseReturnAccountId?: AccountWhereUniqueInput;
+  saleAccountId?: AccountWhereUniqueInput;
+  saleDiscountAccountId?: AccountWhereUniqueInput;
+  saleTaxId?: SaleTaxWhereUniqueInput;
+};

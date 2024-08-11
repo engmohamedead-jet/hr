@@ -11,18 +11,44 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountCategoryWhereUniqueInput } from "../../accountCategory/base/AccountCategoryWhereUniqueInput";
+import { ProductGroupListRelationFilter } from "../../productGroup/base/ProductGroupListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { AccountCategoryWhereUniqueInput } from "../../accountCategory/base/AccountCategoryWhereUniqueInput";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { AccountTypeWhereUniqueInput } from "../../accountType/base/AccountTypeWhereUniqueInput";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { InstallmentSaleFeeListRelationFilter } from "../../installmentSaleFee/base/InstallmentSaleFeeListRelationFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 
 @InputType()
 class AccountWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductGroupListRelationFilter, {
+    nullable: true,
+  })
+  ProductGroupPurchaseReturnAccounts?: ProductGroupListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductGroupListRelationFilter, {
+    nullable: true,
+  })
+  ProductGroupSaleAccounts?: ProductGroupListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: () => AccountCategoryWhereUniqueInput,
@@ -91,6 +117,18 @@ class AccountWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => InstallmentSaleFeeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => InstallmentSaleFeeListRelationFilter)
+  @IsOptional()
+  @Field(() => InstallmentSaleFeeListRelationFilter, {
+    nullable: true,
+  })
+  installmentSaleFees?: InstallmentSaleFeeListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -168,6 +206,78 @@ class AccountWhereInput {
     nullable: true,
   })
   parentAccountId?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductGroupListRelationFilter, {
+    nullable: true,
+  })
+  productGroupCostOfGoodsSoldAccounts?: ProductGroupListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductGroupListRelationFilter, {
+    nullable: true,
+  })
+  productGroupInventoryAccounts?: ProductGroupListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductGroupListRelationFilter, {
+    nullable: true,
+  })
+  productGroupPurchaseAccounts?: ProductGroupListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductGroupListRelationFilter, {
+    nullable: true,
+  })
+  productGroupPurchaseDiscountAccounts?: ProductGroupListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductGroupListRelationFilter, {
+    nullable: true,
+  })
+  productGroupSaleDiscountAccountIds?: ProductGroupListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductGroupListRelationFilter, {
+    nullable: true,
+  })
+  productGroupSaleReturnAccountIds?: ProductGroupListRelationFilter;
 
   @ApiProperty({
     required: false,

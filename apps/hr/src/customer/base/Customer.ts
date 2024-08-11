@@ -29,6 +29,7 @@ import { Currency } from "../../currency/base/Currency";
 import { CustomerCateogry } from "../../customerCateogry/base/CustomerCateogry";
 import { CustomerType } from "../../customerType/base/CustomerType";
 import { Rating } from "../../rating/base/Rating";
+import { MaintenanceContract } from "../../maintenanceContract/base/MaintenanceContract";
 import { SalePriceType } from "../../salePriceType/base/SalePriceType";
 import { Supplier } from "../../supplier/base/Supplier";
 
@@ -328,6 +329,15 @@ class Customer {
     nullable: true,
   })
   jobTitle!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [MaintenanceContract],
+  })
+  @ValidateNested()
+  @Type(() => MaintenanceContract)
+  @IsOptional()
+  maintenanceContracts?: Array<MaintenanceContract>;
 
   @ApiProperty({
     required: false,

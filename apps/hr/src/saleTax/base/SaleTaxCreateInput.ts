@@ -22,6 +22,7 @@ import {
 } from "class-validator";
 import { ProductGroupCreateNestedManyWithoutSaleTaxesInput } from "./ProductGroupCreateNestedManyWithoutSaleTaxesInput";
 import { Type } from "class-transformer";
+import { ProductCreateNestedManyWithoutSaleTaxesInput } from "./ProductCreateNestedManyWithoutSaleTaxesInput";
 import { Decimal } from "decimal.js";
 import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
 
@@ -103,6 +104,18 @@ class SaleTaxCreateInput {
     nullable: true,
   })
   productGroups?: ProductGroupCreateNestedManyWithoutSaleTaxesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductCreateNestedManyWithoutSaleTaxesInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductCreateNestedManyWithoutSaleTaxesInput)
+  @IsOptional()
+  @Field(() => ProductCreateNestedManyWithoutSaleTaxesInput, {
+    nullable: true,
+  })
+  products?: ProductCreateNestedManyWithoutSaleTaxesInput;
 
   @ApiProperty({
     required: false,

@@ -14,6 +14,7 @@ import {
 } from "react-admin";
 
 import { ProductGroupTitle } from "../productGroup/ProductGroupTitle";
+import { ProductTitle } from "../product/ProductTitle";
 import { StoreTitle } from "../store/StoreTitle";
 
 export const SaleTaxCreate = (props: CreateProps): React.ReactElement => {
@@ -33,6 +34,14 @@ export const SaleTaxCreate = (props: CreateProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={ProductGroupTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="products"
+          reference="Product"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ProductTitle} />
         </ReferenceArrayInput>
         <NumberInput label="Rate" source="rate" />
         <ReferenceInput source="store.id" reference="Store" label="Store">

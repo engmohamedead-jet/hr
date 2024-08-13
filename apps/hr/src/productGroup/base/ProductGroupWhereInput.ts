@@ -19,6 +19,7 @@ import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ProductGroupListRelationFilter } from "./ProductGroupListRelationFilter";
 import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
+import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
 
 @InputType()
@@ -193,6 +194,18 @@ class ProductGroupWhereInput {
     nullable: true,
   })
   productGroups?: ProductGroupWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductListRelationFilter, {
+    nullable: true,
+  })
+  products?: ProductListRelationFilter;
 
   @ApiProperty({
     required: false,

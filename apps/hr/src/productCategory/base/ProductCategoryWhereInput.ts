@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { IntFilter } from "../../util/IntFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ProductDepartmentWhereUniqueInput } from "../../productDepartment/base/ProductDepartmentWhereUniqueInput";
+import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 
 @InputType()
 class ProductCategoryWhereInput {
@@ -108,6 +109,18 @@ class ProductCategoryWhereInput {
     nullable: true,
   })
   productDepartment?: ProductDepartmentWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductListRelationFilter, {
+    nullable: true,
+  })
+  products?: ProductListRelationFilter;
 }
 
 export { ProductCategoryWhereInput as ProductCategoryWhereInput };

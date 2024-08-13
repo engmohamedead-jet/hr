@@ -1,4 +1,5 @@
 import { ProductDepartmentWhereUniqueInput } from "../productDepartment/ProductDepartmentWhereUniqueInput";
+import { ProductCreateNestedManyWithoutProductCategoriesInput } from "./ProductCreateNestedManyWithoutProductCategoriesInput";
 
 export type ProductCategoryCreateInput = {
   code?: string | null;
@@ -8,4 +9,5 @@ export type ProductCategoryCreateInput = {
   normalizedName?: string | null;
   note?: string | null;
   productDepartment?: ProductDepartmentWhereUniqueInput | null;
+  products?: ProductCreateNestedManyWithoutProductCategoriesInput;
 };

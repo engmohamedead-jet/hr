@@ -22,6 +22,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ProductDepartment } from "../../productDepartment/base/ProductDepartment";
+import { Product } from "../../product/base/Product";
 
 @ObjectType()
 class ProductCategory {
@@ -120,6 +121,15 @@ class ProductCategory {
   @Type(() => ProductDepartment)
   @IsOptional()
   productDepartment?: ProductDepartment | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Product],
+  })
+  @ValidateNested()
+  @Type(() => Product)
+  @IsOptional()
+  products?: Array<Product>;
 
   @ApiProperty({
     required: true,

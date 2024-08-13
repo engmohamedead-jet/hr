@@ -1,4 +1,5 @@
 import { Account } from "../account/Account";
+import { Product } from "../product/Product";
 import { SaleTax } from "../saleTax/SaleTax";
 
 export type ProductGroup = {
@@ -18,6 +19,7 @@ export type ProductGroup = {
   notes: string | null;
   parentProductGroupId?: Array<ProductGroup>;
   productGroups?: ProductGroup | null;
+  products?: Array<Product>;
   purchaseAccountId?: Account | null;
   purchaseReturnAccountId?: Account | null;
   saleAccountId?: Account | null;

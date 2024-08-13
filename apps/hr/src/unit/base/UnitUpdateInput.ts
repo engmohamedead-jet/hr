@@ -21,6 +21,7 @@ import {
 import { CompoundUnitWhereUniqueInput } from "../../compoundUnit/base/CompoundUnitWhereUniqueInput";
 import { Type } from "class-transformer";
 import { CompoundUnitUpdateManyWithoutUnitsInput } from "./CompoundUnitUpdateManyWithoutUnitsInput";
+import { ProductUpdateManyWithoutUnitsInput } from "./ProductUpdateManyWithoutUnitsInput";
 
 @InputType()
 class UnitUpdateInput {
@@ -129,6 +130,18 @@ class UnitUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductUpdateManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUpdateManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => ProductUpdateManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  products?: ProductUpdateManyWithoutUnitsInput;
 }
 
 export { UnitUpdateInput as UnitUpdateInput };

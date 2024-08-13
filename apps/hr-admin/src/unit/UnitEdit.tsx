@@ -13,6 +13,7 @@ import {
 } from "react-admin";
 
 import { CompoundUnitTitle } from "../compoundUnit/CompoundUnitTitle";
+import { ProductTitle } from "../product/ProductTitle";
 
 export const UnitEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -40,6 +41,14 @@ export const UnitEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
+        <ReferenceArrayInput
+          source="products"
+          reference="Product"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ProductTitle} />
+        </ReferenceArrayInput>
       </SimpleForm>
     </Edit>
   );

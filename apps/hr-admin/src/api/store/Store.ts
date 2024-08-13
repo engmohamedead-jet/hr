@@ -8,6 +8,7 @@ import { MaintenanceVisit } from "../maintenanceVisit/MaintenanceVisit";
 import { Notification } from "../notification/Notification";
 import { Office } from "../office/Office";
 import { PeriodicMaintenanceOrder } from "../periodicMaintenanceOrder/PeriodicMaintenanceOrder";
+import { Product } from "../product/Product";
 import { SaleTax } from "../saleTax/SaleTax";
 import { StoreType } from "../storeType/StoreType";
 
@@ -33,6 +34,7 @@ export type Store = {
   notifications?: Array<Notification>;
   office?: Office;
   periodicMaintenanceOrders?: Array<PeriodicMaintenanceOrder>;
+  products?: Array<Product>;
   saleTaxes?: Array<SaleTax>;
   storeType?: StoreType;
   street: string | null;

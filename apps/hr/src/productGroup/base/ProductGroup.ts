@@ -21,6 +21,7 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Product } from "../../product/base/Product";
 import { SaleTax } from "../../saleTax/base/SaleTax";
 
 @ObjectType()
@@ -181,6 +182,15 @@ class ProductGroup {
   @Type(() => ProductGroup)
   @IsOptional()
   productGroups?: ProductGroup | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Product],
+  })
+  @ValidateNested()
+  @Type(() => Product)
+  @IsOptional()
+  products?: Array<Product>;
 
   @ApiProperty({
     required: false,

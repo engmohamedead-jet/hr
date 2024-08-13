@@ -1,5 +1,6 @@
 import { CompoundUnitWhereUniqueInput } from "../compoundUnit/CompoundUnitWhereUniqueInput";
 import { CompoundUnitUpdateManyWithoutUnitsInput } from "./CompoundUnitUpdateManyWithoutUnitsInput";
+import { ProductUpdateManyWithoutUnitsInput } from "./ProductUpdateManyWithoutUnitsInput";
 
 export type UnitUpdateInput = {
   code?: string;
@@ -11,4 +12,5 @@ export type UnitUpdateInput = {
   name?: string;
   normalizedName?: string;
   note?: string | null;
+  products?: ProductUpdateManyWithoutUnitsInput;
 };

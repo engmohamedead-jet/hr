@@ -1,4 +1,5 @@
 import { ProductCategory } from "../productCategory/ProductCategory";
+import { Product } from "../product/Product";
 
 export type ProductDepartment = {
   code: string | null;
@@ -10,5 +11,6 @@ export type ProductDepartment = {
   normalizedName: string;
   note: string | null;
   productCategories?: Array<ProductCategory>;
+  products?: Array<Product>;
   updatedAt: Date;
 };

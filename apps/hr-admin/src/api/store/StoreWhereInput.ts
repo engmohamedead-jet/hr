@@ -11,6 +11,7 @@ import { MaintenanceVisitListRelationFilter } from "../maintenanceVisit/Maintena
 import { NotificationListRelationFilter } from "../notification/NotificationListRelationFilter";
 import { OfficeWhereUniqueInput } from "../office/OfficeWhereUniqueInput";
 import { PeriodicMaintenanceOrderListRelationFilter } from "../periodicMaintenanceOrder/PeriodicMaintenanceOrderListRelationFilter";
+import { ProductListRelationFilter } from "../product/ProductListRelationFilter";
 import { SaleTaxListRelationFilter } from "../saleTax/SaleTaxListRelationFilter";
 import { StoreTypeWhereUniqueInput } from "../storeType/StoreTypeWhereUniqueInput";
 
@@ -35,6 +36,7 @@ export type StoreWhereInput = {
   notifications?: NotificationListRelationFilter;
   office?: OfficeWhereUniqueInput;
   periodicMaintenanceOrders?: PeriodicMaintenanceOrderListRelationFilter;
+  products?: ProductListRelationFilter;
   saleTaxes?: SaleTaxListRelationFilter;
   storeType?: StoreTypeWhereUniqueInput;
   street?: StringNullableFilter;

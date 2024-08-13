@@ -1,6 +1,7 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { ProductListRelationFilter } from "../product/ProductListRelationFilter";
 
 export type ProductTypeWhereInput = {
   code?: StringNullableFilter;
@@ -10,4 +11,5 @@ export type ProductTypeWhereInput = {
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
+  products?: ProductListRelationFilter;
 };

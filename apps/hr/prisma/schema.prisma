@@ -286,6 +286,7 @@ model Store {
   office                    Office                     @relation(fields: [officeId], references: [id])
   officeId                  String
   periodicMaintenanceOrders PeriodicMaintenanceOrder[]
+  products                  Product[]
   saleTaxes                 SaleTax[]
   storeType                 StoreType                  @relation(fields: [storeTypeId], references: [id])
   storeTypeId               Int
@@ -1031,6 +1032,7 @@ model Unit {
   name           String         @unique
   normalizedName String         @unique
   note           String?
+  products       Product[]
   updatedAt      DateTime       @updatedAt
 }
 
@@ -1301,14 +1303,15 @@ model MaintenanceVisit {
 
 model ProductType {
   code           String?
-  createdAt      DateTime @default(now())
+  createdAt      DateTime  @default(now())
   description    String?
-  id             String   @id @default(cuid())
+  id             String    @id @default(cuid())
   isComponent    Boolean?
-  name           String   @unique
-  normalizedName String   @unique
+  name           String    @unique
+  normalizedName String    @unique
   note           String?
-  updatedAt      DateTime @updatedAt
+  products       Product[]
+  updatedAt      DateTime  @updatedAt
 }
 
 model ProductCategory {
@@ -1322,6 +1325,7 @@ model ProductCategory {
   note                String?
   productDepartment   ProductDepartment? @relation(fields: [productDepartmentId], references: [id])
   productDepartmentId Int?
+  products            Product[]
   updatedAt           DateTime           @updatedAt
 }
 
@@ -1335,6 +1339,7 @@ model ProductDepartment {
   normalizedName    String            @unique
   note              String?
   productCategories ProductCategory[]
+  products          Product[]
   updatedAt         DateTime          @updatedAt
 }
 
@@ -1360,6 +1365,7 @@ model ProductGroup {
   parentProductGroupId        ProductGroup[] @relation(name: "parentProductGroupId")
   productGroups               ProductGroup?  @relation(name: "parentProductGroupId", fields: [productGroupsId], references: [id])
   productGroupsId             String?
+  products                    Product[]
   purchaseAccountId           Account?       @relation(name: "productGroupPurchaseAccounts", fields: [purchaseAccountIdId], references: [id])
   purchaseAccountIdId         String?
   purchaseReturnAccountId     Account?       @relation(name: "ProductGroupPurchaseReturnAccounts", fields: [purchaseReturnAccountIdId], references: [id])
@@ -1383,6 +1389,7 @@ model SaleTax {
   normalizedName String         @unique
   note           String?
   productGroups  ProductGroup[]
+  products       Product[]
   rate           Decimal?
   store          Store?         @relation(fields: [storeId], references: [id])
   storeId        String?
@@ -1408,6 +1415,109 @@ model PeriodicMaintenanceOrder {
   updatedAt          DateTime          @updatedAt
 }
 
+model PrintTemplate {
+  Description            String?
+  code                   String?
+  createdAt              DateTime                      @default(now())
+  filePath               String?
+  id                     Int                           @id @default(autoincrement())
+  isCustomized           Boolean?                      @default(0)
+  isFavourite            Boolean?                      @default(0)
+  name                   String                        @unique
+  normalizedName         String
+  note                   String?
+  paperLayout            EnumPrintTemplatePaperLayout?
+  paperSize              EnumPrintTemplatePaperSize?
+  previewImage           Json?
+  printTemplateContents  PrintTemplateContent[]
+  printTemplateGroupId   PrintTemplateGroup            @relation(fields: [printTemplateGroupIdId], references: [id])
+  printTemplateGroupIdId Int
+  updatedAt              DateTime                      @updatedAt
+}
+
+model PrintTemplateGroup {
+  code           String?
+  createdAt      DateTime        @default(now())
+  description    String?
+  id             Int             @id @default(autoincrement())
+  name           String?
+  normalizedName String          @unique
+  note           String?
+  printTemplates PrintTemplate[]
+  updatedAt      DateTime        @updatedAt
+}
+
+model PrintTemplateContent {
+  createdAt         DateTime       @default(now())
+  display           String?
+  fieldValue        String
+  id                String         @id @default(cuid())
+  key               String
+  note              String?
+  printTemplateId   PrintTemplate? @relation(fields: [printTemplateIdId], references: [id])
+  printTemplateIdId Int?
+  updatedAt         DateTime       @updatedAt
+  value             String
+}
+
+model Product {
+  ProductGroupId                       ProductGroup?      @relation(fields: [ProductGroupIdId], references: [id])
+  ProductGroupIdId                     String?
+  barcode                              String?
+  canExpire                            Boolean            @default(0)
+  code                                 String?
+  costPrice                            Decimal?
+  costPriceIncludesTax                 Boolean?           @default(1)
+  createdAt                            DateTime           @default(now())
+  currentStockQuantity                 Decimal
+  daysToManufacture                    Decimal?
+  defaultStoreId                       Store              @relation(fields: [defaultStoreIdId], references: [id])
+  defaultStoreIdId                     String
+  defaultUnitId                        Unit               @relation(fields: [defaultUnitIdId], references: [id])
+  defaultUnitIdId                      String
+  description                          String?
+  discontinuedDate                     DateTime?
+  discountRate                         Decimal?
+  expireAlarmInDays                    Int?
+  expireIsDefaultAfterDaysFromPurchase Int?
+  firstStockQuantity                   Decimal?
+  id                                   String             @id @default(cuid())
+  isActive                             Boolean            @default(0)
+  isCompound Boolean? @#default(0)
+  isFavorite                           Boolean            @default(0)
+  maintainInventory                    Boolean            @default(1)
+  minimumSalePrice                     Decimal?
+  name                                 String             @unique
+  normalizedName                       String
+  photo                                Json?
+  productCategoryId                    ProductCategory?   @relation(fields: [productCategoryIdId], references: [id])
+  productCategoryIdId                  Int?
+  productDepartmentId                  ProductDepartment? @relation(fields: [productDepartmentIdId], references: [id])
+  productDepartmentIdId                Int?
+  productTypeId                        ProductType        @relation(fields: [productTypeIdId], references: [id])
+  productTypeIdId                      String
+  profitRate                           Decimal?
+  reorderQuantity                      Decimal?
+  salePrice                            Float
+  salePriceIncludesTax                 Boolean?           @default(1)
+  saleTaxId                            SaleTax?           @relation(fields: [saleTaxIdId], references: [id])
+  saleTaxIdId                          Int?
+  updatedAt                            DateTime           @updatedAt
+}
+
 enum EnumMaintenanceVisitElevatorStatusId {
   Option1
+}
+
+enum EnumPrintTemplatePaperLayout {
+  Portrait
+  Landscape
+}
+
+enum EnumPrintTemplatePaperSize {
+  A1
+  A2
+  A3
+  A4
+  A5
 }

@@ -21346,5 +21346,965 @@
     "resource": "PeriodicMaintenanceOrder",
     "action": "read:any",
     "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplate",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplate",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplate",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplate",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplate",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplate",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplate",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplate",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplate",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplate",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplate",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplate",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplate",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplate",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplate",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplate",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplate",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplate",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplate",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplate",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplate",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplate",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplate",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplate",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplate",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplate",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplate",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplate",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplate",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplate",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplate",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplate",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplate",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplate",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplate",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplate",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplate",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplate",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplate",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplate",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateContent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateContent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateContent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateContent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateContent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateContent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateContent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateContent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateContent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateContent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateContent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateContent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateContent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateContent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateContent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateContent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateContent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateContent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateContent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateContent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateContent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateContent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateContent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateContent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateContent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateContent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateContent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "PrintTemplateContent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "PrintTemplateContent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "PrintTemplateContent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PrintTemplateContent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "Product",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Product",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Product",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "Product",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "Product",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "Product",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "Product",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Product",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "Product",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Product",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Product",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "Product",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "Product",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "Product",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "Product",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Product",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "Product",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Product",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Product",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "Product",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "Product",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "Product",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "Product",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Product",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "Product",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Product",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Product",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "Product",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "Product",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "Product",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "Product",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Product",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "Product",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "Product",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "Product",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "Product",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "Product",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "Product",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "sales",
+    "resource": "Product",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Product",
+    "action": "read:any",
+    "attributes": "*"
   }
 ]

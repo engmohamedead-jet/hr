@@ -18,6 +18,7 @@ import { IntFilter } from "../../util/IntFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ProductCategoryListRelationFilter } from "../../productCategory/base/ProductCategoryListRelationFilter";
+import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 
 @InputType()
 class ProductDepartmentWhereInput {
@@ -109,6 +110,18 @@ class ProductDepartmentWhereInput {
     nullable: true,
   })
   productCategories?: ProductCategoryListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductListRelationFilter, {
+    nullable: true,
+  })
+  products?: ProductListRelationFilter;
 }
 
 export { ProductDepartmentWhereInput as ProductDepartmentWhereInput };

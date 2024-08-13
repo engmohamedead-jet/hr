@@ -26,6 +26,8 @@ import { ProductTypeFindUniqueArgs } from "./ProductTypeFindUniqueArgs";
 import { CreateProductTypeArgs } from "./CreateProductTypeArgs";
 import { UpdateProductTypeArgs } from "./UpdateProductTypeArgs";
 import { DeleteProductTypeArgs } from "./DeleteProductTypeArgs";
+import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
+import { Product } from "../../product/base/Product";
 import { ProductTypeService } from "../productType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductType)
@@ -140,5 +142,25 @@ export class ProductTypeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Product], { name: "products" })
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "any",
+  })
+  async findProducts(
+    @graphql.Parent() parent: ProductType,
+    @graphql.Args() args: ProductFindManyArgs
+  ): Promise<Product[]> {
+    const results = await this.service.findProducts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

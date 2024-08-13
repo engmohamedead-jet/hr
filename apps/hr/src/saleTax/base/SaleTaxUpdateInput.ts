@@ -22,6 +22,7 @@ import {
 } from "class-validator";
 import { ProductGroupUpdateManyWithoutSaleTaxesInput } from "./ProductGroupUpdateManyWithoutSaleTaxesInput";
 import { Type } from "class-transformer";
+import { ProductUpdateManyWithoutSaleTaxesInput } from "./ProductUpdateManyWithoutSaleTaxesInput";
 import { Decimal } from "decimal.js";
 import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
 
@@ -109,6 +110,18 @@ class SaleTaxUpdateInput {
     nullable: true,
   })
   productGroups?: ProductGroupUpdateManyWithoutSaleTaxesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductUpdateManyWithoutSaleTaxesInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUpdateManyWithoutSaleTaxesInput)
+  @IsOptional()
+  @Field(() => ProductUpdateManyWithoutSaleTaxesInput, {
+    nullable: true,
+  })
+  products?: ProductUpdateManyWithoutSaleTaxesInput;
 
   @ApiProperty({
     required: false,

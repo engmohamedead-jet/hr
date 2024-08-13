@@ -44,6 +44,8 @@ import { NotificationFindManyArgs } from "../../notification/base/NotificationFi
 import { Notification } from "../../notification/base/Notification";
 import { PeriodicMaintenanceOrderFindManyArgs } from "../../periodicMaintenanceOrder/base/PeriodicMaintenanceOrderFindManyArgs";
 import { PeriodicMaintenanceOrder } from "../../periodicMaintenanceOrder/base/PeriodicMaintenanceOrder";
+import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
+import { Product } from "../../product/base/Product";
 import { SaleTaxFindManyArgs } from "../../saleTax/base/SaleTaxFindManyArgs";
 import { SaleTax } from "../../saleTax/base/SaleTax";
 import { Office } from "../../office/base/Office";
@@ -369,6 +371,26 @@ export class StoreResolverBase {
       parent.id,
       args
     );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Product], { name: "products" })
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "any",
+  })
+  async findProducts(
+    @graphql.Parent() parent: Store,
+    @graphql.Args() args: ProductFindManyArgs
+  ): Promise<Product[]> {
+    const results = await this.service.findProducts(parent.id, args);
 
     if (!results) {
       return [];

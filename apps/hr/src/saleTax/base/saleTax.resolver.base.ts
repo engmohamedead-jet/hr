@@ -28,6 +28,8 @@ import { UpdateSaleTaxArgs } from "./UpdateSaleTaxArgs";
 import { DeleteSaleTaxArgs } from "./DeleteSaleTaxArgs";
 import { ProductGroupFindManyArgs } from "../../productGroup/base/ProductGroupFindManyArgs";
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
+import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
+import { Product } from "../../product/base/Product";
 import { Store } from "../../store/base/Store";
 import { SaleTaxService } from "../saleTax.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -173,6 +175,26 @@ export class SaleTaxResolverBase {
     @graphql.Args() args: ProductGroupFindManyArgs
   ): Promise<ProductGroup[]> {
     const results = await this.service.findProductGroups(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Product], { name: "products" })
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "any",
+  })
+  async findProducts(
+    @graphql.Parent() parent: SaleTax,
+    @graphql.Args() args: ProductFindManyArgs
+  ): Promise<Product[]> {
+    const results = await this.service.findProducts(parent.id, args);
 
     if (!results) {
       return [];

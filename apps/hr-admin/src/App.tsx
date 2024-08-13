@@ -373,6 +373,22 @@ import { PeriodicMaintenanceOrderList } from "./periodicMaintenanceOrder/Periodi
 import { PeriodicMaintenanceOrderCreate } from "./periodicMaintenanceOrder/PeriodicMaintenanceOrderCreate";
 import { PeriodicMaintenanceOrderEdit } from "./periodicMaintenanceOrder/PeriodicMaintenanceOrderEdit";
 import { PeriodicMaintenanceOrderShow } from "./periodicMaintenanceOrder/PeriodicMaintenanceOrderShow";
+import { PrintTemplateList } from "./printTemplate/PrintTemplateList";
+import { PrintTemplateCreate } from "./printTemplate/PrintTemplateCreate";
+import { PrintTemplateEdit } from "./printTemplate/PrintTemplateEdit";
+import { PrintTemplateShow } from "./printTemplate/PrintTemplateShow";
+import { PrintTemplateGroupList } from "./printTemplateGroup/PrintTemplateGroupList";
+import { PrintTemplateGroupCreate } from "./printTemplateGroup/PrintTemplateGroupCreate";
+import { PrintTemplateGroupEdit } from "./printTemplateGroup/PrintTemplateGroupEdit";
+import { PrintTemplateGroupShow } from "./printTemplateGroup/PrintTemplateGroupShow";
+import { PrintTemplateContentList } from "./printTemplateContent/PrintTemplateContentList";
+import { PrintTemplateContentCreate } from "./printTemplateContent/PrintTemplateContentCreate";
+import { PrintTemplateContentEdit } from "./printTemplateContent/PrintTemplateContentEdit";
+import { PrintTemplateContentShow } from "./printTemplateContent/PrintTemplateContentShow";
+import { ProductList } from "./product/ProductList";
+import { ProductCreate } from "./product/ProductCreate";
+import { ProductEdit } from "./product/ProductEdit";
+import { ProductShow } from "./product/ProductShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -1042,6 +1058,34 @@ const App = (): React.ReactElement => {
           edit={PeriodicMaintenanceOrderEdit}
           create={PeriodicMaintenanceOrderCreate}
           show={PeriodicMaintenanceOrderShow}
+        />
+        <Resource
+          name="PrintTemplate"
+          list={PrintTemplateList}
+          edit={PrintTemplateEdit}
+          create={PrintTemplateCreate}
+          show={PrintTemplateShow}
+        />
+        <Resource
+          name="PrintTemplateGroup"
+          list={PrintTemplateGroupList}
+          edit={PrintTemplateGroupEdit}
+          create={PrintTemplateGroupCreate}
+          show={PrintTemplateGroupShow}
+        />
+        <Resource
+          name="PrintTemplateContent"
+          list={PrintTemplateContentList}
+          edit={PrintTemplateContentEdit}
+          create={PrintTemplateContentCreate}
+          show={PrintTemplateContentShow}
+        />
+        <Resource
+          name="Product"
+          list={ProductList}
+          edit={ProductEdit}
+          create={ProductCreate}
+          show={ProductShow}
         />
       </Admin>
     </div>

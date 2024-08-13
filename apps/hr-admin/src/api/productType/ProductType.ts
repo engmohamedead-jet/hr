@@ -1,3 +1,5 @@
+import { Product } from "../product/Product";
+
 export type ProductType = {
   code: string | null;
   createdAt: Date;
@@ -7,5 +9,6 @@ export type ProductType = {
   name: string;
   normalizedName: string;
   note: string | null;
+  products?: Array<Product>;
   updatedAt: Date;
 };

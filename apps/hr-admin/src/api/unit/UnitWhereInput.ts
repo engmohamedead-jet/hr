@@ -4,6 +4,7 @@ import { CompoundUnitListRelationFilter } from "../compoundUnit/CompoundUnitList
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { ProductListRelationFilter } from "../product/ProductListRelationFilter";
 
 export type UnitWhereInput = {
   code?: StringFilter;
@@ -16,4 +17,5 @@ export type UnitWhereInput = {
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
+  products?: ProductListRelationFilter;
 };

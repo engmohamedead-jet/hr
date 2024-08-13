@@ -10,10 +10,12 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Unit as PrismaUnit,
   CompoundUnit as PrismaCompoundUnit,
+  Product as PrismaProduct,
 } from "@prisma/client";
 
 export class UnitServiceBase {
@@ -48,6 +50,17 @@ export class UnitServiceBase {
         where: { id: parentId },
       })
       .compoundUnits(args);
+  }
+
+  async findProducts(
+    parentId: string,
+    args: Prisma.ProductFindManyArgs
+  ): Promise<PrismaProduct[]> {
+    return this.prisma.unit
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .products(args);
   }
 
   async getCompareUnit(parentId: string): Promise<PrismaCompoundUnit | null> {

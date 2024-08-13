@@ -26,6 +26,7 @@ import { MaintenanceVisitListRelationFilter } from "../../maintenanceVisit/base/
 import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 import { OfficeWhereUniqueInput } from "../../office/base/OfficeWhereUniqueInput";
 import { PeriodicMaintenanceOrderListRelationFilter } from "../../periodicMaintenanceOrder/base/PeriodicMaintenanceOrderListRelationFilter";
+import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 import { SaleTaxListRelationFilter } from "../../saleTax/base/SaleTaxListRelationFilter";
 import { StoreTypeWhereUniqueInput } from "../../storeType/base/StoreTypeWhereUniqueInput";
 
@@ -260,6 +261,18 @@ class StoreWhereInput {
     nullable: true,
   })
   periodicMaintenanceOrders?: PeriodicMaintenanceOrderListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductListRelationFilter, {
+    nullable: true,
+  })
+  products?: ProductListRelationFilter;
 
   @ApiProperty({
     required: false,

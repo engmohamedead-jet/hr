@@ -21,6 +21,7 @@ import {
 } from "class-validator";
 import { CompoundUnit } from "../../compoundUnit/base/CompoundUnit";
 import { Type } from "class-transformer";
+import { Product } from "../../product/base/Product";
 
 @ObjectType()
 class Unit {
@@ -127,6 +128,15 @@ class Unit {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Product],
+  })
+  @ValidateNested()
+  @Type(() => Product)
+  @IsOptional()
+  products?: Array<Product>;
 
   @ApiProperty({
     required: true,

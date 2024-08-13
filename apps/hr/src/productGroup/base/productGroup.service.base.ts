@@ -14,6 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   ProductGroup as PrismaProductGroup,
+  Product as PrismaProduct,
   Account as PrismaAccount,
   SaleTax as PrismaSaleTax,
 } from "@prisma/client";
@@ -62,6 +63,17 @@ export class ProductGroupServiceBase {
         where: { id: parentId },
       })
       .parentProductGroupId(args);
+  }
+
+  async findProducts(
+    parentId: string,
+    args: Prisma.ProductFindManyArgs
+  ): Promise<PrismaProduct[]> {
+    return this.prisma.productGroup
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .products(args);
   }
 
   async getPurchaseDiscountAccountId(

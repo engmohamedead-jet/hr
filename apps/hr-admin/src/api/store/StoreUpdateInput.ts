@@ -8,6 +8,7 @@ import { MaintenanceVisitUpdateManyWithoutStoresInput } from "./MaintenanceVisit
 import { NotificationUpdateManyWithoutStoresInput } from "./NotificationUpdateManyWithoutStoresInput";
 import { OfficeWhereUniqueInput } from "../office/OfficeWhereUniqueInput";
 import { PeriodicMaintenanceOrderUpdateManyWithoutStoresInput } from "./PeriodicMaintenanceOrderUpdateManyWithoutStoresInput";
+import { ProductUpdateManyWithoutStoresInput } from "./ProductUpdateManyWithoutStoresInput";
 import { SaleTaxUpdateManyWithoutStoresInput } from "./SaleTaxUpdateManyWithoutStoresInput";
 import { StoreTypeWhereUniqueInput } from "../storeType/StoreTypeWhereUniqueInput";
 
@@ -31,6 +32,7 @@ export type StoreUpdateInput = {
   notifications?: NotificationUpdateManyWithoutStoresInput;
   office?: OfficeWhereUniqueInput;
   periodicMaintenanceOrders?: PeriodicMaintenanceOrderUpdateManyWithoutStoresInput;
+  products?: ProductUpdateManyWithoutStoresInput;
   saleTaxes?: SaleTaxUpdateManyWithoutStoresInput;
   storeType?: StoreTypeWhereUniqueInput;
   street?: string | null;

@@ -28,6 +28,8 @@ import { UpdateUnitArgs } from "./UpdateUnitArgs";
 import { DeleteUnitArgs } from "./DeleteUnitArgs";
 import { CompoundUnitFindManyArgs } from "../../compoundUnit/base/CompoundUnitFindManyArgs";
 import { CompoundUnit } from "../../compoundUnit/base/CompoundUnit";
+import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
+import { Product } from "../../product/base/Product";
 import { UnitService } from "../unit.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Unit)
@@ -162,6 +164,26 @@ export class UnitResolverBase {
     @graphql.Args() args: CompoundUnitFindManyArgs
   ): Promise<CompoundUnit[]> {
     const results = await this.service.findCompoundUnits(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Product], { name: "products" })
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "any",
+  })
+  async findProducts(
+    @graphql.Parent() parent: Unit,
+    @graphql.Args() args: ProductFindManyArgs
+  ): Promise<Product[]> {
+    const results = await this.service.findProducts(parent.id, args);
 
     if (!results) {
       return [];

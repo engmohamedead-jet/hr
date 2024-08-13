@@ -1,4 +1,5 @@
 import { CompoundUnit } from "../compoundUnit/CompoundUnit";
+import { Product } from "../product/Product";
 
 export type Unit = {
   code: string;
@@ -12,5 +13,6 @@ export type Unit = {
   name: string;
   normalizedName: string;
   note: string | null;
+  products?: Array<Product>;
   updatedAt: Date;
 };

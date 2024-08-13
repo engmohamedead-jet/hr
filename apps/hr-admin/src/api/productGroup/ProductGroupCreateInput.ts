@@ -1,6 +1,7 @@
 import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 import { ProductGroupCreateNestedManyWithoutProductGroupsInput } from "./ProductGroupCreateNestedManyWithoutProductGroupsInput";
 import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
+import { ProductCreateNestedManyWithoutProductGroupsInput } from "./ProductCreateNestedManyWithoutProductGroupsInput";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
 
 export type ProductGroupCreateInput = {
@@ -18,6 +19,7 @@ export type ProductGroupCreateInput = {
   notes?: string | null;
   parentProductGroupId?: ProductGroupCreateNestedManyWithoutProductGroupsInput;
   productGroups?: ProductGroupWhereUniqueInput | null;
+  products?: ProductCreateNestedManyWithoutProductGroupsInput;
   purchaseAccountId?: AccountWhereUniqueInput | null;
   purchaseReturnAccountId?: AccountWhereUniqueInput | null;
   saleAccountId?: AccountWhereUniqueInput | null;

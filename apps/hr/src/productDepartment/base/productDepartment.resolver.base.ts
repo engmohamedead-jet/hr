@@ -28,6 +28,8 @@ import { UpdateProductDepartmentArgs } from "./UpdateProductDepartmentArgs";
 import { DeleteProductDepartmentArgs } from "./DeleteProductDepartmentArgs";
 import { ProductCategoryFindManyArgs } from "../../productCategory/base/ProductCategoryFindManyArgs";
 import { ProductCategory } from "../../productCategory/base/ProductCategory";
+import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
+import { Product } from "../../product/base/Product";
 import { ProductDepartmentService } from "../productDepartment.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductDepartment)
@@ -156,6 +158,26 @@ export class ProductDepartmentResolverBase {
     @graphql.Args() args: ProductCategoryFindManyArgs
   ): Promise<ProductCategory[]> {
     const results = await this.service.findProductCategories(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Product], { name: "products" })
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "any",
+  })
+  async findProducts(
+    @graphql.Parent() parent: ProductDepartment,
+    @graphql.Args() args: ProductFindManyArgs
+  ): Promise<Product[]> {
+    const results = await this.service.findProducts(parent.id, args);
 
     if (!results) {
       return [];

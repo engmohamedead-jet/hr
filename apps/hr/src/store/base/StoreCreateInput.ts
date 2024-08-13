@@ -29,6 +29,7 @@ import { MaintenanceVisitCreateNestedManyWithoutStoresInput } from "./Maintenanc
 import { NotificationCreateNestedManyWithoutStoresInput } from "./NotificationCreateNestedManyWithoutStoresInput";
 import { OfficeWhereUniqueInput } from "../../office/base/OfficeWhereUniqueInput";
 import { PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput } from "./PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput";
+import { ProductCreateNestedManyWithoutStoresInput } from "./ProductCreateNestedManyWithoutStoresInput";
 import { SaleTaxCreateNestedManyWithoutStoresInput } from "./SaleTaxCreateNestedManyWithoutStoresInput";
 import { StoreTypeWhereUniqueInput } from "../../storeType/base/StoreTypeWhereUniqueInput";
 
@@ -245,6 +246,18 @@ class StoreCreateInput {
     nullable: true,
   })
   periodicMaintenanceOrders?: PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => ProductCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  products?: ProductCreateNestedManyWithoutStoresInput;
 
   @ApiProperty({
     required: false,

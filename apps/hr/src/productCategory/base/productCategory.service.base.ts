@@ -14,6 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   ProductCategory as PrismaProductCategory,
+  Product as PrismaProduct,
   ProductDepartment as PrismaProductDepartment,
 } from "@prisma/client";
 
@@ -50,6 +51,17 @@ export class ProductCategoryServiceBase {
     args: Prisma.ProductCategoryDeleteArgs
   ): Promise<PrismaProductCategory> {
     return this.prisma.productCategory.delete(args);
+  }
+
+  async findProducts(
+    parentId: number,
+    args: Prisma.ProductFindManyArgs
+  ): Promise<PrismaProduct[]> {
+    return this.prisma.productCategory
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .products(args);
   }
 
   async getProductDepartment(

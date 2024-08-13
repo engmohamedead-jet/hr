@@ -26,6 +26,7 @@ import {
 
 import { Type } from "class-transformer";
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
+import { Product } from "../../product/base/Product";
 import { Decimal } from "decimal.js";
 import { Store } from "../../store/base/Store";
 
@@ -120,6 +121,15 @@ class SaleTax {
   @Type(() => ProductGroup)
   @IsOptional()
   productGroups?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Product],
+  })
+  @ValidateNested()
+  @Type(() => Product)
+  @IsOptional()
+  products?: Array<Product>;
 
   @ApiProperty({
     required: false,

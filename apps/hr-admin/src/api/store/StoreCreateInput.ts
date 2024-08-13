@@ -8,6 +8,7 @@ import { MaintenanceVisitCreateNestedManyWithoutStoresInput } from "./Maintenanc
 import { NotificationCreateNestedManyWithoutStoresInput } from "./NotificationCreateNestedManyWithoutStoresInput";
 import { OfficeWhereUniqueInput } from "../office/OfficeWhereUniqueInput";
 import { PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput } from "./PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput";
+import { ProductCreateNestedManyWithoutStoresInput } from "./ProductCreateNestedManyWithoutStoresInput";
 import { SaleTaxCreateNestedManyWithoutStoresInput } from "./SaleTaxCreateNestedManyWithoutStoresInput";
 import { StoreTypeWhereUniqueInput } from "../storeType/StoreTypeWhereUniqueInput";
 
@@ -31,6 +32,7 @@ export type StoreCreateInput = {
   notifications?: NotificationCreateNestedManyWithoutStoresInput;
   office: OfficeWhereUniqueInput;
   periodicMaintenanceOrders?: PeriodicMaintenanceOrderCreateNestedManyWithoutStoresInput;
+  products?: ProductCreateNestedManyWithoutStoresInput;
   saleTaxes?: SaleTaxCreateNestedManyWithoutStoresInput;
   storeType: StoreTypeWhereUniqueInput;
   street?: string | null;

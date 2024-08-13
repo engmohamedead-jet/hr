@@ -15,6 +15,7 @@ import {
   Prisma,
   SaleTax as PrismaSaleTax,
   ProductGroup as PrismaProductGroup,
+  Product as PrismaProduct,
   Store as PrismaStore,
 } from "@prisma/client";
 
@@ -52,6 +53,17 @@ export class SaleTaxServiceBase {
         where: { id: parentId },
       })
       .productGroups(args);
+  }
+
+  async findProducts(
+    parentId: number,
+    args: Prisma.ProductFindManyArgs
+  ): Promise<PrismaProduct[]> {
+    return this.prisma.saleTax
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .products(args);
   }
 
   async getStore(parentId: number): Promise<PrismaStore | null> {

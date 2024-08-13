@@ -26,6 +26,8 @@ import { ProductGroupFindUniqueArgs } from "./ProductGroupFindUniqueArgs";
 import { CreateProductGroupArgs } from "./CreateProductGroupArgs";
 import { UpdateProductGroupArgs } from "./UpdateProductGroupArgs";
 import { DeleteProductGroupArgs } from "./DeleteProductGroupArgs";
+import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
+import { Product } from "../../product/base/Product";
 import { Account } from "../../account/base/Account";
 import { SaleTax } from "../../saleTax/base/SaleTax";
 import { ProductGroupService } from "../productGroup.service";
@@ -283,6 +285,26 @@ export class ProductGroupResolverBase {
       parent.id,
       args
     );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Product], { name: "products" })
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "any",
+  })
+  async findProducts(
+    @graphql.Parent() parent: ProductGroup,
+    @graphql.Args() args: ProductFindManyArgs
+  ): Promise<Product[]> {
+    const results = await this.service.findProducts(parent.id, args);
 
     if (!results) {
       return [];

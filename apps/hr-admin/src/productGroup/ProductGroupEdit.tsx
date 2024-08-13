@@ -14,6 +14,7 @@ import {
 
 import { AccountTitle } from "../account/AccountTitle";
 import { ProductGroupTitle } from "./ProductGroupTitle";
+import { ProductTitle } from "../product/ProductTitle";
 import { SaleTaxTitle } from "../saleTax/SaleTaxTitle";
 
 export const ProductGroupEdit = (props: EditProps): React.ReactElement => {
@@ -74,6 +75,14 @@ export const ProductGroupEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={ProductGroupTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="products"
+          reference="Product"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ProductTitle} />
+        </ReferenceArrayInput>
         <ReferenceInput
           source="purchaseAccountId.id"
           reference="Account"

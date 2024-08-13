@@ -1,5 +1,6 @@
 import { CompoundUnitWhereUniqueInput } from "../compoundUnit/CompoundUnitWhereUniqueInput";
 import { CompoundUnitCreateNestedManyWithoutUnitsInput } from "./CompoundUnitCreateNestedManyWithoutUnitsInput";
+import { ProductCreateNestedManyWithoutUnitsInput } from "./ProductCreateNestedManyWithoutUnitsInput";
 
 export type UnitCreateInput = {
   code: string;
@@ -11,4 +12,5 @@ export type UnitCreateInput = {
   name: string;
   normalizedName: string;
   note?: string | null;
+  products?: ProductCreateNestedManyWithoutUnitsInput;
 };

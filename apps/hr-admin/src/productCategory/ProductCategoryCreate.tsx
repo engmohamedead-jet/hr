@@ -8,9 +8,12 @@ import {
   BooleanInput,
   ReferenceInput,
   SelectInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
 
 import { ProductDepartmentTitle } from "../productDepartment/ProductDepartmentTitle";
+import { ProductTitle } from "../product/ProductTitle";
 
 export const ProductCategoryCreate = (
   props: CreateProps
@@ -31,6 +34,14 @@ export const ProductCategoryCreate = (
         >
           <SelectInput optionText={ProductDepartmentTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="products"
+          reference="Product"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ProductTitle} />
+        </ReferenceArrayInput>
       </SimpleForm>
     </Create>
   );

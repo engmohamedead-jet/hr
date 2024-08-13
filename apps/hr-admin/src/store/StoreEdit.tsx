@@ -22,6 +22,7 @@ import { MaintenanceVisitTitle } from "../maintenanceVisit/MaintenanceVisitTitle
 import { NotificationTitle } from "../notification/NotificationTitle";
 import { OfficeTitle } from "../office/OfficeTitle";
 import { PeriodicMaintenanceOrderTitle } from "../periodicMaintenanceOrder/PeriodicMaintenanceOrderTitle";
+import { ProductTitle } from "../product/ProductTitle";
 import { SaleTaxTitle } from "../saleTax/SaleTaxTitle";
 import { StoreTypeTitle } from "../storeType/StoreTypeTitle";
 
@@ -112,6 +113,14 @@ export const StoreEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={PeriodicMaintenanceOrderTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="products"
+          reference="Product"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ProductTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="saleTaxes"

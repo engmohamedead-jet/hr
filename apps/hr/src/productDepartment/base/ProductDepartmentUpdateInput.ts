@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { ProductCategoryUpdateManyWithoutProductDepartmentsInput } from "./ProductCategoryUpdateManyWithoutProductDepartmentsInput";
 import { Type } from "class-transformer";
+import { ProductUpdateManyWithoutProductDepartmentsInput } from "./ProductUpdateManyWithoutProductDepartmentsInput";
 
 @InputType()
 class ProductDepartmentUpdateInput {
@@ -105,6 +106,18 @@ class ProductDepartmentUpdateInput {
     nullable: true,
   })
   productCategories?: ProductCategoryUpdateManyWithoutProductDepartmentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductUpdateManyWithoutProductDepartmentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUpdateManyWithoutProductDepartmentsInput)
+  @IsOptional()
+  @Field(() => ProductUpdateManyWithoutProductDepartmentsInput, {
+    nullable: true,
+  })
+  products?: ProductUpdateManyWithoutProductDepartmentsInput;
 }
 
 export { ProductDepartmentUpdateInput as ProductDepartmentUpdateInput };

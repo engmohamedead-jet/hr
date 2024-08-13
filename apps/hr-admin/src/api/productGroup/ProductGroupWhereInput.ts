@@ -4,6 +4,7 @@ import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ProductGroupListRelationFilter } from "./ProductGroupListRelationFilter";
 import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
+import { ProductListRelationFilter } from "../product/ProductListRelationFilter";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
 
 export type ProductGroupWhereInput = {
@@ -22,6 +23,7 @@ export type ProductGroupWhereInput = {
   notes?: StringNullableFilter;
   parentProductGroupId?: ProductGroupListRelationFilter;
   productGroups?: ProductGroupWhereUniqueInput;
+  products?: ProductListRelationFilter;
   purchaseAccountId?: AccountWhereUniqueInput;
   purchaseReturnAccountId?: AccountWhereUniqueInput;
   saleAccountId?: AccountWhereUniqueInput;

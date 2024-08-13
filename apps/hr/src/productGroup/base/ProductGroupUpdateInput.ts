@@ -22,6 +22,7 @@ import {
 import { Type } from "class-transformer";
 import { ProductGroupUpdateManyWithoutProductGroupsInput } from "./ProductGroupUpdateManyWithoutProductGroupsInput";
 import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
+import { ProductUpdateManyWithoutProductGroupsInput } from "./ProductUpdateManyWithoutProductGroupsInput";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
 
 @InputType()
@@ -190,6 +191,18 @@ class ProductGroupUpdateInput {
     nullable: true,
   })
   productGroups?: ProductGroupWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductUpdateManyWithoutProductGroupsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUpdateManyWithoutProductGroupsInput)
+  @IsOptional()
+  @Field(() => ProductUpdateManyWithoutProductGroupsInput, {
+    nullable: true,
+  })
+  products?: ProductUpdateManyWithoutProductGroupsInput;
 
   @ApiProperty({
     required: false,

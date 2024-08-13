@@ -1,4 +1,5 @@
 import { ProductDepartmentWhereUniqueInput } from "../productDepartment/ProductDepartmentWhereUniqueInput";
+import { ProductUpdateManyWithoutProductCategoriesInput } from "./ProductUpdateManyWithoutProductCategoriesInput";
 
 export type ProductCategoryUpdateInput = {
   code?: string | null;
@@ -8,4 +9,5 @@ export type ProductCategoryUpdateInput = {
   normalizedName?: string | null;
   note?: string | null;
   productDepartment?: ProductDepartmentWhereUniqueInput | null;
+  products?: ProductUpdateManyWithoutProductCategoriesInput;
 };

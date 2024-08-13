@@ -93,6 +93,10 @@ import { ProductDepartmentModule } from "./productDepartment/productDepartment.m
 import { ProductGroupModule } from "./productGroup/productGroup.module";
 import { SaleTaxModule } from "./saleTax/saleTax.module";
 import { PeriodicMaintenanceOrderModule } from "./periodicMaintenanceOrder/periodicMaintenanceOrder.module";
+import { PrintTemplateModule } from "./printTemplate/printTemplate.module";
+import { PrintTemplateGroupModule } from "./printTemplateGroup/printTemplateGroup.module";
+import { PrintTemplateContentModule } from "./printTemplateContent/printTemplateContent.module";
+import { ProductModule } from "./product/product.module";
 import { PrismaSeedsModule } from "./prismaseeds/prismaseeds.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -203,6 +207,10 @@ import { AuthModule } from "./auth/auth.module";
     ProductGroupModule,
     SaleTaxModule,
     PeriodicMaintenanceOrderModule,
+    PrintTemplateModule,
+    PrintTemplateGroupModule,
+    PrintTemplateContentModule,
+    ProductModule,
     PrismaSeedsModule,
     HealthModule,
     PrismaModule,

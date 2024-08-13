@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { ProductCategoryCreateNestedManyWithoutProductDepartmentsInput } from "./ProductCategoryCreateNestedManyWithoutProductDepartmentsInput";
 import { Type } from "class-transformer";
+import { ProductCreateNestedManyWithoutProductDepartmentsInput } from "./ProductCreateNestedManyWithoutProductDepartmentsInput";
 
 @InputType()
 class ProductDepartmentCreateInput {
@@ -99,6 +100,18 @@ class ProductDepartmentCreateInput {
     nullable: true,
   })
   productCategories?: ProductCategoryCreateNestedManyWithoutProductDepartmentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductCreateNestedManyWithoutProductDepartmentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductCreateNestedManyWithoutProductDepartmentsInput)
+  @IsOptional()
+  @Field(() => ProductCreateNestedManyWithoutProductDepartmentsInput, {
+    nullable: true,
+  })
+  products?: ProductCreateNestedManyWithoutProductDepartmentsInput;
 }
 
 export { ProductDepartmentCreateInput as ProductDepartmentCreateInput };

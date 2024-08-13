@@ -30,6 +30,7 @@ import { MaintenanceVisit } from "../../maintenanceVisit/base/MaintenanceVisit";
 import { Notification } from "../../notification/base/Notification";
 import { Office } from "../../office/base/Office";
 import { PeriodicMaintenanceOrder } from "../../periodicMaintenanceOrder/base/PeriodicMaintenanceOrder";
+import { Product } from "../../product/base/Product";
 import { SaleTax } from "../../saleTax/base/SaleTax";
 import { StoreType } from "../../storeType/base/StoreType";
 
@@ -234,6 +235,15 @@ class Store {
   @Type(() => PeriodicMaintenanceOrder)
   @IsOptional()
   periodicMaintenanceOrders?: Array<PeriodicMaintenanceOrder>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Product],
+  })
+  @ValidateNested()
+  @Type(() => Product)
+  @IsOptional()
+  products?: Array<Product>;
 
   @ApiProperty({
     required: false,

@@ -23,6 +23,7 @@ import {
   MaintenanceVisit as PrismaMaintenanceVisit,
   Notification as PrismaNotification,
   PeriodicMaintenanceOrder as PrismaPeriodicMaintenanceOrder,
+  Product as PrismaProduct,
   SaleTax as PrismaSaleTax,
   Office as PrismaOffice,
   StoreType as PrismaStoreType,
@@ -148,6 +149,17 @@ export class StoreServiceBase {
         where: { id: parentId },
       })
       .periodicMaintenanceOrders(args);
+  }
+
+  async findProducts(
+    parentId: string,
+    args: Prisma.ProductFindManyArgs
+  ): Promise<PrismaProduct[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .products(args);
   }
 
   async findSaleTaxes(

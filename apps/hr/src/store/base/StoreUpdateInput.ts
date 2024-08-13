@@ -29,6 +29,7 @@ import { MaintenanceVisitUpdateManyWithoutStoresInput } from "./MaintenanceVisit
 import { NotificationUpdateManyWithoutStoresInput } from "./NotificationUpdateManyWithoutStoresInput";
 import { OfficeWhereUniqueInput } from "../../office/base/OfficeWhereUniqueInput";
 import { PeriodicMaintenanceOrderUpdateManyWithoutStoresInput } from "./PeriodicMaintenanceOrderUpdateManyWithoutStoresInput";
+import { ProductUpdateManyWithoutStoresInput } from "./ProductUpdateManyWithoutStoresInput";
 import { SaleTaxUpdateManyWithoutStoresInput } from "./SaleTaxUpdateManyWithoutStoresInput";
 import { StoreTypeWhereUniqueInput } from "../../storeType/base/StoreTypeWhereUniqueInput";
 
@@ -260,6 +261,18 @@ class StoreUpdateInput {
     nullable: true,
   })
   periodicMaintenanceOrders?: PeriodicMaintenanceOrderUpdateManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductUpdateManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUpdateManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => ProductUpdateManyWithoutStoresInput, {
+    nullable: true,
+  })
+  products?: ProductUpdateManyWithoutStoresInput;
 
   @ApiProperty({
     required: false,

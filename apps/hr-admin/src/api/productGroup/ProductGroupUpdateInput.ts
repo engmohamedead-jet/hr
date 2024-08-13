@@ -1,6 +1,7 @@
 import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 import { ProductGroupUpdateManyWithoutProductGroupsInput } from "./ProductGroupUpdateManyWithoutProductGroupsInput";
 import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
+import { ProductUpdateManyWithoutProductGroupsInput } from "./ProductUpdateManyWithoutProductGroupsInput";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
 
 export type ProductGroupUpdateInput = {
@@ -18,6 +19,7 @@ export type ProductGroupUpdateInput = {
   notes?: string | null;
   parentProductGroupId?: ProductGroupUpdateManyWithoutProductGroupsInput;
   productGroups?: ProductGroupWhereUniqueInput | null;
+  products?: ProductUpdateManyWithoutProductGroupsInput;
   purchaseAccountId?: AccountWhereUniqueInput | null;
   purchaseReturnAccountId?: AccountWhereUniqueInput | null;
   saleAccountId?: AccountWhereUniqueInput | null;

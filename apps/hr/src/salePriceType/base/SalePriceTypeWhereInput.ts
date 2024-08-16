@@ -11,38 +11,35 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
-import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
-import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional } from "class-validator";
+import { IntFilter } from "../../util/IntFilter";
+import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
 class SalePriceTypeWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
-    type: () => CustomerWhereUniqueInput,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => CustomerWhereUniqueInput)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => CustomerWhereUniqueInput, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  customers?: CustomerWhereUniqueInput;
+  description?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -54,17 +51,6 @@ class SalePriceTypeWhereInput {
     nullable: true,
   })
   id?: IntFilter;
-
-  @ApiProperty({
-    required: false,
-    type: BooleanFilter,
-  })
-  @Type(() => BooleanFilter)
-  @IsOptional()
-  @Field(() => BooleanFilter, {
-    nullable: true,
-  })
-  isDefault?: BooleanFilter;
 
   @ApiProperty({
     required: false,

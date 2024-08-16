@@ -26,6 +26,8 @@ import { BillOfMaterialTypeFindUniqueArgs } from "./BillOfMaterialTypeFindUnique
 import { CreateBillOfMaterialTypeArgs } from "./CreateBillOfMaterialTypeArgs";
 import { UpdateBillOfMaterialTypeArgs } from "./UpdateBillOfMaterialTypeArgs";
 import { DeleteBillOfMaterialTypeArgs } from "./DeleteBillOfMaterialTypeArgs";
+import { BillOfMaterialFindManyArgs } from "../../billOfMaterial/base/BillOfMaterialFindManyArgs";
+import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
 import { BillOfMaterialTypeService } from "../billOfMaterialType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => BillOfMaterialType)
@@ -140,5 +142,25 @@ export class BillOfMaterialTypeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [BillOfMaterial], { name: "billOfMaterials" })
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterial",
+    action: "read",
+    possession: "any",
+  })
+  async findBillOfMaterials(
+    @graphql.Parent() parent: BillOfMaterialType,
+    @graphql.Args() args: BillOfMaterialFindManyArgs
+  ): Promise<BillOfMaterial[]> {
+    const results = await this.service.findBillOfMaterials(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

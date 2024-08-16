@@ -116,17 +116,6 @@ class ProductCategoryOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  productDepartmentId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   updatedAt?: SortOrder;
 }
 

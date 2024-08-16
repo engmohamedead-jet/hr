@@ -26,9 +26,6 @@ import { ProductDepartment } from "./ProductDepartment";
 import { ProductDepartmentFindManyArgs } from "./ProductDepartmentFindManyArgs";
 import { ProductDepartmentWhereUniqueInput } from "./ProductDepartmentWhereUniqueInput";
 import { ProductDepartmentUpdateInput } from "./ProductDepartmentUpdateInput";
-import { ProductCategoryFindManyArgs } from "../../productCategory/base/ProductCategoryFindManyArgs";
-import { ProductCategory } from "../../productCategory/base/ProductCategory";
-import { ProductCategoryWhereUniqueInput } from "../../productCategory/base/ProductCategoryWhereUniqueInput";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
@@ -55,7 +52,15 @@ export class ProductDepartmentControllerBase {
     @common.Body() data: ProductDepartmentCreateInput
   ): Promise<ProductDepartment> {
     return await this.service.createProductDepartment({
-      data: data,
+      data: {
+        ...data,
+
+        parentProductDepartment: data.parentProductDepartment
+          ? {
+              connect: data.parentProductDepartment,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
@@ -65,6 +70,13 @@ export class ProductDepartmentControllerBase {
         name: true,
         normalizedName: true,
         note: true,
+
+        parentProductDepartment: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -97,6 +109,13 @@ export class ProductDepartmentControllerBase {
         name: true,
         normalizedName: true,
         note: true,
+
+        parentProductDepartment: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -128,6 +147,13 @@ export class ProductDepartmentControllerBase {
         name: true,
         normalizedName: true,
         note: true,
+
+        parentProductDepartment: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -158,7 +184,15 @@ export class ProductDepartmentControllerBase {
     try {
       return await this.service.updateProductDepartment({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          parentProductDepartment: data.parentProductDepartment
+            ? {
+                connect: data.parentProductDepartment,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
@@ -168,6 +202,13 @@ export class ProductDepartmentControllerBase {
           name: true,
           normalizedName: true,
           note: true,
+
+          parentProductDepartment: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -207,6 +248,13 @@ export class ProductDepartmentControllerBase {
           name: true,
           normalizedName: true,
           note: true,
+
+          parentProductDepartment: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -221,19 +269,19 @@ export class ProductDepartmentControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/productCategories")
-  @ApiNestedQuery(ProductCategoryFindManyArgs)
+  @common.Get("/:id/productDepartments")
+  @ApiNestedQuery(ProductDepartmentFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "ProductCategory",
+    resource: "ProductDepartment",
     action: "read",
     possession: "any",
   })
-  async findProductCategories(
+  async findProductDepartments(
     @common.Req() request: Request,
     @common.Param() params: ProductDepartmentWhereUniqueInput
-  ): Promise<ProductCategory[]> {
-    const query = plainToClass(ProductCategoryFindManyArgs, request.query);
-    const results = await this.service.findProductCategories(params.id, {
+  ): Promise<ProductDepartment[]> {
+    const query = plainToClass(ProductDepartmentFindManyArgs, request.query);
+    const results = await this.service.findProductDepartments(params.id, {
       ...query,
       select: {
         code: true,
@@ -245,7 +293,7 @@ export class ProductDepartmentControllerBase {
         normalizedName: true,
         note: true,
 
-        productDepartment: {
+        parentProductDepartment: {
           select: {
             id: true,
           },
@@ -262,18 +310,18 @@ export class ProductDepartmentControllerBase {
     return results;
   }
 
-  @common.Post("/:id/productCategories")
+  @common.Post("/:id/productDepartments")
   @nestAccessControl.UseRoles({
     resource: "ProductDepartment",
     action: "update",
     possession: "any",
   })
-  async connectProductCategories(
+  async connectProductDepartments(
     @common.Param() params: ProductDepartmentWhereUniqueInput,
-    @common.Body() body: ProductCategoryWhereUniqueInput[]
+    @common.Body() body: ProductDepartmentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productCategories: {
+      productDepartments: {
         connect: body,
       },
     };
@@ -284,18 +332,18 @@ export class ProductDepartmentControllerBase {
     });
   }
 
-  @common.Patch("/:id/productCategories")
+  @common.Patch("/:id/productDepartments")
   @nestAccessControl.UseRoles({
     resource: "ProductDepartment",
     action: "update",
     possession: "any",
   })
-  async updateProductCategories(
+  async updateProductDepartments(
     @common.Param() params: ProductDepartmentWhereUniqueInput,
-    @common.Body() body: ProductCategoryWhereUniqueInput[]
+    @common.Body() body: ProductDepartmentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productCategories: {
+      productDepartments: {
         set: body,
       },
     };
@@ -306,18 +354,18 @@ export class ProductDepartmentControllerBase {
     });
   }
 
-  @common.Delete("/:id/productCategories")
+  @common.Delete("/:id/productDepartments")
   @nestAccessControl.UseRoles({
     resource: "ProductDepartment",
     action: "update",
     possession: "any",
   })
-  async disconnectProductCategories(
+  async disconnectProductDepartments(
     @common.Param() params: ProductDepartmentWhereUniqueInput,
-    @common.Body() body: ProductCategoryWhereUniqueInput[]
+    @common.Body() body: ProductDepartmentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productCategories: {
+      productDepartments: {
         disconnect: body,
       },
     };
@@ -344,12 +392,6 @@ export class ProductDepartmentControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -385,6 +427,7 @@ export class ProductDepartmentControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -394,6 +437,12 @@ export class ProductDepartmentControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },

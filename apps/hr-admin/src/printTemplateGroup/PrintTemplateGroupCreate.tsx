@@ -1,15 +1,5 @@
 import * as React from "react";
-
-import {
-  Create,
-  SimpleForm,
-  CreateProps,
-  TextInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
-} from "react-admin";
-
-import { PrintTemplateTitle } from "../printTemplate/PrintTemplateTitle";
+import { Create, SimpleForm, CreateProps, TextInput } from "react-admin";
 
 export const PrintTemplateGroupCreate = (
   props: CreateProps
@@ -22,14 +12,6 @@ export const PrintTemplateGroupCreate = (
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
-        <ReferenceArrayInput
-          source="printTemplates"
-          reference="PrintTemplate"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PrintTemplateTitle} />
-        </ReferenceArrayInput>
       </SimpleForm>
     </Create>
   );

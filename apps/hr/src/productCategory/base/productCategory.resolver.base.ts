@@ -28,7 +28,6 @@ import { UpdateProductCategoryArgs } from "./UpdateProductCategoryArgs";
 import { DeleteProductCategoryArgs } from "./DeleteProductCategoryArgs";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
-import { ProductDepartment } from "../../productDepartment/base/ProductDepartment";
 import { ProductCategoryService } from "../productCategory.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductCategory)
@@ -95,15 +94,7 @@ export class ProductCategoryResolverBase {
   ): Promise<ProductCategory> {
     return await this.service.createProductCategory({
       ...args,
-      data: {
-        ...args.data,
-
-        productDepartment: args.data.productDepartment
-          ? {
-              connect: args.data.productDepartment,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -120,15 +111,7 @@ export class ProductCategoryResolverBase {
     try {
       return await this.service.updateProductCategory({
         ...args,
-        data: {
-          ...args.data,
-
-          productDepartment: args.data.productDepartment
-            ? {
-                connect: args.data.productDepartment,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -179,26 +162,5 @@ export class ProductCategoryResolverBase {
     }
 
     return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => ProductDepartment, {
-    nullable: true,
-    name: "productDepartment",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "ProductDepartment",
-    action: "read",
-    possession: "any",
-  })
-  async getProductDepartment(
-    @graphql.Parent() parent: ProductCategory
-  ): Promise<ProductDepartment | null> {
-    const result = await this.service.getProductDepartment(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
   }
 }

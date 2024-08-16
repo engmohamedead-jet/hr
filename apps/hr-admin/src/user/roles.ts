@@ -24,7 +24,7 @@ export const ROLES = [
     displayName: "PurchasesRole",
   },
   {
-    name: "sales",
+    name: "salesRole",
     displayName: "SalesRole",
   },
   {

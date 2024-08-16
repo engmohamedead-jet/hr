@@ -11,51 +11,16 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountTransactionDetailListRelationFilter } from "../../accountTransactionDetail/base/AccountTransactionDetailListRelationFilter";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
-import { AccountTransactionListRelationFilter } from "../../accountTransaction/base/AccountTransactionListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { CustomerElevatorListRelationFilter } from "../../customerElevator/base/CustomerElevatorListRelationFilter";
-import { ElevatorListRelationFilter } from "../../elevator/base/ElevatorListRelationFilter";
-import { FailureReportingListRelationFilter } from "../../failureReporting/base/FailureReportingListRelationFilter";
-import { MaintenanceContractListRelationFilter } from "../../maintenanceContract/base/MaintenanceContractListRelationFilter";
-import { MaintenanceVisitListRelationFilter } from "../../maintenanceVisit/base/MaintenanceVisitListRelationFilter";
-import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
-import { OfficeWhereUniqueInput } from "../../office/base/OfficeWhereUniqueInput";
-import { PeriodicMaintenanceOrderListRelationFilter } from "../../periodicMaintenanceOrder/base/PeriodicMaintenanceOrderListRelationFilter";
+import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
-import { SaleTaxListRelationFilter } from "../../saleTax/base/SaleTaxListRelationFilter";
-import { StoreTypeWhereUniqueInput } from "../../storeType/base/StoreTypeWhereUniqueInput";
 
 @InputType()
 class StoreWhereInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountTransactionDetailListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => AccountTransactionDetailListRelationFilter)
-  @IsOptional()
-  @Field(() => AccountTransactionDetailListRelationFilter, {
-    nullable: true,
-  })
-  accountTransactionDetails?: AccountTransactionDetailListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => AccountTransactionListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => AccountTransactionListRelationFilter)
-  @IsOptional()
-  @Field(() => AccountTransactionListRelationFilter, {
-    nullable: true,
-  })
-  accountTransactions?: AccountTransactionListRelationFilter;
-
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -91,50 +56,14 @@ class StoreWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => CustomerElevatorListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => CustomerElevatorListRelationFilter)
-  @IsOptional()
-  @Field(() => CustomerElevatorListRelationFilter, {
-    nullable: true,
-  })
-  customerElevators?: CustomerElevatorListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => ElevatorListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => ElevatorListRelationFilter)
-  @IsOptional()
-  @Field(() => ElevatorListRelationFilter, {
-    nullable: true,
-  })
-  elevators?: ElevatorListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => FailureReportingListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => FailureReportingListRelationFilter)
-  @IsOptional()
-  @Field(() => FailureReportingListRelationFilter, {
-    nullable: true,
-  })
-  failureReportings?: FailureReportingListRelationFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -171,30 +100,6 @@ class StoreWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => MaintenanceContractListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => MaintenanceContractListRelationFilter)
-  @IsOptional()
-  @Field(() => MaintenanceContractListRelationFilter, {
-    nullable: true,
-  })
-  maintenanceContracts?: MaintenanceContractListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => MaintenanceVisitListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => MaintenanceVisitListRelationFilter)
-  @IsOptional()
-  @Field(() => MaintenanceVisitListRelationFilter, {
-    nullable: true,
-  })
-  maintenanceVisits?: MaintenanceVisitListRelationFilter;
-
-  @ApiProperty({
-    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -228,39 +133,15 @@ class StoreWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => NotificationListRelationFilter,
+    type: () => ProductionOrderListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => NotificationListRelationFilter)
+  @Type(() => ProductionOrderListRelationFilter)
   @IsOptional()
-  @Field(() => NotificationListRelationFilter, {
+  @Field(() => ProductionOrderListRelationFilter, {
     nullable: true,
   })
-  notifications?: NotificationListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => OfficeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => OfficeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => OfficeWhereUniqueInput, {
-    nullable: true,
-  })
-  office?: OfficeWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PeriodicMaintenanceOrderListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => PeriodicMaintenanceOrderListRelationFilter)
-  @IsOptional()
-  @Field(() => PeriodicMaintenanceOrderListRelationFilter, {
-    nullable: true,
-  })
-  periodicMaintenanceOrders?: PeriodicMaintenanceOrderListRelationFilter;
+  productionOrders?: ProductionOrderListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -273,30 +154,6 @@ class StoreWhereInput {
     nullable: true,
   })
   products?: ProductListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleTaxListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => SaleTaxListRelationFilter)
-  @IsOptional()
-  @Field(() => SaleTaxListRelationFilter, {
-    nullable: true,
-  })
-  saleTaxes?: SaleTaxListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => StoreTypeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => StoreTypeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => StoreTypeWhereUniqueInput, {
-    nullable: true,
-  })
-  storeType?: StoreTypeWhereUniqueInput;
 
   @ApiProperty({
     required: false,

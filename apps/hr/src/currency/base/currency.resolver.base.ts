@@ -26,14 +26,8 @@ import { CurrencyFindUniqueArgs } from "./CurrencyFindUniqueArgs";
 import { CreateCurrencyArgs } from "./CreateCurrencyArgs";
 import { UpdateCurrencyArgs } from "./UpdateCurrencyArgs";
 import { DeleteCurrencyArgs } from "./DeleteCurrencyArgs";
-import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
-import { Account } from "../../account/base/Account";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
-import { ExchangeRateDetailFindManyArgs } from "../../exchangeRateDetail/base/ExchangeRateDetailFindManyArgs";
-import { ExchangeRateDetail } from "../../exchangeRateDetail/base/ExchangeRateDetail";
-import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
-import { Supplier } from "../../supplier/base/Supplier";
 import { CurrencyService } from "../currency.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Currency)
@@ -100,15 +94,7 @@ export class CurrencyResolverBase {
   ): Promise<Currency> {
     return await this.service.createCurrency({
       ...args,
-      data: {
-        ...args.data,
-
-        foreignCurrencyName: args.data.foreignCurrencyName
-          ? {
-              connect: args.data.foreignCurrencyName,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -125,15 +111,7 @@ export class CurrencyResolverBase {
     try {
       return await this.service.updateCurrency({
         ...args,
-        data: {
-          ...args.data,
-
-          foreignCurrencyName: args.data.foreignCurrencyName
-            ? {
-                connect: args.data.foreignCurrencyName,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -167,26 +145,6 @@ export class CurrencyResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Account], { name: "accounts" })
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async findAccounts(
-    @graphql.Parent() parent: Currency,
-    @graphql.Args() args: AccountFindManyArgs
-  ): Promise<Account[]> {
-    const results = await this.service.findAccounts(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [Customer], { name: "customers" })
   @nestAccessControl.UseRoles({
     resource: "Customer",
@@ -204,68 +162,5 @@ export class CurrencyResolverBase {
     }
 
     return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [ExchangeRateDetail], {
-    name: "exchangeRateDetails",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "ExchangeRateDetail",
-    action: "read",
-    possession: "any",
-  })
-  async findExchangeRateDetails(
-    @graphql.Parent() parent: Currency,
-    @graphql.Args() args: ExchangeRateDetailFindManyArgs
-  ): Promise<ExchangeRateDetail[]> {
-    const results = await this.service.findExchangeRateDetails(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Supplier], { name: "suppliers" })
-  @nestAccessControl.UseRoles({
-    resource: "Supplier",
-    action: "read",
-    possession: "any",
-  })
-  async findSuppliers(
-    @graphql.Parent() parent: Currency,
-    @graphql.Args() args: SupplierFindManyArgs
-  ): Promise<Supplier[]> {
-    const results = await this.service.findSuppliers(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => ExchangeRateDetail, {
-    nullable: true,
-    name: "foreignCurrencyName",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "ExchangeRateDetail",
-    action: "read",
-    possession: "any",
-  })
-  async getForeignCurrencyName(
-    @graphql.Parent() parent: Currency
-  ): Promise<ExchangeRateDetail | null> {
-    const result = await this.service.getForeignCurrencyName(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
   }
 }

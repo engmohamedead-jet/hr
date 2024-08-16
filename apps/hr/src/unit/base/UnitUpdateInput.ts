@@ -11,20 +11,45 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { BillOfMaterialDetailUpdateManyWithoutUnitsInput } from "./BillOfMaterialDetailUpdateManyWithoutUnitsInput";
 import {
+  ValidateNested,
+  IsOptional,
   IsString,
   MaxLength,
-  IsOptional,
-  ValidateNested,
   IsBoolean,
 } from "class-validator";
-import { CompoundUnitWhereUniqueInput } from "../../compoundUnit/base/CompoundUnitWhereUniqueInput";
 import { Type } from "class-transformer";
-import { CompoundUnitUpdateManyWithoutUnitsInput } from "./CompoundUnitUpdateManyWithoutUnitsInput";
+import { BillOfMaterialUpdateManyWithoutUnitsInput } from "./BillOfMaterialUpdateManyWithoutUnitsInput";
+import { ProductionOrderUpdateManyWithoutUnitsInput } from "./ProductionOrderUpdateManyWithoutUnitsInput";
 import { ProductUpdateManyWithoutUnitsInput } from "./ProductUpdateManyWithoutUnitsInput";
 
 @InputType()
 class UnitUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => BillOfMaterialDetailUpdateManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialDetailUpdateManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => BillOfMaterialDetailUpdateManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  billOfMaterialDetails?: BillOfMaterialDetailUpdateManyWithoutUnitsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BillOfMaterialUpdateManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialUpdateManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => BillOfMaterialUpdateManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  billOfMaterials?: BillOfMaterialUpdateManyWithoutUnitsInput;
+
   @ApiProperty({
     required: false,
     type: String,
@@ -35,31 +60,7 @@ class UnitUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => CompoundUnitWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CompoundUnitWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CompoundUnitWhereUniqueInput, {
-    nullable: true,
-  })
-  compareUnit?: CompoundUnitWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => CompoundUnitUpdateManyWithoutUnitsInput,
-  })
-  @ValidateNested()
-  @Type(() => CompoundUnitUpdateManyWithoutUnitsInput)
-  @IsOptional()
-  @Field(() => CompoundUnitUpdateManyWithoutUnitsInput, {
-    nullable: true,
-  })
-  compoundUnits?: CompoundUnitUpdateManyWithoutUnitsInput;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -93,7 +94,7 @@ class UnitUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isDefault?: boolean;
+  isDefault?: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -130,6 +131,18 @@ class UnitUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductionOrderUpdateManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductionOrderUpdateManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => ProductionOrderUpdateManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  productionOrders?: ProductionOrderUpdateManyWithoutUnitsInput;
 
   @ApiProperty({
     required: false,

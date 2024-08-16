@@ -26,7 +26,6 @@ import { SalePriceTypeFindUniqueArgs } from "./SalePriceTypeFindUniqueArgs";
 import { CreateSalePriceTypeArgs } from "./CreateSalePriceTypeArgs";
 import { UpdateSalePriceTypeArgs } from "./UpdateSalePriceTypeArgs";
 import { DeleteSalePriceTypeArgs } from "./DeleteSalePriceTypeArgs";
-import { Customer } from "../../customer/base/Customer";
 import { SalePriceTypeService } from "../salePriceType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => SalePriceType)
@@ -93,15 +92,7 @@ export class SalePriceTypeResolverBase {
   ): Promise<SalePriceType> {
     return await this.service.createSalePriceType({
       ...args,
-      data: {
-        ...args.data,
-
-        customers: args.data.customers
-          ? {
-              connect: args.data.customers,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -118,15 +109,7 @@ export class SalePriceTypeResolverBase {
     try {
       return await this.service.updateSalePriceType({
         ...args,
-        data: {
-          ...args.data,
-
-          customers: args.data.customers
-            ? {
-                connect: args.data.customers,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -157,26 +140,5 @@ export class SalePriceTypeResolverBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Customer, {
-    nullable: true,
-    name: "customers",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "Customer",
-    action: "read",
-    possession: "any",
-  })
-  async getCustomers(
-    @graphql.Parent() parent: SalePriceType
-  ): Promise<Customer | null> {
-    const result = await this.service.getCustomers(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
   }
 }

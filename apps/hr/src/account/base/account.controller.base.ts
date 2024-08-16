@@ -29,9 +29,6 @@ import { AccountUpdateInput } from "./AccountUpdateInput";
 import { ProductGroupFindManyArgs } from "../../productGroup/base/ProductGroupFindManyArgs";
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { ProductGroupWhereUniqueInput } from "../../productGroup/base/ProductGroupWhereUniqueInput";
-import { InstallmentSaleFeeFindManyArgs } from "../../installmentSaleFee/base/InstallmentSaleFeeFindManyArgs";
-import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
-import { InstallmentSaleFeeWhereUniqueInput } from "../../installmentSaleFee/base/InstallmentSaleFeeWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -58,53 +55,28 @@ export class AccountControllerBase {
       data: {
         ...data,
 
-        accountCategory: data.accountCategory
+        parentAccountId: data.parentAccountId
           ? {
-              connect: data.accountCategory,
+              connect: data.parentAccountId,
             }
           : undefined,
-
-        accountTypeId: {
-          connect: data.accountTypeId,
-        },
-
-        currencyId: {
-          connect: data.currencyId,
-        },
       },
       select: {
-        accountCategory: {
-          select: {
-            id: true,
-          },
-        },
-
         accountNumber: true,
-
-        accountTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
-
-        currencyId: {
-          select: {
-            id: true,
-          },
-        },
-
         description: true,
         id: true,
-        isActive: true,
         isMasterAccount: true,
-        isUnderRevision: true,
         name: true,
         normalizedName: true,
         note: true,
-        parentAccountId: true,
-        referenceNumber: true,
+
+        parentAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -127,38 +99,21 @@ export class AccountControllerBase {
     return this.service.accounts({
       ...args,
       select: {
-        accountCategory: {
-          select: {
-            id: true,
-          },
-        },
-
         accountNumber: true,
-
-        accountTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
-
-        currencyId: {
-          select: {
-            id: true,
-          },
-        },
-
         description: true,
         id: true,
-        isActive: true,
         isMasterAccount: true,
-        isUnderRevision: true,
         name: true,
         normalizedName: true,
         note: true,
-        parentAccountId: true,
-        referenceNumber: true,
+
+        parentAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -182,38 +137,21 @@ export class AccountControllerBase {
     const result = await this.service.account({
       where: params,
       select: {
-        accountCategory: {
-          select: {
-            id: true,
-          },
-        },
-
         accountNumber: true,
-
-        accountTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
-
-        currencyId: {
-          select: {
-            id: true,
-          },
-        },
-
         description: true,
         id: true,
-        isActive: true,
         isMasterAccount: true,
-        isUnderRevision: true,
         name: true,
         normalizedName: true,
         note: true,
-        parentAccountId: true,
-        referenceNumber: true,
+
+        parentAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -247,53 +185,28 @@ export class AccountControllerBase {
         data: {
           ...data,
 
-          accountCategory: data.accountCategory
+          parentAccountId: data.parentAccountId
             ? {
-                connect: data.accountCategory,
+                connect: data.parentAccountId,
               }
             : undefined,
-
-          accountTypeId: {
-            connect: data.accountTypeId,
-          },
-
-          currencyId: {
-            connect: data.currencyId,
-          },
         },
         select: {
-          accountCategory: {
-            select: {
-              id: true,
-            },
-          },
-
           accountNumber: true,
-
-          accountTypeId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
-
-          currencyId: {
-            select: {
-              id: true,
-            },
-          },
-
           description: true,
           id: true,
-          isActive: true,
           isMasterAccount: true,
-          isUnderRevision: true,
           name: true,
           normalizedName: true,
           note: true,
-          parentAccountId: true,
-          referenceNumber: true,
+
+          parentAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -325,38 +238,21 @@ export class AccountControllerBase {
       return await this.service.deleteAccount({
         where: params,
         select: {
-          accountCategory: {
-            select: {
-              id: true,
-            },
-          },
-
           accountNumber: true,
-
-          accountTypeId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
-
-          currencyId: {
-            select: {
-              id: true,
-            },
-          },
-
           description: true,
           id: true,
-          isActive: true,
           isMasterAccount: true,
-          isUnderRevision: true,
           name: true,
           normalizedName: true,
           note: true,
-          parentAccountId: true,
-          referenceNumber: true,
+
+          parentAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -371,49 +267,38 @@ export class AccountControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/ProductGroupPurchaseReturnAccounts")
+  @common.Get("/:id/SaleReturnAccountProductGroups")
   @ApiNestedQuery(ProductGroupFindManyArgs)
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async findProductGroupPurchaseReturnAccounts(
+  async findSaleReturnAccountProductGroups(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput
   ): Promise<ProductGroup[]> {
     const query = plainToClass(ProductGroupFindManyArgs, request.query);
-    const results = await this.service.findProductGroupPurchaseReturnAccounts(
+    const results = await this.service.findSaleReturnAccountProductGroups(
       params.id,
       {
         ...query,
         select: {
-          PurchaseDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          SaleReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          account: {
-            select: {
-              id: true,
-            },
-          },
-
           code: true,
+
+          costOfGoodsSoldAccount: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           description: true,
           excludeFromPurchase: true,
           excludeFromSale: true,
           id: true,
 
-          inventoryAccountId: {
+          inventoryAccount: {
             select: {
               id: true,
             },
@@ -422,15 +307,21 @@ export class AccountControllerBase {
           isDefault: true,
           name: true,
           normalizedName: true,
-          notes: true,
+          note: true,
 
-          productGroups: {
+          parentProductGroupId: {
             select: {
               id: true,
             },
           },
 
           purchaseAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseDiscountAccountId: {
             select: {
               id: true,
             },
@@ -454,6 +345,12 @@ export class AccountControllerBase {
             },
           },
 
+          saleReturnAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
           saleTaxId: {
             select: {
               id: true,
@@ -472,18 +369,18 @@ export class AccountControllerBase {
     return results;
   }
 
-  @common.Post("/:id/ProductGroupPurchaseReturnAccounts")
+  @common.Post("/:id/SaleReturnAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async connectProductGroupPurchaseReturnAccounts(
+  async connectSaleReturnAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      ProductGroupPurchaseReturnAccounts: {
+      SaleReturnAccountProductGroups: {
         connect: body,
       },
     };
@@ -494,18 +391,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Patch("/:id/ProductGroupPurchaseReturnAccounts")
+  @common.Patch("/:id/SaleReturnAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateProductGroupPurchaseReturnAccounts(
+  async updateSaleReturnAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      ProductGroupPurchaseReturnAccounts: {
+      SaleReturnAccountProductGroups: {
         set: body,
       },
     };
@@ -516,18 +413,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Delete("/:id/ProductGroupPurchaseReturnAccounts")
+  @common.Delete("/:id/SaleReturnAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async disconnectProductGroupPurchaseReturnAccounts(
+  async disconnectSaleReturnAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      ProductGroupPurchaseReturnAccounts: {
+      SaleReturnAccountProductGroups: {
         disconnect: body,
       },
     };
@@ -539,47 +436,36 @@ export class AccountControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/ProductGroupSaleAccounts")
+  @common.Get("/:id/aleAccountProductGroups")
   @ApiNestedQuery(ProductGroupFindManyArgs)
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async findProductGroupSaleAccounts(
+  async findAleAccountProductGroups(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput
   ): Promise<ProductGroup[]> {
     const query = plainToClass(ProductGroupFindManyArgs, request.query);
-    const results = await this.service.findProductGroupSaleAccounts(params.id, {
+    const results = await this.service.findAleAccountProductGroups(params.id, {
       ...query,
       select: {
-        PurchaseDiscountAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        SaleReturnAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        account: {
-          select: {
-            id: true,
-          },
-        },
-
         code: true,
+
+        costOfGoodsSoldAccount: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         excludeFromPurchase: true,
         excludeFromSale: true,
         id: true,
 
-        inventoryAccountId: {
+        inventoryAccount: {
           select: {
             id: true,
           },
@@ -588,15 +474,21 @@ export class AccountControllerBase {
         isDefault: true,
         name: true,
         normalizedName: true,
-        notes: true,
+        note: true,
 
-        productGroups: {
+        parentProductGroupId: {
           select: {
             id: true,
           },
         },
 
         purchaseAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseDiscountAccountId: {
           select: {
             id: true,
           },
@@ -620,6 +512,12 @@ export class AccountControllerBase {
           },
         },
 
+        saleReturnAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
         saleTaxId: {
           select: {
             id: true,
@@ -637,18 +535,18 @@ export class AccountControllerBase {
     return results;
   }
 
-  @common.Post("/:id/ProductGroupSaleAccounts")
+  @common.Post("/:id/aleAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async connectProductGroupSaleAccounts(
+  async connectAleAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      ProductGroupSaleAccounts: {
+      aleAccountProductGroups: {
         connect: body,
       },
     };
@@ -659,18 +557,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Patch("/:id/ProductGroupSaleAccounts")
+  @common.Patch("/:id/aleAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateProductGroupSaleAccounts(
+  async updateAleAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      ProductGroupSaleAccounts: {
+      aleAccountProductGroups: {
         set: body,
       },
     };
@@ -681,18 +579,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Delete("/:id/ProductGroupSaleAccounts")
+  @common.Delete("/:id/aleAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async disconnectProductGroupSaleAccounts(
+  async disconnectAleAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      ProductGroupSaleAccounts: {
+      aleAccountProductGroups: {
         disconnect: body,
       },
     };
@@ -704,36 +602,374 @@ export class AccountControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/installmentSaleFees")
-  @ApiNestedQuery(InstallmentSaleFeeFindManyArgs)
+  @common.Get("/:id/costOfGoodsSoldAccountProductGroups")
+  @ApiNestedQuery(ProductGroupFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "InstallmentSaleFee",
+    resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async findInstallmentSaleFees(
+  async findCostOfGoodsSoldAccountProductGroups(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput
-  ): Promise<InstallmentSaleFee[]> {
-    const query = plainToClass(InstallmentSaleFeeFindManyArgs, request.query);
-    const results = await this.service.findInstallmentSaleFees(params.id, {
+  ): Promise<ProductGroup[]> {
+    const query = plainToClass(ProductGroupFindManyArgs, request.query);
+    const results = await this.service.findCostOfGoodsSoldAccountProductGroups(
+      params.id,
+      {
+        ...query,
+        select: {
+          code: true,
+
+          costOfGoodsSoldAccount: {
+            select: {
+              id: true,
+            },
+          },
+
+          createdAt: true,
+          description: true,
+          excludeFromPurchase: true,
+          excludeFromSale: true,
+          id: true,
+
+          inventoryAccount: {
+            select: {
+              id: true,
+            },
+          },
+
+          isDefault: true,
+          name: true,
+          normalizedName: true,
+          note: true,
+
+          parentProductGroupId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseDiscountAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseReturnAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleDiscountAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleReturnAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          updatedAt: true,
+        },
+      }
+    );
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/costOfGoodsSoldAccountProductGroups")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async connectCostOfGoodsSoldAccountProductGroups(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: ProductGroupWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      costOfGoodsSoldAccountProductGroups: {
+        connect: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/costOfGoodsSoldAccountProductGroups")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async updateCostOfGoodsSoldAccountProductGroups(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: ProductGroupWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      costOfGoodsSoldAccountProductGroups: {
+        set: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/costOfGoodsSoldAccountProductGroups")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectCostOfGoodsSoldAccountProductGroups(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: ProductGroupWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      costOfGoodsSoldAccountProductGroups: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/inventoryAccountProductGroups")
+  @ApiNestedQuery(ProductGroupFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findInventoryAccountProductGroups(
+    @common.Req() request: Request,
+    @common.Param() params: AccountWhereUniqueInput
+  ): Promise<ProductGroup[]> {
+    const query = plainToClass(ProductGroupFindManyArgs, request.query);
+    const results = await this.service.findInventoryAccountProductGroups(
+      params.id,
+      {
+        ...query,
+        select: {
+          code: true,
+
+          costOfGoodsSoldAccount: {
+            select: {
+              id: true,
+            },
+          },
+
+          createdAt: true,
+          description: true,
+          excludeFromPurchase: true,
+          excludeFromSale: true,
+          id: true,
+
+          inventoryAccount: {
+            select: {
+              id: true,
+            },
+          },
+
+          isDefault: true,
+          name: true,
+          normalizedName: true,
+          note: true,
+
+          parentProductGroupId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseDiscountAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseReturnAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleDiscountAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleReturnAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          updatedAt: true,
+        },
+      }
+    );
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/inventoryAccountProductGroups")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async connectInventoryAccountProductGroups(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: ProductGroupWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      inventoryAccountProductGroups: {
+        connect: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/inventoryAccountProductGroups")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async updateInventoryAccountProductGroups(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: ProductGroupWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      inventoryAccountProductGroups: {
+        set: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/inventoryAccountProductGroups")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectInventoryAccountProductGroups(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: ProductGroupWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      inventoryAccountProductGroups: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/parentAccounts")
+  @ApiNestedQuery(AccountFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "read",
+    possession: "any",
+  })
+  async findParentAccounts(
+    @common.Req() request: Request,
+    @common.Param() params: AccountWhereUniqueInput
+  ): Promise<Account[]> {
+    const query = plainToClass(AccountFindManyArgs, request.query);
+    const results = await this.service.findParentAccounts(params.id, {
       ...query,
       select: {
-        account: {
+        accountNumber: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isMasterAccount: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        parentAccountId: {
           select: {
             id: true,
           },
         },
 
-        code: true,
-        createdAt: true,
-        description: true,
-        id: true,
-        isFlatAmount: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-        rate: true,
         updatedAt: true,
       },
     });
@@ -745,18 +981,18 @@ export class AccountControllerBase {
     return results;
   }
 
-  @common.Post("/:id/installmentSaleFees")
+  @common.Post("/:id/parentAccounts")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async connectInstallmentSaleFees(
+  async connectParentAccounts(
     @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: InstallmentSaleFeeWhereUniqueInput[]
+    @common.Body() body: AccountWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      installmentSaleFees: {
+      parentAccounts: {
         connect: body,
       },
     };
@@ -767,18 +1003,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Patch("/:id/installmentSaleFees")
+  @common.Patch("/:id/parentAccounts")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateInstallmentSaleFees(
+  async updateParentAccounts(
     @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: InstallmentSaleFeeWhereUniqueInput[]
+    @common.Body() body: AccountWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      installmentSaleFees: {
+      parentAccounts: {
         set: body,
       },
     };
@@ -789,18 +1025,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Delete("/:id/installmentSaleFees")
+  @common.Delete("/:id/parentAccounts")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async disconnectInstallmentSaleFees(
+  async disconnectParentAccounts(
     @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: InstallmentSaleFeeWhereUniqueInput[]
+    @common.Body() body: AccountWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      installmentSaleFees: {
+      parentAccounts: {
         disconnect: body,
       },
     };
@@ -812,49 +1048,38 @@ export class AccountControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/productGroupCostOfGoodsSoldAccounts")
+  @common.Get("/:id/purchaseAccountProductGroups")
   @ApiNestedQuery(ProductGroupFindManyArgs)
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async findProductGroupCostOfGoodsSoldAccounts(
+  async findPurchaseAccountProductGroups(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput
   ): Promise<ProductGroup[]> {
     const query = plainToClass(ProductGroupFindManyArgs, request.query);
-    const results = await this.service.findProductGroupCostOfGoodsSoldAccounts(
+    const results = await this.service.findPurchaseAccountProductGroups(
       params.id,
       {
         ...query,
         select: {
-          PurchaseDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          SaleReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          account: {
-            select: {
-              id: true,
-            },
-          },
-
           code: true,
+
+          costOfGoodsSoldAccount: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           description: true,
           excludeFromPurchase: true,
           excludeFromSale: true,
           id: true,
 
-          inventoryAccountId: {
+          inventoryAccount: {
             select: {
               id: true,
             },
@@ -863,15 +1088,21 @@ export class AccountControllerBase {
           isDefault: true,
           name: true,
           normalizedName: true,
-          notes: true,
+          note: true,
 
-          productGroups: {
+          parentProductGroupId: {
             select: {
               id: true,
             },
           },
 
           purchaseAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseDiscountAccountId: {
             select: {
               id: true,
             },
@@ -895,6 +1126,12 @@ export class AccountControllerBase {
             },
           },
 
+          saleReturnAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
           saleTaxId: {
             select: {
               id: true,
@@ -913,18 +1150,18 @@ export class AccountControllerBase {
     return results;
   }
 
-  @common.Post("/:id/productGroupCostOfGoodsSoldAccounts")
+  @common.Post("/:id/purchaseAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async connectProductGroupCostOfGoodsSoldAccounts(
+  async connectPurchaseAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupCostOfGoodsSoldAccounts: {
+      purchaseAccountProductGroups: {
         connect: body,
       },
     };
@@ -935,18 +1172,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Patch("/:id/productGroupCostOfGoodsSoldAccounts")
+  @common.Patch("/:id/purchaseAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateProductGroupCostOfGoodsSoldAccounts(
+  async updatePurchaseAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupCostOfGoodsSoldAccounts: {
+      purchaseAccountProductGroups: {
         set: body,
       },
     };
@@ -957,18 +1194,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Delete("/:id/productGroupCostOfGoodsSoldAccounts")
+  @common.Delete("/:id/purchaseAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async disconnectProductGroupCostOfGoodsSoldAccounts(
+  async disconnectPurchaseAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupCostOfGoodsSoldAccounts: {
+      purchaseAccountProductGroups: {
         disconnect: body,
       },
     };
@@ -980,49 +1217,38 @@ export class AccountControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/productGroupInventoryAccounts")
+  @common.Get("/:id/purchaseDiscountAccountProductGroups")
   @ApiNestedQuery(ProductGroupFindManyArgs)
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async findProductGroupInventoryAccounts(
+  async findPurchaseDiscountAccountProductGroups(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput
   ): Promise<ProductGroup[]> {
     const query = plainToClass(ProductGroupFindManyArgs, request.query);
-    const results = await this.service.findProductGroupInventoryAccounts(
+    const results = await this.service.findPurchaseDiscountAccountProductGroups(
       params.id,
       {
         ...query,
         select: {
-          PurchaseDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          SaleReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          account: {
-            select: {
-              id: true,
-            },
-          },
-
           code: true,
+
+          costOfGoodsSoldAccount: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           description: true,
           excludeFromPurchase: true,
           excludeFromSale: true,
           id: true,
 
-          inventoryAccountId: {
+          inventoryAccount: {
             select: {
               id: true,
             },
@@ -1031,15 +1257,21 @@ export class AccountControllerBase {
           isDefault: true,
           name: true,
           normalizedName: true,
-          notes: true,
+          note: true,
 
-          productGroups: {
+          parentProductGroupId: {
             select: {
               id: true,
             },
           },
 
           purchaseAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseDiscountAccountId: {
             select: {
               id: true,
             },
@@ -1063,6 +1295,12 @@ export class AccountControllerBase {
             },
           },
 
+          saleReturnAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
           saleTaxId: {
             select: {
               id: true,
@@ -1081,18 +1319,18 @@ export class AccountControllerBase {
     return results;
   }
 
-  @common.Post("/:id/productGroupInventoryAccounts")
+  @common.Post("/:id/purchaseDiscountAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async connectProductGroupInventoryAccounts(
+  async connectPurchaseDiscountAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupInventoryAccounts: {
+      purchaseDiscountAccountProductGroups: {
         connect: body,
       },
     };
@@ -1103,18 +1341,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Patch("/:id/productGroupInventoryAccounts")
+  @common.Patch("/:id/purchaseDiscountAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateProductGroupInventoryAccounts(
+  async updatePurchaseDiscountAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupInventoryAccounts: {
+      purchaseDiscountAccountProductGroups: {
         set: body,
       },
     };
@@ -1125,18 +1363,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Delete("/:id/productGroupInventoryAccounts")
+  @common.Delete("/:id/purchaseDiscountAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async disconnectProductGroupInventoryAccounts(
+  async disconnectPurchaseDiscountAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupInventoryAccounts: {
+      purchaseDiscountAccountProductGroups: {
         disconnect: body,
       },
     };
@@ -1148,49 +1386,38 @@ export class AccountControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/productGroupPurchaseAccounts")
+  @common.Get("/:id/purchaseReturnAccountProductGroups")
   @ApiNestedQuery(ProductGroupFindManyArgs)
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async findProductGroupPurchaseAccounts(
+  async findPurchaseReturnAccountProductGroups(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput
   ): Promise<ProductGroup[]> {
     const query = plainToClass(ProductGroupFindManyArgs, request.query);
-    const results = await this.service.findProductGroupPurchaseAccounts(
+    const results = await this.service.findPurchaseReturnAccountProductGroups(
       params.id,
       {
         ...query,
         select: {
-          PurchaseDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          SaleReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          account: {
-            select: {
-              id: true,
-            },
-          },
-
           code: true,
+
+          costOfGoodsSoldAccount: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           description: true,
           excludeFromPurchase: true,
           excludeFromSale: true,
           id: true,
 
-          inventoryAccountId: {
+          inventoryAccount: {
             select: {
               id: true,
             },
@@ -1199,15 +1426,21 @@ export class AccountControllerBase {
           isDefault: true,
           name: true,
           normalizedName: true,
-          notes: true,
+          note: true,
 
-          productGroups: {
+          parentProductGroupId: {
             select: {
               id: true,
             },
           },
 
           purchaseAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseDiscountAccountId: {
             select: {
               id: true,
             },
@@ -1231,6 +1464,12 @@ export class AccountControllerBase {
             },
           },
 
+          saleReturnAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
           saleTaxId: {
             select: {
               id: true,
@@ -1249,18 +1488,18 @@ export class AccountControllerBase {
     return results;
   }
 
-  @common.Post("/:id/productGroupPurchaseAccounts")
+  @common.Post("/:id/purchaseReturnAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async connectProductGroupPurchaseAccounts(
+  async connectPurchaseReturnAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupPurchaseAccounts: {
+      purchaseReturnAccountProductGroups: {
         connect: body,
       },
     };
@@ -1271,18 +1510,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Patch("/:id/productGroupPurchaseAccounts")
+  @common.Patch("/:id/purchaseReturnAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateProductGroupPurchaseAccounts(
+  async updatePurchaseReturnAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupPurchaseAccounts: {
+      purchaseReturnAccountProductGroups: {
         set: body,
       },
     };
@@ -1293,18 +1532,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Delete("/:id/productGroupPurchaseAccounts")
+  @common.Delete("/:id/purchaseReturnAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async disconnectProductGroupPurchaseAccounts(
+  async disconnectPurchaseReturnAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupPurchaseAccounts: {
+      purchaseReturnAccountProductGroups: {
         disconnect: body,
       },
     };
@@ -1316,49 +1555,38 @@ export class AccountControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/productGroupPurchaseDiscountAccounts")
+  @common.Get("/:id/saleDiscountAccountProductGroups")
   @ApiNestedQuery(ProductGroupFindManyArgs)
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async findProductGroupPurchaseDiscountAccounts(
+  async findSaleDiscountAccountProductGroups(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput
   ): Promise<ProductGroup[]> {
     const query = plainToClass(ProductGroupFindManyArgs, request.query);
-    const results = await this.service.findProductGroupPurchaseDiscountAccounts(
+    const results = await this.service.findSaleDiscountAccountProductGroups(
       params.id,
       {
         ...query,
         select: {
-          PurchaseDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          SaleReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          account: {
-            select: {
-              id: true,
-            },
-          },
-
           code: true,
+
+          costOfGoodsSoldAccount: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           description: true,
           excludeFromPurchase: true,
           excludeFromSale: true,
           id: true,
 
-          inventoryAccountId: {
+          inventoryAccount: {
             select: {
               id: true,
             },
@@ -1367,15 +1595,21 @@ export class AccountControllerBase {
           isDefault: true,
           name: true,
           normalizedName: true,
-          notes: true,
+          note: true,
 
-          productGroups: {
+          parentProductGroupId: {
             select: {
               id: true,
             },
           },
 
           purchaseAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseDiscountAccountId: {
             select: {
               id: true,
             },
@@ -1399,169 +1633,7 @@ export class AccountControllerBase {
             },
           },
 
-          saleTaxId: {
-            select: {
-              id: true,
-            },
-          },
-
-          updatedAt: true,
-        },
-      }
-    );
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/productGroupPurchaseDiscountAccounts")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async connectProductGroupPurchaseDiscountAccounts(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: ProductGroupWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      productGroupPurchaseDiscountAccounts: {
-        connect: body,
-      },
-    };
-    await this.service.updateAccount({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/productGroupPurchaseDiscountAccounts")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async updateProductGroupPurchaseDiscountAccounts(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: ProductGroupWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      productGroupPurchaseDiscountAccounts: {
-        set: body,
-      },
-    };
-    await this.service.updateAccount({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/productGroupPurchaseDiscountAccounts")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectProductGroupPurchaseDiscountAccounts(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: ProductGroupWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      productGroupPurchaseDiscountAccounts: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateAccount({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/productGroupSaleDiscountAccountIds")
-  @ApiNestedQuery(ProductGroupFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "ProductGroup",
-    action: "read",
-    possession: "any",
-  })
-  async findProductGroupSaleDiscountAccountIds(
-    @common.Req() request: Request,
-    @common.Param() params: AccountWhereUniqueInput
-  ): Promise<ProductGroup[]> {
-    const query = plainToClass(ProductGroupFindManyArgs, request.query);
-    const results = await this.service.findProductGroupSaleDiscountAccountIds(
-      params.id,
-      {
-        ...query,
-        select: {
-          PurchaseDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          SaleReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          account: {
-            select: {
-              id: true,
-            },
-          },
-
-          code: true,
-          createdAt: true,
-          description: true,
-          excludeFromPurchase: true,
-          excludeFromSale: true,
-          id: true,
-
-          inventoryAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          isDefault: true,
-          name: true,
-          normalizedName: true,
-          notes: true,
-
-          productGroups: {
-            select: {
-              id: true,
-            },
-          },
-
-          purchaseAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          purchaseReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          saleAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          saleDiscountAccountId: {
+          saleReturnAccountId: {
             select: {
               id: true,
             },
@@ -1585,18 +1657,18 @@ export class AccountControllerBase {
     return results;
   }
 
-  @common.Post("/:id/productGroupSaleDiscountAccountIds")
+  @common.Post("/:id/saleDiscountAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async connectProductGroupSaleDiscountAccountIds(
+  async connectSaleDiscountAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupSaleDiscountAccountIds: {
+      saleDiscountAccountProductGroups: {
         connect: body,
       },
     };
@@ -1607,18 +1679,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Patch("/:id/productGroupSaleDiscountAccountIds")
+  @common.Patch("/:id/saleDiscountAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateProductGroupSaleDiscountAccountIds(
+  async updateSaleDiscountAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupSaleDiscountAccountIds: {
+      saleDiscountAccountProductGroups: {
         set: body,
       },
     };
@@ -1629,186 +1701,18 @@ export class AccountControllerBase {
     });
   }
 
-  @common.Delete("/:id/productGroupSaleDiscountAccountIds")
+  @common.Delete("/:id/saleDiscountAccountProductGroups")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async disconnectProductGroupSaleDiscountAccountIds(
+  async disconnectSaleDiscountAccountProductGroups(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productGroupSaleDiscountAccountIds: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateAccount({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/productGroupSaleReturnAccountIds")
-  @ApiNestedQuery(ProductGroupFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "ProductGroup",
-    action: "read",
-    possession: "any",
-  })
-  async findProductGroupSaleReturnAccountIds(
-    @common.Req() request: Request,
-    @common.Param() params: AccountWhereUniqueInput
-  ): Promise<ProductGroup[]> {
-    const query = plainToClass(ProductGroupFindManyArgs, request.query);
-    const results = await this.service.findProductGroupSaleReturnAccountIds(
-      params.id,
-      {
-        ...query,
-        select: {
-          PurchaseDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          SaleReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          account: {
-            select: {
-              id: true,
-            },
-          },
-
-          code: true,
-          createdAt: true,
-          description: true,
-          excludeFromPurchase: true,
-          excludeFromSale: true,
-          id: true,
-
-          inventoryAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          isDefault: true,
-          name: true,
-          normalizedName: true,
-          notes: true,
-
-          productGroups: {
-            select: {
-              id: true,
-            },
-          },
-
-          purchaseAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          purchaseReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          saleAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          saleDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          saleTaxId: {
-            select: {
-              id: true,
-            },
-          },
-
-          updatedAt: true,
-        },
-      }
-    );
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/productGroupSaleReturnAccountIds")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async connectProductGroupSaleReturnAccountIds(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: ProductGroupWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      productGroupSaleReturnAccountIds: {
-        connect: body,
-      },
-    };
-    await this.service.updateAccount({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/productGroupSaleReturnAccountIds")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async updateProductGroupSaleReturnAccountIds(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: ProductGroupWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      productGroupSaleReturnAccountIds: {
-        set: body,
-      },
-    };
-    await this.service.updateAccount({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/productGroupSaleReturnAccountIds")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectProductGroupSaleReturnAccountIds(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: ProductGroupWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      productGroupSaleReturnAccountIds: {
+      saleDiscountAccountProductGroups: {
         disconnect: body,
       },
     };

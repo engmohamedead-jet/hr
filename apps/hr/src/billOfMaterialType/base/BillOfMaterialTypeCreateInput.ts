@@ -11,10 +11,29 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import { BillOfMaterialCreateNestedManyWithoutBillOfMaterialTypesInput } from "./BillOfMaterialCreateNestedManyWithoutBillOfMaterialTypesInput";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from "class-validator";
+import { Type } from "class-transformer";
 
 @InputType()
 class BillOfMaterialTypeCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => BillOfMaterialCreateNestedManyWithoutBillOfMaterialTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialCreateNestedManyWithoutBillOfMaterialTypesInput)
+  @IsOptional()
+  @Field(() => BillOfMaterialCreateNestedManyWithoutBillOfMaterialTypesInput, {
+    nullable: true,
+  })
+  billOfMaterials?: BillOfMaterialCreateNestedManyWithoutBillOfMaterialTypesInput;
+
   @ApiProperty({
     required: false,
     type: String,

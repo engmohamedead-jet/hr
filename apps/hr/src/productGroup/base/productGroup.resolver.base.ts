@@ -99,39 +99,33 @@ export class ProductGroupResolverBase {
       data: {
         ...args.data,
 
-        PurchaseDiscountAccountId: args.data.PurchaseDiscountAccountId
+        costOfGoodsSoldAccount: args.data.costOfGoodsSoldAccount
           ? {
-              connect: args.data.PurchaseDiscountAccountId,
+              connect: args.data.costOfGoodsSoldAccount,
             }
           : undefined,
 
-        SaleReturnAccountId: args.data.SaleReturnAccountId
+        inventoryAccount: args.data.inventoryAccount
           ? {
-              connect: args.data.SaleReturnAccountId,
+              connect: args.data.inventoryAccount,
             }
           : undefined,
 
-        account: args.data.account
+        parentProductGroupId: args.data.parentProductGroupId
           ? {
-              connect: args.data.account,
-            }
-          : undefined,
-
-        inventoryAccountId: args.data.inventoryAccountId
-          ? {
-              connect: args.data.inventoryAccountId,
-            }
-          : undefined,
-
-        productGroups: args.data.productGroups
-          ? {
-              connect: args.data.productGroups,
+              connect: args.data.parentProductGroupId,
             }
           : undefined,
 
         purchaseAccountId: args.data.purchaseAccountId
           ? {
               connect: args.data.purchaseAccountId,
+            }
+          : undefined,
+
+        purchaseDiscountAccountId: args.data.purchaseDiscountAccountId
+          ? {
+              connect: args.data.purchaseDiscountAccountId,
             }
           : undefined,
 
@@ -150,6 +144,12 @@ export class ProductGroupResolverBase {
         saleDiscountAccountId: args.data.saleDiscountAccountId
           ? {
               connect: args.data.saleDiscountAccountId,
+            }
+          : undefined,
+
+        saleReturnAccountId: args.data.saleReturnAccountId
+          ? {
+              connect: args.data.saleReturnAccountId,
             }
           : undefined,
 
@@ -178,39 +178,33 @@ export class ProductGroupResolverBase {
         data: {
           ...args.data,
 
-          PurchaseDiscountAccountId: args.data.PurchaseDiscountAccountId
+          costOfGoodsSoldAccount: args.data.costOfGoodsSoldAccount
             ? {
-                connect: args.data.PurchaseDiscountAccountId,
+                connect: args.data.costOfGoodsSoldAccount,
               }
             : undefined,
 
-          SaleReturnAccountId: args.data.SaleReturnAccountId
+          inventoryAccount: args.data.inventoryAccount
             ? {
-                connect: args.data.SaleReturnAccountId,
+                connect: args.data.inventoryAccount,
               }
             : undefined,
 
-          account: args.data.account
+          parentProductGroupId: args.data.parentProductGroupId
             ? {
-                connect: args.data.account,
-              }
-            : undefined,
-
-          inventoryAccountId: args.data.inventoryAccountId
-            ? {
-                connect: args.data.inventoryAccountId,
-              }
-            : undefined,
-
-          productGroups: args.data.productGroups
-            ? {
-                connect: args.data.productGroups,
+                connect: args.data.parentProductGroupId,
               }
             : undefined,
 
           purchaseAccountId: args.data.purchaseAccountId
             ? {
                 connect: args.data.purchaseAccountId,
+              }
+            : undefined,
+
+          purchaseDiscountAccountId: args.data.purchaseDiscountAccountId
+            ? {
+                connect: args.data.purchaseDiscountAccountId,
               }
             : undefined,
 
@@ -229,6 +223,12 @@ export class ProductGroupResolverBase {
           saleDiscountAccountId: args.data.saleDiscountAccountId
             ? {
                 connect: args.data.saleDiscountAccountId,
+              }
+            : undefined,
+
+          saleReturnAccountId: args.data.saleReturnAccountId
+            ? {
+                connect: args.data.saleReturnAccountId,
               }
             : undefined,
 
@@ -271,20 +271,17 @@ export class ProductGroupResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [ProductGroup], { name: "parentProductGroupId" })
+  @graphql.ResolveField(() => [ProductGroup], { name: "productGroups" })
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async findParentProductGroupId(
+  async findProductGroups(
     @graphql.Parent() parent: ProductGroup,
     @graphql.Args() args: ProductGroupFindManyArgs
   ): Promise<ProductGroup[]> {
-    const results = await this.service.findParentProductGroupId(
-      parent.id,
-      args
-    );
+    const results = await this.service.findProductGroups(parent.id, args);
 
     if (!results) {
       return [];
@@ -316,17 +313,17 @@ export class ProductGroupResolverBase {
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Account, {
     nullable: true,
-    name: "purchaseDiscountAccountId",
+    name: "costOfGoodsSoldAccount",
   })
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
     possession: "any",
   })
-  async getPurchaseDiscountAccountId(
+  async getCostOfGoodsSoldAccount(
     @graphql.Parent() parent: ProductGroup
   ): Promise<Account | null> {
-    const result = await this.service.getPurchaseDiscountAccountId(parent.id);
+    const result = await this.service.getCostOfGoodsSoldAccount(parent.id);
 
     if (!result) {
       return null;
@@ -337,59 +334,17 @@ export class ProductGroupResolverBase {
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Account, {
     nullable: true,
-    name: "saleReturnAccountId",
+    name: "inventoryAccount",
   })
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
     possession: "any",
   })
-  async getSaleReturnAccountId(
+  async getInventoryAccount(
     @graphql.Parent() parent: ProductGroup
   ): Promise<Account | null> {
-    const result = await this.service.getSaleReturnAccountId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Account, {
-    nullable: true,
-    name: "account",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async getAccount(
-    @graphql.Parent() parent: ProductGroup
-  ): Promise<Account | null> {
-    const result = await this.service.getAccount(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Account, {
-    nullable: true,
-    name: "inventoryAccountId",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async getInventoryAccountId(
-    @graphql.Parent() parent: ProductGroup
-  ): Promise<Account | null> {
-    const result = await this.service.getInventoryAccountId(parent.id);
+    const result = await this.service.getInventoryAccount(parent.id);
 
     if (!result) {
       return null;
@@ -400,17 +355,17 @@ export class ProductGroupResolverBase {
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => ProductGroup, {
     nullable: true,
-    name: "productGroups",
+    name: "parentProductGroupId",
   })
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async getProductGroups(
+  async getParentProductGroupId(
     @graphql.Parent() parent: ProductGroup
   ): Promise<ProductGroup | null> {
-    const result = await this.service.getProductGroups(parent.id);
+    const result = await this.service.getParentProductGroupId(parent.id);
 
     if (!result) {
       return null;
@@ -432,6 +387,27 @@ export class ProductGroupResolverBase {
     @graphql.Parent() parent: ProductGroup
   ): Promise<Account | null> {
     const result = await this.service.getPurchaseAccountId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Account, {
+    nullable: true,
+    name: "purchaseDiscountAccountId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "read",
+    possession: "any",
+  })
+  async getPurchaseDiscountAccountId(
+    @graphql.Parent() parent: ProductGroup
+  ): Promise<Account | null> {
+    const result = await this.service.getPurchaseDiscountAccountId(parent.id);
 
     if (!result) {
       return null;
@@ -495,6 +471,27 @@ export class ProductGroupResolverBase {
     @graphql.Parent() parent: ProductGroup
   ): Promise<Account | null> {
     const result = await this.service.getSaleDiscountAccountId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Account, {
+    nullable: true,
+    name: "saleReturnAccountId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleReturnAccountId(
+    @graphql.Parent() parent: ProductGroup
+  ): Promise<Account | null> {
+    const result = await this.service.getSaleReturnAccountId(parent.id);
 
     if (!result) {
       return null;

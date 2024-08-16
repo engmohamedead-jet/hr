@@ -20,10 +20,8 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { AccountCategoryWhereUniqueInput } from "../../accountCategory/base/AccountCategoryWhereUniqueInput";
-import { AccountTypeWhereUniqueInput } from "../../accountType/base/AccountTypeWhereUniqueInput";
-import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
-import { InstallmentSaleFeeCreateNestedManyWithoutAccountsInput } from "./InstallmentSaleFeeCreateNestedManyWithoutAccountsInput";
+import { AccountWhereUniqueInput } from "./AccountWhereUniqueInput";
+import { AccountCreateNestedManyWithoutAccountsInput } from "./AccountCreateNestedManyWithoutAccountsInput";
 
 @InputType()
 class AccountCreateInput {
@@ -37,7 +35,16 @@ class AccountCreateInput {
   @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
     nullable: true,
   })
-  ProductGroupPurchaseReturnAccounts?: ProductGroupCreateNestedManyWithoutAccountsInput;
+  SaleReturnAccountProductGroups?: ProductGroupCreateNestedManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  accountNumber!: string;
 
   @ApiProperty({
     required: false,
@@ -49,49 +56,19 @@ class AccountCreateInput {
   @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
     nullable: true,
   })
-  ProductGroupSaleAccounts?: ProductGroupCreateNestedManyWithoutAccountsInput;
+  aleAccountProductGroups?: ProductGroupCreateNestedManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
-    type: () => AccountCategoryWhereUniqueInput,
+    type: () => ProductGroupCreateNestedManyWithoutAccountsInput,
   })
   @ValidateNested()
-  @Type(() => AccountCategoryWhereUniqueInput)
+  @Type(() => ProductGroupCreateNestedManyWithoutAccountsInput)
   @IsOptional()
-  @Field(() => AccountCategoryWhereUniqueInput, {
+  @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
     nullable: true,
   })
-  accountCategory?: AccountCategoryWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(100)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  accountNumber?: string | null;
-
-  @ApiProperty({
-    required: true,
-    type: () => AccountTypeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountTypeWhereUniqueInput)
-  @Field(() => AccountTypeWhereUniqueInput)
-  accountTypeId!: AccountTypeWhereUniqueInput;
-
-  @ApiProperty({
-    required: true,
-    type: () => CurrencyWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CurrencyWhereUniqueInput)
-  @Field(() => CurrencyWhereUniqueInput)
-  currencyId!: CurrencyWhereUniqueInput;
+  costOfGoodsSoldAccountProductGroups?: ProductGroupCreateNestedManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -107,15 +84,15 @@ class AccountCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => InstallmentSaleFeeCreateNestedManyWithoutAccountsInput,
+    type: () => ProductGroupCreateNestedManyWithoutAccountsInput,
   })
   @ValidateNested()
-  @Type(() => InstallmentSaleFeeCreateNestedManyWithoutAccountsInput)
+  @Type(() => ProductGroupCreateNestedManyWithoutAccountsInput)
   @IsOptional()
-  @Field(() => InstallmentSaleFeeCreateNestedManyWithoutAccountsInput, {
+  @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
     nullable: true,
   })
-  installmentSaleFees?: InstallmentSaleFeeCreateNestedManyWithoutAccountsInput;
+  inventoryAccountProductGroups?: ProductGroupCreateNestedManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -126,33 +103,14 @@ class AccountCreateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isActive?: boolean | null;
-
-  @ApiProperty({
-    required: true,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @Field(() => Boolean)
-  isMasterAccount!: boolean;
-
-  @ApiProperty({
-    required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isUnderRevision?: boolean | null;
+  isMasterAccount?: boolean | null;
 
   @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   name!: string;
 
@@ -161,7 +119,7 @@ class AccountCreateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   normalizedName!: string;
 
@@ -179,15 +137,27 @@ class AccountCreateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => AccountWhereUniqueInput,
   })
-  @IsString()
-  @MaxLength(1000)
+  @ValidateNested()
+  @Type(() => AccountWhereUniqueInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  parentAccountId?: string | null;
+  parentAccountId?: AccountWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => AccountCreateNestedManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountCreateNestedManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => AccountCreateNestedManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  parentAccounts?: AccountCreateNestedManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -199,7 +169,7 @@ class AccountCreateInput {
   @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
     nullable: true,
   })
-  productGroupCostOfGoodsSoldAccounts?: ProductGroupCreateNestedManyWithoutAccountsInput;
+  purchaseAccountProductGroups?: ProductGroupCreateNestedManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -211,7 +181,7 @@ class AccountCreateInput {
   @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
     nullable: true,
   })
-  productGroupInventoryAccounts?: ProductGroupCreateNestedManyWithoutAccountsInput;
+  purchaseDiscountAccountProductGroups?: ProductGroupCreateNestedManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -223,7 +193,7 @@ class AccountCreateInput {
   @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
     nullable: true,
   })
-  productGroupPurchaseAccounts?: ProductGroupCreateNestedManyWithoutAccountsInput;
+  purchaseReturnAccountProductGroups?: ProductGroupCreateNestedManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -235,43 +205,7 @@ class AccountCreateInput {
   @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
     nullable: true,
   })
-  productGroupPurchaseDiscountAccounts?: ProductGroupCreateNestedManyWithoutAccountsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductGroupCreateNestedManyWithoutAccountsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductGroupCreateNestedManyWithoutAccountsInput)
-  @IsOptional()
-  @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
-    nullable: true,
-  })
-  productGroupSaleDiscountAccountIds?: ProductGroupCreateNestedManyWithoutAccountsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductGroupCreateNestedManyWithoutAccountsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductGroupCreateNestedManyWithoutAccountsInput)
-  @IsOptional()
-  @Field(() => ProductGroupCreateNestedManyWithoutAccountsInput, {
-    nullable: true,
-  })
-  productGroupSaleReturnAccountIds?: ProductGroupCreateNestedManyWithoutAccountsInput;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  referenceNumber?: string | null;
+  saleDiscountAccountProductGroups?: ProductGroupCreateNestedManyWithoutAccountsInput;
 }
 
 export { AccountCreateInput as AccountCreateInput };

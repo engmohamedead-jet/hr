@@ -5,7 +5,9 @@ import {
   ShowProps,
   TextField,
   DateField,
+  ReferenceField,
 } from "react-admin";
+import { PRODUCTIONORDER_TITLE_FIELD } from "../productionOrder/ProductionOrderTitle";
 
 export const OrderStatusShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -18,6 +20,13 @@ export const OrderStatusShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField
+          label="ProductionOrders"
+          source="productionorder.id"
+          reference="ProductionOrder"
+        >
+          <TextField source={PRODUCTIONORDER_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

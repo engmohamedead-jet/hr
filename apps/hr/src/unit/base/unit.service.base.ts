@@ -14,7 +14,9 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Unit as PrismaUnit,
-  CompoundUnit as PrismaCompoundUnit,
+  BillOfMaterialDetail as PrismaBillOfMaterialDetail,
+  BillOfMaterial as PrismaBillOfMaterial,
+  ProductionOrder as PrismaProductionOrder,
   Product as PrismaProduct,
 } from "@prisma/client";
 
@@ -41,15 +43,37 @@ export class UnitServiceBase {
     return this.prisma.unit.delete(args);
   }
 
-  async findCompoundUnits(
+  async findBillOfMaterialDetails(
     parentId: string,
-    args: Prisma.CompoundUnitFindManyArgs
-  ): Promise<PrismaCompoundUnit[]> {
+    args: Prisma.BillOfMaterialDetailFindManyArgs
+  ): Promise<PrismaBillOfMaterialDetail[]> {
     return this.prisma.unit
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .compoundUnits(args);
+      .billOfMaterialDetails(args);
+  }
+
+  async findBillOfMaterials(
+    parentId: string,
+    args: Prisma.BillOfMaterialFindManyArgs
+  ): Promise<PrismaBillOfMaterial[]> {
+    return this.prisma.unit
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .billOfMaterials(args);
+  }
+
+  async findProductionOrders(
+    parentId: string,
+    args: Prisma.ProductionOrderFindManyArgs
+  ): Promise<PrismaProductionOrder[]> {
+    return this.prisma.unit
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .productionOrders(args);
   }
 
   async findProducts(
@@ -61,13 +85,5 @@ export class UnitServiceBase {
         where: { id: parentId },
       })
       .products(args);
-  }
-
-  async getCompareUnit(parentId: string): Promise<PrismaCompoundUnit | null> {
-    return this.prisma.unit
-      .findUnique({
-        where: { id: parentId },
-      })
-      .compareUnit();
   }
 }

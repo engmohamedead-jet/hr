@@ -11,46 +11,51 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
 import {
-  IsString,
-  MaxLength,
   ValidateNested,
   IsOptional,
+  IsString,
+  MaxLength,
   IsDate,
   IsBoolean,
 } from "class-validator";
-import { CompoundUnit } from "../../compoundUnit/base/CompoundUnit";
 import { Type } from "class-transformer";
+import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { Product } from "../../product/base/Product";
 
 @ObjectType()
 class Unit {
   @ApiProperty({
-    required: true,
+    required: false,
+    type: () => [BillOfMaterialDetail],
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialDetail)
+  @IsOptional()
+  billOfMaterialDetails?: Array<BillOfMaterialDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [BillOfMaterial],
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterial)
+  @IsOptional()
+  billOfMaterials?: Array<BillOfMaterial>;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => CompoundUnit,
-  })
-  @ValidateNested()
-  @Type(() => CompoundUnit)
   @IsOptional()
-  compareUnit?: CompoundUnit | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [CompoundUnit],
+  @Field(() => String, {
+    nullable: true,
   })
-  @ValidateNested()
-  @Type(() => CompoundUnit)
-  @IsOptional()
-  compoundUnits?: Array<CompoundUnit>;
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -92,12 +97,15 @@ class Unit {
   isCompound!: boolean | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: Boolean,
   })
   @IsBoolean()
-  @Field(() => Boolean)
-  isDefault!: boolean;
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isDefault!: boolean | null;
 
   @ApiProperty({
     required: true,
@@ -128,6 +136,15 @@ class Unit {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductionOrder],
+  })
+  @ValidateNested()
+  @Type(() => ProductionOrder)
+  @IsOptional()
+  productionOrders?: Array<ProductionOrder>;
 
   @ApiProperty({
     required: false,

@@ -11,49 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountTransactionDetail } from "../../accountTransactionDetail/base/AccountTransactionDetail";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
   IsBoolean,
   IsDate,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { AccountTransaction } from "../../accountTransaction/base/AccountTransaction";
-import { CustomerElevator } from "../../customerElevator/base/CustomerElevator";
-import { Elevator } from "../../elevator/base/Elevator";
-import { FailureReporting } from "../../failureReporting/base/FailureReporting";
-import { MaintenanceContract } from "../../maintenanceContract/base/MaintenanceContract";
-import { MaintenanceVisit } from "../../maintenanceVisit/base/MaintenanceVisit";
-import { Notification } from "../../notification/base/Notification";
-import { Office } from "../../office/base/Office";
-import { PeriodicMaintenanceOrder } from "../../periodicMaintenanceOrder/base/PeriodicMaintenanceOrder";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { Product } from "../../product/base/Product";
-import { SaleTax } from "../../saleTax/base/SaleTax";
-import { StoreType } from "../../storeType/base/StoreType";
 
 @ObjectType()
 class Store {
-  @ApiProperty({
-    required: false,
-    type: () => [AccountTransactionDetail],
-  })
-  @ValidateNested()
-  @Type(() => AccountTransactionDetail)
-  @IsOptional()
-  accountTransactionDetails?: Array<AccountTransactionDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [AccountTransaction],
-  })
-  @ValidateNested()
-  @Type(() => AccountTransaction)
-  @IsOptional()
-  accountTransactions?: Array<AccountTransaction>;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -87,13 +58,16 @@ class Store {
   cellPhoneNumber!: string | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -102,33 +76,6 @@ class Store {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: () => [CustomerElevator],
-  })
-  @ValidateNested()
-  @Type(() => CustomerElevator)
-  @IsOptional()
-  customerElevators?: Array<CustomerElevator>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Elevator],
-  })
-  @ValidateNested()
-  @Type(() => Elevator)
-  @IsOptional()
-  elevators?: Array<Elevator>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [FailureReporting],
-  })
-  @ValidateNested()
-  @Type(() => FailureReporting)
-  @IsOptional()
-  failureReportings?: Array<FailureReporting>;
 
   @ApiProperty({
     required: false,
@@ -163,24 +110,6 @@ class Store {
   id!: string;
 
   @ApiProperty({
-    required: false,
-    type: () => [MaintenanceContract],
-  })
-  @ValidateNested()
-  @Type(() => MaintenanceContract)
-  @IsOptional()
-  maintenanceContracts?: Array<MaintenanceContract>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [MaintenanceVisit],
-  })
-  @ValidateNested()
-  @Type(() => MaintenanceVisit)
-  @IsOptional()
-  maintenanceVisits?: Array<MaintenanceVisit>;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
@@ -203,7 +132,7 @@ class Store {
     type: String,
   })
   @IsString()
-  @MaxLength(1000)
+  @MaxLength(100)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -212,29 +141,12 @@ class Store {
 
   @ApiProperty({
     required: false,
-    type: () => [Notification],
+    type: () => [ProductionOrder],
   })
   @ValidateNested()
-  @Type(() => Notification)
+  @Type(() => ProductionOrder)
   @IsOptional()
-  notifications?: Array<Notification>;
-
-  @ApiProperty({
-    required: true,
-    type: () => Office,
-  })
-  @ValidateNested()
-  @Type(() => Office)
-  office?: Office;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PeriodicMaintenanceOrder],
-  })
-  @ValidateNested()
-  @Type(() => PeriodicMaintenanceOrder)
-  @IsOptional()
-  periodicMaintenanceOrders?: Array<PeriodicMaintenanceOrder>;
+  productionOrders?: Array<ProductionOrder>;
 
   @ApiProperty({
     required: false,
@@ -244,23 +156,6 @@ class Store {
   @Type(() => Product)
   @IsOptional()
   products?: Array<Product>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleTax],
-  })
-  @ValidateNested()
-  @Type(() => SaleTax)
-  @IsOptional()
-  saleTaxes?: Array<SaleTax>;
-
-  @ApiProperty({
-    required: true,
-    type: () => StoreType,
-  })
-  @ValidateNested()
-  @Type(() => StoreType)
-  storeType?: StoreType;
 
   @ApiProperty({
     required: false,

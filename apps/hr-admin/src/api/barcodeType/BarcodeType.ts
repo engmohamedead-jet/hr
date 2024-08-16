@@ -1,3 +1,5 @@
+import { ProductBarcode } from "../productBarcode/ProductBarcode";
+
 export type BarcodeType = {
   code: string | null;
   createdAt: Date;
@@ -6,5 +8,6 @@ export type BarcodeType = {
   name: string;
   normalizedName: string;
   note: string | null;
+  productBarcodes?: Array<ProductBarcode>;
   updatedAt: Date;
 };

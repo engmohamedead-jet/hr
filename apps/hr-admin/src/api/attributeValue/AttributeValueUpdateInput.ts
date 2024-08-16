@@ -1,7 +1,9 @@
 import { AttributeWhereUniqueInput } from "../attribute/AttributeWhereUniqueInput";
+import { ProductVariantUpdateManyWithoutAttributeValuesInput } from "./ProductVariantUpdateManyWithoutAttributeValuesInput";
 
 export type AttributeValueUpdateInput = {
-  attributeId?: AttributeWhereUniqueInput | null;
+  attributeId?: AttributeWhereUniqueInput;
   note?: string | null;
-  value?: string | null;
+  productVariants?: ProductVariantUpdateManyWithoutAttributeValuesInput;
+  value?: string;
 };

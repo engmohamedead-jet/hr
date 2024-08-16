@@ -55,39 +55,33 @@ export class ProductGroupControllerBase {
       data: {
         ...data,
 
-        PurchaseDiscountAccountId: data.PurchaseDiscountAccountId
+        costOfGoodsSoldAccount: data.costOfGoodsSoldAccount
           ? {
-              connect: data.PurchaseDiscountAccountId,
+              connect: data.costOfGoodsSoldAccount,
             }
           : undefined,
 
-        SaleReturnAccountId: data.SaleReturnAccountId
+        inventoryAccount: data.inventoryAccount
           ? {
-              connect: data.SaleReturnAccountId,
+              connect: data.inventoryAccount,
             }
           : undefined,
 
-        account: data.account
+        parentProductGroupId: data.parentProductGroupId
           ? {
-              connect: data.account,
-            }
-          : undefined,
-
-        inventoryAccountId: data.inventoryAccountId
-          ? {
-              connect: data.inventoryAccountId,
-            }
-          : undefined,
-
-        productGroups: data.productGroups
-          ? {
-              connect: data.productGroups,
+              connect: data.parentProductGroupId,
             }
           : undefined,
 
         purchaseAccountId: data.purchaseAccountId
           ? {
               connect: data.purchaseAccountId,
+            }
+          : undefined,
+
+        purchaseDiscountAccountId: data.purchaseDiscountAccountId
+          ? {
+              connect: data.purchaseDiscountAccountId,
             }
           : undefined,
 
@@ -109,6 +103,12 @@ export class ProductGroupControllerBase {
             }
           : undefined,
 
+        saleReturnAccountId: data.saleReturnAccountId
+          ? {
+              connect: data.saleReturnAccountId,
+            }
+          : undefined,
+
         saleTaxId: data.saleTaxId
           ? {
               connect: data.saleTaxId,
@@ -116,32 +116,21 @@ export class ProductGroupControllerBase {
           : undefined,
       },
       select: {
-        PurchaseDiscountAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        SaleReturnAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        account: {
-          select: {
-            id: true,
-          },
-        },
-
         code: true,
+
+        costOfGoodsSoldAccount: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         excludeFromPurchase: true,
         excludeFromSale: true,
         id: true,
 
-        inventoryAccountId: {
+        inventoryAccount: {
           select: {
             id: true,
           },
@@ -150,15 +139,21 @@ export class ProductGroupControllerBase {
         isDefault: true,
         name: true,
         normalizedName: true,
-        notes: true,
+        note: true,
 
-        productGroups: {
+        parentProductGroupId: {
           select: {
             id: true,
           },
         },
 
         purchaseAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseDiscountAccountId: {
           select: {
             id: true,
           },
@@ -177,6 +172,12 @@ export class ProductGroupControllerBase {
         },
 
         saleDiscountAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnAccountId: {
           select: {
             id: true,
           },
@@ -210,32 +211,21 @@ export class ProductGroupControllerBase {
     return this.service.productGroups({
       ...args,
       select: {
-        PurchaseDiscountAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        SaleReturnAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        account: {
-          select: {
-            id: true,
-          },
-        },
-
         code: true,
+
+        costOfGoodsSoldAccount: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         excludeFromPurchase: true,
         excludeFromSale: true,
         id: true,
 
-        inventoryAccountId: {
+        inventoryAccount: {
           select: {
             id: true,
           },
@@ -244,15 +234,21 @@ export class ProductGroupControllerBase {
         isDefault: true,
         name: true,
         normalizedName: true,
-        notes: true,
+        note: true,
 
-        productGroups: {
+        parentProductGroupId: {
           select: {
             id: true,
           },
         },
 
         purchaseAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseDiscountAccountId: {
           select: {
             id: true,
           },
@@ -271,6 +267,12 @@ export class ProductGroupControllerBase {
         },
 
         saleDiscountAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnAccountId: {
           select: {
             id: true,
           },
@@ -305,32 +307,21 @@ export class ProductGroupControllerBase {
     const result = await this.service.productGroup({
       where: params,
       select: {
-        PurchaseDiscountAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        SaleReturnAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        account: {
-          select: {
-            id: true,
-          },
-        },
-
         code: true,
+
+        costOfGoodsSoldAccount: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         excludeFromPurchase: true,
         excludeFromSale: true,
         id: true,
 
-        inventoryAccountId: {
+        inventoryAccount: {
           select: {
             id: true,
           },
@@ -339,15 +330,21 @@ export class ProductGroupControllerBase {
         isDefault: true,
         name: true,
         normalizedName: true,
-        notes: true,
+        note: true,
 
-        productGroups: {
+        parentProductGroupId: {
           select: {
             id: true,
           },
         },
 
         purchaseAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseDiscountAccountId: {
           select: {
             id: true,
           },
@@ -366,6 +363,12 @@ export class ProductGroupControllerBase {
         },
 
         saleDiscountAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnAccountId: {
           select: {
             id: true,
           },
@@ -410,39 +413,33 @@ export class ProductGroupControllerBase {
         data: {
           ...data,
 
-          PurchaseDiscountAccountId: data.PurchaseDiscountAccountId
+          costOfGoodsSoldAccount: data.costOfGoodsSoldAccount
             ? {
-                connect: data.PurchaseDiscountAccountId,
+                connect: data.costOfGoodsSoldAccount,
               }
             : undefined,
 
-          SaleReturnAccountId: data.SaleReturnAccountId
+          inventoryAccount: data.inventoryAccount
             ? {
-                connect: data.SaleReturnAccountId,
+                connect: data.inventoryAccount,
               }
             : undefined,
 
-          account: data.account
+          parentProductGroupId: data.parentProductGroupId
             ? {
-                connect: data.account,
-              }
-            : undefined,
-
-          inventoryAccountId: data.inventoryAccountId
-            ? {
-                connect: data.inventoryAccountId,
-              }
-            : undefined,
-
-          productGroups: data.productGroups
-            ? {
-                connect: data.productGroups,
+                connect: data.parentProductGroupId,
               }
             : undefined,
 
           purchaseAccountId: data.purchaseAccountId
             ? {
                 connect: data.purchaseAccountId,
+              }
+            : undefined,
+
+          purchaseDiscountAccountId: data.purchaseDiscountAccountId
+            ? {
+                connect: data.purchaseDiscountAccountId,
               }
             : undefined,
 
@@ -464,6 +461,12 @@ export class ProductGroupControllerBase {
               }
             : undefined,
 
+          saleReturnAccountId: data.saleReturnAccountId
+            ? {
+                connect: data.saleReturnAccountId,
+              }
+            : undefined,
+
           saleTaxId: data.saleTaxId
             ? {
                 connect: data.saleTaxId,
@@ -471,32 +474,21 @@ export class ProductGroupControllerBase {
             : undefined,
         },
         select: {
-          PurchaseDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          SaleReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          account: {
-            select: {
-              id: true,
-            },
-          },
-
           code: true,
+
+          costOfGoodsSoldAccount: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           description: true,
           excludeFromPurchase: true,
           excludeFromSale: true,
           id: true,
 
-          inventoryAccountId: {
+          inventoryAccount: {
             select: {
               id: true,
             },
@@ -505,15 +497,21 @@ export class ProductGroupControllerBase {
           isDefault: true,
           name: true,
           normalizedName: true,
-          notes: true,
+          note: true,
 
-          productGroups: {
+          parentProductGroupId: {
             select: {
               id: true,
             },
           },
 
           purchaseAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseDiscountAccountId: {
             select: {
               id: true,
             },
@@ -532,6 +530,12 @@ export class ProductGroupControllerBase {
           },
 
           saleDiscountAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleReturnAccountId: {
             select: {
               id: true,
             },
@@ -574,32 +578,21 @@ export class ProductGroupControllerBase {
       return await this.service.deleteProductGroup({
         where: params,
         select: {
-          PurchaseDiscountAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          SaleReturnAccountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          account: {
-            select: {
-              id: true,
-            },
-          },
-
           code: true,
+
+          costOfGoodsSoldAccount: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           description: true,
           excludeFromPurchase: true,
           excludeFromSale: true,
           id: true,
 
-          inventoryAccountId: {
+          inventoryAccount: {
             select: {
               id: true,
             },
@@ -608,15 +601,21 @@ export class ProductGroupControllerBase {
           isDefault: true,
           name: true,
           normalizedName: true,
-          notes: true,
+          note: true,
 
-          productGroups: {
+          parentProductGroupId: {
             select: {
               id: true,
             },
           },
 
           purchaseAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchaseDiscountAccountId: {
             select: {
               id: true,
             },
@@ -635,6 +634,12 @@ export class ProductGroupControllerBase {
           },
 
           saleDiscountAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleReturnAccountId: {
             select: {
               id: true,
             },
@@ -660,47 +665,36 @@ export class ProductGroupControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/parentProductGroupId")
+  @common.Get("/:id/productGroups")
   @ApiNestedQuery(ProductGroupFindManyArgs)
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "read",
     possession: "any",
   })
-  async findParentProductGroupId(
+  async findProductGroups(
     @common.Req() request: Request,
     @common.Param() params: ProductGroupWhereUniqueInput
   ): Promise<ProductGroup[]> {
     const query = plainToClass(ProductGroupFindManyArgs, request.query);
-    const results = await this.service.findParentProductGroupId(params.id, {
+    const results = await this.service.findProductGroups(params.id, {
       ...query,
       select: {
-        PurchaseDiscountAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        SaleReturnAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        account: {
-          select: {
-            id: true,
-          },
-        },
-
         code: true,
+
+        costOfGoodsSoldAccount: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         excludeFromPurchase: true,
         excludeFromSale: true,
         id: true,
 
-        inventoryAccountId: {
+        inventoryAccount: {
           select: {
             id: true,
           },
@@ -709,15 +703,21 @@ export class ProductGroupControllerBase {
         isDefault: true,
         name: true,
         normalizedName: true,
-        notes: true,
+        note: true,
 
-        productGroups: {
+        parentProductGroupId: {
           select: {
             id: true,
           },
         },
 
         purchaseAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseDiscountAccountId: {
           select: {
             id: true,
           },
@@ -741,6 +741,12 @@ export class ProductGroupControllerBase {
           },
         },
 
+        saleReturnAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
         saleTaxId: {
           select: {
             id: true,
@@ -758,18 +764,18 @@ export class ProductGroupControllerBase {
     return results;
   }
 
-  @common.Post("/:id/parentProductGroupId")
+  @common.Post("/:id/productGroups")
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "update",
     possession: "any",
   })
-  async connectParentProductGroupId(
+  async connectProductGroups(
     @common.Param() params: ProductGroupWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      parentProductGroupId: {
+      productGroups: {
         connect: body,
       },
     };
@@ -780,18 +786,18 @@ export class ProductGroupControllerBase {
     });
   }
 
-  @common.Patch("/:id/parentProductGroupId")
+  @common.Patch("/:id/productGroups")
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "update",
     possession: "any",
   })
-  async updateParentProductGroupId(
+  async updateProductGroups(
     @common.Param() params: ProductGroupWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      parentProductGroupId: {
+      productGroups: {
         set: body,
       },
     };
@@ -802,18 +808,18 @@ export class ProductGroupControllerBase {
     });
   }
 
-  @common.Delete("/:id/parentProductGroupId")
+  @common.Delete("/:id/productGroups")
   @nestAccessControl.UseRoles({
     resource: "ProductGroup",
     action: "update",
     possession: "any",
   })
-  async disconnectParentProductGroupId(
+  async disconnectProductGroups(
     @common.Param() params: ProductGroupWhereUniqueInput,
     @common.Body() body: ProductGroupWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      parentProductGroupId: {
+      productGroups: {
         disconnect: body,
       },
     };
@@ -840,12 +846,6 @@ export class ProductGroupControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -881,6 +881,7 @@ export class ProductGroupControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -890,6 +891,12 @@ export class ProductGroupControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },

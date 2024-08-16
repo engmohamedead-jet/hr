@@ -11,44 +11,40 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { ProductGroup } from "../../productGroup/base/ProductGroup";
 
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
+  ValidateNested,
   IsBoolean,
   IsNumber,
-  Min,
   Max,
   IsDate,
+  Min,
   IsInt,
 } from "class-validator";
 
+import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
 import { Type } from "class-transformer";
+import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
 import { Decimal } from "decimal.js";
 import { Store } from "../../store/base/Store";
 import { Unit } from "../../unit/base/Unit";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
 import { ProductCategory } from "../../productCategory/base/ProductCategory";
 import { ProductDepartment } from "../../productDepartment/base/ProductDepartment";
+import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { ProductType } from "../../productType/base/ProductType";
+import { ProductVariant } from "../../productVariant/base/ProductVariant";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { SaleTax } from "../../saleTax/base/SaleTax";
 
 @ObjectType()
 class Product {
-  @ApiProperty({
-    required: false,
-    type: () => ProductGroup,
-  })
-  @ValidateNested()
-  @Type(() => ProductGroup)
-  @IsOptional()
-  ProductGroupId?: ProductGroup | null;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -60,6 +56,24 @@ class Product {
     nullable: true,
   })
   barcode!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [BillOfMaterialDetail],
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialDetail)
+  @IsOptional()
+  billOfMaterialDetails?: Array<BillOfMaterialDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [BillOfMaterial],
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterial)
+  @IsOptional()
+  billOfMaterials?: Array<BillOfMaterial>;
 
   @ApiProperty({
     required: true,
@@ -82,17 +96,13 @@ class Product {
   code!: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(999999999)
-  @IsOptional()
-  @Field(() => Float, {
-    nullable: true,
-  })
-  costPrice!: Decimal | null;
+  @Field(() => Float)
+  costPrice!: Decimal;
 
   @ApiProperty({
     required: false,
@@ -127,21 +137,23 @@ class Product {
     required: false,
     type: Number,
   })
-  @IsNumber()
+  @IsInt()
+  @Min(1)
   @Max(99999999999)
   @IsOptional()
-  @Field(() => Float, {
+  @Field(() => Number, {
     nullable: true,
   })
-  daysToManufacture!: Decimal | null;
+  daysToManufacture!: number | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: () => Store,
   })
   @ValidateNested()
   @Type(() => Store)
-  defaultStoreId?: Store;
+  @IsOptional()
+  defaultStoreId?: Store | null;
 
   @ApiProperty({
     required: true,
@@ -179,7 +191,7 @@ class Product {
     type: Number,
   })
   @IsNumber()
-  @Max(99999999999)
+  @Max(100)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
@@ -204,7 +216,6 @@ class Product {
     type: Number,
   })
   @IsInt()
-  @Min(1)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Number, {
@@ -300,6 +311,18 @@ class Product {
 
   @ApiProperty({
     required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  note!: string | null;
+
+  @ApiProperty({
+    required: false,
   })
   @IsJSONValue()
   @IsOptional()
@@ -307,6 +330,15 @@ class Product {
     nullable: true,
   })
   photo!: JsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductBarcode],
+  })
+  @ValidateNested()
+  @Type(() => ProductBarcode)
+  @IsOptional()
+  productBarcodes?: Array<ProductBarcode>;
 
   @ApiProperty({
     required: false,
@@ -327,6 +359,15 @@ class Product {
   productDepartmentId?: ProductDepartment | null;
 
   @ApiProperty({
+    required: false,
+    type: () => ProductGroup,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  productGroupId?: ProductGroup | null;
+
+  @ApiProperty({
     required: true,
     type: () => ProductType,
   })
@@ -336,10 +377,28 @@ class Product {
 
   @ApiProperty({
     required: false,
+    type: () => [ProductVariant],
+  })
+  @ValidateNested()
+  @Type(() => ProductVariant)
+  @IsOptional()
+  productVariants?: Array<ProductVariant>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductionOrder],
+  })
+  @ValidateNested()
+  @Type(() => ProductionOrder)
+  @IsOptional()
+  productionOrders?: Array<ProductionOrder>;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
-  @Max(99999999999)
+  @Max(100)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
@@ -364,19 +423,16 @@ class Product {
   })
   @IsNumber()
   @Max(999999999)
-  @Field(() => Number)
-  salePrice!: number;
+  @Field(() => Float)
+  salePrice!: Decimal;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  salePriceIncludesTax!: boolean | null;
+  @Field(() => Boolean)
+  salePriceIncludesTax!: boolean;
 
   @ApiProperty({
     required: false,

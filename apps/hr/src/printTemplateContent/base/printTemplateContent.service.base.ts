@@ -52,13 +52,13 @@ export class PrintTemplateContentServiceBase {
     return this.prisma.printTemplateContent.delete(args);
   }
 
-  async getPrintTemplateId(
+  async getPrintTemplate(
     parentId: string
   ): Promise<PrismaPrintTemplate | null> {
     return this.prisma.printTemplateContent
       .findUnique({
         where: { id: parentId },
       })
-      .printTemplateId();
+      .printTemplate();
   }
 }

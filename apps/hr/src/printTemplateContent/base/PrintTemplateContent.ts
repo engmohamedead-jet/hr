@@ -88,7 +88,7 @@ class PrintTemplateContent {
   @ValidateNested()
   @Type(() => PrintTemplate)
   @IsOptional()
-  printTemplateId?: PrintTemplate | null;
+  printTemplate?: PrintTemplate | null;
 
   @ApiProperty({
     required: true,

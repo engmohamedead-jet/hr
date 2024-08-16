@@ -21,7 +21,6 @@ export const ProductTypeList = (props: ListProps): React.ReactElement => {
       <Datagrid rowClick="show">
         <TextField label="Code" source="code" />
         <DateField source="createdAt" label="Created At" />
-        <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
         <BooleanField label="IsComponent" source="isComponent" />
         <TextField label="Name" source="name" />

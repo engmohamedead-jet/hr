@@ -11,7 +11,14 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+} from "class-validator";
+import { ProductBarcodeUpdateManyWithoutBarcodeTypesInput } from "./ProductBarcodeUpdateManyWithoutBarcodeTypesInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class BarcodeTypeUpdateInput {
@@ -74,6 +81,18 @@ class BarcodeTypeUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductBarcodeUpdateManyWithoutBarcodeTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductBarcodeUpdateManyWithoutBarcodeTypesInput)
+  @IsOptional()
+  @Field(() => ProductBarcodeUpdateManyWithoutBarcodeTypesInput, {
+    nullable: true,
+  })
+  productBarcodes?: ProductBarcodeUpdateManyWithoutBarcodeTypesInput;
 }
 
 export { BarcodeTypeUpdateInput as BarcodeTypeUpdateInput };

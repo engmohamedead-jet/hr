@@ -7,7 +7,7 @@ export type PrintTemplateContent = {
   id: string;
   key: string;
   note: string | null;
-  printTemplateId?: PrintTemplate | null;
+  printTemplate?: PrintTemplate | null;
   updatedAt: Date;
   value: string;
 };

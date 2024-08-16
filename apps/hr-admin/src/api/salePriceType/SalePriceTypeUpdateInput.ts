@@ -1,9 +1,6 @@
-import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
-
 export type SalePriceTypeUpdateInput = {
-  code?: string;
-  customers?: CustomerWhereUniqueInput | null;
-  isDefault?: boolean;
+  code?: string | null;
+  description?: string | null;
   name?: string;
   normalizedName?: string;
   note?: string | null;

@@ -4,8 +4,8 @@ import {
   List,
   Datagrid,
   ListProps,
-  ReferenceField,
   TextField,
+  ReferenceField,
   DateField,
   BooleanField,
 } from "react-admin";
@@ -25,20 +25,7 @@ export const ProductGroupList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <ReferenceField
-          label="PurchaseDiscountAccountId"
-          source="account.id"
-          reference="Account"
-        >
-          <TextField source={ACCOUNT_TITLE_FIELD} />
-        </ReferenceField>
-        <ReferenceField
-          label="SaleReturnAccountId"
-          source="account.id"
-          reference="Account"
-        >
-          <TextField source={ACCOUNT_TITLE_FIELD} />
-        </ReferenceField>
+        <TextField label="Code" source="code" />
         <ReferenceField
           label="CostOfGoodsSoldAccountId"
           source="account.id"
@@ -46,7 +33,6 @@ export const ProductGroupList = (props: ListProps): React.ReactElement => {
         >
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
-        <TextField label="Code" source="code" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <BooleanField
@@ -65,9 +51,9 @@ export const ProductGroupList = (props: ListProps): React.ReactElement => {
         <BooleanField label="IsDefault" source="isDefault" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
-        <TextField label="Notes" source="notes" />
+        <TextField label="Note" source="note" />
         <ReferenceField
-          label="ProductGroups"
+          label="ParentProductGroupId"
           source="productgroup.id"
           reference="ProductGroup"
         >
@@ -75,6 +61,13 @@ export const ProductGroupList = (props: ListProps): React.ReactElement => {
         </ReferenceField>
         <ReferenceField
           label="PurchaseAccountId"
+          source="account.id"
+          reference="Account"
+        >
+          <TextField source={ACCOUNT_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField
+          label="PurchaseDiscountAccountId"
           source="account.id"
           reference="Account"
         >
@@ -96,6 +89,13 @@ export const ProductGroupList = (props: ListProps): React.ReactElement => {
         </ReferenceField>
         <ReferenceField
           label="SaleDiscountAccountId"
+          source="account.id"
+          reference="Account"
+        >
+          <TextField source={ACCOUNT_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField
+          label="SaleReturnAccountId"
           source="account.id"
           reference="Account"
         >

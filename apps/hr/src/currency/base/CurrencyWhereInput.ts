@@ -11,31 +11,14 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountListRelationFilter } from "../../account/base/AccountListRelationFilter";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
 import { CustomerListRelationFilter } from "../../customer/base/CustomerListRelationFilter";
-import { ExchangeRateDetailListRelationFilter } from "../../exchangeRateDetail/base/ExchangeRateDetailListRelationFilter";
-import { ExchangeRateDetailWhereUniqueInput } from "../../exchangeRateDetail/base/ExchangeRateDetailWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
-import { BooleanFilter } from "../../util/BooleanFilter";
-import { SupplierListRelationFilter } from "../../supplier/base/SupplierListRelationFilter";
 
 @InputType()
 class CurrencyWhereInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => AccountListRelationFilter)
-  @IsOptional()
-  @Field(() => AccountListRelationFilter, {
-    nullable: true,
-  })
-  accounts?: AccountListRelationFilter;
-
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -61,38 +44,14 @@ class CurrencyWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => ExchangeRateDetailListRelationFilter,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetailListRelationFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => ExchangeRateDetailListRelationFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  exchangeRateDetails?: ExchangeRateDetailListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => ExchangeRateDetailWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetailWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ExchangeRateDetailWhereUniqueInput, {
-    nullable: true,
-  })
-  foreignCurrencyName?: ExchangeRateDetailWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: StringFilter,
-  })
-  @Type(() => StringFilter)
-  @IsOptional()
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  hundredthName?: StringFilter;
+  description?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -104,17 +63,6 @@ class CurrencyWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: BooleanFilter,
-  })
-  @Type(() => BooleanFilter)
-  @IsOptional()
-  @Field(() => BooleanFilter, {
-    nullable: true,
-  })
-  isDefault?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -148,29 +96,6 @@ class CurrencyWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => SupplierListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => SupplierListRelationFilter)
-  @IsOptional()
-  @Field(() => SupplierListRelationFilter, {
-    nullable: true,
-  })
-  suppliers?: SupplierListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringFilter,
-  })
-  @Type(() => StringFilter)
-  @IsOptional()
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  symbolField?: StringFilter;
 }
 
 export { CurrencyWhereInput as CurrencyWhereInput };

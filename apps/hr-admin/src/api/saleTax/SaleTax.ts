@@ -1,20 +1,15 @@
 import { ProductGroup } from "../productGroup/ProductGroup";
 import { Product } from "../product/Product";
-import { Decimal } from "decimal.js";
-import { Store } from "../store/Store";
 
 export type SaleTax = {
   code: string | null;
   createdAt: Date;
   description: string | null;
-  id: number;
-  isExemption: boolean | null;
+  id: string;
   name: string;
   normalizedName: string;
   note: string | null;
   productGroups?: Array<ProductGroup>;
   products?: Array<Product>;
-  rate: Decimal | null;
-  store?: Store | null;
   updatedAt: Date;
 };

@@ -14,25 +14,23 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AttributeWhereUniqueInput } from "../../attribute/base/AttributeWhereUniqueInput";
 import {
   ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { ProductVariantCreateNestedManyWithoutAttributeValuesInput } from "./ProductVariantCreateNestedManyWithoutAttributeValuesInput";
 
 @InputType()
 class AttributeValueCreateInput {
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => AttributeWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => AttributeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AttributeWhereUniqueInput, {
-    nullable: true,
-  })
-  attributeId?: AttributeWhereUniqueInput | null;
+  @Field(() => AttributeWhereUniqueInput)
+  attributeId!: AttributeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -48,15 +46,24 @@ class AttributeValueCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductVariantCreateNestedManyWithoutAttributeValuesInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductVariantCreateNestedManyWithoutAttributeValuesInput)
+  @IsOptional()
+  @Field(() => ProductVariantCreateNestedManyWithoutAttributeValuesInput, {
+    nullable: true,
+  })
+  productVariants?: ProductVariantCreateNestedManyWithoutAttributeValuesInput;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  value?: string | null;
+  @Field(() => String)
+  value!: string;
 }
 
 export { AttributeValueCreateInput as AttributeValueCreateInput };

@@ -12,8 +12,6 @@ export type StoreOrderByInput = {
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
-  officeId?: SortOrder;
-  storeTypeId?: SortOrder;
   street?: SortOrder;
   updatedAt?: SortOrder;
 };

@@ -9,5 +9,6 @@ export type ProductDepartmentOrderByInput = {
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
+  parentProductDepartmentId?: SortOrder;
   updatedAt?: SortOrder;
 };

@@ -14,19 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Store as PrismaStore,
-  AccountTransactionDetail as PrismaAccountTransactionDetail,
-  AccountTransaction as PrismaAccountTransaction,
-  CustomerElevator as PrismaCustomerElevator,
-  Elevator as PrismaElevator,
-  FailureReporting as PrismaFailureReporting,
-  MaintenanceContract as PrismaMaintenanceContract,
-  MaintenanceVisit as PrismaMaintenanceVisit,
-  Notification as PrismaNotification,
-  PeriodicMaintenanceOrder as PrismaPeriodicMaintenanceOrder,
+  ProductionOrder as PrismaProductionOrder,
   Product as PrismaProduct,
-  SaleTax as PrismaSaleTax,
-  Office as PrismaOffice,
-  StoreType as PrismaStoreType,
 } from "@prisma/client";
 
 export class StoreServiceBase {
@@ -52,103 +41,15 @@ export class StoreServiceBase {
     return this.prisma.store.delete(args);
   }
 
-  async findAccountTransactionDetails(
+  async findProductionOrders(
     parentId: string,
-    args: Prisma.AccountTransactionDetailFindManyArgs
-  ): Promise<PrismaAccountTransactionDetail[]> {
+    args: Prisma.ProductionOrderFindManyArgs
+  ): Promise<PrismaProductionOrder[]> {
     return this.prisma.store
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .accountTransactionDetails(args);
-  }
-
-  async findAccountTransactions(
-    parentId: string,
-    args: Prisma.AccountTransactionFindManyArgs
-  ): Promise<PrismaAccountTransaction[]> {
-    return this.prisma.store
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .accountTransactions(args);
-  }
-
-  async findCustomerElevators(
-    parentId: string,
-    args: Prisma.CustomerElevatorFindManyArgs
-  ): Promise<PrismaCustomerElevator[]> {
-    return this.prisma.store
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .customerElevators(args);
-  }
-
-  async findElevators(
-    parentId: string,
-    args: Prisma.ElevatorFindManyArgs
-  ): Promise<PrismaElevator[]> {
-    return this.prisma.store
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .elevators(args);
-  }
-
-  async findFailureReportings(
-    parentId: string,
-    args: Prisma.FailureReportingFindManyArgs
-  ): Promise<PrismaFailureReporting[]> {
-    return this.prisma.store
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .failureReportings(args);
-  }
-
-  async findMaintenanceContracts(
-    parentId: string,
-    args: Prisma.MaintenanceContractFindManyArgs
-  ): Promise<PrismaMaintenanceContract[]> {
-    return this.prisma.store
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .maintenanceContracts(args);
-  }
-
-  async findMaintenanceVisits(
-    parentId: string,
-    args: Prisma.MaintenanceVisitFindManyArgs
-  ): Promise<PrismaMaintenanceVisit[]> {
-    return this.prisma.store
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .maintenanceVisits(args);
-  }
-
-  async findNotifications(
-    parentId: string,
-    args: Prisma.NotificationFindManyArgs
-  ): Promise<PrismaNotification[]> {
-    return this.prisma.store
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .notifications(args);
-  }
-
-  async findPeriodicMaintenanceOrders(
-    parentId: string,
-    args: Prisma.PeriodicMaintenanceOrderFindManyArgs
-  ): Promise<PrismaPeriodicMaintenanceOrder[]> {
-    return this.prisma.store
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .periodicMaintenanceOrders(args);
+      .productionOrders(args);
   }
 
   async findProducts(
@@ -160,32 +61,5 @@ export class StoreServiceBase {
         where: { id: parentId },
       })
       .products(args);
-  }
-
-  async findSaleTaxes(
-    parentId: string,
-    args: Prisma.SaleTaxFindManyArgs
-  ): Promise<PrismaSaleTax[]> {
-    return this.prisma.store
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleTaxes(args);
-  }
-
-  async getOffice(parentId: string): Promise<PrismaOffice | null> {
-    return this.prisma.store
-      .findUnique({
-        where: { id: parentId },
-      })
-      .office();
-  }
-
-  async getStoreType(parentId: string): Promise<PrismaStoreType | null> {
-    return this.prisma.store
-      .findUnique({
-        where: { id: parentId },
-      })
-      .storeType();
   }
 }

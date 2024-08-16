@@ -11,47 +11,40 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { ProductGroupWhereUniqueInput } from "../../productGroup/base/ProductGroupWhereUniqueInput";
 
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
+  ValidateNested,
   IsBoolean,
   IsNumber,
-  Min,
   Max,
-  IsDate,
+  Min,
   IsInt,
+  IsDate,
 } from "class-validator";
 
+import { BillOfMaterialDetailUpdateManyWithoutProductsInput } from "./BillOfMaterialDetailUpdateManyWithoutProductsInput";
 import { Type } from "class-transformer";
+import { BillOfMaterialUpdateManyWithoutProductsInput } from "./BillOfMaterialUpdateManyWithoutProductsInput";
 import { Decimal } from "decimal.js";
 import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../../unit/base/UnitWhereUniqueInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { ProductBarcodeUpdateManyWithoutProductsInput } from "./ProductBarcodeUpdateManyWithoutProductsInput";
 import { ProductCategoryWhereUniqueInput } from "../../productCategory/base/ProductCategoryWhereUniqueInput";
 import { ProductDepartmentWhereUniqueInput } from "../../productDepartment/base/ProductDepartmentWhereUniqueInput";
+import { ProductGroupWhereUniqueInput } from "../../productGroup/base/ProductGroupWhereUniqueInput";
 import { ProductTypeWhereUniqueInput } from "../../productType/base/ProductTypeWhereUniqueInput";
+import { ProductVariantUpdateManyWithoutProductsInput } from "./ProductVariantUpdateManyWithoutProductsInput";
+import { ProductionOrderUpdateManyWithoutProductsInput } from "./ProductionOrderUpdateManyWithoutProductsInput";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
 
 @InputType()
 class ProductUpdateInput {
-  @ApiProperty({
-    required: false,
-    type: () => ProductGroupWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductGroupWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProductGroupWhereUniqueInput, {
-    nullable: true,
-  })
-  ProductGroupId?: ProductGroupWhereUniqueInput | null;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -63,6 +56,30 @@ class ProductUpdateInput {
     nullable: true,
   })
   barcode?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => BillOfMaterialDetailUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialDetailUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => BillOfMaterialDetailUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  billOfMaterialDetails?: BillOfMaterialDetailUpdateManyWithoutProductsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BillOfMaterialUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => BillOfMaterialUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  billOfMaterials?: BillOfMaterialUpdateManyWithoutProductsInput;
 
   @ApiProperty({
     required: false,
@@ -92,13 +109,12 @@ class ProductUpdateInput {
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(999999999)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
-  costPrice?: Decimal | null;
+  costPrice?: Decimal;
 
   @ApiProperty({
     required: false,
@@ -128,13 +144,14 @@ class ProductUpdateInput {
     required: false,
     type: Number,
   })
-  @IsNumber()
+  @IsInt()
+  @Min(1)
   @Max(99999999999)
   @IsOptional()
-  @Field(() => Float, {
+  @Field(() => Number, {
     nullable: true,
   })
-  daysToManufacture?: Decimal | null;
+  daysToManufacture?: number | null;
 
   @ApiProperty({
     required: false,
@@ -146,7 +163,7 @@ class ProductUpdateInput {
   @Field(() => StoreWhereUniqueInput, {
     nullable: true,
   })
-  defaultStoreId?: StoreWhereUniqueInput;
+  defaultStoreId?: StoreWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -188,7 +205,7 @@ class ProductUpdateInput {
     type: Number,
   })
   @IsNumber()
-  @Max(99999999999)
+  @Max(100)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
@@ -213,7 +230,6 @@ class ProductUpdateInput {
     type: Number,
   })
   @IsInt()
-  @Min(1)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Number, {
@@ -316,6 +332,18 @@ class ProductUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  note?: string | null;
+
+  @ApiProperty({
+    required: false,
   })
   @IsJSONValue()
   @IsOptional()
@@ -323,6 +351,18 @@ class ProductUpdateInput {
     nullable: true,
   })
   photo?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductBarcodeUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductBarcodeUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => ProductBarcodeUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  productBarcodes?: ProductBarcodeUpdateManyWithoutProductsInput;
 
   @ApiProperty({
     required: false,
@@ -350,6 +390,18 @@ class ProductUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductGroupWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProductGroupWhereUniqueInput, {
+    nullable: true,
+  })
+  productGroupId?: ProductGroupWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductTypeWhereUniqueInput,
   })
   @ValidateNested()
@@ -362,10 +414,34 @@ class ProductUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductVariantUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductVariantUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => ProductVariantUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  productVariants?: ProductVariantUpdateManyWithoutProductsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductionOrderUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductionOrderUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => ProductionOrderUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  productionOrders?: ProductionOrderUpdateManyWithoutProductsInput;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
-  @Max(99999999999)
+  @Max(100)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
@@ -391,10 +467,10 @@ class ProductUpdateInput {
   @IsNumber()
   @Max(999999999)
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => Float, {
     nullable: true,
   })
-  salePrice?: number;
+  salePrice?: Decimal;
 
   @ApiProperty({
     required: false,
@@ -405,7 +481,7 @@ class ProductUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  salePriceIncludesTax?: boolean | null;
+  salePriceIncludesTax?: boolean;
 
   @ApiProperty({
     required: false,

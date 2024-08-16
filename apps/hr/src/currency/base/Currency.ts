@@ -11,37 +11,24 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Account } from "../../account/base/Account";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
   IsDate,
-  IsBoolean,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Customer } from "../../customer/base/Customer";
-import { ExchangeRateDetail } from "../../exchangeRateDetail/base/ExchangeRateDetail";
-import { Supplier } from "../../supplier/base/Supplier";
 
 @ObjectType()
 class Currency {
   @ApiProperty({
     required: false,
-    type: () => [Account],
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  accounts?: Array<Account>;
-
-  @ApiProperty({
-    required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(100)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -67,30 +54,15 @@ class Currency {
 
   @ApiProperty({
     required: false,
-    type: () => [ExchangeRateDetail],
-  })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetail)
-  @IsOptional()
-  exchangeRateDetails?: Array<ExchangeRateDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => ExchangeRateDetail,
-  })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetail)
-  @IsOptional()
-  foreignCurrencyName?: ExchangeRateDetail | null;
-
-  @ApiProperty({
-    required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
-  @Field(() => String)
-  hundredthName!: string;
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  description!: string | null;
 
   @ApiProperty({
     required: true,
@@ -102,18 +74,10 @@ class Currency {
 
   @ApiProperty({
     required: true,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @Field(() => Boolean)
-  isDefault!: boolean;
-
-  @ApiProperty({
-    required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   name!: string;
 
@@ -122,7 +86,7 @@ class Currency {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   normalizedName!: string;
 
@@ -137,24 +101,6 @@ class Currency {
     nullable: true,
   })
   note!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Supplier],
-  })
-  @ValidateNested()
-  @Type(() => Supplier)
-  @IsOptional()
-  suppliers?: Array<Supplier>;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(100)
-  @Field(() => String)
-  symbolField!: string;
 
   @ApiProperty({
     required: true,

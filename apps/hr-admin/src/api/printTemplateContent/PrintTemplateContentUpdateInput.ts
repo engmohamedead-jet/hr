@@ -5,6 +5,6 @@ export type PrintTemplateContentUpdateInput = {
   fieldValue?: string;
   key?: string;
   note?: string | null;
-  printTemplateId?: PrintTemplateWhereUniqueInput | null;
+  printTemplate?: PrintTemplateWhereUniqueInput | null;
   value?: string;
 };

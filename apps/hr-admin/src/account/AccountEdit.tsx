@@ -6,24 +6,30 @@ import {
   EditProps,
   ReferenceArrayInput,
   SelectArrayInput,
-  ReferenceInput,
-  SelectInput,
   TextInput,
   BooleanInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
 import { ProductGroupTitle } from "../productGroup/ProductGroupTitle";
-import { AccountCategoryTitle } from "../accountCategory/AccountCategoryTitle";
-import { AccountTypeTitle } from "../accountType/AccountTypeTitle";
-import { CurrencyTitle } from "../currency/CurrencyTitle";
-import { InstallmentSaleFeeTitle } from "../installmentSaleFee/InstallmentSaleFeeTitle";
+import { AccountTitle } from "./AccountTitle";
 
 export const AccountEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
         <ReferenceArrayInput
-          source="ProductGroupPurchaseReturnAccounts"
+          source="SaleReturnAccountProductGroups"
+          reference="ProductGroup"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ProductGroupTitle} />
+        </ReferenceArrayInput>
+        <TextInput label="AccountNumber" source="accountNumber" />
+        <ReferenceArrayInput
+          source="aleAccountProductGroups"
           reference="ProductGroup"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
@@ -31,53 +37,43 @@ export const AccountEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={ProductGroupTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="ProductGroupSaleAccounts"
+          source="costOfGoodsSoldAccountProductGroups"
           reference="ProductGroup"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={ProductGroupTitle} />
         </ReferenceArrayInput>
-        <ReferenceInput
-          source="accountCategory.id"
-          reference="AccountCategory"
-          label="AccountCategoryId"
-        >
-          <SelectInput optionText={AccountCategoryTitle} />
-        </ReferenceInput>
-        <TextInput label="AccountNumber" source="accountNumber" />
-        <ReferenceInput
-          source="accountTypeId.id"
-          reference="AccountType"
-          label="AccountTypeId"
-        >
-          <SelectInput optionText={AccountTypeTitle} />
-        </ReferenceInput>
-        <ReferenceInput
-          source="currencyId.id"
-          reference="Currency"
-          label="CurrencyId"
-        >
-          <SelectInput optionText={CurrencyTitle} />
-        </ReferenceInput>
         <TextInput label="Description" multiline source="description" />
         <ReferenceArrayInput
-          source="installmentSaleFees"
-          reference="InstallmentSaleFee"
+          source="inventoryAccountProductGroups"
+          reference="ProductGroup"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={InstallmentSaleFeeTitle} />
+          <SelectArrayInput optionText={ProductGroupTitle} />
         </ReferenceArrayInput>
-        <BooleanInput label="IsActive" source="isActive" />
         <BooleanInput label="IsMasterAccount" source="isMasterAccount" />
-        <BooleanInput label="IsUnderRevision" source="isUnderRevision" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
-        <TextInput label="Note" source="note" />
-        <TextInput label="ParentAccountId" source="parentAccountId" />
+        <TextInput label="Note" multiline source="note" />
+        <ReferenceInput
+          source="parentAccountId.id"
+          reference="Account"
+          label="ParentAccountId"
+        >
+          <SelectInput optionText={AccountTitle} />
+        </ReferenceInput>
         <ReferenceArrayInput
-          source="productGroupCostOfGoodsSoldAccounts"
+          source="parentAccounts"
+          reference="Account"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={AccountTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="purchaseAccountProductGroups"
           reference="ProductGroup"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
@@ -85,7 +81,7 @@ export const AccountEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={ProductGroupTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="productGroupInventoryAccounts"
+          source="purchaseDiscountAccountProductGroups"
           reference="ProductGroup"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
@@ -93,7 +89,7 @@ export const AccountEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={ProductGroupTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="productGroupPurchaseAccounts"
+          source="purchaseReturnAccountProductGroups"
           reference="ProductGroup"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
@@ -101,30 +97,13 @@ export const AccountEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={ProductGroupTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="productGroupPurchaseDiscountAccounts"
+          source="saleDiscountAccountProductGroups"
           reference="ProductGroup"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={ProductGroupTitle} />
         </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productGroupSaleDiscountAccountIds"
-          reference="ProductGroup"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductGroupTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productGroupSaleReturnAccountIds"
-          reference="ProductGroup"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductGroupTitle} />
-        </ReferenceArrayInput>
-        <TextInput label="ReferenceNumber" source="referenceNumber" />
       </SimpleForm>
     </Edit>
   );

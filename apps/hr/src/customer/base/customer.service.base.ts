@@ -14,13 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Customer as PrismaCustomer,
-  MaintenanceContract as PrismaMaintenanceContract,
+  ProductionOrder as PrismaProductionOrder,
   Currency as PrismaCurrency,
-  CustomerCateogry as PrismaCustomerCateogry,
-  CustomerType as PrismaCustomerType,
-  Rating as PrismaRating,
-  SalePriceType as PrismaSalePriceType,
-  Supplier as PrismaSupplier,
 } from "@prisma/client";
 
 export class CustomerServiceBase {
@@ -56,76 +51,22 @@ export class CustomerServiceBase {
     return this.prisma.customer.delete(args);
   }
 
-  async findMaintenanceContracts(
+  async findProductionOrders(
     parentId: string,
-    args: Prisma.MaintenanceContractFindManyArgs
-  ): Promise<PrismaMaintenanceContract[]> {
+    args: Prisma.ProductionOrderFindManyArgs
+  ): Promise<PrismaProductionOrder[]> {
     return this.prisma.customer
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .maintenanceContracts(args);
+      .productionOrders(args);
   }
 
-  async getCurrencyId(parentId: string): Promise<PrismaCurrency | null> {
+  async getCurrency(parentId: string): Promise<PrismaCurrency | null> {
     return this.prisma.customer
       .findUnique({
         where: { id: parentId },
       })
-      .currencyId();
-  }
-
-  async getCustomerCateogryId(
-    parentId: string
-  ): Promise<PrismaCustomerCateogry | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .customerCateogryId();
-  }
-
-  async getCustomerTypeId(
-    parentId: string
-  ): Promise<PrismaCustomerType | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .customerTypeId();
-  }
-
-  async getGuarantorRatingId(parentId: string): Promise<PrismaRating | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .guarantorRatingId();
-  }
-
-  async getRating(parentId: string): Promise<PrismaRating | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .rating();
-  }
-
-  async getSalePriceTypeId(
-    parentId: string
-  ): Promise<PrismaSalePriceType | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .salePriceTypeId();
-  }
-
-  async getSupplierId(parentId: string): Promise<PrismaSupplier | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .supplierId();
+      .currency();
   }
 }

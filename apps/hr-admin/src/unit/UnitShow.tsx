@@ -5,34 +5,33 @@ import {
   SimpleShowLayout,
   ShowProps,
   TextField,
-  ReferenceField,
   DateField,
   BooleanField,
   ReferenceManyField,
   Datagrid,
+  ReferenceField,
 } from "react-admin";
 
+import { BILLOFMATERIAL_TITLE_FIELD } from "../billOfMaterial/BillOfMaterialTitle";
+import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
+import { PRODUCTVARIANT_TITLE_FIELD } from "../productVariant/ProductVariantTitle";
 import { UNIT_TITLE_FIELD } from "./UnitTitle";
-import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
+import { WORKCENTERROUTING_TITLE_FIELD } from "../workCenterRouting/WorkCenterRoutingTitle";
+import { BILLOFMATERIALTYPE_TITLE_FIELD } from "../billOfMaterialType/BillOfMaterialTypeTitle";
+import { CUSTOMER_TITLE_FIELD } from "../customer/CustomerTitle";
+import { ORDERSTATUS_TITLE_FIELD } from "../orderStatus/OrderStatusTitle";
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
 import { PRODUCTCATEGORY_TITLE_FIELD } from "../productCategory/ProductCategoryTitle";
 import { PRODUCTDEPARTMENT_TITLE_FIELD } from "../productDepartment/ProductDepartmentTitle";
+import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
 import { PRODUCTTYPE_TITLE_FIELD } from "../productType/ProductTypeTitle";
 import { SALETAX_TITLE_FIELD } from "../saleTax/SaleTaxTitle";
-import { COMPOUNDUNIT_TITLE_FIELD } from "../compoundUnit/CompoundUnitTitle";
 
 export const UnitShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
         <TextField label="Code" source="code" />
-        <ReferenceField
-          label="CompareUnit"
-          source="compoundunit.id"
-          reference="CompoundUnit"
-        >
-          <TextField source={COMPOUNDUNIT_TITLE_FIELD} />
-        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
@@ -43,30 +42,156 @@ export const UnitShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Note" source="note" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
-          reference="CompoundUnit"
-          target="Name"
-          label="CompoundUnits"
+          reference="BillOfMaterialDetail"
+          target="unitIdId"
+          label="BillOfMaterialDetails"
         >
           <Datagrid rowClick="show">
             <ReferenceField
-              label="BaseUnitId"
-              source="unit.id"
-              reference="Unit"
+              label="BillOfMaterial"
+              source="billofmaterial.id"
+              reference="BillOfMaterial"
             >
-              <TextField source={UNIT_TITLE_FIELD} />
+              <TextField source={BILLOFMATERIAL_TITLE_FIELD} />
             </ReferenceField>
-            <ReferenceField
-              label="CompareUnitId"
-              source="unit.id"
-              reference="Unit"
-            >
-              <TextField source={UNIT_TITLE_FIELD} />
-            </ReferenceField>
+            <TextField label="CostShare" source="costShare" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
-            <TextField label="Notes" source="notes" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField
+              label="IsManualConsumption"
+              source="isManualConsumption"
+            />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
-            <TextField label="Value" source="value" />
+            <ReferenceField
+              label="WorkCenterRoutingId"
+              source="workcenterrouting.id"
+              reference="WorkCenterRouting"
+            >
+              <TextField source={WORKCENTERROUTING_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="BillOfMaterial"
+          target="unitIdId"
+          label="BillOfMaterials"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="BillOfMaterialTypeId"
+              source="billofmaterialtype.id"
+              reference="BillOfMaterialType"
+            >
+              <TextField source={BILLOFMATERIALTYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField
+              label="DaysToPrepareManufacturingOrder"
+              source="daysToPrepareManufacturingOrder"
+            />
+            <TextField label="EndDate" source="endDate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <TextField label="Sequence" source="sequence" />
+            <TextField label="StartDate" source="startDate" />
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="ProductionOrder"
+          target="unitId"
+          label="ProductionOrders"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="BillOfMaterialId"
+              source="billofmaterial.id"
+              reference="BillOfMaterial"
+            >
+              <TextField source={BILLOFMATERIAL_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <ReferenceField
+              label="CustomerId"
+              source="customer.id"
+              reference="Customer"
+            >
+              <TextField source={CUSTOMER_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="DeadlineDate" source="deadlineDate" />
+            <TextField label="Description" source="description" />
+            <TextField label="FinishDate" source="finishDate" />
+            <TextField label="ID" source="id" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <TextField label="OrderDate" source="orderDate" />
+            <ReferenceField
+              label="OrderStatusId"
+              source="orderstatus.id"
+              reference="OrderStatus"
+            >
+              <TextField source={ORDERSTATUS_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ProductQuantity" source="productQuantity" />
+            <TextField label="SequenceNumber" source="sequenceNumber" />
+            <TextField label="StartDate" source="startDate" />
+            <ReferenceField label="StoreId" source="store.id" reference="Store">
+              <TextField source={STORE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
@@ -75,13 +200,6 @@ export const UnitShow = (props: ShowProps): React.ReactElement => {
           label="Products"
         >
           <Datagrid rowClick="show">
-            <ReferenceField
-              label="ProductGroupId"
-              source="productgroup.id"
-              reference="ProductGroup"
-            >
-              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="Barcode" source="barcode" />
             <BooleanField label="CanExpire" source="canExpire" />
             <TextField label="Code" source="code" />
@@ -130,6 +248,7 @@ export const UnitShow = (props: ShowProps): React.ReactElement => {
             <TextField label="MinimumSalePrice" source="minimumSalePrice" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
             <TextField label="Photo" source="photo" />
             <ReferenceField
               label="ProductCategoryId"
@@ -144,6 +263,13 @@ export const UnitShow = (props: ShowProps): React.ReactElement => {
               reference="ProductDepartment"
             >
               <TextField source={PRODUCTDEPARTMENT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductGroupId"
+              source="productgroup.id"
+              reference="ProductGroup"
+            >
+              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
               label="ProductTypeId"

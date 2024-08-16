@@ -49,7 +49,15 @@ export class OrderStatusControllerBase {
     @common.Body() data: OrderStatusCreateInput
   ): Promise<OrderStatus> {
     return await this.service.createOrderStatus({
-      data: data,
+      data: {
+        ...data,
+
+        productionOrders: data.productionOrders
+          ? {
+              connect: data.productionOrders,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
@@ -58,6 +66,13 @@ export class OrderStatusControllerBase {
         name: true,
         normalizedName: true,
         note: true,
+
+        productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -87,6 +102,13 @@ export class OrderStatusControllerBase {
         name: true,
         normalizedName: true,
         note: true,
+
+        productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -117,6 +139,13 @@ export class OrderStatusControllerBase {
         name: true,
         normalizedName: true,
         note: true,
+
+        productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -147,7 +176,15 @@ export class OrderStatusControllerBase {
     try {
       return await this.service.updateOrderStatus({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          productionOrders: data.productionOrders
+            ? {
+                connect: data.productionOrders,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
@@ -156,6 +193,13 @@ export class OrderStatusControllerBase {
           name: true,
           normalizedName: true,
           note: true,
+
+          productionOrders: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -194,6 +238,13 @@ export class OrderStatusControllerBase {
           name: true,
           normalizedName: true,
           note: true,
+
+          productionOrders: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

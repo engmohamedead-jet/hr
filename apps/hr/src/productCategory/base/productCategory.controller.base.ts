@@ -52,15 +52,7 @@ export class ProductCategoryControllerBase {
     @common.Body() data: ProductCategoryCreateInput
   ): Promise<ProductCategory> {
     return await this.service.createProductCategory({
-      data: {
-        ...data,
-
-        productDepartment: data.productDepartment
-          ? {
-              connect: data.productDepartment,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         code: true,
         createdAt: true,
@@ -70,13 +62,6 @@ export class ProductCategoryControllerBase {
         name: true,
         normalizedName: true,
         note: true,
-
-        productDepartment: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -109,13 +94,6 @@ export class ProductCategoryControllerBase {
         name: true,
         normalizedName: true,
         note: true,
-
-        productDepartment: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -147,13 +125,6 @@ export class ProductCategoryControllerBase {
         name: true,
         normalizedName: true,
         note: true,
-
-        productDepartment: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -184,15 +155,7 @@ export class ProductCategoryControllerBase {
     try {
       return await this.service.updateProductCategory({
         where: params,
-        data: {
-          ...data,
-
-          productDepartment: data.productDepartment
-            ? {
-                connect: data.productDepartment,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           code: true,
           createdAt: true,
@@ -202,13 +165,6 @@ export class ProductCategoryControllerBase {
           name: true,
           normalizedName: true,
           note: true,
-
-          productDepartment: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -248,13 +204,6 @@ export class ProductCategoryControllerBase {
           name: true,
           normalizedName: true,
           note: true,
-
-          productDepartment: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -284,12 +233,6 @@ export class ProductCategoryControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -325,6 +268,7 @@ export class ProductCategoryControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -334,6 +278,12 @@ export class ProductCategoryControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },

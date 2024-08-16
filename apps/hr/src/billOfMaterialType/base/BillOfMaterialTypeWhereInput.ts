@@ -11,14 +11,27 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { BillOfMaterialListRelationFilter } from "../../billOfMaterial/base/BillOfMaterialListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
 class BillOfMaterialTypeWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => BillOfMaterialListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialListRelationFilter)
+  @IsOptional()
+  @Field(() => BillOfMaterialListRelationFilter, {
+    nullable: true,
+  })
+  billOfMaterials?: BillOfMaterialListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringNullableFilter,

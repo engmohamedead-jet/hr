@@ -7,16 +7,16 @@ import {
   TextField,
   DateField,
   BooleanField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
 } from "react-admin";
 
 import { PRODUCTDEPARTMENT_TITLE_FIELD } from "./ProductDepartmentTitle";
-import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
 import { UNIT_TITLE_FIELD } from "../unit/UnitTitle";
 import { PRODUCTCATEGORY_TITLE_FIELD } from "../productCategory/ProductCategoryTitle";
+import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
 import { PRODUCTTYPE_TITLE_FIELD } from "../productType/ProductTypeTitle";
 import { SALETAX_TITLE_FIELD } from "../saleTax/SaleTaxTitle";
 
@@ -32,11 +32,18 @@ export const ProductDepartmentShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField
+          label="ParentProductDepartment"
+          source="productdepartment.id"
+          reference="ProductDepartment"
+        >
+          <TextField source={PRODUCTDEPARTMENT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
-          reference="ProductCategory"
-          target="productDepartmentId"
-          label="ProductCategories"
+          reference="ProductDepartment"
+          target="parentProductDepartmentId"
+          label="ProductDepartments"
         >
           <Datagrid rowClick="show">
             <TextField label="Code" source="code" />
@@ -48,7 +55,7 @@ export const ProductDepartmentShow = (props: ShowProps): React.ReactElement => {
             <TextField label="NormalizedName" source="normalizedName" />
             <TextField label="Note" source="note" />
             <ReferenceField
-              label="ParentProductDepartmentId"
+              label="ParentProductDepartment"
               source="productdepartment.id"
               reference="ProductDepartment"
             >
@@ -63,13 +70,6 @@ export const ProductDepartmentShow = (props: ShowProps): React.ReactElement => {
           label="Products"
         >
           <Datagrid rowClick="show">
-            <ReferenceField
-              label="ProductGroupId"
-              source="productgroup.id"
-              reference="ProductGroup"
-            >
-              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="Barcode" source="barcode" />
             <BooleanField label="CanExpire" source="canExpire" />
             <TextField label="Code" source="code" />
@@ -118,6 +118,7 @@ export const ProductDepartmentShow = (props: ShowProps): React.ReactElement => {
             <TextField label="MinimumSalePrice" source="minimumSalePrice" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
             <TextField label="Photo" source="photo" />
             <ReferenceField
               label="ProductCategoryId"
@@ -132,6 +133,13 @@ export const ProductDepartmentShow = (props: ShowProps): React.ReactElement => {
               reference="ProductDepartment"
             >
               <TextField source={PRODUCTDEPARTMENT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductGroupId"
+              source="productgroup.id"
+              reference="ProductGroup"
+            >
+              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
               label="ProductTypeId"

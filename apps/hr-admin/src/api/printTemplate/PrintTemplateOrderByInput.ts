@@ -1,9 +1,9 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type PrintTemplateOrderByInput = {
-  Description?: SortOrder;
   code?: SortOrder;
   createdAt?: SortOrder;
+  description?: SortOrder;
   filePath?: SortOrder;
   id?: SortOrder;
   isCustomized?: SortOrder;
@@ -14,6 +14,6 @@ export type PrintTemplateOrderByInput = {
   paperLayout?: SortOrder;
   paperSize?: SortOrder;
   previewImage?: SortOrder;
-  printTemplateGroupIdId?: SortOrder;
+  printTemplateContentsId?: SortOrder;
   updatedAt?: SortOrder;
 };

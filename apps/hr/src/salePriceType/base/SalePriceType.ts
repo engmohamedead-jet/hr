@@ -14,25 +14,25 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   MaxLength,
-  IsDate,
-  ValidateNested,
   IsOptional,
+  IsDate,
   IsInt,
-  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Customer } from "../../customer/base/Customer";
 
 @ObjectType()
 class SalePriceType {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -44,12 +44,15 @@ class SalePriceType {
 
   @ApiProperty({
     required: false,
-    type: () => Customer,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => Customer)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  customers?: Customer | null;
+  @Field(() => String, {
+    nullable: true,
+  })
+  description!: string | null;
 
   @ApiProperty({
     required: true,
@@ -58,14 +61,6 @@ class SalePriceType {
   @IsInt()
   @Field(() => Number)
   id!: number;
-
-  @ApiProperty({
-    required: true,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @Field(() => Boolean)
-  isDefault!: boolean;
 
   @ApiProperty({
     required: true,

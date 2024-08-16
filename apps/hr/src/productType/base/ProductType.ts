@@ -16,6 +16,7 @@ import {
   MaxLength,
   IsOptional,
   IsDate,
+  IsInt,
   IsBoolean,
   ValidateNested,
 } from "class-validator";
@@ -45,24 +46,12 @@ class ProductType {
   createdAt!: Date;
 
   @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  description!: string | null;
-
-  @ApiProperty({
     required: true,
-    type: String,
+    type: Number,
   })
-  @IsString()
-  @Field(() => String)
-  id!: string;
+  @IsInt()
+  @Field(() => Number)
+  id!: number;
 
   @ApiProperty({
     required: false,

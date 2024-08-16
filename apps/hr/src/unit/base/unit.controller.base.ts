@@ -26,9 +26,15 @@ import { Unit } from "./Unit";
 import { UnitFindManyArgs } from "./UnitFindManyArgs";
 import { UnitWhereUniqueInput } from "./UnitWhereUniqueInput";
 import { UnitUpdateInput } from "./UnitUpdateInput";
-import { CompoundUnitFindManyArgs } from "../../compoundUnit/base/CompoundUnitFindManyArgs";
-import { CompoundUnit } from "../../compoundUnit/base/CompoundUnit";
-import { CompoundUnitWhereUniqueInput } from "../../compoundUnit/base/CompoundUnitWhereUniqueInput";
+import { BillOfMaterialDetailFindManyArgs } from "../../billOfMaterialDetail/base/BillOfMaterialDetailFindManyArgs";
+import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
+import { BillOfMaterialDetailWhereUniqueInput } from "../../billOfMaterialDetail/base/BillOfMaterialDetailWhereUniqueInput";
+import { BillOfMaterialFindManyArgs } from "../../billOfMaterial/base/BillOfMaterialFindManyArgs";
+import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
+import { BillOfMaterialWhereUniqueInput } from "../../billOfMaterial/base/BillOfMaterialWhereUniqueInput";
+import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
@@ -53,24 +59,9 @@ export class UnitControllerBase {
   })
   async createUnit(@common.Body() data: UnitCreateInput): Promise<Unit> {
     return await this.service.createUnit({
-      data: {
-        ...data,
-
-        compareUnit: data.compareUnit
-          ? {
-              connect: data.compareUnit,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         code: true,
-
-        compareUnit: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         description: true,
         id: true,
@@ -102,13 +93,6 @@ export class UnitControllerBase {
       ...args,
       select: {
         code: true,
-
-        compareUnit: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         description: true,
         id: true,
@@ -141,13 +125,6 @@ export class UnitControllerBase {
       where: params,
       select: {
         code: true,
-
-        compareUnit: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         description: true,
         id: true,
@@ -186,24 +163,9 @@ export class UnitControllerBase {
     try {
       return await this.service.updateUnit({
         where: params,
-        data: {
-          ...data,
-
-          compareUnit: data.compareUnit
-            ? {
-                connect: data.compareUnit,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           code: true,
-
-          compareUnit: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           description: true,
           id: true,
@@ -244,13 +206,6 @@ export class UnitControllerBase {
         where: params,
         select: {
           code: true,
-
-          compareUnit: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           description: true,
           id: true,
@@ -273,38 +228,62 @@ export class UnitControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/compoundUnits")
-  @ApiNestedQuery(CompoundUnitFindManyArgs)
+  @common.Get("/:id/billOfMaterialDetails")
+  @ApiNestedQuery(BillOfMaterialDetailFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "CompoundUnit",
+    resource: "BillOfMaterialDetail",
     action: "read",
     possession: "any",
   })
-  async findCompoundUnits(
+  async findBillOfMaterialDetails(
     @common.Req() request: Request,
     @common.Param() params: UnitWhereUniqueInput
-  ): Promise<CompoundUnit[]> {
-    const query = plainToClass(CompoundUnitFindManyArgs, request.query);
-    const results = await this.service.findCompoundUnits(params.id, {
+  ): Promise<BillOfMaterialDetail[]> {
+    const query = plainToClass(BillOfMaterialDetailFindManyArgs, request.query);
+    const results = await this.service.findBillOfMaterialDetails(params.id, {
       ...query,
       select: {
-        baseUnitId: {
+        billOfMaterial: {
           select: {
             id: true,
           },
         },
 
-        compareUnitId: {
-          select: {
-            id: true,
-          },
-        },
-
+        costShare: true,
         createdAt: true,
         id: true,
-        notes: true,
+        isActive: true,
+        isManualConsumption: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        sequence: true,
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
-        value: true,
+
+        workCenterRoutingId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (results === null) {
@@ -315,18 +294,18 @@ export class UnitControllerBase {
     return results;
   }
 
-  @common.Post("/:id/compoundUnits")
+  @common.Post("/:id/billOfMaterialDetails")
   @nestAccessControl.UseRoles({
     resource: "Unit",
     action: "update",
     possession: "any",
   })
-  async connectCompoundUnits(
+  async connectBillOfMaterialDetails(
     @common.Param() params: UnitWhereUniqueInput,
-    @common.Body() body: CompoundUnitWhereUniqueInput[]
+    @common.Body() body: BillOfMaterialDetailWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      compoundUnits: {
+      billOfMaterialDetails: {
         connect: body,
       },
     };
@@ -337,18 +316,18 @@ export class UnitControllerBase {
     });
   }
 
-  @common.Patch("/:id/compoundUnits")
+  @common.Patch("/:id/billOfMaterialDetails")
   @nestAccessControl.UseRoles({
     resource: "Unit",
     action: "update",
     possession: "any",
   })
-  async updateCompoundUnits(
+  async updateBillOfMaterialDetails(
     @common.Param() params: UnitWhereUniqueInput,
-    @common.Body() body: CompoundUnitWhereUniqueInput[]
+    @common.Body() body: BillOfMaterialDetailWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      compoundUnits: {
+      billOfMaterialDetails: {
         set: body,
       },
     };
@@ -359,18 +338,292 @@ export class UnitControllerBase {
     });
   }
 
-  @common.Delete("/:id/compoundUnits")
+  @common.Delete("/:id/billOfMaterialDetails")
   @nestAccessControl.UseRoles({
     resource: "Unit",
     action: "update",
     possession: "any",
   })
-  async disconnectCompoundUnits(
+  async disconnectBillOfMaterialDetails(
     @common.Param() params: UnitWhereUniqueInput,
-    @common.Body() body: CompoundUnitWhereUniqueInput[]
+    @common.Body() body: BillOfMaterialDetailWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      compoundUnits: {
+      billOfMaterialDetails: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/billOfMaterials")
+  @ApiNestedQuery(BillOfMaterialFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterial",
+    action: "read",
+    possession: "any",
+  })
+  async findBillOfMaterials(
+    @common.Req() request: Request,
+    @common.Param() params: UnitWhereUniqueInput
+  ): Promise<BillOfMaterial[]> {
+    const query = plainToClass(BillOfMaterialFindManyArgs, request.query);
+    const results = await this.service.findBillOfMaterials(params.id, {
+      ...query,
+      select: {
+        billOfMaterialTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        code: true,
+        createdAt: true,
+        daysToPrepareManufacturingOrder: true,
+        endDate: true,
+        id: true,
+        isActive: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        sequence: true,
+        startDate: true,
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/billOfMaterials")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async connectBillOfMaterials(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: BillOfMaterialWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterials: {
+        connect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/billOfMaterials")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async updateBillOfMaterials(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: BillOfMaterialWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterials: {
+        set: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/billOfMaterials")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectBillOfMaterials(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: BillOfMaterialWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterials: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/productionOrders")
+  @ApiNestedQuery(ProductionOrderFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ProductionOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findProductionOrders(
+    @common.Req() request: Request,
+    @common.Param() params: UnitWhereUniqueInput
+  ): Promise<ProductionOrder[]> {
+    const query = plainToClass(ProductionOrderFindManyArgs, request.query);
+    const results = await this.service.findProductionOrders(params.id, {
+      ...query,
+      select: {
+        billOfMaterialId: {
+          select: {
+            id: true,
+          },
+        },
+
+        code: true,
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        deadlineDate: true,
+        description: true,
+        finishDate: true,
+        id: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        orderDate: true,
+
+        orderStatusId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productQuantity: true,
+        sequenceNumber: true,
+        startDate: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unit: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/productionOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async connectProductionOrders(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: ProductionOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productionOrders: {
+        connect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/productionOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async updateProductionOrders(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: ProductionOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productionOrders: {
+        set: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/productionOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectProductionOrders(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: ProductionOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productionOrders: {
         disconnect: body,
       },
     };
@@ -397,12 +650,6 @@ export class UnitControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -438,6 +685,7 @@ export class UnitControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -447,6 +695,12 @@ export class UnitControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },

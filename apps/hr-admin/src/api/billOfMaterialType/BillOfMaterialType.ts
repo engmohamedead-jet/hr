@@ -1,4 +1,7 @@
+import { BillOfMaterial } from "../billOfMaterial/BillOfMaterial";
+
 export type BillOfMaterialType = {
+  billOfMaterials?: Array<BillOfMaterial>;
   code: string | null;
   createdAt: Date;
   description: string | null;

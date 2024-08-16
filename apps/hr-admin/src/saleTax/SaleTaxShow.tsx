@@ -6,10 +6,10 @@ import {
   ShowProps,
   TextField,
   DateField,
-  BooleanField,
-  ReferenceField,
   ReferenceManyField,
   Datagrid,
+  ReferenceField,
+  BooleanField,
 } from "react-admin";
 
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
@@ -29,14 +29,9 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
-        <BooleanField label="IsExemption" source="isExemption" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
-        <TextField label="Rate" source="rate" />
-        <ReferenceField label="Store" source="store.id" reference="Store">
-          <TextField source={STORE_TITLE_FIELD} />
-        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="ProductGroup"
@@ -44,20 +39,7 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
           label="ProductGroups"
         >
           <Datagrid rowClick="show">
-            <ReferenceField
-              label="PurchaseDiscountAccountId"
-              source="account.id"
-              reference="Account"
-            >
-              <TextField source={ACCOUNT_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField
-              label="SaleReturnAccountId"
-              source="account.id"
-              reference="Account"
-            >
-              <TextField source={ACCOUNT_TITLE_FIELD} />
-            </ReferenceField>
+            <TextField label="Code" source="code" />
             <ReferenceField
               label="CostOfGoodsSoldAccountId"
               source="account.id"
@@ -65,7 +47,6 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={ACCOUNT_TITLE_FIELD} />
             </ReferenceField>
-            <TextField label="Code" source="code" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="Description" source="description" />
             <BooleanField
@@ -84,9 +65,9 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
             <BooleanField label="IsDefault" source="isDefault" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
-            <TextField label="Notes" source="notes" />
+            <TextField label="Note" source="note" />
             <ReferenceField
-              label="ProductGroups"
+              label="ParentProductGroupId"
               source="productgroup.id"
               reference="ProductGroup"
             >
@@ -94,6 +75,13 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <ReferenceField
               label="PurchaseAccountId"
+              source="account.id"
+              reference="Account"
+            >
+              <TextField source={ACCOUNT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="PurchaseDiscountAccountId"
               source="account.id"
               reference="Account"
             >
@@ -121,6 +109,13 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
               <TextField source={ACCOUNT_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
+              label="SaleReturnAccountId"
+              source="account.id"
+              reference="Account"
+            >
+              <TextField source={ACCOUNT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
               label="SaleTaxId"
               source="saletax.id"
               reference="SaleTax"
@@ -136,13 +131,6 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
           label="Products"
         >
           <Datagrid rowClick="show">
-            <ReferenceField
-              label="ProductGroupId"
-              source="productgroup.id"
-              reference="ProductGroup"
-            >
-              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="Barcode" source="barcode" />
             <BooleanField label="CanExpire" source="canExpire" />
             <TextField label="Code" source="code" />
@@ -191,6 +179,7 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
             <TextField label="MinimumSalePrice" source="minimumSalePrice" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
             <TextField label="Photo" source="photo" />
             <ReferenceField
               label="ProductCategoryId"
@@ -205,6 +194,13 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
               reference="ProductDepartment"
             >
               <TextField source={PRODUCTDEPARTMENT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductGroupId"
+              source="productgroup.id"
+              reference="ProductGroup"
+            >
+              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
               label="ProductTypeId"

@@ -5,6 +5,6 @@ export enum EnumRoles {
   InventoryRole = "inventoryRole",
   ManufactureRole = "manufactureRole",
   PurchasesRole = "purchasesRole",
-  SalesRole = "sales",
+  SalesRole = "salesRole",
   User = "user",
 }

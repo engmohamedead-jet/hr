@@ -11,7 +11,14 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+} from "class-validator";
+import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class OrderStatusUpdateInput {
@@ -25,7 +32,7 @@ class OrderStatusUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -74,6 +81,18 @@ class OrderStatusUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductionOrderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductionOrderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProductionOrderWhereUniqueInput, {
+    nullable: true,
+  })
+  productionOrders?: ProductionOrderWhereUniqueInput | null;
 }
 
 export { OrderStatusUpdateInput as OrderStatusUpdateInput };

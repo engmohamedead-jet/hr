@@ -8,6 +8,6 @@ export type PrintTemplateContentWhereInput = {
   id?: StringFilter;
   key?: StringFilter;
   note?: StringNullableFilter;
-  printTemplateId?: PrintTemplateWhereUniqueInput;
+  printTemplate?: PrintTemplateWhereUniqueInput;
   value?: StringFilter;
 };

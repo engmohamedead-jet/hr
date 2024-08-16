@@ -29,7 +29,7 @@ export const PrintTemplateContentList = (
         <TextField label="Key" source="key" />
         <TextField label="Note" source="note" />
         <ReferenceField
-          label="PrintTemplateId"
+          label="PrintTemplate"
           source="printtemplate.id"
           reference="PrintTemplate"
         >

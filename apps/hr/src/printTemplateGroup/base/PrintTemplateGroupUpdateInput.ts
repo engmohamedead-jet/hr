@@ -11,14 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsString,
-  MaxLength,
-  IsOptional,
-  ValidateNested,
-} from "class-validator";
-import { PrintTemplateUpdateManyWithoutPrintTemplateGroupsInput } from "./PrintTemplateUpdateManyWithoutPrintTemplateGroupsInput";
-import { Type } from "class-transformer";
+import { IsString, MaxLength, IsOptional } from "class-validator";
 
 @InputType()
 class PrintTemplateGroupUpdateInput {
@@ -56,7 +49,7 @@ class PrintTemplateGroupUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  name?: string | null;
+  name?: string;
 
   @ApiProperty({
     required: false,
@@ -75,24 +68,12 @@ class PrintTemplateGroupUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(1000)
+  @MaxLength(2561)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   note?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => PrintTemplateUpdateManyWithoutPrintTemplateGroupsInput,
-  })
-  @ValidateNested()
-  @Type(() => PrintTemplateUpdateManyWithoutPrintTemplateGroupsInput)
-  @IsOptional()
-  @Field(() => PrintTemplateUpdateManyWithoutPrintTemplateGroupsInput, {
-    nullable: true,
-  })
-  printTemplates?: PrintTemplateUpdateManyWithoutPrintTemplateGroupsInput;
 }
 
 export { PrintTemplateGroupUpdateInput as PrintTemplateGroupUpdateInput };

@@ -1,17 +1,13 @@
 import * as React from "react";
-
 import {
   List,
   Datagrid,
   ListProps,
   TextField,
-  ReferenceField,
   DateField,
   BooleanField,
 } from "react-admin";
-
 import Pagination from "../Components/Pagination";
-import { COMPOUNDUNIT_TITLE_FIELD } from "../compoundUnit/CompoundUnitTitle";
 
 export const UnitList = (props: ListProps): React.ReactElement => {
   return (
@@ -24,13 +20,6 @@ export const UnitList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <TextField label="Code" source="code" />
-        <ReferenceField
-          label="CompareUnit"
-          source="compoundunit.id"
-          reference="CompoundUnit"
-        >
-          <TextField source={COMPOUNDUNIT_TITLE_FIELD} />
-        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />

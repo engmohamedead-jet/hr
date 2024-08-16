@@ -26,6 +26,8 @@ import { AttributeValueFindUniqueArgs } from "./AttributeValueFindUniqueArgs";
 import { CreateAttributeValueArgs } from "./CreateAttributeValueArgs";
 import { UpdateAttributeValueArgs } from "./UpdateAttributeValueArgs";
 import { DeleteAttributeValueArgs } from "./DeleteAttributeValueArgs";
+import { ProductVariantFindManyArgs } from "../../productVariant/base/ProductVariantFindManyArgs";
+import { ProductVariant } from "../../productVariant/base/ProductVariant";
 import { Attribute } from "../../attribute/base/Attribute";
 import { AttributeValueService } from "../attributeValue.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -96,11 +98,9 @@ export class AttributeValueResolverBase {
       data: {
         ...args.data,
 
-        attributeId: args.data.attributeId
-          ? {
-              connect: args.data.attributeId,
-            }
-          : undefined,
+        attributeId: {
+          connect: args.data.attributeId,
+        },
       },
     });
   }
@@ -121,11 +121,9 @@ export class AttributeValueResolverBase {
         data: {
           ...args.data,
 
-          attributeId: args.data.attributeId
-            ? {
-                connect: args.data.attributeId,
-              }
-            : undefined,
+          attributeId: {
+            connect: args.data.attributeId,
+          },
         },
       });
     } catch (error) {
@@ -157,6 +155,26 @@ export class AttributeValueResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductVariant], { name: "productVariants" })
+  @nestAccessControl.UseRoles({
+    resource: "ProductVariant",
+    action: "read",
+    possession: "any",
+  })
+  async findProductVariants(
+    @graphql.Parent() parent: AttributeValue,
+    @graphql.Args() args: ProductVariantFindManyArgs
+  ): Promise<ProductVariant[]> {
+    const results = await this.service.findProductVariants(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

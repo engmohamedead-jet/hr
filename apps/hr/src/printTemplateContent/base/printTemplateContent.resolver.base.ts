@@ -96,9 +96,9 @@ export class PrintTemplateContentResolverBase {
       data: {
         ...args.data,
 
-        printTemplateId: args.data.printTemplateId
+        printTemplate: args.data.printTemplate
           ? {
-              connect: args.data.printTemplateId,
+              connect: args.data.printTemplate,
             }
           : undefined,
       },
@@ -121,9 +121,9 @@ export class PrintTemplateContentResolverBase {
         data: {
           ...args.data,
 
-          printTemplateId: args.data.printTemplateId
+          printTemplate: args.data.printTemplate
             ? {
-                connect: args.data.printTemplateId,
+                connect: args.data.printTemplate,
               }
             : undefined,
         },
@@ -162,17 +162,17 @@ export class PrintTemplateContentResolverBase {
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => PrintTemplate, {
     nullable: true,
-    name: "printTemplateId",
+    name: "printTemplate",
   })
   @nestAccessControl.UseRoles({
     resource: "PrintTemplate",
     action: "read",
     possession: "any",
   })
-  async getPrintTemplateId(
+  async getPrintTemplate(
     @graphql.Parent() parent: PrintTemplateContent
   ): Promise<PrintTemplate | null> {
-    const result = await this.service.getPrintTemplateId(parent.id);
+    const result = await this.service.getPrintTemplate(parent.id);
 
     if (!result) {
       return null;

@@ -18,8 +18,9 @@ import {
   IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { ProductCategoryUpdateManyWithoutProductDepartmentsInput } from "./ProductCategoryUpdateManyWithoutProductDepartmentsInput";
+import { ProductDepartmentWhereUniqueInput } from "./ProductDepartmentWhereUniqueInput";
 import { Type } from "class-transformer";
+import { ProductDepartmentUpdateManyWithoutProductDepartmentsInput } from "./ProductDepartmentUpdateManyWithoutProductDepartmentsInput";
 import { ProductUpdateManyWithoutProductDepartmentsInput } from "./ProductUpdateManyWithoutProductDepartmentsInput";
 
 @InputType()
@@ -57,7 +58,7 @@ class ProductDepartmentUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isDefault?: boolean | null;
+  isDefault?: boolean;
 
   @ApiProperty({
     required: false,
@@ -97,15 +98,27 @@ class ProductDepartmentUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductCategoryUpdateManyWithoutProductDepartmentsInput,
+    type: () => ProductDepartmentWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => ProductCategoryUpdateManyWithoutProductDepartmentsInput)
+  @Type(() => ProductDepartmentWhereUniqueInput)
   @IsOptional()
-  @Field(() => ProductCategoryUpdateManyWithoutProductDepartmentsInput, {
+  @Field(() => ProductDepartmentWhereUniqueInput, {
     nullable: true,
   })
-  productCategories?: ProductCategoryUpdateManyWithoutProductDepartmentsInput;
+  parentProductDepartment?: ProductDepartmentWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductDepartmentUpdateManyWithoutProductDepartmentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductDepartmentUpdateManyWithoutProductDepartmentsInput)
+  @IsOptional()
+  @Field(() => ProductDepartmentUpdateManyWithoutProductDepartmentsInput, {
+    nullable: true,
+  })
+  productDepartments?: ProductDepartmentUpdateManyWithoutProductDepartmentsInput;
 
   @ApiProperty({
     required: false,

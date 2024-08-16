@@ -1,7 +1,9 @@
 import { AttributeWhereUniqueInput } from "../attribute/AttributeWhereUniqueInput";
+import { ProductVariantCreateNestedManyWithoutAttributeValuesInput } from "./ProductVariantCreateNestedManyWithoutAttributeValuesInput";
 
 export type AttributeValueCreateInput = {
-  attributeId?: AttributeWhereUniqueInput | null;
+  attributeId: AttributeWhereUniqueInput;
   note?: string | null;
-  value?: string | null;
+  productVariants?: ProductVariantCreateNestedManyWithoutAttributeValuesInput;
+  value: string;
 };

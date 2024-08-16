@@ -1,11 +1,19 @@
 import * as React from "react";
+
 import {
   Show,
   SimpleShowLayout,
   ShowProps,
   TextField,
   DateField,
+  ReferenceManyField,
+  Datagrid,
+  ReferenceField,
 } from "react-admin";
+
+import { BARCODETYPE_TITLE_FIELD } from "./BarcodeTypeTitle";
+import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
+import { PRODUCTVARIANT_TITLE_FIELD } from "../productVariant/ProductVariantTitle";
 
 export const BarcodeTypeShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -19,6 +27,40 @@ export const BarcodeTypeShow = (props: ShowProps): React.ReactElement => {
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceManyField
+          reference="ProductBarcode"
+          target="barcodeTypeIdId"
+          label="ProductBarcodes"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Barcode" source="barcode" />
+            <ReferenceField
+              label="BarcodeTypeId"
+              source="barcodetype.id"
+              reference="BarcodeType"
+            >
+              <TextField source={BARCODETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
       </SimpleShowLayout>
     </Show>
   );

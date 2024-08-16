@@ -26,6 +26,8 @@ import { BarcodeTypeFindUniqueArgs } from "./BarcodeTypeFindUniqueArgs";
 import { CreateBarcodeTypeArgs } from "./CreateBarcodeTypeArgs";
 import { UpdateBarcodeTypeArgs } from "./UpdateBarcodeTypeArgs";
 import { DeleteBarcodeTypeArgs } from "./DeleteBarcodeTypeArgs";
+import { ProductBarcodeFindManyArgs } from "../../productBarcode/base/ProductBarcodeFindManyArgs";
+import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
 import { BarcodeTypeService } from "../barcodeType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => BarcodeType)
@@ -140,5 +142,25 @@ export class BarcodeTypeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductBarcode], { name: "productBarcodes" })
+  @nestAccessControl.UseRoles({
+    resource: "ProductBarcode",
+    action: "read",
+    possession: "any",
+  })
+  async findProductBarcodes(
+    @graphql.Parent() parent: BarcodeType,
+    @graphql.Args() args: ProductBarcodeFindManyArgs
+  ): Promise<ProductBarcode[]> {
+    const results = await this.service.findProductBarcodes(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

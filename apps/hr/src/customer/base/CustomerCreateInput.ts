@@ -13,11 +13,12 @@ import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 
 import {
+  IsNumber,
+  Min,
+  Max,
+  IsOptional,
   IsString,
   MaxLength,
-  IsOptional,
-  IsNumber,
-  Max,
   ValidateNested,
   IsDate,
   IsBoolean,
@@ -26,15 +27,23 @@ import {
 import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { Type } from "class-transformer";
-import { CustomerCateogryWhereUniqueInput } from "../../customerCateogry/base/CustomerCateogryWhereUniqueInput";
-import { CustomerTypeWhereUniqueInput } from "../../customerType/base/CustomerTypeWhereUniqueInput";
-import { RatingWhereUniqueInput } from "../../rating/base/RatingWhereUniqueInput";
-import { MaintenanceContractCreateNestedManyWithoutCustomersInput } from "./MaintenanceContractCreateNestedManyWithoutCustomersInput";
-import { SalePriceTypeWhereUniqueInput } from "../../salePriceType/base/SalePriceTypeWhereUniqueInput";
-import { SupplierWhereUniqueInput } from "../../supplier/base/SupplierWhereUniqueInput";
+import { ProductionOrderCreateNestedManyWithoutCustomersInput } from "./ProductionOrderCreateNestedManyWithoutCustomersInput";
 
 @InputType()
 class CustomerCreateInput {
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  DefaultSalePriceTypeId?: number | null;
+
   @ApiProperty({
     required: false,
     type: String,
@@ -48,13 +57,16 @@ class CustomerCreateInput {
   address?: string | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -78,31 +90,7 @@ class CustomerCreateInput {
   @Field(() => CurrencyWhereUniqueInput, {
     nullable: true,
   })
-  currencyId?: CurrencyWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => CustomerCateogryWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CustomerCateogryWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CustomerCateogryWhereUniqueInput, {
-    nullable: true,
-  })
-  customerCateogryId?: CustomerCateogryWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => CustomerTypeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CustomerTypeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CustomerTypeWhereUniqueInput, {
-    nullable: true,
-  })
-  customerTypeId?: CustomerTypeWhereUniqueInput | null;
+  currency?: CurrencyWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -164,114 +152,6 @@ class CustomerCreateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorAddress?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorJobTitle?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorName?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorNationalIdNumber?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorPhoneNumber?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => RatingWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => RatingWhereUniqueInput)
-  @IsOptional()
-  @Field(() => RatingWhereUniqueInput, {
-    nullable: true,
-  })
-  guarantorRatingId?: RatingWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorWorkAddress?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  hasMortalOrDiscount?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  hasNoPendingInvoices?: string | null;
-
-  @ApiProperty({
-    required: false,
     type: Boolean,
   })
   @IsBoolean()
@@ -280,17 +160,6 @@ class CustomerCreateInput {
     nullable: true,
   })
   isActive?: boolean | null;
-
-  @ApiProperty({
-    required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isComplain?: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -313,30 +182,6 @@ class CustomerCreateInput {
     nullable: true,
   })
   isUnderRevision?: boolean | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  jobTitle?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => MaintenanceContractCreateNestedManyWithoutCustomersInput,
-  })
-  @ValidateNested()
-  @Type(() => MaintenanceContractCreateNestedManyWithoutCustomersInput)
-  @IsOptional()
-  @Field(() => MaintenanceContractCreateNestedManyWithoutCustomersInput, {
-    nullable: true,
-  })
-  maintenanceContracts?: MaintenanceContractCreateNestedManyWithoutCustomersInput;
 
   @ApiProperty({
     required: false,
@@ -378,18 +223,6 @@ class CustomerCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  note?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
   phoneNumber?: string | null;
 
   @ApiProperty({
@@ -406,15 +239,15 @@ class CustomerCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => RatingWhereUniqueInput,
+    type: () => ProductionOrderCreateNestedManyWithoutCustomersInput,
   })
   @ValidateNested()
-  @Type(() => RatingWhereUniqueInput)
+  @Type(() => ProductionOrderCreateNestedManyWithoutCustomersInput)
   @IsOptional()
-  @Field(() => RatingWhereUniqueInput, {
+  @Field(() => ProductionOrderCreateNestedManyWithoutCustomersInput, {
     nullable: true,
   })
-  rating?: RatingWhereUniqueInput | null;
+  productionOrders?: ProductionOrderCreateNestedManyWithoutCustomersInput;
 
   @ApiProperty({
     required: false,
@@ -441,27 +274,15 @@ class CustomerCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => SalePriceTypeWhereUniqueInput,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => SalePriceTypeWhereUniqueInput)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => SalePriceTypeWhereUniqueInput, {
+  @Field(() => String, {
     nullable: true,
   })
-  salePriceTypeId?: SalePriceTypeWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => SupplierWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => SupplierWhereUniqueInput)
-  @IsOptional()
-  @Field(() => SupplierWhereUniqueInput, {
-    nullable: true,
-  })
-  supplierId?: SupplierWhereUniqueInput | null;
+  supplierId?: string | null;
 
   @ApiProperty({
     required: false,
@@ -486,18 +307,6 @@ class CustomerCreateInput {
     nullable: true,
   })
   website?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  workAddress?: string | null;
 }
 
 export { CustomerCreateInput as CustomerCreateInput };

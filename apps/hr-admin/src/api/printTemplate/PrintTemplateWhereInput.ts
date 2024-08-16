@@ -1,24 +1,32 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { JsonFilter } from "../../util/JsonFilter";
-import { PrintTemplateContentListRelationFilter } from "../printTemplateContent/PrintTemplateContentListRelationFilter";
-import { PrintTemplateGroupWhereUniqueInput } from "../printTemplateGroup/PrintTemplateGroupWhereUniqueInput";
+import { PrintTemplateContentWhereUniqueInput } from "../printTemplateContent/PrintTemplateContentWhereUniqueInput";
 
 export type PrintTemplateWhereInput = {
-  Description?: StringNullableFilter;
   code?: StringNullableFilter;
+  description?: StringNullableFilter;
   filePath?: StringNullableFilter;
-  id?: IntFilter;
-  isCustomized?: BooleanNullableFilter;
-  isFavourite?: BooleanNullableFilter;
+  id?: StringFilter;
+  isCustomized?: BooleanFilter;
+  isFavourite?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
   paperLayout?: "Portrait" | "Landscape";
-  paperSize?: "A1" | "A2" | "A3" | "A4" | "A5";
+  paperSize?:
+    | "A1"
+    | "A2"
+    | "A3"
+    | "A4"
+    | "A5"
+    | "A6"
+    | "B1"
+    | "B2"
+    | "B3"
+    | "B5"
+    | "B6";
   previewImage?: JsonFilter;
-  printTemplateContents?: PrintTemplateContentListRelationFilter;
-  printTemplateGroupId?: PrintTemplateGroupWhereUniqueInput;
+  printTemplateContents?: PrintTemplateContentWhereUniqueInput;
 };

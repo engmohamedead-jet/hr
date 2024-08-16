@@ -26,6 +26,21 @@ import { Product } from "./Product";
 import { ProductFindManyArgs } from "./ProductFindManyArgs";
 import { ProductWhereUniqueInput } from "./ProductWhereUniqueInput";
 import { ProductUpdateInput } from "./ProductUpdateInput";
+import { BillOfMaterialDetailFindManyArgs } from "../../billOfMaterialDetail/base/BillOfMaterialDetailFindManyArgs";
+import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
+import { BillOfMaterialDetailWhereUniqueInput } from "../../billOfMaterialDetail/base/BillOfMaterialDetailWhereUniqueInput";
+import { BillOfMaterialFindManyArgs } from "../../billOfMaterial/base/BillOfMaterialFindManyArgs";
+import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
+import { BillOfMaterialWhereUniqueInput } from "../../billOfMaterial/base/BillOfMaterialWhereUniqueInput";
+import { ProductBarcodeFindManyArgs } from "../../productBarcode/base/ProductBarcodeFindManyArgs";
+import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
+import { ProductBarcodeWhereUniqueInput } from "../../productBarcode/base/ProductBarcodeWhereUniqueInput";
+import { ProductVariantFindManyArgs } from "../../productVariant/base/ProductVariantFindManyArgs";
+import { ProductVariant } from "../../productVariant/base/ProductVariant";
+import { ProductVariantWhereUniqueInput } from "../../productVariant/base/ProductVariantWhereUniqueInput";
+import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,15 +67,11 @@ export class ProductControllerBase {
       data: {
         ...data,
 
-        ProductGroupId: data.ProductGroupId
+        defaultStoreId: data.defaultStoreId
           ? {
-              connect: data.ProductGroupId,
+              connect: data.defaultStoreId,
             }
           : undefined,
-
-        defaultStoreId: {
-          connect: data.defaultStoreId,
-        },
 
         defaultUnitId: {
           connect: data.defaultUnitId,
@@ -78,6 +89,12 @@ export class ProductControllerBase {
             }
           : undefined,
 
+        productGroupId: data.productGroupId
+          ? {
+              connect: data.productGroupId,
+            }
+          : undefined,
+
         productTypeId: {
           connect: data.productTypeId,
         },
@@ -89,12 +106,6 @@ export class ProductControllerBase {
           : undefined,
       },
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -130,6 +141,7 @@ export class ProductControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -139,6 +151,12 @@ export class ProductControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },
@@ -183,12 +201,6 @@ export class ProductControllerBase {
     return this.service.products({
       ...args,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -224,6 +236,7 @@ export class ProductControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -233,6 +246,12 @@ export class ProductControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },
@@ -278,12 +297,6 @@ export class ProductControllerBase {
     const result = await this.service.product({
       where: params,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -319,6 +332,7 @@ export class ProductControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -328,6 +342,12 @@ export class ProductControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },
@@ -383,15 +403,11 @@ export class ProductControllerBase {
         data: {
           ...data,
 
-          ProductGroupId: data.ProductGroupId
+          defaultStoreId: data.defaultStoreId
             ? {
-                connect: data.ProductGroupId,
+                connect: data.defaultStoreId,
               }
             : undefined,
-
-          defaultStoreId: {
-            connect: data.defaultStoreId,
-          },
 
           defaultUnitId: {
             connect: data.defaultUnitId,
@@ -409,6 +425,12 @@ export class ProductControllerBase {
               }
             : undefined,
 
+          productGroupId: data.productGroupId
+            ? {
+                connect: data.productGroupId,
+              }
+            : undefined,
+
           productTypeId: {
             connect: data.productTypeId,
           },
@@ -420,12 +442,6 @@ export class ProductControllerBase {
             : undefined,
         },
         select: {
-          ProductGroupId: {
-            select: {
-              id: true,
-            },
-          },
-
           barcode: true,
           canExpire: true,
           code: true,
@@ -461,6 +477,7 @@ export class ProductControllerBase {
           minimumSalePrice: true,
           name: true,
           normalizedName: true,
+          note: true,
           photo: true,
 
           productCategoryId: {
@@ -470,6 +487,12 @@ export class ProductControllerBase {
           },
 
           productDepartmentId: {
+            select: {
+              id: true,
+            },
+          },
+
+          productGroupId: {
             select: {
               id: true,
             },
@@ -523,12 +546,6 @@ export class ProductControllerBase {
       return await this.service.deleteProduct({
         where: params,
         select: {
-          ProductGroupId: {
-            select: {
-              id: true,
-            },
-          },
-
           barcode: true,
           canExpire: true,
           code: true,
@@ -564,6 +581,7 @@ export class ProductControllerBase {
           minimumSalePrice: true,
           name: true,
           normalizedName: true,
+          note: true,
           photo: true,
 
           productCategoryId: {
@@ -573,6 +591,12 @@ export class ProductControllerBase {
           },
 
           productDepartmentId: {
+            select: {
+              id: true,
+            },
+          },
+
+          productGroupId: {
             select: {
               id: true,
             },
@@ -606,5 +630,638 @@ export class ProductControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/billOfMaterialDetails")
+  @ApiNestedQuery(BillOfMaterialDetailFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterialDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findBillOfMaterialDetails(
+    @common.Req() request: Request,
+    @common.Param() params: ProductWhereUniqueInput
+  ): Promise<BillOfMaterialDetail[]> {
+    const query = plainToClass(BillOfMaterialDetailFindManyArgs, request.query);
+    const results = await this.service.findBillOfMaterialDetails(params.id, {
+      ...query,
+      select: {
+        billOfMaterial: {
+          select: {
+            id: true,
+          },
+        },
+
+        costShare: true,
+        createdAt: true,
+        id: true,
+        isActive: true,
+        isManualConsumption: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        sequence: true,
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        workCenterRoutingId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/billOfMaterialDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async connectBillOfMaterialDetails(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: BillOfMaterialDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterialDetails: {
+        connect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/billOfMaterialDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async updateBillOfMaterialDetails(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: BillOfMaterialDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterialDetails: {
+        set: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/billOfMaterialDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectBillOfMaterialDetails(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: BillOfMaterialDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterialDetails: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/billOfMaterials")
+  @ApiNestedQuery(BillOfMaterialFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterial",
+    action: "read",
+    possession: "any",
+  })
+  async findBillOfMaterials(
+    @common.Req() request: Request,
+    @common.Param() params: ProductWhereUniqueInput
+  ): Promise<BillOfMaterial[]> {
+    const query = plainToClass(BillOfMaterialFindManyArgs, request.query);
+    const results = await this.service.findBillOfMaterials(params.id, {
+      ...query,
+      select: {
+        billOfMaterialTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        code: true,
+        createdAt: true,
+        daysToPrepareManufacturingOrder: true,
+        endDate: true,
+        id: true,
+        isActive: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        sequence: true,
+        startDate: true,
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/billOfMaterials")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async connectBillOfMaterials(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: BillOfMaterialWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterials: {
+        connect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/billOfMaterials")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async updateBillOfMaterials(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: BillOfMaterialWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterials: {
+        set: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/billOfMaterials")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectBillOfMaterials(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: BillOfMaterialWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterials: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/productBarcodes")
+  @ApiNestedQuery(ProductBarcodeFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ProductBarcode",
+    action: "read",
+    possession: "any",
+  })
+  async findProductBarcodes(
+    @common.Req() request: Request,
+    @common.Param() params: ProductWhereUniqueInput
+  ): Promise<ProductBarcode[]> {
+    const query = plainToClass(ProductBarcodeFindManyArgs, request.query);
+    const results = await this.service.findProductBarcodes(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+
+        barcodeTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/productBarcodes")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async connectProductBarcodes(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: ProductBarcodeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productBarcodes: {
+        connect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/productBarcodes")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async updateProductBarcodes(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: ProductBarcodeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productBarcodes: {
+        set: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/productBarcodes")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectProductBarcodes(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: ProductBarcodeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productBarcodes: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/productVariants")
+  @ApiNestedQuery(ProductVariantFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ProductVariant",
+    action: "read",
+    possession: "any",
+  })
+  async findProductVariants(
+    @common.Req() request: Request,
+    @common.Param() params: ProductWhereUniqueInput
+  ): Promise<ProductVariant[]> {
+    const query = plainToClass(ProductVariantFindManyArgs, request.query);
+    const results = await this.service.findProductVariants(params.id, {
+      ...query,
+      select: {
+        attributeValueId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/productVariants")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async connectProductVariants(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: ProductVariantWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productVariants: {
+        connect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/productVariants")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async updateProductVariants(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: ProductVariantWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productVariants: {
+        set: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/productVariants")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectProductVariants(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: ProductVariantWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productVariants: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/productionOrders")
+  @ApiNestedQuery(ProductionOrderFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ProductionOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findProductionOrders(
+    @common.Req() request: Request,
+    @common.Param() params: ProductWhereUniqueInput
+  ): Promise<ProductionOrder[]> {
+    const query = plainToClass(ProductionOrderFindManyArgs, request.query);
+    const results = await this.service.findProductionOrders(params.id, {
+      ...query,
+      select: {
+        billOfMaterialId: {
+          select: {
+            id: true,
+          },
+        },
+
+        code: true,
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        deadlineDate: true,
+        description: true,
+        finishDate: true,
+        id: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        orderDate: true,
+
+        orderStatusId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productQuantity: true,
+        sequenceNumber: true,
+        startDate: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unit: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/productionOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async connectProductionOrders(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: ProductionOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productionOrders: {
+        connect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/productionOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async updateProductionOrders(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: ProductionOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productionOrders: {
+        set: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/productionOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectProductionOrders(
+    @common.Param() params: ProductWhereUniqueInput,
+    @common.Body() body: ProductionOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productionOrders: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateProduct({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

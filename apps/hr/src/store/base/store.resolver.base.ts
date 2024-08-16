@@ -26,30 +26,10 @@ import { StoreFindUniqueArgs } from "./StoreFindUniqueArgs";
 import { CreateStoreArgs } from "./CreateStoreArgs";
 import { UpdateStoreArgs } from "./UpdateStoreArgs";
 import { DeleteStoreArgs } from "./DeleteStoreArgs";
-import { AccountTransactionDetailFindManyArgs } from "../../accountTransactionDetail/base/AccountTransactionDetailFindManyArgs";
-import { AccountTransactionDetail } from "../../accountTransactionDetail/base/AccountTransactionDetail";
-import { AccountTransactionFindManyArgs } from "../../accountTransaction/base/AccountTransactionFindManyArgs";
-import { AccountTransaction } from "../../accountTransaction/base/AccountTransaction";
-import { CustomerElevatorFindManyArgs } from "../../customerElevator/base/CustomerElevatorFindManyArgs";
-import { CustomerElevator } from "../../customerElevator/base/CustomerElevator";
-import { ElevatorFindManyArgs } from "../../elevator/base/ElevatorFindManyArgs";
-import { Elevator } from "../../elevator/base/Elevator";
-import { FailureReportingFindManyArgs } from "../../failureReporting/base/FailureReportingFindManyArgs";
-import { FailureReporting } from "../../failureReporting/base/FailureReporting";
-import { MaintenanceContractFindManyArgs } from "../../maintenanceContract/base/MaintenanceContractFindManyArgs";
-import { MaintenanceContract } from "../../maintenanceContract/base/MaintenanceContract";
-import { MaintenanceVisitFindManyArgs } from "../../maintenanceVisit/base/MaintenanceVisitFindManyArgs";
-import { MaintenanceVisit } from "../../maintenanceVisit/base/MaintenanceVisit";
-import { NotificationFindManyArgs } from "../../notification/base/NotificationFindManyArgs";
-import { Notification } from "../../notification/base/Notification";
-import { PeriodicMaintenanceOrderFindManyArgs } from "../../periodicMaintenanceOrder/base/PeriodicMaintenanceOrderFindManyArgs";
-import { PeriodicMaintenanceOrder } from "../../periodicMaintenanceOrder/base/PeriodicMaintenanceOrder";
+import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
-import { SaleTaxFindManyArgs } from "../../saleTax/base/SaleTaxFindManyArgs";
-import { SaleTax } from "../../saleTax/base/SaleTax";
-import { Office } from "../../office/base/Office";
-import { StoreType } from "../../storeType/base/StoreType";
 import { StoreService } from "../store.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Store)
@@ -112,17 +92,7 @@ export class StoreResolverBase {
   async createStore(@graphql.Args() args: CreateStoreArgs): Promise<Store> {
     return await this.service.createStore({
       ...args,
-      data: {
-        ...args.data,
-
-        office: {
-          connect: args.data.office,
-        },
-
-        storeType: {
-          connect: args.data.storeType,
-        },
-      },
+      data: args.data,
     });
   }
 
@@ -139,17 +109,7 @@ export class StoreResolverBase {
     try {
       return await this.service.updateStore({
         ...args,
-        data: {
-          ...args.data,
-
-          office: {
-            connect: args.data.office,
-          },
-
-          storeType: {
-            connect: args.data.storeType,
-          },
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -183,194 +143,17 @@ export class StoreResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [AccountTransactionDetail], {
-    name: "accountTransactionDetails",
-  })
+  @graphql.ResolveField(() => [ProductionOrder], { name: "productionOrders" })
   @nestAccessControl.UseRoles({
-    resource: "AccountTransactionDetail",
+    resource: "ProductionOrder",
     action: "read",
     possession: "any",
   })
-  async findAccountTransactionDetails(
+  async findProductionOrders(
     @graphql.Parent() parent: Store,
-    @graphql.Args() args: AccountTransactionDetailFindManyArgs
-  ): Promise<AccountTransactionDetail[]> {
-    const results = await this.service.findAccountTransactionDetails(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [AccountTransaction], {
-    name: "accountTransactions",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "AccountTransaction",
-    action: "read",
-    possession: "any",
-  })
-  async findAccountTransactions(
-    @graphql.Parent() parent: Store,
-    @graphql.Args() args: AccountTransactionFindManyArgs
-  ): Promise<AccountTransaction[]> {
-    const results = await this.service.findAccountTransactions(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [CustomerElevator], { name: "customerElevators" })
-  @nestAccessControl.UseRoles({
-    resource: "CustomerElevator",
-    action: "read",
-    possession: "any",
-  })
-  async findCustomerElevators(
-    @graphql.Parent() parent: Store,
-    @graphql.Args() args: CustomerElevatorFindManyArgs
-  ): Promise<CustomerElevator[]> {
-    const results = await this.service.findCustomerElevators(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Elevator], { name: "elevators" })
-  @nestAccessControl.UseRoles({
-    resource: "Elevator",
-    action: "read",
-    possession: "any",
-  })
-  async findElevators(
-    @graphql.Parent() parent: Store,
-    @graphql.Args() args: ElevatorFindManyArgs
-  ): Promise<Elevator[]> {
-    const results = await this.service.findElevators(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [FailureReporting], { name: "failureReportings" })
-  @nestAccessControl.UseRoles({
-    resource: "FailureReporting",
-    action: "read",
-    possession: "any",
-  })
-  async findFailureReportings(
-    @graphql.Parent() parent: Store,
-    @graphql.Args() args: FailureReportingFindManyArgs
-  ): Promise<FailureReporting[]> {
-    const results = await this.service.findFailureReportings(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [MaintenanceContract], {
-    name: "maintenanceContracts",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "MaintenanceContract",
-    action: "read",
-    possession: "any",
-  })
-  async findMaintenanceContracts(
-    @graphql.Parent() parent: Store,
-    @graphql.Args() args: MaintenanceContractFindManyArgs
-  ): Promise<MaintenanceContract[]> {
-    const results = await this.service.findMaintenanceContracts(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [MaintenanceVisit], { name: "maintenanceVisits" })
-  @nestAccessControl.UseRoles({
-    resource: "MaintenanceVisit",
-    action: "read",
-    possession: "any",
-  })
-  async findMaintenanceVisits(
-    @graphql.Parent() parent: Store,
-    @graphql.Args() args: MaintenanceVisitFindManyArgs
-  ): Promise<MaintenanceVisit[]> {
-    const results = await this.service.findMaintenanceVisits(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Notification], { name: "notifications" })
-  @nestAccessControl.UseRoles({
-    resource: "Notification",
-    action: "read",
-    possession: "any",
-  })
-  async findNotifications(
-    @graphql.Parent() parent: Store,
-    @graphql.Args() args: NotificationFindManyArgs
-  ): Promise<Notification[]> {
-    const results = await this.service.findNotifications(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [PeriodicMaintenanceOrder], {
-    name: "periodicMaintenanceOrders",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "PeriodicMaintenanceOrder",
-    action: "read",
-    possession: "any",
-  })
-  async findPeriodicMaintenanceOrders(
-    @graphql.Parent() parent: Store,
-    @graphql.Args() args: PeriodicMaintenanceOrderFindManyArgs
-  ): Promise<PeriodicMaintenanceOrder[]> {
-    const results = await this.service.findPeriodicMaintenanceOrders(
-      parent.id,
-      args
-    );
+    @graphql.Args() args: ProductionOrderFindManyArgs
+  ): Promise<ProductionOrder[]> {
+    const results = await this.service.findProductionOrders(parent.id, args);
 
     if (!results) {
       return [];
@@ -397,65 +180,5 @@ export class StoreResolverBase {
     }
 
     return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [SaleTax], { name: "saleTaxes" })
-  @nestAccessControl.UseRoles({
-    resource: "SaleTax",
-    action: "read",
-    possession: "any",
-  })
-  async findSaleTaxes(
-    @graphql.Parent() parent: Store,
-    @graphql.Args() args: SaleTaxFindManyArgs
-  ): Promise<SaleTax[]> {
-    const results = await this.service.findSaleTaxes(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Office, {
-    nullable: true,
-    name: "office",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "Office",
-    action: "read",
-    possession: "any",
-  })
-  async getOffice(@graphql.Parent() parent: Store): Promise<Office | null> {
-    const result = await this.service.getOffice(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => StoreType, {
-    nullable: true,
-    name: "storeType",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "StoreType",
-    action: "read",
-    possession: "any",
-  })
-  async getStoreType(
-    @graphql.Parent() parent: Store
-  ): Promise<StoreType | null> {
-    const result = await this.service.getStoreType(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
   }
 }

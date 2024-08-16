@@ -5,11 +5,8 @@ export type SaleTaxOrderByInput = {
   createdAt?: SortOrder;
   description?: SortOrder;
   id?: SortOrder;
-  isExemption?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
-  rate?: SortOrder;
-  storeId?: SortOrder;
   updatedAt?: SortOrder;
 };

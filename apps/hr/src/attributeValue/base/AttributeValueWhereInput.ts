@@ -16,6 +16,7 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { ProductVariantListRelationFilter } from "../../productVariant/base/ProductVariantListRelationFilter";
 
 @InputType()
 class AttributeValueWhereInput {
@@ -55,14 +56,26 @@ class AttributeValueWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: () => ProductVariantListRelationFilter,
   })
-  @Type(() => StringNullableFilter)
+  @ValidateNested()
+  @Type(() => ProductVariantListRelationFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => ProductVariantListRelationFilter, {
     nullable: true,
   })
-  value?: StringNullableFilter;
+  productVariants?: ProductVariantListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  value?: StringFilter;
 }
 
 export { AttributeValueWhereInput as AttributeValueWhereInput };

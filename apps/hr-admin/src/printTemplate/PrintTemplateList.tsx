@@ -11,7 +11,7 @@ import {
 } from "react-admin";
 
 import Pagination from "../Components/Pagination";
-import { PRINTTEMPLATEGROUP_TITLE_FIELD } from "../printTemplateGroup/PrintTemplateGroupTitle";
+import { PRINTTEMPLATECONTENT_TITLE_FIELD } from "../printTemplateContent/PrintTemplateContentTitle";
 
 export const PrintTemplateList = (props: ListProps): React.ReactElement => {
   return (
@@ -23,9 +23,9 @@ export const PrintTemplateList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <TextField label="Description" source="Description" />
         <TextField label="Code" source="code" />
         <DateField source="createdAt" label="Created At" />
+        <TextField label="Description" source="description" />
         <TextField label="FilePath" source="filePath" />
         <TextField label="ID" source="id" />
         <BooleanField label="IsCustomized" source="isCustomized" />
@@ -37,11 +37,11 @@ export const PrintTemplateList = (props: ListProps): React.ReactElement => {
         <TextField label="PaperSize" source="paperSize" />
         <TextField label="PreviewImage" source="previewImage" />
         <ReferenceField
-          label="PrintTemplateGroupId"
-          source="printtemplategroup.id"
-          reference="PrintTemplateGroup"
+          label="PrintTemplateContents"
+          source="printtemplatecontent.id"
+          reference="PrintTemplateContent"
         >
-          <TextField source={PRINTTEMPLATEGROUP_TITLE_FIELD} />
+          <TextField source={PRINTTEMPLATECONTENT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

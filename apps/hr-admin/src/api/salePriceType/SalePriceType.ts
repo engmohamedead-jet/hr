@@ -1,11 +1,8 @@
-import { Customer } from "../customer/Customer";
-
 export type SalePriceType = {
-  code: string;
+  code: string | null;
   createdAt: Date;
-  customers?: Customer | null;
+  description: string | null;
   id: number;
-  isDefault: boolean;
   name: string;
   normalizedName: string;
   note: string | null;

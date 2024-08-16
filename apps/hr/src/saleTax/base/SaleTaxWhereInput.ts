@@ -14,13 +14,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ProductGroupListRelationFilter } from "../../productGroup/base/ProductGroupListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
-import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
-import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
 
 @InputType()
 class SaleTaxWhereInput {
@@ -48,25 +44,14 @@ class SaleTaxWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntFilter,
+    type: StringFilter,
   })
-  @Type(() => IntFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => IntFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  id?: IntFilter;
-
-  @ApiProperty({
-    required: false,
-    type: BooleanNullableFilter,
-  })
-  @Type(() => BooleanNullableFilter)
-  @IsOptional()
-  @Field(() => BooleanNullableFilter, {
-    nullable: true,
-  })
-  isExemption?: BooleanNullableFilter;
+  id?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -124,29 +109,6 @@ class SaleTaxWhereInput {
     nullable: true,
   })
   products?: ProductListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: DecimalNullableFilter,
-  })
-  @Type(() => DecimalNullableFilter)
-  @IsOptional()
-  @Field(() => DecimalNullableFilter, {
-    nullable: true,
-  })
-  rate?: DecimalNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => StoreWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => StoreWhereUniqueInput)
-  @IsOptional()
-  @Field(() => StoreWhereUniqueInput, {
-    nullable: true,
-  })
-  store?: StoreWhereUniqueInput;
 }
 
 export { SaleTaxWhereInput as SaleTaxWhereInput };

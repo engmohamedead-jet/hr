@@ -56,7 +56,6 @@ export class ProductTypeControllerBase {
       select: {
         code: true,
         createdAt: true,
-        description: true,
         id: true,
         isComponent: true,
         name: true,
@@ -86,7 +85,6 @@ export class ProductTypeControllerBase {
       select: {
         code: true,
         createdAt: true,
-        description: true,
         id: true,
         isComponent: true,
         name: true,
@@ -117,7 +115,6 @@ export class ProductTypeControllerBase {
       select: {
         code: true,
         createdAt: true,
-        description: true,
         id: true,
         isComponent: true,
         name: true,
@@ -157,7 +154,6 @@ export class ProductTypeControllerBase {
         select: {
           code: true,
           createdAt: true,
-          description: true,
           id: true,
           isComponent: true,
           name: true,
@@ -196,7 +192,6 @@ export class ProductTypeControllerBase {
         select: {
           code: true,
           createdAt: true,
-          description: true,
           id: true,
           isComponent: true,
           name: true,
@@ -231,12 +226,6 @@ export class ProductTypeControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -272,6 +261,7 @@ export class ProductTypeControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -281,6 +271,12 @@ export class ProductTypeControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },

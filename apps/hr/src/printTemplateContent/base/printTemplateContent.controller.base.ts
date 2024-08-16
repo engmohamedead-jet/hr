@@ -52,9 +52,9 @@ export class PrintTemplateContentControllerBase {
       data: {
         ...data,
 
-        printTemplateId: data.printTemplateId
+        printTemplate: data.printTemplate
           ? {
-              connect: data.printTemplateId,
+              connect: data.printTemplate,
             }
           : undefined,
       },
@@ -66,7 +66,7 @@ export class PrintTemplateContentControllerBase {
         key: true,
         note: true,
 
-        printTemplateId: {
+        printTemplate: {
           select: {
             id: true,
           },
@@ -104,7 +104,7 @@ export class PrintTemplateContentControllerBase {
         key: true,
         note: true,
 
-        printTemplateId: {
+        printTemplate: {
           select: {
             id: true,
           },
@@ -141,7 +141,7 @@ export class PrintTemplateContentControllerBase {
         key: true,
         note: true,
 
-        printTemplateId: {
+        printTemplate: {
           select: {
             id: true,
           },
@@ -181,9 +181,9 @@ export class PrintTemplateContentControllerBase {
         data: {
           ...data,
 
-          printTemplateId: data.printTemplateId
+          printTemplate: data.printTemplate
             ? {
-                connect: data.printTemplateId,
+                connect: data.printTemplate,
               }
             : undefined,
         },
@@ -195,7 +195,7 @@ export class PrintTemplateContentControllerBase {
           key: true,
           note: true,
 
-          printTemplateId: {
+          printTemplate: {
             select: {
               id: true,
             },
@@ -240,7 +240,7 @@ export class PrintTemplateContentControllerBase {
           key: true,
           note: true,
 
-          printTemplateId: {
+          printTemplate: {
             select: {
               id: true,
             },

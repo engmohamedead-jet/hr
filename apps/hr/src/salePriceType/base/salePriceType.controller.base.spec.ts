@@ -20,8 +20,8 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   code: "exampleCode",
   createdAt: new Date(),
+  description: "exampleDescription",
   id: 42,
-  isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
   note: "exampleNote",
@@ -30,8 +30,8 @@ const CREATE_INPUT = {
 const CREATE_RESULT = {
   code: "exampleCode",
   createdAt: new Date(),
+  description: "exampleDescription",
   id: 42,
-  isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
   note: "exampleNote",
@@ -41,8 +41,8 @@ const FIND_MANY_RESULT = [
   {
     code: "exampleCode",
     createdAt: new Date(),
+    description: "exampleDescription",
     id: 42,
-    isDefault: "true",
     name: "exampleName",
     normalizedName: "exampleNormalizedName",
     note: "exampleNote",
@@ -52,8 +52,8 @@ const FIND_MANY_RESULT = [
 const FIND_ONE_RESULT = {
   code: "exampleCode",
   createdAt: new Date(),
+  description: "exampleDescription",
   id: 42,
-  isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
   note: "exampleNote",

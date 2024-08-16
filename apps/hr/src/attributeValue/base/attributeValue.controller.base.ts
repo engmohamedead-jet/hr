@@ -26,6 +26,9 @@ import { AttributeValue } from "./AttributeValue";
 import { AttributeValueFindManyArgs } from "./AttributeValueFindManyArgs";
 import { AttributeValueWhereUniqueInput } from "./AttributeValueWhereUniqueInput";
 import { AttributeValueUpdateInput } from "./AttributeValueUpdateInput";
+import { ProductVariantFindManyArgs } from "../../productVariant/base/ProductVariantFindManyArgs";
+import { ProductVariant } from "../../productVariant/base/ProductVariant";
+import { ProductVariantWhereUniqueInput } from "../../productVariant/base/ProductVariantWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,11 +55,9 @@ export class AttributeValueControllerBase {
       data: {
         ...data,
 
-        attributeId: data.attributeId
-          ? {
-              connect: data.attributeId,
-            }
-          : undefined,
+        attributeId: {
+          connect: data.attributeId,
+        },
       },
       select: {
         attributeId: {
@@ -169,11 +170,9 @@ export class AttributeValueControllerBase {
         data: {
           ...data,
 
-          attributeId: data.attributeId
-            ? {
-                connect: data.attributeId,
-              }
-            : undefined,
+          attributeId: {
+            connect: data.attributeId,
+          },
         },
         select: {
           attributeId: {
@@ -238,5 +237,114 @@ export class AttributeValueControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/productVariants")
+  @ApiNestedQuery(ProductVariantFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ProductVariant",
+    action: "read",
+    possession: "any",
+  })
+  async findProductVariants(
+    @common.Req() request: Request,
+    @common.Param() params: AttributeValueWhereUniqueInput
+  ): Promise<ProductVariant[]> {
+    const query = plainToClass(ProductVariantFindManyArgs, request.query);
+    const results = await this.service.findProductVariants(params.id, {
+      ...query,
+      select: {
+        attributeValueId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/productVariants")
+  @nestAccessControl.UseRoles({
+    resource: "AttributeValue",
+    action: "update",
+    possession: "any",
+  })
+  async connectProductVariants(
+    @common.Param() params: AttributeValueWhereUniqueInput,
+    @common.Body() body: ProductVariantWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productVariants: {
+        connect: body,
+      },
+    };
+    await this.service.updateAttributeValue({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/productVariants")
+  @nestAccessControl.UseRoles({
+    resource: "AttributeValue",
+    action: "update",
+    possession: "any",
+  })
+  async updateProductVariants(
+    @common.Param() params: AttributeValueWhereUniqueInput,
+    @common.Body() body: ProductVariantWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productVariants: {
+        set: body,
+      },
+    };
+    await this.service.updateAttributeValue({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/productVariants")
+  @nestAccessControl.UseRoles({
+    resource: "AttributeValue",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectProductVariants(
+    @common.Param() params: AttributeValueWhereUniqueInput,
+    @common.Body() body: ProductVariantWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productVariants: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateAttributeValue({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

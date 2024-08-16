@@ -11,54 +11,19 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountTransactionDetailUpdateManyWithoutStoresInput } from "./AccountTransactionDetailUpdateManyWithoutStoresInput";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
   IsBoolean,
+  ValidateNested,
 } from "class-validator";
+import { ProductionOrderUpdateManyWithoutStoresInput } from "./ProductionOrderUpdateManyWithoutStoresInput";
 import { Type } from "class-transformer";
-import { AccountTransactionUpdateManyWithoutStoresInput } from "./AccountTransactionUpdateManyWithoutStoresInput";
-import { CustomerElevatorUpdateManyWithoutStoresInput } from "./CustomerElevatorUpdateManyWithoutStoresInput";
-import { ElevatorUpdateManyWithoutStoresInput } from "./ElevatorUpdateManyWithoutStoresInput";
-import { FailureReportingUpdateManyWithoutStoresInput } from "./FailureReportingUpdateManyWithoutStoresInput";
-import { MaintenanceContractUpdateManyWithoutStoresInput } from "./MaintenanceContractUpdateManyWithoutStoresInput";
-import { MaintenanceVisitUpdateManyWithoutStoresInput } from "./MaintenanceVisitUpdateManyWithoutStoresInput";
-import { NotificationUpdateManyWithoutStoresInput } from "./NotificationUpdateManyWithoutStoresInput";
-import { OfficeWhereUniqueInput } from "../../office/base/OfficeWhereUniqueInput";
-import { PeriodicMaintenanceOrderUpdateManyWithoutStoresInput } from "./PeriodicMaintenanceOrderUpdateManyWithoutStoresInput";
 import { ProductUpdateManyWithoutStoresInput } from "./ProductUpdateManyWithoutStoresInput";
-import { SaleTaxUpdateManyWithoutStoresInput } from "./SaleTaxUpdateManyWithoutStoresInput";
-import { StoreTypeWhereUniqueInput } from "../../storeType/base/StoreTypeWhereUniqueInput";
 
 @InputType()
 class StoreUpdateInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountTransactionDetailUpdateManyWithoutStoresInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountTransactionDetailUpdateManyWithoutStoresInput)
-  @IsOptional()
-  @Field(() => AccountTransactionDetailUpdateManyWithoutStoresInput, {
-    nullable: true,
-  })
-  accountTransactionDetails?: AccountTransactionDetailUpdateManyWithoutStoresInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => AccountTransactionUpdateManyWithoutStoresInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountTransactionUpdateManyWithoutStoresInput)
-  @IsOptional()
-  @Field(() => AccountTransactionUpdateManyWithoutStoresInput, {
-    nullable: true,
-  })
-  accountTransactions?: AccountTransactionUpdateManyWithoutStoresInput;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -104,43 +69,7 @@ class StoreUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => CustomerElevatorUpdateManyWithoutStoresInput,
-  })
-  @ValidateNested()
-  @Type(() => CustomerElevatorUpdateManyWithoutStoresInput)
-  @IsOptional()
-  @Field(() => CustomerElevatorUpdateManyWithoutStoresInput, {
-    nullable: true,
-  })
-  customerElevators?: CustomerElevatorUpdateManyWithoutStoresInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ElevatorUpdateManyWithoutStoresInput,
-  })
-  @ValidateNested()
-  @Type(() => ElevatorUpdateManyWithoutStoresInput)
-  @IsOptional()
-  @Field(() => ElevatorUpdateManyWithoutStoresInput, {
-    nullable: true,
-  })
-  elevators?: ElevatorUpdateManyWithoutStoresInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => FailureReportingUpdateManyWithoutStoresInput,
-  })
-  @ValidateNested()
-  @Type(() => FailureReportingUpdateManyWithoutStoresInput)
-  @IsOptional()
-  @Field(() => FailureReportingUpdateManyWithoutStoresInput, {
-    nullable: true,
-  })
-  failureReportings?: FailureReportingUpdateManyWithoutStoresInput;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -165,30 +94,6 @@ class StoreUpdateInput {
     nullable: true,
   })
   homePhoneNumber?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => MaintenanceContractUpdateManyWithoutStoresInput,
-  })
-  @ValidateNested()
-  @Type(() => MaintenanceContractUpdateManyWithoutStoresInput)
-  @IsOptional()
-  @Field(() => MaintenanceContractUpdateManyWithoutStoresInput, {
-    nullable: true,
-  })
-  maintenanceContracts?: MaintenanceContractUpdateManyWithoutStoresInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => MaintenanceVisitUpdateManyWithoutStoresInput,
-  })
-  @ValidateNested()
-  @Type(() => MaintenanceVisitUpdateManyWithoutStoresInput)
-  @IsOptional()
-  @Field(() => MaintenanceVisitUpdateManyWithoutStoresInput, {
-    nullable: true,
-  })
-  maintenanceVisits?: MaintenanceVisitUpdateManyWithoutStoresInput;
 
   @ApiProperty({
     required: false,
@@ -219,7 +124,7 @@ class StoreUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(1000)
+  @MaxLength(100)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -228,39 +133,15 @@ class StoreUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => NotificationUpdateManyWithoutStoresInput,
+    type: () => ProductionOrderUpdateManyWithoutStoresInput,
   })
   @ValidateNested()
-  @Type(() => NotificationUpdateManyWithoutStoresInput)
+  @Type(() => ProductionOrderUpdateManyWithoutStoresInput)
   @IsOptional()
-  @Field(() => NotificationUpdateManyWithoutStoresInput, {
+  @Field(() => ProductionOrderUpdateManyWithoutStoresInput, {
     nullable: true,
   })
-  notifications?: NotificationUpdateManyWithoutStoresInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => OfficeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => OfficeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => OfficeWhereUniqueInput, {
-    nullable: true,
-  })
-  office?: OfficeWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PeriodicMaintenanceOrderUpdateManyWithoutStoresInput,
-  })
-  @ValidateNested()
-  @Type(() => PeriodicMaintenanceOrderUpdateManyWithoutStoresInput)
-  @IsOptional()
-  @Field(() => PeriodicMaintenanceOrderUpdateManyWithoutStoresInput, {
-    nullable: true,
-  })
-  periodicMaintenanceOrders?: PeriodicMaintenanceOrderUpdateManyWithoutStoresInput;
+  productionOrders?: ProductionOrderUpdateManyWithoutStoresInput;
 
   @ApiProperty({
     required: false,
@@ -273,30 +154,6 @@ class StoreUpdateInput {
     nullable: true,
   })
   products?: ProductUpdateManyWithoutStoresInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleTaxUpdateManyWithoutStoresInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleTaxUpdateManyWithoutStoresInput)
-  @IsOptional()
-  @Field(() => SaleTaxUpdateManyWithoutStoresInput, {
-    nullable: true,
-  })
-  saleTaxes?: SaleTaxUpdateManyWithoutStoresInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => StoreTypeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => StoreTypeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => StoreTypeWhereUniqueInput, {
-    nullable: true,
-  })
-  storeType?: StoreTypeWhereUniqueInput;
 
   @ApiProperty({
     required: false,

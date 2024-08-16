@@ -14,11 +14,16 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Product as PrismaProduct,
-  ProductGroup as PrismaProductGroup,
+  BillOfMaterialDetail as PrismaBillOfMaterialDetail,
+  BillOfMaterial as PrismaBillOfMaterial,
+  ProductBarcode as PrismaProductBarcode,
+  ProductVariant as PrismaProductVariant,
+  ProductionOrder as PrismaProductionOrder,
   Store as PrismaStore,
   Unit as PrismaUnit,
   ProductCategory as PrismaProductCategory,
   ProductDepartment as PrismaProductDepartment,
+  ProductGroup as PrismaProductGroup,
   ProductType as PrismaProductType,
   SaleTax as PrismaSaleTax,
 } from "@prisma/client";
@@ -48,14 +53,59 @@ export class ProductServiceBase {
     return this.prisma.product.delete(args);
   }
 
-  async getProductGroupId(
-    parentId: string
-  ): Promise<PrismaProductGroup | null> {
+  async findBillOfMaterialDetails(
+    parentId: string,
+    args: Prisma.BillOfMaterialDetailFindManyArgs
+  ): Promise<PrismaBillOfMaterialDetail[]> {
     return this.prisma.product
-      .findUnique({
+      .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .ProductGroupId();
+      .billOfMaterialDetails(args);
+  }
+
+  async findBillOfMaterials(
+    parentId: string,
+    args: Prisma.BillOfMaterialFindManyArgs
+  ): Promise<PrismaBillOfMaterial[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .billOfMaterials(args);
+  }
+
+  async findProductBarcodes(
+    parentId: string,
+    args: Prisma.ProductBarcodeFindManyArgs
+  ): Promise<PrismaProductBarcode[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .productBarcodes(args);
+  }
+
+  async findProductVariants(
+    parentId: string,
+    args: Prisma.ProductVariantFindManyArgs
+  ): Promise<PrismaProductVariant[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .productVariants(args);
+  }
+
+  async findProductionOrders(
+    parentId: string,
+    args: Prisma.ProductionOrderFindManyArgs
+  ): Promise<PrismaProductionOrder[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .productionOrders(args);
   }
 
   async getDefaultStoreId(parentId: string): Promise<PrismaStore | null> {
@@ -92,6 +142,16 @@ export class ProductServiceBase {
         where: { id: parentId },
       })
       .productDepartmentId();
+  }
+
+  async getProductGroupId(
+    parentId: string
+  ): Promise<PrismaProductGroup | null> {
+    return this.prisma.product
+      .findUnique({
+        where: { id: parentId },
+      })
+      .productGroupId();
   }
 
   async getProductTypeId(parentId: string): Promise<PrismaProductType | null> {

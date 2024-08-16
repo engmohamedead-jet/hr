@@ -28,7 +28,7 @@ class AttributeValueOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  Name?: SortOrder;
+  attributeIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

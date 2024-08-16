@@ -3,8 +3,7 @@ import { Product } from "../product/Product";
 export type ProductType = {
   code: string | null;
   createdAt: Date;
-  description: string | null;
-  id: string;
+  id: number;
   isComponent: boolean | null;
   name: string;
   normalizedName: string;

@@ -12,11 +12,11 @@ import {
   ReferenceField,
 } from "react-admin";
 
-import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
 import { UNIT_TITLE_FIELD } from "../unit/UnitTitle";
 import { PRODUCTCATEGORY_TITLE_FIELD } from "../productCategory/ProductCategoryTitle";
 import { PRODUCTDEPARTMENT_TITLE_FIELD } from "../productDepartment/ProductDepartmentTitle";
+import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
 import { PRODUCTTYPE_TITLE_FIELD } from "./ProductTypeTitle";
 import { SALETAX_TITLE_FIELD } from "../saleTax/SaleTaxTitle";
 
@@ -26,7 +26,6 @@ export const ProductTypeShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <TextField label="Code" source="code" />
         <DateField source="createdAt" label="Created At" />
-        <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
         <BooleanField label="IsComponent" source="isComponent" />
         <TextField label="Name" source="name" />
@@ -39,13 +38,6 @@ export const ProductTypeShow = (props: ShowProps): React.ReactElement => {
           label="Products"
         >
           <Datagrid rowClick="show">
-            <ReferenceField
-              label="ProductGroupId"
-              source="productgroup.id"
-              reference="ProductGroup"
-            >
-              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="Barcode" source="barcode" />
             <BooleanField label="CanExpire" source="canExpire" />
             <TextField label="Code" source="code" />
@@ -94,6 +86,7 @@ export const ProductTypeShow = (props: ShowProps): React.ReactElement => {
             <TextField label="MinimumSalePrice" source="minimumSalePrice" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
             <TextField label="Photo" source="photo" />
             <ReferenceField
               label="ProductCategoryId"
@@ -108,6 +101,13 @@ export const ProductTypeShow = (props: ShowProps): React.ReactElement => {
               reference="ProductDepartment"
             >
               <TextField source={PRODUCTDEPARTMENT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductGroupId"
+              source="productgroup.id"
+              reference="ProductGroup"
+            >
+              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
               label="ProductTypeId"

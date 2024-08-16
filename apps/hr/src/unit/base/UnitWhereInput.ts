@@ -11,52 +11,52 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { BillOfMaterialDetailListRelationFilter } from "../../billOfMaterialDetail/base/BillOfMaterialDetailListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
-import { CompoundUnitWhereUniqueInput } from "../../compoundUnit/base/CompoundUnitWhereUniqueInput";
-import { CompoundUnitListRelationFilter } from "../../compoundUnit/base/CompoundUnitListRelationFilter";
+import { BillOfMaterialListRelationFilter } from "../../billOfMaterial/base/BillOfMaterialListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
-import { BooleanFilter } from "../../util/BooleanFilter";
+import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 
 @InputType()
 class UnitWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: () => BillOfMaterialDetailListRelationFilter,
   })
-  @Type(() => StringFilter)
+  @ValidateNested()
+  @Type(() => BillOfMaterialDetailListRelationFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => BillOfMaterialDetailListRelationFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  billOfMaterialDetails?: BillOfMaterialDetailListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: () => CompoundUnitWhereUniqueInput,
+    type: () => BillOfMaterialListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => CompoundUnitWhereUniqueInput)
+  @Type(() => BillOfMaterialListRelationFilter)
   @IsOptional()
-  @Field(() => CompoundUnitWhereUniqueInput, {
+  @Field(() => BillOfMaterialListRelationFilter, {
     nullable: true,
   })
-  compareUnit?: CompoundUnitWhereUniqueInput;
+  billOfMaterials?: BillOfMaterialListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: () => CompoundUnitListRelationFilter,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => CompoundUnitListRelationFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => CompoundUnitListRelationFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  compoundUnits?: CompoundUnitListRelationFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -93,14 +93,14 @@ class UnitWhereInput {
 
   @ApiProperty({
     required: false,
-    type: BooleanFilter,
+    type: BooleanNullableFilter,
   })
-  @Type(() => BooleanFilter)
+  @Type(() => BooleanNullableFilter)
   @IsOptional()
-  @Field(() => BooleanFilter, {
+  @Field(() => BooleanNullableFilter, {
     nullable: true,
   })
-  isDefault?: BooleanFilter;
+  isDefault?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -134,6 +134,18 @@ class UnitWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductionOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductionOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductionOrderListRelationFilter, {
+    nullable: true,
+  })
+  productionOrders?: ProductionOrderListRelationFilter;
 
   @ApiProperty({
     required: false,

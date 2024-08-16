@@ -27,7 +27,7 @@ const CREATE_INPUT = {
   isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
-  notes: "exampleNotes",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
@@ -40,7 +40,7 @@ const CREATE_RESULT = {
   isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
-  notes: "exampleNotes",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -54,7 +54,7 @@ const FIND_MANY_RESULT = [
     isDefault: "true",
     name: "exampleName",
     normalizedName: "exampleNormalizedName",
-    notes: "exampleNotes",
+    note: "exampleNote",
     updatedAt: new Date(),
   },
 ];
@@ -68,7 +68,7 @@ const FIND_ONE_RESULT = {
   isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
-  notes: "exampleNotes",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 

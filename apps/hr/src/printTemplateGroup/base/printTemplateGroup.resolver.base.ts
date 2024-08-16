@@ -26,8 +26,6 @@ import { PrintTemplateGroupFindUniqueArgs } from "./PrintTemplateGroupFindUnique
 import { CreatePrintTemplateGroupArgs } from "./CreatePrintTemplateGroupArgs";
 import { UpdatePrintTemplateGroupArgs } from "./UpdatePrintTemplateGroupArgs";
 import { DeletePrintTemplateGroupArgs } from "./DeletePrintTemplateGroupArgs";
-import { PrintTemplateFindManyArgs } from "../../printTemplate/base/PrintTemplateFindManyArgs";
-import { PrintTemplate } from "../../printTemplate/base/PrintTemplate";
 import { PrintTemplateGroupService } from "../printTemplateGroup.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PrintTemplateGroup)
@@ -142,25 +140,5 @@ export class PrintTemplateGroupResolverBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [PrintTemplate], { name: "printTemplates" })
-  @nestAccessControl.UseRoles({
-    resource: "PrintTemplate",
-    action: "read",
-    possession: "any",
-  })
-  async findPrintTemplates(
-    @graphql.Parent() parent: PrintTemplateGroup,
-    @graphql.Args() args: PrintTemplateFindManyArgs
-  ): Promise<PrintTemplate[]> {
-    const results = await this.service.findPrintTemplates(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
   }
 }

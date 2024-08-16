@@ -19,6 +19,7 @@ import {
   MaxLength,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { ProductVariantUpdateManyWithoutAttributeValuesInput } from "./ProductVariantUpdateManyWithoutAttributeValuesInput";
 
 @InputType()
 class AttributeValueUpdateInput {
@@ -32,7 +33,7 @@ class AttributeValueUpdateInput {
   @Field(() => AttributeWhereUniqueInput, {
     nullable: true,
   })
-  attributeId?: AttributeWhereUniqueInput | null;
+  attributeId?: AttributeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -48,6 +49,18 @@ class AttributeValueUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductVariantUpdateManyWithoutAttributeValuesInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductVariantUpdateManyWithoutAttributeValuesInput)
+  @IsOptional()
+  @Field(() => ProductVariantUpdateManyWithoutAttributeValuesInput, {
+    nullable: true,
+  })
+  productVariants?: ProductVariantUpdateManyWithoutAttributeValuesInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -56,7 +69,7 @@ class AttributeValueUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  value?: string | null;
+  value?: string;
 }
 
 export { AttributeValueUpdateInput as AttributeValueUpdateInput };

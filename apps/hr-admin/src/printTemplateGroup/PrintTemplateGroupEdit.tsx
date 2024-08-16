@@ -1,15 +1,5 @@
 import * as React from "react";
-
-import {
-  Edit,
-  SimpleForm,
-  EditProps,
-  TextInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
-} from "react-admin";
-
-import { PrintTemplateTitle } from "../printTemplate/PrintTemplateTitle";
+import { Edit, SimpleForm, EditProps, TextInput } from "react-admin";
 
 export const PrintTemplateGroupEdit = (
   props: EditProps
@@ -22,14 +12,6 @@ export const PrintTemplateGroupEdit = (
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
-        <ReferenceArrayInput
-          source="printTemplates"
-          reference="PrintTemplate"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PrintTemplateTitle} />
-        </ReferenceArrayInput>
       </SimpleForm>
     </Edit>
   );

@@ -94,7 +94,7 @@ class PrintTemplateContentOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  printTemplateIdId?: SortOrder;
+  printTemplateId?: SortOrder;
 
   @ApiProperty({
     required: false,

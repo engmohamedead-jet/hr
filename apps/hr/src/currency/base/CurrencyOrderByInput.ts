@@ -50,18 +50,7 @@ class CurrencyOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  foreignCurrencyNameId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  hundredthName?: SortOrder;
+  description?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -73,17 +62,6 @@ class CurrencyOrderByInput {
     nullable: true,
   })
   id?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  isDefault?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -117,17 +95,6 @@ class CurrencyOrderByInput {
     nullable: true,
   })
   note?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  symbolField?: SortOrder;
 
   @ApiProperty({
     required: false,

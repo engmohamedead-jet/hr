@@ -14,23 +14,23 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Attribute } from "../../attribute/base/Attribute";
 import {
   ValidateNested,
-  IsOptional,
   IsDate,
   IsString,
   MaxLength,
+  IsOptional,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { ProductVariant } from "../../productVariant/base/ProductVariant";
 
 @ObjectType()
 class AttributeValue {
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => Attribute,
   })
   @ValidateNested()
   @Type(() => Attribute)
-  @IsOptional()
-  attributeId?: Attribute | null;
+  attributeId?: Attribute;
 
   @ApiProperty({
     required: true,
@@ -61,6 +61,15 @@ class AttributeValue {
   note!: string | null;
 
   @ApiProperty({
+    required: false,
+    type: () => [ProductVariant],
+  })
+  @ValidateNested()
+  @Type(() => ProductVariant)
+  @IsOptional()
+  productVariants?: Array<ProductVariant>;
+
+  @ApiProperty({
     required: true,
   })
   @IsDate()
@@ -69,16 +78,13 @@ class AttributeValue {
   updatedAt!: Date;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  value!: string | null;
+  @Field(() => String)
+  value!: string;
 }
 
 export { AttributeValue as AttributeValue };

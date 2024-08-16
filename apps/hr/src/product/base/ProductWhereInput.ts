@@ -11,40 +11,32 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { ProductGroupWhereUniqueInput } from "../../productGroup/base/ProductGroupWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
+import { BillOfMaterialDetailListRelationFilter } from "../../billOfMaterialDetail/base/BillOfMaterialDetailListRelationFilter";
+import { BillOfMaterialListRelationFilter } from "../../billOfMaterial/base/BillOfMaterialListRelationFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
-import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { DecimalFilter } from "../../util/DecimalFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../../unit/base/UnitWhereUniqueInput";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { JsonFilter } from "../../util/JsonFilter";
+import { ProductBarcodeListRelationFilter } from "../../productBarcode/base/ProductBarcodeListRelationFilter";
 import { ProductCategoryWhereUniqueInput } from "../../productCategory/base/ProductCategoryWhereUniqueInput";
 import { ProductDepartmentWhereUniqueInput } from "../../productDepartment/base/ProductDepartmentWhereUniqueInput";
+import { ProductGroupWhereUniqueInput } from "../../productGroup/base/ProductGroupWhereUniqueInput";
 import { ProductTypeWhereUniqueInput } from "../../productType/base/ProductTypeWhereUniqueInput";
-import { FloatFilter } from "../../util/FloatFilter";
+import { ProductVariantListRelationFilter } from "../../productVariant/base/ProductVariantListRelationFilter";
+import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
 
 @InputType()
 class ProductWhereInput {
-  @ApiProperty({
-    required: false,
-    type: () => ProductGroupWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductGroupWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProductGroupWhereUniqueInput, {
-    nullable: true,
-  })
-  ProductGroupId?: ProductGroupWhereUniqueInput;
-
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -55,6 +47,30 @@ class ProductWhereInput {
     nullable: true,
   })
   barcode?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BillOfMaterialDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => BillOfMaterialDetailListRelationFilter, {
+    nullable: true,
+  })
+  billOfMaterialDetails?: BillOfMaterialDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BillOfMaterialListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialListRelationFilter)
+  @IsOptional()
+  @Field(() => BillOfMaterialListRelationFilter, {
+    nullable: true,
+  })
+  billOfMaterials?: BillOfMaterialListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -80,14 +96,14 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
-    type: DecimalNullableFilter,
+    type: DecimalFilter,
   })
-  @Type(() => DecimalNullableFilter)
+  @Type(() => DecimalFilter)
   @IsOptional()
-  @Field(() => DecimalNullableFilter, {
+  @Field(() => DecimalFilter, {
     nullable: true,
   })
-  costPrice?: DecimalNullableFilter;
+  costPrice?: DecimalFilter;
 
   @ApiProperty({
     required: false,
@@ -113,14 +129,14 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
-    type: DecimalNullableFilter,
+    type: IntNullableFilter,
   })
-  @Type(() => DecimalNullableFilter)
+  @Type(() => IntNullableFilter)
   @IsOptional()
-  @Field(() => DecimalNullableFilter, {
+  @Field(() => IntNullableFilter, {
     nullable: true,
   })
-  daysToManufacture?: DecimalNullableFilter;
+  daysToManufacture?: IntNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -302,6 +318,17 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: JsonFilter,
   })
   @Type(() => JsonFilter)
@@ -310,6 +337,18 @@ class ProductWhereInput {
     nullable: true,
   })
   photo?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductBarcodeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductBarcodeListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductBarcodeListRelationFilter, {
+    nullable: true,
+  })
+  productBarcodes?: ProductBarcodeListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -337,6 +376,18 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductGroupWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProductGroupWhereUniqueInput, {
+    nullable: true,
+  })
+  productGroupId?: ProductGroupWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductTypeWhereUniqueInput,
   })
   @ValidateNested()
@@ -346,6 +397,30 @@ class ProductWhereInput {
     nullable: true,
   })
   productTypeId?: ProductTypeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductVariantListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductVariantListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductVariantListRelationFilter, {
+    nullable: true,
+  })
+  productVariants?: ProductVariantListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductionOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductionOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductionOrderListRelationFilter, {
+    nullable: true,
+  })
+  productionOrders?: ProductionOrderListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -371,25 +446,25 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
-    type: FloatFilter,
+    type: DecimalFilter,
   })
-  @Type(() => FloatFilter)
+  @Type(() => DecimalFilter)
   @IsOptional()
-  @Field(() => FloatFilter, {
+  @Field(() => DecimalFilter, {
     nullable: true,
   })
-  salePrice?: FloatFilter;
+  salePrice?: DecimalFilter;
 
   @ApiProperty({
     required: false,
-    type: BooleanNullableFilter,
+    type: BooleanFilter,
   })
-  @Type(() => BooleanNullableFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => BooleanNullableFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  salePriceIncludesTax?: BooleanNullableFilter;
+  salePriceIncludesTax?: BooleanFilter;
 
   @ApiProperty({
     required: false,

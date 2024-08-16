@@ -5,6 +5,6 @@ export type PrintTemplateContentCreateInput = {
   fieldValue: string;
   key: string;
   note?: string | null;
-  printTemplateId?: PrintTemplateWhereUniqueInput | null;
+  printTemplate?: PrintTemplateWhereUniqueInput | null;
   value: string;
 };

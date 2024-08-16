@@ -11,23 +11,30 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
-import { CustomerCateogryWhereUniqueInput } from "../../customerCateogry/base/CustomerCateogryWhereUniqueInput";
-import { CustomerTypeWhereUniqueInput } from "../../customerType/base/CustomerTypeWhereUniqueInput";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
-import { RatingWhereUniqueInput } from "../../rating/base/RatingWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
-import { MaintenanceContractListRelationFilter } from "../../maintenanceContract/base/MaintenanceContractListRelationFilter";
-import { SalePriceTypeWhereUniqueInput } from "../../salePriceType/base/SalePriceTypeWhereUniqueInput";
-import { SupplierWhereUniqueInput } from "../../supplier/base/SupplierWhereUniqueInput";
+import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
 
 @InputType()
 class CustomerWhereInput {
+  @ApiProperty({
+    required: false,
+    type: FloatNullableFilter,
+  })
+  @Type(() => FloatNullableFilter)
+  @IsOptional()
+  @Field(() => FloatNullableFilter, {
+    nullable: true,
+  })
+  DefaultSalePriceTypeId?: FloatNullableFilter;
+
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -41,14 +48,14 @@ class CustomerWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -71,31 +78,7 @@ class CustomerWhereInput {
   @Field(() => CurrencyWhereUniqueInput, {
     nullable: true,
   })
-  currencyId?: CurrencyWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => CustomerCateogryWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CustomerCateogryWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CustomerCateogryWhereUniqueInput, {
-    nullable: true,
-  })
-  customerCateogryId?: CustomerCateogryWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => CustomerTypeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CustomerTypeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CustomerTypeWhereUniqueInput, {
-    nullable: true,
-  })
-  customerTypeId?: CustomerTypeWhereUniqueInput;
+  currency?: CurrencyWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -154,106 +137,6 @@ class CustomerWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  guarantorAddress?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  guarantorJobTitle?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  guarantorName?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  guarantorNationalIdNumber?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  guarantorPhoneNumber?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => RatingWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => RatingWhereUniqueInput)
-  @IsOptional()
-  @Field(() => RatingWhereUniqueInput, {
-    nullable: true,
-  })
-  guarantorRatingId?: RatingWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  guarantorWorkAddress?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  hasMortalOrDiscount?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  hasNoPendingInvoices?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -283,17 +166,6 @@ class CustomerWhereInput {
   @Field(() => BooleanNullableFilter, {
     nullable: true,
   })
-  isComplain?: BooleanNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: BooleanNullableFilter,
-  })
-  @Type(() => BooleanNullableFilter)
-  @IsOptional()
-  @Field(() => BooleanNullableFilter, {
-    nullable: true,
-  })
   isSystem?: BooleanNullableFilter;
 
   @ApiProperty({
@@ -306,29 +178,6 @@ class CustomerWhereInput {
     nullable: true,
   })
   isUnderRevision?: BooleanNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  jobTitle?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => MaintenanceContractListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => MaintenanceContractListRelationFilter)
-  @IsOptional()
-  @Field(() => MaintenanceContractListRelationFilter, {
-    nullable: true,
-  })
-  maintenanceContracts?: MaintenanceContractListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -372,17 +221,6 @@ class CustomerWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  note?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
   phoneNumber?: StringNullableFilter;
 
   @ApiProperty({
@@ -398,15 +236,15 @@ class CustomerWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => RatingWhereUniqueInput,
+    type: () => ProductionOrderListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => RatingWhereUniqueInput)
+  @Type(() => ProductionOrderListRelationFilter)
   @IsOptional()
-  @Field(() => RatingWhereUniqueInput, {
+  @Field(() => ProductionOrderListRelationFilter, {
     nullable: true,
   })
-  rating?: RatingWhereUniqueInput;
+  productionOrders?: ProductionOrderListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -432,27 +270,14 @@ class CustomerWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => SalePriceTypeWhereUniqueInput,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => SalePriceTypeWhereUniqueInput)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => SalePriceTypeWhereUniqueInput, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  salePriceTypeId?: SalePriceTypeWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SupplierWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => SupplierWhereUniqueInput)
-  @IsOptional()
-  @Field(() => SupplierWhereUniqueInput, {
-    nullable: true,
-  })
-  supplierId?: SupplierWhereUniqueInput;
+  supplierId?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -475,17 +300,6 @@ class CustomerWhereInput {
     nullable: true,
   })
   website?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  workAddress?: StringNullableFilter;
 }
 
 export { CustomerWhereInput as CustomerWhereInput };

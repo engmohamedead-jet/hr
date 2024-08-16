@@ -17,7 +17,6 @@ export const ProductTypeEdit = (props: EditProps): React.ReactElement => {
     <Edit {...props}>
       <SimpleForm>
         <TextInput label="Code" source="code" />
-        <TextInput label="Description" multiline source="description" />
         <BooleanInput label="IsComponent" source="isComponent" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />

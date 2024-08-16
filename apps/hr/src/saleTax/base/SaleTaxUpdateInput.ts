@@ -9,22 +9,17 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field, Float } from "@nestjs/graphql";
+import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   MaxLength,
   IsOptional,
-  IsBoolean,
   ValidateNested,
-  IsNumber,
-  Max,
 } from "class-validator";
 import { ProductGroupUpdateManyWithoutSaleTaxesInput } from "./ProductGroupUpdateManyWithoutSaleTaxesInput";
 import { Type } from "class-transformer";
 import { ProductUpdateManyWithoutSaleTaxesInput } from "./ProductUpdateManyWithoutSaleTaxesInput";
-import { Decimal } from "decimal.js";
-import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
 
 @InputType()
 class SaleTaxUpdateInput {
@@ -51,17 +46,6 @@ class SaleTaxUpdateInput {
     nullable: true,
   })
   description?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isExemption?: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -122,30 +106,6 @@ class SaleTaxUpdateInput {
     nullable: true,
   })
   products?: ProductUpdateManyWithoutSaleTaxesInput;
-
-  @ApiProperty({
-    required: false,
-    type: Number,
-  })
-  @IsNumber()
-  @Max(99999999999)
-  @IsOptional()
-  @Field(() => Float, {
-    nullable: true,
-  })
-  rate?: Decimal | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => StoreWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => StoreWhereUniqueInput)
-  @IsOptional()
-  @Field(() => StoreWhereUniqueInput, {
-    nullable: true,
-  })
-  store?: StoreWhereUniqueInput | null;
 }
 
 export { SaleTaxUpdateInput as SaleTaxUpdateInput };

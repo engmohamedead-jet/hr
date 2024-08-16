@@ -1,10 +1,12 @@
 import { Attribute } from "../attribute/Attribute";
+import { ProductVariant } from "../productVariant/ProductVariant";
 
 export type AttributeValue = {
-  attributeId?: Attribute | null;
+  attributeId?: Attribute;
   createdAt: Date;
   id: string;
   note: string | null;
+  productVariants?: Array<ProductVariant>;
   updatedAt: Date;
-  value: string | null;
+  value: string;
 };

@@ -14,9 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
-import { ProductDepartmentWhereUniqueInput } from "../../productDepartment/base/ProductDepartmentWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 
 @InputType()
@@ -45,47 +44,47 @@ class ProductCategoryWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntFilter,
+    type: StringFilter,
   })
-  @Type(() => IntFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => IntFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  id?: IntFilter;
+  id?: StringFilter;
 
   @ApiProperty({
     required: false,
-    type: BooleanNullableFilter,
+    type: BooleanFilter,
   })
-  @Type(() => BooleanNullableFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => BooleanNullableFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  isDefault?: BooleanNullableFilter;
+  isDefault?: BooleanFilter;
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  name?: StringNullableFilter;
+  name?: StringFilter;
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  normalizedName?: StringNullableFilter;
+  normalizedName?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -97,18 +96,6 @@ class ProductCategoryWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductDepartmentWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductDepartmentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProductDepartmentWhereUniqueInput, {
-    nullable: true,
-  })
-  productDepartment?: ProductDepartmentWhereUniqueInput;
 
   @ApiProperty({
     required: false,

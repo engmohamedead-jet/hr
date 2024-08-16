@@ -26,9 +26,6 @@ import { PrintTemplate } from "./PrintTemplate";
 import { PrintTemplateFindManyArgs } from "./PrintTemplateFindManyArgs";
 import { PrintTemplateWhereUniqueInput } from "./PrintTemplateWhereUniqueInput";
 import { PrintTemplateUpdateInput } from "./PrintTemplateUpdateInput";
-import { PrintTemplateContentFindManyArgs } from "../../printTemplateContent/base/PrintTemplateContentFindManyArgs";
-import { PrintTemplateContent } from "../../printTemplateContent/base/PrintTemplateContent";
-import { PrintTemplateContentWhereUniqueInput } from "../../printTemplateContent/base/PrintTemplateContentWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -55,14 +52,16 @@ export class PrintTemplateControllerBase {
       data: {
         ...data,
 
-        printTemplateGroupId: {
-          connect: data.printTemplateGroupId,
-        },
+        printTemplateContents: data.printTemplateContents
+          ? {
+              connect: data.printTemplateContents,
+            }
+          : undefined,
       },
       select: {
-        Description: true,
         code: true,
         createdAt: true,
+        description: true,
         filePath: true,
         id: true,
         isCustomized: true,
@@ -74,7 +73,7 @@ export class PrintTemplateControllerBase {
         paperSize: true,
         previewImage: true,
 
-        printTemplateGroupId: {
+        printTemplateContents: {
           select: {
             id: true,
           },
@@ -104,9 +103,9 @@ export class PrintTemplateControllerBase {
     return this.service.printTemplates({
       ...args,
       select: {
-        Description: true,
         code: true,
         createdAt: true,
+        description: true,
         filePath: true,
         id: true,
         isCustomized: true,
@@ -118,7 +117,7 @@ export class PrintTemplateControllerBase {
         paperSize: true,
         previewImage: true,
 
-        printTemplateGroupId: {
+        printTemplateContents: {
           select: {
             id: true,
           },
@@ -147,9 +146,9 @@ export class PrintTemplateControllerBase {
     const result = await this.service.printTemplate({
       where: params,
       select: {
-        Description: true,
         code: true,
         createdAt: true,
+        description: true,
         filePath: true,
         id: true,
         isCustomized: true,
@@ -161,7 +160,7 @@ export class PrintTemplateControllerBase {
         paperSize: true,
         previewImage: true,
 
-        printTemplateGroupId: {
+        printTemplateContents: {
           select: {
             id: true,
           },
@@ -200,14 +199,16 @@ export class PrintTemplateControllerBase {
         data: {
           ...data,
 
-          printTemplateGroupId: {
-            connect: data.printTemplateGroupId,
-          },
+          printTemplateContents: data.printTemplateContents
+            ? {
+                connect: data.printTemplateContents,
+              }
+            : undefined,
         },
         select: {
-          Description: true,
           code: true,
           createdAt: true,
+          description: true,
           filePath: true,
           id: true,
           isCustomized: true,
@@ -219,7 +220,7 @@ export class PrintTemplateControllerBase {
           paperSize: true,
           previewImage: true,
 
-          printTemplateGroupId: {
+          printTemplateContents: {
             select: {
               id: true,
             },
@@ -256,9 +257,9 @@ export class PrintTemplateControllerBase {
       return await this.service.deletePrintTemplate({
         where: params,
         select: {
-          Description: true,
           code: true,
           createdAt: true,
+          description: true,
           filePath: true,
           id: true,
           isCustomized: true,
@@ -270,7 +271,7 @@ export class PrintTemplateControllerBase {
           paperSize: true,
           previewImage: true,
 
-          printTemplateGroupId: {
+          printTemplateContents: {
             select: {
               id: true,
             },
@@ -287,112 +288,5 @@ export class PrintTemplateControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/printTemplateContents")
-  @ApiNestedQuery(PrintTemplateContentFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "PrintTemplateContent",
-    action: "read",
-    possession: "any",
-  })
-  async findPrintTemplateContents(
-    @common.Req() request: Request,
-    @common.Param() params: PrintTemplateWhereUniqueInput
-  ): Promise<PrintTemplateContent[]> {
-    const query = plainToClass(PrintTemplateContentFindManyArgs, request.query);
-    const results = await this.service.findPrintTemplateContents(params.id, {
-      ...query,
-      select: {
-        createdAt: true,
-        display: true,
-        fieldValue: true,
-        id: true,
-        key: true,
-        note: true,
-
-        printTemplateId: {
-          select: {
-            id: true,
-          },
-        },
-
-        updatedAt: true,
-        value: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/printTemplateContents")
-  @nestAccessControl.UseRoles({
-    resource: "PrintTemplate",
-    action: "update",
-    possession: "any",
-  })
-  async connectPrintTemplateContents(
-    @common.Param() params: PrintTemplateWhereUniqueInput,
-    @common.Body() body: PrintTemplateContentWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      printTemplateContents: {
-        connect: body,
-      },
-    };
-    await this.service.updatePrintTemplate({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/printTemplateContents")
-  @nestAccessControl.UseRoles({
-    resource: "PrintTemplate",
-    action: "update",
-    possession: "any",
-  })
-  async updatePrintTemplateContents(
-    @common.Param() params: PrintTemplateWhereUniqueInput,
-    @common.Body() body: PrintTemplateContentWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      printTemplateContents: {
-        set: body,
-      },
-    };
-    await this.service.updatePrintTemplate({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/printTemplateContents")
-  @nestAccessControl.UseRoles({
-    resource: "PrintTemplate",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectPrintTemplateContents(
-    @common.Param() params: PrintTemplateWhereUniqueInput,
-    @common.Body() body: PrintTemplateContentWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      printTemplateContents: {
-        disconnect: body,
-      },
-    };
-    await this.service.updatePrintTemplate({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

@@ -27,7 +27,7 @@ export const AttributeShow = (props: ShowProps): React.ReactElement => {
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="AttributeValue"
-          target="Name"
+          target="attributeIdId"
           label="AttributeValues"
         >
           <Datagrid rowClick="show">

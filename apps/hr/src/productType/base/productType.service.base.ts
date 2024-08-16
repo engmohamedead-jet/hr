@@ -52,7 +52,7 @@ export class ProductTypeServiceBase {
   }
 
   async findProducts(
-    parentId: string,
+    parentId: number,
     args: Prisma.ProductFindManyArgs
   ): Promise<PrismaProduct[]> {
     return this.prisma.productType

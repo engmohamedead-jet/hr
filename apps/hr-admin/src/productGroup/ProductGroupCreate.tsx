@@ -4,9 +4,9 @@ import {
   Create,
   SimpleForm,
   CreateProps,
+  TextInput,
   ReferenceInput,
   SelectInput,
-  TextInput,
   BooleanInput,
   ReferenceArrayInput,
   SelectArrayInput,
@@ -21,28 +21,14 @@ export const ProductGroupCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <TextInput label="Code" source="code" />
         <ReferenceInput
-          source="PurchaseDiscountAccountId.id"
-          reference="Account"
-          label="PurchaseDiscountAccountId"
-        >
-          <SelectInput optionText={AccountTitle} />
-        </ReferenceInput>
-        <ReferenceInput
-          source="SaleReturnAccountId.id"
-          reference="Account"
-          label="SaleReturnAccountId"
-        >
-          <SelectInput optionText={AccountTitle} />
-        </ReferenceInput>
-        <ReferenceInput
-          source="account.id"
+          source="costOfGoodsSoldAccount.id"
           reference="Account"
           label="CostOfGoodsSoldAccountId"
         >
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
-        <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
         <BooleanInput
           label="ExcludeFromPurchase"
@@ -50,7 +36,7 @@ export const ProductGroupCreate = (props: CreateProps): React.ReactElement => {
         />
         <BooleanInput label="ExcludeFromSale" source="excludeFromSale" />
         <ReferenceInput
-          source="inventoryAccountId.id"
+          source="inventoryAccount.id"
           reference="Account"
           label="InventoryAccountId"
         >
@@ -59,22 +45,22 @@ export const ProductGroupCreate = (props: CreateProps): React.ReactElement => {
         <BooleanInput label="IsDefault" source="isDefault" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
-        <TextInput label="Notes" multiline source="notes" />
+        <TextInput label="Note" multiline source="note" />
+        <ReferenceInput
+          source="parentProductGroupId.id"
+          reference="ProductGroup"
+          label="ParentProductGroupId"
+        >
+          <SelectInput optionText={ProductGroupTitle} />
+        </ReferenceInput>
         <ReferenceArrayInput
-          source="parentProductGroupId"
+          source="productGroups"
           reference="ProductGroup"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={ProductGroupTitle} />
         </ReferenceArrayInput>
-        <ReferenceInput
-          source="productGroups.id"
-          reference="ProductGroup"
-          label="ProductGroups"
-        >
-          <SelectInput optionText={ProductGroupTitle} />
-        </ReferenceInput>
         <ReferenceArrayInput
           source="products"
           reference="Product"
@@ -87,6 +73,13 @@ export const ProductGroupCreate = (props: CreateProps): React.ReactElement => {
           source="purchaseAccountId.id"
           reference="Account"
           label="PurchaseAccountId"
+        >
+          <SelectInput optionText={AccountTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="purchaseDiscountAccountId.id"
+          reference="Account"
+          label="PurchaseDiscountAccountId"
         >
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
@@ -108,6 +101,13 @@ export const ProductGroupCreate = (props: CreateProps): React.ReactElement => {
           source="saleDiscountAccountId.id"
           reference="Account"
           label="SaleDiscountAccountId"
+        >
+          <SelectInput optionText={AccountTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="saleReturnAccountId.id"
+          reference="Account"
+          label="SaleReturnAccountId"
         >
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>

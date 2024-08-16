@@ -20,51 +20,43 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   code: "exampleCode",
   createdAt: new Date(),
-  hundredthName: "exampleHundredthName",
+  description: "exampleDescription",
   id: "exampleId",
-  isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
   note: "exampleNote",
-  symbolField: "exampleSymbolField",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   code: "exampleCode",
   createdAt: new Date(),
-  hundredthName: "exampleHundredthName",
+  description: "exampleDescription",
   id: "exampleId",
-  isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
   note: "exampleNote",
-  symbolField: "exampleSymbolField",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     code: "exampleCode",
     createdAt: new Date(),
-    hundredthName: "exampleHundredthName",
+    description: "exampleDescription",
     id: "exampleId",
-    isDefault: "true",
     name: "exampleName",
     normalizedName: "exampleNormalizedName",
     note: "exampleNote",
-    symbolField: "exampleSymbolField",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   code: "exampleCode",
   createdAt: new Date(),
-  hundredthName: "exampleHundredthName",
+  description: "exampleDescription",
   id: "exampleId",
-  isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
   note: "exampleNote",
-  symbolField: "exampleSymbolField",
   updatedAt: new Date(),
 };
 

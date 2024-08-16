@@ -10,15 +10,10 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-
 import {
   Prisma,
   Account as PrismaAccount,
   ProductGroup as PrismaProductGroup,
-  InstallmentSaleFee as PrismaInstallmentSaleFee,
-  AccountCategory as PrismaAccountCategory,
-  AccountType as PrismaAccountType,
-  Currency as PrismaCurrency,
 } from "@prisma/client";
 
 export class AccountServiceBase {
@@ -46,7 +41,7 @@ export class AccountServiceBase {
     return this.prisma.account.delete(args);
   }
 
-  async findProductGroupPurchaseReturnAccounts(
+  async findSaleReturnAccountProductGroups(
     parentId: string,
     args: Prisma.ProductGroupFindManyArgs
   ): Promise<PrismaProductGroup[]> {
@@ -54,10 +49,10 @@ export class AccountServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .ProductGroupPurchaseReturnAccounts(args);
+      .SaleReturnAccountProductGroups(args);
   }
 
-  async findProductGroupSaleAccounts(
+  async findAleAccountProductGroups(
     parentId: string,
     args: Prisma.ProductGroupFindManyArgs
   ): Promise<PrismaProductGroup[]> {
@@ -65,21 +60,10 @@ export class AccountServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .ProductGroupSaleAccounts(args);
+      .aleAccountProductGroups(args);
   }
 
-  async findInstallmentSaleFees(
-    parentId: string,
-    args: Prisma.InstallmentSaleFeeFindManyArgs
-  ): Promise<PrismaInstallmentSaleFee[]> {
-    return this.prisma.account
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .installmentSaleFees(args);
-  }
-
-  async findProductGroupCostOfGoodsSoldAccounts(
+  async findCostOfGoodsSoldAccountProductGroups(
     parentId: string,
     args: Prisma.ProductGroupFindManyArgs
   ): Promise<PrismaProductGroup[]> {
@@ -87,10 +71,10 @@ export class AccountServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .productGroupCostOfGoodsSoldAccounts(args);
+      .costOfGoodsSoldAccountProductGroups(args);
   }
 
-  async findProductGroupInventoryAccounts(
+  async findInventoryAccountProductGroups(
     parentId: string,
     args: Prisma.ProductGroupFindManyArgs
   ): Promise<PrismaProductGroup[]> {
@@ -98,10 +82,21 @@ export class AccountServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .productGroupInventoryAccounts(args);
+      .inventoryAccountProductGroups(args);
   }
 
-  async findProductGroupPurchaseAccounts(
+  async findParentAccounts(
+    parentId: string,
+    args: Prisma.AccountFindManyArgs
+  ): Promise<PrismaAccount[]> {
+    return this.prisma.account
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .parentAccounts(args);
+  }
+
+  async findPurchaseAccountProductGroups(
     parentId: string,
     args: Prisma.ProductGroupFindManyArgs
   ): Promise<PrismaProductGroup[]> {
@@ -109,10 +104,10 @@ export class AccountServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .productGroupPurchaseAccounts(args);
+      .purchaseAccountProductGroups(args);
   }
 
-  async findProductGroupPurchaseDiscountAccounts(
+  async findPurchaseDiscountAccountProductGroups(
     parentId: string,
     args: Prisma.ProductGroupFindManyArgs
   ): Promise<PrismaProductGroup[]> {
@@ -120,10 +115,10 @@ export class AccountServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .productGroupPurchaseDiscountAccounts(args);
+      .purchaseDiscountAccountProductGroups(args);
   }
 
-  async findProductGroupSaleDiscountAccountIds(
+  async findPurchaseReturnAccountProductGroups(
     parentId: string,
     args: Prisma.ProductGroupFindManyArgs
   ): Promise<PrismaProductGroup[]> {
@@ -131,10 +126,10 @@ export class AccountServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .productGroupSaleDiscountAccountIds(args);
+      .purchaseReturnAccountProductGroups(args);
   }
 
-  async findProductGroupSaleReturnAccountIds(
+  async findSaleDiscountAccountProductGroups(
     parentId: string,
     args: Prisma.ProductGroupFindManyArgs
   ): Promise<PrismaProductGroup[]> {
@@ -142,32 +137,14 @@ export class AccountServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .productGroupSaleReturnAccountIds(args);
+      .saleDiscountAccountProductGroups(args);
   }
 
-  async getAccountCategory(
-    parentId: string
-  ): Promise<PrismaAccountCategory | null> {
+  async getParentAccountId(parentId: string): Promise<PrismaAccount | null> {
     return this.prisma.account
       .findUnique({
         where: { id: parentId },
       })
-      .accountCategory();
-  }
-
-  async getAccountTypeId(parentId: string): Promise<PrismaAccountType | null> {
-    return this.prisma.account
-      .findUnique({
-        where: { id: parentId },
-      })
-      .accountTypeId();
-  }
-
-  async getCurrencyId(parentId: string): Promise<PrismaCurrency | null> {
-    return this.prisma.account
-      .findUnique({
-        where: { id: parentId },
-      })
-      .currencyId();
+      .parentAccountId();
   }
 }

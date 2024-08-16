@@ -13,10 +13,9 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { IsOptional } from "class-validator";
 import { IntFilter } from "../../util/IntFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { PrintTemplateListRelationFilter } from "../../printTemplate/base/PrintTemplateListRelationFilter";
 
 @InputType()
 class PrintTemplateGroupWhereInput {
@@ -55,14 +54,14 @@ class PrintTemplateGroupWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  name?: StringNullableFilter;
+  name?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -85,18 +84,6 @@ class PrintTemplateGroupWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => PrintTemplateListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => PrintTemplateListRelationFilter)
-  @IsOptional()
-  @Field(() => PrintTemplateListRelationFilter, {
-    nullable: true,
-  })
-  printTemplates?: PrintTemplateListRelationFilter;
 }
 
 export { PrintTemplateGroupWhereInput as PrintTemplateGroupWhereInput };

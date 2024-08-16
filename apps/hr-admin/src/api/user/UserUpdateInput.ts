@@ -1,4 +1,3 @@
-import { RoleWhereUniqueInput } from "../role/RoleWhereUniqueInput";
 import { InputJsonValue } from "../../types";
 
 export type UserUpdateInput = {
@@ -6,7 +5,6 @@ export type UserUpdateInput = {
   firstName?: string | null;
   lastName?: string | null;
   password?: string;
-  role?: RoleWhereUniqueInput | null;
   roles?: InputJsonValue;
   username?: string;
 };

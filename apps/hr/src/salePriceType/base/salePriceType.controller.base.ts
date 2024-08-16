@@ -49,27 +49,12 @@ export class SalePriceTypeControllerBase {
     @common.Body() data: SalePriceTypeCreateInput
   ): Promise<SalePriceType> {
     return await this.service.createSalePriceType({
-      data: {
-        ...data,
-
-        customers: data.customers
-          ? {
-              connect: data.customers,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         code: true,
         createdAt: true,
-
-        customers: {
-          select: {
-            id: true,
-          },
-        },
-
+        description: true,
         id: true,
-        isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
@@ -99,15 +84,8 @@ export class SalePriceTypeControllerBase {
       select: {
         code: true,
         createdAt: true,
-
-        customers: {
-          select: {
-            id: true,
-          },
-        },
-
+        description: true,
         id: true,
-        isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
@@ -136,15 +114,8 @@ export class SalePriceTypeControllerBase {
       select: {
         code: true,
         createdAt: true,
-
-        customers: {
-          select: {
-            id: true,
-          },
-        },
-
+        description: true,
         id: true,
-        isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
@@ -178,27 +149,12 @@ export class SalePriceTypeControllerBase {
     try {
       return await this.service.updateSalePriceType({
         where: params,
-        data: {
-          ...data,
-
-          customers: data.customers
-            ? {
-                connect: data.customers,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           code: true,
           createdAt: true,
-
-          customers: {
-            select: {
-              id: true,
-            },
-          },
-
+          description: true,
           id: true,
-          isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
@@ -235,15 +191,8 @@ export class SalePriceTypeControllerBase {
         select: {
           code: true,
           createdAt: true,
-
-          customers: {
-            select: {
-              id: true,
-            },
-          },
-
+          description: true,
           id: true,
-          isDefault: true,
           name: true,
           normalizedName: true,
           note: true,

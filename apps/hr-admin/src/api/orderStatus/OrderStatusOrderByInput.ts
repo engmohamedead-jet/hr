@@ -8,5 +8,6 @@ export type OrderStatusOrderByInput = {
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
+  productionOrdersId?: SortOrder;
   updatedAt?: SortOrder;
 };

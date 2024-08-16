@@ -26,6 +26,7 @@ import { OrderStatusFindUniqueArgs } from "./OrderStatusFindUniqueArgs";
 import { CreateOrderStatusArgs } from "./CreateOrderStatusArgs";
 import { UpdateOrderStatusArgs } from "./UpdateOrderStatusArgs";
 import { DeleteOrderStatusArgs } from "./DeleteOrderStatusArgs";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { OrderStatusService } from "../orderStatus.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => OrderStatus)
@@ -92,7 +93,15 @@ export class OrderStatusResolverBase {
   ): Promise<OrderStatus> {
     return await this.service.createOrderStatus({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        productionOrders: args.data.productionOrders
+          ? {
+              connect: args.data.productionOrders,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +118,15 @@ export class OrderStatusResolverBase {
     try {
       return await this.service.updateOrderStatus({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          productionOrders: args.data.productionOrders
+            ? {
+                connect: args.data.productionOrders,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +157,26 @@ export class OrderStatusResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => ProductionOrder, {
+    nullable: true,
+    name: "productionOrders",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductionOrder",
+    action: "read",
+    possession: "any",
+  })
+  async getProductionOrders(
+    @graphql.Parent() parent: OrderStatus
+  ): Promise<ProductionOrder | null> {
+    const result = await this.service.getProductionOrders(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

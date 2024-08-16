@@ -26,11 +26,21 @@ import { ProductFindUniqueArgs } from "./ProductFindUniqueArgs";
 import { CreateProductArgs } from "./CreateProductArgs";
 import { UpdateProductArgs } from "./UpdateProductArgs";
 import { DeleteProductArgs } from "./DeleteProductArgs";
-import { ProductGroup } from "../../productGroup/base/ProductGroup";
+import { BillOfMaterialDetailFindManyArgs } from "../../billOfMaterialDetail/base/BillOfMaterialDetailFindManyArgs";
+import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
+import { BillOfMaterialFindManyArgs } from "../../billOfMaterial/base/BillOfMaterialFindManyArgs";
+import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
+import { ProductBarcodeFindManyArgs } from "../../productBarcode/base/ProductBarcodeFindManyArgs";
+import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
+import { ProductVariantFindManyArgs } from "../../productVariant/base/ProductVariantFindManyArgs";
+import { ProductVariant } from "../../productVariant/base/ProductVariant";
+import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { Store } from "../../store/base/Store";
 import { Unit } from "../../unit/base/Unit";
 import { ProductCategory } from "../../productCategory/base/ProductCategory";
 import { ProductDepartment } from "../../productDepartment/base/ProductDepartment";
+import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { ProductType } from "../../productType/base/ProductType";
 import { SaleTax } from "../../saleTax/base/SaleTax";
 import { ProductService } from "../product.service";
@@ -102,15 +112,11 @@ export class ProductResolverBase {
       data: {
         ...args.data,
 
-        ProductGroupId: args.data.ProductGroupId
+        defaultStoreId: args.data.defaultStoreId
           ? {
-              connect: args.data.ProductGroupId,
+              connect: args.data.defaultStoreId,
             }
           : undefined,
-
-        defaultStoreId: {
-          connect: args.data.defaultStoreId,
-        },
 
         defaultUnitId: {
           connect: args.data.defaultUnitId,
@@ -125,6 +131,12 @@ export class ProductResolverBase {
         productDepartmentId: args.data.productDepartmentId
           ? {
               connect: args.data.productDepartmentId,
+            }
+          : undefined,
+
+        productGroupId: args.data.productGroupId
+          ? {
+              connect: args.data.productGroupId,
             }
           : undefined,
 
@@ -157,15 +169,11 @@ export class ProductResolverBase {
         data: {
           ...args.data,
 
-          ProductGroupId: args.data.ProductGroupId
+          defaultStoreId: args.data.defaultStoreId
             ? {
-                connect: args.data.ProductGroupId,
+                connect: args.data.defaultStoreId,
               }
             : undefined,
-
-          defaultStoreId: {
-            connect: args.data.defaultStoreId,
-          },
 
           defaultUnitId: {
             connect: args.data.defaultUnitId,
@@ -180,6 +188,12 @@ export class ProductResolverBase {
           productDepartmentId: args.data.productDepartmentId
             ? {
                 connect: args.data.productDepartmentId,
+              }
+            : undefined,
+
+          productGroupId: args.data.productGroupId
+            ? {
+                connect: args.data.productGroupId,
               }
             : undefined,
 
@@ -226,24 +240,108 @@ export class ProductResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => ProductGroup, {
-    nullable: true,
-    name: "productGroupId",
+  @graphql.ResolveField(() => [BillOfMaterialDetail], {
+    name: "billOfMaterialDetails",
   })
   @nestAccessControl.UseRoles({
-    resource: "ProductGroup",
+    resource: "BillOfMaterialDetail",
     action: "read",
     possession: "any",
   })
-  async getProductGroupId(
-    @graphql.Parent() parent: Product
-  ): Promise<ProductGroup | null> {
-    const result = await this.service.getProductGroupId(parent.id);
+  async findBillOfMaterialDetails(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: BillOfMaterialDetailFindManyArgs
+  ): Promise<BillOfMaterialDetail[]> {
+    const results = await this.service.findBillOfMaterialDetails(
+      parent.id,
+      args
+    );
 
-    if (!result) {
-      return null;
+    if (!results) {
+      return [];
     }
-    return result;
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [BillOfMaterial], { name: "billOfMaterials" })
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterial",
+    action: "read",
+    possession: "any",
+  })
+  async findBillOfMaterials(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: BillOfMaterialFindManyArgs
+  ): Promise<BillOfMaterial[]> {
+    const results = await this.service.findBillOfMaterials(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductBarcode], { name: "productBarcodes" })
+  @nestAccessControl.UseRoles({
+    resource: "ProductBarcode",
+    action: "read",
+    possession: "any",
+  })
+  async findProductBarcodes(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: ProductBarcodeFindManyArgs
+  ): Promise<ProductBarcode[]> {
+    const results = await this.service.findProductBarcodes(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductVariant], { name: "productVariants" })
+  @nestAccessControl.UseRoles({
+    resource: "ProductVariant",
+    action: "read",
+    possession: "any",
+  })
+  async findProductVariants(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: ProductVariantFindManyArgs
+  ): Promise<ProductVariant[]> {
+    const results = await this.service.findProductVariants(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductionOrder], { name: "productionOrders" })
+  @nestAccessControl.UseRoles({
+    resource: "ProductionOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findProductionOrders(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: ProductionOrderFindManyArgs
+  ): Promise<ProductionOrder[]> {
+    const results = await this.service.findProductionOrders(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -323,6 +421,27 @@ export class ProductResolverBase {
     @graphql.Parent() parent: Product
   ): Promise<ProductDepartment | null> {
     const result = await this.service.getProductDepartmentId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => ProductGroup, {
+    nullable: true,
+    name: "productGroupId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductGroup",
+    action: "read",
+    possession: "any",
+  })
+  async getProductGroupId(
+    @graphql.Parent() parent: Product
+  ): Promise<ProductGroup | null> {
+    const result = await this.service.getProductGroupId(parent.id);
 
     if (!result) {
       return null;

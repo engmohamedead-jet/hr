@@ -11,10 +11,12 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
 import {
+  ValidateNested,
+  IsOptional,
   IsString,
   MaxLength,
-  IsOptional,
   IsDate,
   IsInt,
 } from "class-validator";
@@ -22,6 +24,15 @@ import { Type } from "class-transformer";
 
 @ObjectType()
 class BillOfMaterialType {
+  @ApiProperty({
+    required: false,
+    type: () => [BillOfMaterial],
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterial)
+  @IsOptional()
+  billOfMaterials?: Array<BillOfMaterial>;
+
   @ApiProperty({
     required: false,
     type: String,

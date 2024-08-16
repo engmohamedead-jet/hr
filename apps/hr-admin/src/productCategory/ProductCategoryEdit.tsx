@@ -6,13 +6,10 @@ import {
   EditProps,
   TextInput,
   BooleanInput,
-  ReferenceInput,
-  SelectInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
 
-import { ProductDepartmentTitle } from "../productDepartment/ProductDepartmentTitle";
 import { ProductTitle } from "../product/ProductTitle";
 
 export const ProductCategoryEdit = (props: EditProps): React.ReactElement => {
@@ -25,13 +22,6 @@ export const ProductCategoryEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
-        <ReferenceInput
-          source="productDepartment.id"
-          reference="ProductDepartment"
-          label="ParentProductDepartmentId"
-        >
-          <SelectInput optionText={ProductDepartmentTitle} />
-        </ReferenceInput>
         <ReferenceArrayInput
           source="products"
           reference="Product"

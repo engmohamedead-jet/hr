@@ -10,9 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   BillOfMaterialType as PrismaBillOfMaterialType,
+  BillOfMaterial as PrismaBillOfMaterial,
 } from "@prisma/client";
 
 export class BillOfMaterialTypeServiceBase {
@@ -48,5 +50,16 @@ export class BillOfMaterialTypeServiceBase {
     args: Prisma.BillOfMaterialTypeDeleteArgs
   ): Promise<PrismaBillOfMaterialType> {
     return this.prisma.billOfMaterialType.delete(args);
+  }
+
+  async findBillOfMaterials(
+    parentId: number,
+    args: Prisma.BillOfMaterialFindManyArgs
+  ): Promise<PrismaBillOfMaterial[]> {
+    return this.prisma.billOfMaterialType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .billOfMaterials(args);
   }
 }

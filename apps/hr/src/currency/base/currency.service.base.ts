@@ -10,14 +10,10 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-
 import {
   Prisma,
   Currency as PrismaCurrency,
-  Account as PrismaAccount,
   Customer as PrismaCustomer,
-  ExchangeRateDetail as PrismaExchangeRateDetail,
-  Supplier as PrismaSupplier,
 } from "@prisma/client";
 
 export class CurrencyServiceBase {
@@ -53,17 +49,6 @@ export class CurrencyServiceBase {
     return this.prisma.currency.delete(args);
   }
 
-  async findAccounts(
-    parentId: string,
-    args: Prisma.AccountFindManyArgs
-  ): Promise<PrismaAccount[]> {
-    return this.prisma.currency
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .accounts(args);
-  }
-
   async findCustomers(
     parentId: string,
     args: Prisma.CustomerFindManyArgs
@@ -73,37 +58,5 @@ export class CurrencyServiceBase {
         where: { id: parentId },
       })
       .customers(args);
-  }
-
-  async findExchangeRateDetails(
-    parentId: string,
-    args: Prisma.ExchangeRateDetailFindManyArgs
-  ): Promise<PrismaExchangeRateDetail[]> {
-    return this.prisma.currency
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .exchangeRateDetails(args);
-  }
-
-  async findSuppliers(
-    parentId: string,
-    args: Prisma.SupplierFindManyArgs
-  ): Promise<PrismaSupplier[]> {
-    return this.prisma.currency
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .suppliers(args);
-  }
-
-  async getForeignCurrencyName(
-    parentId: string
-  ): Promise<PrismaExchangeRateDetail | null> {
-    return this.prisma.currency
-      .findUnique({
-        where: { id: parentId },
-      })
-      .foreignCurrencyName();
   }
 }

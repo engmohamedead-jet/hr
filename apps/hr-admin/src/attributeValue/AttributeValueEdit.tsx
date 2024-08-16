@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   Edit,
   SimpleForm,
@@ -6,8 +7,12 @@ import {
   ReferenceInput,
   SelectInput,
   TextInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
+
 import { AttributeTitle } from "../attribute/AttributeTitle";
+import { ProductVariantTitle } from "../productVariant/ProductVariantTitle";
 
 export const AttributeValueEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -20,7 +25,15 @@ export const AttributeValueEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={AttributeTitle} />
         </ReferenceInput>
-        <TextInput label="Note" source="note" />
+        <TextInput label="Note" multiline source="note" />
+        <ReferenceArrayInput
+          source="productVariants"
+          reference="ProductVariant"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ProductVariantTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Value" source="value" />
       </SimpleForm>
     </Edit>

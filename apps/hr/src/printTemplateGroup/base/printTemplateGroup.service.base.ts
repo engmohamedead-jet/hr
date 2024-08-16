@@ -10,11 +10,9 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-
 import {
   Prisma,
   PrintTemplateGroup as PrismaPrintTemplateGroup,
-  PrintTemplate as PrismaPrintTemplate,
 } from "@prisma/client";
 
 export class PrintTemplateGroupServiceBase {
@@ -50,16 +48,5 @@ export class PrintTemplateGroupServiceBase {
     args: Prisma.PrintTemplateGroupDeleteArgs
   ): Promise<PrismaPrintTemplateGroup> {
     return this.prisma.printTemplateGroup.delete(args);
-  }
-
-  async findPrintTemplates(
-    parentId: number,
-    args: Prisma.PrintTemplateFindManyArgs
-  ): Promise<PrismaPrintTemplate[]> {
-    return this.prisma.printTemplateGroup
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .printTemplates(args);
   }
 }

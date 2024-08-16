@@ -18,11 +18,11 @@ import { PrintTemplateService } from "../printTemplate.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
-  Description: "exampleDescription",
   code: "exampleCode",
   createdAt: new Date(),
+  description: "exampleDescription",
   filePath: "exampleFilePath",
-  id: 42,
+  id: "exampleId",
   isCustomized: "true",
   isFavourite: "true",
   name: "exampleName",
@@ -31,11 +31,11 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
-  Description: "exampleDescription",
   code: "exampleCode",
   createdAt: new Date(),
+  description: "exampleDescription",
   filePath: "exampleFilePath",
-  id: 42,
+  id: "exampleId",
   isCustomized: "true",
   isFavourite: "true",
   name: "exampleName",
@@ -45,11 +45,11 @@ const CREATE_RESULT = {
 };
 const FIND_MANY_RESULT = [
   {
-    Description: "exampleDescription",
     code: "exampleCode",
     createdAt: new Date(),
+    description: "exampleDescription",
     filePath: "exampleFilePath",
-    id: 42,
+    id: "exampleId",
     isCustomized: "true",
     isFavourite: "true",
     name: "exampleName",
@@ -59,11 +59,11 @@ const FIND_MANY_RESULT = [
   },
 ];
 const FIND_ONE_RESULT = {
-  Description: "exampleDescription",
   code: "exampleCode",
   createdAt: new Date(),
+  description: "exampleDescription",
   filePath: "exampleFilePath",
-  id: 42,
+  id: "exampleId",
   isCustomized: "true",
   isFavourite: "true",
   name: "exampleName",

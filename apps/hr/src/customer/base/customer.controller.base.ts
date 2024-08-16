@@ -26,9 +26,9 @@ import { Customer } from "./Customer";
 import { CustomerFindManyArgs } from "./CustomerFindManyArgs";
 import { CustomerWhereUniqueInput } from "./CustomerWhereUniqueInput";
 import { CustomerUpdateInput } from "./CustomerUpdateInput";
-import { MaintenanceContractFindManyArgs } from "../../maintenanceContract/base/MaintenanceContractFindManyArgs";
-import { MaintenanceContract } from "../../maintenanceContract/base/MaintenanceContract";
-import { MaintenanceContractWhereUniqueInput } from "../../maintenanceContract/base/MaintenanceContractWhereUniqueInput";
+import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -55,67 +55,20 @@ export class CustomerControllerBase {
       data: {
         ...data,
 
-        currencyId: data.currencyId
+        currency: data.currency
           ? {
-              connect: data.currencyId,
-            }
-          : undefined,
-
-        customerCateogryId: data.customerCateogryId
-          ? {
-              connect: data.customerCateogryId,
-            }
-          : undefined,
-
-        customerTypeId: data.customerTypeId
-          ? {
-              connect: data.customerTypeId,
-            }
-          : undefined,
-
-        guarantorRatingId: data.guarantorRatingId
-          ? {
-              connect: data.guarantorRatingId,
-            }
-          : undefined,
-
-        rating: data.rating
-          ? {
-              connect: data.rating,
-            }
-          : undefined,
-
-        salePriceTypeId: data.salePriceTypeId
-          ? {
-              connect: data.salePriceTypeId,
-            }
-          : undefined,
-
-        supplierId: data.supplierId
-          ? {
-              connect: data.supplierId,
+              connect: data.currency,
             }
           : undefined,
       },
       select: {
+        DefaultSalePriceTypeId: true,
         address: true,
         code: true,
         createdAt: true,
         credit: true,
 
-        currencyId: {
-          select: {
-            id: true,
-          },
-        },
-
-        customerCateogryId: {
-          select: {
-            id: true,
-          },
-        },
-
-        customerTypeId: {
+        currency: {
           select: {
             id: true,
           },
@@ -126,59 +79,21 @@ export class CustomerControllerBase {
         email: true,
         firstBalance: true,
         firstBalanceDate: true,
-        guarantorAddress: true,
-        guarantorJobTitle: true,
-        guarantorName: true,
-        guarantorNationalIdNumber: true,
-        guarantorPhoneNumber: true,
-
-        guarantorRatingId: {
-          select: {
-            id: true,
-          },
-        },
-
-        guarantorWorkAddress: true,
-        hasMortalOrDiscount: true,
-        hasNoPendingInvoices: true,
         id: true,
         isActive: true,
-        isComplain: true,
         isSystem: true,
         isUnderRevision: true,
-        jobTitle: true,
         maxAllowedDebit: true,
         name: true,
         normalizedName: true,
-        note: true,
         phoneNumber: true,
         previousBalance: true,
-
-        rating: {
-          select: {
-            id: true,
-          },
-        },
-
         revisionDate: true,
         saleDiscountRate: true,
-
-        salePriceTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
-        supplierId: {
-          select: {
-            id: true,
-          },
-        },
-
+        supplierId: true,
         taxNumber: true,
         updatedAt: true,
         website: true,
-        workAddress: true,
       },
     });
   }
@@ -200,24 +115,13 @@ export class CustomerControllerBase {
     return this.service.customers({
       ...args,
       select: {
+        DefaultSalePriceTypeId: true,
         address: true,
         code: true,
         createdAt: true,
         credit: true,
 
-        currencyId: {
-          select: {
-            id: true,
-          },
-        },
-
-        customerCateogryId: {
-          select: {
-            id: true,
-          },
-        },
-
-        customerTypeId: {
+        currency: {
           select: {
             id: true,
           },
@@ -228,59 +132,21 @@ export class CustomerControllerBase {
         email: true,
         firstBalance: true,
         firstBalanceDate: true,
-        guarantorAddress: true,
-        guarantorJobTitle: true,
-        guarantorName: true,
-        guarantorNationalIdNumber: true,
-        guarantorPhoneNumber: true,
-
-        guarantorRatingId: {
-          select: {
-            id: true,
-          },
-        },
-
-        guarantorWorkAddress: true,
-        hasMortalOrDiscount: true,
-        hasNoPendingInvoices: true,
         id: true,
         isActive: true,
-        isComplain: true,
         isSystem: true,
         isUnderRevision: true,
-        jobTitle: true,
         maxAllowedDebit: true,
         name: true,
         normalizedName: true,
-        note: true,
         phoneNumber: true,
         previousBalance: true,
-
-        rating: {
-          select: {
-            id: true,
-          },
-        },
-
         revisionDate: true,
         saleDiscountRate: true,
-
-        salePriceTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
-        supplierId: {
-          select: {
-            id: true,
-          },
-        },
-
+        supplierId: true,
         taxNumber: true,
         updatedAt: true,
         website: true,
-        workAddress: true,
       },
     });
   }
@@ -303,24 +169,13 @@ export class CustomerControllerBase {
     const result = await this.service.customer({
       where: params,
       select: {
+        DefaultSalePriceTypeId: true,
         address: true,
         code: true,
         createdAt: true,
         credit: true,
 
-        currencyId: {
-          select: {
-            id: true,
-          },
-        },
-
-        customerCateogryId: {
-          select: {
-            id: true,
-          },
-        },
-
-        customerTypeId: {
+        currency: {
           select: {
             id: true,
           },
@@ -331,59 +186,21 @@ export class CustomerControllerBase {
         email: true,
         firstBalance: true,
         firstBalanceDate: true,
-        guarantorAddress: true,
-        guarantorJobTitle: true,
-        guarantorName: true,
-        guarantorNationalIdNumber: true,
-        guarantorPhoneNumber: true,
-
-        guarantorRatingId: {
-          select: {
-            id: true,
-          },
-        },
-
-        guarantorWorkAddress: true,
-        hasMortalOrDiscount: true,
-        hasNoPendingInvoices: true,
         id: true,
         isActive: true,
-        isComplain: true,
         isSystem: true,
         isUnderRevision: true,
-        jobTitle: true,
         maxAllowedDebit: true,
         name: true,
         normalizedName: true,
-        note: true,
         phoneNumber: true,
         previousBalance: true,
-
-        rating: {
-          select: {
-            id: true,
-          },
-        },
-
         revisionDate: true,
         saleDiscountRate: true,
-
-        salePriceTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
-        supplierId: {
-          select: {
-            id: true,
-          },
-        },
-
+        supplierId: true,
         taxNumber: true,
         updatedAt: true,
         website: true,
-        workAddress: true,
       },
     });
     if (result === null) {
@@ -416,67 +233,20 @@ export class CustomerControllerBase {
         data: {
           ...data,
 
-          currencyId: data.currencyId
+          currency: data.currency
             ? {
-                connect: data.currencyId,
-              }
-            : undefined,
-
-          customerCateogryId: data.customerCateogryId
-            ? {
-                connect: data.customerCateogryId,
-              }
-            : undefined,
-
-          customerTypeId: data.customerTypeId
-            ? {
-                connect: data.customerTypeId,
-              }
-            : undefined,
-
-          guarantorRatingId: data.guarantorRatingId
-            ? {
-                connect: data.guarantorRatingId,
-              }
-            : undefined,
-
-          rating: data.rating
-            ? {
-                connect: data.rating,
-              }
-            : undefined,
-
-          salePriceTypeId: data.salePriceTypeId
-            ? {
-                connect: data.salePriceTypeId,
-              }
-            : undefined,
-
-          supplierId: data.supplierId
-            ? {
-                connect: data.supplierId,
+                connect: data.currency,
               }
             : undefined,
         },
         select: {
+          DefaultSalePriceTypeId: true,
           address: true,
           code: true,
           createdAt: true,
           credit: true,
 
-          currencyId: {
-            select: {
-              id: true,
-            },
-          },
-
-          customerCateogryId: {
-            select: {
-              id: true,
-            },
-          },
-
-          customerTypeId: {
+          currency: {
             select: {
               id: true,
             },
@@ -487,59 +257,21 @@ export class CustomerControllerBase {
           email: true,
           firstBalance: true,
           firstBalanceDate: true,
-          guarantorAddress: true,
-          guarantorJobTitle: true,
-          guarantorName: true,
-          guarantorNationalIdNumber: true,
-          guarantorPhoneNumber: true,
-
-          guarantorRatingId: {
-            select: {
-              id: true,
-            },
-          },
-
-          guarantorWorkAddress: true,
-          hasMortalOrDiscount: true,
-          hasNoPendingInvoices: true,
           id: true,
           isActive: true,
-          isComplain: true,
           isSystem: true,
           isUnderRevision: true,
-          jobTitle: true,
           maxAllowedDebit: true,
           name: true,
           normalizedName: true,
-          note: true,
           phoneNumber: true,
           previousBalance: true,
-
-          rating: {
-            select: {
-              id: true,
-            },
-          },
-
           revisionDate: true,
           saleDiscountRate: true,
-
-          salePriceTypeId: {
-            select: {
-              id: true,
-            },
-          },
-
-          supplierId: {
-            select: {
-              id: true,
-            },
-          },
-
+          supplierId: true,
           taxNumber: true,
           updatedAt: true,
           website: true,
-          workAddress: true,
         },
       });
     } catch (error) {
@@ -570,24 +302,13 @@ export class CustomerControllerBase {
       return await this.service.deleteCustomer({
         where: params,
         select: {
+          DefaultSalePriceTypeId: true,
           address: true,
           code: true,
           createdAt: true,
           credit: true,
 
-          currencyId: {
-            select: {
-              id: true,
-            },
-          },
-
-          customerCateogryId: {
-            select: {
-              id: true,
-            },
-          },
-
-          customerTypeId: {
+          currency: {
             select: {
               id: true,
             },
@@ -598,59 +319,21 @@ export class CustomerControllerBase {
           email: true,
           firstBalance: true,
           firstBalanceDate: true,
-          guarantorAddress: true,
-          guarantorJobTitle: true,
-          guarantorName: true,
-          guarantorNationalIdNumber: true,
-          guarantorPhoneNumber: true,
-
-          guarantorRatingId: {
-            select: {
-              id: true,
-            },
-          },
-
-          guarantorWorkAddress: true,
-          hasMortalOrDiscount: true,
-          hasNoPendingInvoices: true,
           id: true,
           isActive: true,
-          isComplain: true,
           isSystem: true,
           isUnderRevision: true,
-          jobTitle: true,
           maxAllowedDebit: true,
           name: true,
           normalizedName: true,
-          note: true,
           phoneNumber: true,
           previousBalance: true,
-
-          rating: {
-            select: {
-              id: true,
-            },
-          },
-
           revisionDate: true,
           saleDiscountRate: true,
-
-          salePriceTypeId: {
-            select: {
-              id: true,
-            },
-          },
-
-          supplierId: {
-            select: {
-              id: true,
-            },
-          },
-
+          supplierId: true,
           taxNumber: true,
           updatedAt: true,
           website: true,
-          workAddress: true,
         },
       });
     } catch (error) {
@@ -664,32 +347,28 @@ export class CustomerControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/maintenanceContracts")
-  @ApiNestedQuery(MaintenanceContractFindManyArgs)
+  @common.Get("/:id/productionOrders")
+  @ApiNestedQuery(ProductionOrderFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "MaintenanceContract",
+    resource: "ProductionOrder",
     action: "read",
     possession: "any",
   })
-  async findMaintenanceContracts(
+  async findProductionOrders(
     @common.Req() request: Request,
     @common.Param() params: CustomerWhereUniqueInput
-  ): Promise<MaintenanceContract[]> {
-    const query = plainToClass(MaintenanceContractFindManyArgs, request.query);
-    const results = await this.service.findMaintenanceContracts(params.id, {
+  ): Promise<ProductionOrder[]> {
+    const query = plainToClass(ProductionOrderFindManyArgs, request.query);
+    const results = await this.service.findProductionOrders(params.id, {
       ...query,
       select: {
-        confirmDate: true,
-        contactEndTime: true,
-        contactStartTime: true,
-
-        contractPeriodId: {
+        billOfMaterialId: {
           select: {
             id: true,
           },
         },
 
-        contractStartDate: true,
+        code: true,
         createdAt: true,
 
         customerId: {
@@ -698,24 +377,38 @@ export class CustomerControllerBase {
           },
         },
 
-        customerUserId: {
-          select: {
-            id: true,
-          },
-        },
-
-        elevatorId: {
-          select: {
-            id: true,
-          },
-        },
-
+        deadlineDate: true,
+        description: true,
+        finishDate: true,
         id: true,
-        isConfirmed: true,
+        name: true,
+        normalizedName: true,
         note: true,
         orderDate: true,
 
+        orderStatusId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productQuantity: true,
+        sequenceNumber: true,
+        startDate: true,
+
         storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unit: {
           select: {
             id: true,
           },
@@ -732,18 +425,18 @@ export class CustomerControllerBase {
     return results;
   }
 
-  @common.Post("/:id/maintenanceContracts")
+  @common.Post("/:id/productionOrders")
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "update",
     possession: "any",
   })
-  async connectMaintenanceContracts(
+  async connectProductionOrders(
     @common.Param() params: CustomerWhereUniqueInput,
-    @common.Body() body: MaintenanceContractWhereUniqueInput[]
+    @common.Body() body: ProductionOrderWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      maintenanceContracts: {
+      productionOrders: {
         connect: body,
       },
     };
@@ -754,18 +447,18 @@ export class CustomerControllerBase {
     });
   }
 
-  @common.Patch("/:id/maintenanceContracts")
+  @common.Patch("/:id/productionOrders")
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "update",
     possession: "any",
   })
-  async updateMaintenanceContracts(
+  async updateProductionOrders(
     @common.Param() params: CustomerWhereUniqueInput,
-    @common.Body() body: MaintenanceContractWhereUniqueInput[]
+    @common.Body() body: ProductionOrderWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      maintenanceContracts: {
+      productionOrders: {
         set: body,
       },
     };
@@ -776,18 +469,18 @@ export class CustomerControllerBase {
     });
   }
 
-  @common.Delete("/:id/maintenanceContracts")
+  @common.Delete("/:id/productionOrders")
   @nestAccessControl.UseRoles({
     resource: "Customer",
     action: "update",
     possession: "any",
   })
-  async disconnectMaintenanceContracts(
+  async disconnectProductionOrders(
     @common.Param() params: CustomerWhereUniqueInput,
-    @common.Body() body: MaintenanceContractWhereUniqueInput[]
+    @common.Body() body: ProductionOrderWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      maintenanceContracts: {
+      productionOrders: {
         disconnect: body,
       },
     };

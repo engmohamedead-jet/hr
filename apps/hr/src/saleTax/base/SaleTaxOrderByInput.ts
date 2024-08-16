@@ -72,17 +72,6 @@ class SaleTaxOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  isExemption?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   name?: SortOrder;
 
   @ApiProperty({
@@ -106,28 +95,6 @@ class SaleTaxOrderByInput {
     nullable: true,
   })
   note?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  rate?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  storeId?: SortOrder;
 
   @ApiProperty({
     required: false,

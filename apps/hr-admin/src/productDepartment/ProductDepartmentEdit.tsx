@@ -6,11 +6,13 @@ import {
   EditProps,
   TextInput,
   BooleanInput,
+  ReferenceInput,
+  SelectInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
 
-import { ProductCategoryTitle } from "../productCategory/ProductCategoryTitle";
+import { ProductDepartmentTitle } from "./ProductDepartmentTitle";
 import { ProductTitle } from "../product/ProductTitle";
 
 export const ProductDepartmentEdit = (props: EditProps): React.ReactElement => {
@@ -22,14 +24,21 @@ export const ProductDepartmentEdit = (props: EditProps): React.ReactElement => {
         <BooleanInput label="IsDefault" source="isDefault" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
-        <TextInput label="Note" source="note" />
+        <TextInput label="Note" multiline source="note" />
+        <ReferenceInput
+          source="parentProductDepartment.id"
+          reference="ProductDepartment"
+          label="ParentProductDepartment"
+        >
+          <SelectInput optionText={ProductDepartmentTitle} />
+        </ReferenceInput>
         <ReferenceArrayInput
-          source="productCategories"
-          reference="ProductCategory"
+          source="productDepartments"
+          reference="ProductDepartment"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={ProductCategoryTitle} />
+          <SelectArrayInput optionText={ProductDepartmentTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="products"

@@ -18,11 +18,11 @@ export const PrintTemplateContentEdit = (
         <TextInput label="Display" source="display" />
         <TextInput label="FieldValue" source="fieldValue" />
         <TextInput label="Key" source="key" />
-        <TextInput label="Note" source="note" />
+        <TextInput label="Note" multiline source="note" />
         <ReferenceInput
-          source="printTemplateId.id"
+          source="printTemplate.id"
           reference="PrintTemplate"
-          label="PrintTemplateId"
+          label="PrintTemplate"
         >
           <SelectInput optionText={PrintTemplateTitle} />
         </ReferenceInput>

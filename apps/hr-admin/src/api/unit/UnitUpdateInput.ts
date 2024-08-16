@@ -1,16 +1,18 @@
-import { CompoundUnitWhereUniqueInput } from "../compoundUnit/CompoundUnitWhereUniqueInput";
-import { CompoundUnitUpdateManyWithoutUnitsInput } from "./CompoundUnitUpdateManyWithoutUnitsInput";
+import { BillOfMaterialDetailUpdateManyWithoutUnitsInput } from "./BillOfMaterialDetailUpdateManyWithoutUnitsInput";
+import { BillOfMaterialUpdateManyWithoutUnitsInput } from "./BillOfMaterialUpdateManyWithoutUnitsInput";
+import { ProductionOrderUpdateManyWithoutUnitsInput } from "./ProductionOrderUpdateManyWithoutUnitsInput";
 import { ProductUpdateManyWithoutUnitsInput } from "./ProductUpdateManyWithoutUnitsInput";
 
 export type UnitUpdateInput = {
-  code?: string;
-  compareUnit?: CompoundUnitWhereUniqueInput | null;
-  compoundUnits?: CompoundUnitUpdateManyWithoutUnitsInput;
+  billOfMaterialDetails?: BillOfMaterialDetailUpdateManyWithoutUnitsInput;
+  billOfMaterials?: BillOfMaterialUpdateManyWithoutUnitsInput;
+  code?: string | null;
   description?: string | null;
   isCompound?: boolean | null;
-  isDefault?: boolean;
+  isDefault?: boolean | null;
   name?: string;
   normalizedName?: string;
   note?: string | null;
+  productionOrders?: ProductionOrderUpdateManyWithoutUnitsInput;
   products?: ProductUpdateManyWithoutUnitsInput;
 };

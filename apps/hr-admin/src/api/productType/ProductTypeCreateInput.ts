@@ -2,7 +2,6 @@ import { ProductCreateNestedManyWithoutProductTypesInput } from "./ProductCreate
 
 export type ProductTypeCreateInput = {
   code?: string | null;
-  description?: string | null;
   isComponent?: boolean | null;
   name: string;
   normalizedName: string;

@@ -18,9 +18,8 @@ import {
   IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { ProductDepartmentWhereUniqueInput } from "../../productDepartment/base/ProductDepartmentWhereUniqueInput";
-import { Type } from "class-transformer";
 import { ProductCreateNestedManyWithoutProductCategoriesInput } from "./ProductCreateNestedManyWithoutProductCategoriesInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class ProductCategoryCreateInput {
@@ -49,39 +48,30 @@ class ProductCategoryCreateInput {
   description?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isDefault?: boolean | null;
+  @Field(() => Boolean)
+  isDefault!: boolean;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name?: string | null;
+  @Field(() => String)
+  name!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  normalizedName?: string | null;
+  @Field(() => String)
+  normalizedName!: string;
 
   @ApiProperty({
     required: false,
@@ -94,18 +84,6 @@ class ProductCategoryCreateInput {
     nullable: true,
   })
   note?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductDepartmentWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductDepartmentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProductDepartmentWhereUniqueInput, {
-    nullable: true,
-  })
-  productDepartment?: ProductDepartmentWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

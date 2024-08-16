@@ -9,26 +9,18 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ObjectType, Field, Float } from "@nestjs/graphql";
+import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-
 import {
   IsString,
   MaxLength,
   IsOptional,
   IsDate,
-  IsInt,
-  IsBoolean,
   ValidateNested,
-  IsNumber,
-  Max,
 } from "class-validator";
-
 import { Type } from "class-transformer";
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { Product } from "../../product/base/Product";
-import { Decimal } from "decimal.js";
-import { Store } from "../../store/base/Store";
 
 @ObjectType()
 class SaleTax {
@@ -66,22 +58,11 @@ class SaleTax {
 
   @ApiProperty({
     required: true,
-    type: Number,
+    type: String,
   })
-  @IsInt()
-  @Field(() => Number)
-  id!: number;
-
-  @ApiProperty({
-    required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isExemption!: boolean | null;
+  @IsString()
+  @Field(() => String)
+  id!: string;
 
   @ApiProperty({
     required: true,
@@ -130,27 +111,6 @@ class SaleTax {
   @Type(() => Product)
   @IsOptional()
   products?: Array<Product>;
-
-  @ApiProperty({
-    required: false,
-    type: Number,
-  })
-  @IsNumber()
-  @Max(99999999999)
-  @IsOptional()
-  @Field(() => Float, {
-    nullable: true,
-  })
-  rate!: Decimal | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Store,
-  })
-  @ValidateNested()
-  @Type(() => Store)
-  @IsOptional()
-  store?: Store | null;
 
   @ApiProperty({
     required: true,

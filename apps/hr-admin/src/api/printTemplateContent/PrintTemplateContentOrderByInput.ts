@@ -7,7 +7,7 @@ export type PrintTemplateContentOrderByInput = {
   id?: SortOrder;
   key?: SortOrder;
   note?: SortOrder;
-  printTemplateIdId?: SortOrder;
+  printTemplateId?: SortOrder;
   updatedAt?: SortOrder;
   value?: SortOrder;
 };

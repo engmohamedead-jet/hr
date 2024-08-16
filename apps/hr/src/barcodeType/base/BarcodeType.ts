@@ -17,8 +17,10 @@ import {
   IsOptional,
   IsDate,
   IsInt,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
 
 @ObjectType()
 class BarcodeType {
@@ -91,6 +93,15 @@ class BarcodeType {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductBarcode],
+  })
+  @ValidateNested()
+  @Type(() => ProductBarcode)
+  @IsOptional()
+  productBarcodes?: Array<ProductBarcode>;
 
   @ApiProperty({
     required: true,

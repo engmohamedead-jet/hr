@@ -1,7 +1,6 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type ProductOrderByInput = {
-  ProductGroupIdId?: SortOrder;
   barcode?: SortOrder;
   canExpire?: SortOrder;
   code?: SortOrder;
@@ -26,9 +25,11 @@ export type ProductOrderByInput = {
   minimumSalePrice?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
+  note?: SortOrder;
   photo?: SortOrder;
   productCategoryIdId?: SortOrder;
   productDepartmentIdId?: SortOrder;
+  productGroupIdId?: SortOrder;
   productTypeIdId?: SortOrder;
   profitRate?: SortOrder;
   reorderQuantity?: SortOrder;

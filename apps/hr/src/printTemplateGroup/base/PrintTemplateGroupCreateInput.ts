@@ -11,14 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsString,
-  MaxLength,
-  IsOptional,
-  ValidateNested,
-} from "class-validator";
-import { PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput } from "./PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput";
-import { Type } from "class-transformer";
+import { IsString, MaxLength, IsOptional } from "class-validator";
 
 @InputType()
 class PrintTemplateGroupCreateInput {
@@ -47,16 +40,13 @@ class PrintTemplateGroupCreateInput {
   description?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name?: string | null;
+  @Field(() => String)
+  name!: string;
 
   @ApiProperty({
     required: true,
@@ -72,24 +62,12 @@ class PrintTemplateGroupCreateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(1000)
+  @MaxLength(2561)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   note?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput,
-  })
-  @ValidateNested()
-  @Type(() => PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput)
-  @IsOptional()
-  @Field(() => PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput, {
-    nullable: true,
-  })
-  printTemplates?: PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput;
 }
 
 export { PrintTemplateGroupCreateInput as PrintTemplateGroupCreateInput };

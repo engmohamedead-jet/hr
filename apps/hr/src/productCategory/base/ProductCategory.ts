@@ -16,12 +16,10 @@ import {
   MaxLength,
   IsOptional,
   IsDate,
-  IsInt,
   IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { ProductDepartment } from "../../productDepartment/base/ProductDepartment";
 import { Product } from "../../product/base/Product";
 
 @ObjectType()
@@ -60,46 +58,37 @@ class ProductCategory {
 
   @ApiProperty({
     required: true,
-    type: Number,
+    type: String,
   })
-  @IsInt()
-  @Field(() => Number)
-  id!: number;
+  @IsString()
+  @Field(() => String)
+  id!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isDefault!: boolean | null;
+  @Field(() => Boolean)
+  isDefault!: boolean;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name!: string | null;
+  @Field(() => String)
+  name!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  normalizedName!: string | null;
+  @Field(() => String)
+  normalizedName!: string;
 
   @ApiProperty({
     required: false,
@@ -112,15 +101,6 @@ class ProductCategory {
     nullable: true,
   })
   note!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductDepartment,
-  })
-  @ValidateNested()
-  @Type(() => ProductDepartment)
-  @IsOptional()
-  productDepartment?: ProductDepartment | null;
 
   @ApiProperty({
     required: false,

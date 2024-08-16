@@ -1,7 +1,7 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type AttributeValueOrderByInput = {
-  Name?: SortOrder;
+  attributeIdId?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
   note?: SortOrder;

@@ -11,40 +11,23 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountUpdateManyWithoutCurrenciesInput } from "./AccountUpdateManyWithoutCurrenciesInput";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
-  IsBoolean,
+  IsOptional,
+  ValidateNested,
 } from "class-validator";
-import { Type } from "class-transformer";
 import { CustomerUpdateManyWithoutCurrenciesInput } from "./CustomerUpdateManyWithoutCurrenciesInput";
-import { ExchangeRateDetailUpdateManyWithoutCurrenciesInput } from "./ExchangeRateDetailUpdateManyWithoutCurrenciesInput";
-import { ExchangeRateDetailWhereUniqueInput } from "../../exchangeRateDetail/base/ExchangeRateDetailWhereUniqueInput";
-import { SupplierUpdateManyWithoutCurrenciesInput } from "./SupplierUpdateManyWithoutCurrenciesInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class CurrencyUpdateInput {
   @ApiProperty({
     required: false,
-    type: () => AccountUpdateManyWithoutCurrenciesInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountUpdateManyWithoutCurrenciesInput)
-  @IsOptional()
-  @Field(() => AccountUpdateManyWithoutCurrenciesInput, {
-    nullable: true,
-  })
-  accounts?: AccountUpdateManyWithoutCurrenciesInput;
-
-  @ApiProperty({
-    required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(100)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -65,57 +48,22 @@ class CurrencyUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ExchangeRateDetailUpdateManyWithoutCurrenciesInput,
-  })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetailUpdateManyWithoutCurrenciesInput)
-  @IsOptional()
-  @Field(() => ExchangeRateDetailUpdateManyWithoutCurrenciesInput, {
-    nullable: true,
-  })
-  exchangeRateDetails?: ExchangeRateDetailUpdateManyWithoutCurrenciesInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ExchangeRateDetailWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetailWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ExchangeRateDetailWhereUniqueInput, {
-    nullable: true,
-  })
-  foreignCurrencyName?: ExchangeRateDetailWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
-  hundredthName?: string;
-
-  @ApiProperty({
-    required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isDefault?: boolean;
+  description?: string | null;
 
   @ApiProperty({
     required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -127,7 +75,7 @@ class CurrencyUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -145,30 +93,6 @@ class CurrencyUpdateInput {
     nullable: true,
   })
   note?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => SupplierUpdateManyWithoutCurrenciesInput,
-  })
-  @ValidateNested()
-  @Type(() => SupplierUpdateManyWithoutCurrenciesInput)
-  @IsOptional()
-  @Field(() => SupplierUpdateManyWithoutCurrenciesInput, {
-    nullable: true,
-  })
-  suppliers?: SupplierUpdateManyWithoutCurrenciesInput;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(100)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  symbolField?: string;
 }
 
 export { CurrencyUpdateInput as CurrencyUpdateInput };

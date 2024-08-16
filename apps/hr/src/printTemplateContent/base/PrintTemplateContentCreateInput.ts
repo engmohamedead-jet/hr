@@ -74,7 +74,7 @@ class PrintTemplateContentCreateInput {
   @Field(() => PrintTemplateWhereUniqueInput, {
     nullable: true,
   })
-  printTemplateId?: PrintTemplateWhereUniqueInput | null;
+  printTemplate?: PrintTemplateWhereUniqueInput | null;
 
   @ApiProperty({
     required: true,

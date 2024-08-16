@@ -1,10 +1,13 @@
+import { ProductionOrder } from "../productionOrder/ProductionOrder";
+
 export type OrderStatus = {
-  code: string;
+  code: string | null;
   createdAt: Date;
   description: string | null;
-  id: string;
+  id: number;
   name: string;
   normalizedName: string;
   note: string | null;
+  productionOrders?: ProductionOrder | null;
   updatedAt: Date;
 };

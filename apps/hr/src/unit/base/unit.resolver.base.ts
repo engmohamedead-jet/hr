@@ -26,8 +26,12 @@ import { UnitFindUniqueArgs } from "./UnitFindUniqueArgs";
 import { CreateUnitArgs } from "./CreateUnitArgs";
 import { UpdateUnitArgs } from "./UpdateUnitArgs";
 import { DeleteUnitArgs } from "./DeleteUnitArgs";
-import { CompoundUnitFindManyArgs } from "../../compoundUnit/base/CompoundUnitFindManyArgs";
-import { CompoundUnit } from "../../compoundUnit/base/CompoundUnit";
+import { BillOfMaterialDetailFindManyArgs } from "../../billOfMaterialDetail/base/BillOfMaterialDetailFindManyArgs";
+import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
+import { BillOfMaterialFindManyArgs } from "../../billOfMaterial/base/BillOfMaterialFindManyArgs";
+import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
+import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
 import { UnitService } from "../unit.service";
@@ -90,15 +94,7 @@ export class UnitResolverBase {
   async createUnit(@graphql.Args() args: CreateUnitArgs): Promise<Unit> {
     return await this.service.createUnit({
       ...args,
-      data: {
-        ...args.data,
-
-        compareUnit: args.data.compareUnit
-          ? {
-              connect: args.data.compareUnit,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -113,15 +109,7 @@ export class UnitResolverBase {
     try {
       return await this.service.updateUnit({
         ...args,
-        data: {
-          ...args.data,
-
-          compareUnit: args.data.compareUnit
-            ? {
-                connect: args.data.compareUnit,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -153,17 +141,62 @@ export class UnitResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [CompoundUnit], { name: "compoundUnits" })
+  @graphql.ResolveField(() => [BillOfMaterialDetail], {
+    name: "billOfMaterialDetails",
+  })
   @nestAccessControl.UseRoles({
-    resource: "CompoundUnit",
+    resource: "BillOfMaterialDetail",
     action: "read",
     possession: "any",
   })
-  async findCompoundUnits(
+  async findBillOfMaterialDetails(
     @graphql.Parent() parent: Unit,
-    @graphql.Args() args: CompoundUnitFindManyArgs
-  ): Promise<CompoundUnit[]> {
-    const results = await this.service.findCompoundUnits(parent.id, args);
+    @graphql.Args() args: BillOfMaterialDetailFindManyArgs
+  ): Promise<BillOfMaterialDetail[]> {
+    const results = await this.service.findBillOfMaterialDetails(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [BillOfMaterial], { name: "billOfMaterials" })
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterial",
+    action: "read",
+    possession: "any",
+  })
+  async findBillOfMaterials(
+    @graphql.Parent() parent: Unit,
+    @graphql.Args() args: BillOfMaterialFindManyArgs
+  ): Promise<BillOfMaterial[]> {
+    const results = await this.service.findBillOfMaterials(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductionOrder], { name: "productionOrders" })
+  @nestAccessControl.UseRoles({
+    resource: "ProductionOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findProductionOrders(
+    @graphql.Parent() parent: Unit,
+    @graphql.Args() args: ProductionOrderFindManyArgs
+  ): Promise<ProductionOrder[]> {
+    const results = await this.service.findProductionOrders(parent.id, args);
 
     if (!results) {
       return [];
@@ -190,26 +223,5 @@ export class UnitResolverBase {
     }
 
     return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => CompoundUnit, {
-    nullable: true,
-    name: "compareUnit",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "CompoundUnit",
-    action: "read",
-    possession: "any",
-  })
-  async getCompareUnit(
-    @graphql.Parent() parent: Unit
-  ): Promise<CompoundUnit | null> {
-    const result = await this.service.getCompareUnit(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
   }
 }

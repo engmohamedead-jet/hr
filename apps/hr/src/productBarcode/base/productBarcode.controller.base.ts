@@ -67,6 +67,12 @@ export class ProductBarcodeControllerBase {
               connect: data.productVariantId,
             }
           : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
       },
       select: {
         barcode: true,
@@ -79,6 +85,7 @@ export class ProductBarcodeControllerBase {
 
         createdAt: true,
         id: true,
+        isActive: true,
         note: true,
 
         productId: {
@@ -88,6 +95,12 @@ export class ProductBarcodeControllerBase {
         },
 
         productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -127,6 +140,7 @@ export class ProductBarcodeControllerBase {
 
         createdAt: true,
         id: true,
+        isActive: true,
         note: true,
 
         productId: {
@@ -136,6 +150,12 @@ export class ProductBarcodeControllerBase {
         },
 
         productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -174,6 +194,7 @@ export class ProductBarcodeControllerBase {
 
         createdAt: true,
         id: true,
+        isActive: true,
         note: true,
 
         productId: {
@@ -183,6 +204,12 @@ export class ProductBarcodeControllerBase {
         },
 
         productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -236,6 +263,12 @@ export class ProductBarcodeControllerBase {
                 connect: data.productVariantId,
               }
             : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
         },
         select: {
           barcode: true,
@@ -248,6 +281,7 @@ export class ProductBarcodeControllerBase {
 
           createdAt: true,
           id: true,
+          isActive: true,
           note: true,
 
           productId: {
@@ -257,6 +291,12 @@ export class ProductBarcodeControllerBase {
           },
 
           productVariantId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -303,6 +343,7 @@ export class ProductBarcodeControllerBase {
 
           createdAt: true,
           id: true,
+          isActive: true,
           note: true,
 
           productId: {
@@ -312,6 +353,12 @@ export class ProductBarcodeControllerBase {
           },
 
           productVariantId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },

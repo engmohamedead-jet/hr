@@ -52,15 +52,31 @@ export class AttributeControllerBase {
     @common.Body() data: AttributeCreateInput
   ): Promise<Attribute> {
     return await this.service.createAttribute({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -87,9 +103,17 @@ export class AttributeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -117,9 +141,17 @@ export class AttributeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -150,15 +182,31 @@ export class AttributeControllerBase {
     try {
       return await this.service.updateAttribute({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -194,9 +242,17 @@ export class AttributeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -234,7 +290,15 @@ export class AttributeControllerBase {
 
         createdAt: true,
         id: true,
+        isActive: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         value: true,
       },

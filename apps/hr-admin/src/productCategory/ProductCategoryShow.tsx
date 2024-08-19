@@ -7,9 +7,9 @@ import {
   TextField,
   DateField,
   BooleanField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
 } from "react-admin";
 
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
@@ -19,6 +19,7 @@ import { PRODUCTDEPARTMENT_TITLE_FIELD } from "../productDepartment/ProductDepar
 import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
 import { PRODUCTTYPE_TITLE_FIELD } from "../productType/ProductTypeTitle";
 import { SALETAX_TITLE_FIELD } from "../saleTax/SaleTaxTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const ProductCategoryShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -28,10 +29,14 @@ export const ProductCategoryShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <BooleanField label="IsDefault" source="isDefault" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="Product"
@@ -130,6 +135,13 @@ export const ProductCategoryShow = (props: ShowProps): React.ReactElement => {
               reference="SaleTax"
             >
               <TextField source={SALETAX_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>

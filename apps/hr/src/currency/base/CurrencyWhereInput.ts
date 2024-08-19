@@ -16,6 +16,9 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { CustomerListRelationFilter } from "../../customer/base/CustomerListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { SupplierListRelationFilter } from "../../supplier/base/SupplierListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CurrencyWhereInput {
@@ -66,6 +69,17 @@ class CurrencyWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -96,6 +110,30 @@ class CurrencyWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SupplierListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SupplierListRelationFilter)
+  @IsOptional()
+  @Field(() => SupplierListRelationFilter, {
+    nullable: true,
+  })
+  suppliers?: SupplierListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { CurrencyWhereInput as CurrencyWhereInput };

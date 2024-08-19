@@ -16,9 +16,13 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { InstallmentSaleFeeListRelationFilter } from "../../installmentSaleFee/base/InstallmentSaleFeeListRelationFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { AccountWhereUniqueInput } from "./AccountWhereUniqueInput";
 import { AccountListRelationFilter } from "./AccountListRelationFilter";
+import { SalePersonListRelationFilter } from "../../salePerson/base/SalePersonListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AccountWhereInput {
@@ -93,6 +97,18 @@ class AccountWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => InstallmentSaleFeeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => InstallmentSaleFeeListRelationFilter)
+  @IsOptional()
+  @Field(() => InstallmentSaleFeeListRelationFilter, {
+    nullable: true,
+  })
+  installmentSaleFees?: InstallmentSaleFeeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductGroupListRelationFilter,
   })
   @ValidateNested()
@@ -112,7 +128,18 @@ class AccountWhereInput {
   @Field(() => BooleanNullableFilter, {
     nullable: true,
   })
-  isMasterAccount?: BooleanNullableFilter;
+  isActive?: BooleanNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isMasterAccount?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -218,6 +245,30 @@ class AccountWhereInput {
     nullable: true,
   })
   saleDiscountAccountProductGroups?: ProductGroupListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePersonListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SalePersonListRelationFilter)
+  @IsOptional()
+  @Field(() => SalePersonListRelationFilter, {
+    nullable: true,
+  })
+  salePeople?: SalePersonListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { AccountWhereInput as AccountWhereInput };

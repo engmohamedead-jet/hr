@@ -1,4 +1,5 @@
 import { BillOfMaterialDetailCreateNestedManyWithoutWorkCenterRoutingsInput } from "./BillOfMaterialDetailCreateNestedManyWithoutWorkCenterRoutingsInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 import { Decimal } from "decimal.js";
 import { WorkCenterWhereUniqueInput } from "../workCenter/WorkCenterWhereUniqueInput";
 
@@ -9,8 +10,9 @@ export type WorkCenterRoutingCreateInput = {
   name: string;
   normalizedName: string;
   note?: string | null;
-  sequence?: number | null;
+  sequence: number;
+  tenantId?: TenantWhereUniqueInput | null;
   timeCycleManual?: Decimal | null;
   timeModeBatch?: number | null;
-  workCenter?: WorkCenterWhereUniqueInput | null;
+  workCenterId?: WorkCenterWhereUniqueInput | null;
 };

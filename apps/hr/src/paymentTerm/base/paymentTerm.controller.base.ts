@@ -64,19 +64,23 @@ export class PaymentTermControllerBase {
             }
           : undefined,
 
-        installmentSaleFeePostingPeriodId:
-          data.installmentSaleFeePostingPeriodId
-            ? {
-                connect: data.installmentSaleFeePostingPeriodId,
-              }
-            : undefined,
+        installmentSaleFeePostingPeriod: data.installmentSaleFeePostingPeriod
+          ? {
+              connect: data.installmentSaleFeePostingPeriod,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
       },
       select: {
         code: true,
         createdAt: true,
         description: true,
         dueDays: true,
-        dueOnDate: true,
 
         duePeriodId: {
           select: {
@@ -93,15 +97,25 @@ export class PaymentTermControllerBase {
           },
         },
 
-        installmentSaleFeePostingPeriodId: {
+        installmentSaleFeePostingPeriod: {
           select: {
             id: true,
           },
         },
 
+        isActive: true,
         isDefault: true,
+        isDueOnDate: true,
         name: true,
         normalizedName: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -128,7 +142,6 @@ export class PaymentTermControllerBase {
         createdAt: true,
         description: true,
         dueDays: true,
-        dueOnDate: true,
 
         duePeriodId: {
           select: {
@@ -145,15 +158,25 @@ export class PaymentTermControllerBase {
           },
         },
 
-        installmentSaleFeePostingPeriodId: {
+        installmentSaleFeePostingPeriod: {
           select: {
             id: true,
           },
         },
 
+        isActive: true,
         isDefault: true,
+        isDueOnDate: true,
         name: true,
         normalizedName: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -181,7 +204,6 @@ export class PaymentTermControllerBase {
         createdAt: true,
         description: true,
         dueDays: true,
-        dueOnDate: true,
 
         duePeriodId: {
           select: {
@@ -198,15 +220,25 @@ export class PaymentTermControllerBase {
           },
         },
 
-        installmentSaleFeePostingPeriodId: {
+        installmentSaleFeePostingPeriod: {
           select: {
             id: true,
           },
         },
 
+        isActive: true,
         isDefault: true,
+        isDueOnDate: true,
         name: true,
         normalizedName: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -252,19 +284,23 @@ export class PaymentTermControllerBase {
               }
             : undefined,
 
-          installmentSaleFeePostingPeriodId:
-            data.installmentSaleFeePostingPeriodId
-              ? {
-                  connect: data.installmentSaleFeePostingPeriodId,
-                }
-              : undefined,
+          installmentSaleFeePostingPeriod: data.installmentSaleFeePostingPeriod
+            ? {
+                connect: data.installmentSaleFeePostingPeriod,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
         },
         select: {
           code: true,
           createdAt: true,
           description: true,
           dueDays: true,
-          dueOnDate: true,
 
           duePeriodId: {
             select: {
@@ -281,15 +317,25 @@ export class PaymentTermControllerBase {
             },
           },
 
-          installmentSaleFeePostingPeriodId: {
+          installmentSaleFeePostingPeriod: {
             select: {
               id: true,
             },
           },
 
+          isActive: true,
           isDefault: true,
+          isDueOnDate: true,
           name: true,
           normalizedName: true,
+          note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -325,7 +371,6 @@ export class PaymentTermControllerBase {
           createdAt: true,
           description: true,
           dueDays: true,
-          dueOnDate: true,
 
           duePeriodId: {
             select: {
@@ -342,15 +387,25 @@ export class PaymentTermControllerBase {
             },
           },
 
-          installmentSaleFeePostingPeriodId: {
+          installmentSaleFeePostingPeriod: {
             select: {
               id: true,
             },
           },
 
+          isActive: true,
           isDefault: true,
+          isDueOnDate: true,
           name: true,
           normalizedName: true,
+          note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

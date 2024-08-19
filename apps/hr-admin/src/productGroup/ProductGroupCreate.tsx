@@ -16,6 +16,7 @@ import { AccountTitle } from "../account/AccountTitle";
 import { ProductGroupTitle } from "./ProductGroupTitle";
 import { ProductTitle } from "../product/ProductTitle";
 import { SaleTaxTitle } from "../saleTax/SaleTaxTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const ProductGroupCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -42,6 +43,7 @@ export const ProductGroupCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
+        <BooleanInput label="IsActive" source="isActive" />
         <BooleanInput label="IsDefault" source="isDefault" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
@@ -117,6 +119,13 @@ export const ProductGroupCreate = (props: CreateProps): React.ReactElement => {
           label="SaleTaxId"
         >
           <SelectInput optionText={SaleTaxTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
         </ReferenceInput>
       </SimpleForm>
     </Create>

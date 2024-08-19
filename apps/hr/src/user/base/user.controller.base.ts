@@ -47,14 +47,30 @@ export class UserControllerBase {
   })
   async createUser(@common.Body() data: UserCreateInput): Promise<User> {
     return await this.service.createUser({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         email: true,
         firstName: true,
         id: true,
+        isActive: true,
         lastName: true,
         roles: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         username: true,
       },
@@ -82,8 +98,16 @@ export class UserControllerBase {
         email: true,
         firstName: true,
         id: true,
+        isActive: true,
         lastName: true,
         roles: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         username: true,
       },
@@ -112,8 +136,16 @@ export class UserControllerBase {
         email: true,
         firstName: true,
         id: true,
+        isActive: true,
         lastName: true,
         roles: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         username: true,
       },
@@ -145,14 +177,30 @@ export class UserControllerBase {
     try {
       return await this.service.updateUser({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           email: true,
           firstName: true,
           id: true,
+          isActive: true,
           lastName: true,
           roles: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           username: true,
         },
@@ -189,8 +237,16 @@ export class UserControllerBase {
           email: true,
           firstName: true,
           id: true,
+          isActive: true,
           lastName: true,
           roles: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           username: true,
         },

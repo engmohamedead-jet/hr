@@ -12,6 +12,7 @@ import {
 
 import Pagination from "../Components/Pagination";
 import { CURRENCY_TITLE_FIELD } from "../currency/CurrencyTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const CustomerList = (props: ListProps): React.ReactElement => {
   return (
@@ -32,7 +33,7 @@ export const CustomerList = (props: ListProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="Credit" source="credit" />
         <ReferenceField
-          label="Currency"
+          label="CurrencyId"
           source="currency.id"
           reference="Currency"
         >
@@ -56,6 +57,9 @@ export const CustomerList = (props: ListProps): React.ReactElement => {
         <TextField label="SaleDiscountRate" source="saleDiscountRate" />
         <TextField label="SupplierId" source="supplierId" />
         <TextField label="TaxNumber" source="taxNumber" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="Website" source="website" />
       </Datagrid>

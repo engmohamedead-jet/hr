@@ -15,8 +15,10 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { ProductGroupListRelationFilter } from "../../productGroup/base/ProductGroupListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SaleTaxWhereInput {
@@ -52,6 +54,17 @@ class SaleTaxWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -109,6 +122,18 @@ class SaleTaxWhereInput {
     nullable: true,
   })
   products?: ProductListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { SaleTaxWhereInput as SaleTaxWhereInput };

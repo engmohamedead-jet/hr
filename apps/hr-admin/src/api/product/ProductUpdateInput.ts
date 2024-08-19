@@ -9,9 +9,16 @@ import { ProductCategoryWhereUniqueInput } from "../productCategory/ProductCateg
 import { ProductDepartmentWhereUniqueInput } from "../productDepartment/ProductDepartmentWhereUniqueInput";
 import { ProductGroupWhereUniqueInput } from "../productGroup/ProductGroupWhereUniqueInput";
 import { ProductTypeWhereUniqueInput } from "../productType/ProductTypeWhereUniqueInput";
+import { ProductUnitUpdateManyWithoutProductsInput } from "./ProductUnitUpdateManyWithoutProductsInput";
 import { ProductVariantUpdateManyWithoutProductsInput } from "./ProductVariantUpdateManyWithoutProductsInput";
 import { ProductionOrderUpdateManyWithoutProductsInput } from "./ProductionOrderUpdateManyWithoutProductsInput";
+import { PurchaseDetailUpdateManyWithoutProductsInput } from "./PurchaseDetailUpdateManyWithoutProductsInput";
+import { PurchaseReturnDetailUpdateManyWithoutProductsInput } from "./PurchaseReturnDetailUpdateManyWithoutProductsInput";
+import { SaleDetailUpdateManyWithoutProductsInput } from "./SaleDetailUpdateManyWithoutProductsInput";
+import { SaleQuotationDetailUpdateManyWithoutProductsInput } from "./SaleQuotationDetailUpdateManyWithoutProductsInput";
+import { SaleReturnDetailUpdateManyWithoutProductsInput } from "./SaleReturnDetailUpdateManyWithoutProductsInput";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type ProductUpdateInput = {
   barcode?: string | null;
@@ -45,11 +52,18 @@ export type ProductUpdateInput = {
   productDepartmentId?: ProductDepartmentWhereUniqueInput | null;
   productGroupId?: ProductGroupWhereUniqueInput | null;
   productTypeId?: ProductTypeWhereUniqueInput;
+  productUnits?: ProductUnitUpdateManyWithoutProductsInput;
   productVariants?: ProductVariantUpdateManyWithoutProductsInput;
   productionOrders?: ProductionOrderUpdateManyWithoutProductsInput;
   profitRate?: Decimal | null;
+  purchaseDetails?: PurchaseDetailUpdateManyWithoutProductsInput;
+  purchaseReturnDetails?: PurchaseReturnDetailUpdateManyWithoutProductsInput;
   reorderQuantity?: Decimal | null;
+  saleDetails?: SaleDetailUpdateManyWithoutProductsInput;
   salePrice?: Decimal;
   salePriceIncludesTax?: boolean;
+  saleQuotationDetails?: SaleQuotationDetailUpdateManyWithoutProductsInput;
+  saleReturnDetails?: SaleReturnDetailUpdateManyWithoutProductsInput;
   saleTaxId?: SaleTaxWhereUniqueInput | null;
+  tenantId?: TenantWhereUniqueInput | null;
 };

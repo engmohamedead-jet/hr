@@ -28,6 +28,9 @@ import { UpdateCurrencyArgs } from "./UpdateCurrencyArgs";
 import { DeleteCurrencyArgs } from "./DeleteCurrencyArgs";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
+import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
+import { Supplier } from "../../supplier/base/Supplier";
+import { Tenant } from "../../tenant/base/Tenant";
 import { CurrencyService } from "../currency.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Currency)
@@ -94,7 +97,15 @@ export class CurrencyResolverBase {
   ): Promise<Currency> {
     return await this.service.createCurrency({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +122,15 @@ export class CurrencyResolverBase {
     try {
       return await this.service.updateCurrency({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -162,5 +181,46 @@ export class CurrencyResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Supplier], { name: "suppliers" })
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "read",
+    possession: "any",
+  })
+  async findSuppliers(
+    @graphql.Parent() parent: Currency,
+    @graphql.Args() args: SupplierFindManyArgs
+  ): Promise<Supplier[]> {
+    const results = await this.service.findSuppliers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: Currency
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

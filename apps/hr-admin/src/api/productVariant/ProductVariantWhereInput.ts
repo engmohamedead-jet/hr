@@ -2,16 +2,30 @@ import { AttributeValueWhereUniqueInput } from "../attributeValue/AttributeValue
 import { BillOfMaterialDetailListRelationFilter } from "../billOfMaterialDetail/BillOfMaterialDetailListRelationFilter";
 import { BillOfMaterialListRelationFilter } from "../billOfMaterial/BillOfMaterialListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ProductBarcodeListRelationFilter } from "../productBarcode/ProductBarcodeListRelationFilter";
 import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
+import { PurchaseDetailListRelationFilter } from "../purchaseDetail/PurchaseDetailListRelationFilter";
+import { PurchaseReturnDetailListRelationFilter } from "../purchaseReturnDetail/PurchaseReturnDetailListRelationFilter";
+import { SaleDetailListRelationFilter } from "../saleDetail/SaleDetailListRelationFilter";
+import { SaleQuotationDetailListRelationFilter } from "../saleQuotationDetail/SaleQuotationDetailListRelationFilter";
+import { SaleReturnDetailListRelationFilter } from "../saleReturnDetail/SaleReturnDetailListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type ProductVariantWhereInput = {
   attributeValueId?: AttributeValueWhereUniqueInput;
   billOfMaterialDetails?: BillOfMaterialDetailListRelationFilter;
   billOfMaterials?: BillOfMaterialListRelationFilter;
   id?: StringFilter;
+  isActive?: BooleanFilter;
   note?: StringNullableFilter;
   productBarcodes?: ProductBarcodeListRelationFilter;
   productId?: ProductWhereUniqueInput;
+  purchaseDetails?: PurchaseDetailListRelationFilter;
+  purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
+  saleDetails?: SaleDetailListRelationFilter;
+  saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
+  saleReturnDetails?: SaleReturnDetailListRelationFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

@@ -25,8 +25,9 @@ import {
 } from "class-validator";
 
 import { Decimal } from "decimal.js";
-import { WorkCenterRoutingUpdateManyWithoutWorkCentersInput } from "./WorkCenterRoutingUpdateManyWithoutWorkCentersInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { Type } from "class-transformer";
+import { WorkCenterRoutingUpdateManyWithoutWorkCentersInput } from "./WorkCenterRoutingUpdateManyWithoutWorkCentersInput";
 
 @InputType()
 class WorkCenterUpdateInput {
@@ -171,7 +172,7 @@ class WorkCenterUpdateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  sequence?: number | null;
+  sequence?: number;
 
   @ApiProperty({
     required: false,
@@ -196,6 +197,18 @@ class WorkCenterUpdateInput {
     nullable: true,
   })
   stopTime?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

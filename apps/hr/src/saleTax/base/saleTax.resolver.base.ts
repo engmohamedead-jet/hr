@@ -30,6 +30,7 @@ import { ProductGroupFindManyArgs } from "../../productGroup/base/ProductGroupFi
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
+import { Tenant } from "../../tenant/base/Tenant";
 import { SaleTaxService } from "../saleTax.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => SaleTax)
@@ -96,7 +97,15 @@ export class SaleTaxResolverBase {
   ): Promise<SaleTax> {
     return await this.service.createSaleTax({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -113,7 +122,15 @@ export class SaleTaxResolverBase {
     try {
       return await this.service.updateSaleTax({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -184,5 +201,24 @@ export class SaleTaxResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(@graphql.Parent() parent: SaleTax): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

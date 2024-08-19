@@ -29,6 +29,16 @@ import { CustomerUpdateInput } from "./CustomerUpdateInput";
 import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
+import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindManyArgs";
+import { SaleReturn } from "../../saleReturn/base/SaleReturn";
+import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWhereUniqueInput";
+import { SaleFindManyArgs } from "../../sale/base/SaleFindManyArgs";
+import { Sale } from "../../sale/base/Sale";
+import { SaleWhereUniqueInput } from "../../sale/base/SaleWhereUniqueInput";
+import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
+import { Supplier } from "../../supplier/base/Supplier";
+import { SupplierWhereUniqueInput } from "../../supplier/base/SupplierWhereUniqueInput";
+import { CustomerWhereInput } from "./CustomerWhereInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -55,9 +65,15 @@ export class CustomerControllerBase {
       data: {
         ...data,
 
-        currency: data.currency
+        currencyId: data.currencyId
           ? {
-              connect: data.currency,
+              connect: data.currencyId,
+            }
+          : undefined,
+
+        tenant: data.tenant
+          ? {
+              connect: data.tenant,
             }
           : undefined,
       },
@@ -68,7 +84,7 @@ export class CustomerControllerBase {
         createdAt: true,
         credit: true,
 
-        currency: {
+        currencyId: {
           select: {
             id: true,
           },
@@ -92,6 +108,13 @@ export class CustomerControllerBase {
         saleDiscountRate: true,
         supplierId: true,
         taxNumber: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         website: true,
       },
@@ -121,7 +144,7 @@ export class CustomerControllerBase {
         createdAt: true,
         credit: true,
 
-        currency: {
+        currencyId: {
           select: {
             id: true,
           },
@@ -145,6 +168,13 @@ export class CustomerControllerBase {
         saleDiscountRate: true,
         supplierId: true,
         taxNumber: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         website: true,
       },
@@ -175,7 +205,7 @@ export class CustomerControllerBase {
         createdAt: true,
         credit: true,
 
-        currency: {
+        currencyId: {
           select: {
             id: true,
           },
@@ -199,6 +229,13 @@ export class CustomerControllerBase {
         saleDiscountRate: true,
         supplierId: true,
         taxNumber: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         website: true,
       },
@@ -233,9 +270,15 @@ export class CustomerControllerBase {
         data: {
           ...data,
 
-          currency: data.currency
+          currencyId: data.currencyId
             ? {
-                connect: data.currency,
+                connect: data.currencyId,
+              }
+            : undefined,
+
+          tenant: data.tenant
+            ? {
+                connect: data.tenant,
               }
             : undefined,
         },
@@ -246,7 +289,7 @@ export class CustomerControllerBase {
           createdAt: true,
           credit: true,
 
-          currency: {
+          currencyId: {
             select: {
               id: true,
             },
@@ -270,6 +313,13 @@ export class CustomerControllerBase {
           saleDiscountRate: true,
           supplierId: true,
           taxNumber: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           website: true,
         },
@@ -308,7 +358,7 @@ export class CustomerControllerBase {
           createdAt: true,
           credit: true,
 
-          currency: {
+          currencyId: {
             select: {
               id: true,
             },
@@ -332,6 +382,13 @@ export class CustomerControllerBase {
           saleDiscountRate: true,
           supplierId: true,
           taxNumber: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           website: true,
         },
@@ -381,6 +438,7 @@ export class CustomerControllerBase {
         description: true,
         finishDate: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
@@ -403,6 +461,12 @@ export class CustomerControllerBase {
         startDate: true,
 
         storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -489,5 +553,490 @@ export class CustomerControllerBase {
       data,
       select: { id: true },
     });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleReturns")
+  @ApiNestedQuery(SaleReturnFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleReturn",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleReturns(
+    @common.Req() request: Request,
+    @common.Param() params: CustomerWhereUniqueInput
+  ): Promise<SaleReturn[]> {
+    const query = plainToClass(SaleReturnFindManyArgs, request.query);
+    const results = await this.service.findSaleReturns(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
+        remaining: true,
+        returnTotal: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        salePriceTyped: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnDate: true,
+        sequence: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleReturns")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleReturns(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SaleReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturns: {
+        connect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleReturns")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleReturns(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SaleReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturns: {
+        set: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleReturns")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleReturns(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SaleReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturns: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/sales")
+  @ApiNestedQuery(SaleFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Sale",
+    action: "read",
+    possession: "any",
+  })
+  async findSales(
+    @common.Req() request: Request,
+    @common.Param() params: CustomerWhereUniqueInput
+  ): Promise<Sale[]> {
+    const query = plainToClass(SaleFindManyArgs, request.query);
+    const results = await this.service.findSales(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
+        remaining: true,
+        saleDate: true,
+
+        salePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleTotal: true,
+        sequenceNumber: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/sales")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async connectSales(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SaleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      sales: {
+        connect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/sales")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async updateSales(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SaleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      sales: {
+        set: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/sales")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSales(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SaleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      sales: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/suppliers")
+  @ApiNestedQuery(SupplierFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "read",
+    possession: "any",
+  })
+  async findSuppliers(
+    @common.Req() request: Request,
+    @common.Param() params: CustomerWhereUniqueInput
+  ): Promise<Supplier[]> {
+    const query = plainToClass(SupplierFindManyArgs, request.query);
+    const results = await this.service.findSuppliers(params.id, {
+      ...query,
+      select: {
+        address: true,
+        code: true,
+        createdAt: true,
+        credit: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        debit: true,
+        description: true,
+        email: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        phoneNumber: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+        website: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/suppliers")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async connectSuppliers(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SupplierWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      suppliers: {
+        connect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/suppliers")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async updateSuppliers(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SupplierWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      suppliers: {
+        set: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/suppliers")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSuppliers(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SupplierWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      suppliers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/tenant/:tenantId/customers/:id")
+  @swagger.ApiOkResponse({
+    type: Customer,
+  })
+  @swagger.ApiNotFoundResponse({
+    type: errors.NotFoundException,
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async GetCustomerByTenantAndId(
+    @common.Body()
+    body: CustomerWhereInput
+  ): Promise<Customer> {
+    return this.service.GetCustomerByTenantAndId(body);
+  }
+
+  @common.Get("/tenant/:tenantId/customers")
+  @swagger.ApiOkResponse({
+    type: Customer,
+  })
+  @swagger.ApiNotFoundResponse({
+    type: errors.NotFoundException,
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async GetCustomersByTenant(
+    @common.Body()
+    body: CustomerWhereInput
+  ): Promise<Customer[]> {
+    return this.service.GetCustomersByTenant(body);
   }
 }

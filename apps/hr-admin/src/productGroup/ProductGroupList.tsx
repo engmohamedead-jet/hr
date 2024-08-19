@@ -14,6 +14,7 @@ import Pagination from "../Components/Pagination";
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 import { PRODUCTGROUP_TITLE_FIELD } from "./ProductGroupTitle";
 import { SALETAX_TITLE_FIELD } from "../saleTax/SaleTaxTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const ProductGroupList = (props: ListProps): React.ReactElement => {
   return (
@@ -48,6 +49,7 @@ export const ProductGroupList = (props: ListProps): React.ReactElement => {
         >
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
+        <BooleanField label="IsActive" source="isActive" />
         <BooleanField label="IsDefault" source="isDefault" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
@@ -107,6 +109,9 @@ export const ProductGroupList = (props: ListProps): React.ReactElement => {
           reference="SaleTax"
         >
           <TextField source={SALETAX_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

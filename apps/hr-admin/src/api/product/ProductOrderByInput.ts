@@ -36,5 +36,6 @@ export type ProductOrderByInput = {
   salePrice?: SortOrder;
   salePriceIncludesTax?: SortOrder;
   saleTaxIdId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

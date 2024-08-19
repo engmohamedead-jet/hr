@@ -4,6 +4,7 @@ import { OrderStatusWhereUniqueInput } from "../orderStatus/OrderStatusWhereUniq
 import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
 import { Decimal } from "decimal.js";
 import { StoreWhereUniqueInput } from "../store/StoreWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../unit/UnitWhereUniqueInput";
 
 export type ProductionOrderUpdateInput = {
@@ -13,6 +14,7 @@ export type ProductionOrderUpdateInput = {
   deadlineDate?: Date | null;
   description?: string | null;
   finishDate?: Date | null;
+  isActive?: boolean;
   name?: string;
   normalizedName?: string;
   note?: string | null;
@@ -23,5 +25,6 @@ export type ProductionOrderUpdateInput = {
   sequenceNumber?: string | null;
   startDate?: Date | null;
   storeId?: StoreWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput | null;
   unit?: UnitWhereUniqueInput;
 };

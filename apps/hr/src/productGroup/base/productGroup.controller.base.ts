@@ -114,6 +114,12 @@ export class ProductGroupControllerBase {
               connect: data.saleTaxId,
             }
           : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
       },
       select: {
         code: true,
@@ -136,6 +142,7 @@ export class ProductGroupControllerBase {
           },
         },
 
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
@@ -184,6 +191,12 @@ export class ProductGroupControllerBase {
         },
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -231,6 +244,7 @@ export class ProductGroupControllerBase {
           },
         },
 
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
@@ -279,6 +293,12 @@ export class ProductGroupControllerBase {
         },
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -327,6 +347,7 @@ export class ProductGroupControllerBase {
           },
         },
 
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
@@ -375,6 +396,12 @@ export class ProductGroupControllerBase {
         },
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -472,6 +499,12 @@ export class ProductGroupControllerBase {
                 connect: data.saleTaxId,
               }
             : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
         },
         select: {
           code: true,
@@ -494,6 +527,7 @@ export class ProductGroupControllerBase {
             },
           },
 
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
@@ -542,6 +576,12 @@ export class ProductGroupControllerBase {
           },
 
           saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -598,6 +638,7 @@ export class ProductGroupControllerBase {
             },
           },
 
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
@@ -646,6 +687,12 @@ export class ProductGroupControllerBase {
           },
 
           saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -700,6 +747,7 @@ export class ProductGroupControllerBase {
           },
         },
 
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
@@ -748,6 +796,12 @@ export class ProductGroupControllerBase {
         },
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -914,6 +968,12 @@ export class ProductGroupControllerBase {
         salePriceIncludesTax: true,
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

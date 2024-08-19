@@ -15,8 +15,16 @@ import {
   Prisma,
   Customer as PrismaCustomer,
   ProductionOrder as PrismaProductionOrder,
+  SaleReturn as PrismaSaleReturn,
+  Sale as PrismaSale,
+  Supplier as PrismaSupplier,
   Currency as PrismaCurrency,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
+
+import { CustomerWhereUniqueInput } from "./CustomerWhereUniqueInput";
+import { Customer } from "./Customer";
+import { CustomerWhereInput } from "./CustomerWhereInput";
 
 export class CustomerServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -62,11 +70,60 @@ export class CustomerServiceBase {
       .productionOrders(args);
   }
 
-  async getCurrency(parentId: string): Promise<PrismaCurrency | null> {
+  async findSaleReturns(
+    parentId: string,
+    args: Prisma.SaleReturnFindManyArgs
+  ): Promise<PrismaSaleReturn[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleReturns(args);
+  }
+
+  async findSales(
+    parentId: string,
+    args: Prisma.SaleFindManyArgs
+  ): Promise<PrismaSale[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .sales(args);
+  }
+
+  async findSuppliers(
+    parentId: string,
+    args: Prisma.SupplierFindManyArgs
+  ): Promise<PrismaSupplier[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .suppliers(args);
+  }
+
+  async getCurrencyId(parentId: string): Promise<PrismaCurrency | null> {
     return this.prisma.customer
       .findUnique({
         where: { id: parentId },
       })
-      .currency();
+      .currencyId();
+  }
+
+  async getTenant(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.customer
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenant();
+  }
+  async GetCustomerByTenantAndId(
+    args: CustomerWhereUniqueInput
+  ): Promise<Customer> {
+    throw new Error("Not implemented");
+  }
+  async GetCustomersByTenant(args: CustomerWhereInput): Promise<Customer[]> {
+    throw new Error("Not implemented");
   }
 }

@@ -52,15 +52,31 @@ export class BillOfMaterialTypeControllerBase {
     @common.Body() data: BillOfMaterialTypeCreateInput
   ): Promise<BillOfMaterialType> {
     return await this.service.createBillOfMaterialType({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -89,9 +105,17 @@ export class BillOfMaterialTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -119,9 +143,17 @@ export class BillOfMaterialTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -152,15 +184,31 @@ export class BillOfMaterialTypeControllerBase {
     try {
       return await this.service.updateBillOfMaterialType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -196,9 +244,17 @@ export class BillOfMaterialTypeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -257,6 +313,12 @@ export class BillOfMaterialTypeControllerBase {
         quantity: true,
         sequence: true,
         startDate: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
 
         unitId: {
           select: {

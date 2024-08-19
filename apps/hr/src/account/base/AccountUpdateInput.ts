@@ -20,8 +20,11 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { InstallmentSaleFeeUpdateManyWithoutAccountsInput } from "./InstallmentSaleFeeUpdateManyWithoutAccountsInput";
 import { AccountWhereUniqueInput } from "./AccountWhereUniqueInput";
 import { AccountUpdateManyWithoutAccountsInput } from "./AccountUpdateManyWithoutAccountsInput";
+import { SalePersonUpdateManyWithoutAccountsInput } from "./SalePersonUpdateManyWithoutAccountsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AccountUpdateInput {
@@ -87,6 +90,18 @@ class AccountUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => InstallmentSaleFeeUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => InstallmentSaleFeeUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => InstallmentSaleFeeUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  installmentSaleFees?: InstallmentSaleFeeUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductGroupUpdateManyWithoutAccountsInput,
   })
   @ValidateNested()
@@ -106,7 +121,18 @@ class AccountUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isMasterAccount?: boolean | null;
+  isActive?: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isMasterAccount?: boolean;
 
   @ApiProperty({
     required: false,
@@ -215,6 +241,30 @@ class AccountUpdateInput {
     nullable: true,
   })
   saleDiscountAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePersonUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePersonUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => SalePersonUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  salePeople?: SalePersonUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { AccountUpdateInput as AccountUpdateInput };

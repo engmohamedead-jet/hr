@@ -32,6 +32,7 @@ import { Product } from "../../product/base/Product";
 import { ProductVariant } from "../../productVariant/base/ProductVariant";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { Decimal } from "decimal.js";
+import { Tenant } from "../../tenant/base/Tenant";
 import { Unit } from "../../unit/base/Unit";
 
 @ObjectType()
@@ -100,15 +101,12 @@ class BillOfMaterial {
   id!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isActive!: boolean | null;
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -183,6 +181,15 @@ class BillOfMaterial {
     nullable: true,
   })
   startDate!: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

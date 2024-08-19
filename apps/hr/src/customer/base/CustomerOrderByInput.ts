@@ -83,7 +83,7 @@ class CustomerOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  currencyId?: SortOrder;
+  currencyIdId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -282,6 +282,17 @@ class CustomerOrderByInput {
     nullable: true,
   })
   taxNumber?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantId?: SortOrder;
 
   @ApiProperty({
     required: false,

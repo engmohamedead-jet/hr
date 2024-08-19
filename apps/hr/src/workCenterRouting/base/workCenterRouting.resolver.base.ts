@@ -28,6 +28,7 @@ import { UpdateWorkCenterRoutingArgs } from "./UpdateWorkCenterRoutingArgs";
 import { DeleteWorkCenterRoutingArgs } from "./DeleteWorkCenterRoutingArgs";
 import { BillOfMaterialDetailFindManyArgs } from "../../billOfMaterialDetail/base/BillOfMaterialDetailFindManyArgs";
 import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
+import { Tenant } from "../../tenant/base/Tenant";
 import { WorkCenter } from "../../workCenter/base/WorkCenter";
 import { WorkCenterRoutingService } from "../workCenterRouting.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -98,9 +99,15 @@ export class WorkCenterRoutingResolverBase {
       data: {
         ...args.data,
 
-        workCenter: args.data.workCenter
+        tenantId: args.data.tenantId
           ? {
-              connect: args.data.workCenter,
+              connect: args.data.tenantId,
+            }
+          : undefined,
+
+        workCenterId: args.data.workCenterId
+          ? {
+              connect: args.data.workCenterId,
             }
           : undefined,
       },
@@ -123,9 +130,15 @@ export class WorkCenterRoutingResolverBase {
         data: {
           ...args.data,
 
-          workCenter: args.data.workCenter
+          tenantId: args.data.tenantId
             ? {
-                connect: args.data.workCenter,
+                connect: args.data.tenantId,
+              }
+            : undefined,
+
+          workCenterId: args.data.workCenterId
+            ? {
+                connect: args.data.workCenterId,
               }
             : undefined,
         },
@@ -187,19 +200,40 @@ export class WorkCenterRoutingResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: WorkCenterRouting
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => WorkCenter, {
     nullable: true,
-    name: "workCenter",
+    name: "workCenterId",
   })
   @nestAccessControl.UseRoles({
     resource: "WorkCenter",
     action: "read",
     possession: "any",
   })
-  async getWorkCenter(
+  async getWorkCenterId(
     @graphql.Parent() parent: WorkCenterRouting
   ): Promise<WorkCenter | null> {
-    const result = await this.service.getWorkCenter(parent.id);
+    const result = await this.service.getWorkCenterId(parent.id);
 
     if (!result) {
       return null;

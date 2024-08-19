@@ -17,8 +17,11 @@ import {
   IsOptional,
   IsDate,
   IsInt,
+  IsBoolean,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class ProductionAvailability {
@@ -52,6 +55,14 @@ class ProductionAvailability {
 
   @ApiProperty({
     required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
@@ -79,6 +90,15 @@ class ProductionAvailability {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantIId?: Tenant | null;
 
   @ApiProperty({
     required: true,

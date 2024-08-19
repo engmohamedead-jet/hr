@@ -11,37 +11,47 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { CashRepositoryCreateNestedManyWithoutCashRepositoriesInput } from "./CashRepositoryCreateNestedManyWithoutCashRepositoriesInput";
 import {
   ValidateNested,
   IsOptional,
   IsString,
   MaxLength,
+  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput } from "./PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput";
+import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
+import { SaleReturnCreateNestedManyWithoutCashRepositoriesInput } from "./SaleReturnCreateNestedManyWithoutCashRepositoriesInput";
+import { SaleCreateNestedManyWithoutCashRepositoriesInput } from "./SaleCreateNestedManyWithoutCashRepositoriesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CashRepositoryCreateInput {
   @ApiProperty({
     required: false,
-    type: () => CashRepositoryWhereUniqueInput,
+    type: () => CashRepositoryCreateNestedManyWithoutCashRepositoriesInput,
   })
   @ValidateNested()
-  @Type(() => CashRepositoryWhereUniqueInput)
+  @Type(() => CashRepositoryCreateNestedManyWithoutCashRepositoriesInput)
   @IsOptional()
-  @Field(() => CashRepositoryWhereUniqueInput, {
+  @Field(() => CashRepositoryCreateNestedManyWithoutCashRepositoriesInput, {
     nullable: true,
   })
-  cashRepositories?: CashRepositoryWhereUniqueInput | null;
+  cashRepositories?: CashRepositoryCreateNestedManyWithoutCashRepositoriesInput;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -54,6 +64,14 @@ class CashRepositoryCreateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -96,6 +114,66 @@ class CashRepositoryCreateInput {
     nullable: true,
   })
   parentCashRepositoryId?: CashRepositoryWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PurchaseWhereUniqueInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnCreateNestedManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnCreateNestedManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => SaleReturnCreateNestedManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnCreateNestedManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleCreateNestedManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleCreateNestedManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => SaleCreateNestedManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  sales?: SaleCreateNestedManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { CashRepositoryCreateInput as CashRepositoryCreateInput };

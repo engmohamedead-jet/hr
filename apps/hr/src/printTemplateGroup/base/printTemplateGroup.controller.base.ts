@@ -49,15 +49,31 @@ export class PrintTemplateGroupControllerBase {
     @common.Body() data: PrintTemplateGroupCreateInput
   ): Promise<PrintTemplateGroup> {
     return await this.service.createPrintTemplateGroup({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -86,9 +102,17 @@ export class PrintTemplateGroupControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -116,9 +140,17 @@ export class PrintTemplateGroupControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -149,15 +181,31 @@ export class PrintTemplateGroupControllerBase {
     try {
       return await this.service.updatePrintTemplateGroup({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -193,9 +241,17 @@ export class PrintTemplateGroupControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

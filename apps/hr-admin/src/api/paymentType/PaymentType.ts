@@ -1,10 +1,23 @@
+import { PurchaseReturn } from "../purchaseReturn/PurchaseReturn";
+import { Purchase } from "../purchase/Purchase";
+import { SaleReturn } from "../saleReturn/SaleReturn";
+import { Sale } from "../sale/Sale";
+import { Tenant } from "../tenant/Tenant";
+
 export type PaymentType = {
   code: string | null;
   createdAt: Date;
+  description: string | null;
   id: number;
-  isDefault: boolean | null;
+  isActive: boolean;
+  isDefault: boolean;
   name: string;
   normalizedName: string;
-  notes: string | null;
+  note: string | null;
+  purchaseReturns?: Array<PurchaseReturn>;
+  purchases?: Array<Purchase>;
+  saleReturns?: Array<SaleReturn>;
+  sales?: Array<Sale>;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

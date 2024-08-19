@@ -10,9 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   ProductionDocument as PrismaProductionDocument,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class ProductionDocumentServiceBase {
@@ -48,5 +50,13 @@ export class ProductionDocumentServiceBase {
     args: Prisma.ProductionDocumentDeleteArgs
   ): Promise<PrismaProductionDocument> {
     return this.prisma.productionDocument.delete(args);
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.productionDocument
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

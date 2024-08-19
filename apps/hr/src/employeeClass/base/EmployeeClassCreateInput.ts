@@ -16,20 +16,25 @@ import {
   MaxLength,
   IsOptional,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
-import { EmployeeClassSalaryItemValueCreateNestedManyWithoutEmployeeClassesInput } from "./EmployeeClassSalaryItemValueCreateNestedManyWithoutEmployeeClassesInput";
+import { EmployeeCreateNestedManyWithoutEmployeeClassesInput } from "./EmployeeCreateNestedManyWithoutEmployeeClassesInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class EmployeeClassCreateInput {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(100)
-  @Field(() => String)
-  code!: string;
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -45,30 +50,30 @@ class EmployeeClassCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () =>
-      EmployeeClassSalaryItemValueCreateNestedManyWithoutEmployeeClassesInput,
+    type: () => EmployeeCreateNestedManyWithoutEmployeeClassesInput,
   })
   @ValidateNested()
-  @Type(
-    () =>
-      EmployeeClassSalaryItemValueCreateNestedManyWithoutEmployeeClassesInput
-  )
+  @Type(() => EmployeeCreateNestedManyWithoutEmployeeClassesInput)
   @IsOptional()
-  @Field(
-    () =>
-      EmployeeClassSalaryItemValueCreateNestedManyWithoutEmployeeClassesInput,
-    {
-      nullable: true,
-    }
-  )
-  employeeClassSalaryItemValues?: EmployeeClassSalaryItemValueCreateNestedManyWithoutEmployeeClassesInput;
+  @Field(() => EmployeeCreateNestedManyWithoutEmployeeClassesInput, {
+    nullable: true,
+  })
+  employees?: EmployeeCreateNestedManyWithoutEmployeeClassesInput;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   name!: string;
 
@@ -77,7 +82,7 @@ class EmployeeClassCreateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   normalizedName!: string;
 
@@ -91,7 +96,19 @@ class EmployeeClassCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  notes?: string | null;
+  note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { EmployeeClassCreateInput as EmployeeClassCreateInput };

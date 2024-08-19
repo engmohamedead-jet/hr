@@ -15,6 +15,7 @@ import {
 import { BILLOFMATERIAL_TITLE_FIELD } from "../billOfMaterial/BillOfMaterialTitle";
 import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
 import { PRODUCTVARIANT_TITLE_FIELD } from "../productVariant/ProductVariantTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 import { UNIT_TITLE_FIELD } from "../unit/UnitTitle";
 import { WORKCENTERROUTING_TITLE_FIELD } from "./WorkCenterRoutingTitle";
 import { WORKCENTER_TITLE_FIELD } from "../workCenter/WorkCenterTitle";
@@ -31,11 +32,14 @@ export const WorkCenterRoutingShow = (props: ShowProps): React.ReactElement => {
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
         <TextField label="Sequence" source="sequence" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="TimeCycleManual" source="timeCycleManual" />
         <TextField label="TimeModeBatch" source="timeModeBatch" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceField
-          label="WorkCenter"
+          label="WorkCenterId"
           source="workcenter.id"
           reference="WorkCenter"
         >
@@ -79,6 +83,13 @@ export const WorkCenterRoutingShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <TextField label="Quantity" source="quantity" />
             <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="tenant"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
             <ReferenceField label="UnitId" source="unit.id" reference="Unit">
               <TextField source={UNIT_TITLE_FIELD} />
             </ReferenceField>

@@ -26,6 +26,7 @@ import {
 } from "class-validator";
 
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { Decimal } from "decimal.js";
 import { WorkCenterWhereUniqueInput } from "../../workCenter/base/WorkCenterWhereUniqueInput";
 
@@ -113,7 +114,19 @@ class WorkCenterRoutingUpdateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  sequence?: number | null;
+  sequence?: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -149,7 +162,7 @@ class WorkCenterRoutingUpdateInput {
   @Field(() => WorkCenterWhereUniqueInput, {
     nullable: true,
   })
-  workCenter?: WorkCenterWhereUniqueInput | null;
+  workCenterId?: WorkCenterWhereUniqueInput | null;
 }
 
 export { WorkCenterRoutingUpdateInput as WorkCenterRoutingUpdateInput };

@@ -66,6 +66,12 @@ export class BillOfMaterialDetailControllerBase {
             }
           : undefined,
 
+        tenant: data.tenant
+          ? {
+              connect: data.tenant,
+            }
+          : undefined,
+
         unitId: {
           connect: data.unitId,
         },
@@ -104,6 +110,12 @@ export class BillOfMaterialDetailControllerBase {
 
         quantity: true,
         sequence: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
 
         unitId: {
           select: {
@@ -169,6 +181,12 @@ export class BillOfMaterialDetailControllerBase {
         quantity: true,
         sequence: true,
 
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         unitId: {
           select: {
             id: true,
@@ -232,6 +250,12 @@ export class BillOfMaterialDetailControllerBase {
         quantity: true,
         sequence: true,
 
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         unitId: {
           select: {
             id: true,
@@ -291,6 +315,12 @@ export class BillOfMaterialDetailControllerBase {
               }
             : undefined,
 
+          tenant: data.tenant
+            ? {
+                connect: data.tenant,
+              }
+            : undefined,
+
           unitId: {
             connect: data.unitId,
           },
@@ -329,6 +359,12 @@ export class BillOfMaterialDetailControllerBase {
 
           quantity: true,
           sequence: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
 
           unitId: {
             select: {
@@ -400,6 +436,12 @@ export class BillOfMaterialDetailControllerBase {
 
           quantity: true,
           sequence: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
 
           unitId: {
             select: {

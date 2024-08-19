@@ -15,10 +15,12 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class OrderStatusCreateInput {
@@ -45,6 +47,17 @@ class OrderStatusCreateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean | null;
 
   @ApiProperty({
     required: true,
@@ -87,6 +100,18 @@ class OrderStatusCreateInput {
     nullable: true,
   })
   productionOrders?: ProductionOrderWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { OrderStatusCreateInput as OrderStatusCreateInput };

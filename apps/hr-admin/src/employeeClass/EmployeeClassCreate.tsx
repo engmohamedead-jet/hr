@@ -7,9 +7,13 @@ import {
   TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
+  BooleanInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
-import { EmployeeClassSalaryItemValueTitle } from "../employeeClassSalaryItemValue/EmployeeClassSalaryItemValueTitle";
+import { EmployeeTitle } from "../employee/EmployeeTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const EmployeeClassCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -18,16 +22,24 @@ export const EmployeeClassCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
         <ReferenceArrayInput
-          source="employeeClassSalaryItemValues"
-          reference="EmployeeClassSalaryItemValue"
+          source="employees"
+          reference="Employee"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={EmployeeClassSalaryItemValueTitle} />
+          <SelectArrayInput optionText={EmployeeTitle} />
         </ReferenceArrayInput>
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
-        <TextInput label="Note" multiline source="notes" />
+        <TextInput label="Note" multiline source="note" />
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Create>
   );

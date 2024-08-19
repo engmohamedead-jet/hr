@@ -28,6 +28,7 @@ import { UpdatePaymentTermArgs } from "./UpdatePaymentTermArgs";
 import { DeletePaymentTermArgs } from "./DeletePaymentTermArgs";
 import { Period } from "../../period/base/Period";
 import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
+import { Tenant } from "../../tenant/base/Tenant";
 import { PaymentTermService } from "../paymentTerm.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PaymentTerm)
@@ -109,10 +110,16 @@ export class PaymentTermResolverBase {
             }
           : undefined,
 
-        installmentSaleFeePostingPeriodId: args.data
-          .installmentSaleFeePostingPeriodId
+        installmentSaleFeePostingPeriod: args.data
+          .installmentSaleFeePostingPeriod
           ? {
-              connect: args.data.installmentSaleFeePostingPeriodId,
+              connect: args.data.installmentSaleFeePostingPeriod,
+            }
+          : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -147,10 +154,16 @@ export class PaymentTermResolverBase {
               }
             : undefined,
 
-          installmentSaleFeePostingPeriodId: args.data
-            .installmentSaleFeePostingPeriodId
+          installmentSaleFeePostingPeriod: args.data
+            .installmentSaleFeePostingPeriod
             ? {
-                connect: args.data.installmentSaleFeePostingPeriodId,
+                connect: args.data.installmentSaleFeePostingPeriod,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -231,19 +244,40 @@ export class PaymentTermResolverBase {
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Period, {
     nullable: true,
-    name: "installmentSaleFeePostingPeriodId",
+    name: "installmentSaleFeePostingPeriod",
   })
   @nestAccessControl.UseRoles({
     resource: "Period",
     action: "read",
     possession: "any",
   })
-  async getInstallmentSaleFeePostingPeriodId(
+  async getInstallmentSaleFeePostingPeriod(
     @graphql.Parent() parent: PaymentTerm
   ): Promise<Period | null> {
-    const result = await this.service.getInstallmentSaleFeePostingPeriodId(
+    const result = await this.service.getInstallmentSaleFeePostingPeriod(
       parent.id
     );
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: PaymentTerm
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

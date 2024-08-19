@@ -15,6 +15,7 @@ import {
 import { BILLOFMATERIAL_TITLE_FIELD } from "./BillOfMaterialTitle";
 import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
 import { PRODUCTVARIANT_TITLE_FIELD } from "../productVariant/ProductVariantTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 import { UNIT_TITLE_FIELD } from "../unit/UnitTitle";
 import { WORKCENTERROUTING_TITLE_FIELD } from "../workCenterRouting/WorkCenterRoutingTitle";
 import { CUSTOMER_TITLE_FIELD } from "../customer/CustomerTitle";
@@ -60,6 +61,9 @@ export const BillOfMaterialShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Quantity" source="quantity" />
         <TextField label="Sequence" source="sequence" />
         <TextField label="StartDate" source="startDate" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <ReferenceField label="UnitId" source="unit.id" reference="Unit">
           <TextField source={UNIT_TITLE_FIELD} />
         </ReferenceField>
@@ -102,6 +106,13 @@ export const BillOfMaterialShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <TextField label="Quantity" source="quantity" />
             <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="tenant"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
             <ReferenceField label="UnitId" source="unit.id" reference="Unit">
               <TextField source={UNIT_TITLE_FIELD} />
             </ReferenceField>
@@ -141,6 +152,7 @@ export const BillOfMaterialShow = (props: ShowProps): React.ReactElement => {
             <TextField label="Description" source="description" />
             <TextField label="FinishDate" source="finishDate" />
             <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
             <TextField label="Note" source="note" />
@@ -164,6 +176,13 @@ export const BillOfMaterialShow = (props: ShowProps): React.ReactElement => {
             <TextField label="StartDate" source="startDate" />
             <ReferenceField label="StoreId" source="store.id" reference="Store">
               <TextField source={STORE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField label="UnitId" source="unit.id" reference="Unit">
               <TextField source={UNIT_TITLE_FIELD} />

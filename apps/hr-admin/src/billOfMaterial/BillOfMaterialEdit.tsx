@@ -19,6 +19,7 @@ import { BillOfMaterialTypeTitle } from "../billOfMaterialType/BillOfMaterialTyp
 import { ProductTitle } from "../product/ProductTitle";
 import { ProductVariantTitle } from "../productVariant/ProductVariantTitle";
 import { ProductionOrderTitle } from "../productionOrder/ProductionOrderTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 import { UnitTitle } from "../unit/UnitTitle";
 
 export const BillOfMaterialEdit = (props: EditProps): React.ReactElement => {
@@ -74,6 +75,13 @@ export const BillOfMaterialEdit = (props: EditProps): React.ReactElement => {
         <NumberInput label="Quantity" source="quantity" />
         <NumberInput step={1} label="Sequence" source="sequence" />
         <DateTimeInput label="StartDate" source="startDate" />
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
         <ReferenceInput source="unitId.id" reference="Unit" label="UnitId">
           <SelectInput optionText={UnitTitle} />
         </ReferenceInput>

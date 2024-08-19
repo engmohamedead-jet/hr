@@ -25,8 +25,9 @@ import {
 } from "class-validator";
 
 import { Decimal } from "decimal.js";
-import { WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { Type } from "class-transformer";
+import { WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput";
 
 @InputType()
 class WorkCenterCreateInput {
@@ -149,17 +150,14 @@ class WorkCenterCreateInput {
   oeeTareget?: Decimal | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Number,
   })
   @IsInt()
   @Min(1)
   @Max(99999999999)
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  sequence?: number | null;
+  @Field(() => Number)
+  sequence!: number;
 
   @ApiProperty({
     required: false,
@@ -184,6 +182,18 @@ class WorkCenterCreateInput {
     nullable: true,
   })
   stopTime?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

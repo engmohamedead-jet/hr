@@ -28,6 +28,11 @@ import { UpdateAccountArgs } from "./UpdateAccountArgs";
 import { DeleteAccountArgs } from "./DeleteAccountArgs";
 import { ProductGroupFindManyArgs } from "../../productGroup/base/ProductGroupFindManyArgs";
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
+import { InstallmentSaleFeeFindManyArgs } from "../../installmentSaleFee/base/InstallmentSaleFeeFindManyArgs";
+import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
+import { SalePersonFindManyArgs } from "../../salePerson/base/SalePersonFindManyArgs";
+import { SalePerson } from "../../salePerson/base/SalePerson";
+import { Tenant } from "../../tenant/base/Tenant";
 import { AccountService } from "../account.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Account)
@@ -102,6 +107,12 @@ export class AccountResolverBase {
               connect: args.data.parentAccountId,
             }
           : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
       },
     });
   }
@@ -125,6 +136,12 @@ export class AccountResolverBase {
           parentAccountId: args.data.parentAccountId
             ? {
                 connect: args.data.parentAccountId,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -227,6 +244,28 @@ export class AccountResolverBase {
       parent.id,
       args
     );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [InstallmentSaleFee], {
+    name: "installmentSaleFees",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "InstallmentSaleFee",
+    action: "read",
+    possession: "any",
+  })
+  async findInstallmentSaleFees(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: InstallmentSaleFeeFindManyArgs
+  ): Promise<InstallmentSaleFee[]> {
+    const results = await this.service.findInstallmentSaleFees(parent.id, args);
 
     if (!results) {
       return [];
@@ -381,6 +420,26 @@ export class AccountResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SalePerson], { name: "salePeople" })
+  @nestAccessControl.UseRoles({
+    resource: "SalePerson",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePeople(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: SalePersonFindManyArgs
+  ): Promise<SalePerson[]> {
+    const results = await this.service.findSalePeople(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Account, {
     nullable: true,
     name: "parentAccountId",
@@ -394,6 +453,25 @@ export class AccountResolverBase {
     @graphql.Parent() parent: Account
   ): Promise<Account | null> {
     const result = await this.service.getParentAccountId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(@graphql.Parent() parent: Account): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

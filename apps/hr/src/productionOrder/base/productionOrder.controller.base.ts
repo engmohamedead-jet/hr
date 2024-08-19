@@ -76,6 +76,12 @@ export class ProductionOrderControllerBase {
           connect: data.storeId,
         },
 
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+
         unit: {
           connect: data.unit,
         },
@@ -100,6 +106,7 @@ export class ProductionOrderControllerBase {
         description: true,
         finishDate: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
@@ -122,6 +129,12 @@ export class ProductionOrderControllerBase {
         startDate: true,
 
         storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -176,6 +189,7 @@ export class ProductionOrderControllerBase {
         description: true,
         finishDate: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
@@ -198,6 +212,12 @@ export class ProductionOrderControllerBase {
         startDate: true,
 
         storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -251,6 +271,7 @@ export class ProductionOrderControllerBase {
         description: true,
         finishDate: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
@@ -273,6 +294,12 @@ export class ProductionOrderControllerBase {
         startDate: true,
 
         storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -341,6 +368,12 @@ export class ProductionOrderControllerBase {
             connect: data.storeId,
           },
 
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+
           unit: {
             connect: data.unit,
           },
@@ -365,6 +398,7 @@ export class ProductionOrderControllerBase {
           description: true,
           finishDate: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
@@ -387,6 +421,12 @@ export class ProductionOrderControllerBase {
           startDate: true,
 
           storeId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -448,6 +488,7 @@ export class ProductionOrderControllerBase {
           description: true,
           finishDate: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
@@ -470,6 +511,12 @@ export class ProductionOrderControllerBase {
           startDate: true,
 
           storeId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },

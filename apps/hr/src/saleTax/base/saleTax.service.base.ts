@@ -16,6 +16,7 @@ import {
   SaleTax as PrismaSaleTax,
   ProductGroup as PrismaProductGroup,
   Product as PrismaProduct,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class SaleTaxServiceBase {
@@ -63,5 +64,13 @@ export class SaleTaxServiceBase {
         where: { id: parentId },
       })
       .products(args);
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.saleTax
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

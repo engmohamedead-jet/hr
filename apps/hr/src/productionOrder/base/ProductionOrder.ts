@@ -12,21 +12,25 @@ https://docs.amplication.com/how-to/custom-code
 import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
+
 import {
   ValidateNested,
   IsOptional,
   IsString,
   MaxLength,
   IsDate,
+  IsBoolean,
   IsNumber,
   Max,
 } from "class-validator";
+
 import { Type } from "class-transformer";
 import { Customer } from "../../customer/base/Customer";
 import { OrderStatus } from "../../orderStatus/base/OrderStatus";
 import { Product } from "../../product/base/Product";
 import { Decimal } from "decimal.js";
 import { Store } from "../../store/base/Store";
+import { Tenant } from "../../tenant/base/Tenant";
 import { Unit } from "../../unit/base/Unit";
 
 @ObjectType()
@@ -110,6 +114,14 @@ class ProductionOrder {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -210,6 +222,15 @@ class ProductionOrder {
   @ValidateNested()
   @Type(() => Store)
   storeId?: Store;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

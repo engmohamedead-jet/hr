@@ -29,6 +29,7 @@ import { DeleteProductBarcodeArgs } from "./DeleteProductBarcodeArgs";
 import { BarcodeType } from "../../barcodeType/base/BarcodeType";
 import { Product } from "../../product/base/Product";
 import { ProductVariant } from "../../productVariant/base/ProductVariant";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ProductBarcodeService } from "../productBarcode.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductBarcode)
@@ -113,6 +114,12 @@ export class ProductBarcodeResolverBase {
               connect: args.data.productVariantId,
             }
           : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
       },
     });
   }
@@ -146,6 +153,12 @@ export class ProductBarcodeResolverBase {
           productVariantId: args.data.productVariantId
             ? {
                 connect: args.data.productVariantId,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -237,6 +250,27 @@ export class ProductBarcodeResolverBase {
     @graphql.Parent() parent: ProductBarcode
   ): Promise<ProductVariant | null> {
     const result = await this.service.getProductVariantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: ProductBarcode
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

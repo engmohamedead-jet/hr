@@ -72,7 +72,18 @@ class SupplierOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  currencyIdId?: SortOrder;
+  currencyId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  customerIdId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -127,6 +138,17 @@ class SupplierOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  isActive?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   name?: SortOrder;
 
   @ApiProperty({
@@ -161,6 +183,17 @@ class SupplierOrderByInput {
     nullable: true,
   })
   phoneNumber?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

@@ -52,9 +52,15 @@ export class PrintTemplateContentControllerBase {
       data: {
         ...data,
 
-        printTemplate: data.printTemplate
+        printTemplateId: data.printTemplateId
           ? {
-              connect: data.printTemplate,
+              connect: data.printTemplateId,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
             }
           : undefined,
       },
@@ -63,10 +69,17 @@ export class PrintTemplateContentControllerBase {
         display: true,
         fieldValue: true,
         id: true,
+        isActive: true,
         key: true,
         note: true,
 
-        printTemplate: {
+        printTemplateId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -101,10 +114,17 @@ export class PrintTemplateContentControllerBase {
         display: true,
         fieldValue: true,
         id: true,
+        isActive: true,
         key: true,
         note: true,
 
-        printTemplate: {
+        printTemplateId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -138,10 +158,17 @@ export class PrintTemplateContentControllerBase {
         display: true,
         fieldValue: true,
         id: true,
+        isActive: true,
         key: true,
         note: true,
 
-        printTemplate: {
+        printTemplateId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -181,9 +208,15 @@ export class PrintTemplateContentControllerBase {
         data: {
           ...data,
 
-          printTemplate: data.printTemplate
+          printTemplateId: data.printTemplateId
             ? {
-                connect: data.printTemplate,
+                connect: data.printTemplateId,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
               }
             : undefined,
         },
@@ -192,10 +225,17 @@ export class PrintTemplateContentControllerBase {
           display: true,
           fieldValue: true,
           id: true,
+          isActive: true,
           key: true,
           note: true,
 
-          printTemplate: {
+          printTemplateId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -237,10 +277,17 @@ export class PrintTemplateContentControllerBase {
           display: true,
           fieldValue: true,
           id: true,
+          isActive: true,
           key: true,
           note: true,
 
-          printTemplate: {
+          printTemplateId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },

@@ -16,6 +16,7 @@ import {
   PaymentTerm as PrismaPaymentTerm,
   Period as PrismaPeriod,
   InstallmentSaleFee as PrismaInstallmentSaleFee,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class PaymentTermServiceBase {
@@ -71,13 +72,21 @@ export class PaymentTermServiceBase {
       .installmentSaleFeeId();
   }
 
-  async getInstallmentSaleFeePostingPeriodId(
+  async getInstallmentSaleFeePostingPeriod(
     parentId: string
   ): Promise<PrismaPeriod | null> {
     return this.prisma.paymentTerm
       .findUnique({
         where: { id: parentId },
       })
-      .installmentSaleFeePostingPeriodId();
+      .installmentSaleFeePostingPeriod();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.paymentTerm
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

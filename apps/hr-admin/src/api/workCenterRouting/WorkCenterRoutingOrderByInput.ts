@@ -9,8 +9,9 @@ export type WorkCenterRoutingOrderByInput = {
   normalizedName?: SortOrder;
   note?: SortOrder;
   sequence?: SortOrder;
+  tenantIdId?: SortOrder;
   timeCycleManual?: SortOrder;
   timeModeBatch?: SortOrder;
   updatedAt?: SortOrder;
-  workCenterId?: SortOrder;
+  workCenterIdId?: SortOrder;
 };

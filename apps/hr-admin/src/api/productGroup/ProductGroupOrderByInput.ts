@@ -9,6 +9,7 @@ export type ProductGroupOrderByInput = {
   excludeFromSale?: SortOrder;
   id?: SortOrder;
   inventoryAccountId?: SortOrder;
+  isActive?: SortOrder;
   isDefault?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
@@ -21,5 +22,6 @@ export type ProductGroupOrderByInput = {
   saleDiscountAccountIdId?: SortOrder;
   saleReturnAccountIdId?: SortOrder;
   saleTaxIdId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

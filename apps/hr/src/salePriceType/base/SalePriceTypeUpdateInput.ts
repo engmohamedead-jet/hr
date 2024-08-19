@@ -11,7 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
+import { SaleDetailWhereUniqueInput } from "../../saleDetail/base/SaleDetailWhereUniqueInput";
+import { Type } from "class-transformer";
+import { SaleQuotationDetailWhereUniqueInput } from "../../saleQuotationDetail/base/SaleQuotationDetailWhereUniqueInput";
+import { SaleReturnDetailWhereUniqueInput } from "../../saleReturnDetail/base/SaleReturnDetailWhereUniqueInput";
+import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWhereUniqueInput";
+import { SaleWhereUniqueInput } from "../../sale/base/SaleWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SalePriceTypeUpdateInput {
@@ -38,6 +51,17 @@ class SalePriceTypeUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -74,6 +98,78 @@ class SalePriceTypeUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleReturnDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleReturnWhereUniqueInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleWhereUniqueInput, {
+    nullable: true,
+  })
+  sales?: SaleWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { SalePriceTypeUpdateInput as SalePriceTypeUpdateInput };

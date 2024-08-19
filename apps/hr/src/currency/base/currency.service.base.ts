@@ -10,10 +10,13 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Currency as PrismaCurrency,
   Customer as PrismaCustomer,
+  Supplier as PrismaSupplier,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class CurrencyServiceBase {
@@ -58,5 +61,24 @@ export class CurrencyServiceBase {
         where: { id: parentId },
       })
       .customers(args);
+  }
+
+  async findSuppliers(
+    parentId: string,
+    args: Prisma.SupplierFindManyArgs
+  ): Promise<PrismaSupplier[]> {
+    return this.prisma.currency
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .suppliers(args);
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.currency
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

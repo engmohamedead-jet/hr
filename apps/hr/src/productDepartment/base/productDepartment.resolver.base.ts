@@ -28,6 +28,7 @@ import { UpdateProductDepartmentArgs } from "./UpdateProductDepartmentArgs";
 import { DeleteProductDepartmentArgs } from "./DeleteProductDepartmentArgs";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ProductDepartmentService } from "../productDepartment.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductDepartment)
@@ -97,9 +98,15 @@ export class ProductDepartmentResolverBase {
       data: {
         ...args.data,
 
-        parentProductDepartment: args.data.parentProductDepartment
+        parentProductDepartmentId: args.data.parentProductDepartmentId
           ? {
-              connect: args.data.parentProductDepartment,
+              connect: args.data.parentProductDepartmentId,
+            }
+          : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -122,9 +129,15 @@ export class ProductDepartmentResolverBase {
         data: {
           ...args.data,
 
-          parentProductDepartment: args.data.parentProductDepartment
+          parentProductDepartmentId: args.data.parentProductDepartmentId
             ? {
-                connect: args.data.parentProductDepartment,
+                connect: args.data.parentProductDepartmentId,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -205,17 +218,38 @@ export class ProductDepartmentResolverBase {
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => ProductDepartment, {
     nullable: true,
-    name: "parentProductDepartment",
+    name: "parentProductDepartmentId",
   })
   @nestAccessControl.UseRoles({
     resource: "ProductDepartment",
     action: "read",
     possession: "any",
   })
-  async getParentProductDepartment(
+  async getParentProductDepartmentId(
     @graphql.Parent() parent: ProductDepartment
   ): Promise<ProductDepartment | null> {
-    const result = await this.service.getParentProductDepartment(parent.id);
+    const result = await this.service.getParentProductDepartmentId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: ProductDepartment
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

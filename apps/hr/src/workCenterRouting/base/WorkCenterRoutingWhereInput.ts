@@ -17,8 +17,10 @@ import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { IntFilter } from "../../util/IntFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { WorkCenterWhereUniqueInput } from "../../workCenter/base/WorkCenterWhereUniqueInput";
 
 @InputType()
@@ -103,14 +105,26 @@ class WorkCenterRoutingWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: IntFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  sequence?: IntNullableFilter;
+  sequence?: IntFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -144,7 +158,7 @@ class WorkCenterRoutingWhereInput {
   @Field(() => WorkCenterWhereUniqueInput, {
     nullable: true,
   })
-  workCenter?: WorkCenterWhereUniqueInput;
+  workCenterId?: WorkCenterWhereUniqueInput;
 }
 
 export { WorkCenterRoutingWhereInput as WorkCenterRoutingWhereInput };

@@ -14,6 +14,7 @@ export type BillOfMaterialOrderByInput = {
   quantity?: SortOrder;
   sequence?: SortOrder;
   startDate?: SortOrder;
+  tenantIdId?: SortOrder;
   unitIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

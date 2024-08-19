@@ -57,17 +57,30 @@ export class OrderStatusControllerBase {
               connect: data.productionOrders,
             }
           : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
       },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
         productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -99,11 +112,18 @@ export class OrderStatusControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
         productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -136,11 +156,18 @@ export class OrderStatusControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
         productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -184,17 +211,30 @@ export class OrderStatusControllerBase {
                 connect: data.productionOrders,
               }
             : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
         },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
 
           productionOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -235,11 +275,18 @@ export class OrderStatusControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
 
           productionOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },

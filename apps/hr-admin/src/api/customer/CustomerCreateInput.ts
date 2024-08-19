@@ -1,19 +1,23 @@
 import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../currency/CurrencyWhereUniqueInput";
 import { ProductionOrderCreateNestedManyWithoutCustomersInput } from "./ProductionOrderCreateNestedManyWithoutCustomersInput";
+import { SaleReturnCreateNestedManyWithoutCustomersInput } from "./SaleReturnCreateNestedManyWithoutCustomersInput";
+import { SaleCreateNestedManyWithoutCustomersInput } from "./SaleCreateNestedManyWithoutCustomersInput";
+import { SupplierCreateNestedManyWithoutCustomersInput } from "./SupplierCreateNestedManyWithoutCustomersInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type CustomerCreateInput = {
   DefaultSalePriceTypeId?: number | null;
   address?: string | null;
   code?: string | null;
   credit?: Decimal | null;
-  currency?: CurrencyWhereUniqueInput | null;
+  currencyId?: CurrencyWhereUniqueInput | null;
   debit?: Decimal | null;
   description?: string | null;
   email?: string | null;
   firstBalance?: Decimal | null;
   firstBalanceDate?: Date | null;
-  isActive?: boolean | null;
+  isActive: boolean;
   isSystem?: boolean | null;
   isUnderRevision?: boolean | null;
   maxAllowedDebit?: Decimal | null;
@@ -24,7 +28,11 @@ export type CustomerCreateInput = {
   productionOrders?: ProductionOrderCreateNestedManyWithoutCustomersInput;
   revisionDate?: Date | null;
   saleDiscountRate?: Decimal | null;
+  saleReturns?: SaleReturnCreateNestedManyWithoutCustomersInput;
+  sales?: SaleCreateNestedManyWithoutCustomersInput;
   supplierId?: string | null;
+  suppliers?: SupplierCreateNestedManyWithoutCustomersInput;
   taxNumber?: string | null;
+  tenant?: TenantWhereUniqueInput | null;
   website?: string | null;
 };

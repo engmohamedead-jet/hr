@@ -12,6 +12,7 @@ import {
 
 import { PERIOD_TITLE_FIELD } from "../period/PeriodTitle";
 import { INSTALLMENTSALEFEE_TITLE_FIELD } from "../installmentSaleFee/InstallmentSaleFeeTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const PaymentTermShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -21,7 +22,6 @@ export const PaymentTermShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="DueDays" source="dueDays" />
-        <TextField label="DueOnDate" source="dueOnDate" />
         <ReferenceField
           label="DuePeriodId"
           source="period.id"
@@ -45,9 +45,15 @@ export const PaymentTermShow = (props: ShowProps): React.ReactElement => {
         >
           <TextField source={PERIOD_TITLE_FIELD} />
         </ReferenceField>
+        <BooleanField label="IsActive" source="isActive" />
         <BooleanField label="IsDefault" source="isDefault" />
+        <BooleanField label="IsDueOnDate" source="isDueOnDate" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
+        <TextField label="Note" source="note" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

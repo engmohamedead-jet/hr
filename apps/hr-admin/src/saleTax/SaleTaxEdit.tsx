@@ -5,12 +5,16 @@ import {
   SimpleForm,
   EditProps,
   TextInput,
+  BooleanInput,
   ReferenceArrayInput,
   SelectArrayInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
 import { ProductGroupTitle } from "../productGroup/ProductGroupTitle";
 import { ProductTitle } from "../product/ProductTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const SaleTaxEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -18,6 +22,7 @@ export const SaleTaxEdit = (props: EditProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
@@ -37,6 +42,13 @@ export const SaleTaxEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ProductTitle} />
         </ReferenceArrayInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Edit>
   );

@@ -26,6 +26,9 @@ import { Period } from "./Period";
 import { PeriodFindManyArgs } from "./PeriodFindManyArgs";
 import { PeriodWhereUniqueInput } from "./PeriodWhereUniqueInput";
 import { PeriodUpdateInput } from "./PeriodUpdateInput";
+import { PaymentTermFindManyArgs } from "../../paymentTerm/base/PaymentTermFindManyArgs";
+import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
+import { PaymentTermWhereUniqueInput } from "../../paymentTerm/base/PaymentTermWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -50,15 +53,9 @@ export class PeriodControllerBase {
       data: {
         ...data,
 
-        installmentSaleFeePostingPeriod: data.installmentSaleFeePostingPeriod
+        tenantId: data.tenantId
           ? {
-              connect: data.installmentSaleFeePostingPeriod,
-            }
-          : undefined,
-
-        paymentTerms: data.paymentTerms
-          ? {
-              connect: data.paymentTerms,
+              connect: data.tenantId,
             }
           : undefined,
       },
@@ -67,18 +64,12 @@ export class PeriodControllerBase {
         createdAt: true,
         description: true,
         id: true,
-
-        installmentSaleFeePostingPeriod: {
-          select: {
-            id: true,
-          },
-        },
-
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        paymentTerms: {
+        tenantId: {
           select: {
             id: true,
           },
@@ -110,18 +101,12 @@ export class PeriodControllerBase {
         createdAt: true,
         description: true,
         id: true,
-
-        installmentSaleFeePostingPeriod: {
-          select: {
-            id: true,
-          },
-        },
-
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        paymentTerms: {
+        tenantId: {
           select: {
             id: true,
           },
@@ -154,18 +139,12 @@ export class PeriodControllerBase {
         createdAt: true,
         description: true,
         id: true,
-
-        installmentSaleFeePostingPeriod: {
-          select: {
-            id: true,
-          },
-        },
-
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        paymentTerms: {
+        tenantId: {
           select: {
             id: true,
           },
@@ -204,15 +183,9 @@ export class PeriodControllerBase {
         data: {
           ...data,
 
-          installmentSaleFeePostingPeriod: data.installmentSaleFeePostingPeriod
+          tenantId: data.tenantId
             ? {
-                connect: data.installmentSaleFeePostingPeriod,
-              }
-            : undefined,
-
-          paymentTerms: data.paymentTerms
-            ? {
-                connect: data.paymentTerms,
+                connect: data.tenantId,
               }
             : undefined,
         },
@@ -221,18 +194,12 @@ export class PeriodControllerBase {
           createdAt: true,
           description: true,
           id: true,
-
-          installmentSaleFeePostingPeriod: {
-            select: {
-              id: true,
-            },
-          },
-
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
 
-          paymentTerms: {
+          tenantId: {
             select: {
               id: true,
             },
@@ -273,18 +240,12 @@ export class PeriodControllerBase {
           createdAt: true,
           description: true,
           id: true,
-
-          installmentSaleFeePostingPeriod: {
-            select: {
-              id: true,
-            },
-          },
-
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
 
-          paymentTerms: {
+          tenantId: {
             select: {
               id: true,
             },
@@ -301,5 +262,273 @@ export class PeriodControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/installmentSaleFeePostingPeriodPaymentTerms")
+  @ApiNestedQuery(PaymentTermFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTerm",
+    action: "read",
+    possession: "any",
+  })
+  async findInstallmentSaleFeePostingPeriodPaymentTerms(
+    @common.Req() request: Request,
+    @common.Param() params: PeriodWhereUniqueInput
+  ): Promise<PaymentTerm[]> {
+    const query = plainToClass(PaymentTermFindManyArgs, request.query);
+    const results =
+      await this.service.findInstallmentSaleFeePostingPeriodPaymentTerms(
+        params.id,
+        {
+          ...query,
+          select: {
+            code: true,
+            createdAt: true,
+            description: true,
+            dueDays: true,
+
+            duePeriodId: {
+              select: {
+                id: true,
+              },
+            },
+
+            gracePeriod: true,
+            id: true,
+
+            installmentSaleFeeId: {
+              select: {
+                id: true,
+              },
+            },
+
+            installmentSaleFeePostingPeriod: {
+              select: {
+                id: true,
+              },
+            },
+
+            isActive: true,
+            isDefault: true,
+            isDueOnDate: true,
+            name: true,
+            normalizedName: true,
+            note: true,
+
+            tenantId: {
+              select: {
+                id: true,
+              },
+            },
+
+            updatedAt: true,
+          },
+        }
+      );
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/installmentSaleFeePostingPeriodPaymentTerms")
+  @nestAccessControl.UseRoles({
+    resource: "Period",
+    action: "update",
+    possession: "any",
+  })
+  async connectInstallmentSaleFeePostingPeriodPaymentTerms(
+    @common.Param() params: PeriodWhereUniqueInput,
+    @common.Body() body: PaymentTermWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      installmentSaleFeePostingPeriodPaymentTerms: {
+        connect: body,
+      },
+    };
+    await this.service.updatePeriod({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/installmentSaleFeePostingPeriodPaymentTerms")
+  @nestAccessControl.UseRoles({
+    resource: "Period",
+    action: "update",
+    possession: "any",
+  })
+  async updateInstallmentSaleFeePostingPeriodPaymentTerms(
+    @common.Param() params: PeriodWhereUniqueInput,
+    @common.Body() body: PaymentTermWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      installmentSaleFeePostingPeriodPaymentTerms: {
+        set: body,
+      },
+    };
+    await this.service.updatePeriod({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/installmentSaleFeePostingPeriodPaymentTerms")
+  @nestAccessControl.UseRoles({
+    resource: "Period",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectInstallmentSaleFeePostingPeriodPaymentTerms(
+    @common.Param() params: PeriodWhereUniqueInput,
+    @common.Body() body: PaymentTermWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      installmentSaleFeePostingPeriodPaymentTerms: {
+        disconnect: body,
+      },
+    };
+    await this.service.updatePeriod({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/paymentTerms1")
+  @ApiNestedQuery(PaymentTermFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTerm",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentTerms1(
+    @common.Req() request: Request,
+    @common.Param() params: PeriodWhereUniqueInput
+  ): Promise<PaymentTerm[]> {
+    const query = plainToClass(PaymentTermFindManyArgs, request.query);
+    const results = await this.service.findPaymentTerms1(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        description: true,
+        dueDays: true,
+
+        duePeriodId: {
+          select: {
+            id: true,
+          },
+        },
+
+        gracePeriod: true,
+        id: true,
+
+        installmentSaleFeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        installmentSaleFeePostingPeriod: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isDefault: true,
+        isDueOnDate: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentTerms1")
+  @nestAccessControl.UseRoles({
+    resource: "Period",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentTerms1(
+    @common.Param() params: PeriodWhereUniqueInput,
+    @common.Body() body: PaymentTermWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentTerms1: {
+        connect: body,
+      },
+    };
+    await this.service.updatePeriod({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentTerms1")
+  @nestAccessControl.UseRoles({
+    resource: "Period",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentTerms1(
+    @common.Param() params: PeriodWhereUniqueInput,
+    @common.Body() body: PaymentTermWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentTerms1: {
+        set: body,
+      },
+    };
+    await this.service.updatePeriod({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentTerms1")
+  @nestAccessControl.UseRoles({
+    resource: "Period",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentTerms1(
+    @common.Param() params: PeriodWhereUniqueInput,
+    @common.Body() body: PaymentTermWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentTerms1: {
+        disconnect: body,
+      },
+    };
+    await this.service.updatePeriod({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

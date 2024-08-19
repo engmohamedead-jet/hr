@@ -7,11 +7,12 @@ import {
   TextField,
   DateField,
   BooleanField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
 } from "react-admin";
 
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 import { WORKCENTER_TITLE_FIELD } from "./WorkCenterTitle";
 
 export const WorkCenterShow = (props: ShowProps): React.ReactElement => {
@@ -34,11 +35,14 @@ export const WorkCenterShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Sequence" source="sequence" />
         <TextField label="StartTime" source="startTime" />
         <TextField label="StopTime" source="stopTime" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="TimeEfficiency" source="timeEfficiency" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="WorkCenterRouting"
-          target="workCenterId"
+          target="workCenterIdId"
           label="WorkCenterRoutings"
         >
           <Datagrid rowClick="show">
@@ -50,11 +54,18 @@ export const WorkCenterShow = (props: ShowProps): React.ReactElement => {
             <TextField label="NormalizedName" source="normalizedName" />
             <TextField label="Note" source="note" />
             <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
             <TextField label="TimeCycleManual" source="timeCycleManual" />
             <TextField label="TimeModeBatch" source="timeModeBatch" />
             <DateField source="updatedAt" label="Updated At" />
             <ReferenceField
-              label="WorkCenter"
+              label="WorkCenterId"
               source="workcenter.id"
               reference="WorkCenter"
             >

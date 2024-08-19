@@ -2,8 +2,10 @@ import { BillOfMaterialDetailListRelationFilter } from "../billOfMaterialDetail/
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { IntFilter } from "../../util/IntFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { WorkCenterWhereUniqueInput } from "../workCenter/WorkCenterWhereUniqueInput";
 
 export type WorkCenterRoutingWhereInput = {
@@ -14,8 +16,9 @@ export type WorkCenterRoutingWhereInput = {
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
-  sequence?: IntNullableFilter;
+  sequence?: IntFilter;
+  tenantId?: TenantWhereUniqueInput;
   timeCycleManual?: DecimalNullableFilter;
   timeModeBatch?: IntNullableFilter;
-  workCenter?: WorkCenterWhereUniqueInput;
+  workCenterId?: WorkCenterWhereUniqueInput;
 };

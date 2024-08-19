@@ -28,6 +28,10 @@ import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { Currency } from "../../currency/base/Currency";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { SaleReturn } from "../../saleReturn/base/SaleReturn";
+import { Sale } from "../../sale/base/Sale";
+import { Supplier } from "../../supplier/base/Supplier";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class Customer {
@@ -95,7 +99,7 @@ class Customer {
   @ValidateNested()
   @Type(() => Currency)
   @IsOptional()
-  currency?: Currency | null;
+  currencyId?: Currency | null;
 
   @ApiProperty({
     required: false,
@@ -164,15 +168,12 @@ class Customer {
   id!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isActive!: boolean | null;
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -284,6 +285,24 @@ class Customer {
 
   @ApiProperty({
     required: false,
+    type: () => [SaleReturn],
+  })
+  @ValidateNested()
+  @Type(() => SaleReturn)
+  @IsOptional()
+  saleReturns?: Array<SaleReturn>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Sale],
+  })
+  @ValidateNested()
+  @Type(() => Sale)
+  @IsOptional()
+  sales?: Array<Sale>;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -296,6 +315,15 @@ class Customer {
 
   @ApiProperty({
     required: false,
+    type: () => [Supplier],
+  })
+  @ValidateNested()
+  @Type(() => Supplier)
+  @IsOptional()
+  suppliers?: Array<Supplier>;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -305,6 +333,15 @@ class Customer {
     nullable: true,
   })
   taxNumber!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenant?: Tenant | null;
 
   @ApiProperty({
     required: true,

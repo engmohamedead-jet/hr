@@ -5,9 +5,11 @@ export type PrintTemplateContentOrderByInput = {
   display?: SortOrder;
   fieldValue?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   key?: SortOrder;
   note?: SortOrder;
-  printTemplateId?: SortOrder;
+  printTemplateIdId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
   value?: SortOrder;
 };

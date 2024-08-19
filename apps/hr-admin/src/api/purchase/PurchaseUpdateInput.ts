@@ -1,0 +1,38 @@
+import { CashRepositoryWhereUniqueInput } from "../cashRepository/CashRepositoryWhereUniqueInput";
+import { Decimal } from "decimal.js";
+import { InvoiceTypeWhereUniqueInput } from "../invoiceType/InvoiceTypeWhereUniqueInput";
+import { PaymentTypeWhereUniqueInput } from "../paymentType/PaymentTypeWhereUniqueInput";
+import { PurchaseDetailUpdateManyWithoutPurchasesInput } from "./PurchaseDetailUpdateManyWithoutPurchasesInput";
+import { PurchasePriceTypeWhereUniqueInput } from "../purchasePriceType/PurchasePriceTypeWhereUniqueInput";
+import { PurchaseReturnUpdateManyWithoutPurchasesInput } from "./PurchaseReturnUpdateManyWithoutPurchasesInput";
+import { StoreWhereUniqueInput } from "../store/StoreWhereUniqueInput";
+import { SupplierWhereUniqueInput } from "../supplier/SupplierWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+
+export type PurchaseUpdateInput = {
+  cashRepositoryId?: CashRepositoryWhereUniqueInput;
+  discountTotal?: Decimal;
+  invoiceTypeId?: InvoiceTypeWhereUniqueInput | null;
+  isActive?: boolean | null;
+  isCancelled?: boolean;
+  isReplicated?: boolean;
+  netTotal?: Decimal;
+  nonTaxableTotal?: Decimal | null;
+  note?: string | null;
+  paid?: Decimal;
+  paymentTypeId?: PaymentTypeWhereUniqueInput;
+  purchaseDate?: Date;
+  purchaseDetails?: PurchaseDetailUpdateManyWithoutPurchasesInput;
+  purchasePriceTypeId?: PurchasePriceTypeWhereUniqueInput;
+  purchaseReturns?: PurchaseReturnUpdateManyWithoutPurchasesInput;
+  purchaseTotal?: Decimal;
+  referenceNumber?: string | null;
+  remaining?: Decimal;
+  sequenceNumber?: string;
+  storeId?: StoreWhereUniqueInput;
+  supplierId?: SupplierWhereUniqueInput;
+  tax?: Decimal | null;
+  taxRate?: Decimal | null;
+  taxableTotal?: Decimal | null;
+  tenantId?: TenantWhereUniqueInput | null;
+};

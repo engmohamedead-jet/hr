@@ -32,10 +32,22 @@ import { BillOfMaterialFindManyArgs } from "../../billOfMaterial/base/BillOfMate
 import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
 import { ProductBarcodeFindManyArgs } from "../../productBarcode/base/ProductBarcodeFindManyArgs";
 import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
+import { ProductUnitFindManyArgs } from "../../productUnit/base/ProductUnitFindManyArgs";
+import { ProductUnit } from "../../productUnit/base/ProductUnit";
 import { ProductVariantFindManyArgs } from "../../productVariant/base/ProductVariantFindManyArgs";
 import { ProductVariant } from "../../productVariant/base/ProductVariant";
 import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { PurchaseDetailFindManyArgs } from "../../purchaseDetail/base/PurchaseDetailFindManyArgs";
+import { PurchaseDetail } from "../../purchaseDetail/base/PurchaseDetail";
+import { PurchaseReturnDetailFindManyArgs } from "../../purchaseReturnDetail/base/PurchaseReturnDetailFindManyArgs";
+import { PurchaseReturnDetail } from "../../purchaseReturnDetail/base/PurchaseReturnDetail";
+import { SaleDetailFindManyArgs } from "../../saleDetail/base/SaleDetailFindManyArgs";
+import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleQuotationDetailFindManyArgs } from "../../saleQuotationDetail/base/SaleQuotationDetailFindManyArgs";
+import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
+import { SaleReturnDetailFindManyArgs } from "../../saleReturnDetail/base/SaleReturnDetailFindManyArgs";
+import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
 import { Store } from "../../store/base/Store";
 import { Unit } from "../../unit/base/Unit";
 import { ProductCategory } from "../../productCategory/base/ProductCategory";
@@ -43,6 +55,7 @@ import { ProductDepartment } from "../../productDepartment/base/ProductDepartmen
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { ProductType } from "../../productType/base/ProductType";
 import { SaleTax } from "../../saleTax/base/SaleTax";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ProductService } from "../product.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Product)
@@ -149,6 +162,12 @@ export class ProductResolverBase {
               connect: args.data.saleTaxId,
             }
           : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
       },
     });
   }
@@ -204,6 +223,12 @@ export class ProductResolverBase {
           saleTaxId: args.data.saleTaxId
             ? {
                 connect: args.data.saleTaxId,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -305,6 +330,26 @@ export class ProductResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductUnit], { name: "productUnits" })
+  @nestAccessControl.UseRoles({
+    resource: "ProductUnit",
+    action: "read",
+    possession: "any",
+  })
+  async findProductUnits(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: ProductUnitFindManyArgs
+  ): Promise<ProductUnit[]> {
+    const results = await this.service.findProductUnits(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [ProductVariant], { name: "productVariants" })
   @nestAccessControl.UseRoles({
     resource: "ProductVariant",
@@ -336,6 +381,116 @@ export class ProductResolverBase {
     @graphql.Args() args: ProductionOrderFindManyArgs
   ): Promise<ProductionOrder[]> {
     const results = await this.service.findProductionOrders(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PurchaseDetail], { name: "purchaseDetails" })
+  @nestAccessControl.UseRoles({
+    resource: "PurchaseDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findPurchaseDetails(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: PurchaseDetailFindManyArgs
+  ): Promise<PurchaseDetail[]> {
+    const results = await this.service.findPurchaseDetails(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PurchaseReturnDetail], {
+    name: "purchaseReturnDetails",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "PurchaseReturnDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findPurchaseReturnDetails(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: PurchaseReturnDetailFindManyArgs
+  ): Promise<PurchaseReturnDetail[]> {
+    const results = await this.service.findPurchaseReturnDetails(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SaleDetail], { name: "saleDetails" })
+  @nestAccessControl.UseRoles({
+    resource: "SaleDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleDetails(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: SaleDetailFindManyArgs
+  ): Promise<SaleDetail[]> {
+    const results = await this.service.findSaleDetails(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SaleQuotationDetail], {
+    name: "saleQuotationDetails",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleQuotationDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleQuotationDetails(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: SaleQuotationDetailFindManyArgs
+  ): Promise<SaleQuotationDetail[]> {
+    const results = await this.service.findSaleQuotationDetails(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SaleReturnDetail], { name: "saleReturnDetails" })
+  @nestAccessControl.UseRoles({
+    resource: "SaleReturnDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleReturnDetails(
+    @graphql.Parent() parent: Product,
+    @graphql.Args() args: SaleReturnDetailFindManyArgs
+  ): Promise<SaleReturnDetail[]> {
+    const results = await this.service.findSaleReturnDetails(parent.id, args);
 
     if (!results) {
       return [];
@@ -484,6 +639,25 @@ export class ProductResolverBase {
     @graphql.Parent() parent: Product
   ): Promise<SaleTax | null> {
     const result = await this.service.getSaleTaxId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(@graphql.Parent() parent: Product): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

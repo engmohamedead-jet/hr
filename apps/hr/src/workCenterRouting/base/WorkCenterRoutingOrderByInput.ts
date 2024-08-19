@@ -116,6 +116,17 @@ class WorkCenterRoutingOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  tenantIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   timeCycleManual?: SortOrder;
 
   @ApiProperty({
@@ -149,7 +160,7 @@ class WorkCenterRoutingOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  workCenterId?: SortOrder;
+  workCenterIdId?: SortOrder;
 }
 
 export { WorkCenterRoutingOrderByInput as WorkCenterRoutingOrderByInput };

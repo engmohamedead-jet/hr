@@ -1,14 +1,18 @@
-import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { PaymentTermWhereUniqueInput } from "../paymentTerm/PaymentTermWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
+import { PaymentTermListRelationFilter } from "../paymentTerm/PaymentTermListRelationFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PeriodWhereInput = {
-  code?: StringFilter;
+  code?: StringNullableFilter;
   description?: StringNullableFilter;
   id?: StringFilter;
-  installmentSaleFeePostingPeriod?: PaymentTermWhereUniqueInput;
+  installmentSaleFeePostingPeriodPaymentTerms?: PaymentTermListRelationFilter;
+  isActive?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
-  paymentTerms?: PaymentTermWhereUniqueInput;
+  paymentTerms1?: PaymentTermListRelationFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

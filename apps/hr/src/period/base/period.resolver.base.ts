@@ -26,7 +26,9 @@ import { PeriodFindUniqueArgs } from "./PeriodFindUniqueArgs";
 import { CreatePeriodArgs } from "./CreatePeriodArgs";
 import { UpdatePeriodArgs } from "./UpdatePeriodArgs";
 import { DeletePeriodArgs } from "./DeletePeriodArgs";
+import { PaymentTermFindManyArgs } from "../../paymentTerm/base/PaymentTermFindManyArgs";
 import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
+import { Tenant } from "../../tenant/base/Tenant";
 import { PeriodService } from "../period.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Period)
@@ -92,16 +94,9 @@ export class PeriodResolverBase {
       data: {
         ...args.data,
 
-        installmentSaleFeePostingPeriod: args.data
-          .installmentSaleFeePostingPeriod
+        tenantId: args.data.tenantId
           ? {
-              connect: args.data.installmentSaleFeePostingPeriod,
-            }
-          : undefined,
-
-        paymentTerms: args.data.paymentTerms
-          ? {
-              connect: args.data.paymentTerms,
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -124,16 +119,9 @@ export class PeriodResolverBase {
         data: {
           ...args.data,
 
-          installmentSaleFeePostingPeriod: args.data
-            .installmentSaleFeePostingPeriod
+          tenantId: args.data.tenantId
             ? {
-                connect: args.data.installmentSaleFeePostingPeriod,
-              }
-            : undefined,
-
-          paymentTerms: args.data.paymentTerms
-            ? {
-                connect: args.data.paymentTerms,
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -170,42 +158,63 @@ export class PeriodResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => PaymentTerm, {
-    nullable: true,
-    name: "installmentSaleFeePostingPeriod",
+  @graphql.ResolveField(() => [PaymentTerm], {
+    name: "installmentSaleFeePostingPeriodPaymentTerms",
   })
   @nestAccessControl.UseRoles({
     resource: "PaymentTerm",
     action: "read",
     possession: "any",
   })
-  async getInstallmentSaleFeePostingPeriod(
-    @graphql.Parent() parent: Period
-  ): Promise<PaymentTerm | null> {
-    const result = await this.service.getInstallmentSaleFeePostingPeriod(
-      parent.id
-    );
+  async findInstallmentSaleFeePostingPeriodPaymentTerms(
+    @graphql.Parent() parent: Period,
+    @graphql.Args() args: PaymentTermFindManyArgs
+  ): Promise<PaymentTerm[]> {
+    const results =
+      await this.service.findInstallmentSaleFeePostingPeriodPaymentTerms(
+        parent.id,
+        args
+      );
 
-    if (!result) {
-      return null;
+    if (!results) {
+      return [];
     }
-    return result;
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => PaymentTerm, {
-    nullable: true,
-    name: "paymentTerms",
-  })
+  @graphql.ResolveField(() => [PaymentTerm], { name: "paymentTerms1" })
   @nestAccessControl.UseRoles({
     resource: "PaymentTerm",
     action: "read",
     possession: "any",
   })
-  async getPaymentTerms(
-    @graphql.Parent() parent: Period
-  ): Promise<PaymentTerm | null> {
-    const result = await this.service.getPaymentTerms(parent.id);
+  async findPaymentTerms1(
+    @graphql.Parent() parent: Period,
+    @graphql.Args() args: PaymentTermFindManyArgs
+  ): Promise<PaymentTerm[]> {
+    const results = await this.service.findPaymentTerms1(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(@graphql.Parent() parent: Period): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

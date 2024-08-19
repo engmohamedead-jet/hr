@@ -1,13 +1,25 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { PurchaseReturnListRelationFilter } from "../purchaseReturn/PurchaseReturnListRelationFilter";
+import { PurchaseListRelationFilter } from "../purchase/PurchaseListRelationFilter";
+import { SaleReturnListRelationFilter } from "../saleReturn/SaleReturnListRelationFilter";
+import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PaymentTypeWhereInput = {
   code?: StringNullableFilter;
+  description?: StringNullableFilter;
   id?: IntFilter;
-  isDefault?: BooleanNullableFilter;
+  isActive?: BooleanFilter;
+  isDefault?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
-  notes?: StringNullableFilter;
+  note?: StringNullableFilter;
+  purchaseReturns?: PurchaseReturnListRelationFilter;
+  purchases?: PurchaseListRelationFilter;
+  saleReturns?: SaleReturnListRelationFilter;
+  sales?: SaleListRelationFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

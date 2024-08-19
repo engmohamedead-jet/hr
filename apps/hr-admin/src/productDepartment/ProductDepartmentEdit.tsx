@@ -14,6 +14,7 @@ import {
 
 import { ProductDepartmentTitle } from "./ProductDepartmentTitle";
 import { ProductTitle } from "../product/ProductTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const ProductDepartmentEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -21,14 +22,15 @@ export const ProductDepartmentEdit = (props: EditProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
+        <BooleanInput label="IsActive" source="isActive" />
         <BooleanInput label="IsDefault" source="isDefault" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
         <ReferenceInput
-          source="parentProductDepartment.id"
+          source="parentProductDepartmentId.id"
           reference="ProductDepartment"
-          label="ParentProductDepartment"
+          label="ParentProductDepartmentId"
         >
           <SelectInput optionText={ProductDepartmentTitle} />
         </ReferenceInput>
@@ -48,6 +50,13 @@ export const ProductDepartmentEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ProductTitle} />
         </ReferenceArrayInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Edit>
   );

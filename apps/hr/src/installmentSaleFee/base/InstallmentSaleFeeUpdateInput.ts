@@ -24,6 +24,7 @@ import {
 import { Type } from "class-transformer";
 import { PaymentTermUpdateManyWithoutInstallmentSaleFeesInput } from "./PaymentTermUpdateManyWithoutInstallmentSaleFeesInput";
 import { Decimal } from "decimal.js";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class InstallmentSaleFeeUpdateInput {
@@ -37,7 +38,7 @@ class InstallmentSaleFeeUpdateInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  account?: AccountWhereUniqueInput | null;
+  accountId?: AccountWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -62,6 +63,17 @@ class InstallmentSaleFeeUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -127,12 +139,24 @@ class InstallmentSaleFeeUpdateInput {
     type: Number,
   })
   @IsNumber()
-  @Max(99999999999)
+  @Max(100)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   rate?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { InstallmentSaleFeeUpdateInput as InstallmentSaleFeeUpdateInput };

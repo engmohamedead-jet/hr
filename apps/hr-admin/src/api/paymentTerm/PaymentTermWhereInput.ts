@@ -1,22 +1,26 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { IntFilter } from "../../util/IntFilter";
 import { PeriodWhereUniqueInput } from "../period/PeriodWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { InstallmentSaleFeeWhereUniqueInput } from "../installmentSaleFee/InstallmentSaleFeeWhereUniqueInput";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PaymentTermWhereInput = {
   code?: StringNullableFilter;
   description?: StringNullableFilter;
-  dueDays?: IntNullableFilter;
-  dueOnDate?: DateTimeNullableFilter;
+  dueDays?: IntFilter;
   duePeriodId?: PeriodWhereUniqueInput;
-  gracePeriod?: IntNullableFilter;
+  gracePeriod?: IntFilter;
   id?: StringFilter;
   installmentSaleFeeId?: InstallmentSaleFeeWhereUniqueInput;
-  installmentSaleFeePostingPeriodId?: PeriodWhereUniqueInput;
+  installmentSaleFeePostingPeriod?: PeriodWhereUniqueInput;
+  isActive?: BooleanFilter;
   isDefault?: BooleanNullableFilter;
-  name?: StringNullableFilter;
-  normalizedName?: StringNullableFilter;
+  isDueOnDate?: BooleanNullableFilter;
+  name?: StringFilter;
+  normalizedName?: StringFilter;
+  note?: StringNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

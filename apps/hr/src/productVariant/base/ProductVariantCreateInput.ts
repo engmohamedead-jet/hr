@@ -15,6 +15,7 @@ import { AttributeValueWhereUniqueInput } from "../../attributeValue/base/Attrib
 import {
   ValidateNested,
   IsOptional,
+  IsBoolean,
   IsString,
   MaxLength,
 } from "class-validator";
@@ -23,6 +24,12 @@ import { BillOfMaterialDetailCreateNestedManyWithoutProductVariantsInput } from 
 import { BillOfMaterialCreateNestedManyWithoutProductVariantsInput } from "./BillOfMaterialCreateNestedManyWithoutProductVariantsInput";
 import { ProductBarcodeCreateNestedManyWithoutProductVariantsInput } from "./ProductBarcodeCreateNestedManyWithoutProductVariantsInput";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
+import { PurchaseDetailCreateNestedManyWithoutProductVariantsInput } from "./PurchaseDetailCreateNestedManyWithoutProductVariantsInput";
+import { PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput";
+import { SaleDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleDetailCreateNestedManyWithoutProductVariantsInput";
+import { SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput";
+import { SaleReturnDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleReturnDetailCreateNestedManyWithoutProductVariantsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductVariantCreateInput {
@@ -63,6 +70,14 @@ class ProductVariantCreateInput {
   billOfMaterials?: BillOfMaterialCreateNestedManyWithoutProductVariantsInput;
 
   @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
     required: false,
     type: String,
   })
@@ -94,6 +109,81 @@ class ProductVariantCreateInput {
   @Type(() => ProductWhereUniqueInput)
   @Field(() => ProductWhereUniqueInput)
   productId!: ProductWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseDetailCreateNestedManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetailCreateNestedManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => PurchaseDetailCreateNestedManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  purchaseDetails?: PurchaseDetailCreateNestedManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(
+    () => PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput,
+    {
+      nullable: true,
+    }
+  )
+  purchaseReturnDetails?: PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailCreateNestedManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailCreateNestedManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => SaleDetailCreateNestedManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailCreateNestedManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailCreateNestedManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailCreateNestedManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => SaleReturnDetailCreateNestedManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailCreateNestedManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductVariantCreateInput as ProductVariantCreateInput };

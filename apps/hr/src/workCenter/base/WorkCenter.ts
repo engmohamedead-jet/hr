@@ -27,6 +27,7 @@ import {
 
 import { Decimal } from "decimal.js";
 import { Type } from "class-transformer";
+import { Tenant } from "../../tenant/base/Tenant";
 import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
 
 @ObjectType()
@@ -166,17 +167,14 @@ class WorkCenter {
   oeeTareget!: Decimal | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Number,
   })
   @IsInt()
   @Min(1)
   @Max(99999999999)
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  sequence!: number | null;
+  @Field(() => Number)
+  sequence!: number;
 
   @ApiProperty({
     required: false,
@@ -201,6 +199,15 @@ class WorkCenter {
     nullable: true,
   })
   stopTime!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: false,

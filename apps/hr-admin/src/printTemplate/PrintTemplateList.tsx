@@ -12,6 +12,7 @@ import {
 
 import Pagination from "../Components/Pagination";
 import { PRINTTEMPLATECONTENT_TITLE_FIELD } from "../printTemplateContent/PrintTemplateContentTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const PrintTemplateList = (props: ListProps): React.ReactElement => {
   return (
@@ -28,6 +29,7 @@ export const PrintTemplateList = (props: ListProps): React.ReactElement => {
         <TextField label="Description" source="description" />
         <TextField label="FilePath" source="filePath" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <BooleanField label="IsCustomized" source="isCustomized" />
         <BooleanField label="IsFavourite" source="isFavourite" />
         <TextField label="Name" source="name" />
@@ -42,6 +44,9 @@ export const PrintTemplateList = (props: ListProps): React.ReactElement => {
           reference="PrintTemplateContent"
         >
           <TextField source={PRINTTEMPLATECONTENT_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

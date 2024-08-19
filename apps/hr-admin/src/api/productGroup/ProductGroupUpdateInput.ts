@@ -3,6 +3,7 @@ import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
 import { ProductGroupUpdateManyWithoutProductGroupsInput } from "./ProductGroupUpdateManyWithoutProductGroupsInput";
 import { ProductUpdateManyWithoutProductGroupsInput } from "./ProductUpdateManyWithoutProductGroupsInput";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type ProductGroupUpdateInput = {
   code?: string | null;
@@ -11,6 +12,7 @@ export type ProductGroupUpdateInput = {
   excludeFromPurchase?: boolean;
   excludeFromSale?: boolean;
   inventoryAccount?: AccountWhereUniqueInput | null;
+  isActive?: boolean;
   isDefault?: boolean;
   name?: string;
   normalizedName?: string;
@@ -25,4 +27,5 @@ export type ProductGroupUpdateInput = {
   saleDiscountAccountId?: AccountWhereUniqueInput | null;
   saleReturnAccountId?: AccountWhereUniqueInput | null;
   saleTaxId?: SaleTaxWhereUniqueInput | null;
+  tenantId?: TenantWhereUniqueInput | null;
 };

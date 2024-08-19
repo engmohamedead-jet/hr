@@ -21,6 +21,7 @@ const CREATE_INPUT = {
   barcode: "exampleBarcode",
   createdAt: new Date(),
   id: "exampleId",
+  isActive: "true",
   note: "exampleNote",
   updatedAt: new Date(),
 };
@@ -28,6 +29,7 @@ const CREATE_RESULT = {
   barcode: "exampleBarcode",
   createdAt: new Date(),
   id: "exampleId",
+  isActive: "true",
   note: "exampleNote",
   updatedAt: new Date(),
 };
@@ -36,6 +38,7 @@ const FIND_MANY_RESULT = [
     barcode: "exampleBarcode",
     createdAt: new Date(),
     id: "exampleId",
+    isActive: "true",
     note: "exampleNote",
     updatedAt: new Date(),
   },
@@ -44,6 +47,7 @@ const FIND_ONE_RESULT = {
   barcode: "exampleBarcode",
   createdAt: new Date(),
   id: "exampleId",
+  isActive: "true",
   note: "exampleNote",
   updatedAt: new Date(),
 };

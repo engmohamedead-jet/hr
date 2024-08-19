@@ -31,6 +31,41 @@ import { BillOfMaterialDetailModule } from "./billOfMaterialDetail/billOfMateria
 import { ProductBarcodeModule } from "./productBarcode/productBarcode.module";
 import { ProductionOrderModule } from "./productionOrder/productionOrder.module";
 import { ProductionAvailabilityModule } from "./productionAvailability/productionAvailability.module";
+import { ProductUnitModule } from "./productUnit/productUnit.module";
+import { PurchaseModule } from "./purchase/purchase.module";
+import { InvoiceTypeModule } from "./invoiceType/invoiceType.module";
+import { PaymentTypeModule } from "./paymentType/paymentType.module";
+import { PaymentTermModule } from "./paymentTerm/paymentTerm.module";
+import { PeriodModule } from "./period/period.module";
+import { InstallmentSaleFeeModule } from "./installmentSaleFee/installmentSaleFee.module";
+import { PurchasePriceTypeModule } from "./purchasePriceType/purchasePriceType.module";
+import { SupplierModule } from "./supplier/supplier.module";
+import { CashRepositoryModule } from "./cashRepository/cashRepository.module";
+import { PurchaseDetailModule } from "./purchaseDetail/purchaseDetail.module";
+import { PurchaseReturnModule } from "./purchaseReturn/purchaseReturn.module";
+import { PurchaseReturnDetailModule } from "./purchaseReturnDetail/purchaseReturnDetail.module";
+import { ResourceTypeModule } from "./resourceType/resourceType.module";
+import { ResourceModule } from "./resource/resource.module";
+import { RoleGroupModule } from "./roleGroup/roleGroup.module";
+import { SalaryItemGroupModule } from "./salaryItemGroup/salaryItemGroup.module";
+import { SalaryItemTypeModule } from "./salaryItemType/salaryItemType.module";
+import { SalaryLawModule } from "./salaryLaw/salaryLaw.module";
+import { SalaryItemModule } from "./salaryItem/salaryItem.module";
+import { SaleTeamModule } from "./saleTeam/saleTeam.module";
+import { ScrapReasonModule } from "./scrapReason/scrapReason.module";
+import { SalePersonModule } from "./salePerson/salePerson.module";
+import { EmployeeDepartmentModule } from "./employeeDepartment/employeeDepartment.module";
+import { EmployeeClassModule } from "./employeeClass/employeeClass.module";
+import { EmployeeModule } from "./employee/employee.module";
+import { TenantModule } from "./tenant/tenant.module";
+import { SaleModule } from "./sale/sale.module";
+import { SaleDetailModule } from "./saleDetail/saleDetail.module";
+import { SaleQuotationModule } from "./saleQuotation/saleQuotation.module";
+import { SaleReturnModule } from "./saleReturn/saleReturn.module";
+import { SaleReturnDetailModule } from "./saleReturnDetail/saleReturnDetail.module";
+import { ApplicationModule } from "./application/application.module";
+import { ApplicationDependencyModule } from "./applicationDependency/applicationDependency.module";
+import { SaleQuotationDetailModule } from "./saleQuotationDetail/saleQuotationDetail.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -78,6 +113,41 @@ import { AuthModule } from "./auth/auth.module";
     ProductBarcodeModule,
     ProductionOrderModule,
     ProductionAvailabilityModule,
+    ProductUnitModule,
+    PurchaseModule,
+    InvoiceTypeModule,
+    PaymentTypeModule,
+    PaymentTermModule,
+    PeriodModule,
+    InstallmentSaleFeeModule,
+    PurchasePriceTypeModule,
+    SupplierModule,
+    CashRepositoryModule,
+    PurchaseDetailModule,
+    PurchaseReturnModule,
+    PurchaseReturnDetailModule,
+    ResourceTypeModule,
+    ResourceModule,
+    RoleGroupModule,
+    SalaryItemGroupModule,
+    SalaryItemTypeModule,
+    SalaryLawModule,
+    SalaryItemModule,
+    SaleTeamModule,
+    ScrapReasonModule,
+    SalePersonModule,
+    EmployeeDepartmentModule,
+    EmployeeClassModule,
+    EmployeeModule,
+    TenantModule,
+    SaleModule,
+    SaleDetailModule,
+    SaleQuotationModule,
+    SaleReturnModule,
+    SaleReturnDetailModule,
+    ApplicationModule,
+    ApplicationDependencyModule,
+    SaleQuotationDetailModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

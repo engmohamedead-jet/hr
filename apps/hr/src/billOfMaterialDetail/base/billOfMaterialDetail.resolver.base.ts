@@ -29,6 +29,7 @@ import { DeleteBillOfMaterialDetailArgs } from "./DeleteBillOfMaterialDetailArgs
 import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
 import { Product } from "../../product/base/Product";
 import { ProductVariant } from "../../productVariant/base/ProductVariant";
+import { Tenant } from "../../tenant/base/Tenant";
 import { Unit } from "../../unit/base/Unit";
 import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
 import { BillOfMaterialDetailService } from "../billOfMaterialDetail.service";
@@ -114,6 +115,12 @@ export class BillOfMaterialDetailResolverBase {
             }
           : undefined,
 
+        tenant: args.data.tenant
+          ? {
+              connect: args.data.tenant,
+            }
+          : undefined,
+
         unitId: {
           connect: args.data.unitId,
         },
@@ -154,6 +161,12 @@ export class BillOfMaterialDetailResolverBase {
           productVariantId: args.data.productVariantId
             ? {
                 connect: args.data.productVariantId,
+              }
+            : undefined,
+
+          tenant: args.data.tenant
+            ? {
+                connect: args.data.tenant,
               }
             : undefined,
 
@@ -255,6 +268,27 @@ export class BillOfMaterialDetailResolverBase {
     @graphql.Parent() parent: BillOfMaterialDetail
   ): Promise<ProductVariant | null> {
     const result = await this.service.getProductVariantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenant",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenant(
+    @graphql.Parent() parent: BillOfMaterialDetail
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenant(parent.id);
 
     if (!result) {
       return null;

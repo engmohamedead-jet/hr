@@ -1,6 +1,9 @@
 import { ProductGroupUpdateManyWithoutAccountsInput } from "./ProductGroupUpdateManyWithoutAccountsInput";
+import { InstallmentSaleFeeUpdateManyWithoutAccountsInput } from "./InstallmentSaleFeeUpdateManyWithoutAccountsInput";
 import { AccountWhereUniqueInput } from "./AccountWhereUniqueInput";
 import { AccountUpdateManyWithoutAccountsInput } from "./AccountUpdateManyWithoutAccountsInput";
+import { SalePersonUpdateManyWithoutAccountsInput } from "./SalePersonUpdateManyWithoutAccountsInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type AccountUpdateInput = {
   SaleReturnAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
@@ -8,8 +11,10 @@ export type AccountUpdateInput = {
   aleAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
   costOfGoodsSoldAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
   description?: string | null;
+  installmentSaleFees?: InstallmentSaleFeeUpdateManyWithoutAccountsInput;
   inventoryAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
-  isMasterAccount?: boolean | null;
+  isActive?: boolean | null;
+  isMasterAccount?: boolean;
   name?: string;
   normalizedName?: string;
   note?: string | null;
@@ -19,4 +24,6 @@ export type AccountUpdateInput = {
   purchaseDiscountAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
   purchaseReturnAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
   saleDiscountAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
+  salePeople?: SalePersonUpdateManyWithoutAccountsInput;
+  tenantId?: TenantWhereUniqueInput | null;
 };

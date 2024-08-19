@@ -30,6 +30,7 @@ import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
 import { Account } from "../../account/base/Account";
 import { SaleTax } from "../../saleTax/base/SaleTax";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ProductGroupService } from "../productGroup.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductGroup)
@@ -158,6 +159,12 @@ export class ProductGroupResolverBase {
               connect: args.data.saleTaxId,
             }
           : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
       },
     });
   }
@@ -235,6 +242,12 @@ export class ProductGroupResolverBase {
           saleTaxId: args.data.saleTaxId
             ? {
                 connect: args.data.saleTaxId,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -513,6 +526,27 @@ export class ProductGroupResolverBase {
     @graphql.Parent() parent: ProductGroup
   ): Promise<SaleTax | null> {
     const result = await this.service.getSaleTaxId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: ProductGroup
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

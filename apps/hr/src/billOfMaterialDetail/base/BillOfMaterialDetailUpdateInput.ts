@@ -29,6 +29,7 @@ import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 import { ProductVariantWhereUniqueInput } from "../../productVariant/base/ProductVariantWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../../unit/base/UnitWhereUniqueInput";
 import { WorkCenterRoutingWhereUniqueInput } from "../../workCenterRouting/base/WorkCenterRoutingWhereUniqueInput";
 
@@ -140,6 +141,18 @@ class BillOfMaterialDetailUpdateInput {
     nullable: true,
   })
   sequence?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

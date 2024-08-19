@@ -21,6 +21,11 @@ import {
 import { ProductionOrderUpdateManyWithoutStoresInput } from "./ProductionOrderUpdateManyWithoutStoresInput";
 import { Type } from "class-transformer";
 import { ProductUpdateManyWithoutStoresInput } from "./ProductUpdateManyWithoutStoresInput";
+import { PurchaseReturnUpdateManyWithoutStoresInput } from "./PurchaseReturnUpdateManyWithoutStoresInput";
+import { PurchaseUpdateManyWithoutStoresInput } from "./PurchaseUpdateManyWithoutStoresInput";
+import { SaleReturnUpdateManyWithoutStoresInput } from "./SaleReturnUpdateManyWithoutStoresInput";
+import { SaleUpdateManyWithoutStoresInput } from "./SaleUpdateManyWithoutStoresInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class StoreUpdateInput {
@@ -97,6 +102,17 @@ class StoreUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -157,6 +173,54 @@ class StoreUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => PurchaseReturnUpdateManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnUpdateManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnUpdateManyWithoutStoresInput, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnUpdateManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseUpdateManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseUpdateManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => PurchaseUpdateManyWithoutStoresInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseUpdateManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnUpdateManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnUpdateManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => SaleReturnUpdateManyWithoutStoresInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnUpdateManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleUpdateManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleUpdateManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => SaleUpdateManyWithoutStoresInput, {
+    nullable: true,
+  })
+  sales?: SaleUpdateManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -166,6 +230,18 @@ class StoreUpdateInput {
     nullable: true,
   })
   street?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { StoreUpdateInput as StoreUpdateInput };

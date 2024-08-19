@@ -9,9 +9,16 @@ import { ProductCategory } from "../productCategory/ProductCategory";
 import { ProductDepartment } from "../productDepartment/ProductDepartment";
 import { ProductGroup } from "../productGroup/ProductGroup";
 import { ProductType } from "../productType/ProductType";
+import { ProductUnit } from "../productUnit/ProductUnit";
 import { ProductVariant } from "../productVariant/ProductVariant";
 import { ProductionOrder } from "../productionOrder/ProductionOrder";
+import { PurchaseDetail } from "../purchaseDetail/PurchaseDetail";
+import { PurchaseReturnDetail } from "../purchaseReturnDetail/PurchaseReturnDetail";
+import { SaleDetail } from "../saleDetail/SaleDetail";
+import { SaleQuotationDetail } from "../saleQuotationDetail/SaleQuotationDetail";
+import { SaleReturnDetail } from "../saleReturnDetail/SaleReturnDetail";
 import { SaleTax } from "../saleTax/SaleTax";
+import { Tenant } from "../tenant/Tenant";
 
 export type Product = {
   barcode: string | null;
@@ -47,12 +54,19 @@ export type Product = {
   productDepartmentId?: ProductDepartment | null;
   productGroupId?: ProductGroup | null;
   productTypeId?: ProductType;
+  productUnits?: Array<ProductUnit>;
   productVariants?: Array<ProductVariant>;
   productionOrders?: Array<ProductionOrder>;
   profitRate: Decimal | null;
+  purchaseDetails?: Array<PurchaseDetail>;
+  purchaseReturnDetails?: Array<PurchaseReturnDetail>;
   reorderQuantity: Decimal | null;
+  saleDetails?: Array<SaleDetail>;
   salePrice: Decimal;
   salePriceIncludesTax: boolean;
+  saleQuotationDetails?: Array<SaleQuotationDetail>;
+  saleReturnDetails?: Array<SaleReturnDetail>;
   saleTaxId?: SaleTax | null;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

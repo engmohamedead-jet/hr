@@ -3,13 +3,14 @@ import { BillOfMaterialTypeWhereUniqueInput } from "../billOfMaterialType/BillOf
 import { StringFilter } from "../../util/StringFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
 import { ProductVariantWhereUniqueInput } from "../productVariant/ProductVariantWhereUniqueInput";
 import { ProductionOrderListRelationFilter } from "../productionOrder/ProductionOrderListRelationFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../unit/UnitWhereUniqueInput";
 
 export type BillOfMaterialWhereInput = {
@@ -19,7 +20,7 @@ export type BillOfMaterialWhereInput = {
   daysToPrepareManufacturingOrder?: IntFilter;
   endDate?: DateTimeNullableFilter;
   id?: StringFilter;
-  isActive?: BooleanNullableFilter;
+  isActive?: BooleanFilter;
   note?: StringNullableFilter;
   productId?: ProductWhereUniqueInput;
   productVariantId?: ProductVariantWhereUniqueInput;
@@ -27,5 +28,6 @@ export type BillOfMaterialWhereInput = {
   quantity?: DecimalNullableFilter;
   sequence?: IntNullableFilter;
   startDate?: DateTimeNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
   unitId?: UnitWhereUniqueInput;
 };

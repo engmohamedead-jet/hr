@@ -26,8 +26,9 @@ import { EmployeeClassFindUniqueArgs } from "./EmployeeClassFindUniqueArgs";
 import { CreateEmployeeClassArgs } from "./CreateEmployeeClassArgs";
 import { UpdateEmployeeClassArgs } from "./UpdateEmployeeClassArgs";
 import { DeleteEmployeeClassArgs } from "./DeleteEmployeeClassArgs";
-import { EmployeeClassSalaryItemValueFindManyArgs } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValueFindManyArgs";
-import { EmployeeClassSalaryItemValue } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValue";
+import { EmployeeFindManyArgs } from "../../employee/base/EmployeeFindManyArgs";
+import { Employee } from "../../employee/base/Employee";
+import { Tenant } from "../../tenant/base/Tenant";
 import { EmployeeClassService } from "../employeeClass.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => EmployeeClass)
@@ -94,7 +95,15 @@ export class EmployeeClassResolverBase {
   ): Promise<EmployeeClass> {
     return await this.service.createEmployeeClass({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +120,15 @@ export class EmployeeClassResolverBase {
     try {
       return await this.service.updateEmployeeClass({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -145,27 +162,43 @@ export class EmployeeClassResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [EmployeeClassSalaryItemValue], {
-    name: "employeeClassSalaryItemValues",
-  })
+  @graphql.ResolveField(() => [Employee], { name: "employees" })
   @nestAccessControl.UseRoles({
-    resource: "EmployeeClassSalaryItemValue",
+    resource: "Employee",
     action: "read",
     possession: "any",
   })
-  async findEmployeeClassSalaryItemValues(
+  async findEmployees(
     @graphql.Parent() parent: EmployeeClass,
-    @graphql.Args() args: EmployeeClassSalaryItemValueFindManyArgs
-  ): Promise<EmployeeClassSalaryItemValue[]> {
-    const results = await this.service.findEmployeeClassSalaryItemValues(
-      parent.id,
-      args
-    );
+    @graphql.Args() args: EmployeeFindManyArgs
+  ): Promise<Employee[]> {
+    const results = await this.service.findEmployees(parent.id, args);
 
     if (!results) {
       return [];
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: EmployeeClass
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

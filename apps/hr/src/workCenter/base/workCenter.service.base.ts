@@ -15,6 +15,7 @@ import {
   Prisma,
   WorkCenter as PrismaWorkCenter,
   WorkCenterRouting as PrismaWorkCenterRouting,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class WorkCenterServiceBase {
@@ -61,5 +62,13 @@ export class WorkCenterServiceBase {
         where: { id: parentId },
       })
       .workCenterRoutings(args);
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.workCenter
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

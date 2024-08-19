@@ -5,12 +5,15 @@ import {
   SimpleForm,
   CreateProps,
   TextInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
+  BooleanInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
-import { EmployeeClassSalaryItemValueTitle } from "../employeeClassSalaryItemValue/EmployeeClassSalaryItemValueTitle";
-import { EmployeeSalaryDetailTitle } from "../employeeSalaryDetail/EmployeeSalaryDetailTitle";
+import { SalaryItemGroupTitle } from "../salaryItemGroup/SalaryItemGroupTitle";
+import { SalaryItemTypeTitle } from "../salaryItemType/SalaryItemTypeTitle";
+import { SalaryLawTitle } from "../salaryLaw/SalaryLawTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const SalaryItemCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -18,25 +21,38 @@ export const SalaryItemCreate = (props: CreateProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
-        <ReferenceArrayInput
-          source="employeeClassSalaryItemValues"
-          reference="EmployeeClassSalaryItemValue"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={EmployeeClassSalaryItemValueTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="employeeSalaryDetails"
-          reference="EmployeeSalaryDetail"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={EmployeeSalaryDetailTitle} />
-        </ReferenceArrayInput>
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
+        <ReferenceInput
+          source="salaryItemGroupId.id"
+          reference="SalaryItemGroup"
+          label="SalaryItemGroupId"
+        >
+          <SelectInput optionText={SalaryItemGroupTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="salaryItemTypeId.id"
+          reference="SalaryItemType"
+          label="SalaryItemTypeId"
+        >
+          <SelectInput optionText={SalaryItemTypeTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="salaryLawId.id"
+          reference="SalaryLaw"
+          label="SalaryLawId"
+        >
+          <SelectInput optionText={SalaryLawTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Create>
   );

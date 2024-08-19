@@ -49,14 +49,30 @@ export class ProductionAvailabilityControllerBase {
     @common.Body() data: ProductionAvailabilityCreateInput
   ): Promise<ProductionAvailability> {
     return await this.service.createProductionAvailability({
-      data: data,
+      data: {
+        ...data,
+
+        tenantIId: data.tenantIId
+          ? {
+              connect: data.tenantIId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantIId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -87,9 +103,17 @@ export class ProductionAvailabilityControllerBase {
         code: true,
         createdAt: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantIId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -116,9 +140,17 @@ export class ProductionAvailabilityControllerBase {
         code: true,
         createdAt: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantIId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -149,14 +181,30 @@ export class ProductionAvailabilityControllerBase {
     try {
       return await this.service.updateProductionAvailability({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantIId: data.tenantIId
+            ? {
+                connect: data.tenantIId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantIId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -191,9 +239,17 @@ export class ProductionAvailabilityControllerBase {
           code: true,
           createdAt: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantIId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

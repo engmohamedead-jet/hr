@@ -52,16 +52,32 @@ export class ProductCategoryControllerBase {
     @common.Body() data: ProductCategoryCreateInput
   ): Promise<ProductCategory> {
     return await this.service.createProductCategory({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -90,10 +106,18 @@ export class ProductCategoryControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -121,10 +145,18 @@ export class ProductCategoryControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -155,16 +187,32 @@ export class ProductCategoryControllerBase {
     try {
       return await this.service.updateProductCategory({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -200,10 +248,18 @@ export class ProductCategoryControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -301,6 +357,12 @@ export class ProductCategoryControllerBase {
         salePriceIncludesTax: true,
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

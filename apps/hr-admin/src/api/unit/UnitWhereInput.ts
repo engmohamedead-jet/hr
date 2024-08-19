@@ -2,9 +2,18 @@ import { BillOfMaterialDetailListRelationFilter } from "../billOfMaterialDetail/
 import { BillOfMaterialListRelationFilter } from "../billOfMaterial/BillOfMaterialListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { ProductUnitWhereUniqueInput } from "../productUnit/ProductUnitWhereUniqueInput";
+import { ProductUnitListRelationFilter } from "../productUnit/ProductUnitListRelationFilter";
 import { ProductionOrderListRelationFilter } from "../productionOrder/ProductionOrderListRelationFilter";
 import { ProductListRelationFilter } from "../product/ProductListRelationFilter";
+import { PurchaseDetailListRelationFilter } from "../purchaseDetail/PurchaseDetailListRelationFilter";
+import { PurchaseReturnDetailListRelationFilter } from "../purchaseReturnDetail/PurchaseReturnDetailListRelationFilter";
+import { SaleDetailListRelationFilter } from "../saleDetail/SaleDetailListRelationFilter";
+import { SaleQuotationDetailListRelationFilter } from "../saleQuotationDetail/SaleQuotationDetailListRelationFilter";
+import { SaleReturnDetailListRelationFilter } from "../saleReturnDetail/SaleReturnDetailListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type UnitWhereInput = {
   billOfMaterialDetails?: BillOfMaterialDetailListRelationFilter;
@@ -12,11 +21,20 @@ export type UnitWhereInput = {
   code?: StringNullableFilter;
   description?: StringNullableFilter;
   id?: StringFilter;
+  isActive?: BooleanFilter;
   isCompound?: BooleanNullableFilter;
   isDefault?: BooleanNullableFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
+  productUnitCompareUnits?: ProductUnitWhereUniqueInput;
+  productUnits?: ProductUnitListRelationFilter;
   productionOrders?: ProductionOrderListRelationFilter;
   products?: ProductListRelationFilter;
+  purchaseDetails?: PurchaseDetailListRelationFilter;
+  purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
+  saleDetails?: SaleDetailListRelationFilter;
+  saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
+  saleReturnDetails?: SaleReturnDetailListRelationFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

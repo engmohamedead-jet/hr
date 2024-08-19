@@ -18,13 +18,14 @@ import { BillOfMaterialTypeWhereUniqueInput } from "../../billOfMaterialType/bas
 import { StringFilter } from "../../util/StringFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 import { ProductVariantWhereUniqueInput } from "../../productVariant/base/ProductVariantWhereUniqueInput";
 import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../../unit/base/UnitWhereUniqueInput";
 
 @InputType()
@@ -99,14 +100,14 @@ class BillOfMaterialWhereInput {
 
   @ApiProperty({
     required: false,
-    type: BooleanNullableFilter,
+    type: BooleanFilter,
   })
-  @Type(() => BooleanNullableFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => BooleanNullableFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  isActive?: BooleanNullableFilter;
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -187,6 +188,18 @@ class BillOfMaterialWhereInput {
     nullable: true,
   })
   startDate?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,

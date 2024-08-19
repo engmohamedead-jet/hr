@@ -15,6 +15,7 @@ import { AttributeValueWhereUniqueInput } from "../../attributeValue/base/Attrib
 import {
   ValidateNested,
   IsOptional,
+  IsBoolean,
   IsString,
   MaxLength,
 } from "class-validator";
@@ -23,6 +24,12 @@ import { BillOfMaterialDetailUpdateManyWithoutProductVariantsInput } from "./Bil
 import { BillOfMaterialUpdateManyWithoutProductVariantsInput } from "./BillOfMaterialUpdateManyWithoutProductVariantsInput";
 import { ProductBarcodeUpdateManyWithoutProductVariantsInput } from "./ProductBarcodeUpdateManyWithoutProductVariantsInput";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
+import { PurchaseDetailUpdateManyWithoutProductVariantsInput } from "./PurchaseDetailUpdateManyWithoutProductVariantsInput";
+import { PurchaseReturnDetailUpdateManyWithoutProductVariantsInput } from "./PurchaseReturnDetailUpdateManyWithoutProductVariantsInput";
+import { SaleDetailUpdateManyWithoutProductVariantsInput } from "./SaleDetailUpdateManyWithoutProductVariantsInput";
+import { SaleQuotationDetailUpdateManyWithoutProductVariantsInput } from "./SaleQuotationDetailUpdateManyWithoutProductVariantsInput";
+import { SaleReturnDetailUpdateManyWithoutProductVariantsInput } from "./SaleReturnDetailUpdateManyWithoutProductVariantsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductVariantUpdateInput {
@@ -64,6 +71,17 @@ class ProductVariantUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -97,6 +115,78 @@ class ProductVariantUpdateInput {
     nullable: true,
   })
   productId?: ProductWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseDetailUpdateManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetailUpdateManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => PurchaseDetailUpdateManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  purchaseDetails?: PurchaseDetailUpdateManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnDetailUpdateManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetailUpdateManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnDetailUpdateManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  purchaseReturnDetails?: PurchaseReturnDetailUpdateManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailUpdateManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailUpdateManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => SaleDetailUpdateManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailUpdateManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetailUpdateManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailUpdateManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailUpdateManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailUpdateManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailUpdateManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailUpdateManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => SaleReturnDetailUpdateManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailUpdateManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductVariantUpdateInput as ProductVariantUpdateInput };

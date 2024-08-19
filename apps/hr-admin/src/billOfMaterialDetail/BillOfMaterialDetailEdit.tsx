@@ -14,6 +14,7 @@ import {
 import { BillOfMaterialTitle } from "../billOfMaterial/BillOfMaterialTitle";
 import { ProductTitle } from "../product/ProductTitle";
 import { ProductVariantTitle } from "../productVariant/ProductVariantTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 import { UnitTitle } from "../unit/UnitTitle";
 import { WorkCenterRoutingTitle } from "../workCenterRouting/WorkCenterRoutingTitle";
 
@@ -53,6 +54,9 @@ export const BillOfMaterialDetailEdit = (
         </ReferenceInput>
         <NumberInput label="Quantity" source="quantity" />
         <NumberInput step={1} label="Sequence" source="sequence" />
+        <ReferenceInput source="tenant.id" reference="Tenant" label="tenant">
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
         <ReferenceInput source="unitId.id" reference="Unit" label="UnitId">
           <SelectInput optionText={UnitTitle} />
         </ReferenceInput>

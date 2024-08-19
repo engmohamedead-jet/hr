@@ -52,15 +52,31 @@ export class BarcodeTypeControllerBase {
     @common.Body() data: BarcodeTypeCreateInput
   ): Promise<BarcodeType> {
     return await this.service.createBarcodeType({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -87,9 +103,17 @@ export class BarcodeTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -117,9 +141,17 @@ export class BarcodeTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -150,15 +182,31 @@ export class BarcodeTypeControllerBase {
     try {
       return await this.service.updateBarcodeType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -194,9 +242,17 @@ export class BarcodeTypeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -236,6 +292,7 @@ export class BarcodeTypeControllerBase {
 
         createdAt: true,
         id: true,
+        isActive: true,
         note: true,
 
         productId: {
@@ -245,6 +302,12 @@ export class BarcodeTypeControllerBase {
         },
 
         productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

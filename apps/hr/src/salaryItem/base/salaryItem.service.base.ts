@@ -14,8 +14,10 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   SalaryItem as PrismaSalaryItem,
-  EmployeeClassSalaryItemValue as PrismaEmployeeClassSalaryItemValue,
-  EmployeeSalaryDetail as PrismaEmployeeSalaryDetail,
+  SalaryItemGroup as PrismaSalaryItemGroup,
+  SalaryItemType as PrismaSalaryItemType,
+  SalaryLaw as PrismaSalaryLaw,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class SalaryItemServiceBase {
@@ -53,25 +55,39 @@ export class SalaryItemServiceBase {
     return this.prisma.salaryItem.delete(args);
   }
 
-  async findEmployeeClassSalaryItemValues(
-    parentId: number,
-    args: Prisma.EmployeeClassSalaryItemValueFindManyArgs
-  ): Promise<PrismaEmployeeClassSalaryItemValue[]> {
+  async getSalaryItemGroupId(
+    parentId: string
+  ): Promise<PrismaSalaryItemGroup | null> {
     return this.prisma.salaryItem
-      .findUniqueOrThrow({
+      .findUnique({
         where: { id: parentId },
       })
-      .employeeClassSalaryItemValues(args);
+      .salaryItemGroupId();
   }
 
-  async findEmployeeSalaryDetails(
-    parentId: number,
-    args: Prisma.EmployeeSalaryDetailFindManyArgs
-  ): Promise<PrismaEmployeeSalaryDetail[]> {
+  async getSalaryItemTypeId(
+    parentId: string
+  ): Promise<PrismaSalaryItemType | null> {
     return this.prisma.salaryItem
-      .findUniqueOrThrow({
+      .findUnique({
         where: { id: parentId },
       })
-      .employeeSalaryDetails(args);
+      .salaryItemTypeId();
+  }
+
+  async getSalaryLawId(parentId: string): Promise<PrismaSalaryLaw | null> {
+    return this.prisma.salaryItem
+      .findUnique({
+        where: { id: parentId },
+      })
+      .salaryLawId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.salaryItem
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

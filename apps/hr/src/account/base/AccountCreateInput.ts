@@ -20,8 +20,11 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { InstallmentSaleFeeCreateNestedManyWithoutAccountsInput } from "./InstallmentSaleFeeCreateNestedManyWithoutAccountsInput";
 import { AccountWhereUniqueInput } from "./AccountWhereUniqueInput";
 import { AccountCreateNestedManyWithoutAccountsInput } from "./AccountCreateNestedManyWithoutAccountsInput";
+import { SalePersonCreateNestedManyWithoutAccountsInput } from "./SalePersonCreateNestedManyWithoutAccountsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AccountCreateInput {
@@ -84,6 +87,18 @@ class AccountCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => InstallmentSaleFeeCreateNestedManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => InstallmentSaleFeeCreateNestedManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => InstallmentSaleFeeCreateNestedManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  installmentSaleFees?: InstallmentSaleFeeCreateNestedManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductGroupCreateNestedManyWithoutAccountsInput,
   })
   @ValidateNested()
@@ -103,7 +118,15 @@ class AccountCreateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isMasterAccount?: boolean | null;
+  isActive?: boolean | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isMasterAccount!: boolean;
 
   @ApiProperty({
     required: true,
@@ -206,6 +229,30 @@ class AccountCreateInput {
     nullable: true,
   })
   saleDiscountAccountProductGroups?: ProductGroupCreateNestedManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePersonCreateNestedManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePersonCreateNestedManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => SalePersonCreateNestedManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  salePeople?: SalePersonCreateNestedManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { AccountCreateInput as AccountCreateInput };

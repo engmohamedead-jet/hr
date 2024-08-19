@@ -15,11 +15,13 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, IsEnum, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { EnumPrintTemplatePaperLayout } from "./EnumPrintTemplatePaperLayout";
 import { EnumPrintTemplatePaperSize } from "./EnumPrintTemplatePaperSize";
 import { JsonFilter } from "../../util/JsonFilter";
 import { PrintTemplateContentWhereUniqueInput } from "../../printTemplateContent/base/PrintTemplateContentWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PrintTemplateWhereInput {
@@ -66,6 +68,17 @@ class PrintTemplateWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -177,6 +190,18 @@ class PrintTemplateWhereInput {
     nullable: true,
   })
   printTemplateContents?: PrintTemplateContentWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { PrintTemplateWhereInput as PrintTemplateWhereInput };

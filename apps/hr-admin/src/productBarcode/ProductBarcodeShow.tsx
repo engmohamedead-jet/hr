@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   Show,
   SimpleShowLayout,
@@ -6,10 +7,13 @@ import {
   TextField,
   ReferenceField,
   DateField,
+  BooleanField,
 } from "react-admin";
+
 import { BARCODETYPE_TITLE_FIELD } from "../barcodeType/BarcodeTypeTitle";
 import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
 import { PRODUCTVARIANT_TITLE_FIELD } from "../productVariant/ProductVariantTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const ProductBarcodeShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -25,6 +29,7 @@ export const ProductBarcodeShow = (props: ShowProps): React.ReactElement => {
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <TextField label="Note" source="note" />
         <ReferenceField
           label="ProductId"
@@ -39,6 +44,9 @@ export const ProductBarcodeShow = (props: ShowProps): React.ReactElement => {
           reference="ProductVariant"
         >
           <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>

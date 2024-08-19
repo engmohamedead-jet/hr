@@ -17,6 +17,7 @@ import {
   IsOptional,
   IsDate,
   IsString,
+  IsBoolean,
   MaxLength,
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -24,6 +25,12 @@ import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMate
 import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
 import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
 import { Product } from "../../product/base/Product";
+import { PurchaseDetail } from "../../purchaseDetail/base/PurchaseDetail";
+import { PurchaseReturnDetail } from "../../purchaseReturnDetail/base/PurchaseReturnDetail";
+import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
+import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class ProductVariant {
@@ -70,6 +77,14 @@ class ProductVariant {
   id!: string;
 
   @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
     required: false,
     type: String,
   })
@@ -97,6 +112,60 @@ class ProductVariant {
   @ValidateNested()
   @Type(() => Product)
   productId?: Product;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PurchaseDetail],
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetail)
+  @IsOptional()
+  purchaseDetails?: Array<PurchaseDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PurchaseReturnDetail],
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetail)
+  @IsOptional()
+  purchaseReturnDetails?: Array<PurchaseReturnDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleDetail],
+  })
+  @ValidateNested()
+  @Type(() => SaleDetail)
+  @IsOptional()
+  saleDetails?: Array<SaleDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleQuotationDetail],
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetail)
+  @IsOptional()
+  saleQuotationDetails?: Array<SaleQuotationDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleReturnDetail],
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetail)
+  @IsOptional()
+  saleReturnDetails?: Array<SaleReturnDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

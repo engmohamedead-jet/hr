@@ -24,6 +24,7 @@ import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
 import { ProductGroupCreateNestedManyWithoutProductGroupsInput } from "./ProductGroupCreateNestedManyWithoutProductGroupsInput";
 import { ProductCreateNestedManyWithoutProductGroupsInput } from "./ProductCreateNestedManyWithoutProductGroupsInput";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductGroupCreateInput {
@@ -90,6 +91,14 @@ class ProductGroupCreateInput {
     nullable: true,
   })
   inventoryAccount?: AccountWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -248,6 +257,18 @@ class ProductGroupCreateInput {
     nullable: true,
   })
   saleTaxId?: SaleTaxWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductGroupCreateInput as ProductGroupCreateInput };

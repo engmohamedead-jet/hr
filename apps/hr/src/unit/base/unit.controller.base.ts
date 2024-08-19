@@ -32,12 +32,30 @@ import { BillOfMaterialDetailWhereUniqueInput } from "../../billOfMaterialDetail
 import { BillOfMaterialFindManyArgs } from "../../billOfMaterial/base/BillOfMaterialFindManyArgs";
 import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
 import { BillOfMaterialWhereUniqueInput } from "../../billOfMaterial/base/BillOfMaterialWhereUniqueInput";
+import { ProductUnitFindManyArgs } from "../../productUnit/base/ProductUnitFindManyArgs";
+import { ProductUnit } from "../../productUnit/base/ProductUnit";
+import { ProductUnitWhereUniqueInput } from "../../productUnit/base/ProductUnitWhereUniqueInput";
 import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
+import { PurchaseDetailFindManyArgs } from "../../purchaseDetail/base/PurchaseDetailFindManyArgs";
+import { PurchaseDetail } from "../../purchaseDetail/base/PurchaseDetail";
+import { PurchaseDetailWhereUniqueInput } from "../../purchaseDetail/base/PurchaseDetailWhereUniqueInput";
+import { PurchaseReturnDetailFindManyArgs } from "../../purchaseReturnDetail/base/PurchaseReturnDetailFindManyArgs";
+import { PurchaseReturnDetail } from "../../purchaseReturnDetail/base/PurchaseReturnDetail";
+import { PurchaseReturnDetailWhereUniqueInput } from "../../purchaseReturnDetail/base/PurchaseReturnDetailWhereUniqueInput";
+import { SaleDetailFindManyArgs } from "../../saleDetail/base/SaleDetailFindManyArgs";
+import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleDetailWhereUniqueInput } from "../../saleDetail/base/SaleDetailWhereUniqueInput";
+import { SaleQuotationDetailFindManyArgs } from "../../saleQuotationDetail/base/SaleQuotationDetailFindManyArgs";
+import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
+import { SaleQuotationDetailWhereUniqueInput } from "../../saleQuotationDetail/base/SaleQuotationDetailWhereUniqueInput";
+import { SaleReturnDetailFindManyArgs } from "../../saleReturnDetail/base/SaleReturnDetailFindManyArgs";
+import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
+import { SaleReturnDetailWhereUniqueInput } from "../../saleReturnDetail/base/SaleReturnDetailWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -59,17 +77,45 @@ export class UnitControllerBase {
   })
   async createUnit(@common.Body() data: UnitCreateInput): Promise<Unit> {
     return await this.service.createUnit({
-      data: data,
+      data: {
+        ...data,
+
+        productUnitCompareUnits: data.productUnitCompareUnits
+          ? {
+              connect: data.productUnitCompareUnits,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isCompound: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        productUnitCompareUnits: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -96,11 +142,25 @@ export class UnitControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isCompound: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        productUnitCompareUnits: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -128,11 +188,25 @@ export class UnitControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isCompound: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        productUnitCompareUnits: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -163,17 +237,45 @@ export class UnitControllerBase {
     try {
       return await this.service.updateUnit({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          productUnitCompareUnits: data.productUnitCompareUnits
+            ? {
+                connect: data.productUnitCompareUnits,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isCompound: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          productUnitCompareUnits: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -209,11 +311,25 @@ export class UnitControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isCompound: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          productUnitCompareUnits: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -270,6 +386,12 @@ export class UnitControllerBase {
 
         quantity: true,
         sequence: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
 
         unitId: {
           select: {
@@ -406,6 +528,12 @@ export class UnitControllerBase {
         sequence: true,
         startDate: true,
 
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         unitId: {
           select: {
             id: true,
@@ -490,6 +618,139 @@ export class UnitControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/productUnits")
+  @ApiNestedQuery(ProductUnitFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ProductUnit",
+    action: "read",
+    possession: "any",
+  })
+  async findProductUnits(
+    @common.Req() request: Request,
+    @common.Param() params: UnitWhereUniqueInput
+  ): Promise<ProductUnit[]> {
+    const query = plainToClass(ProductUnitFindManyArgs, request.query);
+    const results = await this.service.findProductUnits(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+
+        compareUnitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        compareUnitQuantity: true,
+        costPrice: true,
+        createdAt: true,
+        id: true,
+        isActive: true,
+        isCostPriceIncludingTax: true,
+        isDefaultForPurchase: true,
+        isDefaultForSale: true,
+        isSalePriceIncludingTax: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        salePrice: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/productUnits")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async connectProductUnits(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: ProductUnitWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productUnits: {
+        connect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/productUnits")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async updateProductUnits(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: ProductUnitWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productUnits: {
+        set: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/productUnits")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectProductUnits(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: ProductUnitWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productUnits: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id/productionOrders")
   @ApiNestedQuery(ProductionOrderFindManyArgs)
   @nestAccessControl.UseRoles({
@@ -524,6 +785,7 @@ export class UnitControllerBase {
         description: true,
         finishDate: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
@@ -546,6 +808,12 @@ export class UnitControllerBase {
         startDate: true,
 
         storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -723,6 +991,12 @@ export class UnitControllerBase {
           },
         },
 
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -790,6 +1064,737 @@ export class UnitControllerBase {
   ): Promise<void> {
     const data = {
       products: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/purchaseDetails")
+  @ApiNestedQuery(PurchaseDetailFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PurchaseDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findPurchaseDetails(
+    @common.Req() request: Request,
+    @common.Param() params: UnitWhereUniqueInput
+  ): Promise<PurchaseDetail[]> {
+    const query = plainToClass(PurchaseDetailFindManyArgs, request.query);
+    const results = await this.service.findPurchaseDetails(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+        createdAt: true,
+        discount: true,
+        discountRate: true,
+        id: true,
+        isActive: true,
+        isError: true,
+        isReplicated: true,
+        note: true,
+        price: true,
+        priceTotal: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productSerialNumber: true,
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchasePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        sequence: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/purchaseDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async connectPurchaseDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: PurchaseDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseDetails: {
+        connect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/purchaseDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async updatePurchaseDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: PurchaseDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseDetails: {
+        set: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/purchaseDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPurchaseDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: PurchaseDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseDetails: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/purchaseReturnDetails")
+  @ApiNestedQuery(PurchaseReturnDetailFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PurchaseReturnDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findPurchaseReturnDetails(
+    @common.Req() request: Request,
+    @common.Param() params: UnitWhereUniqueInput
+  ): Promise<PurchaseReturnDetail[]> {
+    const query = plainToClass(PurchaseReturnDetailFindManyArgs, request.query);
+    const results = await this.service.findPurchaseReturnDetails(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+        createdAt: true,
+        discount: true,
+        discountRate: true,
+        id: true,
+        isActive: true,
+        isError: true,
+        isReplicated: true,
+        note: true,
+        price: true,
+        priceTotal: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productSerialNumber: true,
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchasePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseReturnId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        sequence: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/purchaseReturnDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async connectPurchaseReturnDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: PurchaseReturnDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseReturnDetails: {
+        connect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/purchaseReturnDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async updatePurchaseReturnDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: PurchaseReturnDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseReturnDetails: {
+        set: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/purchaseReturnDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPurchaseReturnDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: PurchaseReturnDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseReturnDetails: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleDetails")
+  @ApiNestedQuery(SaleDetailFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleDetails(
+    @common.Req() request: Request,
+    @common.Param() params: UnitWhereUniqueInput
+  ): Promise<SaleDetail[]> {
+    const query = plainToClass(SaleDetailFindManyArgs, request.query);
+    const results = await this.service.findSaleDetails(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+        createdAt: true,
+        discount: true,
+        discountRate: true,
+        id: true,
+        isActive: true,
+        isError: true,
+        isReplicated: true,
+        note: true,
+        price: true,
+        priceTotal: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productSerialNumber: true,
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        salePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        sequence: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: SaleDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleDetails: {
+        connect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: SaleDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleDetails: {
+        set: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: SaleDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleDetails: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleQuotationDetails")
+  @ApiNestedQuery(SaleQuotationDetailFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleQuotationDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleQuotationDetails(
+    @common.Req() request: Request,
+    @common.Param() params: UnitWhereUniqueInput
+  ): Promise<SaleQuotationDetail[]> {
+    const query = plainToClass(SaleQuotationDetailFindManyArgs, request.query);
+    const results = await this.service.findSaleQuotationDetails(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        discount: true,
+        discountRate: true,
+        id: true,
+        isActive: true,
+        isError: true,
+        isReplicated: true,
+        isTaxed: true,
+        note: true,
+        price: true,
+        priceTotal: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        salePriceType: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleQuotationId: {
+          select: {
+            id: true,
+          },
+        },
+
+        sequence: true,
+        shippingCharge: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleQuotationDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleQuotationDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: SaleQuotationDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleQuotationDetails: {
+        connect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleQuotationDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleQuotationDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: SaleQuotationDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleQuotationDetails: {
+        set: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleQuotationDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleQuotationDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: SaleQuotationDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleQuotationDetails: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleReturnDetails")
+  @ApiNestedQuery(SaleReturnDetailFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleReturnDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleReturnDetails(
+    @common.Req() request: Request,
+    @common.Param() params: UnitWhereUniqueInput
+  ): Promise<SaleReturnDetail[]> {
+    const query = plainToClass(SaleReturnDetailFindManyArgs, request.query);
+    const results = await this.service.findSaleReturnDetails(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+        createdAt: true,
+        discount: true,
+        discountRate: true,
+        id: true,
+        isActive: true,
+        isError: true,
+        isReplicated: true,
+        price: true,
+        priceTotal: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productSerialNumber: true,
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        salePriceType: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnId: {
+          select: {
+            id: true,
+          },
+        },
+
+        sequence: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleReturnDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleReturnDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: SaleReturnDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturnDetails: {
+        connect: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleReturnDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleReturnDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: SaleReturnDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturnDetails: {
+        set: body,
+      },
+    };
+    await this.service.updateUnit({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleReturnDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Unit",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleReturnDetails(
+    @common.Param() params: UnitWhereUniqueInput,
+    @common.Body() body: SaleReturnDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturnDetails: {
         disconnect: body,
       },
     };

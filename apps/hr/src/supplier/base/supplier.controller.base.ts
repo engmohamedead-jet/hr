@@ -26,9 +26,12 @@ import { Supplier } from "./Supplier";
 import { SupplierFindManyArgs } from "./SupplierFindManyArgs";
 import { SupplierWhereUniqueInput } from "./SupplierWhereUniqueInput";
 import { SupplierUpdateInput } from "./SupplierUpdateInput";
-import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
-import { Customer } from "../../customer/base/Customer";
-import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { PurchaseReturnFindManyArgs } from "../../purchaseReturn/base/PurchaseReturnFindManyArgs";
+import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
+import { PurchaseReturnWhereUniqueInput } from "../../purchaseReturn/base/PurchaseReturnWhereUniqueInput";
+import { PurchaseFindManyArgs } from "../../purchase/base/PurchaseFindManyArgs";
+import { Purchase } from "../../purchase/base/Purchase";
+import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -55,9 +58,21 @@ export class SupplierControllerBase {
       data: {
         ...data,
 
-        currencyId: data.currencyId
+        currency: data.currency
           ? {
-              connect: data.currencyId,
+              connect: data.currency,
+            }
+          : undefined,
+
+        customerId: data.customerId
+          ? {
+              connect: data.customerId,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
             }
           : undefined,
       },
@@ -67,7 +82,13 @@ export class SupplierControllerBase {
         createdAt: true,
         credit: true,
 
-        currencyId: {
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
           select: {
             id: true,
           },
@@ -77,10 +98,18 @@ export class SupplierControllerBase {
         description: true,
         email: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
         phoneNumber: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         website: true,
       },
@@ -109,7 +138,13 @@ export class SupplierControllerBase {
         createdAt: true,
         credit: true,
 
-        currencyId: {
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
           select: {
             id: true,
           },
@@ -119,10 +154,18 @@ export class SupplierControllerBase {
         description: true,
         email: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
         phoneNumber: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         website: true,
       },
@@ -152,7 +195,13 @@ export class SupplierControllerBase {
         createdAt: true,
         credit: true,
 
-        currencyId: {
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
           select: {
             id: true,
           },
@@ -162,10 +211,18 @@ export class SupplierControllerBase {
         description: true,
         email: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
         phoneNumber: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         website: true,
       },
@@ -200,9 +257,21 @@ export class SupplierControllerBase {
         data: {
           ...data,
 
-          currencyId: data.currencyId
+          currency: data.currency
             ? {
-                connect: data.currencyId,
+                connect: data.currency,
+              }
+            : undefined,
+
+          customerId: data.customerId
+            ? {
+                connect: data.customerId,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
               }
             : undefined,
         },
@@ -212,7 +281,13 @@ export class SupplierControllerBase {
           createdAt: true,
           credit: true,
 
-          currencyId: {
+          currency: {
+            select: {
+              id: true,
+            },
+          },
+
+          customerId: {
             select: {
               id: true,
             },
@@ -222,10 +297,18 @@ export class SupplierControllerBase {
           description: true,
           email: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
           phoneNumber: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           website: true,
         },
@@ -263,7 +346,13 @@ export class SupplierControllerBase {
           createdAt: true,
           credit: true,
 
-          currencyId: {
+          currency: {
+            select: {
+              id: true,
+            },
+          },
+
+          customerId: {
             select: {
               id: true,
             },
@@ -273,10 +362,18 @@ export class SupplierControllerBase {
           description: true,
           email: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
           phoneNumber: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           website: true,
         },
@@ -292,87 +389,70 @@ export class SupplierControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/customers")
-  @ApiNestedQuery(CustomerFindManyArgs)
+  @common.Get("/:id/purchaseReturns")
+  @ApiNestedQuery(PurchaseReturnFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "Customer",
+    resource: "PurchaseReturn",
     action: "read",
     possession: "any",
   })
-  async findCustomers(
+  async findPurchaseReturns(
     @common.Req() request: Request,
     @common.Param() params: SupplierWhereUniqueInput
-  ): Promise<Customer[]> {
-    const query = plainToClass(CustomerFindManyArgs, request.query);
-    const results = await this.service.findCustomers(params.id, {
+  ): Promise<PurchaseReturn[]> {
+    const query = plainToClass(PurchaseReturnFindManyArgs, request.query);
+    const results = await this.service.findPurchaseReturns(params.id, {
       ...query,
       select: {
-        address: true,
-        code: true,
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
-        credit: true,
-
-        currencyId: {
-          select: {
-            id: true,
-          },
-        },
-
-        customerCateogryId: {
-          select: {
-            id: true,
-          },
-        },
-
-        customerTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
-        debit: true,
-        description: true,
-        email: true,
-        firstBalance: true,
-        firstBalanceDate: true,
-        guarantorAddress: true,
-        guarantorJobTitle: true,
-        guarantorName: true,
-        guarantorNationalIdNumber: true,
-        guarantorPhoneNumber: true,
-
-        guarantorRatingId: {
-          select: {
-            id: true,
-          },
-        },
-
-        guarantorWorkAddress: true,
-        hasMortalOrDiscount: true,
-        hasNoPendingInvoices: true,
+        discountTotal: true,
         id: true,
-        isActive: true,
-        isComplain: true,
-        isSystem: true,
-        isUnderRevision: true,
-        jobTitle: true,
-        maxAllowedDebit: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-        phoneNumber: true,
-        previousBalance: true,
 
-        rating: {
+        invoiceTypeId: {
           select: {
             id: true,
           },
         },
 
-        revisionDate: true,
-        saleDiscountRate: true,
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
 
-        salePriceTypeId: {
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchasePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseReturnDate: true,
+        purchaseReturnTotal: true,
+        referenceNumber: true,
+        remaining: true,
+        sequenceNumber: true,
+
+        storeId: {
           select: {
             id: true,
           },
@@ -384,10 +464,17 @@ export class SupplierControllerBase {
           },
         },
 
-        taxNumber: true,
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
-        website: true,
-        workAddress: true,
       },
     });
     if (results === null) {
@@ -398,18 +485,18 @@ export class SupplierControllerBase {
     return results;
   }
 
-  @common.Post("/:id/customers")
+  @common.Post("/:id/purchaseReturns")
   @nestAccessControl.UseRoles({
     resource: "Supplier",
     action: "update",
     possession: "any",
   })
-  async connectCustomers(
+  async connectPurchaseReturns(
     @common.Param() params: SupplierWhereUniqueInput,
-    @common.Body() body: CustomerWhereUniqueInput[]
+    @common.Body() body: PurchaseReturnWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      customers: {
+      purchaseReturns: {
         connect: body,
       },
     };
@@ -420,18 +507,18 @@ export class SupplierControllerBase {
     });
   }
 
-  @common.Patch("/:id/customers")
+  @common.Patch("/:id/purchaseReturns")
   @nestAccessControl.UseRoles({
     resource: "Supplier",
     action: "update",
     possession: "any",
   })
-  async updateCustomers(
+  async updatePurchaseReturns(
     @common.Param() params: SupplierWhereUniqueInput,
-    @common.Body() body: CustomerWhereUniqueInput[]
+    @common.Body() body: PurchaseReturnWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      customers: {
+      purchaseReturns: {
         set: body,
       },
     };
@@ -442,18 +529,176 @@ export class SupplierControllerBase {
     });
   }
 
-  @common.Delete("/:id/customers")
+  @common.Delete("/:id/purchaseReturns")
   @nestAccessControl.UseRoles({
     resource: "Supplier",
     action: "update",
     possession: "any",
   })
-  async disconnectCustomers(
+  async disconnectPurchaseReturns(
     @common.Param() params: SupplierWhereUniqueInput,
-    @common.Body() body: CustomerWhereUniqueInput[]
+    @common.Body() body: PurchaseReturnWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      customers: {
+      purchaseReturns: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateSupplier({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/purchases")
+  @ApiNestedQuery(PurchaseFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Purchase",
+    action: "read",
+    possession: "any",
+  })
+  async findPurchases(
+    @common.Req() request: Request,
+    @common.Param() params: SupplierWhereUniqueInput
+  ): Promise<Purchase[]> {
+    const query = plainToClass(PurchaseFindManyArgs, request.query);
+    const results = await this.service.findPurchases(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseDate: true,
+
+        purchasePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseTotal: true,
+        referenceNumber: true,
+        remaining: true,
+        sequenceNumber: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        supplierId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/purchases")
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "update",
+    possession: "any",
+  })
+  async connectPurchases(
+    @common.Param() params: SupplierWhereUniqueInput,
+    @common.Body() body: PurchaseWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchases: {
+        connect: body,
+      },
+    };
+    await this.service.updateSupplier({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/purchases")
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "update",
+    possession: "any",
+  })
+  async updatePurchases(
+    @common.Param() params: SupplierWhereUniqueInput,
+    @common.Body() body: PurchaseWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchases: {
+        set: body,
+      },
+    };
+    await this.service.updateSupplier({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/purchases")
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPurchases(
+    @common.Param() params: SupplierWhereUniqueInput,
+    @common.Body() body: PurchaseWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchases: {
         disconnect: body,
       },
     };

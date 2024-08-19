@@ -27,6 +27,7 @@ import {
 } from "class-validator";
 
 import { Type } from "class-transformer";
+import { Tenant } from "../../tenant/base/Tenant";
 import { Decimal } from "decimal.js";
 import { WorkCenter } from "../../workCenter/base/WorkCenter";
 
@@ -108,17 +109,23 @@ class WorkCenterRouting {
   note!: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Number,
   })
   @IsInt()
   @Min(1)
   @Max(99999999999)
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
+  @Field(() => Number)
+  sequence!: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
   })
-  sequence!: number | null;
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: false,
@@ -159,7 +166,7 @@ class WorkCenterRouting {
   @ValidateNested()
   @Type(() => WorkCenter)
   @IsOptional()
-  workCenter?: WorkCenter | null;
+  workCenterId?: WorkCenter | null;
 }
 
 export { WorkCenterRouting as WorkCenterRouting };

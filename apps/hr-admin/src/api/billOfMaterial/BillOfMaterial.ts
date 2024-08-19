@@ -4,6 +4,7 @@ import { Product } from "../product/Product";
 import { ProductVariant } from "../productVariant/ProductVariant";
 import { ProductionOrder } from "../productionOrder/ProductionOrder";
 import { Decimal } from "decimal.js";
+import { Tenant } from "../tenant/Tenant";
 import { Unit } from "../unit/Unit";
 
 export type BillOfMaterial = {
@@ -14,7 +15,7 @@ export type BillOfMaterial = {
   daysToPrepareManufacturingOrder: number;
   endDate: Date | null;
   id: string;
-  isActive: boolean | null;
+  isActive: boolean;
   note: string | null;
   productId?: Product;
   productVariantId?: ProductVariant | null;
@@ -22,6 +23,7 @@ export type BillOfMaterial = {
   quantity: Decimal | null;
   sequence: number | null;
   startDate: Date | null;
+  tenantId?: Tenant | null;
   unitId?: Unit;
   updatedAt: Date;
 };

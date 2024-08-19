@@ -9,17 +9,27 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
+import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+
 import {
   IsString,
   MaxLength,
   IsOptional,
+  IsNumber,
+  Min,
+  Max,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
+
+import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { Type } from "class-transformer";
-import { CustomerCreateNestedManyWithoutSuppliersInput } from "./CustomerCreateNestedManyWithoutSuppliersInput";
+import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { PurchaseReturnCreateNestedManyWithoutSuppliersInput } from "./PurchaseReturnCreateNestedManyWithoutSuppliersInput";
+import { PurchaseCreateNestedManyWithoutSuppliersInput } from "./PurchaseCreateNestedManyWithoutSuppliersInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SupplierCreateInput {
@@ -49,15 +59,16 @@ class SupplierCreateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Number,
   })
-  @IsString()
-  @MaxLength(1000)
+  @IsNumber()
+  @Min(-99999999999)
+  @Max(99999999999)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Float, {
     nullable: true,
   })
-  credit?: string | null;
+  credit?: Decimal | null;
 
   @ApiProperty({
     required: false,
@@ -69,31 +80,32 @@ class SupplierCreateInput {
   @Field(() => CurrencyWhereUniqueInput, {
     nullable: true,
   })
-  currencyId?: CurrencyWhereUniqueInput | null;
+  currency?: CurrencyWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
-    type: () => CustomerCreateNestedManyWithoutSuppliersInput,
+    type: () => CustomerWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => CustomerCreateNestedManyWithoutSuppliersInput)
+  @Type(() => CustomerWhereUniqueInput)
   @IsOptional()
-  @Field(() => CustomerCreateNestedManyWithoutSuppliersInput, {
+  @Field(() => CustomerWhereUniqueInput, {
     nullable: true,
   })
-  customers?: CustomerCreateNestedManyWithoutSuppliersInput;
+  customerId?: CustomerWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Number,
   })
-  @IsString()
-  @MaxLength(1000)
+  @IsNumber()
+  @Min(-99999999999)
+  @Max(99999999999)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Float, {
     nullable: true,
   })
-  debit?: string | null;
+  debit?: Decimal | null;
 
   @ApiProperty({
     required: false,
@@ -119,28 +131,30 @@ class SupplierCreateInput {
   email?: string | null;
 
   @ApiProperty({
-    required: false,
-    type: String,
+    required: true,
+    type: Boolean,
   })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name?: string | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
+  @Field(() => String)
+  name!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
   })
-  normalizedName?: string | null;
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  normalizedName!: string;
 
   @ApiProperty({
     required: false,
@@ -165,6 +179,42 @@ class SupplierCreateInput {
     nullable: true,
   })
   phoneNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnCreateNestedManyWithoutSuppliersInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnCreateNestedManyWithoutSuppliersInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnCreateNestedManyWithoutSuppliersInput, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnCreateNestedManyWithoutSuppliersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseCreateNestedManyWithoutSuppliersInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseCreateNestedManyWithoutSuppliersInput)
+  @IsOptional()
+  @Field(() => PurchaseCreateNestedManyWithoutSuppliersInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseCreateNestedManyWithoutSuppliersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

@@ -26,6 +26,7 @@ import { ProductionDocumentFindUniqueArgs } from "./ProductionDocumentFindUnique
 import { CreateProductionDocumentArgs } from "./CreateProductionDocumentArgs";
 import { UpdateProductionDocumentArgs } from "./UpdateProductionDocumentArgs";
 import { DeleteProductionDocumentArgs } from "./DeleteProductionDocumentArgs";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ProductionDocumentService } from "../productionDocument.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductionDocument)
@@ -92,7 +93,15 @@ export class ProductionDocumentResolverBase {
   ): Promise<ProductionDocument> {
     return await this.service.createProductionDocument({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +118,15 @@ export class ProductionDocumentResolverBase {
     try {
       return await this.service.updateProductionDocument({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +157,26 @@ export class ProductionDocumentResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: ProductionDocument
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

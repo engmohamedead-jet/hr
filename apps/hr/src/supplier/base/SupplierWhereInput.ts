@@ -14,9 +14,14 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
-import { CustomerListRelationFilter } from "../../customer/base/CustomerListRelationFilter";
+import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
+import { PurchaseListRelationFilter } from "../../purchase/base/PurchaseListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SupplierWhereInput {
@@ -44,14 +49,14 @@ class SupplierWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: DecimalNullableFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => DecimalNullableFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => DecimalNullableFilter, {
     nullable: true,
   })
-  credit?: StringNullableFilter;
+  credit?: DecimalNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -63,30 +68,30 @@ class SupplierWhereInput {
   @Field(() => CurrencyWhereUniqueInput, {
     nullable: true,
   })
-  currencyId?: CurrencyWhereUniqueInput;
+  currency?: CurrencyWhereUniqueInput;
 
   @ApiProperty({
     required: false,
-    type: () => CustomerListRelationFilter,
+    type: () => CustomerWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => CustomerListRelationFilter)
+  @Type(() => CustomerWhereUniqueInput)
   @IsOptional()
-  @Field(() => CustomerListRelationFilter, {
+  @Field(() => CustomerWhereUniqueInput, {
     nullable: true,
   })
-  customers?: CustomerListRelationFilter;
+  customerId?: CustomerWhereUniqueInput;
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: DecimalNullableFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => DecimalNullableFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => DecimalNullableFilter, {
     nullable: true,
   })
-  debit?: StringNullableFilter;
+  debit?: DecimalNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -123,25 +128,36 @@ class SupplierWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: BooleanFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  name?: StringNullableFilter;
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  normalizedName?: StringNullableFilter;
+  name?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  normalizedName?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -164,6 +180,42 @@ class SupplierWhereInput {
     nullable: true,
   })
   phoneNumber?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseReturnListRelationFilter, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseListRelationFilter, {
+    nullable: true,
+  })
+  purchases?: PurchaseListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,

@@ -1,18 +1,35 @@
 import { BillOfMaterialDetailUpdateManyWithoutUnitsInput } from "./BillOfMaterialDetailUpdateManyWithoutUnitsInput";
 import { BillOfMaterialUpdateManyWithoutUnitsInput } from "./BillOfMaterialUpdateManyWithoutUnitsInput";
+import { ProductUnitWhereUniqueInput } from "../productUnit/ProductUnitWhereUniqueInput";
+import { ProductUnitUpdateManyWithoutUnitsInput } from "./ProductUnitUpdateManyWithoutUnitsInput";
 import { ProductionOrderUpdateManyWithoutUnitsInput } from "./ProductionOrderUpdateManyWithoutUnitsInput";
 import { ProductUpdateManyWithoutUnitsInput } from "./ProductUpdateManyWithoutUnitsInput";
+import { PurchaseDetailUpdateManyWithoutUnitsInput } from "./PurchaseDetailUpdateManyWithoutUnitsInput";
+import { PurchaseReturnDetailUpdateManyWithoutUnitsInput } from "./PurchaseReturnDetailUpdateManyWithoutUnitsInput";
+import { SaleDetailUpdateManyWithoutUnitsInput } from "./SaleDetailUpdateManyWithoutUnitsInput";
+import { SaleQuotationDetailUpdateManyWithoutUnitsInput } from "./SaleQuotationDetailUpdateManyWithoutUnitsInput";
+import { SaleReturnDetailUpdateManyWithoutUnitsInput } from "./SaleReturnDetailUpdateManyWithoutUnitsInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type UnitUpdateInput = {
   billOfMaterialDetails?: BillOfMaterialDetailUpdateManyWithoutUnitsInput;
   billOfMaterials?: BillOfMaterialUpdateManyWithoutUnitsInput;
   code?: string | null;
   description?: string | null;
+  isActive?: boolean;
   isCompound?: boolean | null;
   isDefault?: boolean | null;
   name?: string;
   normalizedName?: string;
   note?: string | null;
+  productUnitCompareUnits?: ProductUnitWhereUniqueInput | null;
+  productUnits?: ProductUnitUpdateManyWithoutUnitsInput;
   productionOrders?: ProductionOrderUpdateManyWithoutUnitsInput;
   products?: ProductUpdateManyWithoutUnitsInput;
+  purchaseDetails?: PurchaseDetailUpdateManyWithoutUnitsInput;
+  purchaseReturnDetails?: PurchaseReturnDetailUpdateManyWithoutUnitsInput;
+  saleDetails?: SaleDetailUpdateManyWithoutUnitsInput;
+  saleQuotationDetails?: SaleQuotationDetailUpdateManyWithoutUnitsInput;
+  saleReturnDetails?: SaleReturnDetailUpdateManyWithoutUnitsInput;
+  tenantId?: TenantWhereUniqueInput | null;
 };

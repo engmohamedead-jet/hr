@@ -14,6 +14,7 @@ import {
 } from "react-admin";
 
 import { BillOfMaterialDetailTitle } from "../billOfMaterialDetail/BillOfMaterialDetailTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 import { WorkCenterTitle } from "../workCenter/WorkCenterTitle";
 
 export const WorkCenterRoutingCreate = (
@@ -36,12 +37,19 @@ export const WorkCenterRoutingCreate = (
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
         <NumberInput step={1} label="Sequence" source="sequence" />
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
         <NumberInput label="TimeCycleManual" source="timeCycleManual" />
         <NumberInput step={1} label="TimeModeBatch" source="timeModeBatch" />
         <ReferenceInput
-          source="workCenter.id"
+          source="workCenterId.id"
           reference="WorkCenter"
-          label="WorkCenter"
+          label="WorkCenterId"
         >
           <SelectInput optionText={WorkCenterTitle} />
         </ReferenceInput>

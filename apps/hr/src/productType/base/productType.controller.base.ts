@@ -52,15 +52,31 @@ export class ProductTypeControllerBase {
     @common.Body() data: ProductTypeCreateInput
   ): Promise<ProductType> {
     return await this.service.createProductType({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         id: true,
+        isActive: true,
         isComponent: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -86,10 +102,18 @@ export class ProductTypeControllerBase {
         code: true,
         createdAt: true,
         id: true,
+        isActive: true,
         isComponent: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -116,10 +140,18 @@ export class ProductTypeControllerBase {
         code: true,
         createdAt: true,
         id: true,
+        isActive: true,
         isComponent: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -150,15 +182,31 @@ export class ProductTypeControllerBase {
     try {
       return await this.service.updateProductType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           id: true,
+          isActive: true,
           isComponent: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -193,10 +241,18 @@ export class ProductTypeControllerBase {
           code: true,
           createdAt: true,
           id: true,
+          isActive: true,
           isComponent: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -294,6 +350,12 @@ export class ProductTypeControllerBase {
         salePriceIncludesTax: true,
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

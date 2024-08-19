@@ -16,9 +16,12 @@ import {
   MaxLength,
   IsOptional,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
 import { CustomerCreateNestedManyWithoutCurrenciesInput } from "./CustomerCreateNestedManyWithoutCurrenciesInput";
 import { Type } from "class-transformer";
+import { SupplierCreateNestedManyWithoutCurrenciesInput } from "./SupplierCreateNestedManyWithoutCurrenciesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CurrencyCreateInput {
@@ -60,6 +63,14 @@ class CurrencyCreateInput {
 
   @ApiProperty({
     required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
@@ -87,6 +98,30 @@ class CurrencyCreateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SupplierCreateNestedManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => SupplierCreateNestedManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => SupplierCreateNestedManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  suppliers?: SupplierCreateNestedManyWithoutCurrenciesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { CurrencyCreateInput as CurrencyCreateInput };

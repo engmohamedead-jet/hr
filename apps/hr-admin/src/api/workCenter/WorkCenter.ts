@@ -1,4 +1,5 @@
 import { Decimal } from "decimal.js";
+import { Tenant } from "../tenant/Tenant";
 import { WorkCenterRouting } from "../workCenterRouting/WorkCenterRouting";
 
 export type WorkCenter = {
@@ -15,9 +16,10 @@ export type WorkCenter = {
   normalizedName: string;
   note: string | null;
   oeeTareget: Decimal | null;
-  sequence: number | null;
+  sequence: number;
   startTime: Decimal | null;
   stopTime: Decimal | null;
+  tenantId?: Tenant | null;
   timeEfficiency: Decimal | null;
   updatedAt: Date;
   workCenterRoutings?: Array<WorkCenterRouting>;

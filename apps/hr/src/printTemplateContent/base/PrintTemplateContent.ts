@@ -16,10 +16,12 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { PrintTemplate } from "../../printTemplate/base/PrintTemplate";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class PrintTemplateContent {
@@ -61,6 +63,17 @@ class PrintTemplateContent {
   id!: string;
 
   @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive!: boolean | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
@@ -88,7 +101,16 @@ class PrintTemplateContent {
   @ValidateNested()
   @Type(() => PrintTemplate)
   @IsOptional()
-  printTemplate?: PrintTemplate | null;
+  printTemplateId?: PrintTemplate | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

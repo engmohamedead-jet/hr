@@ -23,9 +23,16 @@ import { ProductCategoryTitle } from "../productCategory/ProductCategoryTitle";
 import { ProductDepartmentTitle } from "../productDepartment/ProductDepartmentTitle";
 import { ProductGroupTitle } from "../productGroup/ProductGroupTitle";
 import { ProductTypeTitle } from "../productType/ProductTypeTitle";
+import { ProductUnitTitle } from "../productUnit/ProductUnitTitle";
 import { ProductVariantTitle } from "../productVariant/ProductVariantTitle";
 import { ProductionOrderTitle } from "../productionOrder/ProductionOrderTitle";
+import { PurchaseDetailTitle } from "../purchaseDetail/PurchaseDetailTitle";
+import { PurchaseReturnDetailTitle } from "../purchaseReturnDetail/PurchaseReturnDetailTitle";
+import { SaleDetailTitle } from "../saleDetail/SaleDetailTitle";
+import { SaleQuotationDetailTitle } from "../saleQuotationDetail/SaleQuotationDetailTitle";
+import { SaleReturnDetailTitle } from "../saleReturnDetail/SaleReturnDetailTitle";
 import { SaleTaxTitle } from "../saleTax/SaleTaxTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const ProductCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -99,7 +106,7 @@ export const ProductCreate = (props: CreateProps): React.ReactElement => {
         <NumberInput label="MinimumSalePrice" source="minimumSalePrice" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
-        <TextInput label="Note" source="note" />
+        <TextInput label="Note" multiline source="note" />
         <div />
         <ReferenceArrayInput
           source="productBarcodes"
@@ -138,6 +145,14 @@ export const ProductCreate = (props: CreateProps): React.ReactElement => {
           <SelectInput optionText={ProductTypeTitle} />
         </ReferenceInput>
         <ReferenceArrayInput
+          source="productUnits"
+          reference="ProductUnit"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ProductUnitTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
           source="productVariants"
           reference="ProductVariant"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
@@ -154,18 +169,65 @@ export const ProductCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={ProductionOrderTitle} />
         </ReferenceArrayInput>
         <NumberInput label="ProfitRate" source="profitRate" />
+        <ReferenceArrayInput
+          source="purchaseDetails"
+          reference="PurchaseDetail"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PurchaseDetailTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="purchaseReturnDetails"
+          reference="PurchaseReturnDetail"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PurchaseReturnDetailTitle} />
+        </ReferenceArrayInput>
         <NumberInput label="ReorderQuantity" source="reorderQuantity" />
+        <ReferenceArrayInput
+          source="saleDetails"
+          reference="SaleDetail"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleDetailTitle} />
+        </ReferenceArrayInput>
         <NumberInput label="SalePrice" source="salePrice" />
         <BooleanInput
           label="SalePriceIncludesTax"
           source="salePriceIncludesTax"
         />
+        <ReferenceArrayInput
+          source="saleQuotationDetails"
+          reference="SaleQuotationDetail"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleQuotationDetailTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="saleReturnDetails"
+          reference="SaleReturnDetail"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleReturnDetailTitle} />
+        </ReferenceArrayInput>
         <ReferenceInput
           source="saleTaxId.id"
           reference="SaleTax"
           label="SaleTaxId"
         >
           <SelectInput optionText={SaleTaxTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
         </ReferenceInput>
       </SimpleForm>
     </Create>

@@ -1,4 +1,5 @@
 import { Decimal } from "decimal.js";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 import { WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput";
 
 export type WorkCenterCreateInput = {
@@ -13,9 +14,10 @@ export type WorkCenterCreateInput = {
   normalizedName: string;
   note?: string | null;
   oeeTareget?: Decimal | null;
-  sequence?: number | null;
+  sequence: number;
   startTime?: Decimal | null;
   stopTime?: Decimal | null;
+  tenantId?: TenantWhereUniqueInput | null;
   timeEfficiency?: Decimal | null;
   workCenterRoutings?: WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput;
 };

@@ -1,5 +1,6 @@
 import { JsonValue } from "type-fest";
 import { PrintTemplateContent } from "../printTemplateContent/PrintTemplateContent";
+import { Tenant } from "../tenant/Tenant";
 
 export type PrintTemplate = {
   code: string | null;
@@ -7,6 +8,7 @@ export type PrintTemplate = {
   description: string | null;
   filePath: string | null;
   id: string;
+  isActive: boolean | null;
   isCustomized: boolean;
   isFavourite: boolean;
   name: string;
@@ -28,5 +30,6 @@ export type PrintTemplate = {
     | null;
   previewImage: JsonValue;
   printTemplateContents?: PrintTemplateContent | null;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

@@ -15,6 +15,7 @@ import {
   Prisma,
   ProductDepartment as PrismaProductDepartment,
   Product as PrismaProduct,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class ProductDepartmentServiceBase {
@@ -74,13 +75,21 @@ export class ProductDepartmentServiceBase {
       .products(args);
   }
 
-  async getParentProductDepartment(
+  async getParentProductDepartmentId(
     parentId: number
   ): Promise<PrismaProductDepartment | null> {
     return this.prisma.productDepartment
       .findUnique({
         where: { id: parentId },
       })
-      .parentProductDepartment();
+      .parentProductDepartmentId();
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.productDepartment
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

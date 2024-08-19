@@ -1,0 +1,38 @@
+import { CashRepositoryWhereUniqueInput } from "../cashRepository/CashRepositoryWhereUniqueInput";
+import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
+import { Decimal } from "decimal.js";
+import { InvoiceTypeWhereUniqueInput } from "../invoiceType/InvoiceTypeWhereUniqueInput";
+import { PaymentTypeWhereUniqueInput } from "../paymentType/PaymentTypeWhereUniqueInput";
+import { SaleWhereUniqueInput } from "../sale/SaleWhereUniqueInput";
+import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
+import { SaleReturnDetailUpdateManyWithoutSaleReturnsInput } from "./SaleReturnDetailUpdateManyWithoutSaleReturnsInput";
+import { StoreWhereUniqueInput } from "../store/StoreWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+
+export type SaleReturnUpdateInput = {
+  cashRepositoryId?: CashRepositoryWhereUniqueInput;
+  customerId?: CustomerWhereUniqueInput;
+  discountTotal?: Decimal;
+  invoiceTypeId?: InvoiceTypeWhereUniqueInput | null;
+  isActive?: boolean;
+  isCancelled?: boolean;
+  isReplicated?: boolean;
+  netTotal?: Decimal;
+  nonTaxableTotal?: Decimal | null;
+  note?: string | null;
+  paid?: Decimal;
+  paymentTypeId?: PaymentTypeWhereUniqueInput;
+  referenceNumber?: string | null;
+  remaining?: Decimal;
+  returnTotal?: Decimal;
+  saleId?: SaleWhereUniqueInput | null;
+  salePriceTyped?: SalePriceTypeWhereUniqueInput;
+  saleReturnDate?: Date;
+  saleReturnDetails?: SaleReturnDetailUpdateManyWithoutSaleReturnsInput;
+  sequence?: string;
+  storeId?: StoreWhereUniqueInput;
+  tax?: Decimal | null;
+  taxRate?: Decimal | null;
+  taxableTotal?: Decimal | null;
+  tenant?: TenantWhereUniqueInput | null;
+};

@@ -6,5 +6,6 @@ export type ProductionDocumentOrderByInput = {
   isActive?: SortOrder;
   note?: SortOrder;
   priority?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

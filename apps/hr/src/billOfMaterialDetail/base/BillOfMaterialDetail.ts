@@ -30,6 +30,7 @@ import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { Product } from "../../product/base/Product";
 import { ProductVariant } from "../../productVariant/base/ProductVariant";
+import { Tenant } from "../../tenant/base/Tenant";
 import { Unit } from "../../unit/base/Unit";
 import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
 
@@ -143,6 +144,15 @@ class BillOfMaterialDetail {
     nullable: true,
   })
   sequence!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenant?: Tenant | null;
 
   @ApiProperty({
     required: true,

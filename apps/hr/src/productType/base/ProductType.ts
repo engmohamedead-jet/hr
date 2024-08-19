@@ -22,6 +22,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Product } from "../../product/base/Product";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class ProductType {
@@ -52,6 +53,14 @@ class ProductType {
   @IsInt()
   @Field(() => Number)
   id!: number;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -102,6 +111,15 @@ class ProductType {
   @Type(() => Product)
   @IsOptional()
   products?: Array<Product>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

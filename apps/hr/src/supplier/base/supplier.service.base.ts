@@ -14,8 +14,11 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Supplier as PrismaSupplier,
-  Customer as PrismaCustomer,
+  PurchaseReturn as PrismaPurchaseReturn,
+  Purchase as PrismaPurchase,
   Currency as PrismaCurrency,
+  Customer as PrismaCustomer,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class SupplierServiceBase {
@@ -51,22 +54,49 @@ export class SupplierServiceBase {
     return this.prisma.supplier.delete(args);
   }
 
-  async findCustomers(
+  async findPurchaseReturns(
     parentId: string,
-    args: Prisma.CustomerFindManyArgs
-  ): Promise<PrismaCustomer[]> {
+    args: Prisma.PurchaseReturnFindManyArgs
+  ): Promise<PrismaPurchaseReturn[]> {
     return this.prisma.supplier
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .customers(args);
+      .purchaseReturns(args);
   }
 
-  async getCurrencyId(parentId: string): Promise<PrismaCurrency | null> {
+  async findPurchases(
+    parentId: string,
+    args: Prisma.PurchaseFindManyArgs
+  ): Promise<PrismaPurchase[]> {
+    return this.prisma.supplier
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchases(args);
+  }
+
+  async getCurrency(parentId: string): Promise<PrismaCurrency | null> {
     return this.prisma.supplier
       .findUnique({
         where: { id: parentId },
       })
-      .currencyId();
+      .currency();
+  }
+
+  async getCustomerId(parentId: string): Promise<PrismaCustomer | null> {
+    return this.prisma.supplier
+      .findUnique({
+        where: { id: parentId },
+      })
+      .customerId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.supplier
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { PRINTTEMPLATECONTENT_TITLE_FIELD } from "../printTemplateContent/PrintTemplateContentTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const PrintTemplateShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -21,6 +22,7 @@ export const PrintTemplateShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Description" source="description" />
         <TextField label="FilePath" source="filePath" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <BooleanField label="IsCustomized" source="isCustomized" />
         <BooleanField label="IsFavourite" source="isFavourite" />
         <TextField label="Name" source="name" />
@@ -35,6 +37,9 @@ export const PrintTemplateShow = (props: ShowProps): React.ReactElement => {
           reference="PrintTemplateContent"
         >
           <TextField source={PRINTTEMPLATECONTENT_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>

@@ -83,6 +83,17 @@ class PrintTemplateOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  isActive?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   isCustomized?: SortOrder;
 
   @ApiProperty({
@@ -172,6 +183,17 @@ class PrintTemplateOrderByInput {
     nullable: true,
   })
   printTemplateContentsId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

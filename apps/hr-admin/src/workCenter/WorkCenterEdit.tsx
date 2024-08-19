@@ -7,10 +7,13 @@ import {
   TextInput,
   NumberInput,
   BooleanInput,
+  ReferenceInput,
+  SelectInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
 
+import { TenantTitle } from "../tenant/TenantTitle";
 import { WorkCenterRoutingTitle } from "../workCenterRouting/WorkCenterRoutingTitle";
 
 export const WorkCenterEdit = (props: EditProps): React.ReactElement => {
@@ -26,11 +29,18 @@ export const WorkCenterEdit = (props: EditProps): React.ReactElement => {
         <BooleanInput label="IsProductive" source="isProductive" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
-        <TextInput label="Note" source="note" />
+        <TextInput label="Note" multiline source="note" />
         <NumberInput label="OeeTareget" source="oeeTareget" />
         <NumberInput step={1} label="Sequence" source="sequence" />
         <NumberInput label="StartTime" source="startTime" />
         <NumberInput label="StopTime" source="stopTime" />
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
         <NumberInput label="TimeEfficiency" source="timeEfficiency" />
         <ReferenceArrayInput
           source="workCenterRoutings"

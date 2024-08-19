@@ -22,6 +22,7 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 import { ProductVariantWhereUniqueInput } from "../../productVariant/base/ProductVariantWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../../unit/base/UnitWhereUniqueInput";
 import { WorkCenterRoutingWhereUniqueInput } from "../../workCenterRouting/base/WorkCenterRoutingWhereUniqueInput";
 
@@ -139,6 +140,18 @@ class BillOfMaterialDetailWhereInput {
     nullable: true,
   })
   sequence?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,

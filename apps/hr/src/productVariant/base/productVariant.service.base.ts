@@ -17,8 +17,14 @@ import {
   BillOfMaterialDetail as PrismaBillOfMaterialDetail,
   BillOfMaterial as PrismaBillOfMaterial,
   ProductBarcode as PrismaProductBarcode,
+  PurchaseDetail as PrismaPurchaseDetail,
+  PurchaseReturnDetail as PrismaPurchaseReturnDetail,
+  SaleDetail as PrismaSaleDetail,
+  SaleQuotationDetail as PrismaSaleQuotationDetail,
+  SaleReturnDetail as PrismaSaleReturnDetail,
   AttributeValue as PrismaAttributeValue,
   Product as PrismaProduct,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class ProductVariantServiceBase {
@@ -89,6 +95,61 @@ export class ProductVariantServiceBase {
       .productBarcodes(args);
   }
 
+  async findPurchaseDetails(
+    parentId: string,
+    args: Prisma.PurchaseDetailFindManyArgs
+  ): Promise<PrismaPurchaseDetail[]> {
+    return this.prisma.productVariant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchaseDetails(args);
+  }
+
+  async findPurchaseReturnDetails(
+    parentId: string,
+    args: Prisma.PurchaseReturnDetailFindManyArgs
+  ): Promise<PrismaPurchaseReturnDetail[]> {
+    return this.prisma.productVariant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchaseReturnDetails(args);
+  }
+
+  async findSaleDetails(
+    parentId: string,
+    args: Prisma.SaleDetailFindManyArgs
+  ): Promise<PrismaSaleDetail[]> {
+    return this.prisma.productVariant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleDetails(args);
+  }
+
+  async findSaleQuotationDetails(
+    parentId: string,
+    args: Prisma.SaleQuotationDetailFindManyArgs
+  ): Promise<PrismaSaleQuotationDetail[]> {
+    return this.prisma.productVariant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleQuotationDetails(args);
+  }
+
+  async findSaleReturnDetails(
+    parentId: string,
+    args: Prisma.SaleReturnDetailFindManyArgs
+  ): Promise<PrismaSaleReturnDetail[]> {
+    return this.prisma.productVariant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleReturnDetails(args);
+  }
+
   async getAttributeValueId(
     parentId: string
   ): Promise<PrismaAttributeValue | null> {
@@ -105,5 +166,13 @@ export class ProductVariantServiceBase {
         where: { id: parentId },
       })
       .productId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.productVariant
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

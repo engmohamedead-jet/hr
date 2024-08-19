@@ -28,6 +28,10 @@ import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { Type } from "class-transformer";
 import { ProductionOrderCreateNestedManyWithoutCustomersInput } from "./ProductionOrderCreateNestedManyWithoutCustomersInput";
+import { SaleReturnCreateNestedManyWithoutCustomersInput } from "./SaleReturnCreateNestedManyWithoutCustomersInput";
+import { SaleCreateNestedManyWithoutCustomersInput } from "./SaleCreateNestedManyWithoutCustomersInput";
+import { SupplierCreateNestedManyWithoutCustomersInput } from "./SupplierCreateNestedManyWithoutCustomersInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CustomerCreateInput {
@@ -90,7 +94,7 @@ class CustomerCreateInput {
   @Field(() => CurrencyWhereUniqueInput, {
     nullable: true,
   })
-  currency?: CurrencyWhereUniqueInput | null;
+  currencyId?: CurrencyWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -151,15 +155,12 @@ class CustomerCreateInput {
   firstBalanceDate?: Date | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isActive?: boolean | null;
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -274,6 +275,30 @@ class CustomerCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SaleReturnCreateNestedManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnCreateNestedManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => SaleReturnCreateNestedManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnCreateNestedManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleCreateNestedManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleCreateNestedManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => SaleCreateNestedManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  sales?: SaleCreateNestedManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -286,6 +311,18 @@ class CustomerCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SupplierCreateNestedManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => SupplierCreateNestedManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => SupplierCreateNestedManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  suppliers?: SupplierCreateNestedManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -295,6 +332,18 @@ class CustomerCreateInput {
     nullable: true,
   })
   taxNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

@@ -125,6 +125,146 @@ import { ProductionAvailabilityList } from "./productionAvailability/ProductionA
 import { ProductionAvailabilityCreate } from "./productionAvailability/ProductionAvailabilityCreate";
 import { ProductionAvailabilityEdit } from "./productionAvailability/ProductionAvailabilityEdit";
 import { ProductionAvailabilityShow } from "./productionAvailability/ProductionAvailabilityShow";
+import { ProductUnitList } from "./productUnit/ProductUnitList";
+import { ProductUnitCreate } from "./productUnit/ProductUnitCreate";
+import { ProductUnitEdit } from "./productUnit/ProductUnitEdit";
+import { ProductUnitShow } from "./productUnit/ProductUnitShow";
+import { PurchaseList } from "./purchase/PurchaseList";
+import { PurchaseCreate } from "./purchase/PurchaseCreate";
+import { PurchaseEdit } from "./purchase/PurchaseEdit";
+import { PurchaseShow } from "./purchase/PurchaseShow";
+import { InvoiceTypeList } from "./invoiceType/InvoiceTypeList";
+import { InvoiceTypeCreate } from "./invoiceType/InvoiceTypeCreate";
+import { InvoiceTypeEdit } from "./invoiceType/InvoiceTypeEdit";
+import { InvoiceTypeShow } from "./invoiceType/InvoiceTypeShow";
+import { PaymentTypeList } from "./paymentType/PaymentTypeList";
+import { PaymentTypeCreate } from "./paymentType/PaymentTypeCreate";
+import { PaymentTypeEdit } from "./paymentType/PaymentTypeEdit";
+import { PaymentTypeShow } from "./paymentType/PaymentTypeShow";
+import { PaymentTermList } from "./paymentTerm/PaymentTermList";
+import { PaymentTermCreate } from "./paymentTerm/PaymentTermCreate";
+import { PaymentTermEdit } from "./paymentTerm/PaymentTermEdit";
+import { PaymentTermShow } from "./paymentTerm/PaymentTermShow";
+import { PeriodList } from "./period/PeriodList";
+import { PeriodCreate } from "./period/PeriodCreate";
+import { PeriodEdit } from "./period/PeriodEdit";
+import { PeriodShow } from "./period/PeriodShow";
+import { InstallmentSaleFeeList } from "./installmentSaleFee/InstallmentSaleFeeList";
+import { InstallmentSaleFeeCreate } from "./installmentSaleFee/InstallmentSaleFeeCreate";
+import { InstallmentSaleFeeEdit } from "./installmentSaleFee/InstallmentSaleFeeEdit";
+import { InstallmentSaleFeeShow } from "./installmentSaleFee/InstallmentSaleFeeShow";
+import { PurchasePriceTypeList } from "./purchasePriceType/PurchasePriceTypeList";
+import { PurchasePriceTypeCreate } from "./purchasePriceType/PurchasePriceTypeCreate";
+import { PurchasePriceTypeEdit } from "./purchasePriceType/PurchasePriceTypeEdit";
+import { PurchasePriceTypeShow } from "./purchasePriceType/PurchasePriceTypeShow";
+import { SupplierList } from "./supplier/SupplierList";
+import { SupplierCreate } from "./supplier/SupplierCreate";
+import { SupplierEdit } from "./supplier/SupplierEdit";
+import { SupplierShow } from "./supplier/SupplierShow";
+import { CashRepositoryList } from "./cashRepository/CashRepositoryList";
+import { CashRepositoryCreate } from "./cashRepository/CashRepositoryCreate";
+import { CashRepositoryEdit } from "./cashRepository/CashRepositoryEdit";
+import { CashRepositoryShow } from "./cashRepository/CashRepositoryShow";
+import { PurchaseDetailList } from "./purchaseDetail/PurchaseDetailList";
+import { PurchaseDetailCreate } from "./purchaseDetail/PurchaseDetailCreate";
+import { PurchaseDetailEdit } from "./purchaseDetail/PurchaseDetailEdit";
+import { PurchaseDetailShow } from "./purchaseDetail/PurchaseDetailShow";
+import { PurchaseReturnList } from "./purchaseReturn/PurchaseReturnList";
+import { PurchaseReturnCreate } from "./purchaseReturn/PurchaseReturnCreate";
+import { PurchaseReturnEdit } from "./purchaseReturn/PurchaseReturnEdit";
+import { PurchaseReturnShow } from "./purchaseReturn/PurchaseReturnShow";
+import { PurchaseReturnDetailList } from "./purchaseReturnDetail/PurchaseReturnDetailList";
+import { PurchaseReturnDetailCreate } from "./purchaseReturnDetail/PurchaseReturnDetailCreate";
+import { PurchaseReturnDetailEdit } from "./purchaseReturnDetail/PurchaseReturnDetailEdit";
+import { PurchaseReturnDetailShow } from "./purchaseReturnDetail/PurchaseReturnDetailShow";
+import { ResourceTypeList } from "./resourceType/ResourceTypeList";
+import { ResourceTypeCreate } from "./resourceType/ResourceTypeCreate";
+import { ResourceTypeEdit } from "./resourceType/ResourceTypeEdit";
+import { ResourceTypeShow } from "./resourceType/ResourceTypeShow";
+import { ResourceList } from "./resource/ResourceList";
+import { ResourceCreate } from "./resource/ResourceCreate";
+import { ResourceEdit } from "./resource/ResourceEdit";
+import { ResourceShow } from "./resource/ResourceShow";
+import { RoleGroupList } from "./roleGroup/RoleGroupList";
+import { RoleGroupCreate } from "./roleGroup/RoleGroupCreate";
+import { RoleGroupEdit } from "./roleGroup/RoleGroupEdit";
+import { RoleGroupShow } from "./roleGroup/RoleGroupShow";
+import { SalaryItemGroupList } from "./salaryItemGroup/SalaryItemGroupList";
+import { SalaryItemGroupCreate } from "./salaryItemGroup/SalaryItemGroupCreate";
+import { SalaryItemGroupEdit } from "./salaryItemGroup/SalaryItemGroupEdit";
+import { SalaryItemGroupShow } from "./salaryItemGroup/SalaryItemGroupShow";
+import { SalaryItemTypeList } from "./salaryItemType/SalaryItemTypeList";
+import { SalaryItemTypeCreate } from "./salaryItemType/SalaryItemTypeCreate";
+import { SalaryItemTypeEdit } from "./salaryItemType/SalaryItemTypeEdit";
+import { SalaryItemTypeShow } from "./salaryItemType/SalaryItemTypeShow";
+import { SalaryLawList } from "./salaryLaw/SalaryLawList";
+import { SalaryLawCreate } from "./salaryLaw/SalaryLawCreate";
+import { SalaryLawEdit } from "./salaryLaw/SalaryLawEdit";
+import { SalaryLawShow } from "./salaryLaw/SalaryLawShow";
+import { SalaryItemList } from "./salaryItem/SalaryItemList";
+import { SalaryItemCreate } from "./salaryItem/SalaryItemCreate";
+import { SalaryItemEdit } from "./salaryItem/SalaryItemEdit";
+import { SalaryItemShow } from "./salaryItem/SalaryItemShow";
+import { SaleTeamList } from "./saleTeam/SaleTeamList";
+import { SaleTeamCreate } from "./saleTeam/SaleTeamCreate";
+import { SaleTeamEdit } from "./saleTeam/SaleTeamEdit";
+import { SaleTeamShow } from "./saleTeam/SaleTeamShow";
+import { ScrapReasonList } from "./scrapReason/ScrapReasonList";
+import { ScrapReasonCreate } from "./scrapReason/ScrapReasonCreate";
+import { ScrapReasonEdit } from "./scrapReason/ScrapReasonEdit";
+import { ScrapReasonShow } from "./scrapReason/ScrapReasonShow";
+import { SalePersonList } from "./salePerson/SalePersonList";
+import { SalePersonCreate } from "./salePerson/SalePersonCreate";
+import { SalePersonEdit } from "./salePerson/SalePersonEdit";
+import { SalePersonShow } from "./salePerson/SalePersonShow";
+import { EmployeeDepartmentList } from "./employeeDepartment/EmployeeDepartmentList";
+import { EmployeeDepartmentCreate } from "./employeeDepartment/EmployeeDepartmentCreate";
+import { EmployeeDepartmentEdit } from "./employeeDepartment/EmployeeDepartmentEdit";
+import { EmployeeDepartmentShow } from "./employeeDepartment/EmployeeDepartmentShow";
+import { EmployeeClassList } from "./employeeClass/EmployeeClassList";
+import { EmployeeClassCreate } from "./employeeClass/EmployeeClassCreate";
+import { EmployeeClassEdit } from "./employeeClass/EmployeeClassEdit";
+import { EmployeeClassShow } from "./employeeClass/EmployeeClassShow";
+import { EmployeeList } from "./employee/EmployeeList";
+import { EmployeeCreate } from "./employee/EmployeeCreate";
+import { EmployeeEdit } from "./employee/EmployeeEdit";
+import { EmployeeShow } from "./employee/EmployeeShow";
+import { TenantList } from "./tenant/TenantList";
+import { TenantCreate } from "./tenant/TenantCreate";
+import { TenantEdit } from "./tenant/TenantEdit";
+import { TenantShow } from "./tenant/TenantShow";
+import { SaleList } from "./sale/SaleList";
+import { SaleCreate } from "./sale/SaleCreate";
+import { SaleEdit } from "./sale/SaleEdit";
+import { SaleShow } from "./sale/SaleShow";
+import { SaleDetailList } from "./saleDetail/SaleDetailList";
+import { SaleDetailCreate } from "./saleDetail/SaleDetailCreate";
+import { SaleDetailEdit } from "./saleDetail/SaleDetailEdit";
+import { SaleDetailShow } from "./saleDetail/SaleDetailShow";
+import { SaleQuotationList } from "./saleQuotation/SaleQuotationList";
+import { SaleQuotationCreate } from "./saleQuotation/SaleQuotationCreate";
+import { SaleQuotationEdit } from "./saleQuotation/SaleQuotationEdit";
+import { SaleQuotationShow } from "./saleQuotation/SaleQuotationShow";
+import { SaleReturnList } from "./saleReturn/SaleReturnList";
+import { SaleReturnCreate } from "./saleReturn/SaleReturnCreate";
+import { SaleReturnEdit } from "./saleReturn/SaleReturnEdit";
+import { SaleReturnShow } from "./saleReturn/SaleReturnShow";
+import { SaleReturnDetailList } from "./saleReturnDetail/SaleReturnDetailList";
+import { SaleReturnDetailCreate } from "./saleReturnDetail/SaleReturnDetailCreate";
+import { SaleReturnDetailEdit } from "./saleReturnDetail/SaleReturnDetailEdit";
+import { SaleReturnDetailShow } from "./saleReturnDetail/SaleReturnDetailShow";
+import { ApplicationList } from "./application/ApplicationList";
+import { ApplicationCreate } from "./application/ApplicationCreate";
+import { ApplicationEdit } from "./application/ApplicationEdit";
+import { ApplicationShow } from "./application/ApplicationShow";
+import { ApplicationDependencyList } from "./applicationDependency/ApplicationDependencyList";
+import { ApplicationDependencyCreate } from "./applicationDependency/ApplicationDependencyCreate";
+import { ApplicationDependencyEdit } from "./applicationDependency/ApplicationDependencyEdit";
+import { ApplicationDependencyShow } from "./applicationDependency/ApplicationDependencyShow";
+import { SaleQuotationDetailList } from "./saleQuotationDetail/SaleQuotationDetailList";
+import { SaleQuotationDetailCreate } from "./saleQuotationDetail/SaleQuotationDetailCreate";
+import { SaleQuotationDetailEdit } from "./saleQuotationDetail/SaleQuotationDetailEdit";
+import { SaleQuotationDetailShow } from "./saleQuotationDetail/SaleQuotationDetailShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -360,6 +500,251 @@ const App = (): React.ReactElement => {
           edit={ProductionAvailabilityEdit}
           create={ProductionAvailabilityCreate}
           show={ProductionAvailabilityShow}
+        />
+        <Resource
+          name="ProductUnit"
+          list={ProductUnitList}
+          edit={ProductUnitEdit}
+          create={ProductUnitCreate}
+          show={ProductUnitShow}
+        />
+        <Resource
+          name="Purchase"
+          list={PurchaseList}
+          edit={PurchaseEdit}
+          create={PurchaseCreate}
+          show={PurchaseShow}
+        />
+        <Resource
+          name="InvoiceType"
+          list={InvoiceTypeList}
+          edit={InvoiceTypeEdit}
+          create={InvoiceTypeCreate}
+          show={InvoiceTypeShow}
+        />
+        <Resource
+          name="PaymentType"
+          list={PaymentTypeList}
+          edit={PaymentTypeEdit}
+          create={PaymentTypeCreate}
+          show={PaymentTypeShow}
+        />
+        <Resource
+          name="PaymentTerm"
+          list={PaymentTermList}
+          edit={PaymentTermEdit}
+          create={PaymentTermCreate}
+          show={PaymentTermShow}
+        />
+        <Resource
+          name="Period"
+          list={PeriodList}
+          edit={PeriodEdit}
+          create={PeriodCreate}
+          show={PeriodShow}
+        />
+        <Resource
+          name="InstallmentSaleFee"
+          list={InstallmentSaleFeeList}
+          edit={InstallmentSaleFeeEdit}
+          create={InstallmentSaleFeeCreate}
+          show={InstallmentSaleFeeShow}
+        />
+        <Resource
+          name="PurchasePriceType"
+          list={PurchasePriceTypeList}
+          edit={PurchasePriceTypeEdit}
+          create={PurchasePriceTypeCreate}
+          show={PurchasePriceTypeShow}
+        />
+        <Resource
+          name="Supplier"
+          list={SupplierList}
+          edit={SupplierEdit}
+          create={SupplierCreate}
+          show={SupplierShow}
+        />
+        <Resource
+          name="CashRepository"
+          list={CashRepositoryList}
+          edit={CashRepositoryEdit}
+          create={CashRepositoryCreate}
+          show={CashRepositoryShow}
+        />
+        <Resource
+          name="PurchaseDetail"
+          list={PurchaseDetailList}
+          edit={PurchaseDetailEdit}
+          create={PurchaseDetailCreate}
+          show={PurchaseDetailShow}
+        />
+        <Resource
+          name="PurchaseReturn"
+          list={PurchaseReturnList}
+          edit={PurchaseReturnEdit}
+          create={PurchaseReturnCreate}
+          show={PurchaseReturnShow}
+        />
+        <Resource
+          name="PurchaseReturnDetail"
+          list={PurchaseReturnDetailList}
+          edit={PurchaseReturnDetailEdit}
+          create={PurchaseReturnDetailCreate}
+          show={PurchaseReturnDetailShow}
+        />
+        <Resource
+          name="ResourceType"
+          list={ResourceTypeList}
+          edit={ResourceTypeEdit}
+          create={ResourceTypeCreate}
+          show={ResourceTypeShow}
+        />
+        <Resource
+          name="Resource"
+          list={ResourceList}
+          edit={ResourceEdit}
+          create={ResourceCreate}
+          show={ResourceShow}
+        />
+        <Resource
+          name="RoleGroup"
+          list={RoleGroupList}
+          edit={RoleGroupEdit}
+          create={RoleGroupCreate}
+          show={RoleGroupShow}
+        />
+        <Resource
+          name="SalaryItemGroup"
+          list={SalaryItemGroupList}
+          edit={SalaryItemGroupEdit}
+          create={SalaryItemGroupCreate}
+          show={SalaryItemGroupShow}
+        />
+        <Resource
+          name="SalaryItemType"
+          list={SalaryItemTypeList}
+          edit={SalaryItemTypeEdit}
+          create={SalaryItemTypeCreate}
+          show={SalaryItemTypeShow}
+        />
+        <Resource
+          name="SalaryLaw"
+          list={SalaryLawList}
+          edit={SalaryLawEdit}
+          create={SalaryLawCreate}
+          show={SalaryLawShow}
+        />
+        <Resource
+          name="SalaryItem"
+          list={SalaryItemList}
+          edit={SalaryItemEdit}
+          create={SalaryItemCreate}
+          show={SalaryItemShow}
+        />
+        <Resource
+          name="SaleTeam"
+          list={SaleTeamList}
+          edit={SaleTeamEdit}
+          create={SaleTeamCreate}
+          show={SaleTeamShow}
+        />
+        <Resource
+          name="ScrapReason"
+          list={ScrapReasonList}
+          edit={ScrapReasonEdit}
+          create={ScrapReasonCreate}
+          show={ScrapReasonShow}
+        />
+        <Resource
+          name="SalePerson"
+          list={SalePersonList}
+          edit={SalePersonEdit}
+          create={SalePersonCreate}
+          show={SalePersonShow}
+        />
+        <Resource
+          name="EmployeeDepartment"
+          list={EmployeeDepartmentList}
+          edit={EmployeeDepartmentEdit}
+          create={EmployeeDepartmentCreate}
+          show={EmployeeDepartmentShow}
+        />
+        <Resource
+          name="EmployeeClass"
+          list={EmployeeClassList}
+          edit={EmployeeClassEdit}
+          create={EmployeeClassCreate}
+          show={EmployeeClassShow}
+        />
+        <Resource
+          name="Employee"
+          list={EmployeeList}
+          edit={EmployeeEdit}
+          create={EmployeeCreate}
+          show={EmployeeShow}
+        />
+        <Resource
+          name="Tenant"
+          list={TenantList}
+          edit={TenantEdit}
+          create={TenantCreate}
+          show={TenantShow}
+        />
+        <Resource
+          name="Sale"
+          list={SaleList}
+          edit={SaleEdit}
+          create={SaleCreate}
+          show={SaleShow}
+        />
+        <Resource
+          name="SaleDetail"
+          list={SaleDetailList}
+          edit={SaleDetailEdit}
+          create={SaleDetailCreate}
+          show={SaleDetailShow}
+        />
+        <Resource
+          name="SaleQuotation"
+          list={SaleQuotationList}
+          edit={SaleQuotationEdit}
+          create={SaleQuotationCreate}
+          show={SaleQuotationShow}
+        />
+        <Resource
+          name="SaleReturn"
+          list={SaleReturnList}
+          edit={SaleReturnEdit}
+          create={SaleReturnCreate}
+          show={SaleReturnShow}
+        />
+        <Resource
+          name="SaleReturnDetail"
+          list={SaleReturnDetailList}
+          edit={SaleReturnDetailEdit}
+          create={SaleReturnDetailCreate}
+          show={SaleReturnDetailShow}
+        />
+        <Resource
+          name="Application"
+          list={ApplicationList}
+          edit={ApplicationEdit}
+          create={ApplicationCreate}
+          show={ApplicationShow}
+        />
+        <Resource
+          name="ApplicationDependency"
+          list={ApplicationDependencyList}
+          edit={ApplicationDependencyEdit}
+          create={ApplicationDependencyCreate}
+          show={ApplicationDependencyShow}
+        />
+        <Resource
+          name="SaleQuotationDetail"
+          list={SaleQuotationDetailList}
+          edit={SaleQuotationDetailEdit}
+          create={SaleQuotationDetailCreate}
+          show={SaleQuotationDetailShow}
         />
       </Admin>
     </div>

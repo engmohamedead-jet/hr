@@ -1,6 +1,10 @@
 import { Decimal } from "decimal.js";
 import { Currency } from "../currency/Currency";
 import { ProductionOrder } from "../productionOrder/ProductionOrder";
+import { SaleReturn } from "../saleReturn/SaleReturn";
+import { Sale } from "../sale/Sale";
+import { Supplier } from "../supplier/Supplier";
+import { Tenant } from "../tenant/Tenant";
 
 export type Customer = {
   DefaultSalePriceTypeId: number | null;
@@ -8,14 +12,14 @@ export type Customer = {
   code: string | null;
   createdAt: Date;
   credit: Decimal | null;
-  currency?: Currency | null;
+  currencyId?: Currency | null;
   debit: Decimal | null;
   description: string | null;
   email: string | null;
   firstBalance: Decimal | null;
   firstBalanceDate: Date | null;
   id: string;
-  isActive: boolean | null;
+  isActive: boolean;
   isSystem: boolean | null;
   isUnderRevision: boolean | null;
   maxAllowedDebit: Decimal | null;
@@ -26,8 +30,12 @@ export type Customer = {
   productionOrders?: Array<ProductionOrder>;
   revisionDate: Date | null;
   saleDiscountRate: Decimal | null;
+  saleReturns?: Array<SaleReturn>;
+  sales?: Array<Sale>;
   supplierId: string | null;
+  suppliers?: Array<Supplier>;
   taxNumber: string | null;
+  tenant?: Tenant | null;
   updatedAt: Date;
   website: string | null;
 };

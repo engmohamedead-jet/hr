@@ -10,10 +10,14 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Account as PrismaAccount,
   ProductGroup as PrismaProductGroup,
+  InstallmentSaleFee as PrismaInstallmentSaleFee,
+  SalePerson as PrismaSalePerson,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class AccountServiceBase {
@@ -72,6 +76,17 @@ export class AccountServiceBase {
         where: { id: parentId },
       })
       .costOfGoodsSoldAccountProductGroups(args);
+  }
+
+  async findInstallmentSaleFees(
+    parentId: string,
+    args: Prisma.InstallmentSaleFeeFindManyArgs
+  ): Promise<PrismaInstallmentSaleFee[]> {
+    return this.prisma.account
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .installmentSaleFees(args);
   }
 
   async findInventoryAccountProductGroups(
@@ -140,11 +155,30 @@ export class AccountServiceBase {
       .saleDiscountAccountProductGroups(args);
   }
 
+  async findSalePeople(
+    parentId: string,
+    args: Prisma.SalePersonFindManyArgs
+  ): Promise<PrismaSalePerson[]> {
+    return this.prisma.account
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .salePeople(args);
+  }
+
   async getParentAccountId(parentId: string): Promise<PrismaAccount | null> {
     return this.prisma.account
       .findUnique({
         where: { id: parentId },
       })
       .parentAccountId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.account
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

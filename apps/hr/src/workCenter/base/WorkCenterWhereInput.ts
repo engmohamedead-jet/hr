@@ -19,6 +19,7 @@ import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { WorkCenterRoutingListRelationFilter } from "../../workCenterRouting/base/WorkCenterRoutingListRelationFilter";
 
 @InputType()
@@ -157,14 +158,14 @@ class WorkCenterWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: IntFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  sequence?: IntNullableFilter;
+  sequence?: IntFilter;
 
   @ApiProperty({
     required: false,
@@ -187,6 +188,18 @@ class WorkCenterWhereInput {
     nullable: true,
   })
   stopTime?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,

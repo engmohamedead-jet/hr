@@ -11,36 +11,43 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { CashRepositoryListRelationFilter } from "./CashRepositoryListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
+import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
+import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
+import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CashRepositoryWhereInput {
   @ApiProperty({
     required: false,
-    type: () => CashRepositoryWhereUniqueInput,
+    type: () => CashRepositoryListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => CashRepositoryWhereUniqueInput)
+  @Type(() => CashRepositoryListRelationFilter)
   @IsOptional()
-  @Field(() => CashRepositoryWhereUniqueInput, {
+  @Field(() => CashRepositoryListRelationFilter, {
     nullable: true,
   })
-  cashRepositories?: CashRepositoryWhereUniqueInput;
+  cashRepositories?: CashRepositoryListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -63,6 +70,17 @@ class CashRepositoryWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -108,6 +126,66 @@ class CashRepositoryWhereInput {
     nullable: true,
   })
   parentCashRepositoryId?: CashRepositoryWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseReturnListRelationFilter, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PurchaseWhereUniqueInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleReturnListRelationFilter, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleListRelationFilter, {
+    nullable: true,
+  })
+  sales?: SaleListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { CashRepositoryWhereInput as CashRepositoryWhereInput };

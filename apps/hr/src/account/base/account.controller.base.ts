@@ -29,6 +29,12 @@ import { AccountUpdateInput } from "./AccountUpdateInput";
 import { ProductGroupFindManyArgs } from "../../productGroup/base/ProductGroupFindManyArgs";
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { ProductGroupWhereUniqueInput } from "../../productGroup/base/ProductGroupWhereUniqueInput";
+import { InstallmentSaleFeeFindManyArgs } from "../../installmentSaleFee/base/InstallmentSaleFeeFindManyArgs";
+import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
+import { InstallmentSaleFeeWhereUniqueInput } from "../../installmentSaleFee/base/InstallmentSaleFeeWhereUniqueInput";
+import { SalePersonFindManyArgs } from "../../salePerson/base/SalePersonFindManyArgs";
+import { SalePerson } from "../../salePerson/base/SalePerson";
+import { SalePersonWhereUniqueInput } from "../../salePerson/base/SalePersonWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -60,18 +66,31 @@ export class AccountControllerBase {
               connect: data.parentAccountId,
             }
           : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
       },
       select: {
         accountNumber: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isMasterAccount: true,
         name: true,
         normalizedName: true,
         note: true,
 
         parentAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -103,12 +122,19 @@ export class AccountControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isMasterAccount: true,
         name: true,
         normalizedName: true,
         note: true,
 
         parentAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -141,12 +167,19 @@ export class AccountControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isMasterAccount: true,
         name: true,
         normalizedName: true,
         note: true,
 
         parentAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -190,18 +223,31 @@ export class AccountControllerBase {
                 connect: data.parentAccountId,
               }
             : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
         },
         select: {
           accountNumber: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isMasterAccount: true,
           name: true,
           normalizedName: true,
           note: true,
 
           parentAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -242,12 +288,19 @@ export class AccountControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isMasterAccount: true,
           name: true,
           normalizedName: true,
           note: true,
 
           parentAccountId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -304,6 +357,7 @@ export class AccountControllerBase {
             },
           },
 
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
@@ -352,6 +406,12 @@ export class AccountControllerBase {
           },
 
           saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -471,6 +531,7 @@ export class AccountControllerBase {
           },
         },
 
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
@@ -519,6 +580,12 @@ export class AccountControllerBase {
         },
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -639,6 +706,7 @@ export class AccountControllerBase {
             },
           },
 
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
@@ -687,6 +755,12 @@ export class AccountControllerBase {
           },
 
           saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -771,6 +845,122 @@ export class AccountControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/installmentSaleFees")
+  @ApiNestedQuery(InstallmentSaleFeeFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "InstallmentSaleFee",
+    action: "read",
+    possession: "any",
+  })
+  async findInstallmentSaleFees(
+    @common.Req() request: Request,
+    @common.Param() params: AccountWhereUniqueInput
+  ): Promise<InstallmentSaleFee[]> {
+    const query = plainToClass(InstallmentSaleFeeFindManyArgs, request.query);
+    const results = await this.service.findInstallmentSaleFees(params.id, {
+      ...query,
+      select: {
+        accountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        code: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        isFlatAmount: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        rate: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/installmentSaleFees")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async connectInstallmentSaleFees(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: InstallmentSaleFeeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      installmentSaleFees: {
+        connect: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/installmentSaleFees")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async updateInstallmentSaleFees(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: InstallmentSaleFeeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      installmentSaleFees: {
+        set: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/installmentSaleFees")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectInstallmentSaleFees(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: InstallmentSaleFeeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      installmentSaleFees: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id/inventoryAccountProductGroups")
   @ApiNestedQuery(ProductGroupFindManyArgs)
   @nestAccessControl.UseRoles({
@@ -808,6 +998,7 @@ export class AccountControllerBase {
             },
           },
 
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
@@ -856,6 +1047,12 @@ export class AccountControllerBase {
           },
 
           saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -959,12 +1156,19 @@ export class AccountControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isMasterAccount: true,
         name: true,
         normalizedName: true,
         note: true,
 
         parentAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -1085,6 +1289,7 @@ export class AccountControllerBase {
             },
           },
 
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
@@ -1133,6 +1338,12 @@ export class AccountControllerBase {
           },
 
           saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -1254,6 +1465,7 @@ export class AccountControllerBase {
             },
           },
 
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
@@ -1302,6 +1514,12 @@ export class AccountControllerBase {
           },
 
           saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -1423,6 +1641,7 @@ export class AccountControllerBase {
             },
           },
 
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
@@ -1471,6 +1690,12 @@ export class AccountControllerBase {
           },
 
           saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -1592,6 +1817,7 @@ export class AccountControllerBase {
             },
           },
 
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
@@ -1640,6 +1866,12 @@ export class AccountControllerBase {
           },
 
           saleTaxId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -1713,6 +1945,135 @@ export class AccountControllerBase {
   ): Promise<void> {
     const data = {
       saleDiscountAccountProductGroups: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/salePeople")
+  @ApiNestedQuery(SalePersonFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SalePerson",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePeople(
+    @common.Req() request: Request,
+    @common.Param() params: AccountWhereUniqueInput
+  ): Promise<SalePerson[]> {
+    const query = plainToClass(SalePersonFindManyArgs, request.query);
+    const results = await this.service.findSalePeople(params.id, {
+      ...query,
+      select: {
+        accountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        address: true,
+        code: true,
+        commissionRate: true,
+        createdAt: true,
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        phoneNumber: true,
+        photo: true,
+
+        saleTeamId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/salePeople")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async connectSalePeople(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: SalePersonWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePeople: {
+        connect: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/salePeople")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async updateSalePeople(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: SalePersonWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePeople: {
+        set: body,
+      },
+    };
+    await this.service.updateAccount({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/salePeople")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSalePeople(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: SalePersonWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePeople: {
         disconnect: body,
       },
     };

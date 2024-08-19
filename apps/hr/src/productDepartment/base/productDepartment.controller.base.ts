@@ -55,9 +55,15 @@ export class ProductDepartmentControllerBase {
       data: {
         ...data,
 
-        parentProductDepartment: data.parentProductDepartment
+        parentProductDepartmentId: data.parentProductDepartmentId
           ? {
-              connect: data.parentProductDepartment,
+              connect: data.parentProductDepartmentId,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
             }
           : undefined,
       },
@@ -66,12 +72,19 @@ export class ProductDepartmentControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        parentProductDepartment: {
+        parentProductDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -105,12 +118,19 @@ export class ProductDepartmentControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        parentProductDepartment: {
+        parentProductDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -143,12 +163,19 @@ export class ProductDepartmentControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        parentProductDepartment: {
+        parentProductDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -187,9 +214,15 @@ export class ProductDepartmentControllerBase {
         data: {
           ...data,
 
-          parentProductDepartment: data.parentProductDepartment
+          parentProductDepartmentId: data.parentProductDepartmentId
             ? {
-                connect: data.parentProductDepartment,
+                connect: data.parentProductDepartmentId,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
               }
             : undefined,
         },
@@ -198,12 +231,19 @@ export class ProductDepartmentControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
 
-          parentProductDepartment: {
+          parentProductDepartmentId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -244,12 +284,19 @@ export class ProductDepartmentControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
 
-          parentProductDepartment: {
+          parentProductDepartmentId: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -288,12 +335,19 @@ export class ProductDepartmentControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        parentProductDepartment: {
+        parentProductDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -460,6 +514,12 @@ export class ProductDepartmentControllerBase {
         salePriceIncludesTax: true,
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

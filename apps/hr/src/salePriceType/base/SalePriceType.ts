@@ -17,8 +17,16 @@ import {
   IsOptional,
   IsDate,
   IsInt,
+  IsBoolean,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
+import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
+import { SaleReturn } from "../../saleReturn/base/SaleReturn";
+import { Sale } from "../../sale/base/Sale";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class SalePriceType {
@@ -64,6 +72,14 @@ class SalePriceType {
 
   @ApiProperty({
     required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
@@ -91,6 +107,60 @@ class SalePriceType {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetail,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetail)
+  @IsOptional()
+  saleDetails?: SaleDetail | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetail,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetail)
+  @IsOptional()
+  saleQuotationDetails?: SaleQuotationDetail | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetail,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetail)
+  @IsOptional()
+  saleReturnDetails?: SaleReturnDetail | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturn,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturn)
+  @IsOptional()
+  saleReturns?: SaleReturn | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Sale,
+  })
+  @ValidateNested()
+  @Type(() => Sale)
+  @IsOptional()
+  sales?: Sale | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

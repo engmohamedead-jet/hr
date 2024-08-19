@@ -15,10 +15,12 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { ProductBarcodeCreateNestedManyWithoutBarcodeTypesInput } from "./ProductBarcodeCreateNestedManyWithoutBarcodeTypesInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class BarcodeTypeCreateInput {
@@ -45,6 +47,14 @@ class BarcodeTypeCreateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -87,6 +97,18 @@ class BarcodeTypeCreateInput {
     nullable: true,
   })
   productBarcodes?: ProductBarcodeCreateNestedManyWithoutBarcodeTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { BarcodeTypeCreateInput as BarcodeTypeCreateInput };

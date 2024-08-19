@@ -1,0 +1,30 @@
+import { Decimal } from "decimal.js";
+import { Product } from "../product/Product";
+import { ProductVariant } from "../productVariant/ProductVariant";
+import { SalePriceType } from "../salePriceType/SalePriceType";
+import { SaleReturn } from "../saleReturn/SaleReturn";
+import { Tenant } from "../tenant/Tenant";
+import { Unit } from "../unit/Unit";
+
+export type SaleReturnDetail = {
+  barcode: string | null;
+  createdAt: Date;
+  discount: Decimal | null;
+  discountRate: Decimal | null;
+  id: string;
+  isActive: boolean;
+  isError: boolean;
+  isReplicated: boolean;
+  price: Decimal;
+  priceTotal: Decimal;
+  productId?: Product;
+  productSerialNumber: string | null;
+  productVariantId?: ProductVariant | null;
+  quantity: Decimal | null;
+  salePriceType?: SalePriceType | null;
+  saleReturnId?: SaleReturn;
+  sequence: number;
+  tenantId?: Tenant | null;
+  unitId?: Unit;
+  updatedAt: Date;
+};

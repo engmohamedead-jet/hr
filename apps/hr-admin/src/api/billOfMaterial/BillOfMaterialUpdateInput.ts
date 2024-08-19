@@ -4,6 +4,7 @@ import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
 import { ProductVariantWhereUniqueInput } from "../productVariant/ProductVariantWhereUniqueInput";
 import { ProductionOrderUpdateManyWithoutBillOfMaterialsInput } from "./ProductionOrderUpdateManyWithoutBillOfMaterialsInput";
 import { Decimal } from "decimal.js";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../unit/UnitWhereUniqueInput";
 
 export type BillOfMaterialUpdateInput = {
@@ -12,7 +13,7 @@ export type BillOfMaterialUpdateInput = {
   code?: string;
   daysToPrepareManufacturingOrder?: number;
   endDate?: Date | null;
-  isActive?: boolean | null;
+  isActive?: boolean;
   note?: string | null;
   productId?: ProductWhereUniqueInput;
   productVariantId?: ProductVariantWhereUniqueInput | null;
@@ -20,5 +21,6 @@ export type BillOfMaterialUpdateInput = {
   quantity?: Decimal | null;
   sequence?: number | null;
   startDate?: Date | null;
+  tenantId?: TenantWhereUniqueInput | null;
   unitId?: UnitWhereUniqueInput;
 };

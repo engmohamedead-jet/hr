@@ -15,11 +15,13 @@ import { AttributeWhereUniqueInput } from "../../attribute/base/AttributeWhereUn
 import {
   ValidateNested,
   IsOptional,
+  IsBoolean,
   IsString,
   MaxLength,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ProductVariantUpdateManyWithoutAttributeValuesInput } from "./ProductVariantUpdateManyWithoutAttributeValuesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AttributeValueUpdateInput {
@@ -34,6 +36,17 @@ class AttributeValueUpdateInput {
     nullable: true,
   })
   attributeId?: AttributeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -58,6 +71,18 @@ class AttributeValueUpdateInput {
     nullable: true,
   })
   productVariants?: ProductVariantUpdateManyWithoutAttributeValuesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

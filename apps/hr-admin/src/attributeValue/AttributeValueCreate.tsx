@@ -6,6 +6,7 @@ import {
   CreateProps,
   ReferenceInput,
   SelectInput,
+  BooleanInput,
   TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
@@ -13,6 +14,7 @@ import {
 
 import { AttributeTitle } from "../attribute/AttributeTitle";
 import { ProductVariantTitle } from "../productVariant/ProductVariantTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const AttributeValueCreate = (
   props: CreateProps
@@ -27,6 +29,7 @@ export const AttributeValueCreate = (
         >
           <SelectInput optionText={AttributeTitle} />
         </ReferenceInput>
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Note" multiline source="note" />
         <ReferenceArrayInput
           source="productVariants"
@@ -36,6 +39,13 @@ export const AttributeValueCreate = (
         >
           <SelectArrayInput optionText={ProductVariantTitle} />
         </ReferenceArrayInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
         <TextInput label="Value" source="value" />
       </SimpleForm>
     </Create>

@@ -26,6 +26,7 @@ import {
 import { Type } from "class-transformer";
 import { Period } from "../../period/base/Period";
 import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class PaymentTerm {
@@ -62,27 +63,13 @@ class PaymentTerm {
   description!: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Number,
   })
   @IsInt()
   @Max(99999999999)
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  dueDays!: number | null;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  dueOnDate!: Date | null;
+  @Field(() => Number)
+  dueDays!: number;
 
   @ApiProperty({
     required: false,
@@ -94,16 +81,13 @@ class PaymentTerm {
   duePeriodId?: Period | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Number,
   })
   @IsInt()
   @Max(99999999999)
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  gracePeriod!: number | null;
+  @Field(() => Number)
+  gracePeriod!: number;
 
   @ApiProperty({
     required: true,
@@ -129,7 +113,15 @@ class PaymentTerm {
   @ValidateNested()
   @Type(() => Period)
   @IsOptional()
-  installmentSaleFeePostingPeriodId?: Period | null;
+  installmentSaleFeePostingPeriod?: Period | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -144,15 +136,32 @@ class PaymentTerm {
 
   @ApiProperty({
     required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isDueOnDate!: boolean | null;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
+  @Field(() => String)
+  name!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
   })
-  name!: string | null;
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  normalizedName!: string;
 
   @ApiProperty({
     required: false,
@@ -164,7 +173,16 @@ class PaymentTerm {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName!: string | null;
+  note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

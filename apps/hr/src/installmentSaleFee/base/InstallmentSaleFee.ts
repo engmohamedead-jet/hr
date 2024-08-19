@@ -27,6 +27,7 @@ import {
 import { Type } from "class-transformer";
 import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { Decimal } from "decimal.js";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class InstallmentSaleFee {
@@ -37,7 +38,7 @@ class InstallmentSaleFee {
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  account?: Account | null;
+  accountId?: Account | null;
 
   @ApiProperty({
     required: false,
@@ -78,6 +79,14 @@ class InstallmentSaleFee {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -134,12 +143,21 @@ class InstallmentSaleFee {
     type: Number,
   })
   @IsNumber()
-  @Max(99999999999)
+  @Max(100)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   rate!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

@@ -72,7 +72,7 @@ class PeriodOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  installmentSaleFeePostingPeriodId?: SortOrder;
+  isActive?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -116,7 +116,7 @@ class PeriodOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  paymentTermsId?: SortOrder;
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

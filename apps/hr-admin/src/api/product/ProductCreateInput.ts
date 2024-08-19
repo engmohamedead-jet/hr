@@ -9,9 +9,16 @@ import { ProductCategoryWhereUniqueInput } from "../productCategory/ProductCateg
 import { ProductDepartmentWhereUniqueInput } from "../productDepartment/ProductDepartmentWhereUniqueInput";
 import { ProductGroupWhereUniqueInput } from "../productGroup/ProductGroupWhereUniqueInput";
 import { ProductTypeWhereUniqueInput } from "../productType/ProductTypeWhereUniqueInput";
+import { ProductUnitCreateNestedManyWithoutProductsInput } from "./ProductUnitCreateNestedManyWithoutProductsInput";
 import { ProductVariantCreateNestedManyWithoutProductsInput } from "./ProductVariantCreateNestedManyWithoutProductsInput";
 import { ProductionOrderCreateNestedManyWithoutProductsInput } from "./ProductionOrderCreateNestedManyWithoutProductsInput";
+import { PurchaseDetailCreateNestedManyWithoutProductsInput } from "./PurchaseDetailCreateNestedManyWithoutProductsInput";
+import { PurchaseReturnDetailCreateNestedManyWithoutProductsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutProductsInput";
+import { SaleDetailCreateNestedManyWithoutProductsInput } from "./SaleDetailCreateNestedManyWithoutProductsInput";
+import { SaleQuotationDetailCreateNestedManyWithoutProductsInput } from "./SaleQuotationDetailCreateNestedManyWithoutProductsInput";
+import { SaleReturnDetailCreateNestedManyWithoutProductsInput } from "./SaleReturnDetailCreateNestedManyWithoutProductsInput";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type ProductCreateInput = {
   barcode?: string | null;
@@ -45,11 +52,18 @@ export type ProductCreateInput = {
   productDepartmentId?: ProductDepartmentWhereUniqueInput | null;
   productGroupId?: ProductGroupWhereUniqueInput | null;
   productTypeId: ProductTypeWhereUniqueInput;
+  productUnits?: ProductUnitCreateNestedManyWithoutProductsInput;
   productVariants?: ProductVariantCreateNestedManyWithoutProductsInput;
   productionOrders?: ProductionOrderCreateNestedManyWithoutProductsInput;
   profitRate?: Decimal | null;
+  purchaseDetails?: PurchaseDetailCreateNestedManyWithoutProductsInput;
+  purchaseReturnDetails?: PurchaseReturnDetailCreateNestedManyWithoutProductsInput;
   reorderQuantity?: Decimal | null;
+  saleDetails?: SaleDetailCreateNestedManyWithoutProductsInput;
   salePrice: Decimal;
   salePriceIncludesTax: boolean;
+  saleQuotationDetails?: SaleQuotationDetailCreateNestedManyWithoutProductsInput;
+  saleReturnDetails?: SaleReturnDetailCreateNestedManyWithoutProductsInput;
   saleTaxId?: SaleTaxWhereUniqueInput | null;
+  tenantId?: TenantWhereUniqueInput | null;
 };

@@ -6,7 +6,7 @@ export type CustomerOrderByInput = {
   code?: SortOrder;
   createdAt?: SortOrder;
   credit?: SortOrder;
-  currencyId?: SortOrder;
+  currencyIdId?: SortOrder;
   debit?: SortOrder;
   description?: SortOrder;
   email?: SortOrder;
@@ -25,6 +25,7 @@ export type CustomerOrderByInput = {
   saleDiscountRate?: SortOrder;
   supplierId?: SortOrder;
   taxNumber?: SortOrder;
+  tenantId?: SortOrder;
   updatedAt?: SortOrder;
   website?: SortOrder;
 };

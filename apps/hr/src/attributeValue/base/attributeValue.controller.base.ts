@@ -58,6 +58,12 @@ export class AttributeValueControllerBase {
         attributeId: {
           connect: data.attributeId,
         },
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
       },
       select: {
         attributeId: {
@@ -68,7 +74,15 @@ export class AttributeValueControllerBase {
 
         createdAt: true,
         id: true,
+        isActive: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         value: true,
       },
@@ -102,7 +116,15 @@ export class AttributeValueControllerBase {
 
         createdAt: true,
         id: true,
+        isActive: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         value: true,
       },
@@ -135,7 +157,15 @@ export class AttributeValueControllerBase {
 
         createdAt: true,
         id: true,
+        isActive: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         value: true,
       },
@@ -173,6 +203,12 @@ export class AttributeValueControllerBase {
           attributeId: {
             connect: data.attributeId,
           },
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
         },
         select: {
           attributeId: {
@@ -183,7 +219,15 @@ export class AttributeValueControllerBase {
 
           createdAt: true,
           id: true,
+          isActive: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           value: true,
         },
@@ -224,7 +268,15 @@ export class AttributeValueControllerBase {
 
           createdAt: true,
           id: true,
+          isActive: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           value: true,
         },
@@ -263,9 +315,16 @@ export class AttributeValueControllerBase {
 
         createdAt: true,
         id: true,
+        isActive: true,
         note: true,
 
         productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

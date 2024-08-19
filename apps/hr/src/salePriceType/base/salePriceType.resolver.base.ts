@@ -26,6 +26,12 @@ import { SalePriceTypeFindUniqueArgs } from "./SalePriceTypeFindUniqueArgs";
 import { CreateSalePriceTypeArgs } from "./CreateSalePriceTypeArgs";
 import { UpdateSalePriceTypeArgs } from "./UpdateSalePriceTypeArgs";
 import { DeleteSalePriceTypeArgs } from "./DeleteSalePriceTypeArgs";
+import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
+import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
+import { SaleReturn } from "../../saleReturn/base/SaleReturn";
+import { Sale } from "../../sale/base/Sale";
+import { Tenant } from "../../tenant/base/Tenant";
 import { SalePriceTypeService } from "../salePriceType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => SalePriceType)
@@ -92,7 +98,45 @@ export class SalePriceTypeResolverBase {
   ): Promise<SalePriceType> {
     return await this.service.createSalePriceType({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        saleDetails: args.data.saleDetails
+          ? {
+              connect: args.data.saleDetails,
+            }
+          : undefined,
+
+        saleQuotationDetails: args.data.saleQuotationDetails
+          ? {
+              connect: args.data.saleQuotationDetails,
+            }
+          : undefined,
+
+        saleReturnDetails: args.data.saleReturnDetails
+          ? {
+              connect: args.data.saleReturnDetails,
+            }
+          : undefined,
+
+        saleReturns: args.data.saleReturns
+          ? {
+              connect: args.data.saleReturns,
+            }
+          : undefined,
+
+        sales: args.data.sales
+          ? {
+              connect: args.data.sales,
+            }
+          : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +153,45 @@ export class SalePriceTypeResolverBase {
     try {
       return await this.service.updateSalePriceType({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          saleDetails: args.data.saleDetails
+            ? {
+                connect: args.data.saleDetails,
+              }
+            : undefined,
+
+          saleQuotationDetails: args.data.saleQuotationDetails
+            ? {
+                connect: args.data.saleQuotationDetails,
+              }
+            : undefined,
+
+          saleReturnDetails: args.data.saleReturnDetails
+            ? {
+                connect: args.data.saleReturnDetails,
+              }
+            : undefined,
+
+          saleReturns: args.data.saleReturns
+            ? {
+                connect: args.data.saleReturns,
+              }
+            : undefined,
+
+          sales: args.data.sales
+            ? {
+                connect: args.data.sales,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +222,131 @@ export class SalePriceTypeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SaleDetail, {
+    nullable: true,
+    name: "saleDetails",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleDetail",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleDetails(
+    @graphql.Parent() parent: SalePriceType
+  ): Promise<SaleDetail | null> {
+    const result = await this.service.getSaleDetails(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SaleQuotationDetail, {
+    nullable: true,
+    name: "saleQuotationDetails",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleQuotationDetail",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleQuotationDetails(
+    @graphql.Parent() parent: SalePriceType
+  ): Promise<SaleQuotationDetail | null> {
+    const result = await this.service.getSaleQuotationDetails(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SaleReturnDetail, {
+    nullable: true,
+    name: "saleReturnDetails",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleReturnDetail",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleReturnDetails(
+    @graphql.Parent() parent: SalePriceType
+  ): Promise<SaleReturnDetail | null> {
+    const result = await this.service.getSaleReturnDetails(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SaleReturn, {
+    nullable: true,
+    name: "saleReturns",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleReturn",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleReturns(
+    @graphql.Parent() parent: SalePriceType
+  ): Promise<SaleReturn | null> {
+    const result = await this.service.getSaleReturns(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Sale, {
+    nullable: true,
+    name: "sales",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Sale",
+    action: "read",
+    possession: "any",
+  })
+  async getSales(
+    @graphql.Parent() parent: SalePriceType
+  ): Promise<Sale | null> {
+    const result = await this.service.getSales(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: SalePriceType
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

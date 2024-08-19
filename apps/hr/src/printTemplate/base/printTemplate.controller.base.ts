@@ -57,6 +57,12 @@ export class PrintTemplateControllerBase {
               connect: data.printTemplateContents,
             }
           : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
       },
       select: {
         code: true,
@@ -64,6 +70,7 @@ export class PrintTemplateControllerBase {
         description: true,
         filePath: true,
         id: true,
+        isActive: true,
         isCustomized: true,
         isFavourite: true,
         name: true,
@@ -74,6 +81,12 @@ export class PrintTemplateControllerBase {
         previewImage: true,
 
         printTemplateContents: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -108,6 +121,7 @@ export class PrintTemplateControllerBase {
         description: true,
         filePath: true,
         id: true,
+        isActive: true,
         isCustomized: true,
         isFavourite: true,
         name: true,
@@ -118,6 +132,12 @@ export class PrintTemplateControllerBase {
         previewImage: true,
 
         printTemplateContents: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -151,6 +171,7 @@ export class PrintTemplateControllerBase {
         description: true,
         filePath: true,
         id: true,
+        isActive: true,
         isCustomized: true,
         isFavourite: true,
         name: true,
@@ -161,6 +182,12 @@ export class PrintTemplateControllerBase {
         previewImage: true,
 
         printTemplateContents: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -204,6 +231,12 @@ export class PrintTemplateControllerBase {
                 connect: data.printTemplateContents,
               }
             : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
         },
         select: {
           code: true,
@@ -211,6 +244,7 @@ export class PrintTemplateControllerBase {
           description: true,
           filePath: true,
           id: true,
+          isActive: true,
           isCustomized: true,
           isFavourite: true,
           name: true,
@@ -221,6 +255,12 @@ export class PrintTemplateControllerBase {
           previewImage: true,
 
           printTemplateContents: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -262,6 +302,7 @@ export class PrintTemplateControllerBase {
           description: true,
           filePath: true,
           id: true,
+          isActive: true,
           isCustomized: true,
           isFavourite: true,
           name: true,
@@ -272,6 +313,12 @@ export class PrintTemplateControllerBase {
           previewImage: true,
 
           printTemplateContents: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },

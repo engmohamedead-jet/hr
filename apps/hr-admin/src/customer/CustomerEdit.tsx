@@ -16,6 +16,10 @@ import {
 
 import { CurrencyTitle } from "../currency/CurrencyTitle";
 import { ProductionOrderTitle } from "../productionOrder/ProductionOrderTitle";
+import { SaleReturnTitle } from "../saleReturn/SaleReturnTitle";
+import { SaleTitle } from "../sale/SaleTitle";
+import { SupplierTitle } from "../supplier/SupplierTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const CustomerEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -29,9 +33,9 @@ export const CustomerEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="Code" source="code" />
         <NumberInput label="Credit" source="credit" />
         <ReferenceInput
-          source="currency.id"
+          source="currencyId.id"
           reference="Currency"
-          label="Currency"
+          label="CurrencyId"
         >
           <SelectInput optionText={CurrencyTitle} />
         </ReferenceInput>
@@ -58,8 +62,35 @@ export const CustomerEdit = (props: EditProps): React.ReactElement => {
         </ReferenceArrayInput>
         <DateTimeInput label="RevisionDate" source="revisionDate" />
         <NumberInput label="SaleDiscountRate" source="saleDiscountRate" />
+        <ReferenceArrayInput
+          source="saleReturns"
+          reference="SaleReturn"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleReturnTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="sales"
+          reference="Sale"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleTitle} />
+        </ReferenceArrayInput>
         <TextInput label="SupplierId" source="supplierId" />
+        <ReferenceArrayInput
+          source="suppliers"
+          reference="Supplier"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SupplierTitle} />
+        </ReferenceArrayInput>
         <TextInput label="TaxNumber" source="taxNumber" />
+        <ReferenceInput source="tenant.id" reference="Tenant" label="TenantId">
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
         <TextInput label="Website" source="website" />
       </SimpleForm>
     </Edit>

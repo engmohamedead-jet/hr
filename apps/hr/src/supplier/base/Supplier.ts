@@ -9,18 +9,28 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+
 import {
   IsString,
   MaxLength,
   IsOptional,
   IsDate,
+  IsNumber,
+  Min,
+  Max,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
+
 import { Type } from "class-transformer";
+import { Decimal } from "decimal.js";
 import { Currency } from "../../currency/base/Currency";
 import { Customer } from "../../customer/base/Customer";
+import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
+import { Purchase } from "../../purchase/base/Purchase";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class Supplier {
@@ -58,15 +68,16 @@ class Supplier {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Number,
   })
-  @IsString()
-  @MaxLength(1000)
+  @IsNumber()
+  @Min(-99999999999)
+  @Max(99999999999)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Float, {
     nullable: true,
   })
-  credit!: string | null;
+  credit!: Decimal | null;
 
   @ApiProperty({
     required: false,
@@ -75,28 +86,29 @@ class Supplier {
   @ValidateNested()
   @Type(() => Currency)
   @IsOptional()
-  currencyId?: Currency | null;
+  currency?: Currency | null;
 
   @ApiProperty({
     required: false,
-    type: () => [Customer],
+    type: () => Customer,
   })
   @ValidateNested()
   @Type(() => Customer)
   @IsOptional()
-  customers?: Array<Customer>;
+  customerId?: Customer | null;
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Number,
   })
-  @IsString()
-  @MaxLength(1000)
+  @IsNumber()
+  @Min(-99999999999)
+  @Max(99999999999)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Float, {
     nullable: true,
   })
-  debit!: string | null;
+  debit!: Decimal | null;
 
   @ApiProperty({
     required: false,
@@ -130,28 +142,30 @@ class Supplier {
   id!: string;
 
   @ApiProperty({
-    required: false,
-    type: String,
+    required: true,
+    type: Boolean,
   })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name!: string | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
+  @Field(() => String)
+  name!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
   })
-  normalizedName!: string | null;
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  normalizedName!: string;
 
   @ApiProperty({
     required: false,
@@ -176,6 +190,33 @@ class Supplier {
     nullable: true,
   })
   phoneNumber!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PurchaseReturn],
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturn)
+  @IsOptional()
+  purchaseReturns?: Array<PurchaseReturn>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Purchase],
+  })
+  @ValidateNested()
+  @Type(() => Purchase)
+  @IsOptional()
+  purchases?: Array<Purchase>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

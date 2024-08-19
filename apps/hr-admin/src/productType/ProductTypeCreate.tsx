@@ -8,15 +8,19 @@ import {
   BooleanInput,
   ReferenceArrayInput,
   SelectArrayInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
 import { ProductTitle } from "../product/ProductTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const ProductTypeCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
         <TextInput label="Code" source="code" />
+        <BooleanInput label="IsActive" source="isActive" />
         <BooleanInput label="IsComponent" source="isComponent" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
@@ -29,6 +33,13 @@ export const ProductTypeCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ProductTitle} />
         </ReferenceArrayInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Create>
   );

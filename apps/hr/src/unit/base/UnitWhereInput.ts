@@ -17,9 +17,18 @@ import { Type } from "class-transformer";
 import { BillOfMaterialListRelationFilter } from "../../billOfMaterial/base/BillOfMaterialListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { ProductUnitWhereUniqueInput } from "../../productUnit/base/ProductUnitWhereUniqueInput";
+import { ProductUnitListRelationFilter } from "../../productUnit/base/ProductUnitListRelationFilter";
 import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
+import { PurchaseDetailListRelationFilter } from "../../purchaseDetail/base/PurchaseDetailListRelationFilter";
+import { PurchaseReturnDetailListRelationFilter } from "../../purchaseReturnDetail/base/PurchaseReturnDetailListRelationFilter";
+import { SaleDetailListRelationFilter } from "../../saleDetail/base/SaleDetailListRelationFilter";
+import { SaleQuotationDetailListRelationFilter } from "../../saleQuotationDetail/base/SaleQuotationDetailListRelationFilter";
+import { SaleReturnDetailListRelationFilter } from "../../saleReturnDetail/base/SaleReturnDetailListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class UnitWhereInput {
@@ -82,6 +91,17 @@ class UnitWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
     type: BooleanNullableFilter,
   })
   @Type(() => BooleanNullableFilter)
@@ -137,6 +157,30 @@ class UnitWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductUnitWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUnitWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProductUnitWhereUniqueInput, {
+    nullable: true,
+  })
+  productUnitCompareUnits?: ProductUnitWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductUnitListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductUnitListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductUnitListRelationFilter, {
+    nullable: true,
+  })
+  productUnits?: ProductUnitListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductionOrderListRelationFilter,
   })
   @ValidateNested()
@@ -158,6 +202,78 @@ class UnitWhereInput {
     nullable: true,
   })
   products?: ProductListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseDetailListRelationFilter, {
+    nullable: true,
+  })
+  purchaseDetails?: PurchaseDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseReturnDetailListRelationFilter, {
+    nullable: true,
+  })
+  purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleReturnDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { UnitWhereInput as UnitWhereInput };

@@ -11,7 +11,15 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsString, MaxLength, IsOptional } from "class-validator";
+import {
+  IsBoolean,
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+} from "class-validator";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class ProductionDocumentCreateInput {
@@ -46,6 +54,18 @@ class ProductionDocumentCreateInput {
     nullable: true,
   })
   priority?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductionDocumentCreateInput as ProductionDocumentCreateInput };

@@ -72,6 +72,12 @@ export class BillOfMaterialControllerBase {
             }
           : undefined,
 
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+
         unitId: {
           connect: data.unitId,
         },
@@ -106,6 +112,12 @@ export class BillOfMaterialControllerBase {
         quantity: true,
         sequence: true,
         startDate: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
 
         unitId: {
           select: {
@@ -167,6 +179,12 @@ export class BillOfMaterialControllerBase {
         sequence: true,
         startDate: true,
 
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         unitId: {
           select: {
             id: true,
@@ -226,6 +244,12 @@ export class BillOfMaterialControllerBase {
         sequence: true,
         startDate: true,
 
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         unitId: {
           select: {
             id: true,
@@ -279,6 +303,12 @@ export class BillOfMaterialControllerBase {
               }
             : undefined,
 
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+
           unitId: {
             connect: data.unitId,
           },
@@ -313,6 +343,12 @@ export class BillOfMaterialControllerBase {
           quantity: true,
           sequence: true,
           startDate: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
 
           unitId: {
             select: {
@@ -381,6 +417,12 @@ export class BillOfMaterialControllerBase {
           sequence: true,
           startDate: true,
 
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           unitId: {
             select: {
               id: true,
@@ -443,6 +485,12 @@ export class BillOfMaterialControllerBase {
 
         quantity: true,
         sequence: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
 
         unitId: {
           select: {
@@ -568,6 +616,7 @@ export class BillOfMaterialControllerBase {
         description: true,
         finishDate: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
@@ -590,6 +639,12 @@ export class BillOfMaterialControllerBase {
         startDate: true,
 
         storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

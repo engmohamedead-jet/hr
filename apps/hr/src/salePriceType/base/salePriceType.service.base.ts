@@ -10,7 +10,17 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, SalePriceType as PrismaSalePriceType } from "@prisma/client";
+
+import {
+  Prisma,
+  SalePriceType as PrismaSalePriceType,
+  SaleDetail as PrismaSaleDetail,
+  SaleQuotationDetail as PrismaSaleQuotationDetail,
+  SaleReturnDetail as PrismaSaleReturnDetail,
+  SaleReturn as PrismaSaleReturn,
+  Sale as PrismaSale,
+  Tenant as PrismaTenant,
+} from "@prisma/client";
 
 export class SalePriceTypeServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +55,57 @@ export class SalePriceTypeServiceBase {
     args: Prisma.SalePriceTypeDeleteArgs
   ): Promise<PrismaSalePriceType> {
     return this.prisma.salePriceType.delete(args);
+  }
+
+  async getSaleDetails(parentId: number): Promise<PrismaSaleDetail | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleDetails();
+  }
+
+  async getSaleQuotationDetails(
+    parentId: number
+  ): Promise<PrismaSaleQuotationDetail | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleQuotationDetails();
+  }
+
+  async getSaleReturnDetails(
+    parentId: number
+  ): Promise<PrismaSaleReturnDetail | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleReturnDetails();
+  }
+
+  async getSaleReturns(parentId: number): Promise<PrismaSaleReturn | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleReturns();
+  }
+
+  async getSales(parentId: number): Promise<PrismaSale | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .sales();
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

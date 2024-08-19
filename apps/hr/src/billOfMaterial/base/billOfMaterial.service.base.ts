@@ -19,6 +19,7 @@ import {
   BillOfMaterialType as PrismaBillOfMaterialType,
   Product as PrismaProduct,
   ProductVariant as PrismaProductVariant,
+  Tenant as PrismaTenant,
   Unit as PrismaUnit,
 } from "@prisma/client";
 
@@ -105,6 +106,14 @@ export class BillOfMaterialServiceBase {
         where: { id: parentId },
       })
       .productVariantId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.billOfMaterial
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 
   async getUnitId(parentId: string): Promise<PrismaUnit | null> {

@@ -5,8 +5,10 @@ export type EmployeeClassOrderByInput = {
   createdAt?: SortOrder;
   description?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
-  notes?: SortOrder;
+  note?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

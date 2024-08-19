@@ -6,6 +6,7 @@ import {
   EditProps,
   ReferenceInput,
   SelectInput,
+  BooleanInput,
   TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
@@ -13,6 +14,7 @@ import {
 
 import { AttributeTitle } from "../attribute/AttributeTitle";
 import { ProductVariantTitle } from "../productVariant/ProductVariantTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const AttributeValueEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -25,6 +27,7 @@ export const AttributeValueEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={AttributeTitle} />
         </ReferenceInput>
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Note" multiline source="note" />
         <ReferenceArrayInput
           source="productVariants"
@@ -34,6 +37,13 @@ export const AttributeValueEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ProductVariantTitle} />
         </ReferenceArrayInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
         <TextInput label="Value" source="value" />
       </SimpleForm>
     </Edit>

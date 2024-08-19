@@ -27,6 +27,7 @@ import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { PrintTemplateContent } from "../../printTemplateContent/base/PrintTemplateContent";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class PrintTemplate {
@@ -81,6 +82,17 @@ class PrintTemplate {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive!: boolean | null;
 
   @ApiProperty({
     required: true,
@@ -180,6 +192,15 @@ class PrintTemplate {
   @Type(() => PrintTemplateContent)
   @IsOptional()
   printTemplateContents?: PrintTemplateContent | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

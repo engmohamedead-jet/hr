@@ -16,11 +16,13 @@ import {
   MaxLength,
   IsOptional,
   IsDate,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { Product } from "../../product/base/Product";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class SaleTax {
@@ -63,6 +65,14 @@ class SaleTax {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -111,6 +121,15 @@ class SaleTax {
   @Type(() => Product)
   @IsOptional()
   products?: Array<Product>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

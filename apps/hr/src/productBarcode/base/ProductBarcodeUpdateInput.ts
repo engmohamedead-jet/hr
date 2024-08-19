@@ -16,11 +16,13 @@ import {
   MaxLength,
   IsOptional,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
 import { BarcodeTypeWhereUniqueInput } from "../../barcodeType/base/BarcodeTypeWhereUniqueInput";
 import { Type } from "class-transformer";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 import { ProductVariantWhereUniqueInput } from "../../productVariant/base/ProductVariantWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductBarcodeUpdateInput {
@@ -47,6 +49,17 @@ class ProductBarcodeUpdateInput {
     nullable: true,
   })
   barcodeTypeId?: BarcodeTypeWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -83,6 +96,18 @@ class ProductBarcodeUpdateInput {
     nullable: true,
   })
   productVariantId?: ProductVariantWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductBarcodeUpdateInput as ProductBarcodeUpdateInput };

@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   List,
   Datagrid,
@@ -6,10 +7,13 @@ import {
   ReferenceField,
   TextField,
   DateField,
+  BooleanField,
 } from "react-admin";
+
 import Pagination from "../Components/Pagination";
 import { ATTRIBUTEVALUE_TITLE_FIELD } from "../attributeValue/AttributeValueTitle";
 import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const ProductVariantList = (props: ListProps): React.ReactElement => {
   return (
@@ -30,6 +34,7 @@ export const ProductVariantList = (props: ListProps): React.ReactElement => {
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <TextField label="Note" source="note" />
         <ReferenceField
           label="ProductId"
@@ -37,6 +42,9 @@ export const ProductVariantList = (props: ListProps): React.ReactElement => {
           reference="Product"
         >
           <TextField source={PRODUCT_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

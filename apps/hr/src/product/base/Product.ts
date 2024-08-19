@@ -39,9 +39,16 @@ import { ProductCategory } from "../../productCategory/base/ProductCategory";
 import { ProductDepartment } from "../../productDepartment/base/ProductDepartment";
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { ProductType } from "../../productType/base/ProductType";
+import { ProductUnit } from "../../productUnit/base/ProductUnit";
 import { ProductVariant } from "../../productVariant/base/ProductVariant";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { PurchaseDetail } from "../../purchaseDetail/base/PurchaseDetail";
+import { PurchaseReturnDetail } from "../../purchaseReturnDetail/base/PurchaseReturnDetail";
+import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
+import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
 import { SaleTax } from "../../saleTax/base/SaleTax";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class Product {
@@ -377,6 +384,15 @@ class Product {
 
   @ApiProperty({
     required: false,
+    type: () => [ProductUnit],
+  })
+  @ValidateNested()
+  @Type(() => ProductUnit)
+  @IsOptional()
+  productUnits?: Array<ProductUnit>;
+
+  @ApiProperty({
+    required: false,
     type: () => [ProductVariant],
   })
   @ValidateNested()
@@ -407,6 +423,24 @@ class Product {
 
   @ApiProperty({
     required: false,
+    type: () => [PurchaseDetail],
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetail)
+  @IsOptional()
+  purchaseDetails?: Array<PurchaseDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PurchaseReturnDetail],
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetail)
+  @IsOptional()
+  purchaseReturnDetails?: Array<PurchaseReturnDetail>;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
@@ -416,6 +450,15 @@ class Product {
     nullable: true,
   })
   reorderQuantity!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleDetail],
+  })
+  @ValidateNested()
+  @Type(() => SaleDetail)
+  @IsOptional()
+  saleDetails?: Array<SaleDetail>;
 
   @ApiProperty({
     required: true,
@@ -436,12 +479,39 @@ class Product {
 
   @ApiProperty({
     required: false,
+    type: () => [SaleQuotationDetail],
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetail)
+  @IsOptional()
+  saleQuotationDetails?: Array<SaleQuotationDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleReturnDetail],
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetail)
+  @IsOptional()
+  saleReturnDetails?: Array<SaleReturnDetail>;
+
+  @ApiProperty({
+    required: false,
     type: () => SaleTax,
   })
   @ValidateNested()
   @Type(() => SaleTax)
   @IsOptional()
   saleTaxId?: SaleTax | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

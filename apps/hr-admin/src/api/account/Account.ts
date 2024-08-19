@@ -1,4 +1,7 @@
 import { ProductGroup } from "../productGroup/ProductGroup";
+import { InstallmentSaleFee } from "../installmentSaleFee/InstallmentSaleFee";
+import { SalePerson } from "../salePerson/SalePerson";
+import { Tenant } from "../tenant/Tenant";
 
 export type Account = {
   SaleReturnAccountProductGroups?: Array<ProductGroup>;
@@ -8,8 +11,10 @@ export type Account = {
   createdAt: Date;
   description: string | null;
   id: string;
+  installmentSaleFees?: Array<InstallmentSaleFee>;
   inventoryAccountProductGroups?: Array<ProductGroup>;
-  isMasterAccount: boolean | null;
+  isActive: boolean | null;
+  isMasterAccount: boolean;
   name: string;
   normalizedName: string;
   note: string | null;
@@ -19,5 +24,7 @@ export type Account = {
   purchaseDiscountAccountProductGroups?: Array<ProductGroup>;
   purchaseReturnAccountProductGroups?: Array<ProductGroup>;
   saleDiscountAccountProductGroups?: Array<ProductGroup>;
+  salePeople?: Array<SalePerson>;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

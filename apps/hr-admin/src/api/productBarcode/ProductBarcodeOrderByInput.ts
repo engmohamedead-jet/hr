@@ -5,8 +5,10 @@ export type ProductBarcodeOrderByInput = {
   barcodeTypeIdId?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   note?: SortOrder;
   productIdId?: SortOrder;
   productVariantIdId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

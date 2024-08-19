@@ -18,6 +18,7 @@ import { PRODUCTDEPARTMENT_TITLE_FIELD } from "../productDepartment/ProductDepar
 import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
 import { PRODUCTTYPE_TITLE_FIELD } from "../productType/ProductTypeTitle";
 import { SALETAX_TITLE_FIELD } from "../saleTax/SaleTaxTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const ProductList = (props: ListProps): React.ReactElement => {
   return (
@@ -110,6 +111,9 @@ export const ProductList = (props: ListProps): React.ReactElement => {
           reference="SaleTax"
         >
           <TextField source={SALETAX_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

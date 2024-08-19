@@ -1,4 +1,5 @@
 import { AttributeValue } from "../attributeValue/AttributeValue";
+import { Tenant } from "../tenant/Tenant";
 
 export type Attribute = {
   attributeValues?: Array<AttributeValue>;
@@ -6,8 +7,10 @@ export type Attribute = {
   createdAt: Date;
   description: string | null;
   id: number;
+  isActive: boolean;
   name: string;
   normalizedName: string;
   note: string | null;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

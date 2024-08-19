@@ -16,9 +16,12 @@ import {
   MaxLength,
   IsOptional,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
 import { CustomerUpdateManyWithoutCurrenciesInput } from "./CustomerUpdateManyWithoutCurrenciesInput";
 import { Type } from "class-transformer";
+import { SupplierUpdateManyWithoutCurrenciesInput } from "./SupplierUpdateManyWithoutCurrenciesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CurrencyUpdateInput {
@@ -60,6 +63,17 @@ class CurrencyUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -93,6 +107,30 @@ class CurrencyUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SupplierUpdateManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => SupplierUpdateManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => SupplierUpdateManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  suppliers?: SupplierUpdateManyWithoutCurrenciesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { CurrencyUpdateInput as CurrencyUpdateInput };

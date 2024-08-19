@@ -55,9 +55,15 @@ export class WorkCenterRoutingControllerBase {
       data: {
         ...data,
 
-        workCenter: data.workCenter
+        tenantId: data.tenantId
           ? {
-              connect: data.workCenter,
+              connect: data.tenantId,
+            }
+          : undefined,
+
+        workCenterId: data.workCenterId
+          ? {
+              connect: data.workCenterId,
             }
           : undefined,
       },
@@ -70,11 +76,18 @@ export class WorkCenterRoutingControllerBase {
         normalizedName: true,
         note: true,
         sequence: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         timeCycleManual: true,
         timeModeBatch: true,
         updatedAt: true,
 
-        workCenter: {
+        workCenterId: {
           select: {
             id: true,
           },
@@ -110,11 +123,18 @@ export class WorkCenterRoutingControllerBase {
         normalizedName: true,
         note: true,
         sequence: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         timeCycleManual: true,
         timeModeBatch: true,
         updatedAt: true,
 
-        workCenter: {
+        workCenterId: {
           select: {
             id: true,
           },
@@ -149,11 +169,18 @@ export class WorkCenterRoutingControllerBase {
         normalizedName: true,
         note: true,
         sequence: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         timeCycleManual: true,
         timeModeBatch: true,
         updatedAt: true,
 
-        workCenter: {
+        workCenterId: {
           select: {
             id: true,
           },
@@ -190,9 +217,15 @@ export class WorkCenterRoutingControllerBase {
         data: {
           ...data,
 
-          workCenter: data.workCenter
+          tenantId: data.tenantId
             ? {
-                connect: data.workCenter,
+                connect: data.tenantId,
+              }
+            : undefined,
+
+          workCenterId: data.workCenterId
+            ? {
+                connect: data.workCenterId,
               }
             : undefined,
         },
@@ -205,11 +238,18 @@ export class WorkCenterRoutingControllerBase {
           normalizedName: true,
           note: true,
           sequence: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           timeCycleManual: true,
           timeModeBatch: true,
           updatedAt: true,
 
-          workCenter: {
+          workCenterId: {
             select: {
               id: true,
             },
@@ -252,11 +292,18 @@ export class WorkCenterRoutingControllerBase {
           normalizedName: true,
           note: true,
           sequence: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           timeCycleManual: true,
           timeModeBatch: true,
           updatedAt: true,
 
-          workCenter: {
+          workCenterId: {
             select: {
               id: true,
             },
@@ -316,6 +363,12 @@ export class WorkCenterRoutingControllerBase {
 
         quantity: true,
         sequence: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
 
         unitId: {
           select: {

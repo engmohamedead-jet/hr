@@ -10,10 +10,14 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Employee as PrismaEmployee,
-  Department as PrismaDepartment,
+  SalePerson as PrismaSalePerson,
+  EmployeeClass as PrismaEmployeeClass,
+  EmployeeDepartment as PrismaEmployeeDepartment,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class EmployeeServiceBase {
@@ -49,11 +53,42 @@ export class EmployeeServiceBase {
     return this.prisma.employee.delete(args);
   }
 
-  async getDepartmentId(parentId: string): Promise<PrismaDepartment | null> {
+  async findSalePeople(
+    parentId: string,
+    args: Prisma.SalePersonFindManyArgs
+  ): Promise<PrismaSalePerson[]> {
+    return this.prisma.employee
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .salePeople(args);
+  }
+
+  async getEmployeeClassId(
+    parentId: string
+  ): Promise<PrismaEmployeeClass | null> {
     return this.prisma.employee
       .findUnique({
         where: { id: parentId },
       })
-      .departmentId();
+      .employeeClassId();
+  }
+
+  async getEmployeeDepartmentId(
+    parentId: string
+  ): Promise<PrismaEmployeeDepartment | null> {
+    return this.prisma.employee
+      .findUnique({
+        where: { id: parentId },
+      })
+      .employeeDepartmentId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.employee
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

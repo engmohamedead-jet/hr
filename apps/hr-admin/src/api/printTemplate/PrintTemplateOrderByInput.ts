@@ -6,6 +6,7 @@ export type PrintTemplateOrderByInput = {
   description?: SortOrder;
   filePath?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   isCustomized?: SortOrder;
   isFavourite?: SortOrder;
   name?: SortOrder;
@@ -15,5 +16,6 @@ export type PrintTemplateOrderByInput = {
   paperSize?: SortOrder;
   previewImage?: SortOrder;
   printTemplateContentsId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

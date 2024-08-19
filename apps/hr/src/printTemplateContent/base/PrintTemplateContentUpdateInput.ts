@@ -15,10 +15,12 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { PrintTemplateWhereUniqueInput } from "../../printTemplate/base/PrintTemplateWhereUniqueInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PrintTemplateContentUpdateInput {
@@ -45,6 +47,17 @@ class PrintTemplateContentUpdateInput {
     nullable: true,
   })
   fieldValue?: string;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -80,7 +93,19 @@ class PrintTemplateContentUpdateInput {
   @Field(() => PrintTemplateWhereUniqueInput, {
     nullable: true,
   })
-  printTemplate?: PrintTemplateWhereUniqueInput | null;
+  printTemplateId?: PrintTemplateWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

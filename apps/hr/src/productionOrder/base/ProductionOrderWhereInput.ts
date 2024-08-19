@@ -18,10 +18,12 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { OrderStatusWhereUniqueInput } from "../../orderStatus/base/OrderStatusWhereUniqueInput";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../../unit/base/UnitWhereUniqueInput";
 
 @InputType()
@@ -104,6 +106,17 @@ class ProductionOrderWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -217,6 +230,18 @@ class ProductionOrderWhereInput {
     nullable: true,
   })
   storeId?: StoreWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,

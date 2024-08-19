@@ -23,6 +23,7 @@ import { Account } from "../../account/base/Account";
 import { Type } from "class-transformer";
 import { Product } from "../../product/base/Product";
 import { SaleTax } from "../../saleTax/base/SaleTax";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class ProductGroup {
@@ -99,6 +100,14 @@ class ProductGroup {
   @Type(() => Account)
   @IsOptional()
   inventoryAccount?: Account | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -227,6 +236,15 @@ class ProductGroup {
   @Type(() => SaleTax)
   @IsOptional()
   saleTaxId?: SaleTax | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

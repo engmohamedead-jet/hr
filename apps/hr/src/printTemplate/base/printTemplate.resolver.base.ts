@@ -27,6 +27,7 @@ import { CreatePrintTemplateArgs } from "./CreatePrintTemplateArgs";
 import { UpdatePrintTemplateArgs } from "./UpdatePrintTemplateArgs";
 import { DeletePrintTemplateArgs } from "./DeletePrintTemplateArgs";
 import { PrintTemplateContent } from "../../printTemplateContent/base/PrintTemplateContent";
+import { Tenant } from "../../tenant/base/Tenant";
 import { PrintTemplateService } from "../printTemplate.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PrintTemplate)
@@ -101,6 +102,12 @@ export class PrintTemplateResolverBase {
               connect: args.data.printTemplateContents,
             }
           : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
       },
     });
   }
@@ -124,6 +131,12 @@ export class PrintTemplateResolverBase {
           printTemplateContents: args.data.printTemplateContents
             ? {
                 connect: args.data.printTemplateContents,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -173,6 +186,27 @@ export class PrintTemplateResolverBase {
     @graphql.Parent() parent: PrintTemplate
   ): Promise<PrintTemplateContent | null> {
     const result = await this.service.getPrintTemplateContents(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: PrintTemplate
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

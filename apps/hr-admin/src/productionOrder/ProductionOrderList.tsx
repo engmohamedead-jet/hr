@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   List,
   Datagrid,
@@ -6,13 +7,16 @@ import {
   ReferenceField,
   TextField,
   DateField,
+  BooleanField,
 } from "react-admin";
+
 import Pagination from "../Components/Pagination";
 import { BILLOFMATERIAL_TITLE_FIELD } from "../billOfMaterial/BillOfMaterialTitle";
 import { CUSTOMER_TITLE_FIELD } from "../customer/CustomerTitle";
 import { ORDERSTATUS_TITLE_FIELD } from "../orderStatus/OrderStatusTitle";
 import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 import { UNIT_TITLE_FIELD } from "../unit/UnitTitle";
 
 export const ProductionOrderList = (props: ListProps): React.ReactElement => {
@@ -45,6 +49,7 @@ export const ProductionOrderList = (props: ListProps): React.ReactElement => {
         <TextField label="Description" source="description" />
         <TextField label="FinishDate" source="finishDate" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
@@ -68,6 +73,9 @@ export const ProductionOrderList = (props: ListProps): React.ReactElement => {
         <TextField label="StartDate" source="startDate" />
         <ReferenceField label="StoreId" source="store.id" reference="Store">
           <TextField source={STORE_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>
         <ReferenceField label="UnitId" source="unit.id" reference="Unit">
           <TextField source={UNIT_TITLE_FIELD} />

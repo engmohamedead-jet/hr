@@ -1,0 +1,33 @@
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { DecimalFilter } from "../../util/DecimalFilter";
+import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
+import { ProductVariantWhereUniqueInput } from "../productVariant/ProductVariantWhereUniqueInput";
+import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
+import { SaleQuotationWhereUniqueInput } from "../saleQuotation/SaleQuotationWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { UnitWhereUniqueInput } from "../unit/UnitWhereUniqueInput";
+
+export type SaleQuotationDetailWhereInput = {
+  discount?: DecimalNullableFilter;
+  discountRate?: DecimalNullableFilter;
+  id?: StringFilter;
+  isActive?: BooleanFilter;
+  isError?: BooleanFilter;
+  isReplicated?: BooleanFilter;
+  isTaxed?: BooleanFilter;
+  note?: StringNullableFilter;
+  price?: DecimalFilter;
+  priceTotal?: DecimalFilter;
+  productId?: ProductWhereUniqueInput;
+  productVariantId?: ProductVariantWhereUniqueInput;
+  quantity?: DecimalFilter;
+  salePriceType?: SalePriceTypeWhereUniqueInput;
+  saleQuotationId?: SaleQuotationWhereUniqueInput;
+  sequence?: StringFilter;
+  shippingCharge?: DecimalNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
+  unitId?: UnitWhereUniqueInput;
+};

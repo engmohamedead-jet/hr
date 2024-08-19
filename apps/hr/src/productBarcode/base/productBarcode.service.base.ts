@@ -17,6 +17,7 @@ import {
   BarcodeType as PrismaBarcodeType,
   Product as PrismaProduct,
   ProductVariant as PrismaProductVariant,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class ProductBarcodeServiceBase {
@@ -78,5 +79,13 @@ export class ProductBarcodeServiceBase {
         where: { id: parentId },
       })
       .productVariantId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.productBarcode
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

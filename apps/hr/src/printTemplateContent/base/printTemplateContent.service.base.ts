@@ -15,6 +15,7 @@ import {
   Prisma,
   PrintTemplateContent as PrismaPrintTemplateContent,
   PrintTemplate as PrismaPrintTemplate,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class PrintTemplateContentServiceBase {
@@ -52,13 +53,21 @@ export class PrintTemplateContentServiceBase {
     return this.prisma.printTemplateContent.delete(args);
   }
 
-  async getPrintTemplate(
+  async getPrintTemplateId(
     parentId: string
   ): Promise<PrismaPrintTemplate | null> {
     return this.prisma.printTemplateContent
       .findUnique({
         where: { id: parentId },
       })
-      .printTemplate();
+      .printTemplateId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.printTemplateContent
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

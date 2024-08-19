@@ -31,9 +31,16 @@ import { ProductCategoryWhereUniqueInput } from "../../productCategory/base/Prod
 import { ProductDepartmentWhereUniqueInput } from "../../productDepartment/base/ProductDepartmentWhereUniqueInput";
 import { ProductGroupWhereUniqueInput } from "../../productGroup/base/ProductGroupWhereUniqueInput";
 import { ProductTypeWhereUniqueInput } from "../../productType/base/ProductTypeWhereUniqueInput";
+import { ProductUnitListRelationFilter } from "../../productUnit/base/ProductUnitListRelationFilter";
 import { ProductVariantListRelationFilter } from "../../productVariant/base/ProductVariantListRelationFilter";
 import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
+import { PurchaseDetailListRelationFilter } from "../../purchaseDetail/base/PurchaseDetailListRelationFilter";
+import { PurchaseReturnDetailListRelationFilter } from "../../purchaseReturnDetail/base/PurchaseReturnDetailListRelationFilter";
+import { SaleDetailListRelationFilter } from "../../saleDetail/base/SaleDetailListRelationFilter";
+import { SaleQuotationDetailListRelationFilter } from "../../saleQuotationDetail/base/SaleQuotationDetailListRelationFilter";
+import { SaleReturnDetailListRelationFilter } from "../../saleReturnDetail/base/SaleReturnDetailListRelationFilter";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductWhereInput {
@@ -400,6 +407,18 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductUnitListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductUnitListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductUnitListRelationFilter, {
+    nullable: true,
+  })
+  productUnits?: ProductUnitListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductVariantListRelationFilter,
   })
   @ValidateNested()
@@ -435,6 +454,30 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => PurchaseDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseDetailListRelationFilter, {
+    nullable: true,
+  })
+  purchaseDetails?: PurchaseDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseReturnDetailListRelationFilter, {
+    nullable: true,
+  })
+  purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: DecimalNullableFilter,
   })
   @Type(() => DecimalNullableFilter)
@@ -443,6 +486,18 @@ class ProductWhereInput {
     nullable: true,
   })
   reorderQuantity?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -468,6 +523,30 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => SaleQuotationDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleReturnDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => SaleTaxWhereUniqueInput,
   })
   @ValidateNested()
@@ -477,6 +556,18 @@ class ProductWhereInput {
     nullable: true,
   })
   saleTaxId?: SaleTaxWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { ProductWhereInput as ProductWhereInput };

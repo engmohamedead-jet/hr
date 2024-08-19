@@ -1,6 +1,7 @@
 import { Account } from "../account/Account";
 import { Product } from "../product/Product";
 import { SaleTax } from "../saleTax/SaleTax";
+import { Tenant } from "../tenant/Tenant";
 
 export type ProductGroup = {
   code: string | null;
@@ -11,6 +12,7 @@ export type ProductGroup = {
   excludeFromSale: boolean;
   id: string;
   inventoryAccount?: Account | null;
+  isActive: boolean;
   isDefault: boolean;
   name: string;
   normalizedName: string;
@@ -25,5 +27,6 @@ export type ProductGroup = {
   saleDiscountAccountId?: Account | null;
   saleReturnAccountId?: Account | null;
   saleTaxId?: SaleTax | null;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

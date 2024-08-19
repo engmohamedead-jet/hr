@@ -10,7 +10,16 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, CashRepository as PrismaCashRepository } from "@prisma/client";
+
+import {
+  Prisma,
+  CashRepository as PrismaCashRepository,
+  PurchaseReturn as PrismaPurchaseReturn,
+  SaleReturn as PrismaSaleReturn,
+  Sale as PrismaSale,
+  Purchase as PrismaPurchase,
+  Tenant as PrismaTenant,
+} from "@prisma/client";
 
 export class CashRepositoryServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -47,14 +56,48 @@ export class CashRepositoryServiceBase {
     return this.prisma.cashRepository.delete(args);
   }
 
-  async getCashRepositories(
-    parentId: string
-  ): Promise<PrismaCashRepository | null> {
+  async findCashRepositories(
+    parentId: string,
+    args: Prisma.CashRepositoryFindManyArgs
+  ): Promise<PrismaCashRepository[]> {
     return this.prisma.cashRepository
-      .findUnique({
+      .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .cashRepositories();
+      .cashRepositories(args);
+  }
+
+  async findPurchaseReturns(
+    parentId: string,
+    args: Prisma.PurchaseReturnFindManyArgs
+  ): Promise<PrismaPurchaseReturn[]> {
+    return this.prisma.cashRepository
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchaseReturns(args);
+  }
+
+  async findSaleReturns(
+    parentId: string,
+    args: Prisma.SaleReturnFindManyArgs
+  ): Promise<PrismaSaleReturn[]> {
+    return this.prisma.cashRepository
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleReturns(args);
+  }
+
+  async findSales(
+    parentId: string,
+    args: Prisma.SaleFindManyArgs
+  ): Promise<PrismaSale[]> {
+    return this.prisma.cashRepository
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .sales(args);
   }
 
   async getParentCashRepositoryId(
@@ -65,5 +108,21 @@ export class CashRepositoryServiceBase {
         where: { id: parentId },
       })
       .parentCashRepositoryId();
+  }
+
+  async getPurchases(parentId: string): Promise<PrismaPurchase | null> {
+    return this.prisma.cashRepository
+      .findUnique({
+        where: { id: parentId },
+      })
+      .purchases();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.cashRepository
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

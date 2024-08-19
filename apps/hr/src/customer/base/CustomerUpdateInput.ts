@@ -28,6 +28,10 @@ import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { Type } from "class-transformer";
 import { ProductionOrderUpdateManyWithoutCustomersInput } from "./ProductionOrderUpdateManyWithoutCustomersInput";
+import { SaleReturnUpdateManyWithoutCustomersInput } from "./SaleReturnUpdateManyWithoutCustomersInput";
+import { SaleUpdateManyWithoutCustomersInput } from "./SaleUpdateManyWithoutCustomersInput";
+import { SupplierUpdateManyWithoutCustomersInput } from "./SupplierUpdateManyWithoutCustomersInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CustomerUpdateInput {
@@ -90,7 +94,7 @@ class CustomerUpdateInput {
   @Field(() => CurrencyWhereUniqueInput, {
     nullable: true,
   })
-  currency?: CurrencyWhereUniqueInput | null;
+  currencyId?: CurrencyWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -159,7 +163,7 @@ class CustomerUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isActive?: boolean | null;
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -280,6 +284,30 @@ class CustomerUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SaleReturnUpdateManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnUpdateManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => SaleReturnUpdateManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnUpdateManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleUpdateManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleUpdateManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => SaleUpdateManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  sales?: SaleUpdateManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -292,6 +320,18 @@ class CustomerUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SupplierUpdateManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => SupplierUpdateManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => SupplierUpdateManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  suppliers?: SupplierUpdateManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -301,6 +341,18 @@ class CustomerUpdateInput {
     nullable: true,
   })
   taxNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

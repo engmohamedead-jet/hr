@@ -21,8 +21,16 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { BillOfMaterialCreateNestedManyWithoutUnitsInput } from "./BillOfMaterialCreateNestedManyWithoutUnitsInput";
+import { ProductUnitWhereUniqueInput } from "../../productUnit/base/ProductUnitWhereUniqueInput";
+import { ProductUnitCreateNestedManyWithoutUnitsInput } from "./ProductUnitCreateNestedManyWithoutUnitsInput";
 import { ProductionOrderCreateNestedManyWithoutUnitsInput } from "./ProductionOrderCreateNestedManyWithoutUnitsInput";
 import { ProductCreateNestedManyWithoutUnitsInput } from "./ProductCreateNestedManyWithoutUnitsInput";
+import { PurchaseDetailCreateNestedManyWithoutUnitsInput } from "./PurchaseDetailCreateNestedManyWithoutUnitsInput";
+import { PurchaseReturnDetailCreateNestedManyWithoutUnitsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutUnitsInput";
+import { SaleDetailCreateNestedManyWithoutUnitsInput } from "./SaleDetailCreateNestedManyWithoutUnitsInput";
+import { SaleQuotationDetailCreateNestedManyWithoutUnitsInput } from "./SaleQuotationDetailCreateNestedManyWithoutUnitsInput";
+import { SaleReturnDetailCreateNestedManyWithoutUnitsInput } from "./SaleReturnDetailCreateNestedManyWithoutUnitsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class UnitCreateInput {
@@ -73,6 +81,14 @@ class UnitCreateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -128,6 +144,30 @@ class UnitCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductUnitWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUnitWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProductUnitWhereUniqueInput, {
+    nullable: true,
+  })
+  productUnitCompareUnits?: ProductUnitWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductUnitCreateNestedManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUnitCreateNestedManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => ProductUnitCreateNestedManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  productUnits?: ProductUnitCreateNestedManyWithoutUnitsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductionOrderCreateNestedManyWithoutUnitsInput,
   })
   @ValidateNested()
@@ -149,6 +189,78 @@ class UnitCreateInput {
     nullable: true,
   })
   products?: ProductCreateNestedManyWithoutUnitsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseDetailCreateNestedManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetailCreateNestedManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => PurchaseDetailCreateNestedManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  purchaseDetails?: PurchaseDetailCreateNestedManyWithoutUnitsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnDetailCreateNestedManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetailCreateNestedManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnDetailCreateNestedManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  purchaseReturnDetails?: PurchaseReturnDetailCreateNestedManyWithoutUnitsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailCreateNestedManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailCreateNestedManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => SaleDetailCreateNestedManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailCreateNestedManyWithoutUnitsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetailCreateNestedManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailCreateNestedManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailCreateNestedManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailCreateNestedManyWithoutUnitsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailCreateNestedManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailCreateNestedManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => SaleReturnDetailCreateNestedManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailCreateNestedManyWithoutUnitsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { UnitCreateInput as UnitCreateInput };

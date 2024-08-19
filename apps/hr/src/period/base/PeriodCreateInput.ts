@@ -16,20 +16,25 @@ import {
   MaxLength,
   IsOptional,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
-import { PaymentTermWhereUniqueInput } from "../../paymentTerm/base/PaymentTermWhereUniqueInput";
+import { PaymentTermCreateNestedManyWithoutPeriodsInput } from "./PaymentTermCreateNestedManyWithoutPeriodsInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PeriodCreateInput {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -45,15 +50,23 @@ class PeriodCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentTermWhereUniqueInput,
+    type: () => PaymentTermCreateNestedManyWithoutPeriodsInput,
   })
   @ValidateNested()
-  @Type(() => PaymentTermWhereUniqueInput)
+  @Type(() => PaymentTermCreateNestedManyWithoutPeriodsInput)
   @IsOptional()
-  @Field(() => PaymentTermWhereUniqueInput, {
+  @Field(() => PaymentTermCreateNestedManyWithoutPeriodsInput, {
     nullable: true,
   })
-  installmentSaleFeePostingPeriod?: PaymentTermWhereUniqueInput | null;
+  installmentSaleFeePostingPeriodPaymentTerms?: PaymentTermCreateNestedManyWithoutPeriodsInput;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -87,15 +100,27 @@ class PeriodCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentTermWhereUniqueInput,
+    type: () => PaymentTermCreateNestedManyWithoutPeriodsInput,
   })
   @ValidateNested()
-  @Type(() => PaymentTermWhereUniqueInput)
+  @Type(() => PaymentTermCreateNestedManyWithoutPeriodsInput)
   @IsOptional()
-  @Field(() => PaymentTermWhereUniqueInput, {
+  @Field(() => PaymentTermCreateNestedManyWithoutPeriodsInput, {
     nullable: true,
   })
-  paymentTerms?: PaymentTermWhereUniqueInput | null;
+  paymentTerms1?: PaymentTermCreateNestedManyWithoutPeriodsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { PeriodCreateInput as PeriodCreateInput };

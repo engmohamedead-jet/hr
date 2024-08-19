@@ -9,6 +9,7 @@ export type ProductionOrderOrderByInput = {
   description?: SortOrder;
   finishDate?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
@@ -19,6 +20,7 @@ export type ProductionOrderOrderByInput = {
   sequenceNumber?: SortOrder;
   startDate?: SortOrder;
   storeIdId?: SortOrder;
+  tenantIdId?: SortOrder;
   unitId?: SortOrder;
   updatedAt?: SortOrder;
 };

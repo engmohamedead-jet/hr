@@ -17,6 +17,7 @@ export type WorkCenterOrderByInput = {
   sequence?: SortOrder;
   startTime?: SortOrder;
   stopTime?: SortOrder;
+  tenantIdId?: SortOrder;
   timeEfficiency?: SortOrder;
   updatedAt?: SortOrder;
 };

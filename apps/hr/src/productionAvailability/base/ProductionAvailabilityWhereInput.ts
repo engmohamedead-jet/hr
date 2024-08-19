@@ -13,9 +13,11 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
 import { IntFilter } from "../../util/IntFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductionAvailabilityWhereInput {
@@ -40,6 +42,17 @@ class ProductionAvailabilityWhereInput {
     nullable: true,
   })
   id?: IntFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -73,6 +86,18 @@ class ProductionAvailabilityWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantIId?: TenantWhereUniqueInput;
 }
 
 export { ProductionAvailabilityWhereInput as ProductionAvailabilityWhereInput };

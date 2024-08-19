@@ -11,26 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { EmployeeClassSalaryItemValueListRelationFilter } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValueListRelationFilter";
-import { EmployeeSalaryDetailListRelationFilter } from "../../employeeSalaryDetail/base/EmployeeSalaryDetailListRelationFilter";
-import { IntFilter } from "../../util/IntFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { SalaryItemGroupWhereUniqueInput } from "../../salaryItemGroup/base/SalaryItemGroupWhereUniqueInput";
+import { SalaryItemTypeWhereUniqueInput } from "../../salaryItemType/base/SalaryItemTypeWhereUniqueInput";
+import { SalaryLawWhereUniqueInput } from "../../salaryLaw/base/SalaryLawWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SalaryItemWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -45,38 +47,25 @@ class SalaryItemWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => EmployeeClassSalaryItemValueListRelationFilter,
+    type: StringFilter,
   })
-  @ValidateNested()
-  @Type(() => EmployeeClassSalaryItemValueListRelationFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => EmployeeClassSalaryItemValueListRelationFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  employeeClassSalaryItemValues?: EmployeeClassSalaryItemValueListRelationFilter;
+  id?: StringFilter;
 
   @ApiProperty({
     required: false,
-    type: () => EmployeeSalaryDetailListRelationFilter,
+    type: BooleanFilter,
   })
-  @ValidateNested()
-  @Type(() => EmployeeSalaryDetailListRelationFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => EmployeeSalaryDetailListRelationFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  employeeSalaryDetails?: EmployeeSalaryDetailListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: IntFilter,
-  })
-  @Type(() => IntFilter)
-  @IsOptional()
-  @Field(() => IntFilter, {
-    nullable: true,
-  })
-  id?: IntFilter;
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -110,6 +99,54 @@ class SalaryItemWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryItemGroupWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalaryItemGroupWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SalaryItemGroupWhereUniqueInput, {
+    nullable: true,
+  })
+  salaryItemGroupId?: SalaryItemGroupWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryItemTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalaryItemTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SalaryItemTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  salaryItemTypeId?: SalaryItemTypeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryLawWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalaryLawWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SalaryLawWhereUniqueInput, {
+    nullable: true,
+  })
+  salaryLawId?: SalaryLawWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { SalaryItemWhereInput as SalaryItemWhereInput };

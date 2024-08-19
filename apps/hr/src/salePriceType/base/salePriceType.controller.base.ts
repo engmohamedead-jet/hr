@@ -49,15 +49,91 @@ export class SalePriceTypeControllerBase {
     @common.Body() data: SalePriceTypeCreateInput
   ): Promise<SalePriceType> {
     return await this.service.createSalePriceType({
-      data: data,
+      data: {
+        ...data,
+
+        saleDetails: data.saleDetails
+          ? {
+              connect: data.saleDetails,
+            }
+          : undefined,
+
+        saleQuotationDetails: data.saleQuotationDetails
+          ? {
+              connect: data.saleQuotationDetails,
+            }
+          : undefined,
+
+        saleReturnDetails: data.saleReturnDetails
+          ? {
+              connect: data.saleReturnDetails,
+            }
+          : undefined,
+
+        saleReturns: data.saleReturns
+          ? {
+              connect: data.saleReturns,
+            }
+          : undefined,
+
+        sales: data.sales
+          ? {
+              connect: data.sales,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        saleDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleQuotationDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturns: {
+          select: {
+            id: true,
+          },
+        },
+
+        sales: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -86,9 +162,47 @@ export class SalePriceTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        saleDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleQuotationDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturns: {
+          select: {
+            id: true,
+          },
+        },
+
+        sales: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -116,9 +230,47 @@ export class SalePriceTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        saleDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleQuotationDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturns: {
+          select: {
+            id: true,
+          },
+        },
+
+        sales: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -149,15 +301,91 @@ export class SalePriceTypeControllerBase {
     try {
       return await this.service.updateSalePriceType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          saleDetails: data.saleDetails
+            ? {
+                connect: data.saleDetails,
+              }
+            : undefined,
+
+          saleQuotationDetails: data.saleQuotationDetails
+            ? {
+                connect: data.saleQuotationDetails,
+              }
+            : undefined,
+
+          saleReturnDetails: data.saleReturnDetails
+            ? {
+                connect: data.saleReturnDetails,
+              }
+            : undefined,
+
+          saleReturns: data.saleReturns
+            ? {
+                connect: data.saleReturns,
+              }
+            : undefined,
+
+          sales: data.sales
+            ? {
+                connect: data.sales,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          saleDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleQuotationDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleReturnDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleReturns: {
+            select: {
+              id: true,
+            },
+          },
+
+          sales: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -193,9 +421,47 @@ export class SalePriceTypeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          saleDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleQuotationDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleReturnDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleReturns: {
+            select: {
+              id: true,
+            },
+          },
+
+          sales: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

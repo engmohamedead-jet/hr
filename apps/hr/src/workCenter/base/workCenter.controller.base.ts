@@ -52,7 +52,15 @@ export class WorkCenterControllerBase {
     @common.Body() data: WorkCenterCreateInput
   ): Promise<WorkCenter> {
     return await this.service.createWorkCenter({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         analyticDistribution: true,
         code: true,
@@ -70,6 +78,13 @@ export class WorkCenterControllerBase {
         sequence: true,
         startTime: true,
         stopTime: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         timeEfficiency: true,
         updatedAt: true,
       },
@@ -109,6 +124,13 @@ export class WorkCenterControllerBase {
         sequence: true,
         startTime: true,
         stopTime: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         timeEfficiency: true,
         updatedAt: true,
       },
@@ -149,6 +171,13 @@ export class WorkCenterControllerBase {
         sequence: true,
         startTime: true,
         stopTime: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         timeEfficiency: true,
         updatedAt: true,
       },
@@ -180,7 +209,15 @@ export class WorkCenterControllerBase {
     try {
       return await this.service.updateWorkCenter({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           analyticDistribution: true,
           code: true,
@@ -198,6 +235,13 @@ export class WorkCenterControllerBase {
           sequence: true,
           startTime: true,
           stopTime: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           timeEfficiency: true,
           updatedAt: true,
         },
@@ -246,6 +290,13 @@ export class WorkCenterControllerBase {
           sequence: true,
           startTime: true,
           stopTime: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           timeEfficiency: true,
           updatedAt: true,
         },
@@ -284,11 +335,18 @@ export class WorkCenterControllerBase {
         normalizedName: true,
         note: true,
         sequence: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         timeCycleManual: true,
         timeModeBatch: true,
         updatedAt: true,
 
-        workCenter: {
+        workCenterId: {
           select: {
             id: true,
           },

@@ -17,8 +17,14 @@ import {
   BillOfMaterialDetail as PrismaBillOfMaterialDetail,
   BillOfMaterial as PrismaBillOfMaterial,
   ProductBarcode as PrismaProductBarcode,
+  ProductUnit as PrismaProductUnit,
   ProductVariant as PrismaProductVariant,
   ProductionOrder as PrismaProductionOrder,
+  PurchaseDetail as PrismaPurchaseDetail,
+  PurchaseReturnDetail as PrismaPurchaseReturnDetail,
+  SaleDetail as PrismaSaleDetail,
+  SaleQuotationDetail as PrismaSaleQuotationDetail,
+  SaleReturnDetail as PrismaSaleReturnDetail,
   Store as PrismaStore,
   Unit as PrismaUnit,
   ProductCategory as PrismaProductCategory,
@@ -26,6 +32,7 @@ import {
   ProductGroup as PrismaProductGroup,
   ProductType as PrismaProductType,
   SaleTax as PrismaSaleTax,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class ProductServiceBase {
@@ -86,6 +93,17 @@ export class ProductServiceBase {
       .productBarcodes(args);
   }
 
+  async findProductUnits(
+    parentId: string,
+    args: Prisma.ProductUnitFindManyArgs
+  ): Promise<PrismaProductUnit[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .productUnits(args);
+  }
+
   async findProductVariants(
     parentId: string,
     args: Prisma.ProductVariantFindManyArgs
@@ -106,6 +124,61 @@ export class ProductServiceBase {
         where: { id: parentId },
       })
       .productionOrders(args);
+  }
+
+  async findPurchaseDetails(
+    parentId: string,
+    args: Prisma.PurchaseDetailFindManyArgs
+  ): Promise<PrismaPurchaseDetail[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchaseDetails(args);
+  }
+
+  async findPurchaseReturnDetails(
+    parentId: string,
+    args: Prisma.PurchaseReturnDetailFindManyArgs
+  ): Promise<PrismaPurchaseReturnDetail[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchaseReturnDetails(args);
+  }
+
+  async findSaleDetails(
+    parentId: string,
+    args: Prisma.SaleDetailFindManyArgs
+  ): Promise<PrismaSaleDetail[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleDetails(args);
+  }
+
+  async findSaleQuotationDetails(
+    parentId: string,
+    args: Prisma.SaleQuotationDetailFindManyArgs
+  ): Promise<PrismaSaleQuotationDetail[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleQuotationDetails(args);
+  }
+
+  async findSaleReturnDetails(
+    parentId: string,
+    args: Prisma.SaleReturnDetailFindManyArgs
+  ): Promise<PrismaSaleReturnDetail[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleReturnDetails(args);
   }
 
   async getDefaultStoreId(parentId: string): Promise<PrismaStore | null> {
@@ -168,5 +241,13 @@ export class ProductServiceBase {
         where: { id: parentId },
       })
       .saleTaxId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.product
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

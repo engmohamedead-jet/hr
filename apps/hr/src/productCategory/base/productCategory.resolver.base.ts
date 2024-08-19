@@ -28,6 +28,7 @@ import { UpdateProductCategoryArgs } from "./UpdateProductCategoryArgs";
 import { DeleteProductCategoryArgs } from "./DeleteProductCategoryArgs";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ProductCategoryService } from "../productCategory.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductCategory)
@@ -94,7 +95,15 @@ export class ProductCategoryResolverBase {
   ): Promise<ProductCategory> {
     return await this.service.createProductCategory({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +120,15 @@ export class ProductCategoryResolverBase {
     try {
       return await this.service.updateProductCategory({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -162,5 +179,26 @@ export class ProductCategoryResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: ProductCategory
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

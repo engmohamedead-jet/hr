@@ -29,6 +29,9 @@ import { CurrencyUpdateInput } from "./CurrencyUpdateInput";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
+import { Supplier } from "../../supplier/base/Supplier";
+import { SupplierWhereUniqueInput } from "../../supplier/base/SupplierWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,15 +55,31 @@ export class CurrencyControllerBase {
     @common.Body() data: CurrencyCreateInput
   ): Promise<Currency> {
     return await this.service.createCurrency({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -87,9 +106,17 @@ export class CurrencyControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -117,9 +144,17 @@ export class CurrencyControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -150,15 +185,31 @@ export class CurrencyControllerBase {
     try {
       return await this.service.updateCurrency({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -194,9 +245,17 @@ export class CurrencyControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -232,7 +291,7 @@ export class CurrencyControllerBase {
         createdAt: true,
         credit: true,
 
-        currency: {
+        currencyId: {
           select: {
             id: true,
           },
@@ -256,6 +315,13 @@ export class CurrencyControllerBase {
         saleDiscountRate: true,
         supplierId: true,
         taxNumber: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         website: true,
       },
@@ -324,6 +390,133 @@ export class CurrencyControllerBase {
   ): Promise<void> {
     const data = {
       customers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/suppliers")
+  @ApiNestedQuery(SupplierFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "read",
+    possession: "any",
+  })
+  async findSuppliers(
+    @common.Req() request: Request,
+    @common.Param() params: CurrencyWhereUniqueInput
+  ): Promise<Supplier[]> {
+    const query = plainToClass(SupplierFindManyArgs, request.query);
+    const results = await this.service.findSuppliers(params.id, {
+      ...query,
+      select: {
+        address: true,
+        code: true,
+        createdAt: true,
+        credit: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        debit: true,
+        description: true,
+        email: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        phoneNumber: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+        website: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/suppliers")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async connectSuppliers(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: SupplierWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      suppliers: {
+        connect: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/suppliers")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async updateSuppliers(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: SupplierWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      suppliers: {
+        set: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/suppliers")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSuppliers(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: SupplierWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      suppliers: {
         disconnect: body,
       },
     };

@@ -16,11 +16,13 @@ import {
   ValidateNested,
   IsDate,
   IsString,
+  IsBoolean,
   MaxLength,
   IsOptional,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ProductVariant } from "../../productVariant/base/ProductVariant";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class AttributeValue {
@@ -49,6 +51,14 @@ class AttributeValue {
   id!: string;
 
   @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
     required: false,
     type: String,
   })
@@ -68,6 +78,15 @@ class AttributeValue {
   @Type(() => ProductVariant)
   @IsOptional()
   productVariants?: Array<ProductVariant>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

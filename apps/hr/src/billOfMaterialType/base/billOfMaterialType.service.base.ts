@@ -15,6 +15,7 @@ import {
   Prisma,
   BillOfMaterialType as PrismaBillOfMaterialType,
   BillOfMaterial as PrismaBillOfMaterial,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class BillOfMaterialTypeServiceBase {
@@ -61,5 +62,13 @@ export class BillOfMaterialTypeServiceBase {
         where: { id: parentId },
       })
       .billOfMaterials(args);
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.billOfMaterialType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

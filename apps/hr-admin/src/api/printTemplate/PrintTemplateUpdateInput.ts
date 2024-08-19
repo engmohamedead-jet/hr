@@ -1,10 +1,12 @@
 import { InputJsonValue } from "../../types";
 import { PrintTemplateContentWhereUniqueInput } from "../printTemplateContent/PrintTemplateContentWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PrintTemplateUpdateInput = {
   code?: string | null;
   description?: string | null;
   filePath?: string | null;
+  isActive?: boolean | null;
   isCustomized?: boolean;
   isFavourite?: boolean;
   name?: string;
@@ -26,4 +28,5 @@ export type PrintTemplateUpdateInput = {
     | null;
   previewImage?: InputJsonValue;
   printTemplateContents?: PrintTemplateContentWhereUniqueInput | null;
+  tenantId?: TenantWhereUniqueInput | null;
 };

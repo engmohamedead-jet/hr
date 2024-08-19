@@ -14,23 +14,29 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   MaxLength,
-  IsDate,
   IsOptional,
+  IsDate,
   ValidateNested,
+  IsInt,
+  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { EmployeeClassSalaryItemValue } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValue";
+import { Employee } from "../../employee/base/Employee";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class EmployeeClass {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(100)
-  @Field(() => String)
-  code!: string;
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -54,27 +60,35 @@ class EmployeeClass {
 
   @ApiProperty({
     required: false,
-    type: () => [EmployeeClassSalaryItemValue],
+    type: () => [Employee],
   })
   @ValidateNested()
-  @Type(() => EmployeeClassSalaryItemValue)
+  @Type(() => Employee)
   @IsOptional()
-  employeeClassSalaryItemValues?: Array<EmployeeClassSalaryItemValue>;
+  employees?: Array<Employee>;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsInt()
+  @Field(() => Number)
+  id!: number;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
-  @Field(() => String)
-  id!: string;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   name!: string;
 
@@ -83,7 +97,7 @@ class EmployeeClass {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   normalizedName!: string;
 
@@ -97,7 +111,16 @@ class EmployeeClass {
   @Field(() => String, {
     nullable: true,
   })
-  notes!: string | null;
+  note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

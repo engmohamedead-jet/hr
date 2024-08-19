@@ -1,0 +1,32 @@
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { DecimalFilter } from "../../util/DecimalFilter";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { SaleQuotationDetailListRelationFilter } from "../saleQuotationDetail/SaleQuotationDetailListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+
+export type SaleQuotationWhereInput = {
+  discount?: DecimalNullableFilter;
+  discountRate?: DecimalNullableFilter;
+  expectedDeliveryDate?: DateTimeNullableFilter;
+  id?: StringFilter;
+  internalMemo?: StringNullableFilter;
+  isActive?: BooleanFilter;
+  isCancelled?: BooleanNullableFilter;
+  nonTaxableTotal?: DecimalFilter;
+  note?: StringNullableFilter;
+  referenceNumber?: StringNullableFilter;
+  saleQuotationDate?: DateTimeFilter;
+  saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
+  sequenceNumber?: StringFilter;
+  taxRate?: DecimalFilter;
+  taxTotal?: DecimalFilter;
+  taxableTotal?: DecimalNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
+  terms?: StringNullableFilter;
+  transactionDateTime?: DateTimeNullableFilter;
+};

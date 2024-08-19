@@ -32,6 +32,7 @@ import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueIn
 import { ProductVariantWhereUniqueInput } from "../../productVariant/base/ProductVariantWhereUniqueInput";
 import { ProductionOrderUpdateManyWithoutBillOfMaterialsInput } from "./ProductionOrderUpdateManyWithoutBillOfMaterialsInput";
 import { Decimal } from "decimal.js";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../../unit/base/UnitWhereUniqueInput";
 
 @InputType()
@@ -105,7 +106,7 @@ class BillOfMaterialUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isActive?: boolean | null;
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -190,6 +191,18 @@ class BillOfMaterialUpdateInput {
     nullable: true,
   })
   startDate?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

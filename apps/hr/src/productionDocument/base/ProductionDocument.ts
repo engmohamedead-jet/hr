@@ -17,8 +17,10 @@ import {
   IsBoolean,
   MaxLength,
   IsOptional,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class ProductionDocument {
@@ -69,6 +71,15 @@ class ProductionDocument {
     nullable: true,
   })
   priority!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

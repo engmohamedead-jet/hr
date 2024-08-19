@@ -7,17 +7,21 @@ import {
   TextField,
   DateField,
   ReferenceField,
+  BooleanField,
   ReferenceManyField,
   Datagrid,
-  BooleanField,
 } from "react-admin";
 
-import { CURRENCY_TITLE_FIELD } from "../currency/CurrencyTitle";
-import { CUSTOMERCATEOGRY_TITLE_FIELD } from "../customerCateogry/CustomerCateogryTitle";
-import { CUSTOMERTYPE_TITLE_FIELD } from "../customerType/CustomerTypeTitle";
-import { RATING_TITLE_FIELD } from "../rating/RatingTitle";
-import { SALEPRICETYPE_TITLE_FIELD } from "../salePriceType/SalePriceTypeTitle";
+import { CASHREPOSITORY_TITLE_FIELD } from "../cashRepository/CashRepositoryTitle";
+import { INVOICETYPE_TITLE_FIELD } from "../invoiceType/InvoiceTypeTitle";
+import { PAYMENTTYPE_TITLE_FIELD } from "../paymentType/PaymentTypeTitle";
+import { PURCHASE_TITLE_FIELD } from "../purchase/PurchaseTitle";
+import { PURCHASEPRICETYPE_TITLE_FIELD } from "../purchasePriceType/PurchasePriceTypeTitle";
+import { STORE_TITLE_FIELD } from "../store/StoreTitle";
 import { SUPPLIER_TITLE_FIELD } from "./SupplierTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
+import { CURRENCY_TITLE_FIELD } from "../currency/CurrencyTitle";
+import { CUSTOMER_TITLE_FIELD } from "../customer/CustomerTitle";
 
 export const SupplierShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -34,109 +38,88 @@ export const SupplierShow = (props: ShowProps): React.ReactElement => {
         >
           <TextField source={CURRENCY_TITLE_FIELD} />
         </ReferenceField>
+        <ReferenceField
+          label="CustomerId"
+          source="customer.id"
+          reference="Customer"
+        >
+          <TextField source={CUSTOMER_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="Debit" source="debit" />
         <TextField label="Description" source="description" />
         <TextField label="Email" source="email" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
         <TextField label="PhoneNumber" source="phoneNumber" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="Website" source="website" />
         <ReferenceManyField
-          reference="Customer"
+          reference="PurchaseReturn"
           target="supplierIdId"
-          label="Customers"
+          label="PurchaseReturns"
         >
           <Datagrid rowClick="show">
-            <TextField label="Address" source="address" />
-            <TextField label="Code" source="code" />
+            <ReferenceField
+              label="CashRepositoryId"
+              source="cashrepository.id"
+              reference="CashRepository"
+            >
+              <TextField source={CASHREPOSITORY_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="createdAt" label="Created At" />
-            <TextField label="Credit" source="credit" />
-            <ReferenceField
-              label="CurrencyId"
-              source="currency.id"
-              reference="Currency"
-            >
-              <TextField source={CURRENCY_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField
-              label="CustomerCateogry"
-              source="customercateogry.id"
-              reference="CustomerCateogry"
-            >
-              <TextField source={CUSTOMERCATEOGRY_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField
-              label="CustomerType"
-              source="customertype.id"
-              reference="CustomerType"
-            >
-              <TextField source={CUSTOMERTYPE_TITLE_FIELD} />
-            </ReferenceField>
-            <TextField label="Debit" source="debit" />
-            <TextField label="Description" source="description" />
-            <TextField label="Email" source="email" />
-            <TextField label="FirstBalance" source="firstBalance" />
-            <TextField label="FirstBalanceDate" source="firstBalanceDate" />
-            <TextField label="GuarantorAddress" source="guarantorAddress" />
-            <TextField label="GuarantorJobTitle" source="guarantorJobTitle" />
-            <TextField label="GuarantorName" source="guarantorName" />
-            <TextField
-              label="GuarantorNationalIdNumber"
-              source="guarantorNationalIdNumber"
-            />
-            <TextField
-              label="GuarantorPhoneNumber"
-              source="guarantorPhoneNumber"
-            />
-            <ReferenceField
-              label="GuarantorRatingId"
-              source="rating.id"
-              reference="Rating"
-            >
-              <TextField source={RATING_TITLE_FIELD} />
-            </ReferenceField>
-            <TextField
-              label="GuarantorWorkAddress"
-              source="guarantorWorkAddress"
-            />
-            <TextField
-              label="HasMortalOrDiscount"
-              source="hasMortalOrDiscount"
-            />
-            <TextField
-              label="HasNoPendingInvoices"
-              source="hasNoPendingInvoices"
-            />
+            <TextField label="DiscountTotal" source="discountTotal" />
             <TextField label="ID" source="id" />
-            <BooleanField label="IsActive" source="isActive" />
-            <BooleanField label="IsComplain" source="isComplain" />
-            <BooleanField label="IsSystem" source="isSystem" />
-            <BooleanField label="IsUnderRevision" source="isUnderRevision" />
-            <TextField label="JobTitle" source="jobTitle" />
-            <TextField label="MaxAllowedDebit" source="maxAllowedDebit" />
-            <TextField label="Name" source="name" />
-            <TextField label="NormalizedName" source="normalizedName" />
-            <TextField label="Note" source="note" />
-            <TextField label="PhoneNumber" source="phoneNumber" />
-            <TextField label="PreviousBalance" source="previousBalance" />
             <ReferenceField
-              label="Rating"
-              source="rating.id"
-              reference="Rating"
+              label="InvoiceTypeId"
+              source="invoicetype.id"
+              reference="InvoiceType"
             >
-              <TextField source={RATING_TITLE_FIELD} />
+              <TextField source={INVOICETYPE_TITLE_FIELD} />
             </ReferenceField>
-            <TextField label="RevisionDate" source="revisionDate" />
-            <TextField label="SaleDiscountRate" source="saleDiscountRate" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsCancelled" source="isCancelled" />
+            <BooleanField label="IsReplicated" source="isReplicated" />
+            <TextField label="NetTotal" source="netTotal" />
+            <TextField label="NonTaxableTotal" source="nonTaxableTotal" />
+            <TextField label="Note" source="note" />
+            <TextField label="Paid" source="paid" />
             <ReferenceField
-              label="SalePriceTypeId"
-              source="salepricetype.id"
-              reference="SalePriceType"
+              label="PaymentTypeId"
+              source="paymenttype.id"
+              reference="PaymentType"
             >
-              <TextField source={SALEPRICETYPE_TITLE_FIELD} />
+              <TextField source={PAYMENTTYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="PurchaseId"
+              source="purchase.id"
+              reference="Purchase"
+            >
+              <TextField source={PURCHASE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="PurchasePriceTypeId"
+              source="purchasepricetype.id"
+              reference="PurchasePriceType"
+            >
+              <TextField source={PURCHASEPRICETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="PurchaseReturnDate" source="purchaseReturnDate" />
+            <TextField
+              label="PurchaseReturnTotal"
+              source="purchaseReturnTotal"
+            />
+            <TextField label="ReferenceNumber" source="referenceNumber" />
+            <TextField label="Remaining" source="remaining" />
+            <TextField label="SequenceNumber" source="sequenceNumber" />
+            <ReferenceField label="StoreId" source="store.id" reference="Store">
+              <TextField source={STORE_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
               label="SupplierId"
@@ -145,10 +128,89 @@ export const SupplierShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={SUPPLIER_TITLE_FIELD} />
             </ReferenceField>
-            <TextField label="TaxNumber" source="taxNumber" />
+            <TextField label="Tax" source="tax" />
+            <TextField label="TaxRate" source="taxRate" />
+            <TextField label="TaxableTotal" source="taxableTotal" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
-            <TextField label="Website" source="website" />
-            <TextField label="WorkAddress" source="workAddress" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="Purchase"
+          target="supplierIdId"
+          label="Purchases"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="CashRepositoryId"
+              source="cashrepository.id"
+              reference="CashRepository"
+            >
+              <TextField source={CASHREPOSITORY_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="DiscountTotal" source="discountTotal" />
+            <TextField label="ID" source="id" />
+            <ReferenceField
+              label="InvoiceTypeId"
+              source="invoicetype.id"
+              reference="InvoiceType"
+            >
+              <TextField source={INVOICETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsCancelled" source="isCancelled" />
+            <BooleanField label="IsReplicated" source="isReplicated" />
+            <TextField label="NetTotal" source="netTotal" />
+            <TextField label="NonTaxableTotal" source="nonTaxableTotal" />
+            <TextField label="Note" source="note" />
+            <TextField label="Paid" source="paid" />
+            <ReferenceField
+              label="PaymentTypeId"
+              source="paymenttype.id"
+              reference="PaymentType"
+            >
+              <TextField source={PAYMENTTYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="PurchaseDate" source="purchaseDate" />
+            <ReferenceField
+              label="PurchasePriceTypeId"
+              source="purchasepricetype.id"
+              reference="PurchasePriceType"
+            >
+              <TextField source={PURCHASEPRICETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="PurchaseTotal" source="purchaseTotal" />
+            <TextField label="ReferenceNumber" source="referenceNumber" />
+            <TextField label="Remaining" source="remaining" />
+            <TextField label="SequenceNumber" source="sequenceNumber" />
+            <ReferenceField label="StoreId" source="store.id" reference="Store">
+              <TextField source={STORE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="SupplierId"
+              source="supplier.id"
+              reference="Supplier"
+            >
+              <TextField source={SUPPLIER_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Tax" source="tax" />
+            <TextField label="TaxRate" source="taxRate" />
+            <TextField label="TaxableTotal" source="taxableTotal" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
       </SimpleShowLayout>

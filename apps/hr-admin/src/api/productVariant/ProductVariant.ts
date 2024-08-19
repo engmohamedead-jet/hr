@@ -3,6 +3,12 @@ import { BillOfMaterialDetail } from "../billOfMaterialDetail/BillOfMaterialDeta
 import { BillOfMaterial } from "../billOfMaterial/BillOfMaterial";
 import { ProductBarcode } from "../productBarcode/ProductBarcode";
 import { Product } from "../product/Product";
+import { PurchaseDetail } from "../purchaseDetail/PurchaseDetail";
+import { PurchaseReturnDetail } from "../purchaseReturnDetail/PurchaseReturnDetail";
+import { SaleDetail } from "../saleDetail/SaleDetail";
+import { SaleQuotationDetail } from "../saleQuotationDetail/SaleQuotationDetail";
+import { SaleReturnDetail } from "../saleReturnDetail/SaleReturnDetail";
+import { Tenant } from "../tenant/Tenant";
 
 export type ProductVariant = {
   attributeValueId?: AttributeValue;
@@ -10,8 +16,15 @@ export type ProductVariant = {
   billOfMaterials?: Array<BillOfMaterial>;
   createdAt: Date;
   id: string;
+  isActive: boolean;
   note: string | null;
   productBarcodes?: Array<ProductBarcode>;
   productId?: Product;
+  purchaseDetails?: Array<PurchaseDetail>;
+  purchaseReturnDetails?: Array<PurchaseReturnDetail>;
+  saleDetails?: Array<SaleDetail>;
+  saleQuotationDetails?: Array<SaleQuotationDetail>;
+  saleReturnDetails?: Array<SaleReturnDetail>;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

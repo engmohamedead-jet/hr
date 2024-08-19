@@ -15,11 +15,13 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { ProductGroupCreateNestedManyWithoutSaleTaxesInput } from "./ProductGroupCreateNestedManyWithoutSaleTaxesInput";
 import { Type } from "class-transformer";
 import { ProductCreateNestedManyWithoutSaleTaxesInput } from "./ProductCreateNestedManyWithoutSaleTaxesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SaleTaxCreateInput {
@@ -46,6 +48,14 @@ class SaleTaxCreateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -100,6 +110,18 @@ class SaleTaxCreateInput {
     nullable: true,
   })
   products?: ProductCreateNestedManyWithoutSaleTaxesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { SaleTaxCreateInput as SaleTaxCreateInput };

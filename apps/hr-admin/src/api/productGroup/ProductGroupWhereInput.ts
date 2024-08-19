@@ -6,6 +6,7 @@ import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
 import { ProductGroupListRelationFilter } from "./ProductGroupListRelationFilter";
 import { ProductListRelationFilter } from "../product/ProductListRelationFilter";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type ProductGroupWhereInput = {
   code?: StringNullableFilter;
@@ -15,6 +16,7 @@ export type ProductGroupWhereInput = {
   excludeFromSale?: BooleanFilter;
   id?: StringFilter;
   inventoryAccount?: AccountWhereUniqueInput;
+  isActive?: BooleanFilter;
   isDefault?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
@@ -29,4 +31,5 @@ export type ProductGroupWhereInput = {
   saleDiscountAccountId?: AccountWhereUniqueInput;
   saleReturnAccountId?: AccountWhereUniqueInput;
   saleTaxId?: SaleTaxWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput;
 };

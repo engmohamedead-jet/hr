@@ -31,6 +31,7 @@ import { Customer } from "../../customer/base/Customer";
 import { OrderStatus } from "../../orderStatus/base/OrderStatus";
 import { Product } from "../../product/base/Product";
 import { Store } from "../../store/base/Store";
+import { Tenant } from "../../tenant/base/Tenant";
 import { Unit } from "../../unit/base/Unit";
 import { ProductionOrderService } from "../productionOrder.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -125,6 +126,12 @@ export class ProductionOrderResolverBase {
           connect: args.data.storeId,
         },
 
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+
         unit: {
           connect: args.data.unit,
         },
@@ -171,6 +178,12 @@ export class ProductionOrderResolverBase {
           storeId: {
             connect: args.data.storeId,
           },
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
 
           unit: {
             connect: args.data.unit,
@@ -306,6 +319,27 @@ export class ProductionOrderResolverBase {
     @graphql.Parent() parent: ProductionOrder
   ): Promise<Store | null> {
     const result = await this.service.getStoreId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: ProductionOrder
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

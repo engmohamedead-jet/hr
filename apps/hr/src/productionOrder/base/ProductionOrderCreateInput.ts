@@ -12,21 +12,25 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { BillOfMaterialWhereUniqueInput } from "../../billOfMaterial/base/BillOfMaterialWhereUniqueInput";
+
 import {
   ValidateNested,
   IsOptional,
   IsString,
   MaxLength,
   IsDate,
+  IsBoolean,
   IsNumber,
   Max,
 } from "class-validator";
+
 import { Type } from "class-transformer";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 import { OrderStatusWhereUniqueInput } from "../../orderStatus/base/OrderStatusWhereUniqueInput";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 import { Decimal } from "decimal.js";
 import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { UnitWhereUniqueInput } from "../../unit/base/UnitWhereUniqueInput";
 
 @InputType()
@@ -100,6 +104,14 @@ class ProductionOrderCreateInput {
     nullable: true,
   })
   finishDate?: Date | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -203,6 +215,18 @@ class ProductionOrderCreateInput {
   @Type(() => StoreWhereUniqueInput)
   @Field(() => StoreWhereUniqueInput)
   storeId!: StoreWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: true,

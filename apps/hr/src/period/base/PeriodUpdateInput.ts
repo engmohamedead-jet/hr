@@ -16,9 +16,11 @@ import {
   MaxLength,
   IsOptional,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
-import { PaymentTermWhereUniqueInput } from "../../paymentTerm/base/PaymentTermWhereUniqueInput";
+import { PaymentTermUpdateManyWithoutPeriodsInput } from "./PaymentTermUpdateManyWithoutPeriodsInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PeriodUpdateInput {
@@ -32,7 +34,7 @@ class PeriodUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -48,15 +50,26 @@ class PeriodUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentTermWhereUniqueInput,
+    type: () => PaymentTermUpdateManyWithoutPeriodsInput,
   })
   @ValidateNested()
-  @Type(() => PaymentTermWhereUniqueInput)
+  @Type(() => PaymentTermUpdateManyWithoutPeriodsInput)
   @IsOptional()
-  @Field(() => PaymentTermWhereUniqueInput, {
+  @Field(() => PaymentTermUpdateManyWithoutPeriodsInput, {
     nullable: true,
   })
-  installmentSaleFeePostingPeriod?: PaymentTermWhereUniqueInput | null;
+  installmentSaleFeePostingPeriodPaymentTerms?: PaymentTermUpdateManyWithoutPeriodsInput;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -96,15 +109,27 @@ class PeriodUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentTermWhereUniqueInput,
+    type: () => PaymentTermUpdateManyWithoutPeriodsInput,
   })
   @ValidateNested()
-  @Type(() => PaymentTermWhereUniqueInput)
+  @Type(() => PaymentTermUpdateManyWithoutPeriodsInput)
   @IsOptional()
-  @Field(() => PaymentTermWhereUniqueInput, {
+  @Field(() => PaymentTermUpdateManyWithoutPeriodsInput, {
     nullable: true,
   })
-  paymentTerms?: PaymentTermWhereUniqueInput | null;
+  paymentTerms1?: PaymentTermUpdateManyWithoutPeriodsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { PeriodUpdateInput as PeriodUpdateInput };

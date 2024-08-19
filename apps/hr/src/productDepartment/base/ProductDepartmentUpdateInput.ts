@@ -22,6 +22,7 @@ import { ProductDepartmentWhereUniqueInput } from "./ProductDepartmentWhereUniqu
 import { Type } from "class-transformer";
 import { ProductDepartmentUpdateManyWithoutProductDepartmentsInput } from "./ProductDepartmentUpdateManyWithoutProductDepartmentsInput";
 import { ProductUpdateManyWithoutProductDepartmentsInput } from "./ProductUpdateManyWithoutProductDepartmentsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductDepartmentUpdateInput {
@@ -48,6 +49,17 @@ class ProductDepartmentUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -106,7 +118,7 @@ class ProductDepartmentUpdateInput {
   @Field(() => ProductDepartmentWhereUniqueInput, {
     nullable: true,
   })
-  parentProductDepartment?: ProductDepartmentWhereUniqueInput | null;
+  parentProductDepartmentId?: ProductDepartmentWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -131,6 +143,18 @@ class ProductDepartmentUpdateInput {
     nullable: true,
   })
   products?: ProductUpdateManyWithoutProductDepartmentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductDepartmentUpdateInput as ProductDepartmentUpdateInput };

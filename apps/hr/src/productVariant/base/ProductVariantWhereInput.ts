@@ -17,9 +17,16 @@ import { Type } from "class-transformer";
 import { BillOfMaterialDetailListRelationFilter } from "../../billOfMaterialDetail/base/BillOfMaterialDetailListRelationFilter";
 import { BillOfMaterialListRelationFilter } from "../../billOfMaterial/base/BillOfMaterialListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ProductBarcodeListRelationFilter } from "../../productBarcode/base/ProductBarcodeListRelationFilter";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
+import { PurchaseDetailListRelationFilter } from "../../purchaseDetail/base/PurchaseDetailListRelationFilter";
+import { PurchaseReturnDetailListRelationFilter } from "../../purchaseReturnDetail/base/PurchaseReturnDetailListRelationFilter";
+import { SaleDetailListRelationFilter } from "../../saleDetail/base/SaleDetailListRelationFilter";
+import { SaleQuotationDetailListRelationFilter } from "../../saleQuotationDetail/base/SaleQuotationDetailListRelationFilter";
+import { SaleReturnDetailListRelationFilter } from "../../saleReturnDetail/base/SaleReturnDetailListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductVariantWhereInput {
@@ -72,6 +79,17 @@ class ProductVariantWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -104,6 +122,78 @@ class ProductVariantWhereInput {
     nullable: true,
   })
   productId?: ProductWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseDetailListRelationFilter, {
+    nullable: true,
+  })
+  purchaseDetails?: PurchaseDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseReturnDetailListRelationFilter, {
+    nullable: true,
+  })
+  purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleReturnDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { ProductVariantWhereInput as ProductVariantWhereInput };

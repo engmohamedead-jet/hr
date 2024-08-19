@@ -1,14 +1,17 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { JsonFilter } from "../../util/JsonFilter";
 import { PrintTemplateContentWhereUniqueInput } from "../printTemplateContent/PrintTemplateContentWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PrintTemplateWhereInput = {
   code?: StringNullableFilter;
   description?: StringNullableFilter;
   filePath?: StringNullableFilter;
   id?: StringFilter;
+  isActive?: BooleanNullableFilter;
   isCustomized?: BooleanFilter;
   isFavourite?: BooleanFilter;
   name?: StringFilter;
@@ -29,4 +32,5 @@ export type PrintTemplateWhereInput = {
     | "B6";
   previewImage?: JsonFilter;
   printTemplateContents?: PrintTemplateContentWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput;
 };

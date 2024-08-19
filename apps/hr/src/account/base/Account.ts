@@ -21,6 +21,9 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
+import { SalePerson } from "../../salePerson/base/SalePerson";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class Account {
@@ -90,6 +93,15 @@ class Account {
 
   @ApiProperty({
     required: false,
+    type: () => [InstallmentSaleFee],
+  })
+  @ValidateNested()
+  @Type(() => InstallmentSaleFee)
+  @IsOptional()
+  installmentSaleFees?: Array<InstallmentSaleFee>;
+
+  @ApiProperty({
+    required: false,
     type: () => [ProductGroup],
   })
   @ValidateNested()
@@ -106,7 +118,15 @@ class Account {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isMasterAccount!: boolean | null;
+  isActive!: boolean | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isMasterAccount!: boolean;
 
   @ApiProperty({
     required: true,
@@ -191,6 +211,24 @@ class Account {
   @Type(() => ProductGroup)
   @IsOptional()
   saleDiscountAccountProductGroups?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SalePerson],
+  })
+  @ValidateNested()
+  @Type(() => SalePerson)
+  @IsOptional()
+  salePeople?: Array<SalePerson>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

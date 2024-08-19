@@ -5,9 +5,11 @@ export type OrderStatusOrderByInput = {
   createdAt?: SortOrder;
   description?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
   productionOrdersId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

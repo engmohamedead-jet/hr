@@ -1,19 +1,23 @@
 import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../currency/CurrencyWhereUniqueInput";
 import { ProductionOrderUpdateManyWithoutCustomersInput } from "./ProductionOrderUpdateManyWithoutCustomersInput";
+import { SaleReturnUpdateManyWithoutCustomersInput } from "./SaleReturnUpdateManyWithoutCustomersInput";
+import { SaleUpdateManyWithoutCustomersInput } from "./SaleUpdateManyWithoutCustomersInput";
+import { SupplierUpdateManyWithoutCustomersInput } from "./SupplierUpdateManyWithoutCustomersInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type CustomerUpdateInput = {
   DefaultSalePriceTypeId?: number | null;
   address?: string | null;
   code?: string | null;
   credit?: Decimal | null;
-  currency?: CurrencyWhereUniqueInput | null;
+  currencyId?: CurrencyWhereUniqueInput | null;
   debit?: Decimal | null;
   description?: string | null;
   email?: string | null;
   firstBalance?: Decimal | null;
   firstBalanceDate?: Date | null;
-  isActive?: boolean | null;
+  isActive?: boolean;
   isSystem?: boolean | null;
   isUnderRevision?: boolean | null;
   maxAllowedDebit?: Decimal | null;
@@ -24,7 +28,11 @@ export type CustomerUpdateInput = {
   productionOrders?: ProductionOrderUpdateManyWithoutCustomersInput;
   revisionDate?: Date | null;
   saleDiscountRate?: Decimal | null;
+  saleReturns?: SaleReturnUpdateManyWithoutCustomersInput;
+  sales?: SaleUpdateManyWithoutCustomersInput;
   supplierId?: string | null;
+  suppliers?: SupplierUpdateManyWithoutCustomersInput;
   taxNumber?: string | null;
+  tenant?: TenantWhereUniqueInput | null;
   website?: string | null;
 };

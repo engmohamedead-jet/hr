@@ -17,9 +17,12 @@ import {
   IsOptional,
   IsDate,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Customer } from "../../customer/base/Customer";
+import { Supplier } from "../../supplier/base/Supplier";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class Currency {
@@ -74,6 +77,14 @@ class Currency {
 
   @ApiProperty({
     required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
@@ -101,6 +112,24 @@ class Currency {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Supplier],
+  })
+  @ValidateNested()
+  @Type(() => Supplier)
+  @IsOptional()
+  suppliers?: Array<Supplier>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

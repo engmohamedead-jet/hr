@@ -26,6 +26,7 @@ import { ProductionAvailabilityFindUniqueArgs } from "./ProductionAvailabilityFi
 import { CreateProductionAvailabilityArgs } from "./CreateProductionAvailabilityArgs";
 import { UpdateProductionAvailabilityArgs } from "./UpdateProductionAvailabilityArgs";
 import { DeleteProductionAvailabilityArgs } from "./DeleteProductionAvailabilityArgs";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ProductionAvailabilityService } from "../productionAvailability.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductionAvailability)
@@ -92,7 +93,15 @@ export class ProductionAvailabilityResolverBase {
   ): Promise<ProductionAvailability> {
     return await this.service.createProductionAvailability({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantIId: args.data.tenantIId
+          ? {
+              connect: args.data.tenantIId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +118,15 @@ export class ProductionAvailabilityResolverBase {
     try {
       return await this.service.updateProductionAvailability({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantIId: args.data.tenantIId
+            ? {
+                connect: args.data.tenantIId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +157,26 @@ export class ProductionAvailabilityResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantIId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantIId(
+    @graphql.Parent() parent: ProductionAvailability
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantIId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

@@ -5,11 +5,15 @@ import {
   SimpleForm,
   EditProps,
   TextInput,
+  BooleanInput,
   ReferenceArrayInput,
   SelectArrayInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
 import { ProductBarcodeTitle } from "../productBarcode/ProductBarcodeTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const BarcodeTypeEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -17,6 +21,7 @@ export const BarcodeTypeEdit = (props: EditProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
@@ -28,6 +33,13 @@ export const BarcodeTypeEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ProductBarcodeTitle} />
         </ReferenceArrayInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Edit>
   );

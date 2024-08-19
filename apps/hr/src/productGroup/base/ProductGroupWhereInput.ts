@@ -21,6 +21,7 @@ import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
 import { ProductGroupListRelationFilter } from "./ProductGroupListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductGroupWhereInput {
@@ -102,6 +103,17 @@ class ProductGroupWhereInput {
     nullable: true,
   })
   inventoryAccount?: AccountWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -266,6 +278,18 @@ class ProductGroupWhereInput {
     nullable: true,
   })
   saleTaxId?: SaleTaxWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { ProductGroupWhereInput as ProductGroupWhereInput };

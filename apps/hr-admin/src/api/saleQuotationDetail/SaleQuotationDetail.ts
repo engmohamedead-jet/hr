@@ -1,0 +1,31 @@
+import { Decimal } from "decimal.js";
+import { Product } from "../product/Product";
+import { ProductVariant } from "../productVariant/ProductVariant";
+import { SalePriceType } from "../salePriceType/SalePriceType";
+import { SaleQuotation } from "../saleQuotation/SaleQuotation";
+import { Tenant } from "../tenant/Tenant";
+import { Unit } from "../unit/Unit";
+
+export type SaleQuotationDetail = {
+  createdAt: Date;
+  discount: Decimal | null;
+  discountRate: Decimal | null;
+  id: string;
+  isActive: boolean;
+  isError: boolean;
+  isReplicated: boolean;
+  isTaxed: boolean;
+  note: string | null;
+  price: Decimal;
+  priceTotal: Decimal;
+  productId?: Product;
+  productVariantId?: ProductVariant | null;
+  quantity: Decimal;
+  salePriceType?: SalePriceType | null;
+  saleQuotationId?: SaleQuotation | null;
+  sequence: string;
+  shippingCharge: Decimal | null;
+  tenantId?: Tenant | null;
+  unitId?: Unit;
+  updatedAt: Date;
+};

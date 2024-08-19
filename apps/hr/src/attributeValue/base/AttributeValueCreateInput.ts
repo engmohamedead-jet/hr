@@ -14,12 +14,14 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AttributeWhereUniqueInput } from "../../attribute/base/AttributeWhereUniqueInput";
 import {
   ValidateNested,
+  IsBoolean,
   IsString,
   MaxLength,
   IsOptional,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ProductVariantCreateNestedManyWithoutAttributeValuesInput } from "./ProductVariantCreateNestedManyWithoutAttributeValuesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AttributeValueCreateInput {
@@ -31,6 +33,14 @@ class AttributeValueCreateInput {
   @Type(() => AttributeWhereUniqueInput)
   @Field(() => AttributeWhereUniqueInput)
   attributeId!: AttributeWhereUniqueInput;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -55,6 +65,18 @@ class AttributeValueCreateInput {
     nullable: true,
   })
   productVariants?: ProductVariantCreateNestedManyWithoutAttributeValuesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: true,

@@ -16,6 +16,11 @@ import {
   Store as PrismaStore,
   ProductionOrder as PrismaProductionOrder,
   Product as PrismaProduct,
+  PurchaseReturn as PrismaPurchaseReturn,
+  Purchase as PrismaPurchase,
+  SaleReturn as PrismaSaleReturn,
+  Sale as PrismaSale,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class StoreServiceBase {
@@ -61,5 +66,57 @@ export class StoreServiceBase {
         where: { id: parentId },
       })
       .products(args);
+  }
+
+  async findPurchaseReturns(
+    parentId: string,
+    args: Prisma.PurchaseReturnFindManyArgs
+  ): Promise<PrismaPurchaseReturn[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchaseReturns(args);
+  }
+
+  async findPurchases(
+    parentId: string,
+    args: Prisma.PurchaseFindManyArgs
+  ): Promise<PrismaPurchase[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchases(args);
+  }
+
+  async findSaleReturns(
+    parentId: string,
+    args: Prisma.SaleReturnFindManyArgs
+  ): Promise<PrismaSaleReturn[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleReturns(args);
+  }
+
+  async findSales(
+    parentId: string,
+    args: Prisma.SaleFindManyArgs
+  ): Promise<PrismaSale[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .sales(args);
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.store
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

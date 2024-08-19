@@ -3,6 +3,11 @@ import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ProductionOrderListRelationFilter } from "../productionOrder/ProductionOrderListRelationFilter";
 import { ProductListRelationFilter } from "../product/ProductListRelationFilter";
+import { PurchaseReturnListRelationFilter } from "../purchaseReturn/PurchaseReturnListRelationFilter";
+import { PurchaseListRelationFilter } from "../purchase/PurchaseListRelationFilter";
+import { SaleReturnListRelationFilter } from "../saleReturn/SaleReturnListRelationFilter";
+import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type StoreWhereInput = {
   addressLine1?: StringNullableFilter;
@@ -12,10 +17,16 @@ export type StoreWhereInput = {
   fax?: StringNullableFilter;
   homePhoneNumber?: StringNullableFilter;
   id?: StringFilter;
+  isActive?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
   productionOrders?: ProductionOrderListRelationFilter;
   products?: ProductListRelationFilter;
+  purchaseReturns?: PurchaseReturnListRelationFilter;
+  purchases?: PurchaseListRelationFilter;
+  saleReturns?: SaleReturnListRelationFilter;
+  sales?: SaleListRelationFilter;
   street?: StringNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

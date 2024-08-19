@@ -39,9 +39,16 @@ import { ProductCategoryWhereUniqueInput } from "../../productCategory/base/Prod
 import { ProductDepartmentWhereUniqueInput } from "../../productDepartment/base/ProductDepartmentWhereUniqueInput";
 import { ProductGroupWhereUniqueInput } from "../../productGroup/base/ProductGroupWhereUniqueInput";
 import { ProductTypeWhereUniqueInput } from "../../productType/base/ProductTypeWhereUniqueInput";
+import { ProductUnitUpdateManyWithoutProductsInput } from "./ProductUnitUpdateManyWithoutProductsInput";
 import { ProductVariantUpdateManyWithoutProductsInput } from "./ProductVariantUpdateManyWithoutProductsInput";
 import { ProductionOrderUpdateManyWithoutProductsInput } from "./ProductionOrderUpdateManyWithoutProductsInput";
+import { PurchaseDetailUpdateManyWithoutProductsInput } from "./PurchaseDetailUpdateManyWithoutProductsInput";
+import { PurchaseReturnDetailUpdateManyWithoutProductsInput } from "./PurchaseReturnDetailUpdateManyWithoutProductsInput";
+import { SaleDetailUpdateManyWithoutProductsInput } from "./SaleDetailUpdateManyWithoutProductsInput";
+import { SaleQuotationDetailUpdateManyWithoutProductsInput } from "./SaleQuotationDetailUpdateManyWithoutProductsInput";
+import { SaleReturnDetailUpdateManyWithoutProductsInput } from "./SaleReturnDetailUpdateManyWithoutProductsInput";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductUpdateInput {
@@ -414,6 +421,18 @@ class ProductUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductUnitUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUnitUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => ProductUnitUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  productUnits?: ProductUnitUpdateManyWithoutProductsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductVariantUpdateManyWithoutProductsInput,
   })
   @ValidateNested()
@@ -450,6 +469,30 @@ class ProductUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => PurchaseDetailUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetailUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => PurchaseDetailUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  purchaseDetails?: PurchaseDetailUpdateManyWithoutProductsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnDetailUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetailUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnDetailUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  purchaseReturnDetails?: PurchaseReturnDetailUpdateManyWithoutProductsInput;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
@@ -459,6 +502,18 @@ class ProductUpdateInput {
     nullable: true,
   })
   reorderQuantity?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => SaleDetailUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailUpdateManyWithoutProductsInput;
 
   @ApiProperty({
     required: false,
@@ -485,6 +540,30 @@ class ProductUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SaleQuotationDetailUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailUpdateManyWithoutProductsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailUpdateManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailUpdateManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => SaleReturnDetailUpdateManyWithoutProductsInput, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailUpdateManyWithoutProductsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => SaleTaxWhereUniqueInput,
   })
   @ValidateNested()
@@ -494,6 +573,18 @@ class ProductUpdateInput {
     nullable: true,
   })
   saleTaxId?: SaleTaxWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductUpdateInput as ProductUpdateInput };

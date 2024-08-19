@@ -6,15 +6,16 @@ import {
   ShowProps,
   TextField,
   DateField,
+  BooleanField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
-  BooleanField,
 } from "react-admin";
 
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
 import { SALETAX_TITLE_FIELD } from "./SaleTaxTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
 import { UNIT_TITLE_FIELD } from "../unit/UnitTitle";
 import { PRODUCTCATEGORY_TITLE_FIELD } from "../productCategory/ProductCategoryTitle";
@@ -29,9 +30,13 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="ProductGroup"
@@ -62,6 +67,7 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={ACCOUNT_TITLE_FIELD} />
             </ReferenceField>
+            <BooleanField label="IsActive" source="isActive" />
             <BooleanField label="IsDefault" source="isDefault" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
@@ -121,6 +127,13 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
               reference="SaleTax"
             >
               <TextField source={SALETAX_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
@@ -222,6 +235,13 @@ export const SaleTaxShow = (props: ShowProps): React.ReactElement => {
               reference="SaleTax"
             >
               <TextField source={SALETAX_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>

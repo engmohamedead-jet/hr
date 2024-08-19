@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   List,
   Datagrid,
@@ -6,8 +7,11 @@ import {
   TextField,
   DateField,
   BooleanField,
+  ReferenceField,
 } from "react-admin";
+
 import Pagination from "../Components/Pagination";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const WorkCenterList = (props: ListProps): React.ReactElement => {
   return (
@@ -35,6 +39,9 @@ export const WorkCenterList = (props: ListProps): React.ReactElement => {
         <TextField label="Sequence" source="sequence" />
         <TextField label="StartTime" source="startTime" />
         <TextField label="StopTime" source="stopTime" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="TimeEfficiency" source="timeEfficiency" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

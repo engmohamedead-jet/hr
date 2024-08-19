@@ -5,8 +5,13 @@ export type SalaryItemOrderByInput = {
   createdAt?: SortOrder;
   description?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
+  salaryItemGroupIdId?: SortOrder;
+  salaryItemTypeIdId?: SortOrder;
+  salaryLawIdId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

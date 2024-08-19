@@ -15,6 +15,7 @@ import {
 
 import { AccountTitle } from "../account/AccountTitle";
 import { PaymentTermTitle } from "../paymentTerm/PaymentTermTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const InstallmentSaleFeeEdit = (
   props: EditProps
@@ -22,11 +23,16 @@ export const InstallmentSaleFeeEdit = (
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceInput source="account.id" reference="Account" label="Account">
+        <ReferenceInput
+          source="accountId.id"
+          reference="Account"
+          label="AccountId"
+        >
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
         <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
+        <BooleanInput label="IsActive" source="isActive" />
         <BooleanInput label="IsFlatAmount" source="isFlatAmount" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
@@ -40,6 +46,13 @@ export const InstallmentSaleFeeEdit = (
           <SelectArrayInput optionText={PaymentTermTitle} />
         </ReferenceArrayInput>
         <NumberInput label="Rate" source="rate" />
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Edit>
   );

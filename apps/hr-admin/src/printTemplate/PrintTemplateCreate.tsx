@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { PrintTemplateContentTitle } from "../printTemplateContent/PrintTemplateContentTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const PrintTemplateCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -19,6 +20,7 @@ export const PrintTemplateCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
         <TextInput label="FilePath" source="filePath" />
+        <BooleanInput label="IsActive" source="isActive" />
         <BooleanInput label="IsCustomized" source="isCustomized" />
         <BooleanInput label="IsFavourite" source="isFavourite" />
         <TextInput label="Name" source="name" />
@@ -62,6 +64,13 @@ export const PrintTemplateCreate = (props: CreateProps): React.ReactElement => {
           label="PrintTemplateContents"
         >
           <SelectInput optionText={PrintTemplateContentTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
         </ReferenceInput>
       </SimpleForm>
     </Create>

@@ -18,6 +18,11 @@ import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
+import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
+import { PurchaseListRelationFilter } from "../../purchase/base/PurchaseListRelationFilter";
+import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
+import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class StoreWhereInput {
@@ -100,6 +105,17 @@ class StoreWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -157,6 +173,54 @@ class StoreWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => PurchaseReturnListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseReturnListRelationFilter, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseListRelationFilter, {
+    nullable: true,
+  })
+  purchases?: PurchaseListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleReturnListRelationFilter, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleListRelationFilter, {
+    nullable: true,
+  })
+  sales?: SaleListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -165,6 +229,18 @@ class StoreWhereInput {
     nullable: true,
   })
   street?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { StoreWhereInput as StoreWhereInput };

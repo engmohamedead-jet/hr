@@ -49,13 +49,28 @@ export class ProductionDocumentControllerBase {
     @common.Body() data: ProductionDocumentCreateInput
   ): Promise<ProductionDocument> {
     return await this.service.createProductionDocument({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         id: true,
         isActive: true,
         note: true,
         priority: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -85,6 +100,13 @@ export class ProductionDocumentControllerBase {
         isActive: true,
         note: true,
         priority: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -113,6 +135,13 @@ export class ProductionDocumentControllerBase {
         isActive: true,
         note: true,
         priority: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -143,13 +172,28 @@ export class ProductionDocumentControllerBase {
     try {
       return await this.service.updateProductionDocument({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           id: true,
           isActive: true,
           note: true,
           priority: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -186,6 +230,13 @@ export class ProductionDocumentControllerBase {
           isActive: true,
           note: true,
           priority: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

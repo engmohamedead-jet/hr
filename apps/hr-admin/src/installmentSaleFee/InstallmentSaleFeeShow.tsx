@@ -14,6 +14,7 @@ import {
 
 import { PERIOD_TITLE_FIELD } from "../period/PeriodTitle";
 import { INSTALLMENTSALEFEE_TITLE_FIELD } from "./InstallmentSaleFeeTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 
 export const InstallmentSaleFeeShow = (
@@ -22,18 +23,26 @@ export const InstallmentSaleFeeShow = (
   return (
     <Show {...props}>
       <SimpleShowLayout>
-        <ReferenceField label="Account" source="account.id" reference="Account">
+        <ReferenceField
+          label="AccountId"
+          source="account.id"
+          reference="Account"
+        >
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="Code" source="code" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <BooleanField label="IsFlatAmount" source="isFlatAmount" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
         <TextField label="Rate" source="rate" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="PaymentTerm"
@@ -45,7 +54,6 @@ export const InstallmentSaleFeeShow = (
             <DateField source="createdAt" label="Created At" />
             <TextField label="Description" source="description" />
             <TextField label="DueDays" source="dueDays" />
-            <TextField label="DueOnDate" source="dueOnDate" />
             <ReferenceField
               label="DuePeriodId"
               source="period.id"
@@ -69,9 +77,19 @@ export const InstallmentSaleFeeShow = (
             >
               <TextField source={PERIOD_TITLE_FIELD} />
             </ReferenceField>
+            <BooleanField label="IsActive" source="isActive" />
             <BooleanField label="IsDefault" source="isDefault" />
+            <BooleanField label="IsDueOnDate" source="isDueOnDate" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

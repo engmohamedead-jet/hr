@@ -1,10 +1,13 @@
-import { EmployeeClassSalaryItemValueUpdateManyWithoutEmployeeClassesInput } from "./EmployeeClassSalaryItemValueUpdateManyWithoutEmployeeClassesInput";
+import { EmployeeUpdateManyWithoutEmployeeClassesInput } from "./EmployeeUpdateManyWithoutEmployeeClassesInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type EmployeeClassUpdateInput = {
-  code?: string;
+  code?: string | null;
   description?: string | null;
-  employeeClassSalaryItemValues?: EmployeeClassSalaryItemValueUpdateManyWithoutEmployeeClassesInput;
+  employees?: EmployeeUpdateManyWithoutEmployeeClassesInput;
+  isActive?: boolean;
   name?: string;
   normalizedName?: string;
-  notes?: string | null;
+  note?: string | null;
+  tenantId?: TenantWhereUniqueInput | null;
 };

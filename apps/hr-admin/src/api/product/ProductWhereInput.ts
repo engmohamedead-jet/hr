@@ -16,9 +16,16 @@ import { ProductCategoryWhereUniqueInput } from "../productCategory/ProductCateg
 import { ProductDepartmentWhereUniqueInput } from "../productDepartment/ProductDepartmentWhereUniqueInput";
 import { ProductGroupWhereUniqueInput } from "../productGroup/ProductGroupWhereUniqueInput";
 import { ProductTypeWhereUniqueInput } from "../productType/ProductTypeWhereUniqueInput";
+import { ProductUnitListRelationFilter } from "../productUnit/ProductUnitListRelationFilter";
 import { ProductVariantListRelationFilter } from "../productVariant/ProductVariantListRelationFilter";
 import { ProductionOrderListRelationFilter } from "../productionOrder/ProductionOrderListRelationFilter";
+import { PurchaseDetailListRelationFilter } from "../purchaseDetail/PurchaseDetailListRelationFilter";
+import { PurchaseReturnDetailListRelationFilter } from "../purchaseReturnDetail/PurchaseReturnDetailListRelationFilter";
+import { SaleDetailListRelationFilter } from "../saleDetail/SaleDetailListRelationFilter";
+import { SaleQuotationDetailListRelationFilter } from "../saleQuotationDetail/SaleQuotationDetailListRelationFilter";
+import { SaleReturnDetailListRelationFilter } from "../saleReturnDetail/SaleReturnDetailListRelationFilter";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type ProductWhereInput = {
   barcode?: StringNullableFilter;
@@ -53,11 +60,18 @@ export type ProductWhereInput = {
   productDepartmentId?: ProductDepartmentWhereUniqueInput;
   productGroupId?: ProductGroupWhereUniqueInput;
   productTypeId?: ProductTypeWhereUniqueInput;
+  productUnits?: ProductUnitListRelationFilter;
   productVariants?: ProductVariantListRelationFilter;
   productionOrders?: ProductionOrderListRelationFilter;
   profitRate?: DecimalNullableFilter;
+  purchaseDetails?: PurchaseDetailListRelationFilter;
+  purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
   reorderQuantity?: DecimalNullableFilter;
+  saleDetails?: SaleDetailListRelationFilter;
   salePrice?: DecimalFilter;
   salePriceIncludesTax?: BooleanFilter;
+  saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
+  saleReturnDetails?: SaleReturnDetailListRelationFilter;
   saleTaxId?: SaleTaxWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput;
 };

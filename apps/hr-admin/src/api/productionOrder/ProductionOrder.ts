@@ -4,6 +4,7 @@ import { OrderStatus } from "../orderStatus/OrderStatus";
 import { Product } from "../product/Product";
 import { Decimal } from "decimal.js";
 import { Store } from "../store/Store";
+import { Tenant } from "../tenant/Tenant";
 import { Unit } from "../unit/Unit";
 
 export type ProductionOrder = {
@@ -15,6 +16,7 @@ export type ProductionOrder = {
   description: string | null;
   finishDate: Date | null;
   id: string;
+  isActive: boolean;
   name: string;
   normalizedName: string;
   note: string | null;
@@ -25,6 +27,7 @@ export type ProductionOrder = {
   sequenceNumber: string | null;
   startDate: Date | null;
   storeId?: Store;
+  tenantId?: Tenant | null;
   unit?: Unit;
   updatedAt: Date;
 };

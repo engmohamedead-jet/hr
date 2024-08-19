@@ -1,11 +1,14 @@
-import { PaymentTermWhereUniqueInput } from "../paymentTerm/PaymentTermWhereUniqueInput";
+import { PaymentTermUpdateManyWithoutPeriodsInput } from "./PaymentTermUpdateManyWithoutPeriodsInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PeriodUpdateInput = {
-  code?: string;
+  code?: string | null;
   description?: string | null;
-  installmentSaleFeePostingPeriod?: PaymentTermWhereUniqueInput | null;
+  installmentSaleFeePostingPeriodPaymentTerms?: PaymentTermUpdateManyWithoutPeriodsInput;
+  isActive?: boolean;
   name?: string;
   normalizedName?: string;
   note?: string | null;
-  paymentTerms?: PaymentTermWhereUniqueInput | null;
+  paymentTerms1?: PaymentTermUpdateManyWithoutPeriodsInput;
+  tenantId?: TenantWhereUniqueInput | null;
 };

@@ -28,6 +28,7 @@ import { UpdateBillOfMaterialTypeArgs } from "./UpdateBillOfMaterialTypeArgs";
 import { DeleteBillOfMaterialTypeArgs } from "./DeleteBillOfMaterialTypeArgs";
 import { BillOfMaterialFindManyArgs } from "../../billOfMaterial/base/BillOfMaterialFindManyArgs";
 import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
+import { Tenant } from "../../tenant/base/Tenant";
 import { BillOfMaterialTypeService } from "../billOfMaterialType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => BillOfMaterialType)
@@ -94,7 +95,15 @@ export class BillOfMaterialTypeResolverBase {
   ): Promise<BillOfMaterialType> {
     return await this.service.createBillOfMaterialType({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +120,15 @@ export class BillOfMaterialTypeResolverBase {
     try {
       return await this.service.updateBillOfMaterialType({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -162,5 +179,26 @@ export class BillOfMaterialTypeResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: BillOfMaterialType
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

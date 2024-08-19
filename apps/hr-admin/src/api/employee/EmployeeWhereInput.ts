@@ -1,16 +1,25 @@
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
-import { DepartmentWhereUniqueInput } from "../department/DepartmentWhereUniqueInput";
-import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { EmployeeClassWhereUniqueInput } from "../employeeClass/EmployeeClassWhereUniqueInput";
+import { EmployeeDepartmentWhereUniqueInput } from "../employeeDepartment/EmployeeDepartmentWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { SalePersonListRelationFilter } from "../salePerson/SalePersonListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type EmployeeWhereInput = {
   balance?: DecimalNullableFilter;
-  departmentId?: DepartmentWhereUniqueInput;
+  code?: StringNullableFilter;
+  employeeClassId?: EmployeeClassWhereUniqueInput;
+  employeeDepartmentId?: EmployeeDepartmentWhereUniqueInput;
   id?: StringFilter;
+  isActive?: BooleanFilter;
   lastYearBalance?: DecimalNullableFilter;
-  name?: StringNullableFilter;
-  normalizedName?: StringNullableFilter;
+  name?: StringFilter;
+  normalizedName?: StringFilter;
   note?: StringNullableFilter;
   remainingBalance?: DecimalNullableFilter;
+  salePeople?: SalePersonListRelationFilter;
+  tenantId?: TenantWhereUniqueInput;
   usedBalance?: DecimalNullableFilter;
 };

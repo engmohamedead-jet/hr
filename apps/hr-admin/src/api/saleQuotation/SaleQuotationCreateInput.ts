@@ -1,4 +1,5 @@
 import { Decimal } from "decimal.js";
+import { SaleOrderCreateNestedManyWithoutSaleQuotationsInput } from "./SaleOrderCreateNestedManyWithoutSaleQuotationsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutSaleQuotationsInput } from "./SaleQuotationDetailCreateNestedManyWithoutSaleQuotationsInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
@@ -12,6 +13,7 @@ export type SaleQuotationCreateInput = {
   nonTaxableTotal: Decimal;
   note?: string | null;
   referenceNumber?: string | null;
+  saleOrders?: SaleOrderCreateNestedManyWithoutSaleQuotationsInput;
   saleQuotationDate: Date;
   saleQuotationDetails?: SaleQuotationDetailCreateNestedManyWithoutSaleQuotationsInput;
   sequenceNumber: string;

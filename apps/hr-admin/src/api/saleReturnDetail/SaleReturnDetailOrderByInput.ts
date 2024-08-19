@@ -9,6 +9,7 @@ export type SaleReturnDetailOrderByInput = {
   isActive?: SortOrder;
   isError?: SortOrder;
   isReplicated?: SortOrder;
+  isTaxed?: SortOrder;
   price?: SortOrder;
   priceTotal?: SortOrder;
   productIdId?: SortOrder;

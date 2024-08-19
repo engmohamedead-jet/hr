@@ -598,6 +598,7 @@ export class SaleControllerBase {
         isActive: true,
         isError: true,
         isReplicated: true,
+        isTaxed: true,
         note: true,
         price: true,
         priceTotal: true,

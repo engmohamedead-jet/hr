@@ -15,6 +15,7 @@ export type PurchaseReturnDetail = {
   isActive: boolean;
   isError: boolean;
   isReplicated: boolean;
+  isTaxed: boolean;
   note: string | null;
   price: Decimal;
   priceTotal: Decimal | null;

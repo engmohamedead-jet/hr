@@ -222,6 +222,7 @@ export const ProductVariantShow = (props: ShowProps): React.ReactElement => {
             <BooleanField label="IsActive" source="isActive" />
             <BooleanField label="IsError" source="isError" />
             <BooleanField label="IsReplicated" source="isReplicated" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
             <TextField label="Note" source="note" />
             <TextField label="Price" source="price" />
             <TextField label="PriceTotal" source="priceTotal" />
@@ -286,6 +287,7 @@ export const ProductVariantShow = (props: ShowProps): React.ReactElement => {
             <BooleanField label="IsActive" source="isActive" />
             <BooleanField label="IsError" source="isError" />
             <BooleanField label="IsReplicated" source="isReplicated" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
             <TextField label="Note" source="note" />
             <TextField label="Price" source="price" />
             <TextField label="PriceTotal" source="priceTotal" />
@@ -350,6 +352,7 @@ export const ProductVariantShow = (props: ShowProps): React.ReactElement => {
             <BooleanField label="IsActive" source="isActive" />
             <BooleanField label="IsError" source="isError" />
             <BooleanField label="IsReplicated" source="isReplicated" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
             <TextField label="Note" source="note" />
             <TextField label="Price" source="price" />
             <TextField label="PriceTotal" source="priceTotal" />
@@ -471,6 +474,7 @@ export const ProductVariantShow = (props: ShowProps): React.ReactElement => {
             <BooleanField label="IsActive" source="isActive" />
             <BooleanField label="IsError" source="isError" />
             <BooleanField label="IsReplicated" source="isReplicated" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
             <TextField label="Price" source="price" />
             <TextField label="PriceTotal" source="priceTotal" />
             <ReferenceField

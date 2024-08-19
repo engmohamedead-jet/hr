@@ -639,6 +639,7 @@ export class SaleReturnControllerBase {
         isActive: true,
         isError: true,
         isReplicated: true,
+        isTaxed: true,
         price: true,
         priceTotal: true,
 

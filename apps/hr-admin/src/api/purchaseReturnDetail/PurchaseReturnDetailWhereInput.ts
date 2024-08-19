@@ -19,6 +19,7 @@ export type PurchaseReturnDetailWhereInput = {
   isActive?: BooleanFilter;
   isError?: BooleanFilter;
   isReplicated?: BooleanFilter;
+  isTaxed?: BooleanFilter;
   note?: StringNullableFilter;
   price?: DecimalFilter;
   priceTotal?: DecimalNullableFilter;

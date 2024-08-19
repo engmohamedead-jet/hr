@@ -22,6 +22,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
+import { SaleOrderListRelationFilter } from "../../saleOrder/base/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
 import { SupplierListRelationFilter } from "../../supplier/base/SupplierListRelationFilter";
@@ -272,6 +273,18 @@ class CustomerWhereInput {
     nullable: true,
   })
   saleDiscountRate?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleOrderListRelationFilter, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderListRelationFilter;
 
   @ApiProperty({
     required: false,

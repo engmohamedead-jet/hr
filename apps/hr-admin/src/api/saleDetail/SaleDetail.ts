@@ -15,6 +15,7 @@ export type SaleDetail = {
   isActive: boolean;
   isError: boolean;
   isReplicated: boolean;
+  isTaxed: boolean | null;
   note: string | null;
   price: Decimal;
   priceTotal: Decimal;

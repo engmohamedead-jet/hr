@@ -25,6 +25,7 @@ import {
 
 import { Decimal } from "decimal.js";
 import { Type } from "class-transformer";
+import { SaleOrderCreateNestedManyWithoutSaleQuotationsInput } from "./SaleOrderCreateNestedManyWithoutSaleQuotationsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutSaleQuotationsInput } from "./SaleQuotationDetailCreateNestedManyWithoutSaleQuotationsInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
@@ -128,6 +129,18 @@ class SaleQuotationCreateInput {
     nullable: true,
   })
   referenceNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderCreateNestedManyWithoutSaleQuotationsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderCreateNestedManyWithoutSaleQuotationsInput)
+  @IsOptional()
+  @Field(() => SaleOrderCreateNestedManyWithoutSaleQuotationsInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderCreateNestedManyWithoutSaleQuotationsInput;
 
   @ApiProperty({
     required: true,

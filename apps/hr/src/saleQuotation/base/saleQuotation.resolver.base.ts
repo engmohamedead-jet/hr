@@ -26,6 +26,8 @@ import { SaleQuotationFindUniqueArgs } from "./SaleQuotationFindUniqueArgs";
 import { CreateSaleQuotationArgs } from "./CreateSaleQuotationArgs";
 import { UpdateSaleQuotationArgs } from "./UpdateSaleQuotationArgs";
 import { DeleteSaleQuotationArgs } from "./DeleteSaleQuotationArgs";
+import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleQuotationDetailFindManyArgs } from "../../saleQuotationDetail/base/SaleQuotationDetailFindManyArgs";
 import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
 import { Tenant } from "../../tenant/base/Tenant";
@@ -159,6 +161,26 @@ export class SaleQuotationResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SaleOrder], { name: "saleOrders" })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrders(
+    @graphql.Parent() parent: SaleQuotation,
+    @graphql.Args() args: SaleOrderFindManyArgs
+  ): Promise<SaleOrder[]> {
+    const results = await this.service.findSaleOrders(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

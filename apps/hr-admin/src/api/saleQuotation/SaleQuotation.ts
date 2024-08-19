@@ -1,4 +1,5 @@
 import { Decimal } from "decimal.js";
+import { SaleOrder } from "../saleOrder/SaleOrder";
 import { SaleQuotationDetail } from "../saleQuotationDetail/SaleQuotationDetail";
 import { Tenant } from "../tenant/Tenant";
 
@@ -14,6 +15,7 @@ export type SaleQuotation = {
   nonTaxableTotal: Decimal;
   note: string | null;
   referenceNumber: string | null;
+  saleOrders?: Array<SaleOrder>;
   saleQuotationDate: Date;
   saleQuotationDetails?: Array<SaleQuotationDetail>;
   sequenceNumber: string;

@@ -1,4 +1,5 @@
 import { Decimal } from "decimal.js";
+import { SaleOrderUpdateManyWithoutSaleQuotationsInput } from "./SaleOrderUpdateManyWithoutSaleQuotationsInput";
 import { SaleQuotationDetailUpdateManyWithoutSaleQuotationsInput } from "./SaleQuotationDetailUpdateManyWithoutSaleQuotationsInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
@@ -12,6 +13,7 @@ export type SaleQuotationUpdateInput = {
   nonTaxableTotal?: Decimal;
   note?: string | null;
   referenceNumber?: string | null;
+  saleOrders?: SaleOrderUpdateManyWithoutSaleQuotationsInput;
   saleQuotationDate?: Date;
   saleQuotationDetails?: SaleQuotationDetailUpdateManyWithoutSaleQuotationsInput;
   sequenceNumber?: string;

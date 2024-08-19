@@ -15,6 +15,7 @@ export type SaleReturnDetail = {
   isActive: boolean;
   isError: boolean;
   isReplicated: boolean;
+  isTaxed: boolean;
   price: Decimal;
   priceTotal: Decimal;
   productId?: Product;

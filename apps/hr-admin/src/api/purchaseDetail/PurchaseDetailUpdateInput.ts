@@ -13,6 +13,7 @@ export type PurchaseDetailUpdateInput = {
   isActive?: boolean;
   isError?: boolean | null;
   isReplicated?: boolean;
+  isTaxed?: boolean;
   note?: string | null;
   price?: Decimal;
   priceTotal?: Decimal;

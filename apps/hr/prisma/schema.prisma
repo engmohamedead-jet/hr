@@ -157,6 +157,7 @@ model Customer {
   productionOrders       ProductionOrder[]
   revisionDate           DateTime?
   saleDiscountRate       Decimal?
+  saleOrders             SaleOrder[]
   saleReturns            SaleReturn[]
   sales                  Sale[]
   supplierId             String?
@@ -886,6 +887,7 @@ model PurchaseDetail {
   isActive              Boolean            @default(1)
   isError               Boolean?           @default(0)
   isReplicated          Boolean            @default(0)
+  isTaxed               Boolean            @default(1)
   note                  String?
   price                 Decimal
   priceTotal            Decimal
@@ -955,6 +957,7 @@ model PurchaseReturnDetail {
   isActive              Boolean            @default(1)
   isError               Boolean            @default(0)
   isReplicated          Boolean            @default(0)
+  isTaxed               Boolean            @default(1)
   note                  String?
   price                 Decimal
   priceTotal            Decimal?
@@ -1321,6 +1324,7 @@ model SaleDetail {
   isActive            Boolean         @default(1)
   isError             Boolean         @default(0)
   isReplicated        Boolean         @default(0)
+  isTaxed             Boolean?        @default(1)
   note                String?
   price               Decimal
   priceTotal          Decimal
@@ -1354,6 +1358,7 @@ model SaleQuotation {
   nonTaxableTotal      Decimal
   note                 String?
   referenceNumber      String?
+  saleOrders           SaleOrder[]
   saleQuotationDate    DateTime
   saleQuotationDetails SaleQuotationDetail[]
   sequenceNumber       String
@@ -1415,6 +1420,7 @@ model SaleReturnDetail {
   isActive            Boolean         @default(1)
   isError             Boolean         @default(0)
   isReplicated        Boolean         @default(0)
+  isTaxed             Boolean         @default(1)
   price               Decimal
   priceTotal          Decimal
   productId           Product         @relation(fields: [productIdId], references: [id])
@@ -1503,6 +1509,17 @@ model SaleQuotationDetail {
   unitId             Unit            @relation(fields: [unitIdId], references: [id])
   unitIdId           String
   updatedAt          DateTime        @updatedAt
+}
+
+model SaleOrder {
+  createdAt       DateTime       @default(now())
+  customerId      Customer       @relation(fields: [customerIdId], references: [id])
+  customerIdId    String
+  id              String         @id @default(cuid())
+  saleOrderDate   DateTime?
+  saleQuotation   SaleQuotation? @relation(fields: [saleQuotationId], references: [id])
+  saleQuotationId String?
+  updatedAt       DateTime       @updatedAt
 }
 
 enum EnumPrintTemplatePaperLayout {

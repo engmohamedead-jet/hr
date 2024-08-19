@@ -66,6 +66,7 @@ import { SaleReturnDetailModule } from "./saleReturnDetail/saleReturnDetail.modu
 import { ApplicationModule } from "./application/application.module";
 import { ApplicationDependencyModule } from "./applicationDependency/applicationDependency.module";
 import { SaleQuotationDetailModule } from "./saleQuotationDetail/saleQuotationDetail.module";
+import { SaleOrderModule } from "./saleOrder/saleOrder.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -148,6 +149,7 @@ import { AuthModule } from "./auth/auth.module";
     ApplicationModule,
     ApplicationDependencyModule,
     SaleQuotationDetailModule,
+    SaleOrderModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

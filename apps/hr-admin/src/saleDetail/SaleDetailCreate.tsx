@@ -28,6 +28,7 @@ export const SaleDetailCreate = (props: CreateProps): React.ReactElement => {
         <BooleanInput label="IsActive" source="isActive" />
         <BooleanInput label="IsError" source="isError" />
         <BooleanInput label="IsReplicated" source="isReplicated" />
+        <BooleanInput label="IsTaxed" source="isTaxed" />
         <TextInput label="Note" multiline source="note" />
         <NumberInput label="Price" source="price" />
         <NumberInput label="PriceTotal" source="priceTotal" />

@@ -19,6 +19,7 @@ import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
 import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 import { UNIT_TITLE_FIELD } from "../unit/UnitTitle";
+import { SALEQUOTATION_TITLE_FIELD } from "../saleQuotation/SaleQuotationTitle";
 import { CASHREPOSITORY_TITLE_FIELD } from "../cashRepository/CashRepositoryTitle";
 import { INVOICETYPE_TITLE_FIELD } from "../invoiceType/InvoiceTypeTitle";
 import { PAYMENTTYPE_TITLE_FIELD } from "../paymentType/PaymentTypeTitle";
@@ -128,6 +129,32 @@ export const CustomerShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <ReferenceField label="UnitId" source="unit.id" reference="Unit">
               <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="SaleOrder"
+          target="customerIdId"
+          label="SaleOrders"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <ReferenceField
+              label="CustomerId"
+              source="customer.id"
+              reference="Customer"
+            >
+              <TextField source={CUSTOMER_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ID" source="id" />
+            <TextField label="SaleOrderDate" source="saleOrderDate" />
+            <ReferenceField
+              label="SaleQuotation"
+              source="salequotation.id"
+              reference="SaleQuotation"
+            >
+              <TextField source={SALEQUOTATION_TITLE_FIELD} />
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>

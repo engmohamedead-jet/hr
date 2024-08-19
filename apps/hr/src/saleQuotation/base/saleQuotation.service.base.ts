@@ -14,6 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   SaleQuotation as PrismaSaleQuotation,
+  SaleOrder as PrismaSaleOrder,
   SaleQuotationDetail as PrismaSaleQuotationDetail,
   Tenant as PrismaTenant,
 } from "@prisma/client";
@@ -51,6 +52,17 @@ export class SaleQuotationServiceBase {
     args: Prisma.SaleQuotationDeleteArgs
   ): Promise<PrismaSaleQuotation> {
     return this.prisma.saleQuotation.delete(args);
+  }
+
+  async findSaleOrders(
+    parentId: string,
+    args: Prisma.SaleOrderFindManyArgs
+  ): Promise<PrismaSaleOrder[]> {
+    return this.prisma.saleQuotation
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrders(args);
   }
 
   async findSaleQuotationDetails(

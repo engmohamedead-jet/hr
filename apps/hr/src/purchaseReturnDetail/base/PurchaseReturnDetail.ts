@@ -113,6 +113,14 @@ class PurchaseReturnDetail {
   isReplicated!: boolean;
 
   @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isTaxed!: boolean;
+
+  @ApiProperty({
     required: false,
     type: String,
   })

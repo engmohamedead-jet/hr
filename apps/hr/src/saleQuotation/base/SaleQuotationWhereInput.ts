@@ -20,6 +20,7 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { DecimalFilter } from "../../util/DecimalFilter";
+import { SaleOrderListRelationFilter } from "../../saleOrder/base/SaleOrderListRelationFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { SaleQuotationDetailListRelationFilter } from "../../saleQuotationDetail/base/SaleQuotationDetailListRelationFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -135,6 +136,18 @@ class SaleQuotationWhereInput {
     nullable: true,
   })
   referenceNumber?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleOrderListRelationFilter, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderListRelationFilter;
 
   @ApiProperty({
     required: false,

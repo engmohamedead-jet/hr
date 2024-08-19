@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { DecimalFilter } from "../../util/DecimalFilter";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 import { ProductVariantWhereUniqueInput } from "../../productVariant/base/ProductVariantWhereUniqueInput";
@@ -104,6 +105,17 @@ class SaleDetailWhereInput {
     nullable: true,
   })
   isReplicated?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  isTaxed?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,

@@ -91,6 +91,7 @@ export class SaleReturnDetailControllerBase {
         isActive: true,
         isError: true,
         isReplicated: true,
+        isTaxed: true,
         price: true,
         priceTotal: true,
 
@@ -168,6 +169,7 @@ export class SaleReturnDetailControllerBase {
         isActive: true,
         isError: true,
         isReplicated: true,
+        isTaxed: true,
         price: true,
         priceTotal: true,
 
@@ -244,6 +246,7 @@ export class SaleReturnDetailControllerBase {
         isActive: true,
         isError: true,
         isReplicated: true,
+        isTaxed: true,
         price: true,
         priceTotal: true,
 
@@ -361,6 +364,7 @@ export class SaleReturnDetailControllerBase {
           isActive: true,
           isError: true,
           isReplicated: true,
+          isTaxed: true,
           price: true,
           priceTotal: true,
 
@@ -445,6 +449,7 @@ export class SaleReturnDetailControllerBase {
           isActive: true,
           isError: true,
           isReplicated: true,
+          isTaxed: true,
           price: true,
           priceTotal: true,
 

@@ -265,6 +265,10 @@ import { SaleQuotationDetailList } from "./saleQuotationDetail/SaleQuotationDeta
 import { SaleQuotationDetailCreate } from "./saleQuotationDetail/SaleQuotationDetailCreate";
 import { SaleQuotationDetailEdit } from "./saleQuotationDetail/SaleQuotationDetailEdit";
 import { SaleQuotationDetailShow } from "./saleQuotationDetail/SaleQuotationDetailShow";
+import { SaleOrderList } from "./saleOrder/SaleOrderList";
+import { SaleOrderCreate } from "./saleOrder/SaleOrderCreate";
+import { SaleOrderEdit } from "./saleOrder/SaleOrderEdit";
+import { SaleOrderShow } from "./saleOrder/SaleOrderShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -745,6 +749,13 @@ const App = (): React.ReactElement => {
           edit={SaleQuotationDetailEdit}
           create={SaleQuotationDetailCreate}
           show={SaleQuotationDetailShow}
+        />
+        <Resource
+          name="SaleOrder"
+          list={SaleOrderList}
+          edit={SaleOrderEdit}
+          create={SaleOrderCreate}
+          show={SaleOrderShow}
         />
       </Admin>
     </div>

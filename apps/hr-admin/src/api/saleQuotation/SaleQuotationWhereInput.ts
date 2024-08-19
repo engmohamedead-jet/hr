@@ -5,6 +5,7 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { DecimalFilter } from "../../util/DecimalFilter";
+import { SaleOrderListRelationFilter } from "../saleOrder/SaleOrderListRelationFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { SaleQuotationDetailListRelationFilter } from "../saleQuotationDetail/SaleQuotationDetailListRelationFilter";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -20,6 +21,7 @@ export type SaleQuotationWhereInput = {
   nonTaxableTotal?: DecimalFilter;
   note?: StringNullableFilter;
   referenceNumber?: StringNullableFilter;
+  saleOrders?: SaleOrderListRelationFilter;
   saleQuotationDate?: DateTimeFilter;
   saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
   sequenceNumber?: StringFilter;

@@ -106,6 +106,17 @@ class PurchaseDetailUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isTaxed?: boolean;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()

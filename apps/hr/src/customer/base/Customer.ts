@@ -28,6 +28,7 @@ import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { Currency } from "../../currency/base/Currency";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { Sale } from "../../sale/base/Sale";
 import { Supplier } from "../../supplier/base/Supplier";
@@ -282,6 +283,15 @@ class Customer {
     nullable: true,
   })
   saleDiscountRate!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleOrder],
+  })
+  @ValidateNested()
+  @Type(() => SaleOrder)
+  @IsOptional()
+  saleOrders?: Array<SaleOrder>;
 
   @ApiProperty({
     required: false,

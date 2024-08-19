@@ -29,6 +29,9 @@ import { CustomerUpdateInput } from "./CustomerUpdateInput";
 import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
+import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
 import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindManyArgs";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWhereUniqueInput";
@@ -545,6 +548,116 @@ export class CustomerControllerBase {
   ): Promise<void> {
     const data = {
       productionOrders: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleOrders")
+  @ApiNestedQuery(SaleOrderFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrders(
+    @common.Req() request: Request,
+    @common.Param() params: CustomerWhereUniqueInput
+  ): Promise<SaleOrder[]> {
+    const query = plainToClass(SaleOrderFindManyArgs, request.query);
+    const results = await this.service.findSaleOrders(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        saleOrderDate: true,
+
+        saleQuotation: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleOrders(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        connect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleOrders(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        set: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleOrders(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
         disconnect: body,
       },
     };

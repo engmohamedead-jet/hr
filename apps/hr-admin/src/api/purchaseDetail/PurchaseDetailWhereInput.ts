@@ -20,6 +20,7 @@ export type PurchaseDetailWhereInput = {
   isActive?: BooleanFilter;
   isError?: BooleanNullableFilter;
   isReplicated?: BooleanFilter;
+  isTaxed?: BooleanFilter;
   note?: StringNullableFilter;
   price?: DecimalFilter;
   priceTotal?: DecimalFilter;

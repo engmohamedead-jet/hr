@@ -28,6 +28,7 @@ import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { Type } from "class-transformer";
 import { ProductionOrderUpdateManyWithoutCustomersInput } from "./ProductionOrderUpdateManyWithoutCustomersInput";
+import { SaleOrderUpdateManyWithoutCustomersInput } from "./SaleOrderUpdateManyWithoutCustomersInput";
 import { SaleReturnUpdateManyWithoutCustomersInput } from "./SaleReturnUpdateManyWithoutCustomersInput";
 import { SaleUpdateManyWithoutCustomersInput } from "./SaleUpdateManyWithoutCustomersInput";
 import { SupplierUpdateManyWithoutCustomersInput } from "./SupplierUpdateManyWithoutCustomersInput";
@@ -281,6 +282,18 @@ class CustomerUpdateInput {
     nullable: true,
   })
   saleDiscountRate?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderUpdateManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderUpdateManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => SaleOrderUpdateManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderUpdateManyWithoutCustomersInput;
 
   @ApiProperty({
     required: false,

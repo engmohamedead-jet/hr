@@ -28,6 +28,7 @@ import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { Type } from "class-transformer";
 import { ProductionOrderCreateNestedManyWithoutCustomersInput } from "./ProductionOrderCreateNestedManyWithoutCustomersInput";
+import { SaleOrderCreateNestedManyWithoutCustomersInput } from "./SaleOrderCreateNestedManyWithoutCustomersInput";
 import { SaleReturnCreateNestedManyWithoutCustomersInput } from "./SaleReturnCreateNestedManyWithoutCustomersInput";
 import { SaleCreateNestedManyWithoutCustomersInput } from "./SaleCreateNestedManyWithoutCustomersInput";
 import { SupplierCreateNestedManyWithoutCustomersInput } from "./SupplierCreateNestedManyWithoutCustomersInput";
@@ -272,6 +273,18 @@ class CustomerCreateInput {
     nullable: true,
   })
   saleDiscountRate?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderCreateNestedManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderCreateNestedManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => SaleOrderCreateNestedManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderCreateNestedManyWithoutCustomersInput;
 
   @ApiProperty({
     required: false,

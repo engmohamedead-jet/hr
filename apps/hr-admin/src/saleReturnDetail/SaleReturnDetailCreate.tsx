@@ -30,6 +30,7 @@ export const SaleReturnDetailCreate = (
         <BooleanInput label="IsActive" source="isActive" />
         <BooleanInput label="IsError" source="isError" />
         <BooleanInput label="IsReplicated" source="isReplicated" />
+        <BooleanInput label="IsTaxed" source="isTaxed" />
         <NumberInput label="Price" source="price" />
         <NumberInput label="PriceTotal" source="priceTotal" />
         <ReferenceInput

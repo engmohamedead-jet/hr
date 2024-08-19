@@ -16,6 +16,7 @@ import {
 
 import { CurrencyTitle } from "../currency/CurrencyTitle";
 import { ProductionOrderTitle } from "../productionOrder/ProductionOrderTitle";
+import { SaleOrderTitle } from "../saleOrder/SaleOrderTitle";
 import { SaleReturnTitle } from "../saleReturn/SaleReturnTitle";
 import { SaleTitle } from "../sale/SaleTitle";
 import { SupplierTitle } from "../supplier/SupplierTitle";
@@ -62,6 +63,14 @@ export const CustomerEdit = (props: EditProps): React.ReactElement => {
         </ReferenceArrayInput>
         <DateTimeInput label="RevisionDate" source="revisionDate" />
         <NumberInput label="SaleDiscountRate" source="saleDiscountRate" />
+        <ReferenceArrayInput
+          source="saleOrders"
+          reference="SaleOrder"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleOrderTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="saleReturns"
           reference="SaleReturn"

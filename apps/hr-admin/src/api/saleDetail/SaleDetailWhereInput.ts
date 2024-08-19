@@ -2,6 +2,7 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { DecimalFilter } from "../../util/DecimalFilter";
 import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
 import { ProductVariantWhereUniqueInput } from "../productVariant/ProductVariantWhereUniqueInput";
@@ -19,6 +20,7 @@ export type SaleDetailWhereInput = {
   isActive?: BooleanFilter;
   isError?: BooleanFilter;
   isReplicated?: BooleanFilter;
+  isTaxed?: BooleanNullableFilter;
   note?: StringNullableFilter;
   price?: DecimalFilter;
   priceTotal?: DecimalFilter;

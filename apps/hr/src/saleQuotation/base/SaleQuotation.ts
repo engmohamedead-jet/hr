@@ -25,6 +25,7 @@ import {
 
 import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
 import { Tenant } from "../../tenant/base/Tenant";
 
@@ -144,6 +145,15 @@ class SaleQuotation {
     nullable: true,
   })
   referenceNumber!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleOrder],
+  })
+  @ValidateNested()
+  @Type(() => SaleOrder)
+  @IsOptional()
+  saleOrders?: Array<SaleOrder>;
 
   @ApiProperty({
     required: true,

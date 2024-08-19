@@ -1,6 +1,7 @@
 import { Decimal } from "decimal.js";
 import { Currency } from "../currency/Currency";
 import { ProductionOrder } from "../productionOrder/ProductionOrder";
+import { SaleOrder } from "../saleOrder/SaleOrder";
 import { SaleReturn } from "../saleReturn/SaleReturn";
 import { Sale } from "../sale/Sale";
 import { Supplier } from "../supplier/Supplier";
@@ -30,6 +31,7 @@ export type Customer = {
   productionOrders?: Array<ProductionOrder>;
   revisionDate: Date | null;
   saleDiscountRate: Decimal | null;
+  saleOrders?: Array<SaleOrder>;
   saleReturns?: Array<SaleReturn>;
   sales?: Array<Sale>;
   supplierId: string | null;

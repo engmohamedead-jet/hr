@@ -9,6 +9,7 @@ export type PurchaseDetailOrderByInput = {
   isActive?: SortOrder;
   isError?: SortOrder;
   isReplicated?: SortOrder;
+  isTaxed?: SortOrder;
   note?: SortOrder;
   price?: SortOrder;
   priceTotal?: SortOrder;

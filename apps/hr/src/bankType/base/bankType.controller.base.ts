@@ -26,6 +26,9 @@ import { BankType } from "./BankType";
 import { BankTypeFindManyArgs } from "./BankTypeFindManyArgs";
 import { BankTypeWhereUniqueInput } from "./BankTypeWhereUniqueInput";
 import { BankTypeUpdateInput } from "./BankTypeUpdateInput";
+import { BankFindManyArgs } from "../../bank/base/BankFindManyArgs";
+import { Bank } from "../../bank/base/Bank";
+import { BankWhereUniqueInput } from "../../bank/base/BankWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -49,15 +52,31 @@ export class BankTypeControllerBase {
     @common.Body() data: BankTypeCreateInput
   ): Promise<BankType> {
     return await this.service.createBankType({
-      data: data,
+      data: {
+        ...data,
+
+        tenant: data.tenant
+          ? {
+              connect: data.tenant,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -84,9 +103,17 @@ export class BankTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -114,9 +141,17 @@ export class BankTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -147,15 +182,31 @@ export class BankTypeControllerBase {
     try {
       return await this.service.updateBankType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenant: data.tenant
+            ? {
+                connect: data.tenant,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -191,9 +242,17 @@ export class BankTypeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -205,5 +264,119 @@ export class BankTypeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/banks")
+  @ApiNestedQuery(BankFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Bank",
+    action: "read",
+    possession: "any",
+  })
+  async findBanks(
+    @common.Req() request: Request,
+    @common.Param() params: BankTypeWhereUniqueInput
+  ): Promise<Bank[]> {
+    const query = plainToClass(BankFindManyArgs, request.query);
+    const results = await this.service.findBanks(params.id, {
+      ...query,
+      select: {
+        address: true,
+
+        bankType: {
+          select: {
+            id: true,
+          },
+        },
+
+        cellPhoneNumber: true,
+        code: true,
+        contactPhoneNumber: true,
+        createdAt: true,
+        description: true,
+        fax: true,
+        homePhoneNumber: true,
+        id: true,
+        name: true,
+        normalizedName: true,
+        relationshipOfficerContactNumber: true,
+        relationshipOfficerName: true,
+        street: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/banks")
+  @nestAccessControl.UseRoles({
+    resource: "BankType",
+    action: "update",
+    possession: "any",
+  })
+  async connectBanks(
+    @common.Param() params: BankTypeWhereUniqueInput,
+    @common.Body() body: BankWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      banks: {
+        connect: body,
+      },
+    };
+    await this.service.updateBankType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/banks")
+  @nestAccessControl.UseRoles({
+    resource: "BankType",
+    action: "update",
+    possession: "any",
+  })
+  async updateBanks(
+    @common.Param() params: BankTypeWhereUniqueInput,
+    @common.Body() body: BankWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      banks: {
+        set: body,
+      },
+    };
+    await this.service.updateBankType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/banks")
+  @nestAccessControl.UseRoles({
+    resource: "BankType",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectBanks(
+    @common.Param() params: BankTypeWhereUniqueInput,
+    @common.Body() body: BankWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      banks: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateBankType({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

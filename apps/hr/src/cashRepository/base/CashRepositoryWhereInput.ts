@@ -20,6 +20,7 @@ import { BooleanFilter } from "../../util/BooleanFilter";
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
 import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
 import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
+import { SaleOrderListRelationFilter } from "../../saleOrder/base/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -150,6 +151,18 @@ class CashRepositoryWhereInput {
     nullable: true,
   })
   purchases?: PurchaseWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleOrderListRelationFilter, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderListRelationFilter;
 
   @ApiProperty({
     required: false,

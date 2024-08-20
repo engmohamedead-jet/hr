@@ -6,9 +6,11 @@ import { InvoiceTypeWhereUniqueInput } from "../invoiceType/InvoiceTypeWhereUniq
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { PaymentTermWhereUniqueInput } from "../paymentTerm/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../paymentType/PaymentTypeWhereUniqueInput";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { SaleDetailListRelationFilter } from "../saleDetail/SaleDetailListRelationFilter";
+import { SalePaymentListRelationFilter } from "../salePayment/SalePaymentListRelationFilter";
 import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
 import { SaleReturnListRelationFilter } from "../saleReturn/SaleReturnListRelationFilter";
 import { StoreWhereUniqueInput } from "../store/StoreWhereUniqueInput";
@@ -27,11 +29,13 @@ export type SaleWhereInput = {
   nonTaxableTotal?: DecimalNullableFilter;
   note?: StringNullableFilter;
   paid?: DecimalNullableFilter;
+  paymentTerm?: PaymentTermWhereUniqueInput;
   paymentTypeId?: PaymentTypeWhereUniqueInput;
   referenceNumber?: StringNullableFilter;
   remaining?: DecimalNullableFilter;
   saleDate?: DateTimeFilter;
   saleDetails?: SaleDetailListRelationFilter;
+  salePayments?: SalePaymentListRelationFilter;
   salePriceTypeId?: SalePriceTypeWhereUniqueInput;
   saleReturns?: SaleReturnListRelationFilter;
   saleTotal?: DecimalFilter;

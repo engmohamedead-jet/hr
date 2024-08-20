@@ -2,8 +2,10 @@ import { CashRepositoryWhereUniqueInput } from "../cashRepository/CashRepository
 import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
 import { Decimal } from "decimal.js";
 import { InvoiceTypeWhereUniqueInput } from "../invoiceType/InvoiceTypeWhereUniqueInput";
+import { PaymentTermWhereUniqueInput } from "../paymentTerm/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../paymentType/PaymentTypeWhereUniqueInput";
 import { SaleDetailCreateNestedManyWithoutSalesInput } from "./SaleDetailCreateNestedManyWithoutSalesInput";
+import { SalePaymentCreateNestedManyWithoutSalesInput } from "./SalePaymentCreateNestedManyWithoutSalesInput";
 import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
 import { SaleReturnCreateNestedManyWithoutSalesInput } from "./SaleReturnCreateNestedManyWithoutSalesInput";
 import { StoreWhereUniqueInput } from "../store/StoreWhereUniqueInput";
@@ -21,11 +23,13 @@ export type SaleCreateInput = {
   nonTaxableTotal?: Decimal | null;
   note?: string | null;
   paid?: Decimal | null;
+  paymentTerm?: PaymentTermWhereUniqueInput | null;
   paymentTypeId: PaymentTypeWhereUniqueInput;
   referenceNumber?: string | null;
   remaining?: Decimal | null;
   saleDate: Date;
   saleDetails?: SaleDetailCreateNestedManyWithoutSalesInput;
+  salePayments?: SalePaymentCreateNestedManyWithoutSalesInput;
   salePriceTypeId: SalePriceTypeWhereUniqueInput;
   saleReturns?: SaleReturnCreateNestedManyWithoutSalesInput;
   saleTotal: Decimal;

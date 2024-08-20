@@ -18,6 +18,7 @@ import {
   PurchaseReturn as PrismaPurchaseReturn,
   CashRepository as PrismaCashRepository,
   InvoiceType as PrismaInvoiceType,
+  PaymentTerm as PrismaPaymentTerm,
   PaymentType as PrismaPaymentType,
   PurchasePriceType as PrismaPurchasePriceType,
   Store as PrismaStore,
@@ -96,6 +97,14 @@ export class PurchaseServiceBase {
         where: { id: parentId },
       })
       .invoiceTypeId();
+  }
+
+  async getPaymentTermId(parentId: string): Promise<PrismaPaymentTerm | null> {
+    return this.prisma.purchase
+      .findUnique({
+        where: { id: parentId },
+      })
+      .paymentTermId();
   }
 
   async getPaymentTypeId(parentId: string): Promise<PrismaPaymentType | null> {

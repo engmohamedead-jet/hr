@@ -22,6 +22,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
@@ -115,6 +116,15 @@ class OrderStatus {
   @Type(() => ProductionOrder)
   @IsOptional()
   productionOrders?: ProductionOrder | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrder,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrder)
+  @IsOptional()
+  saleOrders?: SaleOrder | null;
 
   @ApiProperty({
     required: false,

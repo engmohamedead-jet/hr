@@ -27,6 +27,7 @@ import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueIn
 import { PurchaseDetailCreateNestedManyWithoutProductVariantsInput } from "./PurchaseDetailCreateNestedManyWithoutProductVariantsInput";
 import { PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput";
 import { SaleDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleDetailCreateNestedManyWithoutProductVariantsInput";
+import { SaleOrderDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleOrderDetailCreateNestedManyWithoutProductVariantsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput";
 import { SaleReturnDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleReturnDetailCreateNestedManyWithoutProductVariantsInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -148,6 +149,18 @@ class ProductVariantCreateInput {
     nullable: true,
   })
   saleDetails?: SaleDetailCreateNestedManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailCreateNestedManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailCreateNestedManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailCreateNestedManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailCreateNestedManyWithoutProductVariantsInput;
 
   @ApiProperty({
     required: false,

@@ -17,10 +17,12 @@ import {
   IsOptional,
   ValidateNested,
   IsDate,
+  IsBoolean,
 } from "class-validator";
-import { BankAccount } from "../../bankAccount/base/BankAccount";
-import { Type } from "class-transformer";
 import { Bank } from "../../bank/base/Bank";
+import { Type } from "class-transformer";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class BankBranch {
@@ -29,7 +31,7 @@ class BankBranch {
     type: String,
   })
   @IsString()
-  @MaxLength(256)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -37,31 +39,24 @@ class BankBranch {
   address!: string | null;
 
   @ApiProperty({
-    required: false,
-    type: () => [BankAccount],
-  })
-  @ValidateNested()
-  @Type(() => BankAccount)
-  @IsOptional()
-  bankAccounts?: Array<BankAccount>;
-
-  @ApiProperty({
-    required: false,
+    required: true,
     type: () => Bank,
   })
   @ValidateNested()
   @Type(() => Bank)
-  @IsOptional()
-  bankId?: Bank | null;
+  bank?: Bank;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: false,
@@ -104,6 +99,17 @@ class BankBranch {
   id!: string;
 
   @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive!: boolean | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
@@ -126,12 +132,30 @@ class BankBranch {
     type: String,
   })
   @IsString()
-  @MaxLength(256)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SalePayment],
+  })
+  @ValidateNested()
+  @Type(() => SalePayment)
+  @IsOptional()
+  salePayments?: Array<SalePayment>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenant?: Tenant | null;
 
   @ApiProperty({
     required: true,

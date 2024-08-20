@@ -41,6 +41,12 @@ import { AttributeValueWhereUniqueInput } from "../../attributeValue/base/Attrib
 import { AttributeFindManyArgs } from "../../attribute/base/AttributeFindManyArgs";
 import { Attribute } from "../../attribute/base/Attribute";
 import { AttributeWhereUniqueInput } from "../../attribute/base/AttributeWhereUniqueInput";
+import { BankBranchFindManyArgs } from "../../bankBranch/base/BankBranchFindManyArgs";
+import { BankBranch } from "../../bankBranch/base/BankBranch";
+import { BankBranchWhereUniqueInput } from "../../bankBranch/base/BankBranchWhereUniqueInput";
+import { BankTypeFindManyArgs } from "../../bankType/base/BankTypeFindManyArgs";
+import { BankType } from "../../bankType/base/BankType";
+import { BankTypeWhereUniqueInput } from "../../bankType/base/BankTypeWhereUniqueInput";
 import { BarcodeTypeFindManyArgs } from "../../barcodeType/base/BarcodeTypeFindManyArgs";
 import { BarcodeType } from "../../barcodeType/base/BarcodeType";
 import { BarcodeTypeWhereUniqueInput } from "../../barcodeType/base/BarcodeTypeWhereUniqueInput";
@@ -80,6 +86,12 @@ import { InvoiceTypeWhereUniqueInput } from "../../invoiceType/base/InvoiceTypeW
 import { OrderStatusFindManyArgs } from "../../orderStatus/base/OrderStatusFindManyArgs";
 import { OrderStatus } from "../../orderStatus/base/OrderStatus";
 import { OrderStatusWhereUniqueInput } from "../../orderStatus/base/OrderStatusWhereUniqueInput";
+import { PaymentMethodFindManyArgs } from "../../paymentMethod/base/PaymentMethodFindManyArgs";
+import { PaymentMethod } from "../../paymentMethod/base/PaymentMethod";
+import { PaymentMethodWhereUniqueInput } from "../../paymentMethod/base/PaymentMethodWhereUniqueInput";
+import { PaymentStatusFindManyArgs } from "../../paymentStatus/base/PaymentStatusFindManyArgs";
+import { PaymentStatus } from "../../paymentStatus/base/PaymentStatus";
+import { PaymentStatusWhereUniqueInput } from "../../paymentStatus/base/PaymentStatusWhereUniqueInput";
 import { PaymentTermFindManyArgs } from "../../paymentTerm/base/PaymentTermFindManyArgs";
 import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentTermWhereUniqueInput } from "../../paymentTerm/base/PaymentTermWhereUniqueInput";
@@ -170,6 +182,15 @@ import { SalaryLawWhereUniqueInput } from "../../salaryLaw/base/SalaryLawWhereUn
 import { SaleDetailFindManyArgs } from "../../saleDetail/base/SaleDetailFindManyArgs";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
 import { SaleDetailWhereUniqueInput } from "../../saleDetail/base/SaleDetailWhereUniqueInput";
+import { SaleOrderDetailFindManyArgs } from "../../saleOrderDetail/base/SaleOrderDetailFindManyArgs";
+import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
+import { SaleOrderDetailWhereUniqueInput } from "../../saleOrderDetail/base/SaleOrderDetailWhereUniqueInput";
+import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { SalePaymentWhereUniqueInput } from "../../salePayment/base/SalePaymentWhereUniqueInput";
 import { SalePersonFindManyArgs } from "../../salePerson/base/SalePersonFindManyArgs";
 import { SalePerson } from "../../salePerson/base/SalePerson";
 import { SalePersonWhereUniqueInput } from "../../salePerson/base/SalePersonWhereUniqueInput";
@@ -200,6 +221,9 @@ import { SaleWhereUniqueInput } from "../../sale/base/SaleWhereUniqueInput";
 import { ScrapReasonFindManyArgs } from "../../scrapReason/base/ScrapReasonFindManyArgs";
 import { ScrapReason } from "../../scrapReason/base/ScrapReason";
 import { ScrapReasonWhereUniqueInput } from "../../scrapReason/base/ScrapReasonWhereUniqueInput";
+import { ShippingStatusFindManyArgs } from "../../shippingStatus/base/ShippingStatusFindManyArgs";
+import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
+import { ShippingStatusWhereUniqueInput } from "../../shippingStatus/base/ShippingStatusWhereUniqueInput";
 import { StoreFindManyArgs } from "../../store/base/StoreFindManyArgs";
 import { Store } from "../../store/base/Store";
 import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
@@ -989,6 +1013,231 @@ export class TenantControllerBase {
   ): Promise<void> {
     const data = {
       attributes: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/bankBranches")
+  @ApiNestedQuery(BankBranchFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "BankBranch",
+    action: "read",
+    possession: "any",
+  })
+  async findBankBranches(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<BankBranch[]> {
+    const query = plainToClass(BankBranchFindManyArgs, request.query);
+    const results = await this.service.findBankBranches(params.id, {
+      ...query,
+      select: {
+        address: true,
+
+        bank: {
+          select: {
+            id: true,
+          },
+        },
+
+        code: true,
+        contactPhoneNumber: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/bankBranches")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectBankBranches(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: BankBranchWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      bankBranches: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/bankBranches")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateBankBranches(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: BankBranchWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      bankBranches: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/bankBranches")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectBankBranches(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: BankBranchWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      bankBranches: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/bankTypes")
+  @ApiNestedQuery(BankTypeFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "BankType",
+    action: "read",
+    possession: "any",
+  })
+  async findBankTypes(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<BankType[]> {
+    const query = plainToClass(BankTypeFindManyArgs, request.query);
+    const results = await this.service.findBankTypes(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/bankTypes")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectBankTypes(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: BankTypeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      bankTypes: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/bankTypes")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateBankTypes(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: BankTypeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      bankTypes: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/bankTypes")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectBankTypes(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: BankTypeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      bankTypes: {
         disconnect: body,
       },
     };
@@ -2449,6 +2698,12 @@ export class TenantControllerBase {
           },
         },
 
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
         tenantId: {
           select: {
             id: true,
@@ -2522,6 +2777,228 @@ export class TenantControllerBase {
   ): Promise<void> {
     const data = {
       orderStatuses: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/paymentMethods")
+  @ApiNestedQuery(PaymentMethodFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentMethod",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentMethods(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<PaymentMethod[]> {
+    const query = plainToClass(PaymentMethodFindManyArgs, request.query);
+    const results = await this.service.findPaymentMethods(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentMethods")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentMethods(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: PaymentMethodWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentMethods: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentMethods")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentMethods(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: PaymentMethodWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentMethods: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentMethods")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentMethods(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: PaymentMethodWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentMethods: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/paymentStatuses")
+  @ApiNestedQuery(PaymentStatusFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentStatus",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentStatuses(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<PaymentStatus[]> {
+    const query = plainToClass(PaymentStatusFindManyArgs, request.query);
+    const results = await this.service.findPaymentStatuses(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentStatuses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentStatuses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: PaymentStatusWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentStatuses: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentStatuses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentStatuses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: PaymentStatusWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentStatuses: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentStatuses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentStatuses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: PaymentStatusWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentStatuses: {
         disconnect: body,
       },
     };
@@ -5107,6 +5584,12 @@ export class TenantControllerBase {
         note: true,
         paid: true,
 
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
         paymentTypeId: {
           select: {
             id: true,
@@ -5269,6 +5752,12 @@ export class TenantControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {
@@ -6319,6 +6808,489 @@ export class TenantControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleOrderDetails")
+  @ApiNestedQuery(SaleOrderDetailFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrderDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrderDetails(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<SaleOrderDetail[]> {
+    const query = plainToClass(SaleOrderDetailFindManyArgs, request.query);
+    const results = await this.service.findSaleOrderDetails(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+        createdAt: true,
+        discount: true,
+        discountRate: true,
+        id: true,
+        isActive: true,
+        isError: true,
+        isTaxed: true,
+        price: true,
+        priceTotal: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productSerialNumber: true,
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        saleOrder: {
+          select: {
+            id: true,
+          },
+        },
+
+        salePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        sequence: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleOrderDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleOrderDetails(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SaleOrderDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrderDetails: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleOrderDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleOrderDetails(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SaleOrderDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrderDetails: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleOrderDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleOrderDetails(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SaleOrderDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrderDetails: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleOrders")
+  @ApiNestedQuery(SaleOrderFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrders(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<SaleOrder[]> {
+    const query = plainToClass(SaleOrderFindManyArgs, request.query);
+    const results = await this.service.findSaleOrders(params.id, {
+      ...query,
+      select: {
+        billingAddress: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        deliveryDate: true,
+        discountTotal: true,
+        expectedDeliveryDate: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+
+        orderStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
+        saleOrderDate: true,
+
+        salePriceType: {
+          select: {
+            id: true,
+          },
+        },
+
+        salePriceTypeId: true,
+
+        saleQuotation: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleTotal: true,
+        shippingAddress: true,
+        shippingCost: true,
+
+        shippingStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        transactionDateTime: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleOrders(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleOrders(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleOrders(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/salePayments")
+  @ApiNestedQuery(SalePaymentFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<SalePayment[]> {
+    const query = plainToClass(SalePaymentFindManyArgs, request.query);
+    const results = await this.service.findSalePayments(params.id, {
+      ...query,
+      select: {
+        LocalCurrencyRatl: true,
+
+        bank: {
+          select: {
+            id: true,
+          },
+        },
+
+        bankBrach: true,
+
+        bankBranch: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeNumber: true,
+        createdAt: true,
+        creditCardNumber: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        foreignCurrencyRate: true,
+        id: true,
+        isCheque: true,
+        note: true,
+        paidValue: true,
+        paymentDate: true,
+
+        paymentMethodId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        seqeunce: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectSalePayments(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateSalePayments(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSalePayments(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id/salePeople")
   @ApiNestedQuery(SalePersonFindManyArgs)
   @nestAccessControl.UseRoles({
@@ -6473,6 +7445,18 @@ export class TenantControllerBase {
         note: true,
 
         saleDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrderDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrders: {
           select: {
             id: true,
           },
@@ -7043,6 +8027,12 @@ export class TenantControllerBase {
         note: true,
         paid: true,
 
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
         paymentTypeId: {
           select: {
             id: true,
@@ -7424,6 +8414,12 @@ export class TenantControllerBase {
         note: true,
         paid: true,
 
+        paymentTerm: {
+          select: {
+            id: true,
+          },
+        },
+
         paymentTypeId: {
           select: {
             id: true,
@@ -7634,6 +8630,120 @@ export class TenantControllerBase {
   ): Promise<void> {
     const data = {
       scrapReasons: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/shippingStatuses")
+  @ApiNestedQuery(ShippingStatusFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ShippingStatus",
+    action: "read",
+    possession: "any",
+  })
+  async findShippingStatuses(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<ShippingStatus[]> {
+    const query = plainToClass(ShippingStatusFindManyArgs, request.query);
+    const results = await this.service.findShippingStatuses(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/shippingStatuses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectShippingStatuses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: ShippingStatusWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      shippingStatuses: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/shippingStatuses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateShippingStatuses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: ShippingStatusWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      shippingStatuses: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/shippingStatuses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectShippingStatuses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: ShippingStatusWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      shippingStatuses: {
         disconnect: body,
       },
     };

@@ -11,6 +11,8 @@ import {
 } from "react-admin";
 
 import { SaleDetailTitle } from "../saleDetail/SaleDetailTitle";
+import { SaleOrderDetailTitle } from "../saleOrderDetail/SaleOrderDetailTitle";
+import { SaleOrderTitle } from "../saleOrder/SaleOrderTitle";
 import { SaleQuotationDetailTitle } from "../saleQuotationDetail/SaleQuotationDetailTitle";
 import { SaleReturnDetailTitle } from "../saleReturnDetail/SaleReturnDetailTitle";
 import { SaleReturnTitle } from "../saleReturn/SaleReturnTitle";
@@ -33,6 +35,20 @@ export const SalePriceTypeCreate = (props: CreateProps): React.ReactElement => {
           label="SaleDetails"
         >
           <SelectInput optionText={SaleDetailTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="saleOrderDetails.id"
+          reference="SaleOrderDetail"
+          label="SaleOrderDetails"
+        >
+          <SelectInput optionText={SaleOrderDetailTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="saleOrders.id"
+          reference="SaleOrder"
+          label="SaleOrders"
+        >
+          <SelectInput optionText={SaleOrderTitle} />
         </ReferenceInput>
         <ReferenceInput
           source="saleQuotationDetails.id"

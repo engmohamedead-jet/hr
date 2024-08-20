@@ -26,12 +26,12 @@ import { Bank } from "./Bank";
 import { BankFindManyArgs } from "./BankFindManyArgs";
 import { BankWhereUniqueInput } from "./BankWhereUniqueInput";
 import { BankUpdateInput } from "./BankUpdateInput";
-import { BankAccountFindManyArgs } from "../../bankAccount/base/BankAccountFindManyArgs";
-import { BankAccount } from "../../bankAccount/base/BankAccount";
-import { BankAccountWhereUniqueInput } from "../../bankAccount/base/BankAccountWhereUniqueInput";
 import { BankBranchFindManyArgs } from "../../bankBranch/base/BankBranchFindManyArgs";
 import { BankBranch } from "../../bankBranch/base/BankBranch";
 import { BankBranchWhereUniqueInput } from "../../bankBranch/base/BankBranchWhereUniqueInput";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { SalePaymentWhereUniqueInput } from "../../salePayment/base/SalePaymentWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -56,43 +56,24 @@ export class BankControllerBase {
       data: {
         ...data,
 
-        cityId: data.cityId
+        bankType: data.bankType
           ? {
-              connect: data.cityId,
-            }
-          : undefined,
-
-        countryId: data.countryId
-          ? {
-              connect: data.countryId,
-            }
-          : undefined,
-
-        stateId: data.stateId
-          ? {
-              connect: data.stateId,
+              connect: data.bankType,
             }
           : undefined,
       },
       select: {
         address: true,
-        cellPhoneNumber: true,
 
-        cityId: {
+        bankType: {
           select: {
             id: true,
           },
         },
 
+        cellPhoneNumber: true,
         code: true,
         contactPhoneNumber: true,
-
-        countryId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         description: true,
         fax: true,
@@ -100,16 +81,8 @@ export class BankControllerBase {
         id: true,
         name: true,
         normalizedName: true,
-        note: true,
         relationshipOfficerContactNumber: true,
         relationshipOfficerName: true,
-
-        stateId: {
-          select: {
-            id: true,
-          },
-        },
-
         street: true,
         updatedAt: true,
       },
@@ -134,23 +107,16 @@ export class BankControllerBase {
       ...args,
       select: {
         address: true,
-        cellPhoneNumber: true,
 
-        cityId: {
+        bankType: {
           select: {
             id: true,
           },
         },
 
+        cellPhoneNumber: true,
         code: true,
         contactPhoneNumber: true,
-
-        countryId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         description: true,
         fax: true,
@@ -158,16 +124,8 @@ export class BankControllerBase {
         id: true,
         name: true,
         normalizedName: true,
-        note: true,
         relationshipOfficerContactNumber: true,
         relationshipOfficerName: true,
-
-        stateId: {
-          select: {
-            id: true,
-          },
-        },
-
         street: true,
         updatedAt: true,
       },
@@ -193,23 +151,16 @@ export class BankControllerBase {
       where: params,
       select: {
         address: true,
-        cellPhoneNumber: true,
 
-        cityId: {
+        bankType: {
           select: {
             id: true,
           },
         },
 
+        cellPhoneNumber: true,
         code: true,
         contactPhoneNumber: true,
-
-        countryId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         description: true,
         fax: true,
@@ -217,16 +168,8 @@ export class BankControllerBase {
         id: true,
         name: true,
         normalizedName: true,
-        note: true,
         relationshipOfficerContactNumber: true,
         relationshipOfficerName: true,
-
-        stateId: {
-          select: {
-            id: true,
-          },
-        },
-
         street: true,
         updatedAt: true,
       },
@@ -261,43 +204,24 @@ export class BankControllerBase {
         data: {
           ...data,
 
-          cityId: data.cityId
+          bankType: data.bankType
             ? {
-                connect: data.cityId,
-              }
-            : undefined,
-
-          countryId: data.countryId
-            ? {
-                connect: data.countryId,
-              }
-            : undefined,
-
-          stateId: data.stateId
-            ? {
-                connect: data.stateId,
+                connect: data.bankType,
               }
             : undefined,
         },
         select: {
           address: true,
-          cellPhoneNumber: true,
 
-          cityId: {
+          bankType: {
             select: {
               id: true,
             },
           },
 
+          cellPhoneNumber: true,
           code: true,
           contactPhoneNumber: true,
-
-          countryId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           description: true,
           fax: true,
@@ -305,16 +229,8 @@ export class BankControllerBase {
           id: true,
           name: true,
           normalizedName: true,
-          note: true,
           relationshipOfficerContactNumber: true,
           relationshipOfficerName: true,
-
-          stateId: {
-            select: {
-              id: true,
-            },
-          },
-
           street: true,
           updatedAt: true,
         },
@@ -348,23 +264,16 @@ export class BankControllerBase {
         where: params,
         select: {
           address: true,
-          cellPhoneNumber: true,
 
-          cityId: {
+          bankType: {
             select: {
               id: true,
             },
           },
 
+          cellPhoneNumber: true,
           code: true,
           contactPhoneNumber: true,
-
-          countryId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           description: true,
           fax: true,
@@ -372,16 +281,8 @@ export class BankControllerBase {
           id: true,
           name: true,
           normalizedName: true,
-          note: true,
           relationshipOfficerContactNumber: true,
           relationshipOfficerName: true,
-
-          stateId: {
-            select: {
-              id: true,
-            },
-          },
-
           street: true,
           updatedAt: true,
         },
@@ -394,121 +295,6 @@ export class BankControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/bankAccounts")
-  @ApiNestedQuery(BankAccountFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "BankAccount",
-    action: "read",
-    possession: "any",
-  })
-  async findBankAccounts(
-    @common.Req() request: Request,
-    @common.Param() params: BankWhereUniqueInput
-  ): Promise<BankAccount[]> {
-    const query = plainToClass(BankAccountFindManyArgs, request.query);
-    const results = await this.service.findBankAccounts(params.id, {
-      ...query,
-      select: {
-        accountNumber: true,
-
-        bankBranchId: {
-          select: {
-            id: true,
-          },
-        },
-
-        bankId: {
-          select: {
-            id: true,
-          },
-        },
-
-        code: true,
-        createdAt: true,
-        description: true,
-        epan: true,
-        id: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/bankAccounts")
-  @nestAccessControl.UseRoles({
-    resource: "Bank",
-    action: "update",
-    possession: "any",
-  })
-  async connectBankAccounts(
-    @common.Param() params: BankWhereUniqueInput,
-    @common.Body() body: BankAccountWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      bankAccounts: {
-        connect: body,
-      },
-    };
-    await this.service.updateBank({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/bankAccounts")
-  @nestAccessControl.UseRoles({
-    resource: "Bank",
-    action: "update",
-    possession: "any",
-  })
-  async updateBankAccounts(
-    @common.Param() params: BankWhereUniqueInput,
-    @common.Body() body: BankAccountWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      bankAccounts: {
-        set: body,
-      },
-    };
-    await this.service.updateBank({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/bankAccounts")
-  @nestAccessControl.UseRoles({
-    resource: "Bank",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectBankAccounts(
-    @common.Param() params: BankWhereUniqueInput,
-    @common.Body() body: BankAccountWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      bankAccounts: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateBank({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -529,7 +315,7 @@ export class BankControllerBase {
       select: {
         address: true,
 
-        bankId: {
+        bank: {
           select: {
             id: true,
           },
@@ -540,9 +326,17 @@ export class BankControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -610,6 +404,154 @@ export class BankControllerBase {
   ): Promise<void> {
     const data = {
       bankBranches: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateBank({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/salePayments")
+  @ApiNestedQuery(SalePaymentFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @common.Req() request: Request,
+    @common.Param() params: BankWhereUniqueInput
+  ): Promise<SalePayment[]> {
+    const query = plainToClass(SalePaymentFindManyArgs, request.query);
+    const results = await this.service.findSalePayments(params.id, {
+      ...query,
+      select: {
+        LocalCurrencyRatl: true,
+
+        bank: {
+          select: {
+            id: true,
+          },
+        },
+
+        bankBrach: true,
+
+        bankBranch: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeNumber: true,
+        createdAt: true,
+        creditCardNumber: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        foreignCurrencyRate: true,
+        id: true,
+        isCheque: true,
+        note: true,
+        paidValue: true,
+        paymentDate: true,
+
+        paymentMethodId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        seqeunce: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Bank",
+    action: "update",
+    possession: "any",
+  })
+  async connectSalePayments(
+    @common.Param() params: BankWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        connect: body,
+      },
+    };
+    await this.service.updateBank({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Bank",
+    action: "update",
+    possession: "any",
+  })
+  async updateSalePayments(
+    @common.Param() params: BankWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        set: body,
+      },
+    };
+    await this.service.updateBank({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Bank",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSalePayments(
+    @common.Param() params: BankWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
         disconnect: body,
       },
     };

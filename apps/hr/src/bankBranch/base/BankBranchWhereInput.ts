@@ -14,9 +14,11 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { BankAccountListRelationFilter } from "../../bankAccount/base/BankAccountListRelationFilter";
 import { BankWhereUniqueInput } from "../../bank/base/BankWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { SalePaymentListRelationFilter } from "../../salePayment/base/SalePaymentListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class BankBranchWhereInput {
@@ -33,18 +35,6 @@ class BankBranchWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => BankAccountListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => BankAccountListRelationFilter)
-  @IsOptional()
-  @Field(() => BankAccountListRelationFilter, {
-    nullable: true,
-  })
-  bankAccounts?: BankAccountListRelationFilter;
-
-  @ApiProperty({
-    required: false,
     type: () => BankWhereUniqueInput,
   })
   @ValidateNested()
@@ -53,18 +43,18 @@ class BankBranchWhereInput {
   @Field(() => BankWhereUniqueInput, {
     nullable: true,
   })
-  bankId?: BankWhereUniqueInput;
+  bank?: BankWhereUniqueInput;
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -101,6 +91,17 @@ class BankBranchWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -131,6 +132,30 @@ class BankBranchWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentListRelationFilter)
+  @IsOptional()
+  @Field(() => SalePaymentListRelationFilter, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput;
 }
 
 export { BankBranchWhereInput as BankBranchWhereInput };

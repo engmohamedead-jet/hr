@@ -18,6 +18,8 @@ import { IntFilter } from "../../util/IntFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { SaleDetailWhereUniqueInput } from "../../saleDetail/base/SaleDetailWhereUniqueInput";
+import { SaleOrderDetailWhereUniqueInput } from "../../saleOrderDetail/base/SaleOrderDetailWhereUniqueInput";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
 import { SaleQuotationDetailWhereUniqueInput } from "../../saleQuotationDetail/base/SaleQuotationDetailWhereUniqueInput";
 import { SaleReturnDetailWhereUniqueInput } from "../../saleReturnDetail/base/SaleReturnDetailWhereUniqueInput";
 import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWhereUniqueInput";
@@ -114,6 +116,30 @@ class SalePriceTypeWhereInput {
     nullable: true,
   })
   saleDetails?: SaleDetailWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleOrderWhereUniqueInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderWhereUniqueInput;
 
   @ApiProperty({
     required: false,

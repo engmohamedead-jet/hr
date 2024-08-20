@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
 import { Type } from "class-transformer";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
@@ -106,6 +107,18 @@ class OrderStatusUpdateInput {
     nullable: true,
   })
   productionOrders?: ProductionOrderWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleOrderWhereUniqueInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

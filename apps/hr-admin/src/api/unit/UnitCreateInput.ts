@@ -7,6 +7,7 @@ import { ProductCreateNestedManyWithoutUnitsInput } from "./ProductCreateNestedM
 import { PurchaseDetailCreateNestedManyWithoutUnitsInput } from "./PurchaseDetailCreateNestedManyWithoutUnitsInput";
 import { PurchaseReturnDetailCreateNestedManyWithoutUnitsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutUnitsInput";
 import { SaleDetailCreateNestedManyWithoutUnitsInput } from "./SaleDetailCreateNestedManyWithoutUnitsInput";
+import { SaleOrderDetailCreateNestedManyWithoutUnitsInput } from "./SaleOrderDetailCreateNestedManyWithoutUnitsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutUnitsInput } from "./SaleQuotationDetailCreateNestedManyWithoutUnitsInput";
 import { SaleReturnDetailCreateNestedManyWithoutUnitsInput } from "./SaleReturnDetailCreateNestedManyWithoutUnitsInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -29,6 +30,7 @@ export type UnitCreateInput = {
   purchaseDetails?: PurchaseDetailCreateNestedManyWithoutUnitsInput;
   purchaseReturnDetails?: PurchaseReturnDetailCreateNestedManyWithoutUnitsInput;
   saleDetails?: SaleDetailCreateNestedManyWithoutUnitsInput;
+  saleOrderDetails?: SaleOrderDetailCreateNestedManyWithoutUnitsInput;
   saleQuotationDetails?: SaleQuotationDetailCreateNestedManyWithoutUnitsInput;
   saleReturnDetails?: SaleReturnDetailCreateNestedManyWithoutUnitsInput;
   tenantId?: TenantWhereUniqueInput | null;

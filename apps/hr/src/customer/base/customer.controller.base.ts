@@ -574,6 +574,14 @@ export class CustomerControllerBase {
     const results = await this.service.findSaleOrders(params.id, {
       ...query,
       select: {
+        billingAddress: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
 
         customerId: {
@@ -582,8 +590,52 @@ export class CustomerControllerBase {
           },
         },
 
+        deliveryDate: true,
+        discountTotal: true,
+        expectedDeliveryDate: true,
         id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+
+        orderStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
         saleOrderDate: true,
+
+        salePriceType: {
+          select: {
+            id: true,
+          },
+        },
+
+        salePriceTypeId: true,
 
         saleQuotation: {
           select: {
@@ -591,6 +643,33 @@ export class CustomerControllerBase {
           },
         },
 
+        saleTotal: true,
+        shippingAddress: true,
+        shippingCost: true,
+
+        shippingStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        transactionDateTime: true,
         updatedAt: true,
       },
     });
@@ -714,6 +793,12 @@ export class CustomerControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {
@@ -879,6 +964,12 @@ export class CustomerControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTerm: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {

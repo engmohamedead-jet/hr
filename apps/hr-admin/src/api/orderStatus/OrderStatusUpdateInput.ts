@@ -1,4 +1,5 @@
 import { ProductionOrderWhereUniqueInput } from "../productionOrder/ProductionOrderWhereUniqueInput";
+import { SaleOrderWhereUniqueInput } from "../saleOrder/SaleOrderWhereUniqueInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type OrderStatusUpdateInput = {
@@ -9,5 +10,6 @@ export type OrderStatusUpdateInput = {
   normalizedName?: string;
   note?: string | null;
   productionOrders?: ProductionOrderWhereUniqueInput | null;
+  saleOrders?: SaleOrderWhereUniqueInput | null;
   tenantId?: TenantWhereUniqueInput | null;
 };

@@ -1,6 +1,7 @@
 import { CashRepository } from "../cashRepository/CashRepository";
 import { Decimal } from "decimal.js";
 import { InvoiceType } from "../invoiceType/InvoiceType";
+import { PaymentTerm } from "../paymentTerm/PaymentTerm";
 import { PaymentType } from "../paymentType/PaymentType";
 import { PurchaseDetail } from "../purchaseDetail/PurchaseDetail";
 import { PurchasePriceType } from "../purchasePriceType/PurchasePriceType";
@@ -22,6 +23,7 @@ export type Purchase = {
   nonTaxableTotal: Decimal | null;
   note: string | null;
   paid: Decimal;
+  paymentTermId?: PaymentTerm | null;
   paymentTypeId?: PaymentType;
   purchaseDate: Date;
   purchaseDetails?: Array<PurchaseDetail>;

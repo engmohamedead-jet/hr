@@ -21,9 +21,11 @@ import { InvoiceTypeWhereUniqueInput } from "../../invoiceType/base/InvoiceTypeW
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { PaymentTermWhereUniqueInput } from "../../paymentTerm/base/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../../paymentType/base/PaymentTypeWhereUniqueInput";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { SaleDetailListRelationFilter } from "../../saleDetail/base/SaleDetailListRelationFilter";
+import { SalePaymentListRelationFilter } from "../../salePayment/base/SalePaymentListRelationFilter";
 import { SalePriceTypeWhereUniqueInput } from "../../salePriceType/base/SalePriceTypeWhereUniqueInput";
 import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
 import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
@@ -168,6 +170,18 @@ class SaleWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentTermWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTermWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentTermWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentTerm?: PaymentTermWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: () => PaymentTypeWhereUniqueInput,
   })
   @ValidateNested()
@@ -222,6 +236,18 @@ class SaleWhereInput {
     nullable: true,
   })
   saleDetails?: SaleDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentListRelationFilter)
+  @IsOptional()
+  @Field(() => SalePaymentListRelationFilter, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentListRelationFilter;
 
   @ApiProperty({
     required: false,

@@ -1,13 +1,18 @@
-import { StringFilter } from "../../util/StringFilter";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { IntFilter } from "../../util/IntFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { SalePaymentListRelationFilter } from "../salePayment/SalePaymentListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PaymentMethodWhereInput = {
-  code?: StringFilter;
+  code?: StringNullableFilter;
+  description?: StringNullableFilter;
   id?: IntFilter;
-  isDefault?: BooleanNullableFilter;
+  isActive?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
+  salePayments?: SalePaymentListRelationFilter;
+  tenant?: TenantWhereUniqueInput;
 };

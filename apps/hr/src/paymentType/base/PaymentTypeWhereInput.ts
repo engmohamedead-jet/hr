@@ -19,6 +19,7 @@ import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
 import { PurchaseListRelationFilter } from "../../purchase/base/PurchaseListRelationFilter";
+import { SaleOrderListRelationFilter } from "../../saleOrder/base/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -136,6 +137,18 @@ class PaymentTypeWhereInput {
     nullable: true,
   })
   purchases?: PurchaseListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleOrderListRelationFilter, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderListRelationFilter;
 
   @ApiProperty({
     required: false,

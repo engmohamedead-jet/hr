@@ -20,6 +20,7 @@ import {
   PurchaseDetail as PrismaPurchaseDetail,
   PurchaseReturnDetail as PrismaPurchaseReturnDetail,
   SaleDetail as PrismaSaleDetail,
+  SaleOrderDetail as PrismaSaleOrderDetail,
   SaleQuotationDetail as PrismaSaleQuotationDetail,
   SaleReturnDetail as PrismaSaleReturnDetail,
   AttributeValue as PrismaAttributeValue,
@@ -126,6 +127,17 @@ export class ProductVariantServiceBase {
         where: { id: parentId },
       })
       .saleDetails(args);
+  }
+
+  async findSaleOrderDetails(
+    parentId: string,
+    args: Prisma.SaleOrderDetailFindManyArgs
+  ): Promise<PrismaSaleOrderDetail[]> {
+    return this.prisma.productVariant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrderDetails(args);
   }
 
   async findSaleQuotationDetails(

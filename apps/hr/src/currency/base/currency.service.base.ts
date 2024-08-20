@@ -15,6 +15,7 @@ import {
   Prisma,
   Currency as PrismaCurrency,
   Customer as PrismaCustomer,
+  SalePayment as PrismaSalePayment,
   Supplier as PrismaSupplier,
   Tenant as PrismaTenant,
 } from "@prisma/client";
@@ -61,6 +62,17 @@ export class CurrencyServiceBase {
         where: { id: parentId },
       })
       .customers(args);
+  }
+
+  async findSalePayments(
+    parentId: string,
+    args: Prisma.SalePaymentFindManyArgs
+  ): Promise<PrismaSalePayment[]> {
+    return this.prisma.currency
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .salePayments(args);
   }
 
   async findSuppliers(

@@ -16,6 +16,7 @@ import {
 
 import { CashRepositoryTitle } from "../cashRepository/CashRepositoryTitle";
 import { InvoiceTypeTitle } from "../invoiceType/InvoiceTypeTitle";
+import { PaymentTermTitle } from "../paymentTerm/PaymentTermTitle";
 import { PaymentTypeTitle } from "../paymentType/PaymentTypeTitle";
 import { PurchaseDetailTitle } from "../purchaseDetail/PurchaseDetailTitle";
 import { PurchasePriceTypeTitle } from "../purchasePriceType/PurchasePriceTypeTitle";
@@ -50,6 +51,13 @@ export const PurchaseCreate = (props: CreateProps): React.ReactElement => {
         <NumberInput label="NonTaxableTotal" source="nonTaxableTotal" />
         <TextInput label="Note" multiline source="note" />
         <NumberInput label="Paid" source="paid" />
+        <ReferenceInput
+          source="paymentTermId.id"
+          reference="PaymentTerm"
+          label="PaymentTermId"
+        >
+          <SelectInput optionText={PaymentTermTitle} />
+        </ReferenceInput>
         <ReferenceInput
           source="paymentTypeId.id"
           reference="PaymentType"

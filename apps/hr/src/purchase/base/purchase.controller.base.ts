@@ -68,6 +68,12 @@ export class PurchaseControllerBase {
             }
           : undefined,
 
+        paymentTermId: data.paymentTermId
+          ? {
+              connect: data.paymentTermId,
+            }
+          : undefined,
+
         paymentTypeId: {
           connect: data.paymentTypeId,
         },
@@ -114,6 +120,12 @@ export class PurchaseControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {
@@ -201,6 +213,12 @@ export class PurchaseControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {
@@ -290,6 +308,12 @@ export class PurchaseControllerBase {
         note: true,
         paid: true,
 
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
         paymentTypeId: {
           select: {
             id: true,
@@ -374,6 +398,12 @@ export class PurchaseControllerBase {
               }
             : undefined,
 
+          paymentTermId: data.paymentTermId
+            ? {
+                connect: data.paymentTermId,
+              }
+            : undefined,
+
           paymentTypeId: {
             connect: data.paymentTypeId,
           },
@@ -420,6 +450,12 @@ export class PurchaseControllerBase {
           nonTaxableTotal: true,
           note: true,
           paid: true,
+
+          paymentTermId: {
+            select: {
+              id: true,
+            },
+          },
 
           paymentTypeId: {
             select: {
@@ -516,6 +552,12 @@ export class PurchaseControllerBase {
           nonTaxableTotal: true,
           note: true,
           paid: true,
+
+          paymentTermId: {
+            select: {
+              id: true,
+            },
+          },
 
           paymentTypeId: {
             select: {
@@ -757,6 +799,12 @@ export class PurchaseControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {

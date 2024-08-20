@@ -18,6 +18,7 @@ import {
   CashRepository as PrismaCashRepository,
   Customer as PrismaCustomer,
   InvoiceType as PrismaInvoiceType,
+  PaymentTerm as PrismaPaymentTerm,
   PaymentType as PrismaPaymentType,
   Sale as PrismaSale,
   SalePriceType as PrismaSalePriceType,
@@ -95,6 +96,14 @@ export class SaleReturnServiceBase {
         where: { id: parentId },
       })
       .invoiceTypeId();
+  }
+
+  async getPaymentTermId(parentId: string): Promise<PrismaPaymentTerm | null> {
+    return this.prisma.saleReturn
+      .findUnique({
+        where: { id: parentId },
+      })
+      .paymentTermId();
   }
 
   async getPaymentTypeId(parentId: string): Promise<PrismaPaymentType | null> {

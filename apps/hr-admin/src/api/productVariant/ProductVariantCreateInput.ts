@@ -6,6 +6,7 @@ import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
 import { PurchaseDetailCreateNestedManyWithoutProductVariantsInput } from "./PurchaseDetailCreateNestedManyWithoutProductVariantsInput";
 import { PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput";
 import { SaleDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleDetailCreateNestedManyWithoutProductVariantsInput";
+import { SaleOrderDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleOrderDetailCreateNestedManyWithoutProductVariantsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput";
 import { SaleReturnDetailCreateNestedManyWithoutProductVariantsInput } from "./SaleReturnDetailCreateNestedManyWithoutProductVariantsInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -21,6 +22,7 @@ export type ProductVariantCreateInput = {
   purchaseDetails?: PurchaseDetailCreateNestedManyWithoutProductVariantsInput;
   purchaseReturnDetails?: PurchaseReturnDetailCreateNestedManyWithoutProductVariantsInput;
   saleDetails?: SaleDetailCreateNestedManyWithoutProductVariantsInput;
+  saleOrderDetails?: SaleOrderDetailCreateNestedManyWithoutProductVariantsInput;
   saleQuotationDetails?: SaleQuotationDetailCreateNestedManyWithoutProductVariantsInput;
   saleReturnDetails?: SaleReturnDetailCreateNestedManyWithoutProductVariantsInput;
   tenantId?: TenantWhereUniqueInput | null;

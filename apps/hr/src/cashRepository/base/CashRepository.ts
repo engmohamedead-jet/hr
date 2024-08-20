@@ -22,6 +22,7 @@ import {
 import { Type } from "class-transformer";
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
 import { Purchase } from "../../purchase/base/Purchase";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { Sale } from "../../sale/base/Sale";
 import { Tenant } from "../../tenant/base/Tenant";
@@ -141,6 +142,15 @@ class CashRepository {
   @Type(() => Purchase)
   @IsOptional()
   purchases?: Purchase | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleOrder],
+  })
+  @ValidateNested()
+  @Type(() => SaleOrder)
+  @IsOptional()
+  saleOrders?: Array<SaleOrder>;
 
   @ApiProperty({
     required: false,

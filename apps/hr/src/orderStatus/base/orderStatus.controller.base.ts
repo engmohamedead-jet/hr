@@ -58,6 +58,12 @@ export class OrderStatusControllerBase {
             }
           : undefined,
 
+        saleOrders: data.saleOrders
+          ? {
+              connect: data.saleOrders,
+            }
+          : undefined,
+
         tenantId: data.tenantId
           ? {
               connect: data.tenantId,
@@ -75,6 +81,12 @@ export class OrderStatusControllerBase {
         note: true,
 
         productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrders: {
           select: {
             id: true,
           },
@@ -123,6 +135,12 @@ export class OrderStatusControllerBase {
           },
         },
 
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
         tenantId: {
           select: {
             id: true,
@@ -162,6 +180,12 @@ export class OrderStatusControllerBase {
         note: true,
 
         productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrders: {
           select: {
             id: true,
           },
@@ -212,6 +236,12 @@ export class OrderStatusControllerBase {
               }
             : undefined,
 
+          saleOrders: data.saleOrders
+            ? {
+                connect: data.saleOrders,
+              }
+            : undefined,
+
           tenantId: data.tenantId
             ? {
                 connect: data.tenantId,
@@ -229,6 +259,12 @@ export class OrderStatusControllerBase {
           note: true,
 
           productionOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleOrders: {
             select: {
               id: true,
             },
@@ -281,6 +317,12 @@ export class OrderStatusControllerBase {
           note: true,
 
           productionOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleOrders: {
             select: {
               id: true,
             },

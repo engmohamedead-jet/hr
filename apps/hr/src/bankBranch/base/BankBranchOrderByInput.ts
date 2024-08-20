@@ -39,7 +39,7 @@ class BankBranchOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  bankIdId?: SortOrder;
+  bankId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -105,6 +105,17 @@ class BankBranchOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  isActive?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   name?: SortOrder;
 
   @ApiProperty({
@@ -128,6 +139,17 @@ class BankBranchOrderByInput {
     nullable: true,
   })
   note?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantId?: SortOrder;
 
   @ApiProperty({
     required: false,

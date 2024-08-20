@@ -15,6 +15,7 @@ import { ProductionOrderUpdateManyWithoutProductsInput } from "./ProductionOrder
 import { PurchaseDetailUpdateManyWithoutProductsInput } from "./PurchaseDetailUpdateManyWithoutProductsInput";
 import { PurchaseReturnDetailUpdateManyWithoutProductsInput } from "./PurchaseReturnDetailUpdateManyWithoutProductsInput";
 import { SaleDetailUpdateManyWithoutProductsInput } from "./SaleDetailUpdateManyWithoutProductsInput";
+import { SaleOrderDetailUpdateManyWithoutProductsInput } from "./SaleOrderDetailUpdateManyWithoutProductsInput";
 import { SaleQuotationDetailUpdateManyWithoutProductsInput } from "./SaleQuotationDetailUpdateManyWithoutProductsInput";
 import { SaleReturnDetailUpdateManyWithoutProductsInput } from "./SaleReturnDetailUpdateManyWithoutProductsInput";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
@@ -60,6 +61,7 @@ export type ProductUpdateInput = {
   purchaseReturnDetails?: PurchaseReturnDetailUpdateManyWithoutProductsInput;
   reorderQuantity?: Decimal | null;
   saleDetails?: SaleDetailUpdateManyWithoutProductsInput;
+  saleOrderDetails?: SaleOrderDetailUpdateManyWithoutProductsInput;
   salePrice?: Decimal;
   salePriceIncludesTax?: boolean;
   saleQuotationDetails?: SaleQuotationDetailUpdateManyWithoutProductsInput;

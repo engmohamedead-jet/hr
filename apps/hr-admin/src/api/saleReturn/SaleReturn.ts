@@ -2,6 +2,7 @@ import { CashRepository } from "../cashRepository/CashRepository";
 import { Customer } from "../customer/Customer";
 import { Decimal } from "decimal.js";
 import { InvoiceType } from "../invoiceType/InvoiceType";
+import { PaymentTerm } from "../paymentTerm/PaymentTerm";
 import { PaymentType } from "../paymentType/PaymentType";
 import { Sale } from "../sale/Sale";
 import { SalePriceType } from "../salePriceType/SalePriceType";
@@ -23,6 +24,7 @@ export type SaleReturn = {
   nonTaxableTotal: Decimal | null;
   note: string | null;
   paid: Decimal;
+  paymentTermId?: PaymentTerm | null;
   paymentTypeId?: PaymentType;
   referenceNumber: string | null;
   remaining: Decimal;

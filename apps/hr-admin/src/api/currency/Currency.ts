@@ -1,4 +1,5 @@
 import { Customer } from "../customer/Customer";
+import { SalePayment } from "../salePayment/SalePayment";
 import { Supplier } from "../supplier/Supplier";
 import { Tenant } from "../tenant/Tenant";
 
@@ -12,6 +13,7 @@ export type Currency = {
   name: string;
   normalizedName: string;
   note: string | null;
+  salePayments?: Array<SalePayment>;
   suppliers?: Array<Supplier>;
   tenantId?: Tenant | null;
   updatedAt: Date;

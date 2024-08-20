@@ -5,6 +5,7 @@ import { ProductionOrderListRelationFilter } from "../productionOrder/Production
 import { ProductListRelationFilter } from "../product/ProductListRelationFilter";
 import { PurchaseReturnListRelationFilter } from "../purchaseReturn/PurchaseReturnListRelationFilter";
 import { PurchaseListRelationFilter } from "../purchase/PurchaseListRelationFilter";
+import { SaleOrderListRelationFilter } from "../saleOrder/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../saleReturn/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -25,6 +26,7 @@ export type StoreWhereInput = {
   products?: ProductListRelationFilter;
   purchaseReturns?: PurchaseReturnListRelationFilter;
   purchases?: PurchaseListRelationFilter;
+  saleOrders?: SaleOrderListRelationFilter;
   saleReturns?: SaleReturnListRelationFilter;
   sales?: SaleListRelationFilter;
   street?: StringNullableFilter;

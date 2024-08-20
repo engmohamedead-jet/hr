@@ -26,6 +26,9 @@ import { BankTypeFindUniqueArgs } from "./BankTypeFindUniqueArgs";
 import { CreateBankTypeArgs } from "./CreateBankTypeArgs";
 import { UpdateBankTypeArgs } from "./UpdateBankTypeArgs";
 import { DeleteBankTypeArgs } from "./DeleteBankTypeArgs";
+import { BankFindManyArgs } from "../../bank/base/BankFindManyArgs";
+import { Bank } from "../../bank/base/Bank";
+import { Tenant } from "../../tenant/base/Tenant";
 import { BankTypeService } from "../bankType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => BankType)
@@ -92,7 +95,15 @@ export class BankTypeResolverBase {
   ): Promise<BankType> {
     return await this.service.createBankType({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenant: args.data.tenant
+          ? {
+              connect: args.data.tenant,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +120,15 @@ export class BankTypeResolverBase {
     try {
       return await this.service.updateBankType({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenant: args.data.tenant
+            ? {
+                connect: args.data.tenant,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +159,44 @@ export class BankTypeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Bank], { name: "banks" })
+  @nestAccessControl.UseRoles({
+    resource: "Bank",
+    action: "read",
+    possession: "any",
+  })
+  async findBanks(
+    @graphql.Parent() parent: BankType,
+    @graphql.Args() args: BankFindManyArgs
+  ): Promise<Bank[]> {
+    const results = await this.service.findBanks(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenant",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenant(@graphql.Parent() parent: BankType): Promise<Tenant | null> {
+    const result = await this.service.getTenant(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

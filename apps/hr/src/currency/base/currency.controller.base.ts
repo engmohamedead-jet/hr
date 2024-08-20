@@ -29,6 +29,9 @@ import { CurrencyUpdateInput } from "./CurrencyUpdateInput";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { SalePaymentWhereUniqueInput } from "../../salePayment/base/SalePaymentWhereUniqueInput";
 import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
 import { Supplier } from "../../supplier/base/Supplier";
 import { SupplierWhereUniqueInput } from "../../supplier/base/SupplierWhereUniqueInput";
@@ -390,6 +393,154 @@ export class CurrencyControllerBase {
   ): Promise<void> {
     const data = {
       customers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/salePayments")
+  @ApiNestedQuery(SalePaymentFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @common.Req() request: Request,
+    @common.Param() params: CurrencyWhereUniqueInput
+  ): Promise<SalePayment[]> {
+    const query = plainToClass(SalePaymentFindManyArgs, request.query);
+    const results = await this.service.findSalePayments(params.id, {
+      ...query,
+      select: {
+        LocalCurrencyRatl: true,
+
+        bank: {
+          select: {
+            id: true,
+          },
+        },
+
+        bankBrach: true,
+
+        bankBranch: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeNumber: true,
+        createdAt: true,
+        creditCardNumber: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        foreignCurrencyRate: true,
+        id: true,
+        isCheque: true,
+        note: true,
+        paidValue: true,
+        paymentDate: true,
+
+        paymentMethodId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        seqeunce: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async connectSalePayments(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        connect: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async updateSalePayments(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        set: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSalePayments(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
         disconnect: body,
       },
     };

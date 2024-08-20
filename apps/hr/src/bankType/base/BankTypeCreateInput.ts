@@ -11,18 +11,42 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import { BankCreateNestedManyWithoutBankTypesInput } from "./BankCreateNestedManyWithoutBankTypesInput";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsBoolean,
+} from "class-validator";
+import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class BankTypeCreateInput {
   @ApiProperty({
-    required: true,
+    required: false,
+    type: () => BankCreateNestedManyWithoutBankTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => BankCreateNestedManyWithoutBankTypesInput)
+  @IsOptional()
+  @Field(() => BankCreateNestedManyWithoutBankTypesInput, {
+    nullable: true,
+  })
+  banks?: BankCreateNestedManyWithoutBankTypesInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -35,6 +59,17 @@ class BankTypeCreateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean | null;
 
   @ApiProperty({
     required: true,
@@ -59,12 +94,24 @@ class BankTypeCreateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(256)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput | null;
 }
 
 export { BankTypeCreateInput as BankTypeCreateInput };

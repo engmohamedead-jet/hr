@@ -69,6 +69,12 @@ export class SaleReturnControllerBase {
             }
           : undefined,
 
+        paymentTermId: data.paymentTermId
+          ? {
+              connect: data.paymentTermId,
+            }
+          : undefined,
+
         paymentTypeId: {
           connect: data.paymentTypeId,
         },
@@ -124,6 +130,12 @@ export class SaleReturnControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {
@@ -218,6 +230,12 @@ export class SaleReturnControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {
@@ -314,6 +332,12 @@ export class SaleReturnControllerBase {
         note: true,
         paid: true,
 
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
         paymentTypeId: {
           select: {
             id: true,
@@ -402,6 +426,12 @@ export class SaleReturnControllerBase {
               }
             : undefined,
 
+          paymentTermId: data.paymentTermId
+            ? {
+                connect: data.paymentTermId,
+              }
+            : undefined,
+
           paymentTypeId: {
             connect: data.paymentTypeId,
           },
@@ -457,6 +487,12 @@ export class SaleReturnControllerBase {
           nonTaxableTotal: true,
           note: true,
           paid: true,
+
+          paymentTermId: {
+            select: {
+              id: true,
+            },
+          },
 
           paymentTypeId: {
             select: {
@@ -560,6 +596,12 @@ export class SaleReturnControllerBase {
           nonTaxableTotal: true,
           note: true,
           paid: true,
+
+          paymentTermId: {
+            select: {
+              id: true,
+            },
+          },
 
           paymentTypeId: {
             select: {

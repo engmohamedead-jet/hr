@@ -13,6 +13,7 @@ import {
 import Pagination from "../Components/Pagination";
 import { CASHREPOSITORY_TITLE_FIELD } from "../cashRepository/CashRepositoryTitle";
 import { INVOICETYPE_TITLE_FIELD } from "../invoiceType/InvoiceTypeTitle";
+import { PAYMENTTERM_TITLE_FIELD } from "../paymentTerm/PaymentTermTitle";
 import { PAYMENTTYPE_TITLE_FIELD } from "../paymentType/PaymentTypeTitle";
 import { PURCHASEPRICETYPE_TITLE_FIELD } from "../purchasePriceType/PurchasePriceTypeTitle";
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
@@ -53,6 +54,13 @@ export const PurchaseList = (props: ListProps): React.ReactElement => {
         <TextField label="NonTaxableTotal" source="nonTaxableTotal" />
         <TextField label="Note" source="note" />
         <TextField label="Paid" source="paid" />
+        <ReferenceField
+          label="PaymentTermId"
+          source="paymentterm.id"
+          reference="PaymentTerm"
+        >
+          <TextField source={PAYMENTTERM_TITLE_FIELD} />
+        </ReferenceField>
         <ReferenceField
           label="PaymentTypeId"
           source="paymenttype.id"

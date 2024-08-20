@@ -27,6 +27,7 @@ import {
 import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { InvoiceType } from "../../invoiceType/base/InvoiceType";
+import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentType } from "../../paymentType/base/PaymentType";
 import { PurchaseDetail } from "../../purchaseDetail/base/PurchaseDetail";
 import { PurchasePriceType } from "../../purchasePriceType/base/PurchasePriceType";
@@ -147,6 +148,15 @@ class Purchase {
   @Max(99999999999)
   @Field(() => Float)
   paid!: Decimal;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentTerm,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTerm)
+  @IsOptional()
+  paymentTermId?: PaymentTerm | null;
 
   @ApiProperty({
     required: true,

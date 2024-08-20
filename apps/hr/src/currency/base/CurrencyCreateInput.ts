@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { CustomerCreateNestedManyWithoutCurrenciesInput } from "./CustomerCreateNestedManyWithoutCurrenciesInput";
 import { Type } from "class-transformer";
+import { SalePaymentCreateNestedManyWithoutCurrenciesInput } from "./SalePaymentCreateNestedManyWithoutCurrenciesInput";
 import { SupplierCreateNestedManyWithoutCurrenciesInput } from "./SupplierCreateNestedManyWithoutCurrenciesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
@@ -98,6 +99,18 @@ class CurrencyCreateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentCreateNestedManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentCreateNestedManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => SalePaymentCreateNestedManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentCreateNestedManyWithoutCurrenciesInput;
 
   @ApiProperty({
     required: false,

@@ -269,6 +269,38 @@ import { SaleOrderList } from "./saleOrder/SaleOrderList";
 import { SaleOrderCreate } from "./saleOrder/SaleOrderCreate";
 import { SaleOrderEdit } from "./saleOrder/SaleOrderEdit";
 import { SaleOrderShow } from "./saleOrder/SaleOrderShow";
+import { SaleOrderDetailList } from "./saleOrderDetail/SaleOrderDetailList";
+import { SaleOrderDetailCreate } from "./saleOrderDetail/SaleOrderDetailCreate";
+import { SaleOrderDetailEdit } from "./saleOrderDetail/SaleOrderDetailEdit";
+import { SaleOrderDetailShow } from "./saleOrderDetail/SaleOrderDetailShow";
+import { PaymentStatusList } from "./paymentStatus/PaymentStatusList";
+import { PaymentStatusCreate } from "./paymentStatus/PaymentStatusCreate";
+import { PaymentStatusEdit } from "./paymentStatus/PaymentStatusEdit";
+import { PaymentStatusShow } from "./paymentStatus/PaymentStatusShow";
+import { ShippingStatusList } from "./shippingStatus/ShippingStatusList";
+import { ShippingStatusCreate } from "./shippingStatus/ShippingStatusCreate";
+import { ShippingStatusEdit } from "./shippingStatus/ShippingStatusEdit";
+import { ShippingStatusShow } from "./shippingStatus/ShippingStatusShow";
+import { SalePaymentList } from "./salePayment/SalePaymentList";
+import { SalePaymentCreate } from "./salePayment/SalePaymentCreate";
+import { SalePaymentEdit } from "./salePayment/SalePaymentEdit";
+import { SalePaymentShow } from "./salePayment/SalePaymentShow";
+import { PaymentMethodList } from "./paymentMethod/PaymentMethodList";
+import { PaymentMethodCreate } from "./paymentMethod/PaymentMethodCreate";
+import { PaymentMethodEdit } from "./paymentMethod/PaymentMethodEdit";
+import { PaymentMethodShow } from "./paymentMethod/PaymentMethodShow";
+import { BankList } from "./bank/BankList";
+import { BankCreate } from "./bank/BankCreate";
+import { BankEdit } from "./bank/BankEdit";
+import { BankShow } from "./bank/BankShow";
+import { BankTypeList } from "./bankType/BankTypeList";
+import { BankTypeCreate } from "./bankType/BankTypeCreate";
+import { BankTypeEdit } from "./bankType/BankTypeEdit";
+import { BankTypeShow } from "./bankType/BankTypeShow";
+import { BankBranchList } from "./bankBranch/BankBranchList";
+import { BankBranchCreate } from "./bankBranch/BankBranchCreate";
+import { BankBranchEdit } from "./bankBranch/BankBranchEdit";
+import { BankBranchShow } from "./bankBranch/BankBranchShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -756,6 +788,62 @@ const App = (): React.ReactElement => {
           edit={SaleOrderEdit}
           create={SaleOrderCreate}
           show={SaleOrderShow}
+        />
+        <Resource
+          name="SaleOrderDetail"
+          list={SaleOrderDetailList}
+          edit={SaleOrderDetailEdit}
+          create={SaleOrderDetailCreate}
+          show={SaleOrderDetailShow}
+        />
+        <Resource
+          name="PaymentStatus"
+          list={PaymentStatusList}
+          edit={PaymentStatusEdit}
+          create={PaymentStatusCreate}
+          show={PaymentStatusShow}
+        />
+        <Resource
+          name="ShippingStatus"
+          list={ShippingStatusList}
+          edit={ShippingStatusEdit}
+          create={ShippingStatusCreate}
+          show={ShippingStatusShow}
+        />
+        <Resource
+          name="SalePayment"
+          list={SalePaymentList}
+          edit={SalePaymentEdit}
+          create={SalePaymentCreate}
+          show={SalePaymentShow}
+        />
+        <Resource
+          name="PaymentMethod"
+          list={PaymentMethodList}
+          edit={PaymentMethodEdit}
+          create={PaymentMethodCreate}
+          show={PaymentMethodShow}
+        />
+        <Resource
+          name="Bank"
+          list={BankList}
+          edit={BankEdit}
+          create={BankCreate}
+          show={BankShow}
+        />
+        <Resource
+          name="BankType"
+          list={BankTypeList}
+          edit={BankTypeEdit}
+          create={BankTypeCreate}
+          show={BankTypeShow}
+        />
+        <Resource
+          name="BankBranch"
+          list={BankBranchList}
+          edit={BankBranchEdit}
+          create={BankBranchCreate}
+          show={BankBranchShow}
         />
       </Admin>
     </div>

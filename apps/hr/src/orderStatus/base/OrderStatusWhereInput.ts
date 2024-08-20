@@ -18,6 +18,7 @@ import { IntFilter } from "../../util/IntFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
@@ -110,6 +111,18 @@ class OrderStatusWhereInput {
     nullable: true,
   })
   productionOrders?: ProductionOrderWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleOrderWhereUniqueInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderWhereUniqueInput;
 
   @ApiProperty({
     required: false,

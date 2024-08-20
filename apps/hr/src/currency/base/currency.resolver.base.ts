@@ -28,6 +28,8 @@ import { UpdateCurrencyArgs } from "./UpdateCurrencyArgs";
 import { DeleteCurrencyArgs } from "./DeleteCurrencyArgs";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
 import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
 import { Supplier } from "../../supplier/base/Supplier";
 import { Tenant } from "../../tenant/base/Tenant";
@@ -175,6 +177,26 @@ export class CurrencyResolverBase {
     @graphql.Args() args: CustomerFindManyArgs
   ): Promise<Customer[]> {
     const results = await this.service.findCustomers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SalePayment], { name: "salePayments" })
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @graphql.Parent() parent: Currency,
+    @graphql.Args() args: SalePaymentFindManyArgs
+  ): Promise<SalePayment[]> {
+    const results = await this.service.findSalePayments(parent.id, args);
 
     if (!results) {
       return [];

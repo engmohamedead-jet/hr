@@ -8,9 +8,7 @@ import {
   DateField,
 } from "react-admin";
 import Pagination from "../Components/Pagination";
-import { CITY_TITLE_FIELD } from "../city/CityTitle";
-import { COUNTRY_TITLE_FIELD } from "../country/CountryTitle";
-import { STATE_TITLE_FIELD } from "../state/StateTitle";
+import { BANKTYPE_TITLE_FIELD } from "../bankType/BankTypeTitle";
 
 export const BankList = (props: ListProps): React.ReactElement => {
   return (
@@ -23,19 +21,16 @@ export const BankList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <TextField label="Address" source="address" />
-        <TextField label="CellPhoneNumber" source="cellPhoneNumber" />
-        <ReferenceField label="CityId" source="city.id" reference="City">
-          <TextField source={CITY_TITLE_FIELD} />
+        <ReferenceField
+          label="BankType"
+          source="banktype.id"
+          reference="BankType"
+        >
+          <TextField source={BANKTYPE_TITLE_FIELD} />
         </ReferenceField>
+        <TextField label="CellPhoneNumber" source="cellPhoneNumber" />
         <TextField label="Code" source="code" />
         <TextField label="ContactPhoneNumber" source="contactPhoneNumber" />
-        <ReferenceField
-          label="CountryId"
-          source="country.id"
-          reference="Country"
-        >
-          <TextField source={COUNTRY_TITLE_FIELD} />
-        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="Fax" source="fax" />
@@ -43,7 +38,6 @@ export const BankList = (props: ListProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
-        <TextField label="Note" source="note" />
         <TextField
           label="RelationshipOfficerContactNumber"
           source="relationshipOfficerContactNumber"
@@ -52,9 +46,6 @@ export const BankList = (props: ListProps): React.ReactElement => {
           label="RelationshipOfficerName"
           source="relationshipOfficerName"
         />
-        <ReferenceField label="StateId" source="state.id" reference="State">
-          <TextField source={STATE_TITLE_FIELD} />
-        </ReferenceField>
         <TextField label="Street" source="street" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

@@ -26,6 +26,9 @@ import { PaymentMethodFindUniqueArgs } from "./PaymentMethodFindUniqueArgs";
 import { CreatePaymentMethodArgs } from "./CreatePaymentMethodArgs";
 import { UpdatePaymentMethodArgs } from "./UpdatePaymentMethodArgs";
 import { DeletePaymentMethodArgs } from "./DeletePaymentMethodArgs";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { Tenant } from "../../tenant/base/Tenant";
 import { PaymentMethodService } from "../paymentMethod.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PaymentMethod)
@@ -92,7 +95,15 @@ export class PaymentMethodResolverBase {
   ): Promise<PaymentMethod> {
     return await this.service.createPaymentMethod({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenant: args.data.tenant
+          ? {
+              connect: args.data.tenant,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +120,15 @@ export class PaymentMethodResolverBase {
     try {
       return await this.service.updatePaymentMethod({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenant: args.data.tenant
+            ? {
+                connect: args.data.tenant,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +159,46 @@ export class PaymentMethodResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SalePayment], { name: "salePayments" })
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @graphql.Parent() parent: PaymentMethod,
+    @graphql.Args() args: SalePaymentFindManyArgs
+  ): Promise<SalePayment[]> {
+    const results = await this.service.findSalePayments(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenant",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenant(
+    @graphql.Parent() parent: PaymentMethod
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenant(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

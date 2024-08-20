@@ -96,15 +96,12 @@ class SaleDetailCreateInput {
   isReplicated!: boolean;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isTaxed?: boolean | null;
+  @Field(() => Boolean)
+  isTaxed!: boolean;
 
   @ApiProperty({
     required: false,

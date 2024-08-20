@@ -24,6 +24,8 @@ import { ApplicationDependencyUpdateManyWithoutTenantsInput } from "./Applicatio
 import { ApplicationUpdateManyWithoutTenantsInput } from "./ApplicationUpdateManyWithoutTenantsInput";
 import { AttributeValueUpdateManyWithoutTenantsInput } from "./AttributeValueUpdateManyWithoutTenantsInput";
 import { AttributeUpdateManyWithoutTenantsInput } from "./AttributeUpdateManyWithoutTenantsInput";
+import { BankBranchUpdateManyWithoutTenantsInput } from "./BankBranchUpdateManyWithoutTenantsInput";
+import { BankTypeUpdateManyWithoutTenantsInput } from "./BankTypeUpdateManyWithoutTenantsInput";
 import { BarcodeTypeUpdateManyWithoutTenantsInput } from "./BarcodeTypeUpdateManyWithoutTenantsInput";
 import { BillOfMaterialDetailUpdateManyWithoutTenantsInput } from "./BillOfMaterialDetailUpdateManyWithoutTenantsInput";
 import { BillOfMaterialTypeUpdateManyWithoutTenantsInput } from "./BillOfMaterialTypeUpdateManyWithoutTenantsInput";
@@ -37,6 +39,8 @@ import { EmployeeUpdateManyWithoutTenantsInput } from "./EmployeeUpdateManyWitho
 import { InstallmentSaleFeeUpdateManyWithoutTenantsInput } from "./InstallmentSaleFeeUpdateManyWithoutTenantsInput";
 import { InvoiceTypeUpdateManyWithoutTenantsInput } from "./InvoiceTypeUpdateManyWithoutTenantsInput";
 import { OrderStatusUpdateManyWithoutTenantsInput } from "./OrderStatusUpdateManyWithoutTenantsInput";
+import { PaymentMethodUpdateManyWithoutTenantsInput } from "./PaymentMethodUpdateManyWithoutTenantsInput";
+import { PaymentStatusUpdateManyWithoutTenantsInput } from "./PaymentStatusUpdateManyWithoutTenantsInput";
 import { PaymentTermUpdateManyWithoutTenantsInput } from "./PaymentTermUpdateManyWithoutTenantsInput";
 import { PaymentTypeUpdateManyWithoutTenantsInput } from "./PaymentTypeUpdateManyWithoutTenantsInput";
 import { PeriodUpdateManyWithoutTenantsInput } from "./PeriodUpdateManyWithoutTenantsInput";
@@ -67,6 +71,9 @@ import { SalaryItemTypeUpdateManyWithoutTenantsInput } from "./SalaryItemTypeUpd
 import { SalaryItemUpdateManyWithoutTenantsInput } from "./SalaryItemUpdateManyWithoutTenantsInput";
 import { SalaryLawUpdateManyWithoutTenantsInput } from "./SalaryLawUpdateManyWithoutTenantsInput";
 import { SaleDetailUpdateManyWithoutTenantsInput } from "./SaleDetailUpdateManyWithoutTenantsInput";
+import { SaleOrderDetailUpdateManyWithoutTenantsInput } from "./SaleOrderDetailUpdateManyWithoutTenantsInput";
+import { SaleOrderUpdateManyWithoutTenantsInput } from "./SaleOrderUpdateManyWithoutTenantsInput";
+import { SalePaymentUpdateManyWithoutTenantsInput } from "./SalePaymentUpdateManyWithoutTenantsInput";
 import { SalePersonUpdateManyWithoutTenantsInput } from "./SalePersonUpdateManyWithoutTenantsInput";
 import { SalePriceTypeUpdateManyWithoutTenantsInput } from "./SalePriceTypeUpdateManyWithoutTenantsInput";
 import { SaleQuotationDetailUpdateManyWithoutTenantsInput } from "./SaleQuotationDetailUpdateManyWithoutTenantsInput";
@@ -77,6 +84,7 @@ import { SaleTaxUpdateManyWithoutTenantsInput } from "./SaleTaxUpdateManyWithout
 import { SaleTeamUpdateManyWithoutTenantsInput } from "./SaleTeamUpdateManyWithoutTenantsInput";
 import { SaleUpdateManyWithoutTenantsInput } from "./SaleUpdateManyWithoutTenantsInput";
 import { ScrapReasonUpdateManyWithoutTenantsInput } from "./ScrapReasonUpdateManyWithoutTenantsInput";
+import { ShippingStatusUpdateManyWithoutTenantsInput } from "./ShippingStatusUpdateManyWithoutTenantsInput";
 import { StoreUpdateManyWithoutTenantsInput } from "./StoreUpdateManyWithoutTenantsInput";
 import { SupplierUpdateManyWithoutTenantsInput } from "./SupplierUpdateManyWithoutTenantsInput";
 import { UnitUpdateManyWithoutTenantsInput } from "./UnitUpdateManyWithoutTenantsInput";
@@ -145,6 +153,30 @@ class TenantUpdateInput {
     nullable: true,
   })
   attributes?: AttributeUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankBranchUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => BankBranchUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => BankBranchUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  bankBranches?: BankBranchUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankTypeUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => BankTypeUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => BankTypeUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  bankTypes?: BankTypeUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -407,6 +439,30 @@ class TenantUpdateInput {
     nullable: true,
   })
   orderStatuses?: OrderStatusUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentMethodUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentMethodUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => PaymentMethodUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  paymentMethods?: PaymentMethodUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentStatusUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentStatusUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => PaymentStatusUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  paymentStatuses?: PaymentStatusUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -770,6 +826,42 @@ class TenantUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SaleOrderDetailUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => SaleOrderUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => SalePaymentUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => SalePersonUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -887,6 +979,18 @@ class TenantUpdateInput {
     nullable: true,
   })
   scrapReasons?: ScrapReasonUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShippingStatusUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ShippingStatusUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ShippingStatusUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  shippingStatuses?: ShippingStatusUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,

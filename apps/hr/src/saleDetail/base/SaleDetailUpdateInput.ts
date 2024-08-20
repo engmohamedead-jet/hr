@@ -113,7 +113,7 @@ class SaleDetailUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isTaxed?: boolean | null;
+  isTaxed?: boolean;
 
   @ApiProperty({
     required: false,

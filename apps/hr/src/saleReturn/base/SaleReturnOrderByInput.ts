@@ -171,6 +171,17 @@ class SaleReturnOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  paymentTermIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   paymentTypeIdId?: SortOrder;
 
   @ApiProperty({

@@ -1,4 +1,5 @@
 import { ProductionOrder } from "../productionOrder/ProductionOrder";
+import { SaleOrder } from "../saleOrder/SaleOrder";
 import { Tenant } from "../tenant/Tenant";
 
 export type OrderStatus = {
@@ -11,6 +12,7 @@ export type OrderStatus = {
   normalizedName: string;
   note: string | null;
   productionOrders?: ProductionOrder | null;
+  saleOrders?: SaleOrder | null;
   tenantId?: Tenant | null;
   updatedAt: Date;
 };

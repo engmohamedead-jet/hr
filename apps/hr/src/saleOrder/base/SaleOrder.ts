@@ -9,15 +9,59 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, ValidateNested, IsString, IsOptional } from "class-validator";
+
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+  IsDate,
+  IsNumber,
+  Max,
+  IsBoolean,
+  Min,
+} from "class-validator";
+
+import { CashRepository } from "../../cashRepository/base/CashRepository";
 import { Type } from "class-transformer";
 import { Customer } from "../../customer/base/Customer";
+import { Decimal } from "decimal.js";
+import { InvoiceType } from "../../invoiceType/base/InvoiceType";
+import { OrderStatus } from "../../orderStatus/base/OrderStatus";
+import { PaymentStatus } from "../../paymentStatus/base/PaymentStatus";
+import { PaymentType } from "../../paymentType/base/PaymentType";
+import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
+import { SalePriceType } from "../../salePriceType/base/SalePriceType";
 import { SaleQuotation } from "../../saleQuotation/base/SaleQuotation";
+import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
+import { Store } from "../../store/base/Store";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class SaleOrder {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  billingAddress!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => CashRepository,
+  })
+  @ValidateNested()
+  @Type(() => CashRepository)
+  @IsOptional()
+  cashRepositoryId?: CashRepository | null;
+
   @ApiProperty({
     required: true,
   })
@@ -35,12 +79,24 @@ class SaleOrder {
   customerId?: Customer;
 
   @ApiProperty({
-    required: true,
-    type: String,
+    required: false,
   })
-  @IsString()
-  @Field(() => String)
-  id!: string;
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  deliveryDate!: Date | null;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @Field(() => Float)
+  discountTotal!: Decimal;
 
   @ApiProperty({
     required: false,
@@ -51,7 +107,154 @@ class SaleOrder {
   @Field(() => Date, {
     nullable: true,
   })
-  saleOrderDate!: Date | null;
+  expectedDeliveryDate!: Date | null;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String)
+  id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => InvoiceType,
+  })
+  @ValidateNested()
+  @Type(() => InvoiceType)
+  @IsOptional()
+  invoiceTypeId?: InvoiceType | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isCancelled!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isReplicated!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @Field(() => Float)
+  netTotal!: Decimal;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  nonTaxableTotal!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  note!: string | null;
+
+  @ApiProperty({
+    required: true,
+    type: () => OrderStatus,
+  })
+  @ValidateNested()
+  @Type(() => OrderStatus)
+  orderStatus?: OrderStatus;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentStatus,
+  })
+  @ValidateNested()
+  @Type(() => PaymentStatus)
+  @IsOptional()
+  paymentStatus?: PaymentStatus | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentType,
+  })
+  @ValidateNested()
+  @Type(() => PaymentType)
+  @IsOptional()
+  paymentTypeId?: PaymentType | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  referenceNumber!: string | null;
+
+  @ApiProperty({
+    required: true,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @Field(() => Date)
+  saleOrderDate!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleOrderDetail],
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetail)
+  @IsOptional()
+  saleOrderDetails?: Array<SaleOrderDetail>;
+
+  @ApiProperty({
+    required: true,
+    type: () => SalePriceType,
+  })
+  @ValidateNested()
+  @Type(() => SalePriceType)
+  salePriceType?: SalePriceType;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(-999999999)
+  @Max(999999999)
+  @Field(() => Number)
+  salePriceTypeId!: number;
 
   @ApiProperty({
     required: false,
@@ -61,6 +264,113 @@ class SaleOrder {
   @Type(() => SaleQuotation)
   @IsOptional()
   saleQuotation?: SaleQuotation | null;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @Field(() => Float)
+  saleTotal!: Decimal;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  shippingAddress!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  shippingCost!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShippingStatus,
+  })
+  @ValidateNested()
+  @Type(() => ShippingStatus)
+  @IsOptional()
+  shippingStatus?: ShippingStatus | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Store,
+  })
+  @ValidateNested()
+  @Type(() => Store)
+  @IsOptional()
+  storeId?: Store | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  tax!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(100)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  taxRate!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  taxableTotal!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenant?: Tenant | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  transactionDateTime!: Date | null;
 
   @ApiProperty({
     required: true,

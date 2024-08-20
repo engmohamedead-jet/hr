@@ -14,11 +14,9 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Bank as PrismaBank,
-  BankAccount as PrismaBankAccount,
   BankBranch as PrismaBankBranch,
-  City as PrismaCity,
-  Country as PrismaCountry,
-  State as PrismaState,
+  SalePayment as PrismaSalePayment,
+  BankType as PrismaBankType,
 } from "@prisma/client";
 
 export class BankServiceBase {
@@ -44,17 +42,6 @@ export class BankServiceBase {
     return this.prisma.bank.delete(args);
   }
 
-  async findBankAccounts(
-    parentId: string,
-    args: Prisma.BankAccountFindManyArgs
-  ): Promise<PrismaBankAccount[]> {
-    return this.prisma.bank
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .bankAccounts(args);
-  }
-
   async findBankBranches(
     parentId: string,
     args: Prisma.BankBranchFindManyArgs
@@ -66,27 +53,22 @@ export class BankServiceBase {
       .bankBranches(args);
   }
 
-  async getCityId(parentId: string): Promise<PrismaCity | null> {
+  async findSalePayments(
+    parentId: string,
+    args: Prisma.SalePaymentFindManyArgs
+  ): Promise<PrismaSalePayment[]> {
     return this.prisma.bank
-      .findUnique({
+      .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .cityId();
+      .salePayments(args);
   }
 
-  async getCountryId(parentId: string): Promise<PrismaCountry | null> {
+  async getBankType(parentId: string): Promise<PrismaBankType | null> {
     return this.prisma.bank
       .findUnique({
         where: { id: parentId },
       })
-      .countryId();
-  }
-
-  async getStateId(parentId: string): Promise<PrismaState | null> {
-    return this.prisma.bank
-      .findUnique({
-        where: { id: parentId },
-      })
-      .stateId();
+      .bankType();
   }
 }

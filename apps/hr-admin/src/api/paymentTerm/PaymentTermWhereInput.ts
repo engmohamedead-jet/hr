@@ -5,6 +5,10 @@ import { StringFilter } from "../../util/StringFilter";
 import { InstallmentSaleFeeWhereUniqueInput } from "../installmentSaleFee/InstallmentSaleFeeWhereUniqueInput";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { PurchaseReturnListRelationFilter } from "../purchaseReturn/PurchaseReturnListRelationFilter";
+import { PurchaseListRelationFilter } from "../purchase/PurchaseListRelationFilter";
+import { SaleReturnListRelationFilter } from "../saleReturn/SaleReturnListRelationFilter";
+import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PaymentTermWhereInput = {
@@ -22,5 +26,9 @@ export type PaymentTermWhereInput = {
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
+  purchaseReturns?: PurchaseReturnListRelationFilter;
+  purchases?: PurchaseListRelationFilter;
+  saleReturns?: SaleReturnListRelationFilter;
+  sales?: SaleListRelationFilter;
   tenantId?: TenantWhereUniqueInput;
 };

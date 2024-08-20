@@ -1,5 +1,9 @@
 import { PeriodWhereUniqueInput } from "../period/PeriodWhereUniqueInput";
 import { InstallmentSaleFeeWhereUniqueInput } from "../installmentSaleFee/InstallmentSaleFeeWhereUniqueInput";
+import { PurchaseReturnUpdateManyWithoutPaymentTermsInput } from "./PurchaseReturnUpdateManyWithoutPaymentTermsInput";
+import { PurchaseUpdateManyWithoutPaymentTermsInput } from "./PurchaseUpdateManyWithoutPaymentTermsInput";
+import { SaleReturnUpdateManyWithoutPaymentTermsInput } from "./SaleReturnUpdateManyWithoutPaymentTermsInput";
+import { SaleUpdateManyWithoutPaymentTermsInput } from "./SaleUpdateManyWithoutPaymentTermsInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PaymentTermUpdateInput = {
@@ -16,5 +20,9 @@ export type PaymentTermUpdateInput = {
   name?: string;
   normalizedName?: string;
   note?: string | null;
+  purchaseReturns?: PurchaseReturnUpdateManyWithoutPaymentTermsInput;
+  purchases?: PurchaseUpdateManyWithoutPaymentTermsInput;
+  saleReturns?: SaleReturnUpdateManyWithoutPaymentTermsInput;
+  sales?: SaleUpdateManyWithoutPaymentTermsInput;
   tenantId?: TenantWhereUniqueInput | null;
 };

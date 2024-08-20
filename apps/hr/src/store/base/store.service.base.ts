@@ -18,6 +18,7 @@ import {
   Product as PrismaProduct,
   PurchaseReturn as PrismaPurchaseReturn,
   Purchase as PrismaPurchase,
+  SaleOrder as PrismaSaleOrder,
   SaleReturn as PrismaSaleReturn,
   Sale as PrismaSale,
   Tenant as PrismaTenant,
@@ -88,6 +89,17 @@ export class StoreServiceBase {
         where: { id: parentId },
       })
       .purchases(args);
+  }
+
+  async findSaleOrders(
+    parentId: string,
+    args: Prisma.SaleOrderFindManyArgs
+  ): Promise<PrismaSaleOrder[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrders(args);
   }
 
   async findSaleReturns(

@@ -20,6 +20,7 @@ import { InvoiceTypeWhereUniqueInput } from "../../invoiceType/base/InvoiceTypeW
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { PaymentTermWhereUniqueInput } from "../../paymentTerm/base/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../../paymentType/base/PaymentTypeWhereUniqueInput";
 import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
 import { PurchasePriceTypeWhereUniqueInput } from "../../purchasePriceType/base/PurchasePriceTypeWhereUniqueInput";
@@ -153,6 +154,18 @@ class PurchaseReturnWhereInput {
     nullable: true,
   })
   paid?: DecimalFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentTermWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTermWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentTermWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentTermId?: PaymentTermWhereUniqueInput;
 
   @ApiProperty({
     required: false,

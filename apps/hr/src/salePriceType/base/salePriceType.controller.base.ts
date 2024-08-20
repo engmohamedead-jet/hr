@@ -58,6 +58,18 @@ export class SalePriceTypeControllerBase {
             }
           : undefined,
 
+        saleOrderDetails: data.saleOrderDetails
+          ? {
+              connect: data.saleOrderDetails,
+            }
+          : undefined,
+
+        saleOrders: data.saleOrders
+          ? {
+              connect: data.saleOrders,
+            }
+          : undefined,
+
         saleQuotationDetails: data.saleQuotationDetails
           ? {
               connect: data.saleQuotationDetails,
@@ -99,6 +111,18 @@ export class SalePriceTypeControllerBase {
         note: true,
 
         saleDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrderDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrders: {
           select: {
             id: true,
           },
@@ -173,6 +197,18 @@ export class SalePriceTypeControllerBase {
           },
         },
 
+        saleOrderDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
         saleQuotationDetails: {
           select: {
             id: true,
@@ -236,6 +272,18 @@ export class SalePriceTypeControllerBase {
         note: true,
 
         saleDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrderDetails: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrders: {
           select: {
             id: true,
           },
@@ -310,6 +358,18 @@ export class SalePriceTypeControllerBase {
               }
             : undefined,
 
+          saleOrderDetails: data.saleOrderDetails
+            ? {
+                connect: data.saleOrderDetails,
+              }
+            : undefined,
+
+          saleOrders: data.saleOrders
+            ? {
+                connect: data.saleOrders,
+              }
+            : undefined,
+
           saleQuotationDetails: data.saleQuotationDetails
             ? {
                 connect: data.saleQuotationDetails,
@@ -351,6 +411,18 @@ export class SalePriceTypeControllerBase {
           note: true,
 
           saleDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleOrderDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleOrders: {
             select: {
               id: true,
             },
@@ -427,6 +499,18 @@ export class SalePriceTypeControllerBase {
           note: true,
 
           saleDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleOrderDetails: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleOrders: {
             select: {
               id: true,
             },

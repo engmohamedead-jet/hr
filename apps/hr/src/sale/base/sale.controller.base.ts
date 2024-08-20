@@ -29,6 +29,9 @@ import { SaleUpdateInput } from "./SaleUpdateInput";
 import { SaleDetailFindManyArgs } from "../../saleDetail/base/SaleDetailFindManyArgs";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
 import { SaleDetailWhereUniqueInput } from "../../saleDetail/base/SaleDetailWhereUniqueInput";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { SalePaymentWhereUniqueInput } from "../../salePayment/base/SalePaymentWhereUniqueInput";
 import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindManyArgs";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWhereUniqueInput";
@@ -67,6 +70,12 @@ export class SaleControllerBase {
         invoiceTypeId: data.invoiceTypeId
           ? {
               connect: data.invoiceTypeId,
+            }
+          : undefined,
+
+        paymentTerm: data.paymentTerm
+          ? {
+              connect: data.paymentTerm,
             }
           : undefined,
 
@@ -119,6 +128,12 @@ export class SaleControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTerm: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {
@@ -207,6 +222,12 @@ export class SaleControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTerm: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {
@@ -297,6 +318,12 @@ export class SaleControllerBase {
         note: true,
         paid: true,
 
+        paymentTerm: {
+          select: {
+            id: true,
+          },
+        },
+
         paymentTypeId: {
           select: {
             id: true,
@@ -379,6 +406,12 @@ export class SaleControllerBase {
               }
             : undefined,
 
+          paymentTerm: data.paymentTerm
+            ? {
+                connect: data.paymentTerm,
+              }
+            : undefined,
+
           paymentTypeId: {
             connect: data.paymentTypeId,
           },
@@ -428,6 +461,12 @@ export class SaleControllerBase {
           nonTaxableTotal: true,
           note: true,
           paid: true,
+
+          paymentTerm: {
+            select: {
+              id: true,
+            },
+          },
 
           paymentTypeId: {
             select: {
@@ -525,6 +564,12 @@ export class SaleControllerBase {
           nonTaxableTotal: true,
           note: true,
           paid: true,
+
+          paymentTerm: {
+            select: {
+              id: true,
+            },
+          },
 
           paymentTypeId: {
             select: {
@@ -723,6 +768,154 @@ export class SaleControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/salePayments")
+  @ApiNestedQuery(SalePaymentFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @common.Req() request: Request,
+    @common.Param() params: SaleWhereUniqueInput
+  ): Promise<SalePayment[]> {
+    const query = plainToClass(SalePaymentFindManyArgs, request.query);
+    const results = await this.service.findSalePayments(params.id, {
+      ...query,
+      select: {
+        LocalCurrencyRatl: true,
+
+        bank: {
+          select: {
+            id: true,
+          },
+        },
+
+        bankBrach: true,
+
+        bankBranch: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeNumber: true,
+        createdAt: true,
+        creditCardNumber: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        foreignCurrencyRate: true,
+        id: true,
+        isCheque: true,
+        note: true,
+        paidValue: true,
+        paymentDate: true,
+
+        paymentMethodId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        seqeunce: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Sale",
+    action: "update",
+    possession: "any",
+  })
+  async connectSalePayments(
+    @common.Param() params: SaleWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        connect: body,
+      },
+    };
+    await this.service.updateSale({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Sale",
+    action: "update",
+    possession: "any",
+  })
+  async updateSalePayments(
+    @common.Param() params: SaleWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        set: body,
+      },
+    };
+    await this.service.updateSale({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "Sale",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSalePayments(
+    @common.Param() params: SaleWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateSale({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id/saleReturns")
   @ApiNestedQuery(SaleReturnFindManyArgs)
   @nestAccessControl.UseRoles({
@@ -768,6 +961,12 @@ export class SaleControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {

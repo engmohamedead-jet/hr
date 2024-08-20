@@ -23,6 +23,7 @@ import { Type } from "class-transformer";
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
 import { PurchaseReturnUpdateManyWithoutCashRepositoriesInput } from "./PurchaseReturnUpdateManyWithoutCashRepositoriesInput";
 import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
+import { SaleOrderUpdateManyWithoutCashRepositoriesInput } from "./SaleOrderUpdateManyWithoutCashRepositoriesInput";
 import { SaleReturnUpdateManyWithoutCashRepositoriesInput } from "./SaleReturnUpdateManyWithoutCashRepositoriesInput";
 import { SaleUpdateManyWithoutCashRepositoriesInput } from "./SaleUpdateManyWithoutCashRepositoriesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -147,6 +148,18 @@ class CashRepositoryUpdateInput {
     nullable: true,
   })
   purchases?: PurchaseWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderUpdateManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderUpdateManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => SaleOrderUpdateManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderUpdateManyWithoutCashRepositoriesInput;
 
   @ApiProperty({
     required: false,

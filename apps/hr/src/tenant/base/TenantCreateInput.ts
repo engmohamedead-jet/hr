@@ -24,6 +24,8 @@ import { ApplicationDependencyCreateNestedManyWithoutTenantsInput } from "./Appl
 import { ApplicationCreateNestedManyWithoutTenantsInput } from "./ApplicationCreateNestedManyWithoutTenantsInput";
 import { AttributeValueCreateNestedManyWithoutTenantsInput } from "./AttributeValueCreateNestedManyWithoutTenantsInput";
 import { AttributeCreateNestedManyWithoutTenantsInput } from "./AttributeCreateNestedManyWithoutTenantsInput";
+import { BankBranchCreateNestedManyWithoutTenantsInput } from "./BankBranchCreateNestedManyWithoutTenantsInput";
+import { BankTypeCreateNestedManyWithoutTenantsInput } from "./BankTypeCreateNestedManyWithoutTenantsInput";
 import { BarcodeTypeCreateNestedManyWithoutTenantsInput } from "./BarcodeTypeCreateNestedManyWithoutTenantsInput";
 import { BillOfMaterialDetailCreateNestedManyWithoutTenantsInput } from "./BillOfMaterialDetailCreateNestedManyWithoutTenantsInput";
 import { BillOfMaterialTypeCreateNestedManyWithoutTenantsInput } from "./BillOfMaterialTypeCreateNestedManyWithoutTenantsInput";
@@ -37,6 +39,8 @@ import { EmployeeCreateNestedManyWithoutTenantsInput } from "./EmployeeCreateNes
 import { InstallmentSaleFeeCreateNestedManyWithoutTenantsInput } from "./InstallmentSaleFeeCreateNestedManyWithoutTenantsInput";
 import { InvoiceTypeCreateNestedManyWithoutTenantsInput } from "./InvoiceTypeCreateNestedManyWithoutTenantsInput";
 import { OrderStatusCreateNestedManyWithoutTenantsInput } from "./OrderStatusCreateNestedManyWithoutTenantsInput";
+import { PaymentMethodCreateNestedManyWithoutTenantsInput } from "./PaymentMethodCreateNestedManyWithoutTenantsInput";
+import { PaymentStatusCreateNestedManyWithoutTenantsInput } from "./PaymentStatusCreateNestedManyWithoutTenantsInput";
 import { PaymentTermCreateNestedManyWithoutTenantsInput } from "./PaymentTermCreateNestedManyWithoutTenantsInput";
 import { PaymentTypeCreateNestedManyWithoutTenantsInput } from "./PaymentTypeCreateNestedManyWithoutTenantsInput";
 import { PeriodCreateNestedManyWithoutTenantsInput } from "./PeriodCreateNestedManyWithoutTenantsInput";
@@ -67,6 +71,9 @@ import { SalaryItemTypeCreateNestedManyWithoutTenantsInput } from "./SalaryItemT
 import { SalaryItemCreateNestedManyWithoutTenantsInput } from "./SalaryItemCreateNestedManyWithoutTenantsInput";
 import { SalaryLawCreateNestedManyWithoutTenantsInput } from "./SalaryLawCreateNestedManyWithoutTenantsInput";
 import { SaleDetailCreateNestedManyWithoutTenantsInput } from "./SaleDetailCreateNestedManyWithoutTenantsInput";
+import { SaleOrderDetailCreateNestedManyWithoutTenantsInput } from "./SaleOrderDetailCreateNestedManyWithoutTenantsInput";
+import { SaleOrderCreateNestedManyWithoutTenantsInput } from "./SaleOrderCreateNestedManyWithoutTenantsInput";
+import { SalePaymentCreateNestedManyWithoutTenantsInput } from "./SalePaymentCreateNestedManyWithoutTenantsInput";
 import { SalePersonCreateNestedManyWithoutTenantsInput } from "./SalePersonCreateNestedManyWithoutTenantsInput";
 import { SalePriceTypeCreateNestedManyWithoutTenantsInput } from "./SalePriceTypeCreateNestedManyWithoutTenantsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutTenantsInput } from "./SaleQuotationDetailCreateNestedManyWithoutTenantsInput";
@@ -77,6 +84,7 @@ import { SaleTaxCreateNestedManyWithoutTenantsInput } from "./SaleTaxCreateNeste
 import { SaleTeamCreateNestedManyWithoutTenantsInput } from "./SaleTeamCreateNestedManyWithoutTenantsInput";
 import { SaleCreateNestedManyWithoutTenantsInput } from "./SaleCreateNestedManyWithoutTenantsInput";
 import { ScrapReasonCreateNestedManyWithoutTenantsInput } from "./ScrapReasonCreateNestedManyWithoutTenantsInput";
+import { ShippingStatusCreateNestedManyWithoutTenantsInput } from "./ShippingStatusCreateNestedManyWithoutTenantsInput";
 import { StoreCreateNestedManyWithoutTenantsInput } from "./StoreCreateNestedManyWithoutTenantsInput";
 import { SupplierCreateNestedManyWithoutTenantsInput } from "./SupplierCreateNestedManyWithoutTenantsInput";
 import { UnitCreateNestedManyWithoutTenantsInput } from "./UnitCreateNestedManyWithoutTenantsInput";
@@ -145,6 +153,30 @@ class TenantCreateInput {
     nullable: true,
   })
   attributes?: AttributeCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankBranchCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => BankBranchCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => BankBranchCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  bankBranches?: BankBranchCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankTypeCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => BankTypeCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => BankTypeCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  bankTypes?: BankTypeCreateNestedManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -398,6 +430,30 @@ class TenantCreateInput {
     nullable: true,
   })
   orderStatuses?: OrderStatusCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentMethodCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentMethodCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => PaymentMethodCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  paymentMethods?: PaymentMethodCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentStatusCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentStatusCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => PaymentStatusCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  paymentStatuses?: PaymentStatusCreateNestedManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -761,6 +817,42 @@ class TenantCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SaleOrderDetailCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => SaleOrderCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => SalePaymentCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => SalePersonCreateNestedManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -878,6 +970,18 @@ class TenantCreateInput {
     nullable: true,
   })
   scrapReasons?: ScrapReasonCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShippingStatusCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ShippingStatusCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ShippingStatusCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  shippingStatuses?: ShippingStatusCreateNestedManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,

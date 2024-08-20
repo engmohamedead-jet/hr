@@ -28,8 +28,10 @@ import { Type } from "class-transformer";
 import { Customer } from "../../customer/base/Customer";
 import { Decimal } from "decimal.js";
 import { InvoiceType } from "../../invoiceType/base/InvoiceType";
+import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentType } from "../../paymentType/base/PaymentType";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SalePayment } from "../../salePayment/base/SalePayment";
 import { SalePriceType } from "../../salePriceType/base/SalePriceType";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { Store } from "../../store/base/Store";
@@ -160,6 +162,15 @@ class Sale {
   paid!: Decimal | null;
 
   @ApiProperty({
+    required: false,
+    type: () => PaymentTerm,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTerm)
+  @IsOptional()
+  paymentTerm?: PaymentTerm | null;
+
+  @ApiProperty({
     required: true,
     type: () => PaymentType,
   })
@@ -207,6 +218,15 @@ class Sale {
   @Type(() => SaleDetail)
   @IsOptional()
   saleDetails?: Array<SaleDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SalePayment],
+  })
+  @ValidateNested()
+  @Type(() => SalePayment)
+  @IsOptional()
+  salePayments?: Array<SalePayment>;
 
   @ApiProperty({
     required: true,

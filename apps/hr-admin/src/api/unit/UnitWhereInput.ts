@@ -11,6 +11,7 @@ import { ProductListRelationFilter } from "../product/ProductListRelationFilter"
 import { PurchaseDetailListRelationFilter } from "../purchaseDetail/PurchaseDetailListRelationFilter";
 import { PurchaseReturnDetailListRelationFilter } from "../purchaseReturnDetail/PurchaseReturnDetailListRelationFilter";
 import { SaleDetailListRelationFilter } from "../saleDetail/SaleDetailListRelationFilter";
+import { SaleOrderDetailListRelationFilter } from "../saleOrderDetail/SaleOrderDetailListRelationFilter";
 import { SaleQuotationDetailListRelationFilter } from "../saleQuotationDetail/SaleQuotationDetailListRelationFilter";
 import { SaleReturnDetailListRelationFilter } from "../saleReturnDetail/SaleReturnDetailListRelationFilter";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -34,6 +35,7 @@ export type UnitWhereInput = {
   purchaseDetails?: PurchaseDetailListRelationFilter;
   purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
   saleDetails?: SaleDetailListRelationFilter;
+  saleOrderDetails?: SaleOrderDetailListRelationFilter;
   saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
   saleReturnDetails?: SaleReturnDetailListRelationFilter;
   tenantId?: TenantWhereUniqueInput;

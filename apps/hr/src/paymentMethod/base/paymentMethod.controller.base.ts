@@ -26,6 +26,9 @@ import { PaymentMethod } from "./PaymentMethod";
 import { PaymentMethodFindManyArgs } from "./PaymentMethodFindManyArgs";
 import { PaymentMethodWhereUniqueInput } from "./PaymentMethodWhereUniqueInput";
 import { PaymentMethodUpdateInput } from "./PaymentMethodUpdateInput";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { SalePaymentWhereUniqueInput } from "../../salePayment/base/SalePaymentWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -49,15 +52,31 @@ export class PaymentMethodControllerBase {
     @common.Body() data: PaymentMethodCreateInput
   ): Promise<PaymentMethod> {
     return await this.service.createPaymentMethod({
-      data: data,
+      data: {
+        ...data,
+
+        tenant: data.tenant
+          ? {
+              connect: data.tenant,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
+        description: true,
         id: true,
-        isDefault: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -84,11 +103,19 @@ export class PaymentMethodControllerBase {
       select: {
         code: true,
         createdAt: true,
+        description: true,
         id: true,
-        isDefault: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -114,11 +141,19 @@ export class PaymentMethodControllerBase {
       select: {
         code: true,
         createdAt: true,
+        description: true,
         id: true,
-        isDefault: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -149,15 +184,31 @@ export class PaymentMethodControllerBase {
     try {
       return await this.service.updatePaymentMethod({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenant: data.tenant
+            ? {
+                connect: data.tenant,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
+          description: true,
           id: true,
-          isDefault: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -191,11 +242,19 @@ export class PaymentMethodControllerBase {
         select: {
           code: true,
           createdAt: true,
+          description: true,
           id: true,
-          isDefault: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -207,5 +266,153 @@ export class PaymentMethodControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/salePayments")
+  @ApiNestedQuery(SalePaymentFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @common.Req() request: Request,
+    @common.Param() params: PaymentMethodWhereUniqueInput
+  ): Promise<SalePayment[]> {
+    const query = plainToClass(SalePaymentFindManyArgs, request.query);
+    const results = await this.service.findSalePayments(params.id, {
+      ...query,
+      select: {
+        LocalCurrencyRatl: true,
+
+        bank: {
+          select: {
+            id: true,
+          },
+        },
+
+        bankBrach: true,
+
+        bankBranch: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeNumber: true,
+        createdAt: true,
+        creditCardNumber: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        foreignCurrencyRate: true,
+        id: true,
+        isCheque: true,
+        note: true,
+        paidValue: true,
+        paymentDate: true,
+
+        paymentMethodId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        seqeunce: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "PaymentMethod",
+    action: "update",
+    possession: "any",
+  })
+  async connectSalePayments(
+    @common.Param() params: PaymentMethodWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        connect: body,
+      },
+    };
+    await this.service.updatePaymentMethod({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "PaymentMethod",
+    action: "update",
+    possession: "any",
+  })
+  async updateSalePayments(
+    @common.Param() params: PaymentMethodWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        set: body,
+      },
+    };
+    await this.service.updatePaymentMethod({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/salePayments")
+  @nestAccessControl.UseRoles({
+    resource: "PaymentMethod",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSalePayments(
+    @common.Param() params: PaymentMethodWhereUniqueInput,
+    @common.Body() body: SalePaymentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePayments: {
+        disconnect: body,
+      },
+    };
+    await this.service.updatePaymentMethod({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

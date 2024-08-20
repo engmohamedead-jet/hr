@@ -15,6 +15,8 @@ import {
   Prisma,
   SalePriceType as PrismaSalePriceType,
   SaleDetail as PrismaSaleDetail,
+  SaleOrderDetail as PrismaSaleOrderDetail,
+  SaleOrder as PrismaSaleOrder,
   SaleQuotationDetail as PrismaSaleQuotationDetail,
   SaleReturnDetail as PrismaSaleReturnDetail,
   SaleReturn as PrismaSaleReturn,
@@ -63,6 +65,24 @@ export class SalePriceTypeServiceBase {
         where: { id: parentId },
       })
       .saleDetails();
+  }
+
+  async getSaleOrderDetails(
+    parentId: number
+  ): Promise<PrismaSaleOrderDetail | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleOrderDetails();
+  }
+
+  async getSaleOrders(parentId: number): Promise<PrismaSaleOrder | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleOrders();
   }
 
   async getSaleQuotationDetails(

@@ -21,6 +21,7 @@ import { UNIT_TITLE_FIELD } from "../unit/UnitTitle";
 import { CASHREPOSITORY_TITLE_FIELD } from "../cashRepository/CashRepositoryTitle";
 import { CUSTOMER_TITLE_FIELD } from "../customer/CustomerTitle";
 import { INVOICETYPE_TITLE_FIELD } from "../invoiceType/InvoiceTypeTitle";
+import { PAYMENTTERM_TITLE_FIELD } from "../paymentTerm/PaymentTermTitle";
 import { PAYMENTTYPE_TITLE_FIELD } from "../paymentType/PaymentTypeTitle";
 import { SALE_TITLE_FIELD } from "../sale/SaleTitle";
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
@@ -60,6 +61,13 @@ export const SaleReturnShow = (props: ShowProps): React.ReactElement => {
         <TextField label="NonTaxableTotal" source="nonTaxableTotal" />
         <TextField label="Note" source="note" />
         <TextField label="Paid" source="paid" />
+        <ReferenceField
+          label="PaymentTermId"
+          source="paymentterm.id"
+          reference="PaymentTerm"
+        >
+          <TextField source={PAYMENTTERM_TITLE_FIELD} />
+        </ReferenceField>
         <ReferenceField
           label="PaymentTypeId"
           source="paymenttype.id"

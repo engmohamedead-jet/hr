@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   List,
   Datagrid,
@@ -6,9 +7,12 @@ import {
   TextField,
   ReferenceField,
   DateField,
+  BooleanField,
 } from "react-admin";
+
 import Pagination from "../Components/Pagination";
 import { BANK_TITLE_FIELD } from "../bank/BankTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const BankBranchList = (props: ListProps): React.ReactElement => {
   return (
@@ -21,7 +25,7 @@ export const BankBranchList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <TextField label="Address" source="address" />
-        <ReferenceField label="BankId" source="bank.id" reference="Bank">
+        <ReferenceField label="Bank" source="bank.id" reference="Bank">
           <TextField source={BANK_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="Code" source="code" />
@@ -29,9 +33,13 @@ export const BankBranchList = (props: ListProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField label="Tenant" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

@@ -3,6 +3,8 @@ import { ApplicationDependencyCreateNestedManyWithoutTenantsInput } from "./Appl
 import { ApplicationCreateNestedManyWithoutTenantsInput } from "./ApplicationCreateNestedManyWithoutTenantsInput";
 import { AttributeValueCreateNestedManyWithoutTenantsInput } from "./AttributeValueCreateNestedManyWithoutTenantsInput";
 import { AttributeCreateNestedManyWithoutTenantsInput } from "./AttributeCreateNestedManyWithoutTenantsInput";
+import { BankBranchCreateNestedManyWithoutTenantsInput } from "./BankBranchCreateNestedManyWithoutTenantsInput";
+import { BankTypeCreateNestedManyWithoutTenantsInput } from "./BankTypeCreateNestedManyWithoutTenantsInput";
 import { BarcodeTypeCreateNestedManyWithoutTenantsInput } from "./BarcodeTypeCreateNestedManyWithoutTenantsInput";
 import { BillOfMaterialDetailCreateNestedManyWithoutTenantsInput } from "./BillOfMaterialDetailCreateNestedManyWithoutTenantsInput";
 import { BillOfMaterialTypeCreateNestedManyWithoutTenantsInput } from "./BillOfMaterialTypeCreateNestedManyWithoutTenantsInput";
@@ -16,6 +18,8 @@ import { EmployeeCreateNestedManyWithoutTenantsInput } from "./EmployeeCreateNes
 import { InstallmentSaleFeeCreateNestedManyWithoutTenantsInput } from "./InstallmentSaleFeeCreateNestedManyWithoutTenantsInput";
 import { InvoiceTypeCreateNestedManyWithoutTenantsInput } from "./InvoiceTypeCreateNestedManyWithoutTenantsInput";
 import { OrderStatusCreateNestedManyWithoutTenantsInput } from "./OrderStatusCreateNestedManyWithoutTenantsInput";
+import { PaymentMethodCreateNestedManyWithoutTenantsInput } from "./PaymentMethodCreateNestedManyWithoutTenantsInput";
+import { PaymentStatusCreateNestedManyWithoutTenantsInput } from "./PaymentStatusCreateNestedManyWithoutTenantsInput";
 import { PaymentTermCreateNestedManyWithoutTenantsInput } from "./PaymentTermCreateNestedManyWithoutTenantsInput";
 import { PaymentTypeCreateNestedManyWithoutTenantsInput } from "./PaymentTypeCreateNestedManyWithoutTenantsInput";
 import { PeriodCreateNestedManyWithoutTenantsInput } from "./PeriodCreateNestedManyWithoutTenantsInput";
@@ -46,6 +50,9 @@ import { SalaryItemTypeCreateNestedManyWithoutTenantsInput } from "./SalaryItemT
 import { SalaryItemCreateNestedManyWithoutTenantsInput } from "./SalaryItemCreateNestedManyWithoutTenantsInput";
 import { SalaryLawCreateNestedManyWithoutTenantsInput } from "./SalaryLawCreateNestedManyWithoutTenantsInput";
 import { SaleDetailCreateNestedManyWithoutTenantsInput } from "./SaleDetailCreateNestedManyWithoutTenantsInput";
+import { SaleOrderDetailCreateNestedManyWithoutTenantsInput } from "./SaleOrderDetailCreateNestedManyWithoutTenantsInput";
+import { SaleOrderCreateNestedManyWithoutTenantsInput } from "./SaleOrderCreateNestedManyWithoutTenantsInput";
+import { SalePaymentCreateNestedManyWithoutTenantsInput } from "./SalePaymentCreateNestedManyWithoutTenantsInput";
 import { SalePersonCreateNestedManyWithoutTenantsInput } from "./SalePersonCreateNestedManyWithoutTenantsInput";
 import { SalePriceTypeCreateNestedManyWithoutTenantsInput } from "./SalePriceTypeCreateNestedManyWithoutTenantsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutTenantsInput } from "./SaleQuotationDetailCreateNestedManyWithoutTenantsInput";
@@ -56,6 +63,7 @@ import { SaleTaxCreateNestedManyWithoutTenantsInput } from "./SaleTaxCreateNeste
 import { SaleTeamCreateNestedManyWithoutTenantsInput } from "./SaleTeamCreateNestedManyWithoutTenantsInput";
 import { SaleCreateNestedManyWithoutTenantsInput } from "./SaleCreateNestedManyWithoutTenantsInput";
 import { ScrapReasonCreateNestedManyWithoutTenantsInput } from "./ScrapReasonCreateNestedManyWithoutTenantsInput";
+import { ShippingStatusCreateNestedManyWithoutTenantsInput } from "./ShippingStatusCreateNestedManyWithoutTenantsInput";
 import { StoreCreateNestedManyWithoutTenantsInput } from "./StoreCreateNestedManyWithoutTenantsInput";
 import { SupplierCreateNestedManyWithoutTenantsInput } from "./SupplierCreateNestedManyWithoutTenantsInput";
 import { UnitCreateNestedManyWithoutTenantsInput } from "./UnitCreateNestedManyWithoutTenantsInput";
@@ -69,6 +77,8 @@ export type TenantCreateInput = {
   applications?: ApplicationCreateNestedManyWithoutTenantsInput;
   attributeValues?: AttributeValueCreateNestedManyWithoutTenantsInput;
   attributes?: AttributeCreateNestedManyWithoutTenantsInput;
+  bankBranches?: BankBranchCreateNestedManyWithoutTenantsInput;
+  bankTypes?: BankTypeCreateNestedManyWithoutTenantsInput;
   barcodeTypes?: BarcodeTypeCreateNestedManyWithoutTenantsInput;
   billOfMaterialDetails?: BillOfMaterialDetailCreateNestedManyWithoutTenantsInput;
   billOfMaterialTypes?: BillOfMaterialTypeCreateNestedManyWithoutTenantsInput;
@@ -91,6 +101,8 @@ export type TenantCreateInput = {
   normalizedName: string;
   note?: string | null;
   orderStatuses?: OrderStatusCreateNestedManyWithoutTenantsInput;
+  paymentMethods?: PaymentMethodCreateNestedManyWithoutTenantsInput;
+  paymentStatuses?: PaymentStatusCreateNestedManyWithoutTenantsInput;
   paymentTerms?: PaymentTermCreateNestedManyWithoutTenantsInput;
   paymentTypes?: PaymentTypeCreateNestedManyWithoutTenantsInput;
   periods?: PeriodCreateNestedManyWithoutTenantsInput;
@@ -121,6 +133,9 @@ export type TenantCreateInput = {
   salaryItems?: SalaryItemCreateNestedManyWithoutTenantsInput;
   salaryLaws?: SalaryLawCreateNestedManyWithoutTenantsInput;
   saleDetails?: SaleDetailCreateNestedManyWithoutTenantsInput;
+  saleOrderDetails?: SaleOrderDetailCreateNestedManyWithoutTenantsInput;
+  saleOrders?: SaleOrderCreateNestedManyWithoutTenantsInput;
+  salePayments?: SalePaymentCreateNestedManyWithoutTenantsInput;
   salePeople?: SalePersonCreateNestedManyWithoutTenantsInput;
   salePriceTypes?: SalePriceTypeCreateNestedManyWithoutTenantsInput;
   saleQuotationDetails?: SaleQuotationDetailCreateNestedManyWithoutTenantsInput;
@@ -131,6 +146,7 @@ export type TenantCreateInput = {
   saleTeams?: SaleTeamCreateNestedManyWithoutTenantsInput;
   sales?: SaleCreateNestedManyWithoutTenantsInput;
   scrapReasons?: ScrapReasonCreateNestedManyWithoutTenantsInput;
+  shippingStatuses?: ShippingStatusCreateNestedManyWithoutTenantsInput;
   stores?: StoreCreateNestedManyWithoutTenantsInput;
   suppliers?: SupplierCreateNestedManyWithoutTenantsInput;
   tenancyName: string;

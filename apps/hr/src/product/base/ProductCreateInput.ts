@@ -45,6 +45,7 @@ import { ProductionOrderCreateNestedManyWithoutProductsInput } from "./Productio
 import { PurchaseDetailCreateNestedManyWithoutProductsInput } from "./PurchaseDetailCreateNestedManyWithoutProductsInput";
 import { PurchaseReturnDetailCreateNestedManyWithoutProductsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutProductsInput";
 import { SaleDetailCreateNestedManyWithoutProductsInput } from "./SaleDetailCreateNestedManyWithoutProductsInput";
+import { SaleOrderDetailCreateNestedManyWithoutProductsInput } from "./SaleOrderDetailCreateNestedManyWithoutProductsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutProductsInput } from "./SaleQuotationDetailCreateNestedManyWithoutProductsInput";
 import { SaleReturnDetailCreateNestedManyWithoutProductsInput } from "./SaleReturnDetailCreateNestedManyWithoutProductsInput";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
@@ -484,6 +485,18 @@ class ProductCreateInput {
     nullable: true,
   })
   saleDetails?: SaleDetailCreateNestedManyWithoutProductsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailCreateNestedManyWithoutProductsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailCreateNestedManyWithoutProductsInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailCreateNestedManyWithoutProductsInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailCreateNestedManyWithoutProductsInput;
 
   @ApiProperty({
     required: true,

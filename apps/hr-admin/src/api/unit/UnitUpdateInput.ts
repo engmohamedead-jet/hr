@@ -7,6 +7,7 @@ import { ProductUpdateManyWithoutUnitsInput } from "./ProductUpdateManyWithoutUn
 import { PurchaseDetailUpdateManyWithoutUnitsInput } from "./PurchaseDetailUpdateManyWithoutUnitsInput";
 import { PurchaseReturnDetailUpdateManyWithoutUnitsInput } from "./PurchaseReturnDetailUpdateManyWithoutUnitsInput";
 import { SaleDetailUpdateManyWithoutUnitsInput } from "./SaleDetailUpdateManyWithoutUnitsInput";
+import { SaleOrderDetailUpdateManyWithoutUnitsInput } from "./SaleOrderDetailUpdateManyWithoutUnitsInput";
 import { SaleQuotationDetailUpdateManyWithoutUnitsInput } from "./SaleQuotationDetailUpdateManyWithoutUnitsInput";
 import { SaleReturnDetailUpdateManyWithoutUnitsInput } from "./SaleReturnDetailUpdateManyWithoutUnitsInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -29,6 +30,7 @@ export type UnitUpdateInput = {
   purchaseDetails?: PurchaseDetailUpdateManyWithoutUnitsInput;
   purchaseReturnDetails?: PurchaseReturnDetailUpdateManyWithoutUnitsInput;
   saleDetails?: SaleDetailUpdateManyWithoutUnitsInput;
+  saleOrderDetails?: SaleOrderDetailUpdateManyWithoutUnitsInput;
   saleQuotationDetails?: SaleQuotationDetailUpdateManyWithoutUnitsInput;
   saleReturnDetails?: SaleReturnDetailUpdateManyWithoutUnitsInput;
   tenantId?: TenantWhereUniqueInput | null;

@@ -36,6 +36,10 @@ import { AttributeValueFindManyArgs } from "../../attributeValue/base/AttributeV
 import { AttributeValue } from "../../attributeValue/base/AttributeValue";
 import { AttributeFindManyArgs } from "../../attribute/base/AttributeFindManyArgs";
 import { Attribute } from "../../attribute/base/Attribute";
+import { BankBranchFindManyArgs } from "../../bankBranch/base/BankBranchFindManyArgs";
+import { BankBranch } from "../../bankBranch/base/BankBranch";
+import { BankTypeFindManyArgs } from "../../bankType/base/BankTypeFindManyArgs";
+import { BankType } from "../../bankType/base/BankType";
 import { BarcodeTypeFindManyArgs } from "../../barcodeType/base/BarcodeTypeFindManyArgs";
 import { BarcodeType } from "../../barcodeType/base/BarcodeType";
 import { BillOfMaterialDetailFindManyArgs } from "../../billOfMaterialDetail/base/BillOfMaterialDetailFindManyArgs";
@@ -62,6 +66,10 @@ import { InvoiceTypeFindManyArgs } from "../../invoiceType/base/InvoiceTypeFindM
 import { InvoiceType } from "../../invoiceType/base/InvoiceType";
 import { OrderStatusFindManyArgs } from "../../orderStatus/base/OrderStatusFindManyArgs";
 import { OrderStatus } from "../../orderStatus/base/OrderStatus";
+import { PaymentMethodFindManyArgs } from "../../paymentMethod/base/PaymentMethodFindManyArgs";
+import { PaymentMethod } from "../../paymentMethod/base/PaymentMethod";
+import { PaymentStatusFindManyArgs } from "../../paymentStatus/base/PaymentStatusFindManyArgs";
+import { PaymentStatus } from "../../paymentStatus/base/PaymentStatus";
 import { PaymentTermFindManyArgs } from "../../paymentTerm/base/PaymentTermFindManyArgs";
 import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentTypeFindManyArgs } from "../../paymentType/base/PaymentTypeFindManyArgs";
@@ -122,6 +130,12 @@ import { SalaryLawFindManyArgs } from "../../salaryLaw/base/SalaryLawFindManyArg
 import { SalaryLaw } from "../../salaryLaw/base/SalaryLaw";
 import { SaleDetailFindManyArgs } from "../../saleDetail/base/SaleDetailFindManyArgs";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleOrderDetailFindManyArgs } from "../../saleOrderDetail/base/SaleOrderDetailFindManyArgs";
+import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
+import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
 import { SalePersonFindManyArgs } from "../../salePerson/base/SalePersonFindManyArgs";
 import { SalePerson } from "../../salePerson/base/SalePerson";
 import { SalePriceTypeFindManyArgs } from "../../salePriceType/base/SalePriceTypeFindManyArgs";
@@ -142,6 +156,8 @@ import { SaleFindManyArgs } from "../../sale/base/SaleFindManyArgs";
 import { Sale } from "../../sale/base/Sale";
 import { ScrapReasonFindManyArgs } from "../../scrapReason/base/ScrapReasonFindManyArgs";
 import { ScrapReason } from "../../scrapReason/base/ScrapReason";
+import { ShippingStatusFindManyArgs } from "../../shippingStatus/base/ShippingStatusFindManyArgs";
+import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
 import { StoreFindManyArgs } from "../../store/base/StoreFindManyArgs";
 import { Store } from "../../store/base/Store";
 import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
@@ -363,6 +379,46 @@ export class TenantResolverBase {
     @graphql.Args() args: AttributeFindManyArgs
   ): Promise<Attribute[]> {
     const results = await this.service.findAttributes(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [BankBranch], { name: "bankBranches" })
+  @nestAccessControl.UseRoles({
+    resource: "BankBranch",
+    action: "read",
+    possession: "any",
+  })
+  async findBankBranches(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: BankBranchFindManyArgs
+  ): Promise<BankBranch[]> {
+    const results = await this.service.findBankBranches(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [BankType], { name: "bankTypes" })
+  @nestAccessControl.UseRoles({
+    resource: "BankType",
+    action: "read",
+    possession: "any",
+  })
+  async findBankTypes(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: BankTypeFindManyArgs
+  ): Promise<BankType[]> {
+    const results = await this.service.findBankTypes(parent.id, args);
 
     if (!results) {
       return [];
@@ -634,6 +690,46 @@ export class TenantResolverBase {
     @graphql.Args() args: OrderStatusFindManyArgs
   ): Promise<OrderStatus[]> {
     const results = await this.service.findOrderStatuses(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentMethod], { name: "paymentMethods" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentMethod",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentMethods(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: PaymentMethodFindManyArgs
+  ): Promise<PaymentMethod[]> {
+    const results = await this.service.findPaymentMethods(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentStatus], { name: "paymentStatuses" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentStatus",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentStatuses(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: PaymentStatusFindManyArgs
+  ): Promise<PaymentStatus[]> {
+    const results = await this.service.findPaymentStatuses(parent.id, args);
 
     if (!results) {
       return [];
@@ -1266,6 +1362,66 @@ export class TenantResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SaleOrderDetail], { name: "saleOrderDetails" })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrderDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrderDetails(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: SaleOrderDetailFindManyArgs
+  ): Promise<SaleOrderDetail[]> {
+    const results = await this.service.findSaleOrderDetails(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SaleOrder], { name: "saleOrders" })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrders(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: SaleOrderFindManyArgs
+  ): Promise<SaleOrder[]> {
+    const results = await this.service.findSaleOrders(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SalePayment], { name: "salePayments" })
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: SalePaymentFindManyArgs
+  ): Promise<SalePayment[]> {
+    const results = await this.service.findSalePayments(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [SalePerson], { name: "salePeople" })
   @nestAccessControl.UseRoles({
     resource: "SalePerson",
@@ -1462,6 +1618,26 @@ export class TenantResolverBase {
     @graphql.Args() args: ScrapReasonFindManyArgs
   ): Promise<ScrapReason[]> {
     const results = await this.service.findScrapReasons(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ShippingStatus], { name: "shippingStatuses" })
+  @nestAccessControl.UseRoles({
+    resource: "ShippingStatus",
+    action: "read",
+    possession: "any",
+  })
+  async findShippingStatuses(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: ShippingStatusFindManyArgs
+  ): Promise<ShippingStatus[]> {
+    const results = await this.service.findShippingStatuses(parent.id, args);
 
     if (!results) {
       return [];

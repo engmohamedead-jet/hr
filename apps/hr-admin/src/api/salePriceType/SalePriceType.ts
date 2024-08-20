@@ -1,4 +1,6 @@
 import { SaleDetail } from "../saleDetail/SaleDetail";
+import { SaleOrderDetail } from "../saleOrderDetail/SaleOrderDetail";
+import { SaleOrder } from "../saleOrder/SaleOrder";
 import { SaleQuotationDetail } from "../saleQuotationDetail/SaleQuotationDetail";
 import { SaleReturnDetail } from "../saleReturnDetail/SaleReturnDetail";
 import { SaleReturn } from "../saleReturn/SaleReturn";
@@ -15,6 +17,8 @@ export type SalePriceType = {
   normalizedName: string;
   note: string | null;
   saleDetails?: SaleDetail | null;
+  saleOrderDetails?: SaleOrderDetail | null;
+  saleOrders?: SaleOrder | null;
   saleQuotationDetails?: SaleQuotationDetail | null;
   saleReturnDetails?: SaleReturnDetail | null;
   saleReturns?: SaleReturn | null;

@@ -31,6 +31,7 @@ import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
 import { CashRepository } from "../../cashRepository/base/CashRepository";
 import { Customer } from "../../customer/base/Customer";
 import { InvoiceType } from "../../invoiceType/base/InvoiceType";
+import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentType } from "../../paymentType/base/PaymentType";
 import { Sale } from "../../sale/base/Sale";
 import { SalePriceType } from "../../salePriceType/base/SalePriceType";
@@ -119,6 +120,12 @@ export class SaleReturnResolverBase {
             }
           : undefined,
 
+        paymentTermId: args.data.paymentTermId
+          ? {
+              connect: args.data.paymentTermId,
+            }
+          : undefined,
+
         paymentTypeId: {
           connect: args.data.paymentTypeId,
         },
@@ -173,6 +180,12 @@ export class SaleReturnResolverBase {
           invoiceTypeId: args.data.invoiceTypeId
             ? {
                 connect: args.data.invoiceTypeId,
+              }
+            : undefined,
+
+          paymentTermId: args.data.paymentTermId
+            ? {
+                connect: args.data.paymentTermId,
               }
             : undefined,
 
@@ -308,6 +321,27 @@ export class SaleReturnResolverBase {
     @graphql.Parent() parent: SaleReturn
   ): Promise<InvoiceType | null> {
     const result = await this.service.getInvoiceTypeId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => PaymentTerm, {
+    nullable: true,
+    name: "paymentTermId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTerm",
+    action: "read",
+    possession: "any",
+  })
+  async getPaymentTermId(
+    @graphql.Parent() parent: SaleReturn
+  ): Promise<PaymentTerm | null> {
+    const result = await this.service.getPaymentTermId(parent.id);
 
     if (!result) {
       return null;

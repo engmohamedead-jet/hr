@@ -6,6 +6,7 @@ import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { PaymentTermWhereUniqueInput } from "../paymentTerm/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../paymentType/PaymentTypeWhereUniqueInput";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { PurchaseDetailListRelationFilter } from "../purchaseDetail/PurchaseDetailListRelationFilter";
@@ -27,6 +28,7 @@ export type PurchaseWhereInput = {
   nonTaxableTotal?: DecimalNullableFilter;
   note?: StringNullableFilter;
   paid?: DecimalFilter;
+  paymentTermId?: PaymentTermWhereUniqueInput;
   paymentTypeId?: PaymentTypeWhereUniqueInput;
   purchaseDate?: DateTimeFilter;
   purchaseDetails?: PurchaseDetailListRelationFilter;

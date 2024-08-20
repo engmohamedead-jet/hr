@@ -14,6 +14,10 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   PaymentTerm as PrismaPaymentTerm,
+  PurchaseReturn as PrismaPurchaseReturn,
+  Purchase as PrismaPurchase,
+  SaleReturn as PrismaSaleReturn,
+  Sale as PrismaSale,
   Period as PrismaPeriod,
   InstallmentSaleFee as PrismaInstallmentSaleFee,
   Tenant as PrismaTenant,
@@ -52,6 +56,50 @@ export class PaymentTermServiceBase {
     args: Prisma.PaymentTermDeleteArgs
   ): Promise<PrismaPaymentTerm> {
     return this.prisma.paymentTerm.delete(args);
+  }
+
+  async findPurchaseReturns(
+    parentId: string,
+    args: Prisma.PurchaseReturnFindManyArgs
+  ): Promise<PrismaPurchaseReturn[]> {
+    return this.prisma.paymentTerm
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchaseReturns(args);
+  }
+
+  async findPurchases(
+    parentId: string,
+    args: Prisma.PurchaseFindManyArgs
+  ): Promise<PrismaPurchase[]> {
+    return this.prisma.paymentTerm
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchases(args);
+  }
+
+  async findSaleReturns(
+    parentId: string,
+    args: Prisma.SaleReturnFindManyArgs
+  ): Promise<PrismaSaleReturn[]> {
+    return this.prisma.paymentTerm
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleReturns(args);
+  }
+
+  async findSales(
+    parentId: string,
+    args: Prisma.SaleFindManyArgs
+  ): Promise<PrismaSale[]> {
+    return this.prisma.paymentTerm
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .sales(args);
   }
 
   async getDuePeriodId(parentId: string): Promise<PrismaPeriod | null> {

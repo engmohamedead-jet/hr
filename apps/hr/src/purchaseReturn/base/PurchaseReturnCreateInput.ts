@@ -27,6 +27,7 @@ import {
 import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { InvoiceTypeWhereUniqueInput } from "../../invoiceType/base/InvoiceTypeWhereUniqueInput";
+import { PaymentTermWhereUniqueInput } from "../../paymentTerm/base/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../../paymentType/base/PaymentTypeWhereUniqueInput";
 import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
 import { PurchasePriceTypeWhereUniqueInput } from "../../purchasePriceType/base/PurchasePriceTypeWhereUniqueInput";
@@ -132,6 +133,18 @@ class PurchaseReturnCreateInput {
   @Max(99999999999)
   @Field(() => Float)
   paid!: Decimal;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentTermWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTermWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentTermWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentTermId?: PaymentTermWhereUniqueInput | null;
 
   @ApiProperty({
     required: true,

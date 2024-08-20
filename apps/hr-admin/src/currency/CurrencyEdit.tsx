@@ -13,6 +13,7 @@ import {
 } from "react-admin";
 
 import { CustomerTitle } from "../customer/CustomerTitle";
+import { SalePaymentTitle } from "../salePayment/SalePaymentTitle";
 import { SupplierTitle } from "../supplier/SupplierTitle";
 import { TenantTitle } from "../tenant/TenantTitle";
 
@@ -34,6 +35,14 @@ export const CurrencyEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
+        <ReferenceArrayInput
+          source="salePayments"
+          reference="SalePayment"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SalePaymentTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="suppliers"
           reference="Supplier"

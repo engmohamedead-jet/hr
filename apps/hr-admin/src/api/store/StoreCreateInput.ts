@@ -2,6 +2,7 @@ import { ProductionOrderCreateNestedManyWithoutStoresInput } from "./ProductionO
 import { ProductCreateNestedManyWithoutStoresInput } from "./ProductCreateNestedManyWithoutStoresInput";
 import { PurchaseReturnCreateNestedManyWithoutStoresInput } from "./PurchaseReturnCreateNestedManyWithoutStoresInput";
 import { PurchaseCreateNestedManyWithoutStoresInput } from "./PurchaseCreateNestedManyWithoutStoresInput";
+import { SaleOrderCreateNestedManyWithoutStoresInput } from "./SaleOrderCreateNestedManyWithoutStoresInput";
 import { SaleReturnCreateNestedManyWithoutStoresInput } from "./SaleReturnCreateNestedManyWithoutStoresInput";
 import { SaleCreateNestedManyWithoutStoresInput } from "./SaleCreateNestedManyWithoutStoresInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -21,6 +22,7 @@ export type StoreCreateInput = {
   products?: ProductCreateNestedManyWithoutStoresInput;
   purchaseReturns?: PurchaseReturnCreateNestedManyWithoutStoresInput;
   purchases?: PurchaseCreateNestedManyWithoutStoresInput;
+  saleOrders?: SaleOrderCreateNestedManyWithoutStoresInput;
   saleReturns?: SaleReturnCreateNestedManyWithoutStoresInput;
   sales?: SaleCreateNestedManyWithoutStoresInput;
   street?: string | null;

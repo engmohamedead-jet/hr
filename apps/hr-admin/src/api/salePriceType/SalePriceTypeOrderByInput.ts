@@ -10,6 +10,8 @@ export type SalePriceTypeOrderByInput = {
   normalizedName?: SortOrder;
   note?: SortOrder;
   saleDetailsId?: SortOrder;
+  saleOrderDetailsId?: SortOrder;
+  saleOrdersId?: SortOrder;
   saleQuotationDetailsId?: SortOrder;
   saleReturnDetailsId?: SortOrder;
   saleReturnsId?: SortOrder;

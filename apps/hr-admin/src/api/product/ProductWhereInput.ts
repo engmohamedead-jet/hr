@@ -22,6 +22,7 @@ import { ProductionOrderListRelationFilter } from "../productionOrder/Production
 import { PurchaseDetailListRelationFilter } from "../purchaseDetail/PurchaseDetailListRelationFilter";
 import { PurchaseReturnDetailListRelationFilter } from "../purchaseReturnDetail/PurchaseReturnDetailListRelationFilter";
 import { SaleDetailListRelationFilter } from "../saleDetail/SaleDetailListRelationFilter";
+import { SaleOrderDetailListRelationFilter } from "../saleOrderDetail/SaleOrderDetailListRelationFilter";
 import { SaleQuotationDetailListRelationFilter } from "../saleQuotationDetail/SaleQuotationDetailListRelationFilter";
 import { SaleReturnDetailListRelationFilter } from "../saleReturnDetail/SaleReturnDetailListRelationFilter";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
@@ -68,6 +69,7 @@ export type ProductWhereInput = {
   purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
   reorderQuantity?: DecimalNullableFilter;
   saleDetails?: SaleDetailListRelationFilter;
+  saleOrderDetails?: SaleOrderDetailListRelationFilter;
   salePrice?: DecimalFilter;
   salePriceIncludesTax?: BooleanFilter;
   saleQuotationDetails?: SaleQuotationDetailListRelationFilter;

@@ -20,6 +20,7 @@ import { ProductionOrderListRelationFilter } from "../../productionOrder/base/Pr
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
 import { PurchaseListRelationFilter } from "../../purchase/base/PurchaseListRelationFilter";
+import { SaleOrderListRelationFilter } from "../../saleOrder/base/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -194,6 +195,18 @@ class StoreWhereInput {
     nullable: true,
   })
   purchases?: PurchaseListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleOrderListRelationFilter, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderListRelationFilter;
 
   @ApiProperty({
     required: false,

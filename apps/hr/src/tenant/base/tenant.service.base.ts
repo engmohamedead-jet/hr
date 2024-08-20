@@ -19,6 +19,8 @@ import {
   Application as PrismaApplication,
   AttributeValue as PrismaAttributeValue,
   Attribute as PrismaAttribute,
+  BankBranch as PrismaBankBranch,
+  BankType as PrismaBankType,
   BarcodeType as PrismaBarcodeType,
   BillOfMaterialDetail as PrismaBillOfMaterialDetail,
   BillOfMaterialType as PrismaBillOfMaterialType,
@@ -32,6 +34,8 @@ import {
   InstallmentSaleFee as PrismaInstallmentSaleFee,
   InvoiceType as PrismaInvoiceType,
   OrderStatus as PrismaOrderStatus,
+  PaymentMethod as PrismaPaymentMethod,
+  PaymentStatus as PrismaPaymentStatus,
   PaymentTerm as PrismaPaymentTerm,
   PaymentType as PrismaPaymentType,
   Period as PrismaPeriod,
@@ -62,6 +66,9 @@ import {
   SalaryItem as PrismaSalaryItem,
   SalaryLaw as PrismaSalaryLaw,
   SaleDetail as PrismaSaleDetail,
+  SaleOrderDetail as PrismaSaleOrderDetail,
+  SaleOrder as PrismaSaleOrder,
+  SalePayment as PrismaSalePayment,
   SalePerson as PrismaSalePerson,
   SalePriceType as PrismaSalePriceType,
   SaleQuotationDetail as PrismaSaleQuotationDetail,
@@ -72,6 +79,7 @@ import {
   SaleTeam as PrismaSaleTeam,
   Sale as PrismaSale,
   ScrapReason as PrismaScrapReason,
+  ShippingStatus as PrismaShippingStatus,
   Store as PrismaStore,
   Supplier as PrismaSupplier,
   Unit as PrismaUnit,
@@ -158,6 +166,28 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .attributes(args);
+  }
+
+  async findBankBranches(
+    parentId: string,
+    args: Prisma.BankBranchFindManyArgs
+  ): Promise<PrismaBankBranch[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .bankBranches(args);
+  }
+
+  async findBankTypes(
+    parentId: string,
+    args: Prisma.BankTypeFindManyArgs
+  ): Promise<PrismaBankType[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .bankTypes(args);
   }
 
   async findBarcodeTypes(
@@ -301,6 +331,28 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .orderStatuses(args);
+  }
+
+  async findPaymentMethods(
+    parentId: string,
+    args: Prisma.PaymentMethodFindManyArgs
+  ): Promise<PrismaPaymentMethod[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentMethods(args);
+  }
+
+  async findPaymentStatuses(
+    parentId: string,
+    args: Prisma.PaymentStatusFindManyArgs
+  ): Promise<PrismaPaymentStatus[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentStatuses(args);
   }
 
   async findPaymentTerms(
@@ -633,6 +685,39 @@ export class TenantServiceBase {
       .saleDetails(args);
   }
 
+  async findSaleOrderDetails(
+    parentId: string,
+    args: Prisma.SaleOrderDetailFindManyArgs
+  ): Promise<PrismaSaleOrderDetail[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrderDetails(args);
+  }
+
+  async findSaleOrders(
+    parentId: string,
+    args: Prisma.SaleOrderFindManyArgs
+  ): Promise<PrismaSaleOrder[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrders(args);
+  }
+
+  async findSalePayments(
+    parentId: string,
+    args: Prisma.SalePaymentFindManyArgs
+  ): Promise<PrismaSalePayment[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .salePayments(args);
+  }
+
   async findSalePeople(
     parentId: string,
     args: Prisma.SalePersonFindManyArgs
@@ -741,6 +826,17 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .scrapReasons(args);
+  }
+
+  async findShippingStatuses(
+    parentId: string,
+    args: Prisma.ShippingStatusFindManyArgs
+  ): Promise<PrismaShippingStatus[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .shippingStatuses(args);
   }
 
   async findStores(

@@ -2,8 +2,10 @@ import { CashRepositoryWhereUniqueInput } from "../cashRepository/CashRepository
 import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
 import { Decimal } from "decimal.js";
 import { InvoiceTypeWhereUniqueInput } from "../invoiceType/InvoiceTypeWhereUniqueInput";
+import { PaymentTermWhereUniqueInput } from "../paymentTerm/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../paymentType/PaymentTypeWhereUniqueInput";
 import { SaleDetailUpdateManyWithoutSalesInput } from "./SaleDetailUpdateManyWithoutSalesInput";
+import { SalePaymentUpdateManyWithoutSalesInput } from "./SalePaymentUpdateManyWithoutSalesInput";
 import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
 import { SaleReturnUpdateManyWithoutSalesInput } from "./SaleReturnUpdateManyWithoutSalesInput";
 import { StoreWhereUniqueInput } from "../store/StoreWhereUniqueInput";
@@ -21,11 +23,13 @@ export type SaleUpdateInput = {
   nonTaxableTotal?: Decimal | null;
   note?: string | null;
   paid?: Decimal | null;
+  paymentTerm?: PaymentTermWhereUniqueInput | null;
   paymentTypeId?: PaymentTypeWhereUniqueInput;
   referenceNumber?: string | null;
   remaining?: Decimal | null;
   saleDate?: Date;
   saleDetails?: SaleDetailUpdateManyWithoutSalesInput;
+  salePayments?: SalePaymentUpdateManyWithoutSalesInput;
   salePriceTypeId?: SalePriceTypeWhereUniqueInput;
   saleReturns?: SaleReturnUpdateManyWithoutSalesInput;
   saleTotal?: Decimal;

@@ -15,6 +15,7 @@ import {
   Prisma,
   CashRepository as PrismaCashRepository,
   PurchaseReturn as PrismaPurchaseReturn,
+  SaleOrder as PrismaSaleOrder,
   SaleReturn as PrismaSaleReturn,
   Sale as PrismaSale,
   Purchase as PrismaPurchase,
@@ -76,6 +77,17 @@ export class CashRepositoryServiceBase {
         where: { id: parentId },
       })
       .purchaseReturns(args);
+  }
+
+  async findSaleOrders(
+    parentId: string,
+    args: Prisma.SaleOrderFindManyArgs
+  ): Promise<PrismaSaleOrder[]> {
+    return this.prisma.cashRepository
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrders(args);
   }
 
   async findSaleReturns(

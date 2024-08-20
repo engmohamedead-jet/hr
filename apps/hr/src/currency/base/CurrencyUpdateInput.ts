@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { CustomerUpdateManyWithoutCurrenciesInput } from "./CustomerUpdateManyWithoutCurrenciesInput";
 import { Type } from "class-transformer";
+import { SalePaymentUpdateManyWithoutCurrenciesInput } from "./SalePaymentUpdateManyWithoutCurrenciesInput";
 import { SupplierUpdateManyWithoutCurrenciesInput } from "./SupplierUpdateManyWithoutCurrenciesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
@@ -107,6 +108,18 @@ class CurrencyUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentUpdateManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentUpdateManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => SalePaymentUpdateManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentUpdateManyWithoutCurrenciesInput;
 
   @ApiProperty({
     required: false,

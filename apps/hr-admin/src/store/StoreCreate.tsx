@@ -16,6 +16,7 @@ import { ProductionOrderTitle } from "../productionOrder/ProductionOrderTitle";
 import { ProductTitle } from "../product/ProductTitle";
 import { PurchaseReturnTitle } from "../purchaseReturn/PurchaseReturnTitle";
 import { PurchaseTitle } from "../purchase/PurchaseTitle";
+import { SaleOrderTitle } from "../saleOrder/SaleOrderTitle";
 import { SaleReturnTitle } from "../saleReturn/SaleReturnTitle";
 import { SaleTitle } from "../sale/SaleTitle";
 import { TenantTitle } from "../tenant/TenantTitle";
@@ -65,6 +66,14 @@ export const StoreCreate = (props: CreateProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={PurchaseTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="saleOrders"
+          reference="SaleOrder"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleOrderTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="saleReturns"

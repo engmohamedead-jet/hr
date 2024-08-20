@@ -127,6 +127,28 @@ class SalePriceTypeOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  saleOrderDetailsId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  saleOrdersId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   saleQuotationDetailsId?: SortOrder;
 
   @ApiProperty({

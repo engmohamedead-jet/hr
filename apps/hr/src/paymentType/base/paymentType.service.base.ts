@@ -16,6 +16,7 @@ import {
   PaymentType as PrismaPaymentType,
   PurchaseReturn as PrismaPurchaseReturn,
   Purchase as PrismaPurchase,
+  SaleOrder as PrismaSaleOrder,
   SaleReturn as PrismaSaleReturn,
   Sale as PrismaSale,
   Tenant as PrismaTenant,
@@ -76,6 +77,17 @@ export class PaymentTypeServiceBase {
         where: { id: parentId },
       })
       .purchases(args);
+  }
+
+  async findSaleOrders(
+    parentId: number,
+    args: Prisma.SaleOrderFindManyArgs
+  ): Promise<PrismaSaleOrder[]> {
+    return this.prisma.paymentType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrders(args);
   }
 
   async findSaleReturns(

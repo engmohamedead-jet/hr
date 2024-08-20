@@ -6,6 +6,7 @@ import { InvoiceTypeWhereUniqueInput } from "../invoiceType/InvoiceTypeWhereUniq
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { PaymentTermWhereUniqueInput } from "../paymentTerm/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../paymentType/PaymentTypeWhereUniqueInput";
 import { SaleWhereUniqueInput } from "../sale/SaleWhereUniqueInput";
 import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
@@ -27,6 +28,7 @@ export type SaleReturnWhereInput = {
   nonTaxableTotal?: DecimalNullableFilter;
   note?: StringNullableFilter;
   paid?: DecimalFilter;
+  paymentTermId?: PaymentTermWhereUniqueInput;
   paymentTypeId?: PaymentTypeWhereUniqueInput;
   referenceNumber?: StringNullableFilter;
   remaining?: DecimalFilter;

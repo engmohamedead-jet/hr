@@ -5,37 +5,43 @@ import {
   SimpleForm,
   CreateProps,
   TextInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
   ReferenceInput,
   SelectInput,
+  BooleanInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
 
-import { BankAccountTitle } from "../bankAccount/BankAccountTitle";
 import { BankTitle } from "../bank/BankTitle";
+import { SalePaymentTitle } from "../salePayment/SalePaymentTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const BankBranchCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <TextInput label="Address" multiline source="address" />
-        <ReferenceArrayInput
-          source="bankAccounts"
-          reference="BankAccount"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={BankAccountTitle} />
-        </ReferenceArrayInput>
-        <ReferenceInput source="bankId.id" reference="Bank" label="BankId">
+        <TextInput label="Address" source="address" />
+        <ReferenceInput source="bank.id" reference="Bank" label="Bank">
           <SelectInput optionText={BankTitle} />
         </ReferenceInput>
         <TextInput label="Code" source="code" />
         <TextInput label="ContactPhoneNumber" source="contactPhoneNumber" />
         <TextInput label="Description" multiline source="description" />
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
+        <ReferenceArrayInput
+          source="salePayments"
+          reference="SalePayment"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SalePaymentTitle} />
+        </ReferenceArrayInput>
+        <ReferenceInput source="tenant.id" reference="Tenant" label="Tenant">
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Create>
   );

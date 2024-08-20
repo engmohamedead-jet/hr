@@ -26,6 +26,8 @@ import { PaymentStatusFindUniqueArgs } from "./PaymentStatusFindUniqueArgs";
 import { CreatePaymentStatusArgs } from "./CreatePaymentStatusArgs";
 import { UpdatePaymentStatusArgs } from "./UpdatePaymentStatusArgs";
 import { DeletePaymentStatusArgs } from "./DeletePaymentStatusArgs";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { Tenant } from "../../tenant/base/Tenant";
 import { PaymentStatusService } from "../paymentStatus.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PaymentStatus)
@@ -92,7 +94,21 @@ export class PaymentStatusResolverBase {
   ): Promise<PaymentStatus> {
     return await this.service.createPaymentStatus({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        saleOrders: args.data.saleOrders
+          ? {
+              connect: args.data.saleOrders,
+            }
+          : undefined,
+
+        tenant: args.data.tenant
+          ? {
+              connect: args.data.tenant,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +125,21 @@ export class PaymentStatusResolverBase {
     try {
       return await this.service.updatePaymentStatus({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          saleOrders: args.data.saleOrders
+            ? {
+                connect: args.data.saleOrders,
+              }
+            : undefined,
+
+          tenant: args.data.tenant
+            ? {
+                connect: args.data.tenant,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +170,47 @@ export class PaymentStatusResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SaleOrder, {
+    nullable: true,
+    name: "saleOrders",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleOrders(
+    @graphql.Parent() parent: PaymentStatus
+  ): Promise<SaleOrder | null> {
+    const result = await this.service.getSaleOrders(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenant",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenant(
+    @graphql.Parent() parent: PaymentStatus
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenant(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

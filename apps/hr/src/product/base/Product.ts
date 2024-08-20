@@ -45,6 +45,7 @@ import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { PurchaseDetail } from "../../purchaseDetail/base/PurchaseDetail";
 import { PurchaseReturnDetail } from "../../purchaseReturnDetail/base/PurchaseReturnDetail";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
 import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
 import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
 import { SaleTax } from "../../saleTax/base/SaleTax";
@@ -459,6 +460,15 @@ class Product {
   @Type(() => SaleDetail)
   @IsOptional()
   saleDetails?: Array<SaleDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleOrderDetail],
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetail)
+  @IsOptional()
+  saleOrderDetails?: Array<SaleOrderDetail>;
 
   @ApiProperty({
     required: true,

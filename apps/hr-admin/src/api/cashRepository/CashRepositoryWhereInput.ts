@@ -5,6 +5,7 @@ import { BooleanFilter } from "../../util/BooleanFilter";
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
 import { PurchaseReturnListRelationFilter } from "../purchaseReturn/PurchaseReturnListRelationFilter";
 import { PurchaseWhereUniqueInput } from "../purchase/PurchaseWhereUniqueInput";
+import { SaleOrderListRelationFilter } from "../saleOrder/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../saleReturn/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -21,6 +22,7 @@ export type CashRepositoryWhereInput = {
   parentCashRepositoryId?: CashRepositoryWhereUniqueInput;
   purchaseReturns?: PurchaseReturnListRelationFilter;
   purchases?: PurchaseWhereUniqueInput;
+  saleOrders?: SaleOrderListRelationFilter;
   saleReturns?: SaleReturnListRelationFilter;
   sales?: SaleListRelationFilter;
   tenantId?: TenantWhereUniqueInput;

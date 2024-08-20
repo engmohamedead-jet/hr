@@ -28,11 +28,14 @@ import { UpdateSaleArgs } from "./UpdateSaleArgs";
 import { DeleteSaleArgs } from "./DeleteSaleArgs";
 import { SaleDetailFindManyArgs } from "../../saleDetail/base/SaleDetailFindManyArgs";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
 import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindManyArgs";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { CashRepository } from "../../cashRepository/base/CashRepository";
 import { Customer } from "../../customer/base/Customer";
 import { InvoiceType } from "../../invoiceType/base/InvoiceType";
+import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentType } from "../../paymentType/base/PaymentType";
 import { SalePriceType } from "../../salePriceType/base/SalePriceType";
 import { Store } from "../../store/base/Store";
@@ -114,6 +117,12 @@ export class SaleResolverBase {
             }
           : undefined,
 
+        paymentTerm: args.data.paymentTerm
+          ? {
+              connect: args.data.paymentTerm,
+            }
+          : undefined,
+
         paymentTypeId: {
           connect: args.data.paymentTypeId,
         },
@@ -160,6 +169,12 @@ export class SaleResolverBase {
           invoiceTypeId: args.data.invoiceTypeId
             ? {
                 connect: args.data.invoiceTypeId,
+              }
+            : undefined,
+
+          paymentTerm: args.data.paymentTerm
+            ? {
+                connect: args.data.paymentTerm,
               }
             : undefined,
 
@@ -223,6 +238,26 @@ export class SaleResolverBase {
     @graphql.Args() args: SaleDetailFindManyArgs
   ): Promise<SaleDetail[]> {
     const results = await this.service.findSaleDetails(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SalePayment], { name: "salePayments" })
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @graphql.Parent() parent: Sale,
+    @graphql.Args() args: SalePaymentFindManyArgs
+  ): Promise<SalePayment[]> {
+    const results = await this.service.findSalePayments(parent.id, args);
 
     if (!results) {
       return [];
@@ -307,6 +342,27 @@ export class SaleResolverBase {
     @graphql.Parent() parent: Sale
   ): Promise<InvoiceType | null> {
     const result = await this.service.getInvoiceTypeId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => PaymentTerm, {
+    nullable: true,
+    name: "paymentTerm",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTerm",
+    action: "read",
+    possession: "any",
+  })
+  async getPaymentTerm(
+    @graphql.Parent() parent: Sale
+  ): Promise<PaymentTerm | null> {
+    const result = await this.service.getPaymentTerm(parent.id);
 
     if (!result) {
       return null;

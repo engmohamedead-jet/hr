@@ -14,22 +14,29 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   MaxLength,
-  IsDate,
   IsOptional,
+  IsDate,
   IsInt,
+  IsBoolean,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class PaymentStatus {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -61,6 +68,14 @@ class PaymentStatus {
 
   @ApiProperty({
     required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
@@ -88,6 +103,24 @@ class PaymentStatus {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrder,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrder)
+  @IsOptional()
+  saleOrders?: SaleOrder | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenant?: Tenant | null;
 
   @ApiProperty({
     required: true,

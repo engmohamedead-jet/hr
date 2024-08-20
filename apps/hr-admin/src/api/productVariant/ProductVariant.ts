@@ -6,6 +6,7 @@ import { Product } from "../product/Product";
 import { PurchaseDetail } from "../purchaseDetail/PurchaseDetail";
 import { PurchaseReturnDetail } from "../purchaseReturnDetail/PurchaseReturnDetail";
 import { SaleDetail } from "../saleDetail/SaleDetail";
+import { SaleOrderDetail } from "../saleOrderDetail/SaleOrderDetail";
 import { SaleQuotationDetail } from "../saleQuotationDetail/SaleQuotationDetail";
 import { SaleReturnDetail } from "../saleReturnDetail/SaleReturnDetail";
 import { Tenant } from "../tenant/Tenant";
@@ -23,6 +24,7 @@ export type ProductVariant = {
   purchaseDetails?: Array<PurchaseDetail>;
   purchaseReturnDetails?: Array<PurchaseReturnDetail>;
   saleDetails?: Array<SaleDetail>;
+  saleOrderDetails?: Array<SaleOrderDetail>;
   saleQuotationDetails?: Array<SaleQuotationDetail>;
   saleReturnDetails?: Array<SaleReturnDetail>;
   tenantId?: Tenant | null;

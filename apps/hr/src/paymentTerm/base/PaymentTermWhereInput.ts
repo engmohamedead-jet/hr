@@ -20,6 +20,10 @@ import { StringFilter } from "../../util/StringFilter";
 import { InstallmentSaleFeeWhereUniqueInput } from "../../installmentSaleFee/base/InstallmentSaleFeeWhereUniqueInput";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
+import { PurchaseListRelationFilter } from "../../purchase/base/PurchaseListRelationFilter";
+import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
+import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
@@ -180,6 +184,54 @@ class PaymentTermWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseReturnListRelationFilter, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseListRelationFilter, {
+    nullable: true,
+  })
+  purchases?: PurchaseListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleReturnListRelationFilter, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleListRelationFilter, {
+    nullable: true,
+  })
+  sales?: SaleListRelationFilter;
 
   @ApiProperty({
     required: false,

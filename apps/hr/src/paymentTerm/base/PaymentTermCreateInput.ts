@@ -23,6 +23,10 @@ import {
 import { PeriodWhereUniqueInput } from "../../period/base/PeriodWhereUniqueInput";
 import { Type } from "class-transformer";
 import { InstallmentSaleFeeWhereUniqueInput } from "../../installmentSaleFee/base/InstallmentSaleFeeWhereUniqueInput";
+import { PurchaseReturnCreateNestedManyWithoutPaymentTermsInput } from "./PurchaseReturnCreateNestedManyWithoutPaymentTermsInput";
+import { PurchaseCreateNestedManyWithoutPaymentTermsInput } from "./PurchaseCreateNestedManyWithoutPaymentTermsInput";
+import { SaleReturnCreateNestedManyWithoutPaymentTermsInput } from "./SaleReturnCreateNestedManyWithoutPaymentTermsInput";
+import { SaleCreateNestedManyWithoutPaymentTermsInput } from "./SaleCreateNestedManyWithoutPaymentTermsInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
@@ -164,6 +168,54 @@ class PaymentTermCreateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnCreateNestedManyWithoutPaymentTermsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnCreateNestedManyWithoutPaymentTermsInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnCreateNestedManyWithoutPaymentTermsInput, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnCreateNestedManyWithoutPaymentTermsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseCreateNestedManyWithoutPaymentTermsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseCreateNestedManyWithoutPaymentTermsInput)
+  @IsOptional()
+  @Field(() => PurchaseCreateNestedManyWithoutPaymentTermsInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseCreateNestedManyWithoutPaymentTermsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnCreateNestedManyWithoutPaymentTermsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnCreateNestedManyWithoutPaymentTermsInput)
+  @IsOptional()
+  @Field(() => SaleReturnCreateNestedManyWithoutPaymentTermsInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnCreateNestedManyWithoutPaymentTermsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleCreateNestedManyWithoutPaymentTermsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleCreateNestedManyWithoutPaymentTermsInput)
+  @IsOptional()
+  @Field(() => SaleCreateNestedManyWithoutPaymentTermsInput, {
+    nullable: true,
+  })
+  sales?: SaleCreateNestedManyWithoutPaymentTermsInput;
 
   @ApiProperty({
     required: false,

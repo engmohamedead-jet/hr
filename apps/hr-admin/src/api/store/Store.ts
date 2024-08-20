@@ -2,6 +2,7 @@ import { ProductionOrder } from "../productionOrder/ProductionOrder";
 import { Product } from "../product/Product";
 import { PurchaseReturn } from "../purchaseReturn/PurchaseReturn";
 import { Purchase } from "../purchase/Purchase";
+import { SaleOrder } from "../saleOrder/SaleOrder";
 import { SaleReturn } from "../saleReturn/SaleReturn";
 import { Sale } from "../sale/Sale";
 import { Tenant } from "../tenant/Tenant";
@@ -23,6 +24,7 @@ export type Store = {
   products?: Array<Product>;
   purchaseReturns?: Array<PurchaseReturn>;
   purchases?: Array<Purchase>;
+  saleOrders?: Array<SaleOrder>;
   saleReturns?: Array<SaleReturn>;
   sales?: Array<Sale>;
   street: string | null;

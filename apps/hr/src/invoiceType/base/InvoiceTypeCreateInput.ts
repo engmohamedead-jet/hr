@@ -21,6 +21,7 @@ import {
 import { PurchaseReturnCreateNestedManyWithoutInvoiceTypesInput } from "./PurchaseReturnCreateNestedManyWithoutInvoiceTypesInput";
 import { Type } from "class-transformer";
 import { PurchaseCreateNestedManyWithoutInvoiceTypesInput } from "./PurchaseCreateNestedManyWithoutInvoiceTypesInput";
+import { SaleOrderCreateNestedManyWithoutInvoiceTypesInput } from "./SaleOrderCreateNestedManyWithoutInvoiceTypesInput";
 import { SaleReturnCreateNestedManyWithoutInvoiceTypesInput } from "./SaleReturnCreateNestedManyWithoutInvoiceTypesInput";
 import { SaleCreateNestedManyWithoutInvoiceTypesInput } from "./SaleCreateNestedManyWithoutInvoiceTypesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -112,6 +113,18 @@ class InvoiceTypeCreateInput {
     nullable: true,
   })
   purchases?: PurchaseCreateNestedManyWithoutInvoiceTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderCreateNestedManyWithoutInvoiceTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderCreateNestedManyWithoutInvoiceTypesInput)
+  @IsOptional()
+  @Field(() => SaleOrderCreateNestedManyWithoutInvoiceTypesInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderCreateNestedManyWithoutInvoiceTypesInput;
 
   @ApiProperty({
     required: false,

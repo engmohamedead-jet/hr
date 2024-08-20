@@ -30,6 +30,8 @@ import { PurchaseReturnFindManyArgs } from "../../purchaseReturn/base/PurchaseRe
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
 import { PurchaseFindManyArgs } from "../../purchase/base/PurchaseFindManyArgs";
 import { Purchase } from "../../purchase/base/Purchase";
+import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindManyArgs";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { SaleFindManyArgs } from "../../sale/base/SaleFindManyArgs";
@@ -199,6 +201,26 @@ export class PaymentTypeResolverBase {
     @graphql.Args() args: PurchaseFindManyArgs
   ): Promise<Purchase[]> {
     const results = await this.service.findPurchases(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SaleOrder], { name: "saleOrders" })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrders(
+    @graphql.Parent() parent: PaymentType,
+    @graphql.Args() args: SaleOrderFindManyArgs
+  ): Promise<SaleOrder[]> {
+    const results = await this.service.findSaleOrders(parent.id, args);
 
     if (!results) {
       return [];

@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { ProductionOrderTitle } from "../productionOrder/ProductionOrderTitle";
+import { SaleOrderTitle } from "../saleOrder/SaleOrderTitle";
 import { TenantTitle } from "../tenant/TenantTitle";
 
 export const OrderStatusEdit = (props: EditProps): React.ReactElement => {
@@ -29,6 +30,13 @@ export const OrderStatusEdit = (props: EditProps): React.ReactElement => {
           label="ProductionOrders"
         >
           <SelectInput optionText={ProductionOrderTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="saleOrders.id"
+          reference="SaleOrder"
+          label="SaleOrders"
+        >
+          <SelectInput optionText={SaleOrderTitle} />
         </ReferenceInput>
         <ReferenceInput
           source="tenantId.id"

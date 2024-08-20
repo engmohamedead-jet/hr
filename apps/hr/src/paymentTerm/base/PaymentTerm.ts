@@ -26,6 +26,10 @@ import {
 import { Type } from "class-transformer";
 import { Period } from "../../period/base/Period";
 import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
+import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
+import { Purchase } from "../../purchase/base/Purchase";
+import { SaleReturn } from "../../saleReturn/base/SaleReturn";
+import { Sale } from "../../sale/base/Sale";
 import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
@@ -174,6 +178,42 @@ class PaymentTerm {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PurchaseReturn],
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturn)
+  @IsOptional()
+  purchaseReturns?: Array<PurchaseReturn>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Purchase],
+  })
+  @ValidateNested()
+  @Type(() => Purchase)
+  @IsOptional()
+  purchases?: Array<Purchase>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleReturn],
+  })
+  @ValidateNested()
+  @Type(() => SaleReturn)
+  @IsOptional()
+  saleReturns?: Array<SaleReturn>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Sale],
+  })
+  @ValidateNested()
+  @Type(() => Sale)
+  @IsOptional()
+  sales?: Array<Sale>;
 
   @ApiProperty({
     required: false,

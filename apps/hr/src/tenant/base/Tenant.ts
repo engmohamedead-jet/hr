@@ -25,6 +25,8 @@ import { ApplicationDependency } from "../../applicationDependency/base/Applicat
 import { Application } from "../../application/base/Application";
 import { AttributeValue } from "../../attributeValue/base/AttributeValue";
 import { Attribute } from "../../attribute/base/Attribute";
+import { BankBranch } from "../../bankBranch/base/BankBranch";
+import { BankType } from "../../bankType/base/BankType";
 import { BarcodeType } from "../../barcodeType/base/BarcodeType";
 import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
 import { BillOfMaterialType } from "../../billOfMaterialType/base/BillOfMaterialType";
@@ -38,6 +40,8 @@ import { Employee } from "../../employee/base/Employee";
 import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
 import { InvoiceType } from "../../invoiceType/base/InvoiceType";
 import { OrderStatus } from "../../orderStatus/base/OrderStatus";
+import { PaymentMethod } from "../../paymentMethod/base/PaymentMethod";
+import { PaymentStatus } from "../../paymentStatus/base/PaymentStatus";
 import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentType } from "../../paymentType/base/PaymentType";
 import { Period } from "../../period/base/Period";
@@ -68,6 +72,9 @@ import { SalaryItemType } from "../../salaryItemType/base/SalaryItemType";
 import { SalaryItem } from "../../salaryItem/base/SalaryItem";
 import { SalaryLaw } from "../../salaryLaw/base/SalaryLaw";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { SalePayment } from "../../salePayment/base/SalePayment";
 import { SalePerson } from "../../salePerson/base/SalePerson";
 import { SalePriceType } from "../../salePriceType/base/SalePriceType";
 import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
@@ -78,6 +85,7 @@ import { SaleTax } from "../../saleTax/base/SaleTax";
 import { SaleTeam } from "../../saleTeam/base/SaleTeam";
 import { Sale } from "../../sale/base/Sale";
 import { ScrapReason } from "../../scrapReason/base/ScrapReason";
+import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
 import { Store } from "../../store/base/Store";
 import { Supplier } from "../../supplier/base/Supplier";
 import { Unit } from "../../unit/base/Unit";
@@ -131,6 +139,24 @@ class Tenant {
   @Type(() => Attribute)
   @IsOptional()
   attributes?: Array<Attribute>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [BankBranch],
+  })
+  @ValidateNested()
+  @Type(() => BankBranch)
+  @IsOptional()
+  bankBranches?: Array<BankBranch>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [BankType],
+  })
+  @ValidateNested()
+  @Type(() => BankType)
+  @IsOptional()
+  bankTypes?: Array<BankType>;
 
   @ApiProperty({
     required: false,
@@ -361,6 +387,24 @@ class Tenant {
   @Type(() => OrderStatus)
   @IsOptional()
   orderStatuses?: Array<OrderStatus>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PaymentMethod],
+  })
+  @ValidateNested()
+  @Type(() => PaymentMethod)
+  @IsOptional()
+  paymentMethods?: Array<PaymentMethod>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PaymentStatus],
+  })
+  @ValidateNested()
+  @Type(() => PaymentStatus)
+  @IsOptional()
+  paymentStatuses?: Array<PaymentStatus>;
 
   @ApiProperty({
     required: false,
@@ -634,6 +678,33 @@ class Tenant {
 
   @ApiProperty({
     required: false,
+    type: () => [SaleOrderDetail],
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetail)
+  @IsOptional()
+  saleOrderDetails?: Array<SaleOrderDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleOrder],
+  })
+  @ValidateNested()
+  @Type(() => SaleOrder)
+  @IsOptional()
+  saleOrders?: Array<SaleOrder>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SalePayment],
+  })
+  @ValidateNested()
+  @Type(() => SalePayment)
+  @IsOptional()
+  salePayments?: Array<SalePayment>;
+
+  @ApiProperty({
+    required: false,
     type: () => [SalePerson],
   })
   @ValidateNested()
@@ -721,6 +792,15 @@ class Tenant {
   @Type(() => ScrapReason)
   @IsOptional()
   scrapReasons?: Array<ScrapReason>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ShippingStatus],
+  })
+  @ValidateNested()
+  @Type(() => ShippingStatus)
+  @IsOptional()
+  shippingStatuses?: Array<ShippingStatus>;
 
   @ApiProperty({
     required: false,

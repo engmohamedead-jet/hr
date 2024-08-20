@@ -3,6 +3,8 @@ import { ApplicationDependencyListRelationFilter } from "../applicationDependenc
 import { ApplicationListRelationFilter } from "../application/ApplicationListRelationFilter";
 import { AttributeValueListRelationFilter } from "../attributeValue/AttributeValueListRelationFilter";
 import { AttributeListRelationFilter } from "../attribute/AttributeListRelationFilter";
+import { BankBranchListRelationFilter } from "../bankBranch/BankBranchListRelationFilter";
+import { BankTypeListRelationFilter } from "../bankType/BankTypeListRelationFilter";
 import { BarcodeTypeListRelationFilter } from "../barcodeType/BarcodeTypeListRelationFilter";
 import { BillOfMaterialDetailListRelationFilter } from "../billOfMaterialDetail/BillOfMaterialDetailListRelationFilter";
 import { BillOfMaterialTypeListRelationFilter } from "../billOfMaterialType/BillOfMaterialTypeListRelationFilter";
@@ -19,6 +21,8 @@ import { InstallmentSaleFeeListRelationFilter } from "../installmentSaleFee/Inst
 import { InvoiceTypeListRelationFilter } from "../invoiceType/InvoiceTypeListRelationFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { OrderStatusListRelationFilter } from "../orderStatus/OrderStatusListRelationFilter";
+import { PaymentMethodListRelationFilter } from "../paymentMethod/PaymentMethodListRelationFilter";
+import { PaymentStatusListRelationFilter } from "../paymentStatus/PaymentStatusListRelationFilter";
 import { PaymentTermListRelationFilter } from "../paymentTerm/PaymentTermListRelationFilter";
 import { PaymentTypeListRelationFilter } from "../paymentType/PaymentTypeListRelationFilter";
 import { PeriodListRelationFilter } from "../period/PeriodListRelationFilter";
@@ -49,6 +53,9 @@ import { SalaryItemTypeListRelationFilter } from "../salaryItemType/SalaryItemTy
 import { SalaryItemListRelationFilter } from "../salaryItem/SalaryItemListRelationFilter";
 import { SalaryLawListRelationFilter } from "../salaryLaw/SalaryLawListRelationFilter";
 import { SaleDetailListRelationFilter } from "../saleDetail/SaleDetailListRelationFilter";
+import { SaleOrderDetailListRelationFilter } from "../saleOrderDetail/SaleOrderDetailListRelationFilter";
+import { SaleOrderListRelationFilter } from "../saleOrder/SaleOrderListRelationFilter";
+import { SalePaymentListRelationFilter } from "../salePayment/SalePaymentListRelationFilter";
 import { SalePersonListRelationFilter } from "../salePerson/SalePersonListRelationFilter";
 import { SalePriceTypeListRelationFilter } from "../salePriceType/SalePriceTypeListRelationFilter";
 import { SaleQuotationDetailListRelationFilter } from "../saleQuotationDetail/SaleQuotationDetailListRelationFilter";
@@ -59,6 +66,7 @@ import { SaleTaxListRelationFilter } from "../saleTax/SaleTaxListRelationFilter"
 import { SaleTeamListRelationFilter } from "../saleTeam/SaleTeamListRelationFilter";
 import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
 import { ScrapReasonListRelationFilter } from "../scrapReason/ScrapReasonListRelationFilter";
+import { ShippingStatusListRelationFilter } from "../shippingStatus/ShippingStatusListRelationFilter";
 import { StoreListRelationFilter } from "../store/StoreListRelationFilter";
 import { SupplierListRelationFilter } from "../supplier/SupplierListRelationFilter";
 import { UnitListRelationFilter } from "../unit/UnitListRelationFilter";
@@ -72,6 +80,8 @@ export type TenantWhereInput = {
   applications?: ApplicationListRelationFilter;
   attributeValues?: AttributeValueListRelationFilter;
   attributes?: AttributeListRelationFilter;
+  bankBranches?: BankBranchListRelationFilter;
+  bankTypes?: BankTypeListRelationFilter;
   barcodeTypes?: BarcodeTypeListRelationFilter;
   billOfMaterialDetails?: BillOfMaterialDetailListRelationFilter;
   billOfMaterialTypes?: BillOfMaterialTypeListRelationFilter;
@@ -95,6 +105,8 @@ export type TenantWhereInput = {
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
   orderStatuses?: OrderStatusListRelationFilter;
+  paymentMethods?: PaymentMethodListRelationFilter;
+  paymentStatuses?: PaymentStatusListRelationFilter;
   paymentTerms?: PaymentTermListRelationFilter;
   paymentTypes?: PaymentTypeListRelationFilter;
   periods?: PeriodListRelationFilter;
@@ -125,6 +137,9 @@ export type TenantWhereInput = {
   salaryItems?: SalaryItemListRelationFilter;
   salaryLaws?: SalaryLawListRelationFilter;
   saleDetails?: SaleDetailListRelationFilter;
+  saleOrderDetails?: SaleOrderDetailListRelationFilter;
+  saleOrders?: SaleOrderListRelationFilter;
+  salePayments?: SalePaymentListRelationFilter;
   salePeople?: SalePersonListRelationFilter;
   salePriceTypes?: SalePriceTypeListRelationFilter;
   saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
@@ -135,6 +150,7 @@ export type TenantWhereInput = {
   saleTeams?: SaleTeamListRelationFilter;
   sales?: SaleListRelationFilter;
   scrapReasons?: ScrapReasonListRelationFilter;
+  shippingStatuses?: ShippingStatusListRelationFilter;
   stores?: StoreListRelationFilter;
   suppliers?: SupplierListRelationFilter;
   tenancyName?: StringFilter;

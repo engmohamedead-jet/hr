@@ -2,6 +2,7 @@ import { ProductionOrderUpdateManyWithoutStoresInput } from "./ProductionOrderUp
 import { ProductUpdateManyWithoutStoresInput } from "./ProductUpdateManyWithoutStoresInput";
 import { PurchaseReturnUpdateManyWithoutStoresInput } from "./PurchaseReturnUpdateManyWithoutStoresInput";
 import { PurchaseUpdateManyWithoutStoresInput } from "./PurchaseUpdateManyWithoutStoresInput";
+import { SaleOrderUpdateManyWithoutStoresInput } from "./SaleOrderUpdateManyWithoutStoresInput";
 import { SaleReturnUpdateManyWithoutStoresInput } from "./SaleReturnUpdateManyWithoutStoresInput";
 import { SaleUpdateManyWithoutStoresInput } from "./SaleUpdateManyWithoutStoresInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -21,6 +22,7 @@ export type StoreUpdateInput = {
   products?: ProductUpdateManyWithoutStoresInput;
   purchaseReturns?: PurchaseReturnUpdateManyWithoutStoresInput;
   purchases?: PurchaseUpdateManyWithoutStoresInput;
+  saleOrders?: SaleOrderUpdateManyWithoutStoresInput;
   saleReturns?: SaleReturnUpdateManyWithoutStoresInput;
   sales?: SaleUpdateManyWithoutStoresInput;
   street?: string | null;

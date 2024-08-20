@@ -28,8 +28,10 @@ import { Type } from "class-transformer";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 import { Decimal } from "decimal.js";
 import { InvoiceTypeWhereUniqueInput } from "../../invoiceType/base/InvoiceTypeWhereUniqueInput";
+import { PaymentTermWhereUniqueInput } from "../../paymentTerm/base/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../../paymentType/base/PaymentTypeWhereUniqueInput";
 import { SaleDetailUpdateManyWithoutSalesInput } from "./SaleDetailUpdateManyWithoutSalesInput";
+import { SalePaymentUpdateManyWithoutSalesInput } from "./SalePaymentUpdateManyWithoutSalesInput";
 import { SalePriceTypeWhereUniqueInput } from "../../salePriceType/base/SalePriceTypeWhereUniqueInput";
 import { SaleReturnUpdateManyWithoutSalesInput } from "./SaleReturnUpdateManyWithoutSalesInput";
 import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
@@ -168,6 +170,18 @@ class SaleUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentTermWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTermWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentTermWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentTerm?: PaymentTermWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: () => PaymentTypeWhereUniqueInput,
   })
   @ValidateNested()
@@ -224,6 +238,18 @@ class SaleUpdateInput {
     nullable: true,
   })
   saleDetails?: SaleDetailUpdateManyWithoutSalesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentUpdateManyWithoutSalesInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentUpdateManyWithoutSalesInput)
+  @IsOptional()
+  @Field(() => SalePaymentUpdateManyWithoutSalesInput, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentUpdateManyWithoutSalesInput;
 
   @ApiProperty({
     required: false,

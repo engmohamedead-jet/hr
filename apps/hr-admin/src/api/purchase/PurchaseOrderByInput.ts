@@ -13,6 +13,7 @@ export type PurchaseOrderByInput = {
   nonTaxableTotal?: SortOrder;
   note?: SortOrder;
   paid?: SortOrder;
+  paymentTermIdId?: SortOrder;
   paymentTypeIdId?: SortOrder;
   purchaseDate?: SortOrder;
   Name?: SortOrder;

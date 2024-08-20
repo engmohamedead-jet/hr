@@ -24,6 +24,7 @@ import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { Product } from "../../product/base/Product";
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
 import { Purchase } from "../../purchase/base/Purchase";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { Sale } from "../../sale/base/Sale";
 import { Tenant } from "../../tenant/base/Tenant";
@@ -187,6 +188,15 @@ class Store {
   @Type(() => Purchase)
   @IsOptional()
   purchases?: Array<Purchase>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SaleOrder],
+  })
+  @ValidateNested()
+  @Type(() => SaleOrder)
+  @IsOptional()
+  saleOrders?: Array<SaleOrder>;
 
   @ApiProperty({
     required: false,

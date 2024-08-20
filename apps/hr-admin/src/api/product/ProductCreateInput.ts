@@ -15,6 +15,7 @@ import { ProductionOrderCreateNestedManyWithoutProductsInput } from "./Productio
 import { PurchaseDetailCreateNestedManyWithoutProductsInput } from "./PurchaseDetailCreateNestedManyWithoutProductsInput";
 import { PurchaseReturnDetailCreateNestedManyWithoutProductsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutProductsInput";
 import { SaleDetailCreateNestedManyWithoutProductsInput } from "./SaleDetailCreateNestedManyWithoutProductsInput";
+import { SaleOrderDetailCreateNestedManyWithoutProductsInput } from "./SaleOrderDetailCreateNestedManyWithoutProductsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutProductsInput } from "./SaleQuotationDetailCreateNestedManyWithoutProductsInput";
 import { SaleReturnDetailCreateNestedManyWithoutProductsInput } from "./SaleReturnDetailCreateNestedManyWithoutProductsInput";
 import { SaleTaxWhereUniqueInput } from "../saleTax/SaleTaxWhereUniqueInput";
@@ -60,6 +61,7 @@ export type ProductCreateInput = {
   purchaseReturnDetails?: PurchaseReturnDetailCreateNestedManyWithoutProductsInput;
   reorderQuantity?: Decimal | null;
   saleDetails?: SaleDetailCreateNestedManyWithoutProductsInput;
+  saleOrderDetails?: SaleOrderDetailCreateNestedManyWithoutProductsInput;
   salePrice: Decimal;
   salePriceIncludesTax: boolean;
   saleQuotationDetails?: SaleQuotationDetailCreateNestedManyWithoutProductsInput;

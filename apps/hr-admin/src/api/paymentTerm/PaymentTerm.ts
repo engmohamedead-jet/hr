@@ -1,5 +1,9 @@
 import { Period } from "../period/Period";
 import { InstallmentSaleFee } from "../installmentSaleFee/InstallmentSaleFee";
+import { PurchaseReturn } from "../purchaseReturn/PurchaseReturn";
+import { Purchase } from "../purchase/Purchase";
+import { SaleReturn } from "../saleReturn/SaleReturn";
+import { Sale } from "../sale/Sale";
 import { Tenant } from "../tenant/Tenant";
 
 export type PaymentTerm = {
@@ -18,6 +22,10 @@ export type PaymentTerm = {
   name: string;
   normalizedName: string;
   note: string | null;
+  purchaseReturns?: Array<PurchaseReturn>;
+  purchases?: Array<Purchase>;
+  saleReturns?: Array<SaleReturn>;
+  sales?: Array<Sale>;
   tenantId?: Tenant | null;
   updatedAt: Date;
 };

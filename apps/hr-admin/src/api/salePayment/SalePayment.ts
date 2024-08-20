@@ -1,0 +1,30 @@
+import { Decimal } from "decimal.js";
+import { Bank } from "../bank/Bank";
+import { BankBranch } from "../bankBranch/BankBranch";
+import { Currency } from "../currency/Currency";
+import { PaymentMethod } from "../paymentMethod/PaymentMethod";
+import { Sale } from "../sale/Sale";
+import { Tenant } from "../tenant/Tenant";
+
+export type SalePayment = {
+  LocalCurrencyRatl: Decimal;
+  bank?: Bank | null;
+  bankBrach: string;
+  bankBranch?: BankBranch | null;
+  chequeNumber: string | null;
+  createdAt: Date;
+  creditCardNumber: string | null;
+  currencyId?: Currency | null;
+  foreignCurrencyRate: Decimal;
+  id: string;
+  isCheque: boolean | null;
+  note: string | null;
+  paidValue: string | null;
+  paymentDate: Date;
+  paymentMethodId?: PaymentMethod;
+  quantity: number | null;
+  saleId?: Sale | null;
+  seqeunce: number;
+  tenant?: Tenant | null;
+  updatedAt: Date;
+};

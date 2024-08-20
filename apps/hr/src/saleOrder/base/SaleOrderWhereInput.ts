@@ -11,15 +11,54 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { StringFilter } from "../../util/StringFilter";
+import { IsOptional, ValidateNested } from "class-validator";
+import { CashRepositoryWhereUniqueInput } from "../../cashRepository/base/CashRepositoryWhereUniqueInput";
+import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { DecimalFilter } from "../../util/DecimalFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { InvoiceTypeWhereUniqueInput } from "../../invoiceType/base/InvoiceTypeWhereUniqueInput";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { OrderStatusWhereUniqueInput } from "../../orderStatus/base/OrderStatusWhereUniqueInput";
+import { PaymentStatusWhereUniqueInput } from "../../paymentStatus/base/PaymentStatusWhereUniqueInput";
+import { PaymentTypeWhereUniqueInput } from "../../paymentType/base/PaymentTypeWhereUniqueInput";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { SaleOrderDetailListRelationFilter } from "../../saleOrderDetail/base/SaleOrderDetailListRelationFilter";
+import { SalePriceTypeWhereUniqueInput } from "../../salePriceType/base/SalePriceTypeWhereUniqueInput";
+import { FloatFilter } from "../../util/FloatFilter";
 import { SaleQuotationWhereUniqueInput } from "../../saleQuotation/base/SaleQuotationWhereUniqueInput";
+import { ShippingStatusWhereUniqueInput } from "../../shippingStatus/base/ShippingStatusWhereUniqueInput";
+import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SaleOrderWhereInput {
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  billingAddress?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CashRepositoryWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CashRepositoryWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CashRepositoryWhereUniqueInput, {
+    nullable: true,
+  })
+  cashRepositoryId?: CashRepositoryWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: () => CustomerWhereUniqueInput,
@@ -34,6 +73,39 @@ class SaleOrderWhereInput {
 
   @ApiProperty({
     required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  deliveryDate?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalFilter,
+  })
+  @Type(() => DecimalFilter)
+  @IsOptional()
+  @Field(() => DecimalFilter, {
+    nullable: true,
+  })
+  discountTotal?: DecimalFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  expectedDeliveryDate?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -45,14 +117,174 @@ class SaleOrderWhereInput {
 
   @ApiProperty({
     required: false,
-    type: DateTimeNullableFilter,
+    type: () => InvoiceTypeWhereUniqueInput,
   })
-  @Type(() => DateTimeNullableFilter)
+  @ValidateNested()
+  @Type(() => InvoiceTypeWhereUniqueInput)
   @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
+  @Field(() => InvoiceTypeWhereUniqueInput, {
     nullable: true,
   })
-  saleOrderDate?: DateTimeNullableFilter;
+  invoiceTypeId?: InvoiceTypeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isCancelled?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isReplicated?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalFilter,
+  })
+  @Type(() => DecimalFilter)
+  @IsOptional()
+  @Field(() => DecimalFilter, {
+    nullable: true,
+  })
+  netTotal?: DecimalFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalNullableFilter,
+  })
+  @Type(() => DecimalNullableFilter)
+  @IsOptional()
+  @Field(() => DecimalNullableFilter, {
+    nullable: true,
+  })
+  nonTaxableTotal?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrderStatusWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => OrderStatusWhereUniqueInput)
+  @IsOptional()
+  @Field(() => OrderStatusWhereUniqueInput, {
+    nullable: true,
+  })
+  orderStatus?: OrderStatusWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentStatusWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentStatusWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentStatusWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentStatus?: PaymentStatusWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentTypeId?: PaymentTypeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  referenceNumber?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeFilter,
+  })
+  @Type(() => DateTimeFilter)
+  @IsOptional()
+  @Field(() => DateTimeFilter, {
+    nullable: true,
+  })
+  saleOrderDate?: DateTimeFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleOrderDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePriceTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePriceTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SalePriceTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  salePriceType?: SalePriceTypeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: FloatFilter,
+  })
+  @Type(() => FloatFilter)
+  @IsOptional()
+  @Field(() => FloatFilter, {
+    nullable: true,
+  })
+  salePriceTypeId?: FloatFilter;
 
   @ApiProperty({
     required: false,
@@ -65,6 +297,119 @@ class SaleOrderWhereInput {
     nullable: true,
   })
   saleQuotation?: SaleQuotationWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalFilter,
+  })
+  @Type(() => DecimalFilter)
+  @IsOptional()
+  @Field(() => DecimalFilter, {
+    nullable: true,
+  })
+  saleTotal?: DecimalFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  shippingAddress?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalNullableFilter,
+  })
+  @Type(() => DecimalNullableFilter)
+  @IsOptional()
+  @Field(() => DecimalNullableFilter, {
+    nullable: true,
+  })
+  shippingCost?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShippingStatusWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ShippingStatusWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ShippingStatusWhereUniqueInput, {
+    nullable: true,
+  })
+  shippingStatus?: ShippingStatusWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreWhereUniqueInput)
+  @IsOptional()
+  @Field(() => StoreWhereUniqueInput, {
+    nullable: true,
+  })
+  storeId?: StoreWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalNullableFilter,
+  })
+  @Type(() => DecimalNullableFilter)
+  @IsOptional()
+  @Field(() => DecimalNullableFilter, {
+    nullable: true,
+  })
+  tax?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalNullableFilter,
+  })
+  @Type(() => DecimalNullableFilter)
+  @IsOptional()
+  @Field(() => DecimalNullableFilter, {
+    nullable: true,
+  })
+  taxRate?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalNullableFilter,
+  })
+  @Type(() => DecimalNullableFilter)
+  @IsOptional()
+  @Field(() => DecimalNullableFilter, {
+    nullable: true,
+  })
+  taxableTotal?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  transactionDateTime?: DateTimeNullableFilter;
 }
 
 export { SaleOrderWhereInput as SaleOrderWhereInput };

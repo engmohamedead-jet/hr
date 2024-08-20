@@ -1,6 +1,7 @@
 import { CashRepositoryWhereUniqueInput } from "../cashRepository/CashRepositoryWhereUniqueInput";
 import { Decimal } from "decimal.js";
 import { InvoiceTypeWhereUniqueInput } from "../invoiceType/InvoiceTypeWhereUniqueInput";
+import { PaymentTermWhereUniqueInput } from "../paymentTerm/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../paymentType/PaymentTypeWhereUniqueInput";
 import { PurchaseDetailUpdateManyWithoutPurchasesInput } from "./PurchaseDetailUpdateManyWithoutPurchasesInput";
 import { PurchasePriceTypeWhereUniqueInput } from "../purchasePriceType/PurchasePriceTypeWhereUniqueInput";
@@ -20,6 +21,7 @@ export type PurchaseUpdateInput = {
   nonTaxableTotal?: Decimal | null;
   note?: string | null;
   paid?: Decimal;
+  paymentTermId?: PaymentTermWhereUniqueInput | null;
   paymentTypeId?: PaymentTypeWhereUniqueInput;
   purchaseDate?: Date;
   purchaseDetails?: PurchaseDetailUpdateManyWithoutPurchasesInput;

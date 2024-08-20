@@ -67,6 +67,14 @@ import { ApplicationModule } from "./application/application.module";
 import { ApplicationDependencyModule } from "./applicationDependency/applicationDependency.module";
 import { SaleQuotationDetailModule } from "./saleQuotationDetail/saleQuotationDetail.module";
 import { SaleOrderModule } from "./saleOrder/saleOrder.module";
+import { SaleOrderDetailModule } from "./saleOrderDetail/saleOrderDetail.module";
+import { PaymentStatusModule } from "./paymentStatus/paymentStatus.module";
+import { ShippingStatusModule } from "./shippingStatus/shippingStatus.module";
+import { SalePaymentModule } from "./salePayment/salePayment.module";
+import { PaymentMethodModule } from "./paymentMethod/paymentMethod.module";
+import { BankModule } from "./bank/bank.module";
+import { BankTypeModule } from "./bankType/bankType.module";
+import { BankBranchModule } from "./bankBranch/bankBranch.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -150,6 +158,14 @@ import { AuthModule } from "./auth/auth.module";
     ApplicationDependencyModule,
     SaleQuotationDetailModule,
     SaleOrderModule,
+    SaleOrderDetailModule,
+    PaymentStatusModule,
+    ShippingStatusModule,
+    SalePaymentModule,
+    PaymentMethodModule,
+    BankModule,
+    BankTypeModule,
+    BankBranchModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

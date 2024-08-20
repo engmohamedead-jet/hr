@@ -15,6 +15,7 @@ import { ProductionOrder } from "../productionOrder/ProductionOrder";
 import { PurchaseDetail } from "../purchaseDetail/PurchaseDetail";
 import { PurchaseReturnDetail } from "../purchaseReturnDetail/PurchaseReturnDetail";
 import { SaleDetail } from "../saleDetail/SaleDetail";
+import { SaleOrderDetail } from "../saleOrderDetail/SaleOrderDetail";
 import { SaleQuotationDetail } from "../saleQuotationDetail/SaleQuotationDetail";
 import { SaleReturnDetail } from "../saleReturnDetail/SaleReturnDetail";
 import { SaleTax } from "../saleTax/SaleTax";
@@ -62,6 +63,7 @@ export type Product = {
   purchaseReturnDetails?: Array<PurchaseReturnDetail>;
   reorderQuantity: Decimal | null;
   saleDetails?: Array<SaleDetail>;
+  saleOrderDetails?: Array<SaleOrderDetail>;
   salePrice: Decimal;
   salePriceIncludesTax: boolean;
   saleQuotationDetails?: Array<SaleQuotationDetail>;

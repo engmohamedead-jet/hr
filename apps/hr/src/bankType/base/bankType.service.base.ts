@@ -10,7 +10,13 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, BankType as PrismaBankType } from "@prisma/client";
+
+import {
+  Prisma,
+  BankType as PrismaBankType,
+  Bank as PrismaBank,
+  Tenant as PrismaTenant,
+} from "@prisma/client";
 
 export class BankTypeServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -43,5 +49,24 @@ export class BankTypeServiceBase {
     args: Prisma.BankTypeDeleteArgs
   ): Promise<PrismaBankType> {
     return this.prisma.bankType.delete(args);
+  }
+
+  async findBanks(
+    parentId: number,
+    args: Prisma.BankFindManyArgs
+  ): Promise<PrismaBank[]> {
+    return this.prisma.bankType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .banks(args);
+  }
+
+  async getTenant(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.bankType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenant();
   }
 }

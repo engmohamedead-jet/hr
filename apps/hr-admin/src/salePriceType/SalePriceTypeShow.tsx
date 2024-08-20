@@ -11,6 +11,8 @@ import {
 } from "react-admin";
 
 import { SALEDETAIL_TITLE_FIELD } from "../saleDetail/SaleDetailTitle";
+import { SALEORDERDETAIL_TITLE_FIELD } from "../saleOrderDetail/SaleOrderDetailTitle";
+import { SALEORDER_TITLE_FIELD } from "../saleOrder/SaleOrderTitle";
 import { SALEQUOTATIONDETAIL_TITLE_FIELD } from "../saleQuotationDetail/SaleQuotationDetailTitle";
 import { SALERETURNDETAIL_TITLE_FIELD } from "../saleReturnDetail/SaleReturnDetailTitle";
 import { SALERETURN_TITLE_FIELD } from "../saleReturn/SaleReturnTitle";
@@ -35,6 +37,20 @@ export const SalePriceTypeShow = (props: ShowProps): React.ReactElement => {
           reference="SaleDetail"
         >
           <TextField source={SALEDETAIL_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField
+          label="SaleOrderDetails"
+          source="saleorderdetail.id"
+          reference="SaleOrderDetail"
+        >
+          <TextField source={SALEORDERDETAIL_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField
+          label="SaleOrders"
+          source="saleorder.id"
+          reference="SaleOrder"
+        >
+          <TextField source={SALEORDER_TITLE_FIELD} />
         </ReferenceField>
         <ReferenceField
           label="SaleQuotationDetails"

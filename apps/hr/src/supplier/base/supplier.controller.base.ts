@@ -428,6 +428,12 @@ export class SupplierControllerBase {
         note: true,
         paid: true,
 
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
         paymentTypeId: {
           select: {
             id: true,
@@ -590,6 +596,12 @@ export class SupplierControllerBase {
         nonTaxableTotal: true,
         note: true,
         paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
 
         paymentTypeId: {
           select: {

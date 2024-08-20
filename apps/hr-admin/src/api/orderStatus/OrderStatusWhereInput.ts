@@ -3,6 +3,7 @@ import { IntFilter } from "../../util/IntFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ProductionOrderWhereUniqueInput } from "../productionOrder/ProductionOrderWhereUniqueInput";
+import { SaleOrderWhereUniqueInput } from "../saleOrder/SaleOrderWhereUniqueInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type OrderStatusWhereInput = {
@@ -14,5 +15,6 @@ export type OrderStatusWhereInput = {
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
   productionOrders?: ProductionOrderWhereUniqueInput;
+  saleOrders?: SaleOrderWhereUniqueInput;
   tenantId?: TenantWhereUniqueInput;
 };

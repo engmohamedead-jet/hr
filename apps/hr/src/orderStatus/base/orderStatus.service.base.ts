@@ -15,6 +15,7 @@ import {
   Prisma,
   OrderStatus as PrismaOrderStatus,
   ProductionOrder as PrismaProductionOrder,
+  SaleOrder as PrismaSaleOrder,
   Tenant as PrismaTenant,
 } from "@prisma/client";
 
@@ -61,6 +62,14 @@ export class OrderStatusServiceBase {
         where: { id: parentId },
       })
       .productionOrders();
+  }
+
+  async getSaleOrders(parentId: number): Promise<PrismaSaleOrder | null> {
+    return this.prisma.orderStatus
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleOrders();
   }
 
   async getTenantId(parentId: number): Promise<PrismaTenant | null> {

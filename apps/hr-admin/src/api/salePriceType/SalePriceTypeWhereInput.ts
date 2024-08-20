@@ -3,6 +3,8 @@ import { IntFilter } from "../../util/IntFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { SaleDetailWhereUniqueInput } from "../saleDetail/SaleDetailWhereUniqueInput";
+import { SaleOrderDetailWhereUniqueInput } from "../saleOrderDetail/SaleOrderDetailWhereUniqueInput";
+import { SaleOrderWhereUniqueInput } from "../saleOrder/SaleOrderWhereUniqueInput";
 import { SaleQuotationDetailWhereUniqueInput } from "../saleQuotationDetail/SaleQuotationDetailWhereUniqueInput";
 import { SaleReturnDetailWhereUniqueInput } from "../saleReturnDetail/SaleReturnDetailWhereUniqueInput";
 import { SaleReturnWhereUniqueInput } from "../saleReturn/SaleReturnWhereUniqueInput";
@@ -18,6 +20,8 @@ export type SalePriceTypeWhereInput = {
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
   saleDetails?: SaleDetailWhereUniqueInput;
+  saleOrderDetails?: SaleOrderDetailWhereUniqueInput;
+  saleOrders?: SaleOrderWhereUniqueInput;
   saleQuotationDetails?: SaleQuotationDetailWhereUniqueInput;
   saleReturnDetails?: SaleReturnDetailWhereUniqueInput;
   saleReturns?: SaleReturnWhereUniqueInput;

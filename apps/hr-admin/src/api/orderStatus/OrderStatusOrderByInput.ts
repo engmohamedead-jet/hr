@@ -10,6 +10,7 @@ export type OrderStatusOrderByInput = {
   normalizedName?: SortOrder;
   note?: SortOrder;
   productionOrdersId?: SortOrder;
+  saleOrdersId?: SortOrder;
   tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

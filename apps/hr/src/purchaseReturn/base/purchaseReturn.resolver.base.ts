@@ -30,6 +30,7 @@ import { PurchaseReturnDetailFindManyArgs } from "../../purchaseReturnDetail/bas
 import { PurchaseReturnDetail } from "../../purchaseReturnDetail/base/PurchaseReturnDetail";
 import { CashRepository } from "../../cashRepository/base/CashRepository";
 import { InvoiceType } from "../../invoiceType/base/InvoiceType";
+import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentType } from "../../paymentType/base/PaymentType";
 import { Purchase } from "../../purchase/base/Purchase";
 import { PurchasePriceType } from "../../purchasePriceType/base/PurchasePriceType";
@@ -115,6 +116,12 @@ export class PurchaseReturnResolverBase {
             }
           : undefined,
 
+        paymentTermId: args.data.paymentTermId
+          ? {
+              connect: args.data.paymentTermId,
+            }
+          : undefined,
+
         paymentTypeId: {
           connect: args.data.paymentTypeId,
         },
@@ -169,6 +176,12 @@ export class PurchaseReturnResolverBase {
           invoiceTypeId: args.data.invoiceTypeId
             ? {
                 connect: args.data.invoiceTypeId,
+              }
+            : undefined,
+
+          paymentTermId: args.data.paymentTermId
+            ? {
+                connect: args.data.paymentTermId,
               }
             : undefined,
 
@@ -292,6 +305,27 @@ export class PurchaseReturnResolverBase {
     @graphql.Parent() parent: PurchaseReturn
   ): Promise<InvoiceType | null> {
     const result = await this.service.getInvoiceTypeId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => PaymentTerm, {
+    nullable: true,
+    name: "paymentTermId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentTerm",
+    action: "read",
+    possession: "any",
+  })
+  async getPaymentTermId(
+    @graphql.Parent() parent: PurchaseReturn
+  ): Promise<PaymentTerm | null> {
+    const result = await this.service.getPaymentTermId(parent.id);
 
     if (!result) {
       return null;

@@ -9,10 +9,16 @@ import {
   ReferenceInput,
   SelectInput,
   BooleanInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
 
 import { PeriodTitle } from "../period/PeriodTitle";
 import { InstallmentSaleFeeTitle } from "../installmentSaleFee/InstallmentSaleFeeTitle";
+import { PurchaseReturnTitle } from "../purchaseReturn/PurchaseReturnTitle";
+import { PurchaseTitle } from "../purchase/PurchaseTitle";
+import { SaleReturnTitle } from "../saleReturn/SaleReturnTitle";
+import { SaleTitle } from "../sale/SaleTitle";
 import { TenantTitle } from "../tenant/TenantTitle";
 
 export const PaymentTermCreate = (props: CreateProps): React.ReactElement => {
@@ -50,6 +56,38 @@ export const PaymentTermCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
+        <ReferenceArrayInput
+          source="purchaseReturns"
+          reference="PurchaseReturn"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PurchaseReturnTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="purchases"
+          reference="Purchase"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PurchaseTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="saleReturns"
+          reference="SaleReturn"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleReturnTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="sales"
+          reference="Sale"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleTitle} />
+        </ReferenceArrayInput>
         <ReferenceInput
           source="tenantId.id"
           reference="Tenant"

@@ -27,6 +27,8 @@ import { CreateSalePriceTypeArgs } from "./CreateSalePriceTypeArgs";
 import { UpdateSalePriceTypeArgs } from "./UpdateSalePriceTypeArgs";
 import { DeleteSalePriceTypeArgs } from "./DeleteSalePriceTypeArgs";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
 import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
@@ -107,6 +109,18 @@ export class SalePriceTypeResolverBase {
             }
           : undefined,
 
+        saleOrderDetails: args.data.saleOrderDetails
+          ? {
+              connect: args.data.saleOrderDetails,
+            }
+          : undefined,
+
+        saleOrders: args.data.saleOrders
+          ? {
+              connect: args.data.saleOrders,
+            }
+          : undefined,
+
         saleQuotationDetails: args.data.saleQuotationDetails
           ? {
               connect: args.data.saleQuotationDetails,
@@ -159,6 +173,18 @@ export class SalePriceTypeResolverBase {
           saleDetails: args.data.saleDetails
             ? {
                 connect: args.data.saleDetails,
+              }
+            : undefined,
+
+          saleOrderDetails: args.data.saleOrderDetails
+            ? {
+                connect: args.data.saleOrderDetails,
+              }
+            : undefined,
+
+          saleOrders: args.data.saleOrders
+            ? {
+                connect: args.data.saleOrders,
               }
             : undefined,
 
@@ -238,6 +264,48 @@ export class SalePriceTypeResolverBase {
     @graphql.Parent() parent: SalePriceType
   ): Promise<SaleDetail | null> {
     const result = await this.service.getSaleDetails(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SaleOrderDetail, {
+    nullable: true,
+    name: "saleOrderDetails",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrderDetail",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleOrderDetails(
+    @graphql.Parent() parent: SalePriceType
+  ): Promise<SaleOrderDetail | null> {
+    const result = await this.service.getSaleOrderDetails(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SaleOrder, {
+    nullable: true,
+    name: "saleOrders",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleOrders(
+    @graphql.Parent() parent: SalePriceType
+  ): Promise<SaleOrder | null> {
+    const result = await this.service.getSaleOrders(parent.id);
 
     if (!result) {
       return null;

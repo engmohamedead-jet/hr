@@ -18,6 +18,8 @@ import { ApplicationDependencyListRelationFilter } from "../../applicationDepend
 import { ApplicationListRelationFilter } from "../../application/base/ApplicationListRelationFilter";
 import { AttributeValueListRelationFilter } from "../../attributeValue/base/AttributeValueListRelationFilter";
 import { AttributeListRelationFilter } from "../../attribute/base/AttributeListRelationFilter";
+import { BankBranchListRelationFilter } from "../../bankBranch/base/BankBranchListRelationFilter";
+import { BankTypeListRelationFilter } from "../../bankType/base/BankTypeListRelationFilter";
 import { BarcodeTypeListRelationFilter } from "../../barcodeType/base/BarcodeTypeListRelationFilter";
 import { BillOfMaterialDetailListRelationFilter } from "../../billOfMaterialDetail/base/BillOfMaterialDetailListRelationFilter";
 import { BillOfMaterialTypeListRelationFilter } from "../../billOfMaterialType/base/BillOfMaterialTypeListRelationFilter";
@@ -34,6 +36,8 @@ import { InstallmentSaleFeeListRelationFilter } from "../../installmentSaleFee/b
 import { InvoiceTypeListRelationFilter } from "../../invoiceType/base/InvoiceTypeListRelationFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { OrderStatusListRelationFilter } from "../../orderStatus/base/OrderStatusListRelationFilter";
+import { PaymentMethodListRelationFilter } from "../../paymentMethod/base/PaymentMethodListRelationFilter";
+import { PaymentStatusListRelationFilter } from "../../paymentStatus/base/PaymentStatusListRelationFilter";
 import { PaymentTermListRelationFilter } from "../../paymentTerm/base/PaymentTermListRelationFilter";
 import { PaymentTypeListRelationFilter } from "../../paymentType/base/PaymentTypeListRelationFilter";
 import { PeriodListRelationFilter } from "../../period/base/PeriodListRelationFilter";
@@ -64,6 +68,9 @@ import { SalaryItemTypeListRelationFilter } from "../../salaryItemType/base/Sala
 import { SalaryItemListRelationFilter } from "../../salaryItem/base/SalaryItemListRelationFilter";
 import { SalaryLawListRelationFilter } from "../../salaryLaw/base/SalaryLawListRelationFilter";
 import { SaleDetailListRelationFilter } from "../../saleDetail/base/SaleDetailListRelationFilter";
+import { SaleOrderDetailListRelationFilter } from "../../saleOrderDetail/base/SaleOrderDetailListRelationFilter";
+import { SaleOrderListRelationFilter } from "../../saleOrder/base/SaleOrderListRelationFilter";
+import { SalePaymentListRelationFilter } from "../../salePayment/base/SalePaymentListRelationFilter";
 import { SalePersonListRelationFilter } from "../../salePerson/base/SalePersonListRelationFilter";
 import { SalePriceTypeListRelationFilter } from "../../salePriceType/base/SalePriceTypeListRelationFilter";
 import { SaleQuotationDetailListRelationFilter } from "../../saleQuotationDetail/base/SaleQuotationDetailListRelationFilter";
@@ -74,6 +81,7 @@ import { SaleTaxListRelationFilter } from "../../saleTax/base/SaleTaxListRelatio
 import { SaleTeamListRelationFilter } from "../../saleTeam/base/SaleTeamListRelationFilter";
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
 import { ScrapReasonListRelationFilter } from "../../scrapReason/base/ScrapReasonListRelationFilter";
+import { ShippingStatusListRelationFilter } from "../../shippingStatus/base/ShippingStatusListRelationFilter";
 import { StoreListRelationFilter } from "../../store/base/StoreListRelationFilter";
 import { SupplierListRelationFilter } from "../../supplier/base/SupplierListRelationFilter";
 import { UnitListRelationFilter } from "../../unit/base/UnitListRelationFilter";
@@ -142,6 +150,30 @@ class TenantWhereInput {
     nullable: true,
   })
   attributes?: AttributeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankBranchListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => BankBranchListRelationFilter)
+  @IsOptional()
+  @Field(() => BankBranchListRelationFilter, {
+    nullable: true,
+  })
+  bankBranches?: BankBranchListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankTypeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => BankTypeListRelationFilter)
+  @IsOptional()
+  @Field(() => BankTypeListRelationFilter, {
+    nullable: true,
+  })
+  bankTypes?: BankTypeListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -408,6 +440,30 @@ class TenantWhereInput {
     nullable: true,
   })
   orderStatuses?: OrderStatusListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentMethodListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentMethodListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentMethodListRelationFilter, {
+    nullable: true,
+  })
+  paymentMethods?: PaymentMethodListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentStatusListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentStatusListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentStatusListRelationFilter, {
+    nullable: true,
+  })
+  paymentStatuses?: PaymentStatusListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -771,6 +827,42 @@ class TenantWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => SaleOrderDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleOrderDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleOrderListRelationFilter, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentListRelationFilter)
+  @IsOptional()
+  @Field(() => SalePaymentListRelationFilter, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => SalePersonListRelationFilter,
   })
   @ValidateNested()
@@ -888,6 +980,18 @@ class TenantWhereInput {
     nullable: true,
   })
   scrapReasons?: ScrapReasonListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShippingStatusListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ShippingStatusListRelationFilter)
+  @IsOptional()
+  @Field(() => ShippingStatusListRelationFilter, {
+    nullable: true,
+  })
+  shippingStatuses?: ShippingStatusListRelationFilter;
 
   @ApiProperty({
     required: false,

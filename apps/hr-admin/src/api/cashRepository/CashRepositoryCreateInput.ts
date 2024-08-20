@@ -2,6 +2,7 @@ import { CashRepositoryCreateNestedManyWithoutCashRepositoriesInput } from "./Ca
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
 import { PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput } from "./PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput";
 import { PurchaseWhereUniqueInput } from "../purchase/PurchaseWhereUniqueInput";
+import { SaleOrderCreateNestedManyWithoutCashRepositoriesInput } from "./SaleOrderCreateNestedManyWithoutCashRepositoriesInput";
 import { SaleReturnCreateNestedManyWithoutCashRepositoriesInput } from "./SaleReturnCreateNestedManyWithoutCashRepositoriesInput";
 import { SaleCreateNestedManyWithoutCashRepositoriesInput } from "./SaleCreateNestedManyWithoutCashRepositoriesInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -17,6 +18,7 @@ export type CashRepositoryCreateInput = {
   parentCashRepositoryId?: CashRepositoryWhereUniqueInput | null;
   purchaseReturns?: PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput;
   purchases?: PurchaseWhereUniqueInput | null;
+  saleOrders?: SaleOrderCreateNestedManyWithoutCashRepositoriesInput;
   saleReturns?: SaleReturnCreateNestedManyWithoutCashRepositoriesInput;
   sales?: SaleCreateNestedManyWithoutCashRepositoriesInput;
   tenantId?: TenantWhereUniqueInput | null;

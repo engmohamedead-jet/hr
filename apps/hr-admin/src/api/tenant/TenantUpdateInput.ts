@@ -3,6 +3,8 @@ import { ApplicationDependencyUpdateManyWithoutTenantsInput } from "./Applicatio
 import { ApplicationUpdateManyWithoutTenantsInput } from "./ApplicationUpdateManyWithoutTenantsInput";
 import { AttributeValueUpdateManyWithoutTenantsInput } from "./AttributeValueUpdateManyWithoutTenantsInput";
 import { AttributeUpdateManyWithoutTenantsInput } from "./AttributeUpdateManyWithoutTenantsInput";
+import { BankBranchUpdateManyWithoutTenantsInput } from "./BankBranchUpdateManyWithoutTenantsInput";
+import { BankTypeUpdateManyWithoutTenantsInput } from "./BankTypeUpdateManyWithoutTenantsInput";
 import { BarcodeTypeUpdateManyWithoutTenantsInput } from "./BarcodeTypeUpdateManyWithoutTenantsInput";
 import { BillOfMaterialDetailUpdateManyWithoutTenantsInput } from "./BillOfMaterialDetailUpdateManyWithoutTenantsInput";
 import { BillOfMaterialTypeUpdateManyWithoutTenantsInput } from "./BillOfMaterialTypeUpdateManyWithoutTenantsInput";
@@ -16,6 +18,8 @@ import { EmployeeUpdateManyWithoutTenantsInput } from "./EmployeeUpdateManyWitho
 import { InstallmentSaleFeeUpdateManyWithoutTenantsInput } from "./InstallmentSaleFeeUpdateManyWithoutTenantsInput";
 import { InvoiceTypeUpdateManyWithoutTenantsInput } from "./InvoiceTypeUpdateManyWithoutTenantsInput";
 import { OrderStatusUpdateManyWithoutTenantsInput } from "./OrderStatusUpdateManyWithoutTenantsInput";
+import { PaymentMethodUpdateManyWithoutTenantsInput } from "./PaymentMethodUpdateManyWithoutTenantsInput";
+import { PaymentStatusUpdateManyWithoutTenantsInput } from "./PaymentStatusUpdateManyWithoutTenantsInput";
 import { PaymentTermUpdateManyWithoutTenantsInput } from "./PaymentTermUpdateManyWithoutTenantsInput";
 import { PaymentTypeUpdateManyWithoutTenantsInput } from "./PaymentTypeUpdateManyWithoutTenantsInput";
 import { PeriodUpdateManyWithoutTenantsInput } from "./PeriodUpdateManyWithoutTenantsInput";
@@ -46,6 +50,9 @@ import { SalaryItemTypeUpdateManyWithoutTenantsInput } from "./SalaryItemTypeUpd
 import { SalaryItemUpdateManyWithoutTenantsInput } from "./SalaryItemUpdateManyWithoutTenantsInput";
 import { SalaryLawUpdateManyWithoutTenantsInput } from "./SalaryLawUpdateManyWithoutTenantsInput";
 import { SaleDetailUpdateManyWithoutTenantsInput } from "./SaleDetailUpdateManyWithoutTenantsInput";
+import { SaleOrderDetailUpdateManyWithoutTenantsInput } from "./SaleOrderDetailUpdateManyWithoutTenantsInput";
+import { SaleOrderUpdateManyWithoutTenantsInput } from "./SaleOrderUpdateManyWithoutTenantsInput";
+import { SalePaymentUpdateManyWithoutTenantsInput } from "./SalePaymentUpdateManyWithoutTenantsInput";
 import { SalePersonUpdateManyWithoutTenantsInput } from "./SalePersonUpdateManyWithoutTenantsInput";
 import { SalePriceTypeUpdateManyWithoutTenantsInput } from "./SalePriceTypeUpdateManyWithoutTenantsInput";
 import { SaleQuotationDetailUpdateManyWithoutTenantsInput } from "./SaleQuotationDetailUpdateManyWithoutTenantsInput";
@@ -56,6 +63,7 @@ import { SaleTaxUpdateManyWithoutTenantsInput } from "./SaleTaxUpdateManyWithout
 import { SaleTeamUpdateManyWithoutTenantsInput } from "./SaleTeamUpdateManyWithoutTenantsInput";
 import { SaleUpdateManyWithoutTenantsInput } from "./SaleUpdateManyWithoutTenantsInput";
 import { ScrapReasonUpdateManyWithoutTenantsInput } from "./ScrapReasonUpdateManyWithoutTenantsInput";
+import { ShippingStatusUpdateManyWithoutTenantsInput } from "./ShippingStatusUpdateManyWithoutTenantsInput";
 import { StoreUpdateManyWithoutTenantsInput } from "./StoreUpdateManyWithoutTenantsInput";
 import { SupplierUpdateManyWithoutTenantsInput } from "./SupplierUpdateManyWithoutTenantsInput";
 import { UnitUpdateManyWithoutTenantsInput } from "./UnitUpdateManyWithoutTenantsInput";
@@ -69,6 +77,8 @@ export type TenantUpdateInput = {
   applications?: ApplicationUpdateManyWithoutTenantsInput;
   attributeValues?: AttributeValueUpdateManyWithoutTenantsInput;
   attributes?: AttributeUpdateManyWithoutTenantsInput;
+  bankBranches?: BankBranchUpdateManyWithoutTenantsInput;
+  bankTypes?: BankTypeUpdateManyWithoutTenantsInput;
   barcodeTypes?: BarcodeTypeUpdateManyWithoutTenantsInput;
   billOfMaterialDetails?: BillOfMaterialDetailUpdateManyWithoutTenantsInput;
   billOfMaterialTypes?: BillOfMaterialTypeUpdateManyWithoutTenantsInput;
@@ -91,6 +101,8 @@ export type TenantUpdateInput = {
   normalizedName?: string;
   note?: string | null;
   orderStatuses?: OrderStatusUpdateManyWithoutTenantsInput;
+  paymentMethods?: PaymentMethodUpdateManyWithoutTenantsInput;
+  paymentStatuses?: PaymentStatusUpdateManyWithoutTenantsInput;
   paymentTerms?: PaymentTermUpdateManyWithoutTenantsInput;
   paymentTypes?: PaymentTypeUpdateManyWithoutTenantsInput;
   periods?: PeriodUpdateManyWithoutTenantsInput;
@@ -121,6 +133,9 @@ export type TenantUpdateInput = {
   salaryItems?: SalaryItemUpdateManyWithoutTenantsInput;
   salaryLaws?: SalaryLawUpdateManyWithoutTenantsInput;
   saleDetails?: SaleDetailUpdateManyWithoutTenantsInput;
+  saleOrderDetails?: SaleOrderDetailUpdateManyWithoutTenantsInput;
+  saleOrders?: SaleOrderUpdateManyWithoutTenantsInput;
+  salePayments?: SalePaymentUpdateManyWithoutTenantsInput;
   salePeople?: SalePersonUpdateManyWithoutTenantsInput;
   salePriceTypes?: SalePriceTypeUpdateManyWithoutTenantsInput;
   saleQuotationDetails?: SaleQuotationDetailUpdateManyWithoutTenantsInput;
@@ -131,6 +146,7 @@ export type TenantUpdateInput = {
   saleTeams?: SaleTeamUpdateManyWithoutTenantsInput;
   sales?: SaleUpdateManyWithoutTenantsInput;
   scrapReasons?: ScrapReasonUpdateManyWithoutTenantsInput;
+  shippingStatuses?: ShippingStatusUpdateManyWithoutTenantsInput;
   stores?: StoreUpdateManyWithoutTenantsInput;
   suppliers?: SupplierUpdateManyWithoutTenantsInput;
   tenancyName?: string;

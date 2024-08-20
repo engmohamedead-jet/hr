@@ -28,6 +28,7 @@ import { ProductCreateNestedManyWithoutUnitsInput } from "./ProductCreateNestedM
 import { PurchaseDetailCreateNestedManyWithoutUnitsInput } from "./PurchaseDetailCreateNestedManyWithoutUnitsInput";
 import { PurchaseReturnDetailCreateNestedManyWithoutUnitsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutUnitsInput";
 import { SaleDetailCreateNestedManyWithoutUnitsInput } from "./SaleDetailCreateNestedManyWithoutUnitsInput";
+import { SaleOrderDetailCreateNestedManyWithoutUnitsInput } from "./SaleOrderDetailCreateNestedManyWithoutUnitsInput";
 import { SaleQuotationDetailCreateNestedManyWithoutUnitsInput } from "./SaleQuotationDetailCreateNestedManyWithoutUnitsInput";
 import { SaleReturnDetailCreateNestedManyWithoutUnitsInput } from "./SaleReturnDetailCreateNestedManyWithoutUnitsInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -225,6 +226,18 @@ class UnitCreateInput {
     nullable: true,
   })
   saleDetails?: SaleDetailCreateNestedManyWithoutUnitsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailCreateNestedManyWithoutUnitsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailCreateNestedManyWithoutUnitsInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailCreateNestedManyWithoutUnitsInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailCreateNestedManyWithoutUnitsInput;
 
   @ApiProperty({
     required: false,

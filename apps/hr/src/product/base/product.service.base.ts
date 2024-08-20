@@ -23,6 +23,7 @@ import {
   PurchaseDetail as PrismaPurchaseDetail,
   PurchaseReturnDetail as PrismaPurchaseReturnDetail,
   SaleDetail as PrismaSaleDetail,
+  SaleOrderDetail as PrismaSaleOrderDetail,
   SaleQuotationDetail as PrismaSaleQuotationDetail,
   SaleReturnDetail as PrismaSaleReturnDetail,
   Store as PrismaStore,
@@ -157,6 +158,17 @@ export class ProductServiceBase {
         where: { id: parentId },
       })
       .saleDetails(args);
+  }
+
+  async findSaleOrderDetails(
+    parentId: string,
+    args: Prisma.SaleOrderDetailFindManyArgs
+  ): Promise<PrismaSaleOrderDetail[]> {
+    return this.prisma.product
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrderDetails(args);
   }
 
   async findSaleQuotationDetails(

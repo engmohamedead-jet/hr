@@ -15,10 +15,12 @@ import {
   Prisma,
   Sale as PrismaSale,
   SaleDetail as PrismaSaleDetail,
+  SalePayment as PrismaSalePayment,
   SaleReturn as PrismaSaleReturn,
   CashRepository as PrismaCashRepository,
   Customer as PrismaCustomer,
   InvoiceType as PrismaInvoiceType,
+  PaymentTerm as PrismaPaymentTerm,
   PaymentType as PrismaPaymentType,
   SalePriceType as PrismaSalePriceType,
   Store as PrismaStore,
@@ -59,6 +61,17 @@ export class SaleServiceBase {
       .saleDetails(args);
   }
 
+  async findSalePayments(
+    parentId: string,
+    args: Prisma.SalePaymentFindManyArgs
+  ): Promise<PrismaSalePayment[]> {
+    return this.prisma.sale
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .salePayments(args);
+  }
+
   async findSaleReturns(
     parentId: string,
     args: Prisma.SaleReturnFindManyArgs
@@ -94,6 +107,14 @@ export class SaleServiceBase {
         where: { id: parentId },
       })
       .invoiceTypeId();
+  }
+
+  async getPaymentTerm(parentId: string): Promise<PrismaPaymentTerm | null> {
+    return this.prisma.sale
+      .findUnique({
+        where: { id: parentId },
+      })
+      .paymentTerm();
   }
 
   async getPaymentTypeId(parentId: string): Promise<PrismaPaymentType | null> {

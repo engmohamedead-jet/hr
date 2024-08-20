@@ -22,6 +22,8 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
 import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
@@ -116,6 +118,24 @@ class SalePriceType {
   @Type(() => SaleDetail)
   @IsOptional()
   saleDetails?: SaleDetail | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetail,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetail)
+  @IsOptional()
+  saleOrderDetails?: SaleOrderDetail | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrder,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrder)
+  @IsOptional()
+  saleOrders?: SaleOrder | null;
 
   @ApiProperty({
     required: false,

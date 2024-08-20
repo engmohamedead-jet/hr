@@ -179,6 +179,8 @@ model SalePriceType {
   normalizedName       String               @unique
   note                 String?
   saleDetails          SaleDetail?
+  saleOrderDetails     SaleOrderDetail?
+  saleOrders           SaleOrder?
   saleQuotationDetails SaleQuotationDetail?
   saleReturnDetails    SaleReturnDetail?
   saleReturns          SaleReturn?
@@ -190,18 +192,19 @@ model SalePriceType {
 
 model Currency {
   code           String?
-  createdAt      DateTime   @default(now())
+  createdAt      DateTime      @default(now())
   customers      Customer[]
   description    String?
-  id             String     @id @default(cuid())
-  isActive       Boolean    @default(1)
-  name           String     @unique
-  normalizedName String     @unique
+  id             String        @id @default(cuid())
+  isActive       Boolean       @default(1)
+  name           String        @unique
+  normalizedName String        @unique
   note           String?
+  salePayments   SalePayment[]
   suppliers      Supplier[]
-  tenantId       Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantId       Tenant?       @relation(fields: [tenantIdId], references: [id])
   tenantIdId     String?
-  updatedAt      DateTime   @updatedAt
+  updatedAt      DateTime      @updatedAt
 }
 
 model OrderStatus {
@@ -214,6 +217,7 @@ model OrderStatus {
   normalizedName   String           @unique
   note             String?
   productionOrders ProductionOrder?
+  saleOrders       SaleOrder?
   tenantId         Tenant?          @relation(fields: [tenantIdId], references: [id])
   tenantIdId       String?
   updatedAt        DateTime         @updatedAt
@@ -236,6 +240,7 @@ model Store {
   products         Product[]
   purchaseReturns  PurchaseReturn[]
   purchases        Purchase[]
+  saleOrders       SaleOrder[]
   saleReturns      SaleReturn[]
   sales            Sale[]
   street           String?
@@ -266,6 +271,7 @@ model Unit {
   purchaseDetails         PurchaseDetail[]
   purchaseReturnDetails   PurchaseReturnDetail[]
   saleDetails             SaleDetail[]
+  saleOrderDetails        SaleOrderDetail[]
   saleQuotationDetails    SaleQuotationDetail[]
   saleReturnDetails       SaleReturnDetail[]
   tenantId                Tenant?                @relation(fields: [tenantIdId], references: [id])
@@ -364,6 +370,7 @@ model Product {
   purchaseReturnDetails                PurchaseReturnDetail[]
   reorderQuantity                      Decimal?
   saleDetails                          SaleDetail[]
+  saleOrderDetails                     SaleOrderDetail[]
   salePrice                            Decimal
   salePriceIncludesTax                 Boolean                @default(1)
   saleQuotationDetails                 SaleQuotationDetail[]
@@ -523,6 +530,7 @@ model ProductVariant {
   purchaseDetails       PurchaseDetail[]
   purchaseReturnDetails PurchaseReturnDetail[]
   saleDetails           SaleDetail[]
+  saleOrderDetails      SaleOrderDetail[]
   saleQuotationDetails  SaleQuotationDetail[]
   saleReturnDetails     SaleReturnDetail[]
   tenantId              Tenant?                @relation(fields: [tenantIdId], references: [id])
@@ -693,6 +701,8 @@ model Purchase {
   nonTaxableTotal     Decimal?
   note                String?
   paid                Decimal
+  paymentTermId       PaymentTerm?      @relation(fields: [paymentTermIdId], references: [id])
+  paymentTermIdId     String?
   paymentTypeId       PaymentType       @relation(fields: [paymentTypeIdId], references: [id])
   paymentTypeIdId     Int
   purchaseDate        DateTime
@@ -727,6 +737,7 @@ model InvoiceType {
   note            String?
   purchaseReturns PurchaseReturn[]
   purchases       Purchase[]
+  saleOrders      SaleOrder[]
   saleReturns     SaleReturn[]
   sales           Sale[]
   tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
@@ -746,6 +757,7 @@ model PaymentType {
   note            String?
   purchaseReturns PurchaseReturn[]
   purchases       Purchase[]
+  saleOrders      SaleOrder[]
   saleReturns     SaleReturn[]
   sales           Sale[]
   tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
@@ -772,6 +784,10 @@ model PaymentTerm {
   name                              String              @unique
   normalizedName                    String              @unique
   note                              String?
+  purchaseReturns                   PurchaseReturn[]
+  purchases                         Purchase[]
+  saleReturns                       SaleReturn[]
+  sales                             Sale[]
   tenantId                          Tenant?             @relation(fields: [tenantIdId], references: [id])
   tenantIdId                        String?
   updatedAt                         DateTime            @updatedAt
@@ -871,6 +887,7 @@ model CashRepository {
   parentCashRepositoryIdId String?
   purchaseReturns          PurchaseReturn[]
   purchases                Purchase?
+  saleOrders               SaleOrder[]
   saleReturns              SaleReturn[]
   sales                    Sale[]
   tenantId                 Tenant?          @relation(fields: [tenantIdId], references: [id])
@@ -924,6 +941,8 @@ model PurchaseReturn {
   nonTaxableTotal       Decimal?
   note                  String?
   paid                  Decimal
+  paymentTermId         PaymentTerm?           @relation(fields: [paymentTermIdId], references: [id])
+  paymentTermIdId       String?
   paymentTypeId         PaymentType            @relation(fields: [paymentTypeIdId], references: [id])
   paymentTypeIdId       Int
   purchaseId            Purchase?              @relation(fields: [purchaseIdId], references: [id])
@@ -1203,6 +1222,8 @@ model Tenant {
   applications             Application[]
   attributeValues          AttributeValue[]
   attributes               Attribute[]
+  bankBranches             BankBranch[]
+  bankTypes                BankType[]
   barcodeTypes             BarcodeType[]
   billOfMaterialDetails    BillOfMaterialDetail[]
   billOfMaterialTypes      BillOfMaterialType[]
@@ -1227,6 +1248,8 @@ model Tenant {
   normalizedName           String                   @unique
   note                     String?
   orderStatuses            OrderStatus[]
+  paymentMethods           PaymentMethod[]
+  paymentStatuses          PaymentStatus[]
   paymentTerms             PaymentTerm[]
   paymentTypes             PaymentType[]
   periods                  Period[]
@@ -1257,6 +1280,9 @@ model Tenant {
   salaryItems              SalaryItem[]
   salaryLaws               SalaryLaw[]
   saleDetails              SaleDetail[]
+  saleOrderDetails         SaleOrderDetail[]
+  saleOrders               SaleOrder[]
+  salePayments             SalePayment[]
   salePeople               SalePerson[]
   salePriceTypes           SalePriceType[]
   saleQuotationDetails     SaleQuotationDetail[]
@@ -1267,6 +1293,7 @@ model Tenant {
   saleTeams                SaleTeam[]
   sales                    Sale[]
   scrapReasons             ScrapReason[]
+  shippingStatuses         ShippingStatus[]
   stores                   Store[]
   suppliers                Supplier[]
   tenancyName              String                   @unique
@@ -1294,12 +1321,15 @@ model Sale {
   nonTaxableTotal    Decimal?
   note               String?
   paid               Decimal?
+  paymentTerm        PaymentTerm?   @relation(fields: [paymentTermId], references: [id])
+  paymentTermId      String?
   paymentTypeId      PaymentType    @relation(fields: [paymentTypeIdId], references: [id])
   paymentTypeIdId    Int
   referenceNumber    String?
   remaining          Decimal?
   saleDate           DateTime
   saleDetails        SaleDetail[]
+  salePayments       SalePayment[]
   salePriceTypeId    SalePriceType  @relation(fields: [salePriceTypeIdId], references: [id])
   salePriceTypeIdId  Int            @unique
   saleReturns        SaleReturn[]
@@ -1324,7 +1354,7 @@ model SaleDetail {
   isActive            Boolean         @default(1)
   isError             Boolean         @default(0)
   isReplicated        Boolean         @default(0)
-  isTaxed             Boolean?        @default(1)
+  isTaxed             Boolean         @default(1)
   note                String?
   price               Decimal
   priceTotal          Decimal
@@ -1389,6 +1419,8 @@ model SaleReturn {
   nonTaxableTotal    Decimal?
   note               String?
   paid               Decimal
+  paymentTermId      PaymentTerm?       @relation(fields: [paymentTermIdId], references: [id])
+  paymentTermIdId    String?
   paymentTypeId      PaymentType        @relation(fields: [paymentTypeIdId], references: [id])
   paymentTypeIdId    Int
   referenceNumber    String?
@@ -1512,14 +1544,211 @@ model SaleQuotationDetail {
 }
 
 model SaleOrder {
-  createdAt       DateTime       @default(now())
-  customerId      Customer       @relation(fields: [customerIdId], references: [id])
-  customerIdId    String
-  id              String         @id @default(cuid())
-  saleOrderDate   DateTime?
-  saleQuotation   SaleQuotation? @relation(fields: [saleQuotationId], references: [id])
-  saleQuotationId String?
-  updatedAt       DateTime       @updatedAt
+  billingAddress       String?
+  cashRepositoryId     CashRepository?   @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId   String?
+  createdAt            DateTime          @default(now())
+  customerId           Customer          @relation(fields: [customerIdId], references: [id])
+  customerIdId         String
+  deliveryDate         DateTime?
+  discountTotal        Decimal
+  expectedDeliveryDate DateTime?
+  id                   String            @id @default(cuid())
+  invoiceTypeId        InvoiceType?      @relation(fields: [invoiceTypeIdId], references: [id])
+  invoiceTypeIdId      Int?
+  isActive             Boolean           @default(1)
+  isCancelled          Boolean           @default(0)
+  isReplicated         Boolean
+  netTotal             Decimal
+  nonTaxableTotal      Decimal?
+  note                 String?
+  orderStatus          OrderStatus       @relation(fields: [Name], references: [id])
+  Name                 Int               @unique
+  paymentStatus        PaymentStatus?    @relation(fields: [paymentStatusId], references: [id])
+  paymentStatusId      Int?              @unique
+  paymentTypeId        PaymentType?      @relation(fields: [paymentTypeIdId], references: [id])
+  paymentTypeIdId      Int?
+  referenceNumber      String?
+  saleOrderDate        DateTime
+  saleOrderDetails     SaleOrderDetail[]
+  salePriceType        SalePriceType     @relation(fields: [Name], references: [id])
+  Name                 Int               @unique
+  salePriceTypeId      Float
+  saleQuotation        SaleQuotation?    @relation(fields: [saleQuotationId], references: [id])
+  saleQuotationId      String?
+  saleTotal            Decimal
+  shippingAddress      String?
+  shippingCost         Decimal?
+  shippingStatus       ShippingStatus?   @relation(fields: [shippingStatusId], references: [id])
+  shippingStatusId     Int?              @unique
+  storeId              Store?            @relation(fields: [storeIdId], references: [id])
+  storeIdId            String?
+  tax                  Decimal?
+  taxRate              Decimal?
+  taxableTotal         Decimal?
+  tenant               Tenant?           @relation(fields: [tenantId], references: [id])
+  tenantId             String?
+  transactionDateTime  DateTime?
+  updatedAt            DateTime          @updatedAt
+}
+
+model SaleOrderDetail {
+  barcode             String?
+  createdAt           DateTime        @default(now())
+  discount            Decimal?
+  discountRate        Decimal
+  id                  String          @id @default(cuid())
+  isActive            Boolean         @default(1)
+  isError             Boolean         @default(0)
+  isTaxed             Boolean         @default(1)
+  price               Decimal
+  priceTotal          Decimal
+  productId           Product         @relation(fields: [productIdId], references: [id])
+  productIdId         String
+  productSerialNumber String?
+  productVariantId    ProductVariant? @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId  String?
+  quantity            Decimal
+  saleOrder           SaleOrder       @relation(fields: [saleOrderId], references: [id])
+  saleOrderId         String
+  salePriceTypeId     SalePriceType   @relation(fields: [salePriceTypeIdId], references: [id])
+  salePriceTypeIdId   Int             @unique
+  sequence            String
+  tenant              Tenant?         @relation(fields: [tenantId], references: [id])
+  tenantId            String?
+  unitId              Unit            @relation(fields: [unitIdId], references: [id])
+  unitIdId            String
+  updatedAt           DateTime        @updatedAt
+}
+
+model PaymentStatus {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  id             Int        @id @default(autoincrement())
+  isActive       Boolean    @default(1)
+  name           String     @unique
+  normalizedName String     @unique
+  note           String?
+  saleOrders     SaleOrder?
+  tenant         Tenant?    @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model ShippingStatus {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  id             Int        @id @default(autoincrement())
+  isActive       Boolean    @default(1)
+  name           String     @unique
+  normalizedName String     @unique
+  note           String?
+  saleOrders     SaleOrder?
+  tenant         Tenant?    @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model SalePayment {
+  LocalCurrencyRatl   Decimal
+  bank                Bank?         @relation(fields: [bankId], references: [id])
+  bankId              String?
+  bankBrach           String
+  bankBranch          BankBranch?   @relation(fields: [bankBranchId], references: [id])
+  bankBranchId        String?
+  chequeNumber        String?
+  createdAt           DateTime      @default(now())
+  creditCardNumber    String?
+  currencyId          Currency?     @relation(fields: [currencyIdId], references: [id])
+  currencyIdId        String?
+  foreignCurrencyRate Decimal
+  id                  String        @id @default(cuid())
+  isCheque            Boolean?
+  note                String?
+  paidValue           String?
+  paymentDate         DateTime
+  paymentMethodId     PaymentMethod @relation(fields: [paymentMethodIdId], references: [id])
+  paymentMethodIdId   Int
+  quantity            Int?
+  saleId              Sale?         @relation(fields: [saleIdId], references: [id])
+  saleIdId            String?
+  seqeunce            Int
+  tenant              Tenant?       @relation(fields: [tenantId], references: [id])
+  tenantId            String?
+  updatedAt           DateTime      @updatedAt
+}
+
+model PaymentMethod {
+  code           String?
+  createdAt      DateTime      @default(now())
+  description    String?
+  id             Int           @id @default(autoincrement())
+  isActive       Boolean       @default(1)
+  name           String        @unique
+  normalizedName String        @unique
+  note           String?
+  salePayments   SalePayment[]
+  tenant         Tenant?       @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime      @updatedAt
+}
+
+model Bank {
+  address                          String?
+  bankBranches                     BankBranch[]
+  bankType                         BankType?     @relation(fields: [bankTypeId], references: [id])
+  bankTypeId                       Int?
+  cellPhoneNumber                  String?
+  code                             String?
+  contactPhoneNumber               String?
+  createdAt                        DateTime      @default(now())
+  description                      String?
+  fax                              String?
+  homePhoneNumber                  String?
+  id                               String        @id @default(cuid())
+  name                             String?
+  normalizedName                   String?
+  relationshipOfficerContactNumber String?
+  relationshipOfficerName          String?
+  salePayments                     SalePayment[]
+  street                           String?
+  updatedAt                        DateTime      @updatedAt
+}
+
+model BankType {
+  banks          Bank[]
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean? @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenant         Tenant?  @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime @updatedAt
+}
+
+model BankBranch {
+  address            String?
+  bank               Bank          @relation(fields: [bankId], references: [id])
+  bankId             String
+  code               String?
+  contactPhoneNumber String?
+  createdAt          DateTime      @default(now())
+  description        String?
+  id                 String        @id @default(cuid())
+  isActive           Boolean?      @default(1)
+  name               String        @unique
+  normalizedName     String        @unique
+  note               String?
+  salePayments       SalePayment[]
+  tenant             Tenant?       @relation(fields: [tenantId], references: [id])
+  tenantId           String?
+  updatedAt          DateTime      @updatedAt
 }
 
 enum EnumPrintTemplatePaperLayout {

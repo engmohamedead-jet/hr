@@ -17,6 +17,7 @@ import {
 import { CashRepositoryTitle } from "../cashRepository/CashRepositoryTitle";
 import { CustomerTitle } from "../customer/CustomerTitle";
 import { InvoiceTypeTitle } from "../invoiceType/InvoiceTypeTitle";
+import { PaymentTermTitle } from "../paymentTerm/PaymentTermTitle";
 import { PaymentTypeTitle } from "../paymentType/PaymentTypeTitle";
 import { SaleTitle } from "../sale/SaleTitle";
 import { SalePriceTypeTitle } from "../salePriceType/SalePriceTypeTitle";
@@ -57,6 +58,13 @@ export const SaleReturnEdit = (props: EditProps): React.ReactElement => {
         <NumberInput label="NonTaxableTotal" source="nonTaxableTotal" />
         <TextInput label="Note" multiline source="note" />
         <NumberInput label="Paid" source="paid" />
+        <ReferenceInput
+          source="paymentTermId.id"
+          reference="PaymentTerm"
+          label="PaymentTermId"
+        >
+          <SelectInput optionText={PaymentTermTitle} />
+        </ReferenceInput>
         <ReferenceInput
           source="paymentTypeId.id"
           reference="PaymentType"

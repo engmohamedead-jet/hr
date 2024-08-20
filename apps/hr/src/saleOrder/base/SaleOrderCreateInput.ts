@@ -9,15 +9,62 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
+import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
-import { ValidateNested, IsDate, IsOptional } from "class-validator";
+
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+  IsDate,
+  IsNumber,
+  Max,
+  IsBoolean,
+  Min,
+} from "class-validator";
+
+import { CashRepositoryWhereUniqueInput } from "../../cashRepository/base/CashRepositoryWhereUniqueInput";
 import { Type } from "class-transformer";
+import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { Decimal } from "decimal.js";
+import { InvoiceTypeWhereUniqueInput } from "../../invoiceType/base/InvoiceTypeWhereUniqueInput";
+import { OrderStatusWhereUniqueInput } from "../../orderStatus/base/OrderStatusWhereUniqueInput";
+import { PaymentStatusWhereUniqueInput } from "../../paymentStatus/base/PaymentStatusWhereUniqueInput";
+import { PaymentTypeWhereUniqueInput } from "../../paymentType/base/PaymentTypeWhereUniqueInput";
+import { SaleOrderDetailCreateNestedManyWithoutSaleOrdersInput } from "./SaleOrderDetailCreateNestedManyWithoutSaleOrdersInput";
+import { SalePriceTypeWhereUniqueInput } from "../../salePriceType/base/SalePriceTypeWhereUniqueInput";
 import { SaleQuotationWhereUniqueInput } from "../../saleQuotation/base/SaleQuotationWhereUniqueInput";
+import { ShippingStatusWhereUniqueInput } from "../../shippingStatus/base/ShippingStatusWhereUniqueInput";
+import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SaleOrderCreateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  billingAddress?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => CashRepositoryWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CashRepositoryWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CashRepositoryWhereUniqueInput, {
+    nullable: true,
+  })
+  cashRepositoryId?: CashRepositoryWhereUniqueInput | null;
+
   @ApiProperty({
     required: true,
     type: () => CustomerWhereUniqueInput,
@@ -36,7 +83,180 @@ class SaleOrderCreateInput {
   @Field(() => Date, {
     nullable: true,
   })
-  saleOrderDate?: Date | null;
+  deliveryDate?: Date | null;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @Field(() => Float)
+  discountTotal!: Decimal;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  expectedDeliveryDate?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => InvoiceTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => InvoiceTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => InvoiceTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  invoiceTypeId?: InvoiceTypeWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isCancelled!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isReplicated!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @Field(() => Float)
+  netTotal!: Decimal;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  nonTaxableTotal?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  note?: string | null;
+
+  @ApiProperty({
+    required: true,
+    type: () => OrderStatusWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => OrderStatusWhereUniqueInput)
+  @Field(() => OrderStatusWhereUniqueInput)
+  orderStatus!: OrderStatusWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentStatusWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentStatusWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentStatusWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentStatus?: PaymentStatusWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentTypeId?: PaymentTypeWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  referenceNumber?: string | null;
+
+  @ApiProperty({
+    required: true,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @Field(() => Date)
+  saleOrderDate!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailCreateNestedManyWithoutSaleOrdersInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailCreateNestedManyWithoutSaleOrdersInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailCreateNestedManyWithoutSaleOrdersInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailCreateNestedManyWithoutSaleOrdersInput;
+
+  @ApiProperty({
+    required: true,
+    type: () => SalePriceTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePriceTypeWhereUniqueInput)
+  @Field(() => SalePriceTypeWhereUniqueInput)
+  salePriceType!: SalePriceTypeWhereUniqueInput;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(-999999999)
+  @Max(999999999)
+  @Field(() => Number)
+  salePriceTypeId!: number;
 
   @ApiProperty({
     required: false,
@@ -49,6 +269,122 @@ class SaleOrderCreateInput {
     nullable: true,
   })
   saleQuotation?: SaleQuotationWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @Field(() => Float)
+  saleTotal!: Decimal;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  shippingAddress?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  shippingCost?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShippingStatusWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ShippingStatusWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ShippingStatusWhereUniqueInput, {
+    nullable: true,
+  })
+  shippingStatus?: ShippingStatusWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreWhereUniqueInput)
+  @IsOptional()
+  @Field(() => StoreWhereUniqueInput, {
+    nullable: true,
+  })
+  storeId?: StoreWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  tax?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(100)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  taxRate?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  taxableTotal?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  transactionDateTime?: Date | null;
 }
 
 export { SaleOrderCreateInput as SaleOrderCreateInput };

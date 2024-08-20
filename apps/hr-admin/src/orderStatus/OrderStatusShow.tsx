@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { PRODUCTIONORDER_TITLE_FIELD } from "../productionOrder/ProductionOrderTitle";
+import { SALEORDER_TITLE_FIELD } from "../saleOrder/SaleOrderTitle";
 import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const OrderStatusShow = (props: ShowProps): React.ReactElement => {
@@ -31,6 +32,13 @@ export const OrderStatusShow = (props: ShowProps): React.ReactElement => {
           reference="ProductionOrder"
         >
           <TextField source={PRODUCTIONORDER_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField
+          label="SaleOrders"
+          source="saleorder.id"
+          reference="SaleOrder"
+        >
+          <TextField source={SALEORDER_TITLE_FIELD} />
         </ReferenceField>
         <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
           <TextField source={TENANT_TITLE_FIELD} />

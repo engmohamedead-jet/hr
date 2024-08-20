@@ -11,10 +11,31 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import { BankUpdateManyWithoutBankTypesInput } from "./BankUpdateManyWithoutBankTypesInput";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsBoolean,
+} from "class-validator";
+import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class BankTypeUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => BankUpdateManyWithoutBankTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => BankUpdateManyWithoutBankTypesInput)
+  @IsOptional()
+  @Field(() => BankUpdateManyWithoutBankTypesInput, {
+    nullable: true,
+  })
+  banks?: BankUpdateManyWithoutBankTypesInput;
+
   @ApiProperty({
     required: false,
     type: String,
@@ -25,7 +46,7 @@ class BankTypeUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -38,6 +59,17 @@ class BankTypeUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -68,12 +100,24 @@ class BankTypeUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(256)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput | null;
 }
 
 export { BankTypeUpdateInput as BankTypeUpdateInput };

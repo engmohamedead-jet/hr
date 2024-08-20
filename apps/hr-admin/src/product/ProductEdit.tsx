@@ -29,6 +29,7 @@ import { ProductionOrderTitle } from "../productionOrder/ProductionOrderTitle";
 import { PurchaseDetailTitle } from "../purchaseDetail/PurchaseDetailTitle";
 import { PurchaseReturnDetailTitle } from "../purchaseReturnDetail/PurchaseReturnDetailTitle";
 import { SaleDetailTitle } from "../saleDetail/SaleDetailTitle";
+import { SaleOrderDetailTitle } from "../saleOrderDetail/SaleOrderDetailTitle";
 import { SaleQuotationDetailTitle } from "../saleQuotationDetail/SaleQuotationDetailTitle";
 import { SaleReturnDetailTitle } from "../saleReturnDetail/SaleReturnDetailTitle";
 import { SaleTaxTitle } from "../saleTax/SaleTaxTitle";
@@ -193,6 +194,14 @@ export const ProductEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={SaleDetailTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="saleOrderDetails"
+          reference="SaleOrderDetail"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SaleOrderDetailTitle} />
         </ReferenceArrayInput>
         <NumberInput label="SalePrice" source="salePrice" />
         <BooleanInput

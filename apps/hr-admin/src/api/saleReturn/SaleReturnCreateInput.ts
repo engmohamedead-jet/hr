@@ -2,6 +2,7 @@ import { CashRepositoryWhereUniqueInput } from "../cashRepository/CashRepository
 import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
 import { Decimal } from "decimal.js";
 import { InvoiceTypeWhereUniqueInput } from "../invoiceType/InvoiceTypeWhereUniqueInput";
+import { PaymentTermWhereUniqueInput } from "../paymentTerm/PaymentTermWhereUniqueInput";
 import { PaymentTypeWhereUniqueInput } from "../paymentType/PaymentTypeWhereUniqueInput";
 import { SaleWhereUniqueInput } from "../sale/SaleWhereUniqueInput";
 import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
@@ -21,6 +22,7 @@ export type SaleReturnCreateInput = {
   nonTaxableTotal?: Decimal | null;
   note?: string | null;
   paid: Decimal;
+  paymentTermId?: PaymentTermWhereUniqueInput | null;
   paymentTypeId: PaymentTypeWhereUniqueInput;
   referenceNumber?: string | null;
   remaining: Decimal;

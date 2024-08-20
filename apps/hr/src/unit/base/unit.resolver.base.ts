@@ -42,6 +42,8 @@ import { PurchaseReturnDetailFindManyArgs } from "../../purchaseReturnDetail/bas
 import { PurchaseReturnDetail } from "../../purchaseReturnDetail/base/PurchaseReturnDetail";
 import { SaleDetailFindManyArgs } from "../../saleDetail/base/SaleDetailFindManyArgs";
 import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleOrderDetailFindManyArgs } from "../../saleOrderDetail/base/SaleOrderDetailFindManyArgs";
+import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
 import { SaleQuotationDetailFindManyArgs } from "../../saleQuotationDetail/base/SaleQuotationDetailFindManyArgs";
 import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
 import { SaleReturnDetailFindManyArgs } from "../../saleReturnDetail/base/SaleReturnDetailFindManyArgs";
@@ -343,6 +345,26 @@ export class UnitResolverBase {
     @graphql.Args() args: SaleDetailFindManyArgs
   ): Promise<SaleDetail[]> {
     const results = await this.service.findSaleDetails(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SaleOrderDetail], { name: "saleOrderDetails" })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrderDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrderDetails(
+    @graphql.Parent() parent: Unit,
+    @graphql.Args() args: SaleOrderDetailFindManyArgs
+  ): Promise<SaleOrderDetail[]> {
+    const results = await this.service.findSaleOrderDetails(parent.id, args);
 
     if (!results) {
       return [];

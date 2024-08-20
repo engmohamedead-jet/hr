@@ -27,6 +27,7 @@ import { CreateOrderStatusArgs } from "./CreateOrderStatusArgs";
 import { UpdateOrderStatusArgs } from "./UpdateOrderStatusArgs";
 import { DeleteOrderStatusArgs } from "./DeleteOrderStatusArgs";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { Tenant } from "../../tenant/base/Tenant";
 import { OrderStatusService } from "../orderStatus.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -103,6 +104,12 @@ export class OrderStatusResolverBase {
             }
           : undefined,
 
+        saleOrders: args.data.saleOrders
+          ? {
+              connect: args.data.saleOrders,
+            }
+          : undefined,
+
         tenantId: args.data.tenantId
           ? {
               connect: args.data.tenantId,
@@ -131,6 +138,12 @@ export class OrderStatusResolverBase {
           productionOrders: args.data.productionOrders
             ? {
                 connect: args.data.productionOrders,
+              }
+            : undefined,
+
+          saleOrders: args.data.saleOrders
+            ? {
+                connect: args.data.saleOrders,
               }
             : undefined,
 
@@ -186,6 +199,27 @@ export class OrderStatusResolverBase {
     @graphql.Parent() parent: OrderStatus
   ): Promise<ProductionOrder | null> {
     const result = await this.service.getProductionOrders(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SaleOrder, {
+    nullable: true,
+    name: "saleOrders",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleOrders(
+    @graphql.Parent() parent: OrderStatus
+  ): Promise<SaleOrder | null> {
+    const result = await this.service.getSaleOrders(parent.id);
 
     if (!result) {
       return null;

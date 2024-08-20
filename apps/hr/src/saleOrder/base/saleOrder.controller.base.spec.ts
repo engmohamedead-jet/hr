@@ -18,29 +18,105 @@ import { SaleOrderService } from "../saleOrder.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  billingAddress: "exampleBillingAddress",
   createdAt: new Date(),
+  deliveryDate: new Date(),
+  discountTotal: 42.424242424,
+  expectedDeliveryDate: new Date(),
   id: "exampleId",
+  isActive: "true",
+  isCancelled: "true",
+  isReplicated: "true",
+  netTotal: 42.424242424,
+  nonTaxableTotal: 42.424242424,
+  note: "exampleNote",
+  referenceNumber: "exampleReferenceNumber",
   saleOrderDate: new Date(),
+  salePriceTypeId: 42.42,
+  saleTotal: 42.424242424,
+  shippingAddress: "exampleShippingAddress",
+  shippingCost: 42.424242424,
+  tax: 42.424242424,
+  taxRate: 42.424242424,
+  taxableTotal: 42.424242424,
+  transactionDateTime: new Date(),
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  billingAddress: "exampleBillingAddress",
   createdAt: new Date(),
+  deliveryDate: new Date(),
+  discountTotal: 42.424242424,
+  expectedDeliveryDate: new Date(),
   id: "exampleId",
+  isActive: "true",
+  isCancelled: "true",
+  isReplicated: "true",
+  netTotal: 42.424242424,
+  nonTaxableTotal: 42.424242424,
+  note: "exampleNote",
+  referenceNumber: "exampleReferenceNumber",
   saleOrderDate: new Date(),
+  salePriceTypeId: 42.42,
+  saleTotal: 42.424242424,
+  shippingAddress: "exampleShippingAddress",
+  shippingCost: 42.424242424,
+  tax: 42.424242424,
+  taxRate: 42.424242424,
+  taxableTotal: 42.424242424,
+  transactionDateTime: new Date(),
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    billingAddress: "exampleBillingAddress",
     createdAt: new Date(),
+    deliveryDate: new Date(),
+    discountTotal: 42.424242424,
+    expectedDeliveryDate: new Date(),
     id: "exampleId",
+    isActive: "true",
+    isCancelled: "true",
+    isReplicated: "true",
+    netTotal: 42.424242424,
+    nonTaxableTotal: 42.424242424,
+    note: "exampleNote",
+    referenceNumber: "exampleReferenceNumber",
     saleOrderDate: new Date(),
+    salePriceTypeId: 42.42,
+    saleTotal: 42.424242424,
+    shippingAddress: "exampleShippingAddress",
+    shippingCost: 42.424242424,
+    tax: 42.424242424,
+    taxRate: 42.424242424,
+    taxableTotal: 42.424242424,
+    transactionDateTime: new Date(),
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  billingAddress: "exampleBillingAddress",
   createdAt: new Date(),
+  deliveryDate: new Date(),
+  discountTotal: 42.424242424,
+  expectedDeliveryDate: new Date(),
   id: "exampleId",
+  isActive: "true",
+  isCancelled: "true",
+  isReplicated: "true",
+  netTotal: 42.424242424,
+  nonTaxableTotal: 42.424242424,
+  note: "exampleNote",
+  referenceNumber: "exampleReferenceNumber",
   saleOrderDate: new Date(),
+  salePriceTypeId: 42.42,
+  saleTotal: 42.424242424,
+  shippingAddress: "exampleShippingAddress",
+  shippingCost: 42.424242424,
+  tax: 42.424242424,
+  taxRate: 42.424242424,
+  taxableTotal: 42.424242424,
+  transactionDateTime: new Date(),
   updatedAt: new Date(),
 };
 
@@ -127,7 +203,10 @@ describe("SaleOrder", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deliveryDate: CREATE_RESULT.deliveryDate.toISOString(),
+        expectedDeliveryDate: CREATE_RESULT.expectedDeliveryDate.toISOString(),
         saleOrderDate: CREATE_RESULT.saleOrderDate.toISOString(),
+        transactionDateTime: CREATE_RESULT.transactionDateTime.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -140,7 +219,12 @@ describe("SaleOrder", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          deliveryDate: FIND_MANY_RESULT[0].deliveryDate.toISOString(),
+          expectedDeliveryDate:
+            FIND_MANY_RESULT[0].expectedDeliveryDate.toISOString(),
           saleOrderDate: FIND_MANY_RESULT[0].saleOrderDate.toISOString(),
+          transactionDateTime:
+            FIND_MANY_RESULT[0].transactionDateTime.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -164,7 +248,11 @@ describe("SaleOrder", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        deliveryDate: FIND_ONE_RESULT.deliveryDate.toISOString(),
+        expectedDeliveryDate:
+          FIND_ONE_RESULT.expectedDeliveryDate.toISOString(),
         saleOrderDate: FIND_ONE_RESULT.saleOrderDate.toISOString(),
+        transactionDateTime: FIND_ONE_RESULT.transactionDateTime.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -178,7 +266,10 @@ describe("SaleOrder", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        deliveryDate: CREATE_RESULT.deliveryDate.toISOString(),
+        expectedDeliveryDate: CREATE_RESULT.expectedDeliveryDate.toISOString(),
         saleOrderDate: CREATE_RESULT.saleOrderDate.toISOString(),
+        transactionDateTime: CREATE_RESULT.transactionDateTime.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

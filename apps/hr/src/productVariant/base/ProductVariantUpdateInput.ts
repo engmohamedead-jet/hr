@@ -27,6 +27,7 @@ import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueIn
 import { PurchaseDetailUpdateManyWithoutProductVariantsInput } from "./PurchaseDetailUpdateManyWithoutProductVariantsInput";
 import { PurchaseReturnDetailUpdateManyWithoutProductVariantsInput } from "./PurchaseReturnDetailUpdateManyWithoutProductVariantsInput";
 import { SaleDetailUpdateManyWithoutProductVariantsInput } from "./SaleDetailUpdateManyWithoutProductVariantsInput";
+import { SaleOrderDetailUpdateManyWithoutProductVariantsInput } from "./SaleOrderDetailUpdateManyWithoutProductVariantsInput";
 import { SaleQuotationDetailUpdateManyWithoutProductVariantsInput } from "./SaleQuotationDetailUpdateManyWithoutProductVariantsInput";
 import { SaleReturnDetailUpdateManyWithoutProductVariantsInput } from "./SaleReturnDetailUpdateManyWithoutProductVariantsInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -151,6 +152,18 @@ class ProductVariantUpdateInput {
     nullable: true,
   })
   saleDetails?: SaleDetailUpdateManyWithoutProductVariantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailUpdateManyWithoutProductVariantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailUpdateManyWithoutProductVariantsInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailUpdateManyWithoutProductVariantsInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailUpdateManyWithoutProductVariantsInput;
 
   @ApiProperty({
     required: false,

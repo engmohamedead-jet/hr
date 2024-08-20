@@ -17,8 +17,10 @@ import {
 import { CashRepositoryTitle } from "../cashRepository/CashRepositoryTitle";
 import { CustomerTitle } from "../customer/CustomerTitle";
 import { InvoiceTypeTitle } from "../invoiceType/InvoiceTypeTitle";
+import { PaymentTermTitle } from "../paymentTerm/PaymentTermTitle";
 import { PaymentTypeTitle } from "../paymentType/PaymentTypeTitle";
 import { SaleDetailTitle } from "../saleDetail/SaleDetailTitle";
+import { SalePaymentTitle } from "../salePayment/SalePaymentTitle";
 import { SalePriceTypeTitle } from "../salePriceType/SalePriceTypeTitle";
 import { SaleReturnTitle } from "../saleReturn/SaleReturnTitle";
 import { StoreTitle } from "../store/StoreTitle";
@@ -58,6 +60,13 @@ export const SaleCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="Note" multiline source="note" />
         <NumberInput label="Paid" source="paid" />
         <ReferenceInput
+          source="paymentTerm.id"
+          reference="PaymentTerm"
+          label="PaymentTerm"
+        >
+          <SelectInput optionText={PaymentTermTitle} />
+        </ReferenceInput>
+        <ReferenceInput
           source="paymentTypeId.id"
           reference="PaymentType"
           label="PaymentTypeId"
@@ -74,6 +83,14 @@ export const SaleCreate = (props: CreateProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={SaleDetailTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="salePayments"
+          reference="SalePayment"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SalePaymentTitle} />
         </ReferenceArrayInput>
         <ReferenceInput
           source="salePriceTypeId.id"

@@ -1,13 +1,10 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type AccountTransactionOrderByInput = {
-  costCenterId?: SortOrder;
+  code?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
-  note?: SortOrder;
-  referenceNumber?: SortOrder;
-  statementReference?: SortOrder;
-  storeId?: SortOrder;
-  transactionDate?: SortOrder;
+  name?: SortOrder;
+  receiptVouchersId?: SortOrder;
   updatedAt?: SortOrder;
 };

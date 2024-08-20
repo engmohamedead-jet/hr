@@ -19,6 +19,7 @@ import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqu
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { PaymentVoucherListRelationFilter } from "../../paymentVoucher/base/PaymentVoucherListRelationFilter";
 import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
 import { PurchaseListRelationFilter } from "../../purchase/base/PurchaseListRelationFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -169,6 +170,18 @@ class SupplierWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentVoucherListRelationFilter, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherListRelationFilter;
 
   @ApiProperty({
     required: false,

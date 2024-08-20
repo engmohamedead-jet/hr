@@ -21,6 +21,8 @@ import {
   SaleOrder as PrismaSaleOrder,
   SaleReturn as PrismaSaleReturn,
   Sale as PrismaSale,
+  StoreLocation as PrismaStoreLocation,
+  StoreType as PrismaStoreType,
   Tenant as PrismaTenant,
 } from "@prisma/client";
 
@@ -122,6 +124,25 @@ export class StoreServiceBase {
         where: { id: parentId },
       })
       .sales(args);
+  }
+
+  async findStoreLocations(
+    parentId: string,
+    args: Prisma.StoreLocationFindManyArgs
+  ): Promise<PrismaStoreLocation[]> {
+    return this.prisma.store
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .storeLocations(args);
+  }
+
+  async getStoreTypId(parentId: string): Promise<PrismaStoreType | null> {
+    return this.prisma.store
+      .findUnique({
+        where: { id: parentId },
+      })
+      .storeTypId();
   }
 
   async getTenantId(parentId: string): Promise<PrismaTenant | null> {

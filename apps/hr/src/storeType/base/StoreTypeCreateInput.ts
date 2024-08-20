@@ -20,17 +20,21 @@ import {
 } from "class-validator";
 import { StoreCreateNestedManyWithoutStoreTypesInput } from "./StoreCreateNestedManyWithoutStoreTypesInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class StoreTypeCreateInput {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -45,15 +49,20 @@ class StoreTypeCreateInput {
   description?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
   })
-  isDefault?: boolean | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isDefault!: boolean;
 
   @ApiProperty({
     required: true,
@@ -96,6 +105,18 @@ class StoreTypeCreateInput {
     nullable: true,
   })
   stores?: StoreCreateNestedManyWithoutStoreTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { StoreTypeCreateInput as StoreTypeCreateInput };

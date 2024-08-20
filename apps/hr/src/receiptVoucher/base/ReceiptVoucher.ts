@@ -11,24 +11,39 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { AccountTransaction } from "../../accountTransaction/base/AccountTransaction";
 
 import {
+  ValidateNested,
+  IsOptional,
   IsNumber,
   Max,
   IsDate,
-  IsOptional,
   IsString,
   MaxLength,
-  ValidateNested,
   IsBoolean,
 } from "class-validator";
 
-import { Decimal } from "decimal.js";
 import { Type } from "class-transformer";
+import { Decimal } from "decimal.js";
+import { CashRepository } from "../../cashRepository/base/CashRepository";
+import { Currency } from "../../currency/base/Currency";
+import { Customer } from "../../customer/base/Customer";
+import { Employee } from "../../employee/base/Employee";
+import { Tenant } from "../../tenant/base/Tenant";
 import { VoucherType } from "../../voucherType/base/VoucherType";
 
 @ObjectType()
 class ReceiptVoucher {
+  @ApiProperty({
+    required: false,
+    type: () => AccountTransaction,
+  })
+  @ValidateNested()
+  @Type(() => AccountTransaction)
+  @IsOptional()
+  accountTransactionId?: AccountTransaction | null;
+
   @ApiProperty({
     required: true,
     type: Number,
@@ -37,6 +52,14 @@ class ReceiptVoucher {
   @Max(99999999999)
   @Field(() => Float)
   amount!: Decimal;
+
+  @ApiProperty({
+    required: true,
+    type: () => CashRepository,
+  })
+  @ValidateNested()
+  @Type(() => CashRepository)
+  cashRepositoryId?: CashRepository;
 
   @ApiProperty({
     required: false,
@@ -63,15 +86,15 @@ class ReceiptVoucher {
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: String,
   })
-  @IsNumber()
-  @Max(99999999999)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => Float, {
+  @Field(() => String, {
     nullable: true,
   })
-  chequeValue!: Decimal | null;
+  chequeValue!: string | null;
 
   @ApiProperty({
     required: true,
@@ -82,12 +105,47 @@ class ReceiptVoucher {
   createdAt!: Date;
 
   @ApiProperty({
+    required: false,
+    type: () => Currency,
+  })
+  @ValidateNested()
+  @Type(() => Currency)
+  @IsOptional()
+  currencyId?: Currency | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Customer,
+  })
+  @ValidateNested()
+  @Type(() => Customer)
+  @IsOptional()
+  customerId?: Customer | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Employee,
+  })
+  @ValidateNested()
+  @Type(() => Employee)
+  @IsOptional()
+  employeeId?: Employee | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isAcive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -119,7 +177,7 @@ class ReceiptVoucher {
   @Field(() => String, {
     nullable: true,
   })
-  serialNumber!: string | null;
+  sequence!: string | null;
 
   @ApiProperty({
     required: false,
@@ -132,6 +190,15 @@ class ReceiptVoucher {
     nullable: true,
   })
   statementReference!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenant?: Tenant | null;
 
   @ApiProperty({
     required: true,
@@ -150,15 +217,12 @@ class ReceiptVoucher {
   voucherTypeId?: VoucherType;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  wasChequePaid!: boolean | null;
+  @Field(() => Boolean)
+  wasChequePaid!: boolean;
 }
 
 export { ReceiptVoucher as ReceiptVoucher };

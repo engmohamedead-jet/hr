@@ -28,6 +28,7 @@ import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { Type } from "class-transformer";
 import { ProductionOrderCreateNestedManyWithoutCustomersInput } from "./ProductionOrderCreateNestedManyWithoutCustomersInput";
+import { ReceiptVoucherCreateNestedManyWithoutCustomersInput } from "./ReceiptVoucherCreateNestedManyWithoutCustomersInput";
 import { SaleOrderCreateNestedManyWithoutCustomersInput } from "./SaleOrderCreateNestedManyWithoutCustomersInput";
 import { SaleReturnCreateNestedManyWithoutCustomersInput } from "./SaleReturnCreateNestedManyWithoutCustomersInput";
 import { SaleCreateNestedManyWithoutCustomersInput } from "./SaleCreateNestedManyWithoutCustomersInput";
@@ -250,6 +251,18 @@ class CustomerCreateInput {
     nullable: true,
   })
   productionOrders?: ProductionOrderCreateNestedManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherCreateNestedManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherCreateNestedManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherCreateNestedManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutCustomersInput;
 
   @ApiProperty({
     required: false,

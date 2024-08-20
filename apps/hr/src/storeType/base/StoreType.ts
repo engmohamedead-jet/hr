@@ -14,25 +14,28 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   MaxLength,
-  IsDate,
   IsOptional,
-  IsInt,
+  IsDate,
   IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Store } from "../../store/base/Store";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class StoreType {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -56,22 +59,27 @@ class StoreType {
 
   @ApiProperty({
     required: true,
-    type: Number,
+    type: String,
   })
-  @IsInt()
-  @Field(() => Number)
-  id!: number;
+  @IsString()
+  @Field(() => String)
+  id!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
   })
-  isDefault!: boolean | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isDefault!: boolean;
 
   @ApiProperty({
     required: true,
@@ -111,6 +119,15 @@ class StoreType {
   @Type(() => Store)
   @IsOptional()
   stores?: Array<Store>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

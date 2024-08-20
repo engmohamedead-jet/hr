@@ -5,6 +5,8 @@ import { PurchaseCreateNestedManyWithoutStoresInput } from "./PurchaseCreateNest
 import { SaleOrderCreateNestedManyWithoutStoresInput } from "./SaleOrderCreateNestedManyWithoutStoresInput";
 import { SaleReturnCreateNestedManyWithoutStoresInput } from "./SaleReturnCreateNestedManyWithoutStoresInput";
 import { SaleCreateNestedManyWithoutStoresInput } from "./SaleCreateNestedManyWithoutStoresInput";
+import { StoreLocationCreateNestedManyWithoutStoresInput } from "./StoreLocationCreateNestedManyWithoutStoresInput";
+import { StoreTypeWhereUniqueInput } from "../storeType/StoreTypeWhereUniqueInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type StoreCreateInput = {
@@ -25,6 +27,8 @@ export type StoreCreateInput = {
   saleOrders?: SaleOrderCreateNestedManyWithoutStoresInput;
   saleReturns?: SaleReturnCreateNestedManyWithoutStoresInput;
   sales?: SaleCreateNestedManyWithoutStoresInput;
+  storeLocations?: StoreLocationCreateNestedManyWithoutStoresInput;
+  storeTypId?: StoreTypeWhereUniqueInput | null;
   street?: string | null;
   tenantId?: TenantWhereUniqueInput | null;
 };

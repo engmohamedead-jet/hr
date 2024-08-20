@@ -28,6 +28,7 @@ import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { Currency } from "../../currency/base/Currency";
 import { Customer } from "../../customer/base/Customer";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
 import { Purchase } from "../../purchase/base/Purchase";
 import { Tenant } from "../../tenant/base/Tenant";
@@ -178,6 +179,15 @@ class Supplier {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PaymentVoucher],
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucher)
+  @IsOptional()
+  paymentVouchers?: Array<PaymentVoucher>;
 
   @ApiProperty({
     required: false,

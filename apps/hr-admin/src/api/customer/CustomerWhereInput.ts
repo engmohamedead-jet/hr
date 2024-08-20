@@ -7,6 +7,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ProductionOrderListRelationFilter } from "../productionOrder/ProductionOrderListRelationFilter";
+import { ReceiptVoucherListRelationFilter } from "../receiptVoucher/ReceiptVoucherListRelationFilter";
 import { SaleOrderListRelationFilter } from "../saleOrder/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../saleReturn/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
@@ -34,6 +35,7 @@ export type CustomerWhereInput = {
   phoneNumber?: StringNullableFilter;
   previousBalance?: DecimalNullableFilter;
   productionOrders?: ProductionOrderListRelationFilter;
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
   revisionDate?: DateTimeNullableFilter;
   saleDiscountRate?: DecimalNullableFilter;
   saleOrders?: SaleOrderListRelationFilter;

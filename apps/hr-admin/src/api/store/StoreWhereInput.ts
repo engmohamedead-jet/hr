@@ -8,6 +8,8 @@ import { PurchaseListRelationFilter } from "../purchase/PurchaseListRelationFilt
 import { SaleOrderListRelationFilter } from "../saleOrder/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../saleReturn/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
+import { StoreLocationListRelationFilter } from "../storeLocation/StoreLocationListRelationFilter";
+import { StoreTypeWhereUniqueInput } from "../storeType/StoreTypeWhereUniqueInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type StoreWhereInput = {
@@ -29,6 +31,8 @@ export type StoreWhereInput = {
   saleOrders?: SaleOrderListRelationFilter;
   saleReturns?: SaleReturnListRelationFilter;
   sales?: SaleListRelationFilter;
+  storeLocations?: StoreLocationListRelationFilter;
+  storeTypId?: StoreTypeWhereUniqueInput;
   street?: StringNullableFilter;
   tenantId?: TenantWhereUniqueInput;
 };

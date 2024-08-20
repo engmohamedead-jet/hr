@@ -20,6 +20,8 @@ import {
 } from "class-validator";
 import { CustomerUpdateManyWithoutCurrenciesInput } from "./CustomerUpdateManyWithoutCurrenciesInput";
 import { Type } from "class-transformer";
+import { PaymentVoucherUpdateManyWithoutCurrenciesInput } from "./PaymentVoucherUpdateManyWithoutCurrenciesInput";
+import { ReceiptVoucherUpdateManyWithoutCurrenciesInput } from "./ReceiptVoucherUpdateManyWithoutCurrenciesInput";
 import { SalePaymentUpdateManyWithoutCurrenciesInput } from "./SalePaymentUpdateManyWithoutCurrenciesInput";
 import { SupplierUpdateManyWithoutCurrenciesInput } from "./SupplierUpdateManyWithoutCurrenciesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -108,6 +110,30 @@ class CurrencyUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherUpdateManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherUpdateManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherUpdateManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutCurrenciesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherUpdateManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherUpdateManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherUpdateManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutCurrenciesInput;
 
   @ApiProperty({
     required: false,

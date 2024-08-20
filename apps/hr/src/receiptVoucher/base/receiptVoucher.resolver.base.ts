@@ -26,6 +26,12 @@ import { ReceiptVoucherFindUniqueArgs } from "./ReceiptVoucherFindUniqueArgs";
 import { CreateReceiptVoucherArgs } from "./CreateReceiptVoucherArgs";
 import { UpdateReceiptVoucherArgs } from "./UpdateReceiptVoucherArgs";
 import { DeleteReceiptVoucherArgs } from "./DeleteReceiptVoucherArgs";
+import { AccountTransaction } from "../../accountTransaction/base/AccountTransaction";
+import { CashRepository } from "../../cashRepository/base/CashRepository";
+import { Currency } from "../../currency/base/Currency";
+import { Customer } from "../../customer/base/Customer";
+import { Employee } from "../../employee/base/Employee";
+import { Tenant } from "../../tenant/base/Tenant";
 import { VoucherType } from "../../voucherType/base/VoucherType";
 import { ReceiptVoucherService } from "../receiptVoucher.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -96,6 +102,40 @@ export class ReceiptVoucherResolverBase {
       data: {
         ...args.data,
 
+        accountTransactionId: args.data.accountTransactionId
+          ? {
+              connect: args.data.accountTransactionId,
+            }
+          : undefined,
+
+        cashRepositoryId: {
+          connect: args.data.cashRepositoryId,
+        },
+
+        currencyId: args.data.currencyId
+          ? {
+              connect: args.data.currencyId,
+            }
+          : undefined,
+
+        customerId: args.data.customerId
+          ? {
+              connect: args.data.customerId,
+            }
+          : undefined,
+
+        employeeId: args.data.employeeId
+          ? {
+              connect: args.data.employeeId,
+            }
+          : undefined,
+
+        tenant: args.data.tenant
+          ? {
+              connect: args.data.tenant,
+            }
+          : undefined,
+
         voucherTypeId: {
           connect: args.data.voucherTypeId,
         },
@@ -118,6 +158,40 @@ export class ReceiptVoucherResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          accountTransactionId: args.data.accountTransactionId
+            ? {
+                connect: args.data.accountTransactionId,
+              }
+            : undefined,
+
+          cashRepositoryId: {
+            connect: args.data.cashRepositoryId,
+          },
+
+          currencyId: args.data.currencyId
+            ? {
+                connect: args.data.currencyId,
+              }
+            : undefined,
+
+          customerId: args.data.customerId
+            ? {
+                connect: args.data.customerId,
+              }
+            : undefined,
+
+          employeeId: args.data.employeeId
+            ? {
+                connect: args.data.employeeId,
+              }
+            : undefined,
+
+          tenant: args.data.tenant
+            ? {
+                connect: args.data.tenant,
+              }
+            : undefined,
 
           voucherTypeId: {
             connect: args.data.voucherTypeId,
@@ -153,6 +227,132 @@ export class ReceiptVoucherResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => AccountTransaction, {
+    nullable: true,
+    name: "accountTransactionId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "AccountTransaction",
+    action: "read",
+    possession: "any",
+  })
+  async getAccountTransactionId(
+    @graphql.Parent() parent: ReceiptVoucher
+  ): Promise<AccountTransaction | null> {
+    const result = await this.service.getAccountTransactionId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => CashRepository, {
+    nullable: true,
+    name: "cashRepositoryId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "read",
+    possession: "any",
+  })
+  async getCashRepositoryId(
+    @graphql.Parent() parent: ReceiptVoucher
+  ): Promise<CashRepository | null> {
+    const result = await this.service.getCashRepositoryId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Currency, {
+    nullable: true,
+    name: "currencyId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "read",
+    possession: "any",
+  })
+  async getCurrencyId(
+    @graphql.Parent() parent: ReceiptVoucher
+  ): Promise<Currency | null> {
+    const result = await this.service.getCurrencyId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Customer, {
+    nullable: true,
+    name: "customerId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "read",
+    possession: "any",
+  })
+  async getCustomerId(
+    @graphql.Parent() parent: ReceiptVoucher
+  ): Promise<Customer | null> {
+    const result = await this.service.getCustomerId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Employee, {
+    nullable: true,
+    name: "employeeId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "read",
+    possession: "any",
+  })
+  async getEmployeeId(
+    @graphql.Parent() parent: ReceiptVoucher
+  ): Promise<Employee | null> {
+    const result = await this.service.getEmployeeId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenant",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenant(
+    @graphql.Parent() parent: ReceiptVoucher
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenant(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

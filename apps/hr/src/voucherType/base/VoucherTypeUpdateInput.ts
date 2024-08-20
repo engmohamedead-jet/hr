@@ -15,10 +15,13 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { ReceiptVoucherUpdateManyWithoutVoucherTypesInput } from "./ReceiptVoucherUpdateManyWithoutVoucherTypesInput";
+import { PaymentVoucherUpdateManyWithoutVoucherTypesInput } from "./PaymentVoucherUpdateManyWithoutVoucherTypesInput";
 import { Type } from "class-transformer";
+import { ReceiptVoucherUpdateManyWithoutVoucherTypesInput } from "./ReceiptVoucherUpdateManyWithoutVoucherTypesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class VoucherTypeUpdateInput {
@@ -32,7 +35,7 @@ class VoucherTypeUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -45,6 +48,17 @@ class VoucherTypeUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -68,19 +82,31 @@ class VoucherTypeUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName?: string | null;
+  normalizedName?: string;
 
   @ApiProperty({
     required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(256)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherUpdateManyWithoutVoucherTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherUpdateManyWithoutVoucherTypesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherUpdateManyWithoutVoucherTypesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutVoucherTypesInput;
 
   @ApiProperty({
     required: false,
@@ -93,6 +119,18 @@ class VoucherTypeUpdateInput {
     nullable: true,
   })
   receiptVouchers?: ReceiptVoucherUpdateManyWithoutVoucherTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { VoucherTypeUpdateInput as VoucherTypeUpdateInput };

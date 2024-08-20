@@ -14,6 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Supplier as PrismaSupplier,
+  PaymentVoucher as PrismaPaymentVoucher,
   PurchaseReturn as PrismaPurchaseReturn,
   Purchase as PrismaPurchase,
   Currency as PrismaCurrency,
@@ -52,6 +53,17 @@ export class SupplierServiceBase {
     args: Prisma.SupplierDeleteArgs
   ): Promise<PrismaSupplier> {
     return this.prisma.supplier.delete(args);
+  }
+
+  async findPaymentVouchers(
+    parentId: string,
+    args: Prisma.PaymentVoucherFindManyArgs
+  ): Promise<PrismaPaymentVoucher[]> {
+    return this.prisma.supplier
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentVouchers(args);
   }
 
   async findPurchaseReturns(

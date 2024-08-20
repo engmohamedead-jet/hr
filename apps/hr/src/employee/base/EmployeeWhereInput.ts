@@ -19,6 +19,8 @@ import { EmployeeClassWhereUniqueInput } from "../../employeeClass/base/Employee
 import { EmployeeDepartmentWhereUniqueInput } from "../../employeeDepartment/base/EmployeeDepartmentWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { PaymentVoucherListRelationFilter } from "../../paymentVoucher/base/PaymentVoucherListRelationFilter";
+import { ReceiptVoucherListRelationFilter } from "../../receiptVoucher/base/ReceiptVoucherListRelationFilter";
 import { SalePersonListRelationFilter } from "../../salePerson/base/SalePersonListRelationFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
@@ -135,6 +137,30 @@ class EmployeeWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentVoucherListRelationFilter, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => ReceiptVoucherListRelationFilter, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
 
   @ApiProperty({
     required: false,

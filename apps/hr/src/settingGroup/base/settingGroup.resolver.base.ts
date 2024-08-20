@@ -26,6 +26,8 @@ import { SettingGroupFindUniqueArgs } from "./SettingGroupFindUniqueArgs";
 import { CreateSettingGroupArgs } from "./CreateSettingGroupArgs";
 import { UpdateSettingGroupArgs } from "./UpdateSettingGroupArgs";
 import { DeleteSettingGroupArgs } from "./DeleteSettingGroupArgs";
+import { SettingFindManyArgs } from "../../setting/base/SettingFindManyArgs";
+import { Setting } from "../../setting/base/Setting";
 import { Tenant } from "../../tenant/base/Tenant";
 import { SettingGroupService } from "../settingGroup.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -157,6 +159,26 @@ export class SettingGroupResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Setting], { name: "settings" })
+  @nestAccessControl.UseRoles({
+    resource: "Setting",
+    action: "read",
+    possession: "any",
+  })
+  async findSettings(
+    @graphql.Parent() parent: SettingGroup,
+    @graphql.Args() args: SettingFindManyArgs
+  ): Promise<Setting[]> {
+    const results = await this.service.findSettings(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

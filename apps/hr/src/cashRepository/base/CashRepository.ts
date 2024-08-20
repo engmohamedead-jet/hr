@@ -20,8 +20,10 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
 import { Purchase } from "../../purchase/base/Purchase";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { Sale } from "../../sale/base/Sale";
@@ -127,6 +129,15 @@ class CashRepository {
 
   @ApiProperty({
     required: false,
+    type: () => [PaymentVoucher],
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucher)
+  @IsOptional()
+  paymentVouchers?: Array<PaymentVoucher>;
+
+  @ApiProperty({
+    required: false,
     type: () => [PurchaseReturn],
   })
   @ValidateNested()
@@ -142,6 +153,15 @@ class CashRepository {
   @Type(() => Purchase)
   @IsOptional()
   purchases?: Purchase | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ReceiptVoucher],
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucher)
+  @IsOptional()
+  receiptVouchers?: Array<ReceiptVoucher>;
 
   @ApiProperty({
     required: false,

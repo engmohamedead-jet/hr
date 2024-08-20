@@ -13,6 +13,8 @@ import {
 } from "react-admin";
 
 import { CustomerTitle } from "../customer/CustomerTitle";
+import { PaymentVoucherTitle } from "../paymentVoucher/PaymentVoucherTitle";
+import { ReceiptVoucherTitle } from "../receiptVoucher/ReceiptVoucherTitle";
 import { SalePaymentTitle } from "../salePayment/SalePaymentTitle";
 import { SupplierTitle } from "../supplier/SupplierTitle";
 import { TenantTitle } from "../tenant/TenantTitle";
@@ -35,6 +37,22 @@ export const CurrencyEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
+        <ReferenceArrayInput
+          source="paymentVouchers"
+          reference="PaymentVoucher"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PaymentVoucherTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="receiptVouchers"
+          reference="ReceiptVoucher"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ReceiptVoucherTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="salePayments"
           reference="SalePayment"

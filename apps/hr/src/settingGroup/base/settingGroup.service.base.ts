@@ -10,9 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   SettingGroup as PrismaSettingGroup,
+  Setting as PrismaSetting,
   Tenant as PrismaTenant,
 } from "@prisma/client";
 
@@ -49,6 +51,17 @@ export class SettingGroupServiceBase {
     args: Prisma.SettingGroupDeleteArgs
   ): Promise<PrismaSettingGroup> {
     return this.prisma.settingGroup.delete(args);
+  }
+
+  async findSettings(
+    parentId: number,
+    args: Prisma.SettingFindManyArgs
+  ): Promise<PrismaSetting[]> {
+    return this.prisma.settingGroup
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .settings(args);
   }
 
   async getTenant(parentId: number): Promise<PrismaTenant | null> {

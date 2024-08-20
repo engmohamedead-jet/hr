@@ -155,6 +155,7 @@ model Customer {
   phoneNumber            String?
   previousBalance        Decimal?
   productionOrders       ProductionOrder[]
+  receiptVouchers        ReceiptVoucher[]
   revisionDate           DateTime?
   saleDiscountRate       Decimal?
   saleOrders             SaleOrder[]
@@ -191,20 +192,22 @@ model SalePriceType {
 }
 
 model Currency {
-  code           String?
-  createdAt      DateTime      @default(now())
-  customers      Customer[]
-  description    String?
-  id             String        @id @default(cuid())
-  isActive       Boolean       @default(1)
-  name           String        @unique
-  normalizedName String        @unique
-  note           String?
-  salePayments   SalePayment[]
-  suppliers      Supplier[]
-  tenantId       Tenant?       @relation(fields: [tenantIdId], references: [id])
-  tenantIdId     String?
-  updatedAt      DateTime      @updatedAt
+  code            String?
+  createdAt       DateTime         @default(now())
+  customers       Customer[]
+  description     String?
+  id              String           @id @default(cuid())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  paymentVouchers PaymentVoucher[]
+  receiptVouchers ReceiptVoucher[]
+  salePayments    SalePayment[]
+  suppliers       Supplier[]
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
 }
 
 model OrderStatus {
@@ -243,6 +246,9 @@ model Store {
   saleOrders       SaleOrder[]
   saleReturns      SaleReturn[]
   sales            Sale[]
+  storeLocations   StoreLocation[]
+  storeTypId       StoreType?        @relation(fields: [storeTypIdId], references: [id])
+  storeTypIdId     String?
   street           String?
   tenantId         Tenant?           @relation(fields: [tenantIdId], references: [id])
   tenantIdId       String?
@@ -864,6 +870,7 @@ model Supplier {
   name            String           @unique
   normalizedName  String           @unique
   note            String?
+  paymentVouchers PaymentVoucher[]
   phoneNumber     String?
   purchaseReturns PurchaseReturn[]
   purchases       Purchase[]
@@ -885,8 +892,10 @@ model CashRepository {
   note                     String?
   parentCashRepositoryId   CashRepository?  @relation(name: "parentCashRepositoryId", fields: [parentCashRepositoryIdId], references: [id])
   parentCashRepositoryIdId String?
+  paymentVouchers          PaymentVoucher[]
   purchaseReturns          PurchaseReturn[]
   purchases                Purchase?
+  receiptVouchers          ReceiptVoucher[]
   saleOrders               SaleOrder[]
   saleReturns              SaleReturn[]
   sales                    Sale[]
@@ -1208,6 +1217,8 @@ model Employee {
   name                   String              @unique
   normalizedName         String              @unique
   note                   String?
+  paymentVouchers        PaymentVoucher[]
+  receiptVouchers        ReceiptVoucher[]
   remainingBalance       Decimal?
   salePeople             SalePerson[]
   tenantId               Tenant?             @relation(fields: [tenantIdId], references: [id])
@@ -1239,6 +1250,7 @@ model Tenant {
   employeeClasses          EmployeeClass[]
   employeeDepartments      EmployeeDepartment[]
   employees                Employee[]
+  expenseItems             ExpenseItem[]
   id                       String                   @id @default(cuid())
   installmentSaleFees      InstallmentSaleFee[]
   invoiceTypes             InvoiceType[]
@@ -1252,6 +1264,7 @@ model Tenant {
   paymentStatuses          PaymentStatus[]
   paymentTerms             PaymentTerm[]
   paymentTypes             PaymentType[]
+  paymentVouchers          PaymentVoucher[]
   periods                  Period[]
   printTemplateContents    PrintTemplateContent[]
   printTemplateGroups      PrintTemplateGroup[]
@@ -1272,6 +1285,7 @@ model Tenant {
   purchaseReturnDetails    PurchaseReturnDetail[]
   purchaseReturns          PurchaseReturn[]
   purchases                Purchase[]
+  receiptVouchers          ReceiptVoucher[]
   resourceTypes            ResourceType[]
   resources                Resource[]
   roleGroups               RoleGroup[]
@@ -1294,13 +1308,20 @@ model Tenant {
   sales                    Sale[]
   scrapReasons             ScrapReason[]
   settingGroups            SettingGroup[]
+  settings                 Setting[]
+  shifts                   Shift[]
   shippingStatuses         ShippingStatus[]
+  storeLocations           StoreLocation[]
+  storeTypes               StoreType[]
   stores                   Store[]
   suppliers                Supplier[]
   tenancyName              String                   @unique
+  timeModes                TimeMode[]
+  timeoffTypes             TimeoffType[]
   units                    Unit[]
   updatedAt                DateTime                 @updatedAt
   users                    User[]
+  voucherTypes             VoucherType[]
   workCenterRoutings       WorkCenterRouting[]
   workCenters              WorkCenter[]
 }
@@ -1754,15 +1775,217 @@ model BankBranch {
 
 model SettingGroup {
   code           String?
+  createdAt      DateTime  @default(now())
+  description    String?
+  id             Int       @id @default(autoincrement())
+  isActive       Boolean?  @default(1)
+  name           String    @unique
+  normalizedName String    @unique
+  note           String?
+  settings       Setting[]
+  tenant         Tenant?   @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime  @updatedAt
+}
+
+model Setting {
+  code           String?
+  createdAt      DateTime      @default(now())
+  id             String        @id @default(cuid())
+  isActive       Boolean       @default(1)
+  isEnabled      Boolean       @default(1)
+  isSystem       Boolean       @default(1)
+  key            String        @unique
+  note           String?
+  settingGroup   SettingGroup? @relation(fields: [settingGroupId], references: [id])
+  settingGroupId Int?
+  tenant         Tenant?       @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime      @updatedAt
+  value          String
+}
+
+model Shift {
+  code               String?
+  createdAt          DateTime  @default(now())
+  endTime            DateTime?
+  id                 Int       @id @default(autoincrement())
+  isActive           Boolean   @default(1)
+  name               String    @unique
+  nameNormalizedName String    @unique
+  note               String?
+  startTime          DateTime
+  tenantid           Tenant?   @relation(fields: [tenantidId], references: [id])
+  tenantidId         String?
+  updatedAt          DateTime  @updatedAt
+}
+
+model StoreLocation {
+  code           String?
+  createdAt      DateTime                       @default(now())
+  createdAtSide  EnumStoreLocationCreatedAtSide
+  id             String                         @id @default(cuid())
+  isActive       Boolean                        @default(1)
+  name           String                         @unique
+  normalizedName String                         @unique
+  note           String?
+  storeId        Store                          @relation(fields: [storeIdId], references: [id])
+  storeIdId      String
+  tenantId       Tenant?                        @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime                       @updatedAt
+}
+
+model StoreType {
+  code           String?
   createdAt      DateTime @default(now())
   description    String?
-  id             Int      @id @default(autoincrement())
-  isActive       Boolean? @default(1)
+  id             String   @id @default(cuid())
+  isActive       Boolean  @default(1)
+  isDefault      Boolean
   name           String   @unique
   normalizedName String   @unique
   note           String?
-  tenant         Tenant?  @relation(fields: [tenantId], references: [id])
-  tenantId       String?
+  stores         Store[]
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model ReceiptVoucher {
+  accountTransactionId   AccountTransaction? @relation(fields: [accountTransactionIdId], references: [id])
+  accountTransactionIdId String?             @unique
+  amount                 Decimal
+  cashRepositoryId       CashRepository      @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId     String
+  chequeDueDate          DateTime?
+  chequeNumber           String?
+  chequeValue            String?
+  createdAt              DateTime            @default(now())
+  currencyId             Currency?           @relation(fields: [currencyIdId], references: [id])
+  currencyIdId           String?
+  customerId             Customer?           @relation(fields: [customerIdId], references: [id])
+  customerIdId           String?
+  employeeId             Employee?           @relation(fields: [employeeIdId], references: [id])
+  employeeIdId           String?
+  id                     String              @id @default(cuid())
+  isAcive                Boolean             @default(1)
+  note                   String?
+  receiptVoucherDate     DateTime
+  sequence               String?
+  statementReference     String?
+  tenant                 Tenant?             @relation(fields: [tenantId], references: [id])
+  tenantId               String?
+  updatedAt              DateTime            @updatedAt
+  voucherTypeId          VoucherType         @relation(fields: [voucherTypeIdId], references: [id])
+  voucherTypeIdId        Int
+  wasChequePaid          Boolean             @default(0)
+}
+
+model VoucherType {
+  code            String?
+  createdAt       DateTime         @default(now())
+  description     String?
+  id              Int              @id @default(autoincrement())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  paymentVouchers PaymentVoucher[]
+  receiptVouchers ReceiptVoucher[]
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
+}
+
+model AccountTransaction {
+  code            String?
+  createdAt       DateTime         @default(now())
+  id              String           @id @default(cuid())
+  name            String?
+  paymentVouchers PaymentVoucher[]
+  receiptVouchers ReceiptVoucher?
+  updatedAt       DateTime         @updatedAt
+}
+
+model ExpenseItem {
+  code            String?
+  createdAt       DateTime         @default(now())
+  description     String?
+  id              String           @id @default(cuid())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  paymentVouchers PaymentVoucher[]
+  tenant          Tenant?          @relation(fields: [tenantId], references: [id])
+  tenantId        String?
+  updatedAt       DateTime         @updatedAt
+}
+
+model PaymentVoucher {
+  accountTransactionId   AccountTransaction? @relation(fields: [accountTransactionIdId], references: [id])
+  accountTransactionIdId String?
+  amount                 Decimal?
+  cashRepositoryId       CashRepository      @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId     String
+  createdAt              DateTime            @default(now())
+  currency               Currency            @relation(fields: [currencyId], references: [id])
+  currencyId             String
+  employeeId             Employee?           @relation(fields: [employeeIdId], references: [id])
+  employeeIdId           String?
+  expenseItemId          ExpenseItem?        @relation(fields: [expenseItemIdId], references: [id])
+  expenseItemIdId        String?
+  id                     String              @id @default(cuid())
+  isActive               Boolean             @default(1)
+  note                   String?
+  paymentVoucherDate     DateTime
+  statementReference     String?
+  supplier               Supplier?           @relation(fields: [supplierId], references: [id])
+  supplierId             String?
+  tenantId               Tenant?             @relation(fields: [tenantIdId], references: [id])
+  tenantIdId             String?
+  updatedAt              DateTime            @updatedAt
+  voucherTypeId          VoucherType?        @relation(fields: [voucherTypeIdId], references: [id])
+  voucherTypeIdId        Int?
+}
+
+model TimeMode {
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model TimeoffType {
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model Timezone {
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
   updatedAt      DateTime @updatedAt
 }
 
@@ -1783,4 +2006,9 @@ enum EnumPrintTemplatePaperSize {
   B3
   B5
   B6
+}
+
+enum EnumStoreLocationCreatedAtSide {
+  Server
+  Client
 }

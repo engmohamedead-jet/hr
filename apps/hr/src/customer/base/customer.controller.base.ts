@@ -29,6 +29,9 @@ import { CustomerUpdateInput } from "./CustomerUpdateInput";
 import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
 import { ProductionOrderWhereUniqueInput } from "../../productionOrder/base/ProductionOrderWhereUniqueInput";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { ReceiptVoucherWhereUniqueInput } from "../../receiptVoucher/base/ReceiptVoucherWhereUniqueInput";
 import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
 import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
@@ -548,6 +551,157 @@ export class CustomerControllerBase {
   ): Promise<void> {
     const data = {
       productionOrders: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/receiptVouchers")
+  @ApiNestedQuery(ReceiptVoucherFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @common.Req() request: Request,
+    @common.Param() params: CustomerWhereUniqueInput
+  ): Promise<ReceiptVoucher[]> {
+    const query = plainToClass(ReceiptVoucherFindManyArgs, request.query);
+    const results = await this.service.findReceiptVouchers(params.id, {
+      ...query,
+      select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeDueDate: true,
+        chequeNumber: true,
+        chequeValue: true,
+        createdAt: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isAcive: true,
+        note: true,
+        receiptVoucherDate: true,
+        sequence: true,
+        statementReference: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        wasChequePaid: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async connectReceiptVouchers(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        connect: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async updateReceiptVouchers(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        set: body,
+      },
+    };
+    await this.service.updateCustomer({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Customer",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectReceiptVouchers(
+    @common.Param() params: CustomerWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
         disconnect: body,
       },
     };

@@ -1,13 +1,9 @@
-import { AccountTransactionDetailCreateNestedManyWithoutAccountTransactionsInput } from "./AccountTransactionDetailCreateNestedManyWithoutAccountTransactionsInput";
-import { CostCenterWhereUniqueInput } from "../costCenter/CostCenterWhereUniqueInput";
-import { StoreWhereUniqueInput } from "../store/StoreWhereUniqueInput";
+import { PaymentVoucherCreateNestedManyWithoutAccountTransactionsInput } from "./PaymentVoucherCreateNestedManyWithoutAccountTransactionsInput";
+import { ReceiptVoucherWhereUniqueInput } from "../receiptVoucher/ReceiptVoucherWhereUniqueInput";
 
 export type AccountTransactionCreateInput = {
-  accountTransactionDetails?: AccountTransactionDetailCreateNestedManyWithoutAccountTransactionsInput;
-  costCenter?: CostCenterWhereUniqueInput | null;
-  note?: string | null;
-  referenceNumber?: string | null;
-  statementReference?: string | null;
-  store: StoreWhereUniqueInput;
-  transactionDate?: Date | null;
+  code?: string | null;
+  name?: string | null;
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutAccountTransactionsInput;
+  receiptVouchers?: ReceiptVoucherWhereUniqueInput | null;
 };

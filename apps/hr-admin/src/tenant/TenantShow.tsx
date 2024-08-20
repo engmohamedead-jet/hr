@@ -33,6 +33,11 @@ import { PRODUCTIONORDER_TITLE_FIELD } from "../productionOrder/ProductionOrderT
 import { SALEORDER_TITLE_FIELD } from "../saleOrder/SaleOrderTitle";
 import { PERIOD_TITLE_FIELD } from "../period/PeriodTitle";
 import { INSTALLMENTSALEFEE_TITLE_FIELD } from "../installmentSaleFee/InstallmentSaleFeeTitle";
+import { ACCOUNTTRANSACTION_TITLE_FIELD } from "../accountTransaction/AccountTransactionTitle";
+import { EMPLOYEE_TITLE_FIELD } from "../employee/EmployeeTitle";
+import { EXPENSEITEM_TITLE_FIELD } from "../expenseItem/ExpenseItemTitle";
+import { SUPPLIER_TITLE_FIELD } from "../supplier/SupplierTitle";
+import { VOUCHERTYPE_TITLE_FIELD } from "../voucherType/VoucherTypeTitle";
 import { PRINTTEMPLATE_TITLE_FIELD } from "../printTemplate/PrintTemplateTitle";
 import { PRINTTEMPLATECONTENT_TITLE_FIELD } from "../printTemplateContent/PrintTemplateContentTitle";
 import { BARCODETYPE_TITLE_FIELD } from "../barcodeType/BarcodeTypeTitle";
@@ -52,7 +57,6 @@ import { PURCHASERETURN_TITLE_FIELD } from "../purchaseReturn/PurchaseReturnTitl
 import { INVOICETYPE_TITLE_FIELD } from "../invoiceType/InvoiceTypeTitle";
 import { PAYMENTTERM_TITLE_FIELD } from "../paymentTerm/PaymentTermTitle";
 import { PAYMENTTYPE_TITLE_FIELD } from "../paymentType/PaymentTypeTitle";
-import { SUPPLIER_TITLE_FIELD } from "../supplier/SupplierTitle";
 import { RESOURCETYPE_TITLE_FIELD } from "../resourceType/ResourceTypeTitle";
 import { SALARYITEMGROUP_TITLE_FIELD } from "../salaryItemGroup/SalaryItemGroupTitle";
 import { SALARYITEMTYPE_TITLE_FIELD } from "../salaryItemType/SalaryItemTypeTitle";
@@ -64,13 +68,14 @@ import { SALEQUOTATION_TITLE_FIELD } from "../saleQuotation/SaleQuotationTitle";
 import { SHIPPINGSTATUS_TITLE_FIELD } from "../shippingStatus/ShippingStatusTitle";
 import { BANKBRANCH_TITLE_FIELD } from "../bankBranch/BankBranchTitle";
 import { PAYMENTMETHOD_TITLE_FIELD } from "../paymentMethod/PaymentMethodTitle";
-import { EMPLOYEE_TITLE_FIELD } from "../employee/EmployeeTitle";
 import { SALETEAM_TITLE_FIELD } from "../saleTeam/SaleTeamTitle";
 import { SALEDETAIL_TITLE_FIELD } from "../saleDetail/SaleDetailTitle";
 import { SALEORDERDETAIL_TITLE_FIELD } from "../saleOrderDetail/SaleOrderDetailTitle";
 import { SALEQUOTATIONDETAIL_TITLE_FIELD } from "../saleQuotationDetail/SaleQuotationDetailTitle";
 import { SALERETURNDETAIL_TITLE_FIELD } from "../saleReturnDetail/SaleReturnDetailTitle";
 import { SALERETURN_TITLE_FIELD } from "../saleReturn/SaleReturnTitle";
+import { SETTINGGROUP_TITLE_FIELD } from "../settingGroup/SettingGroupTitle";
+import { STORETYPE_TITLE_FIELD } from "../storeType/StoreTypeTitle";
 import { PRODUCTUNIT_TITLE_FIELD } from "../productUnit/ProductUnitTitle";
 import { WORKCENTER_TITLE_FIELD } from "../workCenter/WorkCenterTitle";
 
@@ -671,6 +676,30 @@ export const TenantShow = (props: ShowProps): React.ReactElement => {
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
+          reference="ExpenseItem"
+          target="tenantId"
+          label="ExpenseItems"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Description" source="description" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="Tenant"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
           reference="InstallmentSaleFee"
           target="tenantIdId"
           label="InstallmentSaleFees"
@@ -892,6 +921,78 @@ export const TenantShow = (props: ShowProps): React.ReactElement => {
               <TextField source={TENANT_TITLE_FIELD} />
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="PaymentVoucher"
+          target="tenantIdId"
+          label="PaymentVouchers"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="AccountTransactionId"
+              source="accounttransaction.id"
+              reference="AccountTransaction"
+            >
+              <TextField source={ACCOUNTTRANSACTION_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Amount" source="amount" />
+            <ReferenceField
+              label="CashRepositoryId"
+              source="cashrepository.id"
+              reference="CashRepository"
+            >
+              <TextField source={CASHREPOSITORY_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="createdAt" label="Created At" />
+            <ReferenceField
+              label="CurrencyId"
+              source="currency.id"
+              reference="Currency"
+            >
+              <TextField source={CURRENCY_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="EmployeeId"
+              source="employee.id"
+              reference="Employee"
+            >
+              <TextField source={EMPLOYEE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ExpenseItemId"
+              source="expenseitem.id"
+              reference="ExpenseItem"
+            >
+              <TextField source={EXPENSEITEM_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <TextField label="PaymentVoucherDate" source="paymentVoucherDate" />
+            <TextField label="StatementReference" source="statementReference" />
+            <ReferenceField
+              label="Supplier"
+              source="supplier.id"
+              reference="Supplier"
+            >
+              <TextField source={SUPPLIER_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="VoucherTypeId"
+              source="vouchertype.id"
+              reference="VoucherType"
+            >
+              <TextField source={VOUCHERTYPE_TITLE_FIELD} />
+            </ReferenceField>
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
@@ -1890,6 +1991,76 @@ export const TenantShow = (props: ShowProps): React.ReactElement => {
               <TextField source={TENANT_TITLE_FIELD} />
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="ReceiptVoucher"
+          target="tenantId"
+          label="ReceiptVouchers"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="AccountTransactionId"
+              source="accounttransaction.id"
+              reference="AccountTransaction"
+            >
+              <TextField source={ACCOUNTTRANSACTION_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Amount" source="amount" />
+            <ReferenceField
+              label="CashRepositoryId"
+              source="cashrepository.id"
+              reference="CashRepository"
+            >
+              <TextField source={CASHREPOSITORY_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ChequeDueDate" source="chequeDueDate" />
+            <TextField label="ChequeNumber" source="chequeNumber" />
+            <TextField label="ChequeValue" source="chequeValue" />
+            <DateField source="createdAt" label="Created At" />
+            <ReferenceField
+              label="CurrencyId"
+              source="currency.id"
+              reference="Currency"
+            >
+              <TextField source={CURRENCY_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="CustomerId"
+              source="customer.id"
+              reference="Customer"
+            >
+              <TextField source={CUSTOMER_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="EmployeeId"
+              source="employee.id"
+              reference="Employee"
+            >
+              <TextField source={EMPLOYEE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsAcive" source="isAcive" />
+            <TextField label="Note" source="note" />
+            <TextField label="ReceiptVoucherDate" source="receiptVoucherDate" />
+            <TextField label="Sequence" source="sequence" />
+            <TextField label="StatementReference" source="statementReference" />
+            <ReferenceField
+              label="Tenant"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="VoucherTypeId"
+              source="vouchertype.id"
+              reference="VoucherType"
+            >
+              <TextField source={VOUCHERTYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <BooleanField label="IsChequePaid" source="wasChequePaid" />
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
@@ -2918,6 +3089,63 @@ export const TenantShow = (props: ShowProps): React.ReactElement => {
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
+          reference="Setting"
+          target="tenantId"
+          label="Settings"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsEnabled" source="isEnabled" />
+            <BooleanField label="IsSystem" source="isSystem" />
+            <TextField label="Key" source="key" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="SettingGroup"
+              source="settinggroup.id"
+              reference="SettingGroup"
+            >
+              <TextField source={SETTINGGROUP_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="Tenant"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <TextField label="Value" source="value" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="Shift"
+          target="tenantidId"
+          label="Shifts"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="EndTime" source="endTime" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="nameNormalizedName" />
+            <TextField label="Note" source="note" />
+            <TextField label="StartTime" source="startTime" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
           reference="ShippingStatus"
           target="tenantId"
           label="ShippingStatuses"
@@ -2949,6 +3177,58 @@ export const TenantShow = (props: ShowProps): React.ReactElement => {
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
+          reference="StoreLocation"
+          target="tenantIdId"
+          label="StoreLocations"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="CreatedAtSide" source="createdAtSide" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField label="StoreId" source="store.id" reference="Store">
+              <TextField source={STORE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="StoreType"
+          target="tenantIdId"
+          label="StoreTypes"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Description" source="description" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsDefault" source="isDefault" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
           reference="Store"
           target="tenantIdId"
           label="Stores"
@@ -2966,6 +3246,13 @@ export const TenantShow = (props: ShowProps): React.ReactElement => {
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
             <TextField label="Note" source="note" />
+            <ReferenceField
+              label="StoreTypeId"
+              source="storetype.id"
+              reference="StoreType"
+            >
+              <TextField source={STORETYPE_TITLE_FIELD} />
+            </ReferenceField>
             <TextField label="Street" source="street" />
             <ReferenceField
               label="TenantId"
@@ -3021,6 +3308,54 @@ export const TenantShow = (props: ShowProps): React.ReactElement => {
             <TextField label="Website" source="website" />
           </Datagrid>
         </ReferenceManyField>
+        <ReferenceManyField
+          reference="TimeMode"
+          target="tenantIdId"
+          label="TimeModes"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Description" source="description" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="TimeoffType"
+          target="tenantIdId"
+          label="TimeoffTypes"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Description" source="description" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField reference="Unit" target="tenantIdId" label="Units">
           <Datagrid rowClick="show">
             <TextField label="Code" source="code" />
@@ -3068,6 +3403,30 @@ export const TenantShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
             <TextField label="Username" source="username" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="VoucherType"
+          target="tenantIdId"
+          label="VoucherTypes"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Description" source="description" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField

@@ -7,13 +7,13 @@ import {
   TextField,
   DateField,
   BooleanField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
 } from "react-admin";
 
-import { OFFICE_TITLE_FIELD } from "../office/OfficeTitle";
 import { STORETYPE_TITLE_FIELD } from "./StoreTypeTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const StoreTypeShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -23,14 +23,18 @@ export const StoreTypeShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <BooleanField label="IsDefault" source="isDefault" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="Store"
-          target="storeTypeId"
+          target="storeTypIdId"
           label="Stores"
         >
           <Datagrid rowClick="show">
@@ -42,16 +46,10 @@ export const StoreTypeShow = (props: ShowProps): React.ReactElement => {
             <TextField label="Fax" source="fax" />
             <TextField label="HomePhoneNumber" source="homePhoneNumber" />
             <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
             <TextField label="Note" source="note" />
-            <ReferenceField
-              label="OfficeId"
-              source="office.id"
-              reference="Office"
-            >
-              <TextField source={OFFICE_TITLE_FIELD} />
-            </ReferenceField>
             <ReferenceField
               label="StoreTypeId"
               source="storetype.id"
@@ -60,6 +58,13 @@ export const StoreTypeShow = (props: ShowProps): React.ReactElement => {
               <TextField source={STORETYPE_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="Street" source="street" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

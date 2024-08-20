@@ -1,6 +1,7 @@
 import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../currency/CurrencyWhereUniqueInput";
 import { ProductionOrderUpdateManyWithoutCustomersInput } from "./ProductionOrderUpdateManyWithoutCustomersInput";
+import { ReceiptVoucherUpdateManyWithoutCustomersInput } from "./ReceiptVoucherUpdateManyWithoutCustomersInput";
 import { SaleOrderUpdateManyWithoutCustomersInput } from "./SaleOrderUpdateManyWithoutCustomersInput";
 import { SaleReturnUpdateManyWithoutCustomersInput } from "./SaleReturnUpdateManyWithoutCustomersInput";
 import { SaleUpdateManyWithoutCustomersInput } from "./SaleUpdateManyWithoutCustomersInput";
@@ -27,6 +28,7 @@ export type CustomerUpdateInput = {
   phoneNumber?: string | null;
   previousBalance?: Decimal | null;
   productionOrders?: ProductionOrderUpdateManyWithoutCustomersInput;
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutCustomersInput;
   revisionDate?: Date | null;
   saleDiscountRate?: Decimal | null;
   saleOrders?: SaleOrderUpdateManyWithoutCustomersInput;

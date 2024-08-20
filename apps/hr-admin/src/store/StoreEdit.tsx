@@ -19,6 +19,8 @@ import { PurchaseTitle } from "../purchase/PurchaseTitle";
 import { SaleOrderTitle } from "../saleOrder/SaleOrderTitle";
 import { SaleReturnTitle } from "../saleReturn/SaleReturnTitle";
 import { SaleTitle } from "../sale/SaleTitle";
+import { StoreLocationTitle } from "../storeLocation/StoreLocationTitle";
+import { StoreTypeTitle } from "../storeType/StoreTypeTitle";
 import { TenantTitle } from "../tenant/TenantTitle";
 
 export const StoreEdit = (props: EditProps): React.ReactElement => {
@@ -91,6 +93,21 @@ export const StoreEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={SaleTitle} />
         </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="storeLocations"
+          reference="StoreLocation"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={StoreLocationTitle} />
+        </ReferenceArrayInput>
+        <ReferenceInput
+          source="storeTypId.id"
+          reference="StoreType"
+          label="StoreTypeId"
+        >
+          <SelectInput optionText={StoreTypeTitle} />
+        </ReferenceInput>
         <TextInput label="Street" source="street" />
         <ReferenceInput
           source="tenantId.id"

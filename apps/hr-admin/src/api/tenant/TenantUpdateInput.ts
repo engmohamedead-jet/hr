@@ -15,6 +15,7 @@ import { CustomerUpdateManyWithoutTenantsInput } from "./CustomerUpdateManyWitho
 import { EmployeeClassUpdateManyWithoutTenantsInput } from "./EmployeeClassUpdateManyWithoutTenantsInput";
 import { EmployeeDepartmentUpdateManyWithoutTenantsInput } from "./EmployeeDepartmentUpdateManyWithoutTenantsInput";
 import { EmployeeUpdateManyWithoutTenantsInput } from "./EmployeeUpdateManyWithoutTenantsInput";
+import { ExpenseItemUpdateManyWithoutTenantsInput } from "./ExpenseItemUpdateManyWithoutTenantsInput";
 import { InstallmentSaleFeeUpdateManyWithoutTenantsInput } from "./InstallmentSaleFeeUpdateManyWithoutTenantsInput";
 import { InvoiceTypeUpdateManyWithoutTenantsInput } from "./InvoiceTypeUpdateManyWithoutTenantsInput";
 import { OrderStatusUpdateManyWithoutTenantsInput } from "./OrderStatusUpdateManyWithoutTenantsInput";
@@ -22,6 +23,7 @@ import { PaymentMethodUpdateManyWithoutTenantsInput } from "./PaymentMethodUpdat
 import { PaymentStatusUpdateManyWithoutTenantsInput } from "./PaymentStatusUpdateManyWithoutTenantsInput";
 import { PaymentTermUpdateManyWithoutTenantsInput } from "./PaymentTermUpdateManyWithoutTenantsInput";
 import { PaymentTypeUpdateManyWithoutTenantsInput } from "./PaymentTypeUpdateManyWithoutTenantsInput";
+import { PaymentVoucherUpdateManyWithoutTenantsInput } from "./PaymentVoucherUpdateManyWithoutTenantsInput";
 import { PeriodUpdateManyWithoutTenantsInput } from "./PeriodUpdateManyWithoutTenantsInput";
 import { PrintTemplateContentUpdateManyWithoutTenantsInput } from "./PrintTemplateContentUpdateManyWithoutTenantsInput";
 import { PrintTemplateGroupUpdateManyWithoutTenantsInput } from "./PrintTemplateGroupUpdateManyWithoutTenantsInput";
@@ -42,6 +44,7 @@ import { PurchasePriceTypeUpdateManyWithoutTenantsInput } from "./PurchasePriceT
 import { PurchaseReturnDetailUpdateManyWithoutTenantsInput } from "./PurchaseReturnDetailUpdateManyWithoutTenantsInput";
 import { PurchaseReturnUpdateManyWithoutTenantsInput } from "./PurchaseReturnUpdateManyWithoutTenantsInput";
 import { PurchaseUpdateManyWithoutTenantsInput } from "./PurchaseUpdateManyWithoutTenantsInput";
+import { ReceiptVoucherUpdateManyWithoutTenantsInput } from "./ReceiptVoucherUpdateManyWithoutTenantsInput";
 import { ResourceTypeUpdateManyWithoutTenantsInput } from "./ResourceTypeUpdateManyWithoutTenantsInput";
 import { ResourceUpdateManyWithoutTenantsInput } from "./ResourceUpdateManyWithoutTenantsInput";
 import { RoleGroupUpdateManyWithoutTenantsInput } from "./RoleGroupUpdateManyWithoutTenantsInput";
@@ -64,11 +67,18 @@ import { SaleTeamUpdateManyWithoutTenantsInput } from "./SaleTeamUpdateManyWitho
 import { SaleUpdateManyWithoutTenantsInput } from "./SaleUpdateManyWithoutTenantsInput";
 import { ScrapReasonUpdateManyWithoutTenantsInput } from "./ScrapReasonUpdateManyWithoutTenantsInput";
 import { SettingGroupUpdateManyWithoutTenantsInput } from "./SettingGroupUpdateManyWithoutTenantsInput";
+import { SettingUpdateManyWithoutTenantsInput } from "./SettingUpdateManyWithoutTenantsInput";
+import { ShiftUpdateManyWithoutTenantsInput } from "./ShiftUpdateManyWithoutTenantsInput";
 import { ShippingStatusUpdateManyWithoutTenantsInput } from "./ShippingStatusUpdateManyWithoutTenantsInput";
+import { StoreLocationUpdateManyWithoutTenantsInput } from "./StoreLocationUpdateManyWithoutTenantsInput";
+import { StoreTypeUpdateManyWithoutTenantsInput } from "./StoreTypeUpdateManyWithoutTenantsInput";
 import { StoreUpdateManyWithoutTenantsInput } from "./StoreUpdateManyWithoutTenantsInput";
 import { SupplierUpdateManyWithoutTenantsInput } from "./SupplierUpdateManyWithoutTenantsInput";
+import { TimeModeUpdateManyWithoutTenantsInput } from "./TimeModeUpdateManyWithoutTenantsInput";
+import { TimeoffTypeUpdateManyWithoutTenantsInput } from "./TimeoffTypeUpdateManyWithoutTenantsInput";
 import { UnitUpdateManyWithoutTenantsInput } from "./UnitUpdateManyWithoutTenantsInput";
 import { UserUpdateManyWithoutTenantsInput } from "./UserUpdateManyWithoutTenantsInput";
+import { VoucherTypeUpdateManyWithoutTenantsInput } from "./VoucherTypeUpdateManyWithoutTenantsInput";
 import { WorkCenterRoutingUpdateManyWithoutTenantsInput } from "./WorkCenterRoutingUpdateManyWithoutTenantsInput";
 import { WorkCenterUpdateManyWithoutTenantsInput } from "./WorkCenterUpdateManyWithoutTenantsInput";
 
@@ -94,6 +104,7 @@ export type TenantUpdateInput = {
   employeeClasses?: EmployeeClassUpdateManyWithoutTenantsInput;
   employeeDepartments?: EmployeeDepartmentUpdateManyWithoutTenantsInput;
   employees?: EmployeeUpdateManyWithoutTenantsInput;
+  expenseItems?: ExpenseItemUpdateManyWithoutTenantsInput;
   installmentSaleFees?: InstallmentSaleFeeUpdateManyWithoutTenantsInput;
   invoiceTypes?: InvoiceTypeUpdateManyWithoutTenantsInput;
   isActive?: boolean;
@@ -106,6 +117,7 @@ export type TenantUpdateInput = {
   paymentStatuses?: PaymentStatusUpdateManyWithoutTenantsInput;
   paymentTerms?: PaymentTermUpdateManyWithoutTenantsInput;
   paymentTypes?: PaymentTypeUpdateManyWithoutTenantsInput;
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutTenantsInput;
   periods?: PeriodUpdateManyWithoutTenantsInput;
   printTemplateContents?: PrintTemplateContentUpdateManyWithoutTenantsInput;
   printTemplateGroups?: PrintTemplateGroupUpdateManyWithoutTenantsInput;
@@ -126,6 +138,7 @@ export type TenantUpdateInput = {
   purchaseReturnDetails?: PurchaseReturnDetailUpdateManyWithoutTenantsInput;
   purchaseReturns?: PurchaseReturnUpdateManyWithoutTenantsInput;
   purchases?: PurchaseUpdateManyWithoutTenantsInput;
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutTenantsInput;
   resourceTypes?: ResourceTypeUpdateManyWithoutTenantsInput;
   resources?: ResourceUpdateManyWithoutTenantsInput;
   roleGroups?: RoleGroupUpdateManyWithoutTenantsInput;
@@ -148,12 +161,19 @@ export type TenantUpdateInput = {
   sales?: SaleUpdateManyWithoutTenantsInput;
   scrapReasons?: ScrapReasonUpdateManyWithoutTenantsInput;
   settingGroups?: SettingGroupUpdateManyWithoutTenantsInput;
+  settings?: SettingUpdateManyWithoutTenantsInput;
+  shifts?: ShiftUpdateManyWithoutTenantsInput;
   shippingStatuses?: ShippingStatusUpdateManyWithoutTenantsInput;
+  storeLocations?: StoreLocationUpdateManyWithoutTenantsInput;
+  storeTypes?: StoreTypeUpdateManyWithoutTenantsInput;
   stores?: StoreUpdateManyWithoutTenantsInput;
   suppliers?: SupplierUpdateManyWithoutTenantsInput;
   tenancyName?: string;
+  timeModes?: TimeModeUpdateManyWithoutTenantsInput;
+  timeoffTypes?: TimeoffTypeUpdateManyWithoutTenantsInput;
   units?: UnitUpdateManyWithoutTenantsInput;
   users?: UserUpdateManyWithoutTenantsInput;
+  voucherTypes?: VoucherTypeUpdateManyWithoutTenantsInput;
   workCenterRoutings?: WorkCenterRoutingUpdateManyWithoutTenantsInput;
   workCenters?: WorkCenterUpdateManyWithoutTenantsInput;
 };

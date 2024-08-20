@@ -26,6 +26,10 @@ import { EmployeeFindUniqueArgs } from "./EmployeeFindUniqueArgs";
 import { CreateEmployeeArgs } from "./CreateEmployeeArgs";
 import { UpdateEmployeeArgs } from "./UpdateEmployeeArgs";
 import { DeleteEmployeeArgs } from "./DeleteEmployeeArgs";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { SalePersonFindManyArgs } from "../../salePerson/base/SalePersonFindManyArgs";
 import { SalePerson } from "../../salePerson/base/SalePerson";
 import { EmployeeClass } from "../../employeeClass/base/EmployeeClass";
@@ -185,6 +189,46 @@ export class EmployeeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @graphql.Parent() parent: Employee,
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ReceiptVoucher], { name: "receiptVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @graphql.Parent() parent: Employee,
+    @graphql.Args() args: ReceiptVoucherFindManyArgs
+  ): Promise<ReceiptVoucher[]> {
+    const results = await this.service.findReceiptVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

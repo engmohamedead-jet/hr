@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { IntFilter } from "../../util/IntFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { SettingListRelationFilter } from "../../setting/base/SettingListRelationFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
@@ -97,6 +98,18 @@ class SettingGroupWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SettingListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SettingListRelationFilter)
+  @IsOptional()
+  @Field(() => SettingListRelationFilter, {
+    nullable: true,
+  })
+  settings?: SettingListRelationFilter;
 
   @ApiProperty({
     required: false,

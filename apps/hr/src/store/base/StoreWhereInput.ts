@@ -23,6 +23,8 @@ import { PurchaseListRelationFilter } from "../../purchase/base/PurchaseListRela
 import { SaleOrderListRelationFilter } from "../../saleOrder/base/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
+import { StoreLocationListRelationFilter } from "../../storeLocation/base/StoreLocationListRelationFilter";
+import { StoreTypeWhereUniqueInput } from "../../storeType/base/StoreTypeWhereUniqueInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
@@ -231,6 +233,30 @@ class StoreWhereInput {
     nullable: true,
   })
   sales?: SaleListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreLocationListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => StoreLocationListRelationFilter)
+  @IsOptional()
+  @Field(() => StoreLocationListRelationFilter, {
+    nullable: true,
+  })
+  storeLocations?: StoreLocationListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => StoreTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  storeTypId?: StoreTypeWhereUniqueInput;
 
   @ApiProperty({
     required: false,

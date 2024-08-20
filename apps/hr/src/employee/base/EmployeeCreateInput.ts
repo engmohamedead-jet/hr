@@ -27,6 +27,8 @@ import { Decimal } from "decimal.js";
 import { EmployeeClassWhereUniqueInput } from "../../employeeClass/base/EmployeeClassWhereUniqueInput";
 import { Type } from "class-transformer";
 import { EmployeeDepartmentWhereUniqueInput } from "../../employeeDepartment/base/EmployeeDepartmentWhereUniqueInput";
+import { PaymentVoucherCreateNestedManyWithoutEmployeesInput } from "./PaymentVoucherCreateNestedManyWithoutEmployeesInput";
+import { ReceiptVoucherCreateNestedManyWithoutEmployeesInput } from "./ReceiptVoucherCreateNestedManyWithoutEmployeesInput";
 import { SalePersonCreateNestedManyWithoutEmployeesInput } from "./SalePersonCreateNestedManyWithoutEmployeesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
@@ -131,6 +133,30 @@ class EmployeeCreateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherCreateNestedManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherCreateNestedManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherCreateNestedManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherCreateNestedManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherCreateNestedManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherCreateNestedManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,

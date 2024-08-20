@@ -47,6 +47,9 @@ import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWher
 import { SaleFindManyArgs } from "../../sale/base/SaleFindManyArgs";
 import { Sale } from "../../sale/base/Sale";
 import { SaleWhereUniqueInput } from "../../sale/base/SaleWhereUniqueInput";
+import { StoreLocationFindManyArgs } from "../../storeLocation/base/StoreLocationFindManyArgs";
+import { StoreLocation } from "../../storeLocation/base/StoreLocation";
+import { StoreLocationWhereUniqueInput } from "../../storeLocation/base/StoreLocationWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -71,6 +74,12 @@ export class StoreControllerBase {
       data: {
         ...data,
 
+        storeTypId: data.storeTypId
+          ? {
+              connect: data.storeTypId,
+            }
+          : undefined,
+
         tenantId: data.tenantId
           ? {
               connect: data.tenantId,
@@ -90,6 +99,13 @@ export class StoreControllerBase {
         name: true,
         normalizedName: true,
         note: true,
+
+        storeTypId: {
+          select: {
+            id: true,
+          },
+        },
+
         street: true,
 
         tenantId: {
@@ -132,6 +148,13 @@ export class StoreControllerBase {
         name: true,
         normalizedName: true,
         note: true,
+
+        storeTypId: {
+          select: {
+            id: true,
+          },
+        },
+
         street: true,
 
         tenantId: {
@@ -175,6 +198,13 @@ export class StoreControllerBase {
         name: true,
         normalizedName: true,
         note: true,
+
+        storeTypId: {
+          select: {
+            id: true,
+          },
+        },
+
         street: true,
 
         tenantId: {
@@ -216,6 +246,12 @@ export class StoreControllerBase {
         data: {
           ...data,
 
+          storeTypId: data.storeTypId
+            ? {
+                connect: data.storeTypId,
+              }
+            : undefined,
+
           tenantId: data.tenantId
             ? {
                 connect: data.tenantId,
@@ -235,6 +271,13 @@ export class StoreControllerBase {
           name: true,
           normalizedName: true,
           note: true,
+
+          storeTypId: {
+            select: {
+              id: true,
+            },
+          },
+
           street: true,
 
           tenantId: {
@@ -286,6 +329,13 @@ export class StoreControllerBase {
           name: true,
           normalizedName: true,
           note: true,
+
+          storeTypId: {
+            select: {
+              id: true,
+            },
+          },
+
           street: true,
 
           tenantId: {
@@ -1479,6 +1529,120 @@ export class StoreControllerBase {
   ): Promise<void> {
     const data = {
       sales: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateStore({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/storeLocations")
+  @ApiNestedQuery(StoreLocationFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "StoreLocation",
+    action: "read",
+    possession: "any",
+  })
+  async findStoreLocations(
+    @common.Req() request: Request,
+    @common.Param() params: StoreWhereUniqueInput
+  ): Promise<StoreLocation[]> {
+    const query = plainToClass(StoreLocationFindManyArgs, request.query);
+    const results = await this.service.findStoreLocations(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        createdAtSide: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/storeLocations")
+  @nestAccessControl.UseRoles({
+    resource: "Store",
+    action: "update",
+    possession: "any",
+  })
+  async connectStoreLocations(
+    @common.Param() params: StoreWhereUniqueInput,
+    @common.Body() body: StoreLocationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      storeLocations: {
+        connect: body,
+      },
+    };
+    await this.service.updateStore({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/storeLocations")
+  @nestAccessControl.UseRoles({
+    resource: "Store",
+    action: "update",
+    possession: "any",
+  })
+  async updateStoreLocations(
+    @common.Param() params: StoreWhereUniqueInput,
+    @common.Body() body: StoreLocationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      storeLocations: {
+        set: body,
+      },
+    };
+    await this.service.updateStore({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/storeLocations")
+  @nestAccessControl.UseRoles({
+    resource: "Store",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectStoreLocations(
+    @common.Param() params: StoreWhereUniqueInput,
+    @common.Body() body: StoreLocationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      storeLocations: {
         disconnect: body,
       },
     };

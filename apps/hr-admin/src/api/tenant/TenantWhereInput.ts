@@ -16,6 +16,7 @@ import { CustomerListRelationFilter } from "../customer/CustomerListRelationFilt
 import { EmployeeClassListRelationFilter } from "../employeeClass/EmployeeClassListRelationFilter";
 import { EmployeeDepartmentListRelationFilter } from "../employeeDepartment/EmployeeDepartmentListRelationFilter";
 import { EmployeeListRelationFilter } from "../employee/EmployeeListRelationFilter";
+import { ExpenseItemListRelationFilter } from "../expenseItem/ExpenseItemListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { InstallmentSaleFeeListRelationFilter } from "../installmentSaleFee/InstallmentSaleFeeListRelationFilter";
 import { InvoiceTypeListRelationFilter } from "../invoiceType/InvoiceTypeListRelationFilter";
@@ -25,6 +26,7 @@ import { PaymentMethodListRelationFilter } from "../paymentMethod/PaymentMethodL
 import { PaymentStatusListRelationFilter } from "../paymentStatus/PaymentStatusListRelationFilter";
 import { PaymentTermListRelationFilter } from "../paymentTerm/PaymentTermListRelationFilter";
 import { PaymentTypeListRelationFilter } from "../paymentType/PaymentTypeListRelationFilter";
+import { PaymentVoucherListRelationFilter } from "../paymentVoucher/PaymentVoucherListRelationFilter";
 import { PeriodListRelationFilter } from "../period/PeriodListRelationFilter";
 import { PrintTemplateContentListRelationFilter } from "../printTemplateContent/PrintTemplateContentListRelationFilter";
 import { PrintTemplateGroupListRelationFilter } from "../printTemplateGroup/PrintTemplateGroupListRelationFilter";
@@ -45,6 +47,7 @@ import { PurchasePriceTypeListRelationFilter } from "../purchasePriceType/Purcha
 import { PurchaseReturnDetailListRelationFilter } from "../purchaseReturnDetail/PurchaseReturnDetailListRelationFilter";
 import { PurchaseReturnListRelationFilter } from "../purchaseReturn/PurchaseReturnListRelationFilter";
 import { PurchaseListRelationFilter } from "../purchase/PurchaseListRelationFilter";
+import { ReceiptVoucherListRelationFilter } from "../receiptVoucher/ReceiptVoucherListRelationFilter";
 import { ResourceTypeListRelationFilter } from "../resourceType/ResourceTypeListRelationFilter";
 import { ResourceListRelationFilter } from "../resource/ResourceListRelationFilter";
 import { RoleGroupListRelationFilter } from "../roleGroup/RoleGroupListRelationFilter";
@@ -67,11 +70,18 @@ import { SaleTeamListRelationFilter } from "../saleTeam/SaleTeamListRelationFilt
 import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
 import { ScrapReasonListRelationFilter } from "../scrapReason/ScrapReasonListRelationFilter";
 import { SettingGroupListRelationFilter } from "../settingGroup/SettingGroupListRelationFilter";
+import { SettingListRelationFilter } from "../setting/SettingListRelationFilter";
+import { ShiftListRelationFilter } from "../shift/ShiftListRelationFilter";
 import { ShippingStatusListRelationFilter } from "../shippingStatus/ShippingStatusListRelationFilter";
+import { StoreLocationListRelationFilter } from "../storeLocation/StoreLocationListRelationFilter";
+import { StoreTypeListRelationFilter } from "../storeType/StoreTypeListRelationFilter";
 import { StoreListRelationFilter } from "../store/StoreListRelationFilter";
 import { SupplierListRelationFilter } from "../supplier/SupplierListRelationFilter";
+import { TimeModeListRelationFilter } from "../timeMode/TimeModeListRelationFilter";
+import { TimeoffTypeListRelationFilter } from "../timeoffType/TimeoffTypeListRelationFilter";
 import { UnitListRelationFilter } from "../unit/UnitListRelationFilter";
 import { UserListRelationFilter } from "../user/UserListRelationFilter";
+import { VoucherTypeListRelationFilter } from "../voucherType/VoucherTypeListRelationFilter";
 import { WorkCenterRoutingListRelationFilter } from "../workCenterRouting/WorkCenterRoutingListRelationFilter";
 import { WorkCenterListRelationFilter } from "../workCenter/WorkCenterListRelationFilter";
 
@@ -97,6 +107,7 @@ export type TenantWhereInput = {
   employeeClasses?: EmployeeClassListRelationFilter;
   employeeDepartments?: EmployeeDepartmentListRelationFilter;
   employees?: EmployeeListRelationFilter;
+  expenseItems?: ExpenseItemListRelationFilter;
   id?: StringFilter;
   installmentSaleFees?: InstallmentSaleFeeListRelationFilter;
   invoiceTypes?: InvoiceTypeListRelationFilter;
@@ -110,6 +121,7 @@ export type TenantWhereInput = {
   paymentStatuses?: PaymentStatusListRelationFilter;
   paymentTerms?: PaymentTermListRelationFilter;
   paymentTypes?: PaymentTypeListRelationFilter;
+  paymentVouchers?: PaymentVoucherListRelationFilter;
   periods?: PeriodListRelationFilter;
   printTemplateContents?: PrintTemplateContentListRelationFilter;
   printTemplateGroups?: PrintTemplateGroupListRelationFilter;
@@ -130,6 +142,7 @@ export type TenantWhereInput = {
   purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
   purchaseReturns?: PurchaseReturnListRelationFilter;
   purchases?: PurchaseListRelationFilter;
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
   resourceTypes?: ResourceTypeListRelationFilter;
   resources?: ResourceListRelationFilter;
   roleGroups?: RoleGroupListRelationFilter;
@@ -152,12 +165,19 @@ export type TenantWhereInput = {
   sales?: SaleListRelationFilter;
   scrapReasons?: ScrapReasonListRelationFilter;
   settingGroups?: SettingGroupListRelationFilter;
+  settings?: SettingListRelationFilter;
+  shifts?: ShiftListRelationFilter;
   shippingStatuses?: ShippingStatusListRelationFilter;
+  storeLocations?: StoreLocationListRelationFilter;
+  storeTypes?: StoreTypeListRelationFilter;
   stores?: StoreListRelationFilter;
   suppliers?: SupplierListRelationFilter;
   tenancyName?: StringFilter;
+  timeModes?: TimeModeListRelationFilter;
+  timeoffTypes?: TimeoffTypeListRelationFilter;
   units?: UnitListRelationFilter;
   users?: UserListRelationFilter;
+  voucherTypes?: VoucherTypeListRelationFilter;
   workCenterRoutings?: WorkCenterRoutingListRelationFilter;
   workCenters?: WorkCenterListRelationFilter;
 };

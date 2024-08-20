@@ -22,6 +22,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
+import { ReceiptVoucherListRelationFilter } from "../../receiptVoucher/base/ReceiptVoucherListRelationFilter";
 import { SaleOrderListRelationFilter } from "../../saleOrder/base/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
@@ -251,6 +252,18 @@ class CustomerWhereInput {
     nullable: true,
   })
   productionOrders?: ProductionOrderListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => ReceiptVoucherListRelationFilter, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
 
   @ApiProperty({
     required: false,

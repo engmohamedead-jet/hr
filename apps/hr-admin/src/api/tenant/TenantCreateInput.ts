@@ -15,6 +15,7 @@ import { CustomerCreateNestedManyWithoutTenantsInput } from "./CustomerCreateNes
 import { EmployeeClassCreateNestedManyWithoutTenantsInput } from "./EmployeeClassCreateNestedManyWithoutTenantsInput";
 import { EmployeeDepartmentCreateNestedManyWithoutTenantsInput } from "./EmployeeDepartmentCreateNestedManyWithoutTenantsInput";
 import { EmployeeCreateNestedManyWithoutTenantsInput } from "./EmployeeCreateNestedManyWithoutTenantsInput";
+import { ExpenseItemCreateNestedManyWithoutTenantsInput } from "./ExpenseItemCreateNestedManyWithoutTenantsInput";
 import { InstallmentSaleFeeCreateNestedManyWithoutTenantsInput } from "./InstallmentSaleFeeCreateNestedManyWithoutTenantsInput";
 import { InvoiceTypeCreateNestedManyWithoutTenantsInput } from "./InvoiceTypeCreateNestedManyWithoutTenantsInput";
 import { OrderStatusCreateNestedManyWithoutTenantsInput } from "./OrderStatusCreateNestedManyWithoutTenantsInput";
@@ -22,6 +23,7 @@ import { PaymentMethodCreateNestedManyWithoutTenantsInput } from "./PaymentMetho
 import { PaymentStatusCreateNestedManyWithoutTenantsInput } from "./PaymentStatusCreateNestedManyWithoutTenantsInput";
 import { PaymentTermCreateNestedManyWithoutTenantsInput } from "./PaymentTermCreateNestedManyWithoutTenantsInput";
 import { PaymentTypeCreateNestedManyWithoutTenantsInput } from "./PaymentTypeCreateNestedManyWithoutTenantsInput";
+import { PaymentVoucherCreateNestedManyWithoutTenantsInput } from "./PaymentVoucherCreateNestedManyWithoutTenantsInput";
 import { PeriodCreateNestedManyWithoutTenantsInput } from "./PeriodCreateNestedManyWithoutTenantsInput";
 import { PrintTemplateContentCreateNestedManyWithoutTenantsInput } from "./PrintTemplateContentCreateNestedManyWithoutTenantsInput";
 import { PrintTemplateGroupCreateNestedManyWithoutTenantsInput } from "./PrintTemplateGroupCreateNestedManyWithoutTenantsInput";
@@ -42,6 +44,7 @@ import { PurchasePriceTypeCreateNestedManyWithoutTenantsInput } from "./Purchase
 import { PurchaseReturnDetailCreateNestedManyWithoutTenantsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutTenantsInput";
 import { PurchaseReturnCreateNestedManyWithoutTenantsInput } from "./PurchaseReturnCreateNestedManyWithoutTenantsInput";
 import { PurchaseCreateNestedManyWithoutTenantsInput } from "./PurchaseCreateNestedManyWithoutTenantsInput";
+import { ReceiptVoucherCreateNestedManyWithoutTenantsInput } from "./ReceiptVoucherCreateNestedManyWithoutTenantsInput";
 import { ResourceTypeCreateNestedManyWithoutTenantsInput } from "./ResourceTypeCreateNestedManyWithoutTenantsInput";
 import { ResourceCreateNestedManyWithoutTenantsInput } from "./ResourceCreateNestedManyWithoutTenantsInput";
 import { RoleGroupCreateNestedManyWithoutTenantsInput } from "./RoleGroupCreateNestedManyWithoutTenantsInput";
@@ -64,11 +67,18 @@ import { SaleTeamCreateNestedManyWithoutTenantsInput } from "./SaleTeamCreateNes
 import { SaleCreateNestedManyWithoutTenantsInput } from "./SaleCreateNestedManyWithoutTenantsInput";
 import { ScrapReasonCreateNestedManyWithoutTenantsInput } from "./ScrapReasonCreateNestedManyWithoutTenantsInput";
 import { SettingGroupCreateNestedManyWithoutTenantsInput } from "./SettingGroupCreateNestedManyWithoutTenantsInput";
+import { SettingCreateNestedManyWithoutTenantsInput } from "./SettingCreateNestedManyWithoutTenantsInput";
+import { ShiftCreateNestedManyWithoutTenantsInput } from "./ShiftCreateNestedManyWithoutTenantsInput";
 import { ShippingStatusCreateNestedManyWithoutTenantsInput } from "./ShippingStatusCreateNestedManyWithoutTenantsInput";
+import { StoreLocationCreateNestedManyWithoutTenantsInput } from "./StoreLocationCreateNestedManyWithoutTenantsInput";
+import { StoreTypeCreateNestedManyWithoutTenantsInput } from "./StoreTypeCreateNestedManyWithoutTenantsInput";
 import { StoreCreateNestedManyWithoutTenantsInput } from "./StoreCreateNestedManyWithoutTenantsInput";
 import { SupplierCreateNestedManyWithoutTenantsInput } from "./SupplierCreateNestedManyWithoutTenantsInput";
+import { TimeModeCreateNestedManyWithoutTenantsInput } from "./TimeModeCreateNestedManyWithoutTenantsInput";
+import { TimeoffTypeCreateNestedManyWithoutTenantsInput } from "./TimeoffTypeCreateNestedManyWithoutTenantsInput";
 import { UnitCreateNestedManyWithoutTenantsInput } from "./UnitCreateNestedManyWithoutTenantsInput";
 import { UserCreateNestedManyWithoutTenantsInput } from "./UserCreateNestedManyWithoutTenantsInput";
+import { VoucherTypeCreateNestedManyWithoutTenantsInput } from "./VoucherTypeCreateNestedManyWithoutTenantsInput";
 import { WorkCenterRoutingCreateNestedManyWithoutTenantsInput } from "./WorkCenterRoutingCreateNestedManyWithoutTenantsInput";
 import { WorkCenterCreateNestedManyWithoutTenantsInput } from "./WorkCenterCreateNestedManyWithoutTenantsInput";
 
@@ -94,6 +104,7 @@ export type TenantCreateInput = {
   employeeClasses?: EmployeeClassCreateNestedManyWithoutTenantsInput;
   employeeDepartments?: EmployeeDepartmentCreateNestedManyWithoutTenantsInput;
   employees?: EmployeeCreateNestedManyWithoutTenantsInput;
+  expenseItems?: ExpenseItemCreateNestedManyWithoutTenantsInput;
   installmentSaleFees?: InstallmentSaleFeeCreateNestedManyWithoutTenantsInput;
   invoiceTypes?: InvoiceTypeCreateNestedManyWithoutTenantsInput;
   isActive: boolean;
@@ -106,6 +117,7 @@ export type TenantCreateInput = {
   paymentStatuses?: PaymentStatusCreateNestedManyWithoutTenantsInput;
   paymentTerms?: PaymentTermCreateNestedManyWithoutTenantsInput;
   paymentTypes?: PaymentTypeCreateNestedManyWithoutTenantsInput;
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutTenantsInput;
   periods?: PeriodCreateNestedManyWithoutTenantsInput;
   printTemplateContents?: PrintTemplateContentCreateNestedManyWithoutTenantsInput;
   printTemplateGroups?: PrintTemplateGroupCreateNestedManyWithoutTenantsInput;
@@ -126,6 +138,7 @@ export type TenantCreateInput = {
   purchaseReturnDetails?: PurchaseReturnDetailCreateNestedManyWithoutTenantsInput;
   purchaseReturns?: PurchaseReturnCreateNestedManyWithoutTenantsInput;
   purchases?: PurchaseCreateNestedManyWithoutTenantsInput;
+  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutTenantsInput;
   resourceTypes?: ResourceTypeCreateNestedManyWithoutTenantsInput;
   resources?: ResourceCreateNestedManyWithoutTenantsInput;
   roleGroups?: RoleGroupCreateNestedManyWithoutTenantsInput;
@@ -148,12 +161,19 @@ export type TenantCreateInput = {
   sales?: SaleCreateNestedManyWithoutTenantsInput;
   scrapReasons?: ScrapReasonCreateNestedManyWithoutTenantsInput;
   settingGroups?: SettingGroupCreateNestedManyWithoutTenantsInput;
+  settings?: SettingCreateNestedManyWithoutTenantsInput;
+  shifts?: ShiftCreateNestedManyWithoutTenantsInput;
   shippingStatuses?: ShippingStatusCreateNestedManyWithoutTenantsInput;
+  storeLocations?: StoreLocationCreateNestedManyWithoutTenantsInput;
+  storeTypes?: StoreTypeCreateNestedManyWithoutTenantsInput;
   stores?: StoreCreateNestedManyWithoutTenantsInput;
   suppliers?: SupplierCreateNestedManyWithoutTenantsInput;
   tenancyName: string;
+  timeModes?: TimeModeCreateNestedManyWithoutTenantsInput;
+  timeoffTypes?: TimeoffTypeCreateNestedManyWithoutTenantsInput;
   units?: UnitCreateNestedManyWithoutTenantsInput;
   users?: UserCreateNestedManyWithoutTenantsInput;
+  voucherTypes?: VoucherTypeCreateNestedManyWithoutTenantsInput;
   workCenterRoutings?: WorkCenterRoutingCreateNestedManyWithoutTenantsInput;
   workCenters?: WorkCenterCreateNestedManyWithoutTenantsInput;
 };

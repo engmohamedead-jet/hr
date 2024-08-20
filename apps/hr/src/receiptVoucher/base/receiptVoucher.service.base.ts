@@ -14,6 +14,12 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   ReceiptVoucher as PrismaReceiptVoucher,
+  AccountTransaction as PrismaAccountTransaction,
+  CashRepository as PrismaCashRepository,
+  Currency as PrismaCurrency,
+  Customer as PrismaCustomer,
+  Employee as PrismaEmployee,
+  Tenant as PrismaTenant,
   VoucherType as PrismaVoucherType,
 } from "@prisma/client";
 
@@ -50,6 +56,58 @@ export class ReceiptVoucherServiceBase {
     args: Prisma.ReceiptVoucherDeleteArgs
   ): Promise<PrismaReceiptVoucher> {
     return this.prisma.receiptVoucher.delete(args);
+  }
+
+  async getAccountTransactionId(
+    parentId: string
+  ): Promise<PrismaAccountTransaction | null> {
+    return this.prisma.receiptVoucher
+      .findUnique({
+        where: { id: parentId },
+      })
+      .accountTransactionId();
+  }
+
+  async getCashRepositoryId(
+    parentId: string
+  ): Promise<PrismaCashRepository | null> {
+    return this.prisma.receiptVoucher
+      .findUnique({
+        where: { id: parentId },
+      })
+      .cashRepositoryId();
+  }
+
+  async getCurrencyId(parentId: string): Promise<PrismaCurrency | null> {
+    return this.prisma.receiptVoucher
+      .findUnique({
+        where: { id: parentId },
+      })
+      .currencyId();
+  }
+
+  async getCustomerId(parentId: string): Promise<PrismaCustomer | null> {
+    return this.prisma.receiptVoucher
+      .findUnique({
+        where: { id: parentId },
+      })
+      .customerId();
+  }
+
+  async getEmployeeId(parentId: string): Promise<PrismaEmployee | null> {
+    return this.prisma.receiptVoucher
+      .findUnique({
+        where: { id: parentId },
+      })
+      .employeeId();
+  }
+
+  async getTenant(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.receiptVoucher
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenant();
   }
 
   async getVoucherTypeId(parentId: string): Promise<PrismaVoucherType | null> {

@@ -28,6 +28,8 @@ import { Decimal } from "decimal.js";
 import { Type } from "class-transformer";
 import { EmployeeClass } from "../../employeeClass/base/EmployeeClass";
 import { EmployeeDepartment } from "../../employeeDepartment/base/EmployeeDepartment";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { SalePerson } from "../../salePerson/base/SalePerson";
 import { Tenant } from "../../tenant/base/Tenant";
 
@@ -142,6 +144,24 @@ class Employee {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PaymentVoucher],
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucher)
+  @IsOptional()
+  paymentVouchers?: Array<PaymentVoucher>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ReceiptVoucher],
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucher)
+  @IsOptional()
+  receiptVouchers?: Array<ReceiptVoucher>;
 
   @ApiProperty({
     required: false,

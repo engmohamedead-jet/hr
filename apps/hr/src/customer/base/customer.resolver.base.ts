@@ -28,6 +28,8 @@ import { UpdateCustomerArgs } from "./UpdateCustomerArgs";
 import { DeleteCustomerArgs } from "./DeleteCustomerArgs";
 import { ProductionOrderFindManyArgs } from "../../productionOrder/base/ProductionOrderFindManyArgs";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
 import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindManyArgs";
@@ -196,6 +198,26 @@ export class CustomerResolverBase {
     @graphql.Args() args: ProductionOrderFindManyArgs
   ): Promise<ProductionOrder[]> {
     const results = await this.service.findProductionOrders(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ReceiptVoucher], { name: "receiptVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @graphql.Parent() parent: Customer,
+    @graphql.Args() args: ReceiptVoucherFindManyArgs
+  ): Promise<ReceiptVoucher[]> {
+    const results = await this.service.findReceiptVouchers(parent.id, args);
 
     if (!results) {
       return [];

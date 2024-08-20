@@ -31,6 +31,7 @@ import { CustomerListRelationFilter } from "../../customer/base/CustomerListRela
 import { EmployeeClassListRelationFilter } from "../../employeeClass/base/EmployeeClassListRelationFilter";
 import { EmployeeDepartmentListRelationFilter } from "../../employeeDepartment/base/EmployeeDepartmentListRelationFilter";
 import { EmployeeListRelationFilter } from "../../employee/base/EmployeeListRelationFilter";
+import { ExpenseItemListRelationFilter } from "../../expenseItem/base/ExpenseItemListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { InstallmentSaleFeeListRelationFilter } from "../../installmentSaleFee/base/InstallmentSaleFeeListRelationFilter";
 import { InvoiceTypeListRelationFilter } from "../../invoiceType/base/InvoiceTypeListRelationFilter";
@@ -40,6 +41,7 @@ import { PaymentMethodListRelationFilter } from "../../paymentMethod/base/Paymen
 import { PaymentStatusListRelationFilter } from "../../paymentStatus/base/PaymentStatusListRelationFilter";
 import { PaymentTermListRelationFilter } from "../../paymentTerm/base/PaymentTermListRelationFilter";
 import { PaymentTypeListRelationFilter } from "../../paymentType/base/PaymentTypeListRelationFilter";
+import { PaymentVoucherListRelationFilter } from "../../paymentVoucher/base/PaymentVoucherListRelationFilter";
 import { PeriodListRelationFilter } from "../../period/base/PeriodListRelationFilter";
 import { PrintTemplateContentListRelationFilter } from "../../printTemplateContent/base/PrintTemplateContentListRelationFilter";
 import { PrintTemplateGroupListRelationFilter } from "../../printTemplateGroup/base/PrintTemplateGroupListRelationFilter";
@@ -60,6 +62,7 @@ import { PurchasePriceTypeListRelationFilter } from "../../purchasePriceType/bas
 import { PurchaseReturnDetailListRelationFilter } from "../../purchaseReturnDetail/base/PurchaseReturnDetailListRelationFilter";
 import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
 import { PurchaseListRelationFilter } from "../../purchase/base/PurchaseListRelationFilter";
+import { ReceiptVoucherListRelationFilter } from "../../receiptVoucher/base/ReceiptVoucherListRelationFilter";
 import { ResourceTypeListRelationFilter } from "../../resourceType/base/ResourceTypeListRelationFilter";
 import { ResourceListRelationFilter } from "../../resource/base/ResourceListRelationFilter";
 import { RoleGroupListRelationFilter } from "../../roleGroup/base/RoleGroupListRelationFilter";
@@ -82,11 +85,18 @@ import { SaleTeamListRelationFilter } from "../../saleTeam/base/SaleTeamListRela
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
 import { ScrapReasonListRelationFilter } from "../../scrapReason/base/ScrapReasonListRelationFilter";
 import { SettingGroupListRelationFilter } from "../../settingGroup/base/SettingGroupListRelationFilter";
+import { SettingListRelationFilter } from "../../setting/base/SettingListRelationFilter";
+import { ShiftListRelationFilter } from "../../shift/base/ShiftListRelationFilter";
 import { ShippingStatusListRelationFilter } from "../../shippingStatus/base/ShippingStatusListRelationFilter";
+import { StoreLocationListRelationFilter } from "../../storeLocation/base/StoreLocationListRelationFilter";
+import { StoreTypeListRelationFilter } from "../../storeType/base/StoreTypeListRelationFilter";
 import { StoreListRelationFilter } from "../../store/base/StoreListRelationFilter";
 import { SupplierListRelationFilter } from "../../supplier/base/SupplierListRelationFilter";
+import { TimeModeListRelationFilter } from "../../timeMode/base/TimeModeListRelationFilter";
+import { TimeoffTypeListRelationFilter } from "../../timeoffType/base/TimeoffTypeListRelationFilter";
 import { UnitListRelationFilter } from "../../unit/base/UnitListRelationFilter";
 import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
+import { VoucherTypeListRelationFilter } from "../../voucherType/base/VoucherTypeListRelationFilter";
 import { WorkCenterRoutingListRelationFilter } from "../../workCenterRouting/base/WorkCenterRoutingListRelationFilter";
 import { WorkCenterListRelationFilter } from "../../workCenter/base/WorkCenterListRelationFilter";
 
@@ -342,6 +352,18 @@ class TenantWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ExpenseItemListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ExpenseItemListRelationFilter)
+  @IsOptional()
+  @Field(() => ExpenseItemListRelationFilter, {
+    nullable: true,
+  })
+  expenseItems?: ExpenseItemListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -489,6 +511,18 @@ class TenantWhereInput {
     nullable: true,
   })
   paymentTypes?: PaymentTypeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentVoucherListRelationFilter, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -729,6 +763,18 @@ class TenantWhereInput {
     nullable: true,
   })
   purchases?: PurchaseListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => ReceiptVoucherListRelationFilter, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -996,6 +1042,30 @@ class TenantWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => SettingListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SettingListRelationFilter)
+  @IsOptional()
+  @Field(() => SettingListRelationFilter, {
+    nullable: true,
+  })
+  settings?: SettingListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShiftListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ShiftListRelationFilter)
+  @IsOptional()
+  @Field(() => ShiftListRelationFilter, {
+    nullable: true,
+  })
+  shifts?: ShiftListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => ShippingStatusListRelationFilter,
   })
   @ValidateNested()
@@ -1005,6 +1075,30 @@ class TenantWhereInput {
     nullable: true,
   })
   shippingStatuses?: ShippingStatusListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreLocationListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => StoreLocationListRelationFilter)
+  @IsOptional()
+  @Field(() => StoreLocationListRelationFilter, {
+    nullable: true,
+  })
+  storeLocations?: StoreLocationListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreTypeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => StoreTypeListRelationFilter)
+  @IsOptional()
+  @Field(() => StoreTypeListRelationFilter, {
+    nullable: true,
+  })
+  storeTypes?: StoreTypeListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -1043,6 +1137,30 @@ class TenantWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => TimeModeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => TimeModeListRelationFilter)
+  @IsOptional()
+  @Field(() => TimeModeListRelationFilter, {
+    nullable: true,
+  })
+  timeModes?: TimeModeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TimeoffTypeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => TimeoffTypeListRelationFilter)
+  @IsOptional()
+  @Field(() => TimeoffTypeListRelationFilter, {
+    nullable: true,
+  })
+  timeoffTypes?: TimeoffTypeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => UnitListRelationFilter,
   })
   @ValidateNested()
@@ -1064,6 +1182,18 @@ class TenantWhereInput {
     nullable: true,
   })
   users?: UserListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => VoucherTypeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => VoucherTypeListRelationFilter)
+  @IsOptional()
+  @Field(() => VoucherTypeListRelationFilter, {
+    nullable: true,
+  })
+  voucherTypes?: VoucherTypeListRelationFilter;
 
   @ApiProperty({
     required: false,

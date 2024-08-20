@@ -20,6 +20,8 @@ import {
 } from "class-validator";
 import { CustomerCreateNestedManyWithoutCurrenciesInput } from "./CustomerCreateNestedManyWithoutCurrenciesInput";
 import { Type } from "class-transformer";
+import { PaymentVoucherCreateNestedManyWithoutCurrenciesInput } from "./PaymentVoucherCreateNestedManyWithoutCurrenciesInput";
+import { ReceiptVoucherCreateNestedManyWithoutCurrenciesInput } from "./ReceiptVoucherCreateNestedManyWithoutCurrenciesInput";
 import { SalePaymentCreateNestedManyWithoutCurrenciesInput } from "./SalePaymentCreateNestedManyWithoutCurrenciesInput";
 import { SupplierCreateNestedManyWithoutCurrenciesInput } from "./SupplierCreateNestedManyWithoutCurrenciesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
@@ -99,6 +101,30 @@ class CurrencyCreateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherCreateNestedManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherCreateNestedManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherCreateNestedManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutCurrenciesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherCreateNestedManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherCreateNestedManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherCreateNestedManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutCurrenciesInput;
 
   @ApiProperty({
     required: false,

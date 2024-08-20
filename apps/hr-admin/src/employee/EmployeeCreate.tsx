@@ -15,6 +15,8 @@ import {
 
 import { EmployeeClassTitle } from "../employeeClass/EmployeeClassTitle";
 import { EmployeeDepartmentTitle } from "../employeeDepartment/EmployeeDepartmentTitle";
+import { PaymentVoucherTitle } from "../paymentVoucher/PaymentVoucherTitle";
+import { ReceiptVoucherTitle } from "../receiptVoucher/ReceiptVoucherTitle";
 import { SalePersonTitle } from "../salePerson/SalePersonTitle";
 import { TenantTitle } from "../tenant/TenantTitle";
 
@@ -43,6 +45,22 @@ export const EmployeeCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
+        <ReferenceArrayInput
+          source="paymentVouchers"
+          reference="PaymentVoucher"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PaymentVoucherTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="receiptVouchers"
+          reference="ReceiptVoucher"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ReceiptVoucherTitle} />
+        </ReferenceArrayInput>
         <NumberInput label="RemainingBalance" source="remainingBalance" />
         <ReferenceArrayInput
           source="salePeople"

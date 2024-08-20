@@ -26,6 +26,8 @@ import { PurchaseCreateNestedManyWithoutStoresInput } from "./PurchaseCreateNest
 import { SaleOrderCreateNestedManyWithoutStoresInput } from "./SaleOrderCreateNestedManyWithoutStoresInput";
 import { SaleReturnCreateNestedManyWithoutStoresInput } from "./SaleReturnCreateNestedManyWithoutStoresInput";
 import { SaleCreateNestedManyWithoutStoresInput } from "./SaleCreateNestedManyWithoutStoresInput";
+import { StoreLocationCreateNestedManyWithoutStoresInput } from "./StoreLocationCreateNestedManyWithoutStoresInput";
+import { StoreTypeWhereUniqueInput } from "../../storeType/base/StoreTypeWhereUniqueInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
@@ -219,6 +221,30 @@ class StoreCreateInput {
     nullable: true,
   })
   sales?: SaleCreateNestedManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreLocationCreateNestedManyWithoutStoresInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreLocationCreateNestedManyWithoutStoresInput)
+  @IsOptional()
+  @Field(() => StoreLocationCreateNestedManyWithoutStoresInput, {
+    nullable: true,
+  })
+  storeLocations?: StoreLocationCreateNestedManyWithoutStoresInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => StoreTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  storeTypId?: StoreTypeWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

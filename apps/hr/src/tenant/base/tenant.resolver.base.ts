@@ -60,6 +60,8 @@ import { EmployeeDepartmentFindManyArgs } from "../../employeeDepartment/base/Em
 import { EmployeeDepartment } from "../../employeeDepartment/base/EmployeeDepartment";
 import { EmployeeFindManyArgs } from "../../employee/base/EmployeeFindManyArgs";
 import { Employee } from "../../employee/base/Employee";
+import { ExpenseItemFindManyArgs } from "../../expenseItem/base/ExpenseItemFindManyArgs";
+import { ExpenseItem } from "../../expenseItem/base/ExpenseItem";
 import { InstallmentSaleFeeFindManyArgs } from "../../installmentSaleFee/base/InstallmentSaleFeeFindManyArgs";
 import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
 import { InvoiceTypeFindManyArgs } from "../../invoiceType/base/InvoiceTypeFindManyArgs";
@@ -74,6 +76,8 @@ import { PaymentTermFindManyArgs } from "../../paymentTerm/base/PaymentTermFindM
 import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentTypeFindManyArgs } from "../../paymentType/base/PaymentTypeFindManyArgs";
 import { PaymentType } from "../../paymentType/base/PaymentType";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
 import { PeriodFindManyArgs } from "../../period/base/PeriodFindManyArgs";
 import { Period } from "../../period/base/Period";
 import { PrintTemplateContentFindManyArgs } from "../../printTemplateContent/base/PrintTemplateContentFindManyArgs";
@@ -114,6 +118,8 @@ import { PurchaseReturnFindManyArgs } from "../../purchaseReturn/base/PurchaseRe
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
 import { PurchaseFindManyArgs } from "../../purchase/base/PurchaseFindManyArgs";
 import { Purchase } from "../../purchase/base/Purchase";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { ResourceTypeFindManyArgs } from "../../resourceType/base/ResourceTypeFindManyArgs";
 import { ResourceType } from "../../resourceType/base/ResourceType";
 import { ResourceFindManyArgs } from "../../resource/base/ResourceFindManyArgs";
@@ -158,16 +164,30 @@ import { ScrapReasonFindManyArgs } from "../../scrapReason/base/ScrapReasonFindM
 import { ScrapReason } from "../../scrapReason/base/ScrapReason";
 import { SettingGroupFindManyArgs } from "../../settingGroup/base/SettingGroupFindManyArgs";
 import { SettingGroup } from "../../settingGroup/base/SettingGroup";
+import { SettingFindManyArgs } from "../../setting/base/SettingFindManyArgs";
+import { Setting } from "../../setting/base/Setting";
+import { ShiftFindManyArgs } from "../../shift/base/ShiftFindManyArgs";
+import { Shift } from "../../shift/base/Shift";
 import { ShippingStatusFindManyArgs } from "../../shippingStatus/base/ShippingStatusFindManyArgs";
 import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
+import { StoreLocationFindManyArgs } from "../../storeLocation/base/StoreLocationFindManyArgs";
+import { StoreLocation } from "../../storeLocation/base/StoreLocation";
+import { StoreTypeFindManyArgs } from "../../storeType/base/StoreTypeFindManyArgs";
+import { StoreType } from "../../storeType/base/StoreType";
 import { StoreFindManyArgs } from "../../store/base/StoreFindManyArgs";
 import { Store } from "../../store/base/Store";
 import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
 import { Supplier } from "../../supplier/base/Supplier";
+import { TimeModeFindManyArgs } from "../../timeMode/base/TimeModeFindManyArgs";
+import { TimeMode } from "../../timeMode/base/TimeMode";
+import { TimeoffTypeFindManyArgs } from "../../timeoffType/base/TimeoffTypeFindManyArgs";
+import { TimeoffType } from "../../timeoffType/base/TimeoffType";
 import { UnitFindManyArgs } from "../../unit/base/UnitFindManyArgs";
 import { Unit } from "../../unit/base/Unit";
 import { UserFindManyArgs } from "../../user/base/UserFindManyArgs";
 import { User } from "../../user/base/User";
+import { VoucherTypeFindManyArgs } from "../../voucherType/base/VoucherTypeFindManyArgs";
+import { VoucherType } from "../../voucherType/base/VoucherType";
 import { WorkCenterRoutingFindManyArgs } from "../../workCenterRouting/base/WorkCenterRoutingFindManyArgs";
 import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
 import { WorkCenterFindManyArgs } from "../../workCenter/base/WorkCenterFindManyArgs";
@@ -639,6 +659,26 @@ export class TenantResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ExpenseItem], { name: "expenseItems" })
+  @nestAccessControl.UseRoles({
+    resource: "ExpenseItem",
+    action: "read",
+    possession: "any",
+  })
+  async findExpenseItems(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: ExpenseItemFindManyArgs
+  ): Promise<ExpenseItem[]> {
+    const results = await this.service.findExpenseItems(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [InstallmentSaleFee], {
     name: "installmentSaleFees",
   })
@@ -772,6 +812,26 @@ export class TenantResolverBase {
     @graphql.Args() args: PaymentTypeFindManyArgs
   ): Promise<PaymentType[]> {
     const results = await this.service.findPaymentTypes(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
 
     if (!results) {
       return [];
@@ -1195,6 +1255,26 @@ export class TenantResolverBase {
     @graphql.Args() args: PurchaseFindManyArgs
   ): Promise<Purchase[]> {
     const results = await this.service.findPurchases(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ReceiptVoucher], { name: "receiptVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: ReceiptVoucherFindManyArgs
+  ): Promise<ReceiptVoucher[]> {
+    const results = await this.service.findReceiptVouchers(parent.id, args);
 
     if (!results) {
       return [];
@@ -1649,6 +1729,46 @@ export class TenantResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Setting], { name: "settings" })
+  @nestAccessControl.UseRoles({
+    resource: "Setting",
+    action: "read",
+    possession: "any",
+  })
+  async findSettings(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: SettingFindManyArgs
+  ): Promise<Setting[]> {
+    const results = await this.service.findSettings(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Shift], { name: "shifts" })
+  @nestAccessControl.UseRoles({
+    resource: "Shift",
+    action: "read",
+    possession: "any",
+  })
+  async findShifts(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: ShiftFindManyArgs
+  ): Promise<Shift[]> {
+    const results = await this.service.findShifts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [ShippingStatus], { name: "shippingStatuses" })
   @nestAccessControl.UseRoles({
     resource: "ShippingStatus",
@@ -1660,6 +1780,46 @@ export class TenantResolverBase {
     @graphql.Args() args: ShippingStatusFindManyArgs
   ): Promise<ShippingStatus[]> {
     const results = await this.service.findShippingStatuses(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [StoreLocation], { name: "storeLocations" })
+  @nestAccessControl.UseRoles({
+    resource: "StoreLocation",
+    action: "read",
+    possession: "any",
+  })
+  async findStoreLocations(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: StoreLocationFindManyArgs
+  ): Promise<StoreLocation[]> {
+    const results = await this.service.findStoreLocations(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [StoreType], { name: "storeTypes" })
+  @nestAccessControl.UseRoles({
+    resource: "StoreType",
+    action: "read",
+    possession: "any",
+  })
+  async findStoreTypes(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: StoreTypeFindManyArgs
+  ): Promise<StoreType[]> {
+    const results = await this.service.findStoreTypes(parent.id, args);
 
     if (!results) {
       return [];
@@ -1709,6 +1869,46 @@ export class TenantResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [TimeMode], { name: "timeModes" })
+  @nestAccessControl.UseRoles({
+    resource: "TimeMode",
+    action: "read",
+    possession: "any",
+  })
+  async findTimeModes(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: TimeModeFindManyArgs
+  ): Promise<TimeMode[]> {
+    const results = await this.service.findTimeModes(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [TimeoffType], { name: "timeoffTypes" })
+  @nestAccessControl.UseRoles({
+    resource: "TimeoffType",
+    action: "read",
+    possession: "any",
+  })
+  async findTimeoffTypes(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: TimeoffTypeFindManyArgs
+  ): Promise<TimeoffType[]> {
+    const results = await this.service.findTimeoffTypes(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [Unit], { name: "units" })
   @nestAccessControl.UseRoles({
     resource: "Unit",
@@ -1740,6 +1940,26 @@ export class TenantResolverBase {
     @graphql.Args() args: UserFindManyArgs
   ): Promise<User[]> {
     const results = await this.service.findUsers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [VoucherType], { name: "voucherTypes" })
+  @nestAccessControl.UseRoles({
+    resource: "VoucherType",
+    action: "read",
+    possession: "any",
+  })
+  async findVoucherTypes(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: VoucherTypeFindManyArgs
+  ): Promise<VoucherType[]> {
+    const results = await this.service.findVoucherTypes(parent.id, args);
 
     if (!results) {
       return [];

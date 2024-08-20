@@ -1,7 +1,9 @@
 import { CashRepositoryUpdateManyWithoutCashRepositoriesInput } from "./CashRepositoryUpdateManyWithoutCashRepositoriesInput";
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { PaymentVoucherUpdateManyWithoutCashRepositoriesInput } from "./PaymentVoucherUpdateManyWithoutCashRepositoriesInput";
 import { PurchaseReturnUpdateManyWithoutCashRepositoriesInput } from "./PurchaseReturnUpdateManyWithoutCashRepositoriesInput";
 import { PurchaseWhereUniqueInput } from "../purchase/PurchaseWhereUniqueInput";
+import { ReceiptVoucherUpdateManyWithoutCashRepositoriesInput } from "./ReceiptVoucherUpdateManyWithoutCashRepositoriesInput";
 import { SaleOrderUpdateManyWithoutCashRepositoriesInput } from "./SaleOrderUpdateManyWithoutCashRepositoriesInput";
 import { SaleReturnUpdateManyWithoutCashRepositoriesInput } from "./SaleReturnUpdateManyWithoutCashRepositoriesInput";
 import { SaleUpdateManyWithoutCashRepositoriesInput } from "./SaleUpdateManyWithoutCashRepositoriesInput";
@@ -16,8 +18,10 @@ export type CashRepositoryUpdateInput = {
   normalizedName?: string;
   note?: string | null;
   parentCashRepositoryId?: CashRepositoryWhereUniqueInput | null;
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutCashRepositoriesInput;
   purchaseReturns?: PurchaseReturnUpdateManyWithoutCashRepositoriesInput;
   purchases?: PurchaseWhereUniqueInput | null;
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutCashRepositoriesInput;
   saleOrders?: SaleOrderUpdateManyWithoutCashRepositoriesInput;
   saleReturns?: SaleReturnUpdateManyWithoutCashRepositoriesInput;
   sales?: SaleUpdateManyWithoutCashRepositoriesInput;

@@ -18,8 +18,10 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { PaymentVoucherListRelationFilter } from "../../paymentVoucher/base/PaymentVoucherListRelationFilter";
 import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
 import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
+import { ReceiptVoucherListRelationFilter } from "../../receiptVoucher/base/ReceiptVoucherListRelationFilter";
 import { SaleOrderListRelationFilter } from "../../saleOrder/base/SaleOrderListRelationFilter";
 import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
@@ -130,6 +132,18 @@ class CashRepositoryWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentVoucherListRelationFilter, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => PurchaseReturnListRelationFilter,
   })
   @ValidateNested()
@@ -151,6 +165,18 @@ class CashRepositoryWhereInput {
     nullable: true,
   })
   purchases?: PurchaseWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => ReceiptVoucherListRelationFilter, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
 
   @ApiProperty({
     required: false,

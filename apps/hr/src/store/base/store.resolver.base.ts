@@ -40,6 +40,9 @@ import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindMany
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { SaleFindManyArgs } from "../../sale/base/SaleFindManyArgs";
 import { Sale } from "../../sale/base/Sale";
+import { StoreLocationFindManyArgs } from "../../storeLocation/base/StoreLocationFindManyArgs";
+import { StoreLocation } from "../../storeLocation/base/StoreLocation";
+import { StoreType } from "../../storeType/base/StoreType";
 import { Tenant } from "../../tenant/base/Tenant";
 import { StoreService } from "../store.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -106,6 +109,12 @@ export class StoreResolverBase {
       data: {
         ...args.data,
 
+        storeTypId: args.data.storeTypId
+          ? {
+              connect: args.data.storeTypId,
+            }
+          : undefined,
+
         tenantId: args.data.tenantId
           ? {
               connect: args.data.tenantId,
@@ -130,6 +139,12 @@ export class StoreResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          storeTypId: args.data.storeTypId
+            ? {
+                connect: args.data.storeTypId,
+              }
+            : undefined,
 
           tenantId: args.data.tenantId
             ? {
@@ -307,6 +322,47 @@ export class StoreResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [StoreLocation], { name: "storeLocations" })
+  @nestAccessControl.UseRoles({
+    resource: "StoreLocation",
+    action: "read",
+    possession: "any",
+  })
+  async findStoreLocations(
+    @graphql.Parent() parent: Store,
+    @graphql.Args() args: StoreLocationFindManyArgs
+  ): Promise<StoreLocation[]> {
+    const results = await this.service.findStoreLocations(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => StoreType, {
+    nullable: true,
+    name: "storeTypId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "StoreType",
+    action: "read",
+    possession: "any",
+  })
+  async getStoreTypId(
+    @graphql.Parent() parent: Store
+  ): Promise<StoreType | null> {
+    const result = await this.service.getStoreTypId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

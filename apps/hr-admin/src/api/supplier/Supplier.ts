@@ -1,6 +1,7 @@
 import { Decimal } from "decimal.js";
 import { Currency } from "../currency/Currency";
 import { Customer } from "../customer/Customer";
+import { PaymentVoucher } from "../paymentVoucher/PaymentVoucher";
 import { PurchaseReturn } from "../purchaseReturn/PurchaseReturn";
 import { Purchase } from "../purchase/Purchase";
 import { Tenant } from "../tenant/Tenant";
@@ -20,6 +21,7 @@ export type Supplier = {
   name: string;
   normalizedName: string;
   note: string | null;
+  paymentVouchers?: Array<PaymentVoucher>;
   phoneNumber: string | null;
   purchaseReturns?: Array<PurchaseReturn>;
   purchases?: Array<Purchase>;

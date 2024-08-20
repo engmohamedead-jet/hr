@@ -15,6 +15,7 @@ import {
   Prisma,
   Customer as PrismaCustomer,
   ProductionOrder as PrismaProductionOrder,
+  ReceiptVoucher as PrismaReceiptVoucher,
   SaleOrder as PrismaSaleOrder,
   SaleReturn as PrismaSaleReturn,
   Sale as PrismaSale,
@@ -69,6 +70,17 @@ export class CustomerServiceBase {
         where: { id: parentId },
       })
       .productionOrders(args);
+  }
+
+  async findReceiptVouchers(
+    parentId: string,
+    args: Prisma.ReceiptVoucherFindManyArgs
+  ): Promise<PrismaReceiptVoucher[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .receiptVouchers(args);
   }
 
   async findSaleOrders(

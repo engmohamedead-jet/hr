@@ -36,6 +36,7 @@ import { SALEPRICETYPE_TITLE_FIELD } from "../salePriceType/SalePriceTypeTitle";
 import { SALEQUOTATION_TITLE_FIELD } from "../saleQuotation/SaleQuotationTitle";
 import { SHIPPINGSTATUS_TITLE_FIELD } from "../shippingStatus/ShippingStatusTitle";
 import { SALE_TITLE_FIELD } from "../sale/SaleTitle";
+import { STORETYPE_TITLE_FIELD } from "../storeType/StoreTypeTitle";
 
 export const StoreShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -53,6 +54,13 @@ export const StoreShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField
+          label="StoreTypeId"
+          source="storetype.id"
+          reference="StoreType"
+        >
+          <TextField source={STORETYPE_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="Street" source="street" />
         <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
           <TextField source={TENANT_TITLE_FIELD} />
@@ -657,6 +665,33 @@ export const StoreShow = (props: ShowProps): React.ReactElement => {
             <TextField label="TaxableTotal" source="taxableTotal" />
             <ReferenceField
               label="Tenant"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="StoreLocation"
+          target="storeIdId"
+          label="StoreLocations"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="CreatedAtSide" source="createdAtSide" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField label="StoreId" source="store.id" reference="Store">
+              <TextField source={STORE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="TenantId"
               source="tenant.id"
               reference="Tenant"
             >

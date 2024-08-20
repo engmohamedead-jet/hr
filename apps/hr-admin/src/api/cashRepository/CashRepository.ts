@@ -1,5 +1,7 @@
+import { PaymentVoucher } from "../paymentVoucher/PaymentVoucher";
 import { PurchaseReturn } from "../purchaseReturn/PurchaseReturn";
 import { Purchase } from "../purchase/Purchase";
+import { ReceiptVoucher } from "../receiptVoucher/ReceiptVoucher";
 import { SaleOrder } from "../saleOrder/SaleOrder";
 import { SaleReturn } from "../saleReturn/SaleReturn";
 import { Sale } from "../sale/Sale";
@@ -16,8 +18,10 @@ export type CashRepository = {
   normalizedName: string;
   note: string | null;
   parentCashRepositoryId?: CashRepository | null;
+  paymentVouchers?: Array<PaymentVoucher>;
   purchaseReturns?: Array<PurchaseReturn>;
   purchases?: Purchase | null;
+  receiptVouchers?: Array<ReceiptVoucher>;
   saleOrders?: Array<SaleOrder>;
   saleReturns?: Array<SaleReturn>;
   sales?: Array<Sale>;

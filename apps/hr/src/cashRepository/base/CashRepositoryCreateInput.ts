@@ -21,8 +21,10 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { PaymentVoucherCreateNestedManyWithoutCashRepositoriesInput } from "./PaymentVoucherCreateNestedManyWithoutCashRepositoriesInput";
 import { PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput } from "./PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput";
 import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
+import { ReceiptVoucherCreateNestedManyWithoutCashRepositoriesInput } from "./ReceiptVoucherCreateNestedManyWithoutCashRepositoriesInput";
 import { SaleOrderCreateNestedManyWithoutCashRepositoriesInput } from "./SaleOrderCreateNestedManyWithoutCashRepositoriesInput";
 import { SaleReturnCreateNestedManyWithoutCashRepositoriesInput } from "./SaleReturnCreateNestedManyWithoutCashRepositoriesInput";
 import { SaleCreateNestedManyWithoutCashRepositoriesInput } from "./SaleCreateNestedManyWithoutCashRepositoriesInput";
@@ -118,6 +120,18 @@ class CashRepositoryCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentVoucherCreateNestedManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherCreateNestedManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherCreateNestedManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
     type: () => PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput,
   })
   @ValidateNested()
@@ -139,6 +153,18 @@ class CashRepositoryCreateInput {
     nullable: true,
   })
   purchases?: PurchaseWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherCreateNestedManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherCreateNestedManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherCreateNestedManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutCashRepositoriesInput;
 
   @ApiProperty({
     required: false,

@@ -10,7 +10,13 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, ExpenseItem as PrismaExpenseItem } from "@prisma/client";
+
+import {
+  Prisma,
+  ExpenseItem as PrismaExpenseItem,
+  PaymentVoucher as PrismaPaymentVoucher,
+  Tenant as PrismaTenant,
+} from "@prisma/client";
 
 export class ExpenseItemServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +51,24 @@ export class ExpenseItemServiceBase {
     args: Prisma.ExpenseItemDeleteArgs
   ): Promise<PrismaExpenseItem> {
     return this.prisma.expenseItem.delete(args);
+  }
+
+  async findPaymentVouchers(
+    parentId: string,
+    args: Prisma.PaymentVoucherFindManyArgs
+  ): Promise<PrismaPaymentVoucher[]> {
+    return this.prisma.expenseItem
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentVouchers(args);
+  }
+
+  async getTenant(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.expenseItem
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenant();
   }
 }

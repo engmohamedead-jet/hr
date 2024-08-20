@@ -1,6 +1,7 @@
 import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../currency/CurrencyWhereUniqueInput";
 import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
+import { PaymentVoucherCreateNestedManyWithoutSuppliersInput } from "./PaymentVoucherCreateNestedManyWithoutSuppliersInput";
 import { PurchaseReturnCreateNestedManyWithoutSuppliersInput } from "./PurchaseReturnCreateNestedManyWithoutSuppliersInput";
 import { PurchaseCreateNestedManyWithoutSuppliersInput } from "./PurchaseCreateNestedManyWithoutSuppliersInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
@@ -18,6 +19,7 @@ export type SupplierCreateInput = {
   name: string;
   normalizedName: string;
   note?: string | null;
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutSuppliersInput;
   phoneNumber?: string | null;
   purchaseReturns?: PurchaseReturnCreateNestedManyWithoutSuppliersInput;
   purchases?: PurchaseCreateNestedManyWithoutSuppliersInput;

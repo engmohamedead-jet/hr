@@ -27,6 +27,8 @@ import { Purchase } from "../../purchase/base/Purchase";
 import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { Sale } from "../../sale/base/Sale";
+import { StoreLocation } from "../../storeLocation/base/StoreLocation";
+import { StoreType } from "../../storeType/base/StoreType";
 import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
@@ -215,6 +217,24 @@ class Store {
   @Type(() => Sale)
   @IsOptional()
   sales?: Array<Sale>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [StoreLocation],
+  })
+  @ValidateNested()
+  @Type(() => StoreLocation)
+  @IsOptional()
+  storeLocations?: Array<StoreLocation>;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreType,
+  })
+  @ValidateNested()
+  @Type(() => StoreType)
+  @IsOptional()
+  storeTypId?: StoreType | null;
 
   @ApiProperty({
     required: false,

@@ -37,6 +37,7 @@ import { Customer } from "../../customer/base/Customer";
 import { EmployeeClass } from "../../employeeClass/base/EmployeeClass";
 import { EmployeeDepartment } from "../../employeeDepartment/base/EmployeeDepartment";
 import { Employee } from "../../employee/base/Employee";
+import { ExpenseItem } from "../../expenseItem/base/ExpenseItem";
 import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
 import { InvoiceType } from "../../invoiceType/base/InvoiceType";
 import { OrderStatus } from "../../orderStatus/base/OrderStatus";
@@ -44,6 +45,7 @@ import { PaymentMethod } from "../../paymentMethod/base/PaymentMethod";
 import { PaymentStatus } from "../../paymentStatus/base/PaymentStatus";
 import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { PaymentType } from "../../paymentType/base/PaymentType";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
 import { Period } from "../../period/base/Period";
 import { PrintTemplateContent } from "../../printTemplateContent/base/PrintTemplateContent";
 import { PrintTemplateGroup } from "../../printTemplateGroup/base/PrintTemplateGroup";
@@ -64,6 +66,7 @@ import { PurchasePriceType } from "../../purchasePriceType/base/PurchasePriceTyp
 import { PurchaseReturnDetail } from "../../purchaseReturnDetail/base/PurchaseReturnDetail";
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
 import { Purchase } from "../../purchase/base/Purchase";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { ResourceType } from "../../resourceType/base/ResourceType";
 import { Resource } from "../../resource/base/Resource";
 import { RoleGroup } from "../../roleGroup/base/RoleGroup";
@@ -86,11 +89,18 @@ import { SaleTeam } from "../../saleTeam/base/SaleTeam";
 import { Sale } from "../../sale/base/Sale";
 import { ScrapReason } from "../../scrapReason/base/ScrapReason";
 import { SettingGroup } from "../../settingGroup/base/SettingGroup";
+import { Setting } from "../../setting/base/Setting";
+import { Shift } from "../../shift/base/Shift";
 import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
+import { StoreLocation } from "../../storeLocation/base/StoreLocation";
+import { StoreType } from "../../storeType/base/StoreType";
 import { Store } from "../../store/base/Store";
 import { Supplier } from "../../supplier/base/Supplier";
+import { TimeMode } from "../../timeMode/base/TimeMode";
+import { TimeoffType } from "../../timeoffType/base/TimeoffType";
 import { Unit } from "../../unit/base/Unit";
 import { User } from "../../user/base/User";
+import { VoucherType } from "../../voucherType/base/VoucherType";
 import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
 import { WorkCenter } from "../../workCenter/base/WorkCenter";
 
@@ -305,6 +315,15 @@ class Tenant {
   employees?: Array<Employee>;
 
   @ApiProperty({
+    required: false,
+    type: () => [ExpenseItem],
+  })
+  @ValidateNested()
+  @Type(() => ExpenseItem)
+  @IsOptional()
+  expenseItems?: Array<ExpenseItem>;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
@@ -424,6 +443,15 @@ class Tenant {
   @Type(() => PaymentType)
   @IsOptional()
   paymentTypes?: Array<PaymentType>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PaymentVoucher],
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucher)
+  @IsOptional()
+  paymentVouchers?: Array<PaymentVoucher>;
 
   @ApiProperty({
     required: false,
@@ -604,6 +632,15 @@ class Tenant {
   @Type(() => Purchase)
   @IsOptional()
   purchases?: Array<Purchase>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ReceiptVoucher],
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucher)
+  @IsOptional()
+  receiptVouchers?: Array<ReceiptVoucher>;
 
   @ApiProperty({
     required: false,
@@ -805,12 +842,48 @@ class Tenant {
 
   @ApiProperty({
     required: false,
+    type: () => [Setting],
+  })
+  @ValidateNested()
+  @Type(() => Setting)
+  @IsOptional()
+  settings?: Array<Setting>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Shift],
+  })
+  @ValidateNested()
+  @Type(() => Shift)
+  @IsOptional()
+  shifts?: Array<Shift>;
+
+  @ApiProperty({
+    required: false,
     type: () => [ShippingStatus],
   })
   @ValidateNested()
   @Type(() => ShippingStatus)
   @IsOptional()
   shippingStatuses?: Array<ShippingStatus>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [StoreLocation],
+  })
+  @ValidateNested()
+  @Type(() => StoreLocation)
+  @IsOptional()
+  storeLocations?: Array<StoreLocation>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [StoreType],
+  })
+  @ValidateNested()
+  @Type(() => StoreType)
+  @IsOptional()
+  storeTypes?: Array<StoreType>;
 
   @ApiProperty({
     required: false,
@@ -841,6 +914,24 @@ class Tenant {
 
   @ApiProperty({
     required: false,
+    type: () => [TimeMode],
+  })
+  @ValidateNested()
+  @Type(() => TimeMode)
+  @IsOptional()
+  timeModes?: Array<TimeMode>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [TimeoffType],
+  })
+  @ValidateNested()
+  @Type(() => TimeoffType)
+  @IsOptional()
+  timeoffTypes?: Array<TimeoffType>;
+
+  @ApiProperty({
+    required: false,
     type: () => [Unit],
   })
   @ValidateNested()
@@ -864,6 +955,15 @@ class Tenant {
   @Type(() => User)
   @IsOptional()
   users?: Array<User>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [VoucherType],
+  })
+  @ValidateNested()
+  @Type(() => VoucherType)
+  @IsOptional()
+  voucherTypes?: Array<VoucherType>;
 
   @ApiProperty({
     required: false,

@@ -11,40 +11,25 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountTransactionDetailListRelationFilter } from "../../accountTransactionDetail/base/AccountTransactionDetailListRelationFilter";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
-import { CostCenterWhereUniqueInput } from "../../costCenter/base/CostCenterWhereUniqueInput";
-import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
+import { PaymentVoucherListRelationFilter } from "../../paymentVoucher/base/PaymentVoucherListRelationFilter";
+import { ReceiptVoucherWhereUniqueInput } from "../../receiptVoucher/base/ReceiptVoucherWhereUniqueInput";
 
 @InputType()
 class AccountTransactionWhereInput {
   @ApiProperty({
     required: false,
-    type: () => AccountTransactionDetailListRelationFilter,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => AccountTransactionDetailListRelationFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => AccountTransactionDetailListRelationFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  accountTransactionDetails?: AccountTransactionDetailListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => CostCenterWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CostCenterWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CostCenterWhereUniqueInput, {
-    nullable: true,
-  })
-  costCenter?: CostCenterWhereUniqueInput;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -66,52 +51,31 @@ class AccountTransactionWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  note?: StringNullableFilter;
+  name?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  referenceNumber?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  statementReference?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => StoreWhereUniqueInput,
+    type: () => PaymentVoucherListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => StoreWhereUniqueInput)
+  @Type(() => PaymentVoucherListRelationFilter)
   @IsOptional()
-  @Field(() => StoreWhereUniqueInput, {
+  @Field(() => PaymentVoucherListRelationFilter, {
     nullable: true,
   })
-  store?: StoreWhereUniqueInput;
+  paymentVouchers?: PaymentVoucherListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: DateTimeNullableFilter,
+    type: () => ReceiptVoucherWhereUniqueInput,
   })
-  @Type(() => DateTimeNullableFilter)
+  @ValidateNested()
+  @Type(() => ReceiptVoucherWhereUniqueInput)
   @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
+  @Field(() => ReceiptVoucherWhereUniqueInput, {
     nullable: true,
   })
-  transactionDate?: DateTimeNullableFilter;
+  receiptVouchers?: ReceiptVoucherWhereUniqueInput;
 }
 
 export { AccountTransactionWhereInput as AccountTransactionWhereInput };

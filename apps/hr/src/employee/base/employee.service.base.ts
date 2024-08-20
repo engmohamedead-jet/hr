@@ -14,6 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Employee as PrismaEmployee,
+  PaymentVoucher as PrismaPaymentVoucher,
+  ReceiptVoucher as PrismaReceiptVoucher,
   SalePerson as PrismaSalePerson,
   EmployeeClass as PrismaEmployeeClass,
   EmployeeDepartment as PrismaEmployeeDepartment,
@@ -51,6 +53,28 @@ export class EmployeeServiceBase {
     args: Prisma.EmployeeDeleteArgs
   ): Promise<PrismaEmployee> {
     return this.prisma.employee.delete(args);
+  }
+
+  async findPaymentVouchers(
+    parentId: string,
+    args: Prisma.PaymentVoucherFindManyArgs
+  ): Promise<PrismaPaymentVoucher[]> {
+    return this.prisma.employee
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentVouchers(args);
+  }
+
+  async findReceiptVouchers(
+    parentId: string,
+    args: Prisma.ReceiptVoucherFindManyArgs
+  ): Promise<PrismaReceiptVoucher[]> {
+    return this.prisma.employee
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .receiptVouchers(args);
   }
 
   async findSalePeople(

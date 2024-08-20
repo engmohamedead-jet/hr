@@ -52,16 +52,32 @@ export class StoreTypeControllerBase {
     @common.Body() data: StoreTypeCreateInput
   ): Promise<StoreType> {
     return await this.service.createStoreType({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -88,10 +104,18 @@ export class StoreTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -119,10 +143,18 @@ export class StoreTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -153,16 +185,32 @@ export class StoreTypeControllerBase {
     try {
       return await this.service.updateStoreType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -198,10 +246,18 @@ export class StoreTypeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -239,23 +295,25 @@ export class StoreTypeControllerBase {
         fax: true,
         homePhoneNumber: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        office: {
-          select: {
-            id: true,
-          },
-        },
-
-        storeType: {
+        storeTypId: {
           select: {
             id: true,
           },
         },
 
         street: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });

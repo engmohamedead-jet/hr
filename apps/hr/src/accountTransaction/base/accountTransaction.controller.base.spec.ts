@@ -18,41 +18,33 @@ import { AccountTransactionService } from "../accountTransaction.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  code: "exampleCode",
   createdAt: new Date(),
   id: "exampleId",
-  note: "exampleNote",
-  referenceNumber: "exampleReferenceNumber",
-  statementReference: "exampleStatementReference",
-  transactionDate: new Date(),
+  name: "exampleName",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  code: "exampleCode",
   createdAt: new Date(),
   id: "exampleId",
-  note: "exampleNote",
-  referenceNumber: "exampleReferenceNumber",
-  statementReference: "exampleStatementReference",
-  transactionDate: new Date(),
+  name: "exampleName",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    code: "exampleCode",
     createdAt: new Date(),
     id: "exampleId",
-    note: "exampleNote",
-    referenceNumber: "exampleReferenceNumber",
-    statementReference: "exampleStatementReference",
-    transactionDate: new Date(),
+    name: "exampleName",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  code: "exampleCode",
   createdAt: new Date(),
   id: "exampleId",
-  note: "exampleNote",
-  referenceNumber: "exampleReferenceNumber",
-  statementReference: "exampleStatementReference",
-  transactionDate: new Date(),
+  name: "exampleName",
   updatedAt: new Date(),
 };
 
@@ -139,7 +131,6 @@ describe("AccountTransaction", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        transactionDate: CREATE_RESULT.transactionDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -152,7 +143,6 @@ describe("AccountTransaction", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
-          transactionDate: FIND_MANY_RESULT[0].transactionDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -176,7 +166,6 @@ describe("AccountTransaction", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
-        transactionDate: FIND_ONE_RESULT.transactionDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -190,7 +179,6 @@ describe("AccountTransaction", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        transactionDate: CREATE_RESULT.transactionDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

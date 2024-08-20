@@ -28,6 +28,7 @@ import { UpdateStoreTypeArgs } from "./UpdateStoreTypeArgs";
 import { DeleteStoreTypeArgs } from "./DeleteStoreTypeArgs";
 import { StoreFindManyArgs } from "../../store/base/StoreFindManyArgs";
 import { Store } from "../../store/base/Store";
+import { Tenant } from "../../tenant/base/Tenant";
 import { StoreTypeService } from "../storeType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => StoreType)
@@ -94,7 +95,15 @@ export class StoreTypeResolverBase {
   ): Promise<StoreType> {
     return await this.service.createStoreType({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +120,15 @@ export class StoreTypeResolverBase {
     try {
       return await this.service.updateStoreType({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -162,5 +179,26 @@ export class StoreTypeResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: StoreType
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

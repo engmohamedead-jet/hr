@@ -305,6 +305,54 @@ import { SettingGroupList } from "./settingGroup/SettingGroupList";
 import { SettingGroupCreate } from "./settingGroup/SettingGroupCreate";
 import { SettingGroupEdit } from "./settingGroup/SettingGroupEdit";
 import { SettingGroupShow } from "./settingGroup/SettingGroupShow";
+import { SettingList } from "./setting/SettingList";
+import { SettingCreate } from "./setting/SettingCreate";
+import { SettingEdit } from "./setting/SettingEdit";
+import { SettingShow } from "./setting/SettingShow";
+import { ShiftList } from "./shift/ShiftList";
+import { ShiftCreate } from "./shift/ShiftCreate";
+import { ShiftEdit } from "./shift/ShiftEdit";
+import { ShiftShow } from "./shift/ShiftShow";
+import { StoreLocationList } from "./storeLocation/StoreLocationList";
+import { StoreLocationCreate } from "./storeLocation/StoreLocationCreate";
+import { StoreLocationEdit } from "./storeLocation/StoreLocationEdit";
+import { StoreLocationShow } from "./storeLocation/StoreLocationShow";
+import { StoreTypeList } from "./storeType/StoreTypeList";
+import { StoreTypeCreate } from "./storeType/StoreTypeCreate";
+import { StoreTypeEdit } from "./storeType/StoreTypeEdit";
+import { StoreTypeShow } from "./storeType/StoreTypeShow";
+import { ReceiptVoucherList } from "./receiptVoucher/ReceiptVoucherList";
+import { ReceiptVoucherCreate } from "./receiptVoucher/ReceiptVoucherCreate";
+import { ReceiptVoucherEdit } from "./receiptVoucher/ReceiptVoucherEdit";
+import { ReceiptVoucherShow } from "./receiptVoucher/ReceiptVoucherShow";
+import { VoucherTypeList } from "./voucherType/VoucherTypeList";
+import { VoucherTypeCreate } from "./voucherType/VoucherTypeCreate";
+import { VoucherTypeEdit } from "./voucherType/VoucherTypeEdit";
+import { VoucherTypeShow } from "./voucherType/VoucherTypeShow";
+import { AccountTransactionList } from "./accountTransaction/AccountTransactionList";
+import { AccountTransactionCreate } from "./accountTransaction/AccountTransactionCreate";
+import { AccountTransactionEdit } from "./accountTransaction/AccountTransactionEdit";
+import { AccountTransactionShow } from "./accountTransaction/AccountTransactionShow";
+import { ExpenseItemList } from "./expenseItem/ExpenseItemList";
+import { ExpenseItemCreate } from "./expenseItem/ExpenseItemCreate";
+import { ExpenseItemEdit } from "./expenseItem/ExpenseItemEdit";
+import { ExpenseItemShow } from "./expenseItem/ExpenseItemShow";
+import { PaymentVoucherList } from "./paymentVoucher/PaymentVoucherList";
+import { PaymentVoucherCreate } from "./paymentVoucher/PaymentVoucherCreate";
+import { PaymentVoucherEdit } from "./paymentVoucher/PaymentVoucherEdit";
+import { PaymentVoucherShow } from "./paymentVoucher/PaymentVoucherShow";
+import { TimeModeList } from "./timeMode/TimeModeList";
+import { TimeModeCreate } from "./timeMode/TimeModeCreate";
+import { TimeModeEdit } from "./timeMode/TimeModeEdit";
+import { TimeModeShow } from "./timeMode/TimeModeShow";
+import { TimeoffTypeList } from "./timeoffType/TimeoffTypeList";
+import { TimeoffTypeCreate } from "./timeoffType/TimeoffTypeCreate";
+import { TimeoffTypeEdit } from "./timeoffType/TimeoffTypeEdit";
+import { TimeoffTypeShow } from "./timeoffType/TimeoffTypeShow";
+import { TimezoneList } from "./timezone/TimezoneList";
+import { TimezoneCreate } from "./timezone/TimezoneCreate";
+import { TimezoneEdit } from "./timezone/TimezoneEdit";
+import { TimezoneShow } from "./timezone/TimezoneShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -855,6 +903,90 @@ const App = (): React.ReactElement => {
           edit={SettingGroupEdit}
           create={SettingGroupCreate}
           show={SettingGroupShow}
+        />
+        <Resource
+          name="Setting"
+          list={SettingList}
+          edit={SettingEdit}
+          create={SettingCreate}
+          show={SettingShow}
+        />
+        <Resource
+          name="Shift"
+          list={ShiftList}
+          edit={ShiftEdit}
+          create={ShiftCreate}
+          show={ShiftShow}
+        />
+        <Resource
+          name="StoreLocation"
+          list={StoreLocationList}
+          edit={StoreLocationEdit}
+          create={StoreLocationCreate}
+          show={StoreLocationShow}
+        />
+        <Resource
+          name="StoreType"
+          list={StoreTypeList}
+          edit={StoreTypeEdit}
+          create={StoreTypeCreate}
+          show={StoreTypeShow}
+        />
+        <Resource
+          name="ReceiptVoucher"
+          list={ReceiptVoucherList}
+          edit={ReceiptVoucherEdit}
+          create={ReceiptVoucherCreate}
+          show={ReceiptVoucherShow}
+        />
+        <Resource
+          name="VoucherType"
+          list={VoucherTypeList}
+          edit={VoucherTypeEdit}
+          create={VoucherTypeCreate}
+          show={VoucherTypeShow}
+        />
+        <Resource
+          name="AccountTransaction"
+          list={AccountTransactionList}
+          edit={AccountTransactionEdit}
+          create={AccountTransactionCreate}
+          show={AccountTransactionShow}
+        />
+        <Resource
+          name="ExpenseItem"
+          list={ExpenseItemList}
+          edit={ExpenseItemEdit}
+          create={ExpenseItemCreate}
+          show={ExpenseItemShow}
+        />
+        <Resource
+          name="PaymentVoucher"
+          list={PaymentVoucherList}
+          edit={PaymentVoucherEdit}
+          create={PaymentVoucherCreate}
+          show={PaymentVoucherShow}
+        />
+        <Resource
+          name="TimeMode"
+          list={TimeModeList}
+          edit={TimeModeEdit}
+          create={TimeModeCreate}
+          show={TimeModeShow}
+        />
+        <Resource
+          name="TimeoffType"
+          list={TimeoffTypeList}
+          edit={TimeoffTypeEdit}
+          create={TimeoffTypeCreate}
+          show={TimeoffTypeShow}
+        />
+        <Resource
+          name="Timezone"
+          list={TimezoneList}
+          edit={TimezoneEdit}
+          create={TimezoneCreate}
+          show={TimezoneShow}
         />
       </Admin>
     </div>

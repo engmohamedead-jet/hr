@@ -28,6 +28,7 @@ import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { Type } from "class-transformer";
 import { ProductionOrderUpdateManyWithoutCustomersInput } from "./ProductionOrderUpdateManyWithoutCustomersInput";
+import { ReceiptVoucherUpdateManyWithoutCustomersInput } from "./ReceiptVoucherUpdateManyWithoutCustomersInput";
 import { SaleOrderUpdateManyWithoutCustomersInput } from "./SaleOrderUpdateManyWithoutCustomersInput";
 import { SaleReturnUpdateManyWithoutCustomersInput } from "./SaleReturnUpdateManyWithoutCustomersInput";
 import { SaleUpdateManyWithoutCustomersInput } from "./SaleUpdateManyWithoutCustomersInput";
@@ -259,6 +260,18 @@ class CustomerUpdateInput {
     nullable: true,
   })
   productionOrders?: ProductionOrderUpdateManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherUpdateManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherUpdateManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherUpdateManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutCustomersInput;
 
   @ApiProperty({
     required: false,

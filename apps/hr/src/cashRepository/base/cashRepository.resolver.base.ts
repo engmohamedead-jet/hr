@@ -26,8 +26,12 @@ import { CashRepositoryFindUniqueArgs } from "./CashRepositoryFindUniqueArgs";
 import { CreateCashRepositoryArgs } from "./CreateCashRepositoryArgs";
 import { UpdateCashRepositoryArgs } from "./UpdateCashRepositoryArgs";
 import { DeleteCashRepositoryArgs } from "./DeleteCashRepositoryArgs";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
 import { PurchaseReturnFindManyArgs } from "../../purchaseReturn/base/PurchaseReturnFindManyArgs";
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
 import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindManyArgs";
@@ -213,6 +217,26 @@ export class CashRepositoryResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @graphql.Parent() parent: CashRepository,
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [PurchaseReturn], { name: "purchaseReturns" })
   @nestAccessControl.UseRoles({
     resource: "PurchaseReturn",
@@ -224,6 +248,26 @@ export class CashRepositoryResolverBase {
     @graphql.Args() args: PurchaseReturnFindManyArgs
   ): Promise<PurchaseReturn[]> {
     const results = await this.service.findPurchaseReturns(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ReceiptVoucher], { name: "receiptVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @graphql.Parent() parent: CashRepository,
+    @graphql.Args() args: ReceiptVoucherFindManyArgs
+  ): Promise<ReceiptVoucher[]> {
+    const results = await this.service.findReceiptVouchers(parent.id, args);
 
     if (!results) {
       return [];

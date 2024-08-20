@@ -5,6 +5,8 @@ import { Purchase } from "../purchase/Purchase";
 import { SaleOrder } from "../saleOrder/SaleOrder";
 import { SaleReturn } from "../saleReturn/SaleReturn";
 import { Sale } from "../sale/Sale";
+import { StoreLocation } from "../storeLocation/StoreLocation";
+import { StoreType } from "../storeType/StoreType";
 import { Tenant } from "../tenant/Tenant";
 
 export type Store = {
@@ -27,6 +29,8 @@ export type Store = {
   saleOrders?: Array<SaleOrder>;
   saleReturns?: Array<SaleReturn>;
   sales?: Array<Sale>;
+  storeLocations?: Array<StoreLocation>;
+  storeTypId?: StoreType | null;
   street: string | null;
   tenantId?: Tenant | null;
   updatedAt: Date;

@@ -36,6 +36,7 @@ import { CustomerCreateNestedManyWithoutTenantsInput } from "./CustomerCreateNes
 import { EmployeeClassCreateNestedManyWithoutTenantsInput } from "./EmployeeClassCreateNestedManyWithoutTenantsInput";
 import { EmployeeDepartmentCreateNestedManyWithoutTenantsInput } from "./EmployeeDepartmentCreateNestedManyWithoutTenantsInput";
 import { EmployeeCreateNestedManyWithoutTenantsInput } from "./EmployeeCreateNestedManyWithoutTenantsInput";
+import { ExpenseItemCreateNestedManyWithoutTenantsInput } from "./ExpenseItemCreateNestedManyWithoutTenantsInput";
 import { InstallmentSaleFeeCreateNestedManyWithoutTenantsInput } from "./InstallmentSaleFeeCreateNestedManyWithoutTenantsInput";
 import { InvoiceTypeCreateNestedManyWithoutTenantsInput } from "./InvoiceTypeCreateNestedManyWithoutTenantsInput";
 import { OrderStatusCreateNestedManyWithoutTenantsInput } from "./OrderStatusCreateNestedManyWithoutTenantsInput";
@@ -43,6 +44,7 @@ import { PaymentMethodCreateNestedManyWithoutTenantsInput } from "./PaymentMetho
 import { PaymentStatusCreateNestedManyWithoutTenantsInput } from "./PaymentStatusCreateNestedManyWithoutTenantsInput";
 import { PaymentTermCreateNestedManyWithoutTenantsInput } from "./PaymentTermCreateNestedManyWithoutTenantsInput";
 import { PaymentTypeCreateNestedManyWithoutTenantsInput } from "./PaymentTypeCreateNestedManyWithoutTenantsInput";
+import { PaymentVoucherCreateNestedManyWithoutTenantsInput } from "./PaymentVoucherCreateNestedManyWithoutTenantsInput";
 import { PeriodCreateNestedManyWithoutTenantsInput } from "./PeriodCreateNestedManyWithoutTenantsInput";
 import { PrintTemplateContentCreateNestedManyWithoutTenantsInput } from "./PrintTemplateContentCreateNestedManyWithoutTenantsInput";
 import { PrintTemplateGroupCreateNestedManyWithoutTenantsInput } from "./PrintTemplateGroupCreateNestedManyWithoutTenantsInput";
@@ -63,6 +65,7 @@ import { PurchasePriceTypeCreateNestedManyWithoutTenantsInput } from "./Purchase
 import { PurchaseReturnDetailCreateNestedManyWithoutTenantsInput } from "./PurchaseReturnDetailCreateNestedManyWithoutTenantsInput";
 import { PurchaseReturnCreateNestedManyWithoutTenantsInput } from "./PurchaseReturnCreateNestedManyWithoutTenantsInput";
 import { PurchaseCreateNestedManyWithoutTenantsInput } from "./PurchaseCreateNestedManyWithoutTenantsInput";
+import { ReceiptVoucherCreateNestedManyWithoutTenantsInput } from "./ReceiptVoucherCreateNestedManyWithoutTenantsInput";
 import { ResourceTypeCreateNestedManyWithoutTenantsInput } from "./ResourceTypeCreateNestedManyWithoutTenantsInput";
 import { ResourceCreateNestedManyWithoutTenantsInput } from "./ResourceCreateNestedManyWithoutTenantsInput";
 import { RoleGroupCreateNestedManyWithoutTenantsInput } from "./RoleGroupCreateNestedManyWithoutTenantsInput";
@@ -85,11 +88,18 @@ import { SaleTeamCreateNestedManyWithoutTenantsInput } from "./SaleTeamCreateNes
 import { SaleCreateNestedManyWithoutTenantsInput } from "./SaleCreateNestedManyWithoutTenantsInput";
 import { ScrapReasonCreateNestedManyWithoutTenantsInput } from "./ScrapReasonCreateNestedManyWithoutTenantsInput";
 import { SettingGroupCreateNestedManyWithoutTenantsInput } from "./SettingGroupCreateNestedManyWithoutTenantsInput";
+import { SettingCreateNestedManyWithoutTenantsInput } from "./SettingCreateNestedManyWithoutTenantsInput";
+import { ShiftCreateNestedManyWithoutTenantsInput } from "./ShiftCreateNestedManyWithoutTenantsInput";
 import { ShippingStatusCreateNestedManyWithoutTenantsInput } from "./ShippingStatusCreateNestedManyWithoutTenantsInput";
+import { StoreLocationCreateNestedManyWithoutTenantsInput } from "./StoreLocationCreateNestedManyWithoutTenantsInput";
+import { StoreTypeCreateNestedManyWithoutTenantsInput } from "./StoreTypeCreateNestedManyWithoutTenantsInput";
 import { StoreCreateNestedManyWithoutTenantsInput } from "./StoreCreateNestedManyWithoutTenantsInput";
 import { SupplierCreateNestedManyWithoutTenantsInput } from "./SupplierCreateNestedManyWithoutTenantsInput";
+import { TimeModeCreateNestedManyWithoutTenantsInput } from "./TimeModeCreateNestedManyWithoutTenantsInput";
+import { TimeoffTypeCreateNestedManyWithoutTenantsInput } from "./TimeoffTypeCreateNestedManyWithoutTenantsInput";
 import { UnitCreateNestedManyWithoutTenantsInput } from "./UnitCreateNestedManyWithoutTenantsInput";
 import { UserCreateNestedManyWithoutTenantsInput } from "./UserCreateNestedManyWithoutTenantsInput";
+import { VoucherTypeCreateNestedManyWithoutTenantsInput } from "./VoucherTypeCreateNestedManyWithoutTenantsInput";
 import { WorkCenterRoutingCreateNestedManyWithoutTenantsInput } from "./WorkCenterRoutingCreateNestedManyWithoutTenantsInput";
 import { WorkCenterCreateNestedManyWithoutTenantsInput } from "./WorkCenterCreateNestedManyWithoutTenantsInput";
 
@@ -348,6 +358,18 @@ class TenantCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ExpenseItemCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ExpenseItemCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ExpenseItemCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  expenseItems?: ExpenseItemCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => InstallmentSaleFeeCreateNestedManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -479,6 +501,18 @@ class TenantCreateInput {
     nullable: true,
   })
   paymentTypes?: PaymentTypeCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -719,6 +753,18 @@ class TenantCreateInput {
     nullable: true,
   })
   purchases?: PurchaseCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -986,6 +1032,30 @@ class TenantCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SettingCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SettingCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => SettingCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  settings?: SettingCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShiftCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ShiftCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ShiftCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  shifts?: ShiftCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => ShippingStatusCreateNestedManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -995,6 +1065,30 @@ class TenantCreateInput {
     nullable: true,
   })
   shippingStatuses?: ShippingStatusCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreLocationCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreLocationCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => StoreLocationCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  storeLocations?: StoreLocationCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreTypeCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreTypeCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => StoreTypeCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  storeTypes?: StoreTypeCreateNestedManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -1031,6 +1125,30 @@ class TenantCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => TimeModeCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => TimeModeCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => TimeModeCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  timeModes?: TimeModeCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TimeoffTypeCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => TimeoffTypeCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => TimeoffTypeCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  timeoffTypes?: TimeoffTypeCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => UnitCreateNestedManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -1052,6 +1170,18 @@ class TenantCreateInput {
     nullable: true,
   })
   users?: UserCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => VoucherTypeCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => VoucherTypeCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => VoucherTypeCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  voucherTypes?: VoucherTypeCreateNestedManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,

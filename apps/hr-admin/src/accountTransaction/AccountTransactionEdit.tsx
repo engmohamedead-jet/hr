@@ -4,17 +4,15 @@ import {
   Edit,
   SimpleForm,
   EditProps,
+  TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
   ReferenceInput,
   SelectInput,
-  TextInput,
-  DateTimeInput,
 } from "react-admin";
 
-import { AccountTransactionDetailTitle } from "../accountTransactionDetail/AccountTransactionDetailTitle";
-import { CostCenterTitle } from "../costCenter/CostCenterTitle";
-import { StoreTitle } from "../store/StoreTitle";
+import { PaymentVoucherTitle } from "../paymentVoucher/PaymentVoucherTitle";
+import { ReceiptVoucherTitle } from "../receiptVoucher/ReceiptVoucherTitle";
 
 export const AccountTransactionEdit = (
   props: EditProps
@@ -22,28 +20,23 @@ export const AccountTransactionEdit = (
   return (
     <Edit {...props}>
       <SimpleForm>
+        <TextInput label="code" source="code" />
+        <TextInput label="Name" source="name" />
         <ReferenceArrayInput
-          source="accountTransactionDetails"
-          reference="AccountTransactionDetail"
+          source="paymentVouchers"
+          reference="PaymentVoucher"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={AccountTransactionDetailTitle} />
+          <SelectArrayInput optionText={PaymentVoucherTitle} />
         </ReferenceArrayInput>
         <ReferenceInput
-          source="costCenter.id"
-          reference="CostCenter"
-          label="CostCenterId"
+          source="receiptVouchers.id"
+          reference="ReceiptVoucher"
+          label="ReceiptVouchers"
         >
-          <SelectInput optionText={CostCenterTitle} />
+          <SelectInput optionText={ReceiptVoucherTitle} />
         </ReferenceInput>
-        <TextInput label="Note" source="note" />
-        <TextInput label="ReferenceNumber" source="referenceNumber" />
-        <TextInput label="StatementReference" source="statementReference" />
-        <ReferenceInput source="store.id" reference="Store" label="StoreId">
-          <SelectInput optionText={StoreTitle} />
-        </ReferenceInput>
-        <DateTimeInput label="TransactionDate" source="transactionDate" />
       </SimpleForm>
     </Edit>
   );

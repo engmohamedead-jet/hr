@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import Pagination from "../Components/Pagination";
+import { STORETYPE_TITLE_FIELD } from "../storeType/StoreTypeTitle";
 import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const StoreList = (props: ListProps): React.ReactElement => {
@@ -35,6 +36,13 @@ export const StoreList = (props: ListProps): React.ReactElement => {
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField
+          label="StoreTypeId"
+          source="storetype.id"
+          reference="StoreType"
+        >
+          <TextField source={STORETYPE_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="Street" source="street" />
         <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
           <TextField source={TENANT_TITLE_FIELD} />

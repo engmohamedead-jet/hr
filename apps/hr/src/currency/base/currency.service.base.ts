@@ -15,6 +15,8 @@ import {
   Prisma,
   Currency as PrismaCurrency,
   Customer as PrismaCustomer,
+  PaymentVoucher as PrismaPaymentVoucher,
+  ReceiptVoucher as PrismaReceiptVoucher,
   SalePayment as PrismaSalePayment,
   Supplier as PrismaSupplier,
   Tenant as PrismaTenant,
@@ -62,6 +64,28 @@ export class CurrencyServiceBase {
         where: { id: parentId },
       })
       .customers(args);
+  }
+
+  async findPaymentVouchers(
+    parentId: string,
+    args: Prisma.PaymentVoucherFindManyArgs
+  ): Promise<PrismaPaymentVoucher[]> {
+    return this.prisma.currency
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentVouchers(args);
+  }
+
+  async findReceiptVouchers(
+    parentId: string,
+    args: Prisma.ReceiptVoucherFindManyArgs
+  ): Promise<PrismaReceiptVoucher[]> {
+    return this.prisma.currency
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .receiptVouchers(args);
   }
 
   async findSalePayments(

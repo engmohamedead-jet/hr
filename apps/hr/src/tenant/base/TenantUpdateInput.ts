@@ -36,6 +36,7 @@ import { CustomerUpdateManyWithoutTenantsInput } from "./CustomerUpdateManyWitho
 import { EmployeeClassUpdateManyWithoutTenantsInput } from "./EmployeeClassUpdateManyWithoutTenantsInput";
 import { EmployeeDepartmentUpdateManyWithoutTenantsInput } from "./EmployeeDepartmentUpdateManyWithoutTenantsInput";
 import { EmployeeUpdateManyWithoutTenantsInput } from "./EmployeeUpdateManyWithoutTenantsInput";
+import { ExpenseItemUpdateManyWithoutTenantsInput } from "./ExpenseItemUpdateManyWithoutTenantsInput";
 import { InstallmentSaleFeeUpdateManyWithoutTenantsInput } from "./InstallmentSaleFeeUpdateManyWithoutTenantsInput";
 import { InvoiceTypeUpdateManyWithoutTenantsInput } from "./InvoiceTypeUpdateManyWithoutTenantsInput";
 import { OrderStatusUpdateManyWithoutTenantsInput } from "./OrderStatusUpdateManyWithoutTenantsInput";
@@ -43,6 +44,7 @@ import { PaymentMethodUpdateManyWithoutTenantsInput } from "./PaymentMethodUpdat
 import { PaymentStatusUpdateManyWithoutTenantsInput } from "./PaymentStatusUpdateManyWithoutTenantsInput";
 import { PaymentTermUpdateManyWithoutTenantsInput } from "./PaymentTermUpdateManyWithoutTenantsInput";
 import { PaymentTypeUpdateManyWithoutTenantsInput } from "./PaymentTypeUpdateManyWithoutTenantsInput";
+import { PaymentVoucherUpdateManyWithoutTenantsInput } from "./PaymentVoucherUpdateManyWithoutTenantsInput";
 import { PeriodUpdateManyWithoutTenantsInput } from "./PeriodUpdateManyWithoutTenantsInput";
 import { PrintTemplateContentUpdateManyWithoutTenantsInput } from "./PrintTemplateContentUpdateManyWithoutTenantsInput";
 import { PrintTemplateGroupUpdateManyWithoutTenantsInput } from "./PrintTemplateGroupUpdateManyWithoutTenantsInput";
@@ -63,6 +65,7 @@ import { PurchasePriceTypeUpdateManyWithoutTenantsInput } from "./PurchasePriceT
 import { PurchaseReturnDetailUpdateManyWithoutTenantsInput } from "./PurchaseReturnDetailUpdateManyWithoutTenantsInput";
 import { PurchaseReturnUpdateManyWithoutTenantsInput } from "./PurchaseReturnUpdateManyWithoutTenantsInput";
 import { PurchaseUpdateManyWithoutTenantsInput } from "./PurchaseUpdateManyWithoutTenantsInput";
+import { ReceiptVoucherUpdateManyWithoutTenantsInput } from "./ReceiptVoucherUpdateManyWithoutTenantsInput";
 import { ResourceTypeUpdateManyWithoutTenantsInput } from "./ResourceTypeUpdateManyWithoutTenantsInput";
 import { ResourceUpdateManyWithoutTenantsInput } from "./ResourceUpdateManyWithoutTenantsInput";
 import { RoleGroupUpdateManyWithoutTenantsInput } from "./RoleGroupUpdateManyWithoutTenantsInput";
@@ -85,11 +88,18 @@ import { SaleTeamUpdateManyWithoutTenantsInput } from "./SaleTeamUpdateManyWitho
 import { SaleUpdateManyWithoutTenantsInput } from "./SaleUpdateManyWithoutTenantsInput";
 import { ScrapReasonUpdateManyWithoutTenantsInput } from "./ScrapReasonUpdateManyWithoutTenantsInput";
 import { SettingGroupUpdateManyWithoutTenantsInput } from "./SettingGroupUpdateManyWithoutTenantsInput";
+import { SettingUpdateManyWithoutTenantsInput } from "./SettingUpdateManyWithoutTenantsInput";
+import { ShiftUpdateManyWithoutTenantsInput } from "./ShiftUpdateManyWithoutTenantsInput";
 import { ShippingStatusUpdateManyWithoutTenantsInput } from "./ShippingStatusUpdateManyWithoutTenantsInput";
+import { StoreLocationUpdateManyWithoutTenantsInput } from "./StoreLocationUpdateManyWithoutTenantsInput";
+import { StoreTypeUpdateManyWithoutTenantsInput } from "./StoreTypeUpdateManyWithoutTenantsInput";
 import { StoreUpdateManyWithoutTenantsInput } from "./StoreUpdateManyWithoutTenantsInput";
 import { SupplierUpdateManyWithoutTenantsInput } from "./SupplierUpdateManyWithoutTenantsInput";
+import { TimeModeUpdateManyWithoutTenantsInput } from "./TimeModeUpdateManyWithoutTenantsInput";
+import { TimeoffTypeUpdateManyWithoutTenantsInput } from "./TimeoffTypeUpdateManyWithoutTenantsInput";
 import { UnitUpdateManyWithoutTenantsInput } from "./UnitUpdateManyWithoutTenantsInput";
 import { UserUpdateManyWithoutTenantsInput } from "./UserUpdateManyWithoutTenantsInput";
+import { VoucherTypeUpdateManyWithoutTenantsInput } from "./VoucherTypeUpdateManyWithoutTenantsInput";
 import { WorkCenterRoutingUpdateManyWithoutTenantsInput } from "./WorkCenterRoutingUpdateManyWithoutTenantsInput";
 import { WorkCenterUpdateManyWithoutTenantsInput } from "./WorkCenterUpdateManyWithoutTenantsInput";
 
@@ -348,6 +358,18 @@ class TenantUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ExpenseItemUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ExpenseItemUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ExpenseItemUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  expenseItems?: ExpenseItemUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => InstallmentSaleFeeUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -488,6 +510,18 @@ class TenantUpdateInput {
     nullable: true,
   })
   paymentTypes?: PaymentTypeUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -728,6 +762,18 @@ class TenantUpdateInput {
     nullable: true,
   })
   purchases?: PurchaseUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -995,6 +1041,30 @@ class TenantUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SettingUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SettingUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => SettingUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  settings?: SettingUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ShiftUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ShiftUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ShiftUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  shifts?: ShiftUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => ShippingStatusUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -1004,6 +1074,30 @@ class TenantUpdateInput {
     nullable: true,
   })
   shippingStatuses?: ShippingStatusUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreLocationUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreLocationUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => StoreLocationUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  storeLocations?: StoreLocationUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StoreTypeUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => StoreTypeUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => StoreTypeUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  storeTypes?: StoreTypeUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -1043,6 +1137,30 @@ class TenantUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => TimeModeUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => TimeModeUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => TimeModeUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  timeModes?: TimeModeUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TimeoffTypeUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => TimeoffTypeUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => TimeoffTypeUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  timeoffTypes?: TimeoffTypeUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => UnitUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -1064,6 +1182,18 @@ class TenantUpdateInput {
     nullable: true,
   })
   users?: UserUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => VoucherTypeUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => VoucherTypeUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => VoucherTypeUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  voucherTypes?: VoucherTypeUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,

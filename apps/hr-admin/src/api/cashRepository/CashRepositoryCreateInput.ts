@@ -1,7 +1,9 @@
 import { CashRepositoryCreateNestedManyWithoutCashRepositoriesInput } from "./CashRepositoryCreateNestedManyWithoutCashRepositoriesInput";
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { PaymentVoucherCreateNestedManyWithoutCashRepositoriesInput } from "./PaymentVoucherCreateNestedManyWithoutCashRepositoriesInput";
 import { PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput } from "./PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput";
 import { PurchaseWhereUniqueInput } from "../purchase/PurchaseWhereUniqueInput";
+import { ReceiptVoucherCreateNestedManyWithoutCashRepositoriesInput } from "./ReceiptVoucherCreateNestedManyWithoutCashRepositoriesInput";
 import { SaleOrderCreateNestedManyWithoutCashRepositoriesInput } from "./SaleOrderCreateNestedManyWithoutCashRepositoriesInput";
 import { SaleReturnCreateNestedManyWithoutCashRepositoriesInput } from "./SaleReturnCreateNestedManyWithoutCashRepositoriesInput";
 import { SaleCreateNestedManyWithoutCashRepositoriesInput } from "./SaleCreateNestedManyWithoutCashRepositoriesInput";
@@ -16,8 +18,10 @@ export type CashRepositoryCreateInput = {
   normalizedName: string;
   note?: string | null;
   parentCashRepositoryId?: CashRepositoryWhereUniqueInput | null;
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutCashRepositoriesInput;
   purchaseReturns?: PurchaseReturnCreateNestedManyWithoutCashRepositoriesInput;
   purchases?: PurchaseWhereUniqueInput | null;
+  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutCashRepositoriesInput;
   saleOrders?: SaleOrderCreateNestedManyWithoutCashRepositoriesInput;
   saleReturns?: SaleReturnCreateNestedManyWithoutCashRepositoriesInput;
   sales?: SaleCreateNestedManyWithoutCashRepositoriesInput;

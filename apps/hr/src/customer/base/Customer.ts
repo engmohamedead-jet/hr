@@ -28,6 +28,7 @@ import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { Currency } from "../../currency/base/Currency";
 import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { SaleOrder } from "../../saleOrder/base/SaleOrder";
 import { SaleReturn } from "../../saleReturn/base/SaleReturn";
 import { Sale } from "../../sale/base/Sale";
@@ -260,6 +261,15 @@ class Customer {
   @Type(() => ProductionOrder)
   @IsOptional()
   productionOrders?: Array<ProductionOrder>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ReceiptVoucher],
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucher)
+  @IsOptional()
+  receiptVouchers?: Array<ReceiptVoucher>;
 
   @ApiProperty({
     required: false,

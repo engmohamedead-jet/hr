@@ -76,6 +76,18 @@ import { BankModule } from "./bank/bank.module";
 import { BankTypeModule } from "./bankType/bankType.module";
 import { BankBranchModule } from "./bankBranch/bankBranch.module";
 import { SettingGroupModule } from "./settingGroup/settingGroup.module";
+import { SettingModule } from "./setting/setting.module";
+import { ShiftModule } from "./shift/shift.module";
+import { StoreLocationModule } from "./storeLocation/storeLocation.module";
+import { StoreTypeModule } from "./storeType/storeType.module";
+import { ReceiptVoucherModule } from "./receiptVoucher/receiptVoucher.module";
+import { VoucherTypeModule } from "./voucherType/voucherType.module";
+import { AccountTransactionModule } from "./accountTransaction/accountTransaction.module";
+import { ExpenseItemModule } from "./expenseItem/expenseItem.module";
+import { PaymentVoucherModule } from "./paymentVoucher/paymentVoucher.module";
+import { TimeModeModule } from "./timeMode/timeMode.module";
+import { TimeoffTypeModule } from "./timeoffType/timeoffType.module";
+import { TimezoneModule } from "./timezone/timezone.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -168,6 +180,18 @@ import { AuthModule } from "./auth/auth.module";
     BankTypeModule,
     BankBranchModule,
     SettingGroupModule,
+    SettingModule,
+    ShiftModule,
+    StoreLocationModule,
+    StoreTypeModule,
+    ReceiptVoucherModule,
+    VoucherTypeModule,
+    AccountTransactionModule,
+    ExpenseItemModule,
+    PaymentVoucherModule,
+    TimeModeModule,
+    TimeoffTypeModule,
+    TimezoneModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

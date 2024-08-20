@@ -18,8 +18,9 @@ import {
   IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
+import { SettingUpdateManyWithoutSettingGroupsInput } from "./SettingUpdateManyWithoutSettingGroupsInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SettingGroupUpdateInput {
@@ -93,6 +94,18 @@ class SettingGroupUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SettingUpdateManyWithoutSettingGroupsInput,
+  })
+  @ValidateNested()
+  @Type(() => SettingUpdateManyWithoutSettingGroupsInput)
+  @IsOptional()
+  @Field(() => SettingUpdateManyWithoutSettingGroupsInput, {
+    nullable: true,
+  })
+  settings?: SettingUpdateManyWithoutSettingGroupsInput;
 
   @ApiProperty({
     required: false,

@@ -11,51 +11,29 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountTransactionDetailCreateNestedManyWithoutAccountTransactionsInput } from "./AccountTransactionDetailCreateNestedManyWithoutAccountTransactionsInput";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
-  IsDate,
+  IsOptional,
+  ValidateNested,
 } from "class-validator";
+import { PaymentVoucherCreateNestedManyWithoutAccountTransactionsInput } from "./PaymentVoucherCreateNestedManyWithoutAccountTransactionsInput";
 import { Type } from "class-transformer";
-import { CostCenterWhereUniqueInput } from "../../costCenter/base/CostCenterWhereUniqueInput";
-import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
+import { ReceiptVoucherWhereUniqueInput } from "../../receiptVoucher/base/ReceiptVoucherWhereUniqueInput";
 
 @InputType()
 class AccountTransactionCreateInput {
   @ApiProperty({
     required: false,
-    type: () =>
-      AccountTransactionDetailCreateNestedManyWithoutAccountTransactionsInput,
+    type: String,
   })
-  @ValidateNested()
-  @Type(
-    () =>
-      AccountTransactionDetailCreateNestedManyWithoutAccountTransactionsInput
-  )
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(
-    () =>
-      AccountTransactionDetailCreateNestedManyWithoutAccountTransactionsInput,
-    {
-      nullable: true,
-    }
-  )
-  accountTransactionDetails?: AccountTransactionDetailCreateNestedManyWithoutAccountTransactionsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => CostCenterWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CostCenterWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CostCenterWhereUniqueInput, {
+  @Field(() => String, {
     nullable: true,
   })
-  costCenter?: CostCenterWhereUniqueInput | null;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -67,51 +45,31 @@ class AccountTransactionCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  note?: string | null;
+  name?: string | null;
 
   @ApiProperty({
     required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  referenceNumber?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  statementReference?: string | null;
-
-  @ApiProperty({
-    required: true,
-    type: () => StoreWhereUniqueInput,
+    type: () => PaymentVoucherCreateNestedManyWithoutAccountTransactionsInput,
   })
   @ValidateNested()
-  @Type(() => StoreWhereUniqueInput)
-  @Field(() => StoreWhereUniqueInput)
-  store!: StoreWhereUniqueInput;
+  @Type(() => PaymentVoucherCreateNestedManyWithoutAccountTransactionsInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherCreateNestedManyWithoutAccountTransactionsInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutAccountTransactionsInput;
 
   @ApiProperty({
     required: false,
+    type: () => ReceiptVoucherWhereUniqueInput,
   })
-  @IsDate()
-  @Type(() => Date)
+  @ValidateNested()
+  @Type(() => ReceiptVoucherWhereUniqueInput)
   @IsOptional()
-  @Field(() => Date, {
+  @Field(() => ReceiptVoucherWhereUniqueInput, {
     nullable: true,
   })
-  transactionDate?: Date | null;
+  receiptVouchers?: ReceiptVoucherWhereUniqueInput | null;
 }
 
 export { AccountTransactionCreateInput as AccountTransactionCreateInput };

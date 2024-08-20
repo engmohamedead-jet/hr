@@ -27,6 +27,7 @@ import { CustomerTitle } from "../customer/CustomerTitle";
 import { EmployeeClassTitle } from "../employeeClass/EmployeeClassTitle";
 import { EmployeeDepartmentTitle } from "../employeeDepartment/EmployeeDepartmentTitle";
 import { EmployeeTitle } from "../employee/EmployeeTitle";
+import { ExpenseItemTitle } from "../expenseItem/ExpenseItemTitle";
 import { InstallmentSaleFeeTitle } from "../installmentSaleFee/InstallmentSaleFeeTitle";
 import { InvoiceTypeTitle } from "../invoiceType/InvoiceTypeTitle";
 import { OrderStatusTitle } from "../orderStatus/OrderStatusTitle";
@@ -34,6 +35,7 @@ import { PaymentMethodTitle } from "../paymentMethod/PaymentMethodTitle";
 import { PaymentStatusTitle } from "../paymentStatus/PaymentStatusTitle";
 import { PaymentTermTitle } from "../paymentTerm/PaymentTermTitle";
 import { PaymentTypeTitle } from "../paymentType/PaymentTypeTitle";
+import { PaymentVoucherTitle } from "../paymentVoucher/PaymentVoucherTitle";
 import { PeriodTitle } from "../period/PeriodTitle";
 import { PrintTemplateContentTitle } from "../printTemplateContent/PrintTemplateContentTitle";
 import { PrintTemplateGroupTitle } from "../printTemplateGroup/PrintTemplateGroupTitle";
@@ -54,6 +56,7 @@ import { PurchasePriceTypeTitle } from "../purchasePriceType/PurchasePriceTypeTi
 import { PurchaseReturnDetailTitle } from "../purchaseReturnDetail/PurchaseReturnDetailTitle";
 import { PurchaseReturnTitle } from "../purchaseReturn/PurchaseReturnTitle";
 import { PurchaseTitle } from "../purchase/PurchaseTitle";
+import { ReceiptVoucherTitle } from "../receiptVoucher/ReceiptVoucherTitle";
 import { ResourceTypeTitle } from "../resourceType/ResourceTypeTitle";
 import { ResourceTitle } from "../resource/ResourceTitle";
 import { RoleGroupTitle } from "../roleGroup/RoleGroupTitle";
@@ -76,11 +79,18 @@ import { SaleTeamTitle } from "../saleTeam/SaleTeamTitle";
 import { SaleTitle } from "../sale/SaleTitle";
 import { ScrapReasonTitle } from "../scrapReason/ScrapReasonTitle";
 import { SettingGroupTitle } from "../settingGroup/SettingGroupTitle";
+import { SettingTitle } from "../setting/SettingTitle";
+import { ShiftTitle } from "../shift/ShiftTitle";
 import { ShippingStatusTitle } from "../shippingStatus/ShippingStatusTitle";
+import { StoreLocationTitle } from "../storeLocation/StoreLocationTitle";
+import { StoreTypeTitle } from "../storeType/StoreTypeTitle";
 import { StoreTitle } from "../store/StoreTitle";
 import { SupplierTitle } from "../supplier/SupplierTitle";
+import { TimeModeTitle } from "../timeMode/TimeModeTitle";
+import { TimeoffTypeTitle } from "../timeoffType/TimeoffTypeTitle";
 import { UnitTitle } from "../unit/UnitTitle";
 import { UserTitle } from "../user/UserTitle";
+import { VoucherTypeTitle } from "../voucherType/VoucherTypeTitle";
 import { WorkCenterRoutingTitle } from "../workCenterRouting/WorkCenterRoutingTitle";
 import { WorkCenterTitle } from "../workCenter/WorkCenterTitle";
 
@@ -229,6 +239,14 @@ export const TenantEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={EmployeeTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
+          source="expenseItems"
+          reference="ExpenseItem"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ExpenseItemTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
           source="installmentSaleFees"
           reference="InstallmentSaleFee"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
@@ -288,6 +306,14 @@ export const TenantEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={PaymentTypeTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="paymentVouchers"
+          reference="PaymentVoucher"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PaymentVoucherTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="periods"
@@ -448,6 +474,14 @@ export const TenantEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={PurchaseTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="receiptVouchers"
+          reference="ReceiptVoucher"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ReceiptVoucherTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="resourceTypes"
@@ -626,12 +660,44 @@ export const TenantEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={SettingGroupTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
+          source="settings"
+          reference="Setting"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SettingTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="shifts"
+          reference="Shift"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ShiftTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
           source="shippingStatuses"
           reference="ShippingStatus"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={ShippingStatusTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="storeLocations"
+          reference="StoreLocation"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={StoreLocationTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="storeTypes"
+          reference="StoreType"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={StoreTypeTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="stores"
@@ -651,6 +717,22 @@ export const TenantEdit = (props: EditProps): React.ReactElement => {
         </ReferenceArrayInput>
         <TextInput label="TenancyName" source="tenancyName" />
         <ReferenceArrayInput
+          source="timeModes"
+          reference="TimeMode"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={TimeModeTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="timeoffTypes"
+          reference="TimeoffType"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={TimeoffTypeTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
           source="units"
           reference="Unit"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
@@ -665,6 +747,14 @@ export const TenantEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={UserTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="voucherTypes"
+          reference="VoucherType"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={VoucherTypeTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="workCenterRoutings"

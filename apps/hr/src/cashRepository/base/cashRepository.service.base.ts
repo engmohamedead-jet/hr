@@ -14,7 +14,9 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   CashRepository as PrismaCashRepository,
+  PaymentVoucher as PrismaPaymentVoucher,
   PurchaseReturn as PrismaPurchaseReturn,
+  ReceiptVoucher as PrismaReceiptVoucher,
   SaleOrder as PrismaSaleOrder,
   SaleReturn as PrismaSaleReturn,
   Sale as PrismaSale,
@@ -68,6 +70,17 @@ export class CashRepositoryServiceBase {
       .cashRepositories(args);
   }
 
+  async findPaymentVouchers(
+    parentId: string,
+    args: Prisma.PaymentVoucherFindManyArgs
+  ): Promise<PrismaPaymentVoucher[]> {
+    return this.prisma.cashRepository
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentVouchers(args);
+  }
+
   async findPurchaseReturns(
     parentId: string,
     args: Prisma.PurchaseReturnFindManyArgs
@@ -77,6 +90,17 @@ export class CashRepositoryServiceBase {
         where: { id: parentId },
       })
       .purchaseReturns(args);
+  }
+
+  async findReceiptVouchers(
+    parentId: string,
+    args: Prisma.ReceiptVoucherFindManyArgs
+  ): Promise<PrismaReceiptVoucher[]> {
+    return this.prisma.cashRepository
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .receiptVouchers(args);
   }
 
   async findSaleOrders(

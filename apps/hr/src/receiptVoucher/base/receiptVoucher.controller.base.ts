@@ -52,21 +52,95 @@ export class ReceiptVoucherControllerBase {
       data: {
         ...data,
 
+        accountTransactionId: data.accountTransactionId
+          ? {
+              connect: data.accountTransactionId,
+            }
+          : undefined,
+
+        cashRepositoryId: {
+          connect: data.cashRepositoryId,
+        },
+
+        currencyId: data.currencyId
+          ? {
+              connect: data.currencyId,
+            }
+          : undefined,
+
+        customerId: data.customerId
+          ? {
+              connect: data.customerId,
+            }
+          : undefined,
+
+        employeeId: data.employeeId
+          ? {
+              connect: data.employeeId,
+            }
+          : undefined,
+
+        tenant: data.tenant
+          ? {
+              connect: data.tenant,
+            }
+          : undefined,
+
         voucherTypeId: {
           connect: data.voucherTypeId,
         },
       },
       select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
         amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
         chequeDueDate: true,
         chequeNumber: true,
         chequeValue: true,
         createdAt: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isAcive: true,
         note: true,
         receiptVoucherDate: true,
-        serialNumber: true,
+        sequence: true,
         statementReference: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
 
         voucherTypeId: {
@@ -99,16 +173,56 @@ export class ReceiptVoucherControllerBase {
     return this.service.receiptVouchers({
       ...args,
       select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
         amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
         chequeDueDate: true,
         chequeNumber: true,
         chequeValue: true,
         createdAt: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isAcive: true,
         note: true,
         receiptVoucherDate: true,
-        serialNumber: true,
+        sequence: true,
         statementReference: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
 
         voucherTypeId: {
@@ -140,16 +254,56 @@ export class ReceiptVoucherControllerBase {
     const result = await this.service.receiptVoucher({
       where: params,
       select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
         amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
         chequeDueDate: true,
         chequeNumber: true,
         chequeValue: true,
         createdAt: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isAcive: true,
         note: true,
         receiptVoucherDate: true,
-        serialNumber: true,
+        sequence: true,
         statementReference: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
 
         voucherTypeId: {
@@ -191,21 +345,95 @@ export class ReceiptVoucherControllerBase {
         data: {
           ...data,
 
+          accountTransactionId: data.accountTransactionId
+            ? {
+                connect: data.accountTransactionId,
+              }
+            : undefined,
+
+          cashRepositoryId: {
+            connect: data.cashRepositoryId,
+          },
+
+          currencyId: data.currencyId
+            ? {
+                connect: data.currencyId,
+              }
+            : undefined,
+
+          customerId: data.customerId
+            ? {
+                connect: data.customerId,
+              }
+            : undefined,
+
+          employeeId: data.employeeId
+            ? {
+                connect: data.employeeId,
+              }
+            : undefined,
+
+          tenant: data.tenant
+            ? {
+                connect: data.tenant,
+              }
+            : undefined,
+
           voucherTypeId: {
             connect: data.voucherTypeId,
           },
         },
         select: {
+          accountTransactionId: {
+            select: {
+              id: true,
+            },
+          },
+
           amount: true,
+
+          cashRepositoryId: {
+            select: {
+              id: true,
+            },
+          },
+
           chequeDueDate: true,
           chequeNumber: true,
           chequeValue: true,
           createdAt: true,
+
+          currencyId: {
+            select: {
+              id: true,
+            },
+          },
+
+          customerId: {
+            select: {
+              id: true,
+            },
+          },
+
+          employeeId: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
+          isAcive: true,
           note: true,
           receiptVoucherDate: true,
-          serialNumber: true,
+          sequence: true,
           statementReference: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
 
           voucherTypeId: {
@@ -245,16 +473,56 @@ export class ReceiptVoucherControllerBase {
       return await this.service.deleteReceiptVoucher({
         where: params,
         select: {
+          accountTransactionId: {
+            select: {
+              id: true,
+            },
+          },
+
           amount: true,
+
+          cashRepositoryId: {
+            select: {
+              id: true,
+            },
+          },
+
           chequeDueDate: true,
           chequeNumber: true,
           chequeValue: true,
           createdAt: true,
+
+          currencyId: {
+            select: {
+              id: true,
+            },
+          },
+
+          customerId: {
+            select: {
+              id: true,
+            },
+          },
+
+          employeeId: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
+          isAcive: true,
           note: true,
           receiptVoucherDate: true,
-          serialNumber: true,
+          sequence: true,
           statementReference: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
 
           voucherTypeId: {

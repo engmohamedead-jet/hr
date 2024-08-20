@@ -13,8 +13,10 @@ import {
 } from "react-admin";
 
 import { CashRepositoryTitle } from "./CashRepositoryTitle";
+import { PaymentVoucherTitle } from "../paymentVoucher/PaymentVoucherTitle";
 import { PurchaseReturnTitle } from "../purchaseReturn/PurchaseReturnTitle";
 import { PurchaseTitle } from "../purchase/PurchaseTitle";
+import { ReceiptVoucherTitle } from "../receiptVoucher/ReceiptVoucherTitle";
 import { SaleOrderTitle } from "../saleOrder/SaleOrderTitle";
 import { SaleReturnTitle } from "../saleReturn/SaleReturnTitle";
 import { SaleTitle } from "../sale/SaleTitle";
@@ -48,6 +50,14 @@ export const CashRepositoryCreate = (
           <SelectInput optionText={CashRepositoryTitle} />
         </ReferenceInput>
         <ReferenceArrayInput
+          source="paymentVouchers"
+          reference="PaymentVoucher"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PaymentVoucherTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
           source="purchaseReturns"
           reference="PurchaseReturn"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
@@ -62,6 +72,14 @@ export const CashRepositoryCreate = (
         >
           <SelectInput optionText={PurchaseTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="receiptVouchers"
+          reference="ReceiptVoucher"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ReceiptVoucherTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="saleOrders"
           reference="SaleOrder"

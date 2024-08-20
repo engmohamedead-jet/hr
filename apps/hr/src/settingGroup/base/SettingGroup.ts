@@ -21,6 +21,7 @@ import {
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Setting } from "../../setting/base/Setting";
 import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
@@ -105,6 +106,15 @@ class SettingGroup {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Setting],
+  })
+  @ValidateNested()
+  @Type(() => Setting)
+  @IsOptional()
+  settings?: Array<Setting>;
 
   @ApiProperty({
     required: false,

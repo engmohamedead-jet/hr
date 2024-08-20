@@ -31,6 +31,7 @@ import {
   EmployeeClass as PrismaEmployeeClass,
   EmployeeDepartment as PrismaEmployeeDepartment,
   Employee as PrismaEmployee,
+  ExpenseItem as PrismaExpenseItem,
   InstallmentSaleFee as PrismaInstallmentSaleFee,
   InvoiceType as PrismaInvoiceType,
   OrderStatus as PrismaOrderStatus,
@@ -38,6 +39,7 @@ import {
   PaymentStatus as PrismaPaymentStatus,
   PaymentTerm as PrismaPaymentTerm,
   PaymentType as PrismaPaymentType,
+  PaymentVoucher as PrismaPaymentVoucher,
   Period as PrismaPeriod,
   PrintTemplateContent as PrismaPrintTemplateContent,
   PrintTemplateGroup as PrismaPrintTemplateGroup,
@@ -58,6 +60,7 @@ import {
   PurchaseReturnDetail as PrismaPurchaseReturnDetail,
   PurchaseReturn as PrismaPurchaseReturn,
   Purchase as PrismaPurchase,
+  ReceiptVoucher as PrismaReceiptVoucher,
   ResourceType as PrismaResourceType,
   Resource as PrismaResource,
   RoleGroup as PrismaRoleGroup,
@@ -80,11 +83,18 @@ import {
   Sale as PrismaSale,
   ScrapReason as PrismaScrapReason,
   SettingGroup as PrismaSettingGroup,
+  Setting as PrismaSetting,
+  Shift as PrismaShift,
   ShippingStatus as PrismaShippingStatus,
+  StoreLocation as PrismaStoreLocation,
+  StoreType as PrismaStoreType,
   Store as PrismaStore,
   Supplier as PrismaSupplier,
+  TimeMode as PrismaTimeMode,
+  TimeoffType as PrismaTimeoffType,
   Unit as PrismaUnit,
   User as PrismaUser,
+  VoucherType as PrismaVoucherType,
   WorkCenterRouting as PrismaWorkCenterRouting,
   WorkCenter as PrismaWorkCenter,
 } from "@prisma/client";
@@ -301,6 +311,17 @@ export class TenantServiceBase {
       .employees(args);
   }
 
+  async findExpenseItems(
+    parentId: string,
+    args: Prisma.ExpenseItemFindManyArgs
+  ): Promise<PrismaExpenseItem[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .expenseItems(args);
+  }
+
   async findInstallmentSaleFees(
     parentId: string,
     args: Prisma.InstallmentSaleFeeFindManyArgs
@@ -376,6 +397,17 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .paymentTypes(args);
+  }
+
+  async findPaymentVouchers(
+    parentId: string,
+    args: Prisma.PaymentVoucherFindManyArgs
+  ): Promise<PrismaPaymentVoucher[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentVouchers(args);
   }
 
   async findPeriods(
@@ -596,6 +628,17 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .purchases(args);
+  }
+
+  async findReceiptVouchers(
+    parentId: string,
+    args: Prisma.ReceiptVoucherFindManyArgs
+  ): Promise<PrismaReceiptVoucher[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .receiptVouchers(args);
   }
 
   async findResourceTypes(
@@ -840,6 +883,28 @@ export class TenantServiceBase {
       .settingGroups(args);
   }
 
+  async findSettings(
+    parentId: string,
+    args: Prisma.SettingFindManyArgs
+  ): Promise<PrismaSetting[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .settings(args);
+  }
+
+  async findShifts(
+    parentId: string,
+    args: Prisma.ShiftFindManyArgs
+  ): Promise<PrismaShift[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .shifts(args);
+  }
+
   async findShippingStatuses(
     parentId: string,
     args: Prisma.ShippingStatusFindManyArgs
@@ -849,6 +914,28 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .shippingStatuses(args);
+  }
+
+  async findStoreLocations(
+    parentId: string,
+    args: Prisma.StoreLocationFindManyArgs
+  ): Promise<PrismaStoreLocation[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .storeLocations(args);
+  }
+
+  async findStoreTypes(
+    parentId: string,
+    args: Prisma.StoreTypeFindManyArgs
+  ): Promise<PrismaStoreType[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .storeTypes(args);
   }
 
   async findStores(
@@ -873,6 +960,28 @@ export class TenantServiceBase {
       .suppliers(args);
   }
 
+  async findTimeModes(
+    parentId: string,
+    args: Prisma.TimeModeFindManyArgs
+  ): Promise<PrismaTimeMode[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .timeModes(args);
+  }
+
+  async findTimeoffTypes(
+    parentId: string,
+    args: Prisma.TimeoffTypeFindManyArgs
+  ): Promise<PrismaTimeoffType[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .timeoffTypes(args);
+  }
+
   async findUnits(
     parentId: string,
     args: Prisma.UnitFindManyArgs
@@ -893,6 +1002,17 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .users(args);
+  }
+
+  async findVoucherTypes(
+    parentId: string,
+    args: Prisma.VoucherTypeFindManyArgs
+  ): Promise<PrismaVoucherType[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .voucherTypes(args);
   }
 
   async findWorkCenterRoutings(

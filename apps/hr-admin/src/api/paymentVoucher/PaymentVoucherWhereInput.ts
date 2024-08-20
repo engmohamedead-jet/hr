@@ -1,12 +1,30 @@
-import { DecimalFilter } from "../../util/DecimalFilter";
+import { AccountTransactionWhereUniqueInput } from "../accountTransaction/AccountTransactionWhereUniqueInput";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { CashRepositoryWhereUniqueInput } from "../cashRepository/CashRepositoryWhereUniqueInput";
+import { CurrencyWhereUniqueInput } from "../currency/CurrencyWhereUniqueInput";
+import { EmployeeWhereUniqueInput } from "../employee/EmployeeWhereUniqueInput";
+import { ExpenseItemWhereUniqueInput } from "../expenseItem/ExpenseItemWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { SupplierWhereUniqueInput } from "../supplier/SupplierWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { VoucherTypeWhereUniqueInput } from "../voucherType/VoucherTypeWhereUniqueInput";
 
 export type PaymentVoucherWhereInput = {
-  amount?: DecimalFilter;
+  accountTransactionId?: AccountTransactionWhereUniqueInput;
+  amount?: DecimalNullableFilter;
+  cashRepositoryId?: CashRepositoryWhereUniqueInput;
+  currency?: CurrencyWhereUniqueInput;
+  employeeId?: EmployeeWhereUniqueInput;
+  expenseItemId?: ExpenseItemWhereUniqueInput;
   id?: StringFilter;
+  isActive?: BooleanFilter;
   note?: StringNullableFilter;
   paymentVoucherDate?: DateTimeFilter;
   statementReference?: StringNullableFilter;
+  supplier?: SupplierWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput;
+  voucherTypeId?: VoucherTypeWhereUniqueInput;
 };

@@ -28,7 +28,29 @@ class ReceiptVoucherOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  accountTransactionIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   amount?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  cashRepositoryIdId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -83,7 +105,51 @@ class ReceiptVoucherOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  currencyIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  customerIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  employeeIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   id?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  isAcive?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -116,7 +182,7 @@ class ReceiptVoucherOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  serialNumber?: SortOrder;
+  sequence?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -128,6 +194,17 @@ class ReceiptVoucherOrderByInput {
     nullable: true,
   })
   statementReference?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantId?: SortOrder;
 
   @ApiProperty({
     required: false,

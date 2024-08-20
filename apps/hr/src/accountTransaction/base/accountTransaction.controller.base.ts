@@ -26,9 +26,9 @@ import { AccountTransaction } from "./AccountTransaction";
 import { AccountTransactionFindManyArgs } from "./AccountTransactionFindManyArgs";
 import { AccountTransactionWhereUniqueInput } from "./AccountTransactionWhereUniqueInput";
 import { AccountTransactionUpdateInput } from "./AccountTransactionUpdateInput";
-import { AccountTransactionDetailFindManyArgs } from "../../accountTransactionDetail/base/AccountTransactionDetailFindManyArgs";
-import { AccountTransactionDetail } from "../../accountTransactionDetail/base/AccountTransactionDetail";
-import { AccountTransactionDetailWhereUniqueInput } from "../../accountTransactionDetail/base/AccountTransactionDetailWhereUniqueInput";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { PaymentVoucherWhereUniqueInput } from "../../paymentVoucher/base/PaymentVoucherWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -55,36 +55,24 @@ export class AccountTransactionControllerBase {
       data: {
         ...data,
 
-        costCenter: data.costCenter
+        receiptVouchers: data.receiptVouchers
           ? {
-              connect: data.costCenter,
+              connect: data.receiptVouchers,
             }
           : undefined,
-
-        store: {
-          connect: data.store,
-        },
       },
       select: {
-        costCenter: {
-          select: {
-            id: true,
-          },
-        },
-
+        code: true,
         createdAt: true,
         id: true,
-        note: true,
-        referenceNumber: true,
-        statementReference: true,
+        name: true,
 
-        store: {
+        receiptVouchers: {
           select: {
             id: true,
           },
         },
 
-        transactionDate: true,
         updatedAt: true,
       },
     });
@@ -109,25 +97,17 @@ export class AccountTransactionControllerBase {
     return this.service.accountTransactions({
       ...args,
       select: {
-        costCenter: {
-          select: {
-            id: true,
-          },
-        },
-
+        code: true,
         createdAt: true,
         id: true,
-        note: true,
-        referenceNumber: true,
-        statementReference: true,
+        name: true,
 
-        store: {
+        receiptVouchers: {
           select: {
             id: true,
           },
         },
 
-        transactionDate: true,
         updatedAt: true,
       },
     });
@@ -151,25 +131,17 @@ export class AccountTransactionControllerBase {
     const result = await this.service.accountTransaction({
       where: params,
       select: {
-        costCenter: {
-          select: {
-            id: true,
-          },
-        },
-
+        code: true,
         createdAt: true,
         id: true,
-        note: true,
-        referenceNumber: true,
-        statementReference: true,
+        name: true,
 
-        store: {
+        receiptVouchers: {
           select: {
             id: true,
           },
         },
 
-        transactionDate: true,
         updatedAt: true,
       },
     });
@@ -203,36 +175,24 @@ export class AccountTransactionControllerBase {
         data: {
           ...data,
 
-          costCenter: data.costCenter
+          receiptVouchers: data.receiptVouchers
             ? {
-                connect: data.costCenter,
+                connect: data.receiptVouchers,
               }
             : undefined,
-
-          store: {
-            connect: data.store,
-          },
         },
         select: {
-          costCenter: {
-            select: {
-              id: true,
-            },
-          },
-
+          code: true,
           createdAt: true,
           id: true,
-          note: true,
-          referenceNumber: true,
-          statementReference: true,
+          name: true,
 
-          store: {
+          receiptVouchers: {
             select: {
               id: true,
             },
           },
 
-          transactionDate: true,
           updatedAt: true,
         },
       });
@@ -264,25 +224,17 @@ export class AccountTransactionControllerBase {
       return await this.service.deleteAccountTransaction({
         where: params,
         select: {
-          costCenter: {
-            select: {
-              id: true,
-            },
-          },
-
+          code: true,
           createdAt: true,
           id: true,
-          note: true,
-          referenceNumber: true,
-          statementReference: true,
+          name: true,
 
-          store: {
+          receiptVouchers: {
             select: {
               id: true,
             },
           },
 
-          transactionDate: true,
           updatedAt: true,
         },
       });
@@ -297,60 +249,82 @@ export class AccountTransactionControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/accountTransactionDetails")
-  @ApiNestedQuery(AccountTransactionDetailFindManyArgs)
+  @common.Get("/:id/paymentVouchers")
+  @ApiNestedQuery(PaymentVoucherFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "AccountTransactionDetail",
+    resource: "PaymentVoucher",
     action: "read",
     possession: "any",
   })
-  async findAccountTransactionDetails(
+  async findPaymentVouchers(
     @common.Req() request: Request,
     @common.Param() params: AccountTransactionWhereUniqueInput
-  ): Promise<AccountTransactionDetail[]> {
-    const query = plainToClass(
-      AccountTransactionDetailFindManyArgs,
-      request.query
-    );
-    const results = await this.service.findAccountTransactionDetails(
-      params.id,
-      {
-        ...query,
-        select: {
-          accountTransactionId: {
-            select: {
-              id: true,
-            },
+  ): Promise<PaymentVoucher[]> {
+    const query = plainToClass(PaymentVoucherFindManyArgs, request.query);
+    const results = await this.service.findPaymentVouchers(params.id, {
+      ...query,
+      select: {
+        accountTransactionId: {
+          select: {
+            id: true,
           },
-
-          createdAt: true,
-          credit: true,
-          debit: true,
-          exchangeRate: true,
-          id: true,
-          note: true,
-          referenceNumber: true,
-          serial: true,
-          statementReference: true,
-
-          storeId: {
-            select: {
-              id: true,
-            },
-          },
-
-          transactionDate: true,
-
-          transactionTypeId: {
-            select: {
-              id: true,
-            },
-          },
-
-          updatedAt: true,
         },
-      }
-    );
+
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        expenseItemId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isActive: true,
+        note: true,
+        paymentVoucherDate: true,
+        statementReference: true,
+
+        supplier: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
     if (results === null) {
       throw new errors.NotFoundException(
         `No resource was found for ${JSON.stringify(params)}`
@@ -359,18 +333,18 @@ export class AccountTransactionControllerBase {
     return results;
   }
 
-  @common.Post("/:id/accountTransactionDetails")
+  @common.Post("/:id/paymentVouchers")
   @nestAccessControl.UseRoles({
     resource: "AccountTransaction",
     action: "update",
     possession: "any",
   })
-  async connectAccountTransactionDetails(
+  async connectPaymentVouchers(
     @common.Param() params: AccountTransactionWhereUniqueInput,
-    @common.Body() body: AccountTransactionDetailWhereUniqueInput[]
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      accountTransactionDetails: {
+      paymentVouchers: {
         connect: body,
       },
     };
@@ -381,18 +355,18 @@ export class AccountTransactionControllerBase {
     });
   }
 
-  @common.Patch("/:id/accountTransactionDetails")
+  @common.Patch("/:id/paymentVouchers")
   @nestAccessControl.UseRoles({
     resource: "AccountTransaction",
     action: "update",
     possession: "any",
   })
-  async updateAccountTransactionDetails(
+  async updatePaymentVouchers(
     @common.Param() params: AccountTransactionWhereUniqueInput,
-    @common.Body() body: AccountTransactionDetailWhereUniqueInput[]
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      accountTransactionDetails: {
+      paymentVouchers: {
         set: body,
       },
     };
@@ -403,18 +377,18 @@ export class AccountTransactionControllerBase {
     });
   }
 
-  @common.Delete("/:id/accountTransactionDetails")
+  @common.Delete("/:id/paymentVouchers")
   @nestAccessControl.UseRoles({
     resource: "AccountTransaction",
     action: "update",
     possession: "any",
   })
-  async disconnectAccountTransactionDetails(
+  async disconnectPaymentVouchers(
     @common.Param() params: AccountTransactionWhereUniqueInput,
-    @common.Body() body: AccountTransactionDetailWhereUniqueInput[]
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      accountTransactionDetails: {
+      paymentVouchers: {
         disconnect: body,
       },
     };

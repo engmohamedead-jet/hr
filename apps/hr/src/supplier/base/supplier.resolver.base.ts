@@ -26,6 +26,8 @@ import { SupplierFindUniqueArgs } from "./SupplierFindUniqueArgs";
 import { CreateSupplierArgs } from "./CreateSupplierArgs";
 import { UpdateSupplierArgs } from "./UpdateSupplierArgs";
 import { DeleteSupplierArgs } from "./DeleteSupplierArgs";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
 import { PurchaseReturnFindManyArgs } from "../../purchaseReturn/base/PurchaseReturnFindManyArgs";
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
 import { PurchaseFindManyArgs } from "../../purchase/base/PurchaseFindManyArgs";
@@ -187,6 +189,26 @@ export class SupplierResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @graphql.Parent() parent: Supplier,
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

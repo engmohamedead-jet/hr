@@ -160,6 +160,17 @@ class StoreOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  storeTypIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   street?: SortOrder;
 
   @ApiProperty({

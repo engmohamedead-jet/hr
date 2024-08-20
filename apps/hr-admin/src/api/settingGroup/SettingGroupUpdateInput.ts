@@ -1,3 +1,4 @@
+import { SettingUpdateManyWithoutSettingGroupsInput } from "./SettingUpdateManyWithoutSettingGroupsInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type SettingGroupUpdateInput = {
@@ -7,5 +8,6 @@ export type SettingGroupUpdateInput = {
   name?: string;
   normalizedName?: string;
   note?: string | null;
+  settings?: SettingUpdateManyWithoutSettingGroupsInput;
   tenant?: TenantWhereUniqueInput | null;
 };

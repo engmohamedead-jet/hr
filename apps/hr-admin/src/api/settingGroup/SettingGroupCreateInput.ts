@@ -1,3 +1,4 @@
+import { SettingCreateNestedManyWithoutSettingGroupsInput } from "./SettingCreateNestedManyWithoutSettingGroupsInput";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type SettingGroupCreateInput = {
@@ -7,5 +8,6 @@ export type SettingGroupCreateInput = {
   name: string;
   normalizedName: string;
   note?: string | null;
+  settings?: SettingCreateNestedManyWithoutSettingGroupsInput;
   tenant?: TenantWhereUniqueInput | null;
 };

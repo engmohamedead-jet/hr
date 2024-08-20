@@ -26,10 +26,9 @@ import { AccountTransactionFindUniqueArgs } from "./AccountTransactionFindUnique
 import { CreateAccountTransactionArgs } from "./CreateAccountTransactionArgs";
 import { UpdateAccountTransactionArgs } from "./UpdateAccountTransactionArgs";
 import { DeleteAccountTransactionArgs } from "./DeleteAccountTransactionArgs";
-import { AccountTransactionDetailFindManyArgs } from "../../accountTransactionDetail/base/AccountTransactionDetailFindManyArgs";
-import { AccountTransactionDetail } from "../../accountTransactionDetail/base/AccountTransactionDetail";
-import { CostCenter } from "../../costCenter/base/CostCenter";
-import { Store } from "../../store/base/Store";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { AccountTransactionService } from "../accountTransaction.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => AccountTransaction)
@@ -99,15 +98,11 @@ export class AccountTransactionResolverBase {
       data: {
         ...args.data,
 
-        costCenter: args.data.costCenter
+        receiptVouchers: args.data.receiptVouchers
           ? {
-              connect: args.data.costCenter,
+              connect: args.data.receiptVouchers,
             }
           : undefined,
-
-        store: {
-          connect: args.data.store,
-        },
       },
     });
   }
@@ -128,15 +123,11 @@ export class AccountTransactionResolverBase {
         data: {
           ...args.data,
 
-          costCenter: args.data.costCenter
+          receiptVouchers: args.data.receiptVouchers
             ? {
-                connect: args.data.costCenter,
+                connect: args.data.receiptVouchers,
               }
             : undefined,
-
-          store: {
-            connect: args.data.store,
-          },
         },
       });
     } catch (error) {
@@ -171,22 +162,17 @@ export class AccountTransactionResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [AccountTransactionDetail], {
-    name: "accountTransactionDetails",
-  })
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
   @nestAccessControl.UseRoles({
-    resource: "AccountTransactionDetail",
+    resource: "PaymentVoucher",
     action: "read",
     possession: "any",
   })
-  async findAccountTransactionDetails(
+  async findPaymentVouchers(
     @graphql.Parent() parent: AccountTransaction,
-    @graphql.Args() args: AccountTransactionDetailFindManyArgs
-  ): Promise<AccountTransactionDetail[]> {
-    const results = await this.service.findAccountTransactionDetails(
-      parent.id,
-      args
-    );
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
 
     if (!results) {
       return [];
@@ -196,40 +182,19 @@ export class AccountTransactionResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => CostCenter, {
+  @graphql.ResolveField(() => ReceiptVoucher, {
     nullable: true,
-    name: "costCenter",
+    name: "receiptVouchers",
   })
   @nestAccessControl.UseRoles({
-    resource: "CostCenter",
+    resource: "ReceiptVoucher",
     action: "read",
     possession: "any",
   })
-  async getCostCenter(
+  async getReceiptVouchers(
     @graphql.Parent() parent: AccountTransaction
-  ): Promise<CostCenter | null> {
-    const result = await this.service.getCostCenter(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Store, {
-    nullable: true,
-    name: "store",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "Store",
-    action: "read",
-    possession: "any",
-  })
-  async getStore(
-    @graphql.Parent() parent: AccountTransaction
-  ): Promise<Store | null> {
-    const result = await this.service.getStore(parent.id);
+  ): Promise<ReceiptVoucher | null> {
+    const result = await this.service.getReceiptVouchers(parent.id);
 
     if (!result) {
       return null;

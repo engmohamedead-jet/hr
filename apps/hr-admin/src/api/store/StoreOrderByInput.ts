@@ -13,6 +13,7 @@ export type StoreOrderByInput = {
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
+  storeTypIdId?: SortOrder;
   street?: SortOrder;
   tenantIdId?: SortOrder;
   updatedAt?: SortOrder;

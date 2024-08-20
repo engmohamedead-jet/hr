@@ -27,6 +27,8 @@ import { Decimal } from "decimal.js";
 import { EmployeeClassWhereUniqueInput } from "../../employeeClass/base/EmployeeClassWhereUniqueInput";
 import { Type } from "class-transformer";
 import { EmployeeDepartmentWhereUniqueInput } from "../../employeeDepartment/base/EmployeeDepartmentWhereUniqueInput";
+import { PaymentVoucherUpdateManyWithoutEmployeesInput } from "./PaymentVoucherUpdateManyWithoutEmployeesInput";
+import { ReceiptVoucherUpdateManyWithoutEmployeesInput } from "./ReceiptVoucherUpdateManyWithoutEmployeesInput";
 import { SalePersonUpdateManyWithoutEmployeesInput } from "./SalePersonUpdateManyWithoutEmployeesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
@@ -140,6 +142,30 @@ class EmployeeUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,

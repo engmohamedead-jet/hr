@@ -21,8 +21,10 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { PaymentVoucherUpdateManyWithoutCashRepositoriesInput } from "./PaymentVoucherUpdateManyWithoutCashRepositoriesInput";
 import { PurchaseReturnUpdateManyWithoutCashRepositoriesInput } from "./PurchaseReturnUpdateManyWithoutCashRepositoriesInput";
 import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
+import { ReceiptVoucherUpdateManyWithoutCashRepositoriesInput } from "./ReceiptVoucherUpdateManyWithoutCashRepositoriesInput";
 import { SaleOrderUpdateManyWithoutCashRepositoriesInput } from "./SaleOrderUpdateManyWithoutCashRepositoriesInput";
 import { SaleReturnUpdateManyWithoutCashRepositoriesInput } from "./SaleReturnUpdateManyWithoutCashRepositoriesInput";
 import { SaleUpdateManyWithoutCashRepositoriesInput } from "./SaleUpdateManyWithoutCashRepositoriesInput";
@@ -127,6 +129,18 @@ class CashRepositoryUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentVoucherUpdateManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherUpdateManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherUpdateManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
     type: () => PurchaseReturnUpdateManyWithoutCashRepositoriesInput,
   })
   @ValidateNested()
@@ -148,6 +162,18 @@ class CashRepositoryUpdateInput {
     nullable: true,
   })
   purchases?: PurchaseWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherUpdateManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherUpdateManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherUpdateManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutCashRepositoriesInput;
 
   @ApiProperty({
     required: false,

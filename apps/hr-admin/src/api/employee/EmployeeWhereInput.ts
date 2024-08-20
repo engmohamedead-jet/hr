@@ -4,6 +4,8 @@ import { EmployeeClassWhereUniqueInput } from "../employeeClass/EmployeeClassWhe
 import { EmployeeDepartmentWhereUniqueInput } from "../employeeDepartment/EmployeeDepartmentWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { PaymentVoucherListRelationFilter } from "../paymentVoucher/PaymentVoucherListRelationFilter";
+import { ReceiptVoucherListRelationFilter } from "../receiptVoucher/ReceiptVoucherListRelationFilter";
 import { SalePersonListRelationFilter } from "../salePerson/SalePersonListRelationFilter";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
@@ -18,6 +20,8 @@ export type EmployeeWhereInput = {
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
+  paymentVouchers?: PaymentVoucherListRelationFilter;
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
   remainingBalance?: DecimalNullableFilter;
   salePeople?: SalePersonListRelationFilter;
   tenantId?: TenantWhereUniqueInput;

@@ -26,6 +26,14 @@ import { PaymentVoucherFindUniqueArgs } from "./PaymentVoucherFindUniqueArgs";
 import { CreatePaymentVoucherArgs } from "./CreatePaymentVoucherArgs";
 import { UpdatePaymentVoucherArgs } from "./UpdatePaymentVoucherArgs";
 import { DeletePaymentVoucherArgs } from "./DeletePaymentVoucherArgs";
+import { AccountTransaction } from "../../accountTransaction/base/AccountTransaction";
+import { CashRepository } from "../../cashRepository/base/CashRepository";
+import { Currency } from "../../currency/base/Currency";
+import { Employee } from "../../employee/base/Employee";
+import { ExpenseItem } from "../../expenseItem/base/ExpenseItem";
+import { Supplier } from "../../supplier/base/Supplier";
+import { Tenant } from "../../tenant/base/Tenant";
+import { VoucherType } from "../../voucherType/base/VoucherType";
 import { PaymentVoucherService } from "../paymentVoucher.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PaymentVoucher)
@@ -92,7 +100,53 @@ export class PaymentVoucherResolverBase {
   ): Promise<PaymentVoucher> {
     return await this.service.createPaymentVoucher({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        accountTransactionId: args.data.accountTransactionId
+          ? {
+              connect: args.data.accountTransactionId,
+            }
+          : undefined,
+
+        cashRepositoryId: {
+          connect: args.data.cashRepositoryId,
+        },
+
+        currency: {
+          connect: args.data.currency,
+        },
+
+        employeeId: args.data.employeeId
+          ? {
+              connect: args.data.employeeId,
+            }
+          : undefined,
+
+        expenseItemId: args.data.expenseItemId
+          ? {
+              connect: args.data.expenseItemId,
+            }
+          : undefined,
+
+        supplier: args.data.supplier
+          ? {
+              connect: args.data.supplier,
+            }
+          : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+
+        voucherTypeId: args.data.voucherTypeId
+          ? {
+              connect: args.data.voucherTypeId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +163,53 @@ export class PaymentVoucherResolverBase {
     try {
       return await this.service.updatePaymentVoucher({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          accountTransactionId: args.data.accountTransactionId
+            ? {
+                connect: args.data.accountTransactionId,
+              }
+            : undefined,
+
+          cashRepositoryId: {
+            connect: args.data.cashRepositoryId,
+          },
+
+          currency: {
+            connect: args.data.currency,
+          },
+
+          employeeId: args.data.employeeId
+            ? {
+                connect: args.data.employeeId,
+              }
+            : undefined,
+
+          expenseItemId: args.data.expenseItemId
+            ? {
+                connect: args.data.expenseItemId,
+              }
+            : undefined,
+
+          supplier: args.data.supplier
+            ? {
+                connect: args.data.supplier,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+
+          voucherTypeId: args.data.voucherTypeId
+            ? {
+                connect: args.data.voucherTypeId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +240,173 @@ export class PaymentVoucherResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => AccountTransaction, {
+    nullable: true,
+    name: "accountTransactionId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "AccountTransaction",
+    action: "read",
+    possession: "any",
+  })
+  async getAccountTransactionId(
+    @graphql.Parent() parent: PaymentVoucher
+  ): Promise<AccountTransaction | null> {
+    const result = await this.service.getAccountTransactionId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => CashRepository, {
+    nullable: true,
+    name: "cashRepositoryId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "read",
+    possession: "any",
+  })
+  async getCashRepositoryId(
+    @graphql.Parent() parent: PaymentVoucher
+  ): Promise<CashRepository | null> {
+    const result = await this.service.getCashRepositoryId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Currency, {
+    nullable: true,
+    name: "currency",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "read",
+    possession: "any",
+  })
+  async getCurrency(
+    @graphql.Parent() parent: PaymentVoucher
+  ): Promise<Currency | null> {
+    const result = await this.service.getCurrency(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Employee, {
+    nullable: true,
+    name: "employeeId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "read",
+    possession: "any",
+  })
+  async getEmployeeId(
+    @graphql.Parent() parent: PaymentVoucher
+  ): Promise<Employee | null> {
+    const result = await this.service.getEmployeeId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => ExpenseItem, {
+    nullable: true,
+    name: "expenseItemId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ExpenseItem",
+    action: "read",
+    possession: "any",
+  })
+  async getExpenseItemId(
+    @graphql.Parent() parent: PaymentVoucher
+  ): Promise<ExpenseItem | null> {
+    const result = await this.service.getExpenseItemId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Supplier, {
+    nullable: true,
+    name: "supplier",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "read",
+    possession: "any",
+  })
+  async getSupplier(
+    @graphql.Parent() parent: PaymentVoucher
+  ): Promise<Supplier | null> {
+    const result = await this.service.getSupplier(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: PaymentVoucher
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => VoucherType, {
+    nullable: true,
+    name: "voucherTypeId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "VoucherType",
+    action: "read",
+    possession: "any",
+  })
+  async getVoucherTypeId(
+    @graphql.Parent() parent: PaymentVoucher
+  ): Promise<VoucherType | null> {
+    const result = await this.service.getVoucherTypeId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

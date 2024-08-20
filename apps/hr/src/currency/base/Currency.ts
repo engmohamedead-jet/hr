@@ -21,6 +21,8 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Customer } from "../../customer/base/Customer";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { SalePayment } from "../../salePayment/base/SalePayment";
 import { Supplier } from "../../supplier/base/Supplier";
 import { Tenant } from "../../tenant/base/Tenant";
@@ -113,6 +115,24 @@ class Currency {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PaymentVoucher],
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucher)
+  @IsOptional()
+  paymentVouchers?: Array<PaymentVoucher>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ReceiptVoucher],
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucher)
+  @IsOptional()
+  receiptVouchers?: Array<ReceiptVoucher>;
 
   @ApiProperty({
     required: false,

@@ -1,17 +1,12 @@
-import { AccountTransactionDetailListRelationFilter } from "../accountTransactionDetail/AccountTransactionDetailListRelationFilter";
-import { CostCenterWhereUniqueInput } from "../costCenter/CostCenterWhereUniqueInput";
-import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { StoreWhereUniqueInput } from "../store/StoreWhereUniqueInput";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { PaymentVoucherListRelationFilter } from "../paymentVoucher/PaymentVoucherListRelationFilter";
+import { ReceiptVoucherWhereUniqueInput } from "../receiptVoucher/ReceiptVoucherWhereUniqueInput";
 
 export type AccountTransactionWhereInput = {
-  accountTransactionDetails?: AccountTransactionDetailListRelationFilter;
-  costCenter?: CostCenterWhereUniqueInput;
+  code?: StringNullableFilter;
   id?: StringFilter;
-  note?: StringNullableFilter;
-  referenceNumber?: StringNullableFilter;
-  statementReference?: StringNullableFilter;
-  store?: StoreWhereUniqueInput;
-  transactionDate?: DateTimeNullableFilter;
+  name?: StringNullableFilter;
+  paymentVouchers?: PaymentVoucherListRelationFilter;
+  receiptVouchers?: ReceiptVoucherWhereUniqueInput;
 };

@@ -28,6 +28,10 @@ import { UpdateCurrencyArgs } from "./UpdateCurrencyArgs";
 import { DeleteCurrencyArgs } from "./DeleteCurrencyArgs";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
 import { SalePayment } from "../../salePayment/base/SalePayment";
 import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
@@ -177,6 +181,46 @@ export class CurrencyResolverBase {
     @graphql.Args() args: CustomerFindManyArgs
   ): Promise<Customer[]> {
     const results = await this.service.findCustomers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @graphql.Parent() parent: Currency,
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ReceiptVoucher], { name: "receiptVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @graphql.Parent() parent: Currency,
+    @graphql.Args() args: ReceiptVoucherFindManyArgs
+  ): Promise<ReceiptVoucher[]> {
+    const results = await this.service.findReceiptVouchers(parent.id, args);
 
     if (!results) {
       return [];

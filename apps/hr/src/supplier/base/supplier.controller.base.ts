@@ -26,6 +26,9 @@ import { Supplier } from "./Supplier";
 import { SupplierFindManyArgs } from "./SupplierFindManyArgs";
 import { SupplierWhereUniqueInput } from "./SupplierWhereUniqueInput";
 import { SupplierUpdateInput } from "./SupplierUpdateInput";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { PaymentVoucherWhereUniqueInput } from "../../paymentVoucher/base/PaymentVoucherWhereUniqueInput";
 import { PurchaseReturnFindManyArgs } from "../../purchaseReturn/base/PurchaseReturnFindManyArgs";
 import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
 import { PurchaseReturnWhereUniqueInput } from "../../purchaseReturn/base/PurchaseReturnWhereUniqueInput";
@@ -386,6 +389,157 @@ export class SupplierControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/paymentVouchers")
+  @ApiNestedQuery(PaymentVoucherFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @common.Req() request: Request,
+    @common.Param() params: SupplierWhereUniqueInput
+  ): Promise<PaymentVoucher[]> {
+    const query = plainToClass(PaymentVoucherFindManyArgs, request.query);
+    const results = await this.service.findPaymentVouchers(params.id, {
+      ...query,
+      select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        expenseItemId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isActive: true,
+        note: true,
+        paymentVoucherDate: true,
+        statementReference: true,
+
+        supplier: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentVouchers(
+    @common.Param() params: SupplierWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        connect: body,
+      },
+    };
+    await this.service.updateSupplier({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentVouchers(
+    @common.Param() params: SupplierWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        set: body,
+      },
+    };
+    await this.service.updateSupplier({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Supplier",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentVouchers(
+    @common.Param() params: SupplierWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateSupplier({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

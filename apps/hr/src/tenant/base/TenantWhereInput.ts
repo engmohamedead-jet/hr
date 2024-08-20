@@ -81,6 +81,7 @@ import { SaleTaxListRelationFilter } from "../../saleTax/base/SaleTaxListRelatio
 import { SaleTeamListRelationFilter } from "../../saleTeam/base/SaleTeamListRelationFilter";
 import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
 import { ScrapReasonListRelationFilter } from "../../scrapReason/base/ScrapReasonListRelationFilter";
+import { SettingGroupListRelationFilter } from "../../settingGroup/base/SettingGroupListRelationFilter";
 import { ShippingStatusListRelationFilter } from "../../shippingStatus/base/ShippingStatusListRelationFilter";
 import { StoreListRelationFilter } from "../../store/base/StoreListRelationFilter";
 import { SupplierListRelationFilter } from "../../supplier/base/SupplierListRelationFilter";
@@ -980,6 +981,18 @@ class TenantWhereInput {
     nullable: true,
   })
   scrapReasons?: ScrapReasonListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SettingGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SettingGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => SettingGroupListRelationFilter, {
+    nullable: true,
+  })
+  settingGroups?: SettingGroupListRelationFilter;
 
   @ApiProperty({
     required: false,

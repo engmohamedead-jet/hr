@@ -1293,6 +1293,7 @@ model Tenant {
   saleTeams                SaleTeam[]
   sales                    Sale[]
   scrapReasons             ScrapReason[]
+  settingGroups            SettingGroup[]
   shippingStatuses         ShippingStatus[]
   stores                   Store[]
   suppliers                Supplier[]
@@ -1749,6 +1750,20 @@ model BankBranch {
   tenant             Tenant?       @relation(fields: [tenantId], references: [id])
   tenantId           String?
   updatedAt          DateTime      @updatedAt
+}
+
+model SettingGroup {
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean? @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenant         Tenant?  @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime @updatedAt
 }
 
 enum EnumPrintTemplatePaperLayout {

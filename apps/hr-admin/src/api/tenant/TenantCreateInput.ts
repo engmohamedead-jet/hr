@@ -63,6 +63,7 @@ import { SaleTaxCreateNestedManyWithoutTenantsInput } from "./SaleTaxCreateNeste
 import { SaleTeamCreateNestedManyWithoutTenantsInput } from "./SaleTeamCreateNestedManyWithoutTenantsInput";
 import { SaleCreateNestedManyWithoutTenantsInput } from "./SaleCreateNestedManyWithoutTenantsInput";
 import { ScrapReasonCreateNestedManyWithoutTenantsInput } from "./ScrapReasonCreateNestedManyWithoutTenantsInput";
+import { SettingGroupCreateNestedManyWithoutTenantsInput } from "./SettingGroupCreateNestedManyWithoutTenantsInput";
 import { ShippingStatusCreateNestedManyWithoutTenantsInput } from "./ShippingStatusCreateNestedManyWithoutTenantsInput";
 import { StoreCreateNestedManyWithoutTenantsInput } from "./StoreCreateNestedManyWithoutTenantsInput";
 import { SupplierCreateNestedManyWithoutTenantsInput } from "./SupplierCreateNestedManyWithoutTenantsInput";
@@ -146,6 +147,7 @@ export type TenantCreateInput = {
   saleTeams?: SaleTeamCreateNestedManyWithoutTenantsInput;
   sales?: SaleCreateNestedManyWithoutTenantsInput;
   scrapReasons?: ScrapReasonCreateNestedManyWithoutTenantsInput;
+  settingGroups?: SettingGroupCreateNestedManyWithoutTenantsInput;
   shippingStatuses?: ShippingStatusCreateNestedManyWithoutTenantsInput;
   stores?: StoreCreateNestedManyWithoutTenantsInput;
   suppliers?: SupplierCreateNestedManyWithoutTenantsInput;

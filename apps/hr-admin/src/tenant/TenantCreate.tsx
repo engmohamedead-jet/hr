@@ -75,6 +75,7 @@ import { SaleTaxTitle } from "../saleTax/SaleTaxTitle";
 import { SaleTeamTitle } from "../saleTeam/SaleTeamTitle";
 import { SaleTitle } from "../sale/SaleTitle";
 import { ScrapReasonTitle } from "../scrapReason/ScrapReasonTitle";
+import { SettingGroupTitle } from "../settingGroup/SettingGroupTitle";
 import { ShippingStatusTitle } from "../shippingStatus/ShippingStatusTitle";
 import { StoreTitle } from "../store/StoreTitle";
 import { SupplierTitle } from "../supplier/SupplierTitle";
@@ -615,6 +616,14 @@ export const TenantCreate = (props: CreateProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={ScrapReasonTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="settingGroups"
+          reference="SettingGroup"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SettingGroupTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="shippingStatuses"

@@ -156,6 +156,8 @@ import { SaleFindManyArgs } from "../../sale/base/SaleFindManyArgs";
 import { Sale } from "../../sale/base/Sale";
 import { ScrapReasonFindManyArgs } from "../../scrapReason/base/ScrapReasonFindManyArgs";
 import { ScrapReason } from "../../scrapReason/base/ScrapReason";
+import { SettingGroupFindManyArgs } from "../../settingGroup/base/SettingGroupFindManyArgs";
+import { SettingGroup } from "../../settingGroup/base/SettingGroup";
 import { ShippingStatusFindManyArgs } from "../../shippingStatus/base/ShippingStatusFindManyArgs";
 import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
 import { StoreFindManyArgs } from "../../store/base/StoreFindManyArgs";
@@ -1618,6 +1620,26 @@ export class TenantResolverBase {
     @graphql.Args() args: ScrapReasonFindManyArgs
   ): Promise<ScrapReason[]> {
     const results = await this.service.findScrapReasons(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SettingGroup], { name: "settingGroups" })
+  @nestAccessControl.UseRoles({
+    resource: "SettingGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findSettingGroups(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: SettingGroupFindManyArgs
+  ): Promise<SettingGroup[]> {
+    const results = await this.service.findSettingGroups(parent.id, args);
 
     if (!results) {
       return [];

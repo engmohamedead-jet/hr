@@ -17758,5 +17758,245 @@
     "resource": "BankBranch",
     "action": "read:any",
     "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "SettingGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "SettingGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "SettingGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "SettingGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "SettingGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "SettingGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "salesRole",
+    "resource": "SettingGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SettingGroup",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "SettingGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "SettingGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "SettingGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "SettingGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "SettingGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "SettingGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "salesRole",
+    "resource": "SettingGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SettingGroup",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "SettingGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "SettingGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "SettingGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "SettingGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "SettingGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "SettingGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "salesRole",
+    "resource": "SettingGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SettingGroup",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "SettingGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "SettingGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "SettingGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "SettingGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "SettingGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "SettingGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "salesRole",
+    "resource": "SettingGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SettingGroup",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "accountantRole",
+    "resource": "SettingGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "adminRole",
+    "resource": "SettingGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "hrSpecialist",
+    "resource": "SettingGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "inventoryRole",
+    "resource": "SettingGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "manufactureRole",
+    "resource": "SettingGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "purchasesRole",
+    "resource": "SettingGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "salesRole",
+    "resource": "SettingGroup",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SettingGroup",
+    "action": "read:any",
+    "attributes": "*"
   }
 ]

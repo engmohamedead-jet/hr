@@ -63,6 +63,7 @@ import { SaleTaxUpdateManyWithoutTenantsInput } from "./SaleTaxUpdateManyWithout
 import { SaleTeamUpdateManyWithoutTenantsInput } from "./SaleTeamUpdateManyWithoutTenantsInput";
 import { SaleUpdateManyWithoutTenantsInput } from "./SaleUpdateManyWithoutTenantsInput";
 import { ScrapReasonUpdateManyWithoutTenantsInput } from "./ScrapReasonUpdateManyWithoutTenantsInput";
+import { SettingGroupUpdateManyWithoutTenantsInput } from "./SettingGroupUpdateManyWithoutTenantsInput";
 import { ShippingStatusUpdateManyWithoutTenantsInput } from "./ShippingStatusUpdateManyWithoutTenantsInput";
 import { StoreUpdateManyWithoutTenantsInput } from "./StoreUpdateManyWithoutTenantsInput";
 import { SupplierUpdateManyWithoutTenantsInput } from "./SupplierUpdateManyWithoutTenantsInput";
@@ -146,6 +147,7 @@ export type TenantUpdateInput = {
   saleTeams?: SaleTeamUpdateManyWithoutTenantsInput;
   sales?: SaleUpdateManyWithoutTenantsInput;
   scrapReasons?: ScrapReasonUpdateManyWithoutTenantsInput;
+  settingGroups?: SettingGroupUpdateManyWithoutTenantsInput;
   shippingStatuses?: ShippingStatusUpdateManyWithoutTenantsInput;
   stores?: StoreUpdateManyWithoutTenantsInput;
   suppliers?: SupplierUpdateManyWithoutTenantsInput;

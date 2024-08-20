@@ -301,6 +301,10 @@ import { BankBranchList } from "./bankBranch/BankBranchList";
 import { BankBranchCreate } from "./bankBranch/BankBranchCreate";
 import { BankBranchEdit } from "./bankBranch/BankBranchEdit";
 import { BankBranchShow } from "./bankBranch/BankBranchShow";
+import { SettingGroupList } from "./settingGroup/SettingGroupList";
+import { SettingGroupCreate } from "./settingGroup/SettingGroupCreate";
+import { SettingGroupEdit } from "./settingGroup/SettingGroupEdit";
+import { SettingGroupShow } from "./settingGroup/SettingGroupShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -844,6 +848,13 @@ const App = (): React.ReactElement => {
           edit={BankBranchEdit}
           create={BankBranchCreate}
           show={BankBranchShow}
+        />
+        <Resource
+          name="SettingGroup"
+          list={SettingGroupList}
+          edit={SettingGroupEdit}
+          create={SettingGroupCreate}
+          show={SettingGroupShow}
         />
       </Admin>
     </div>

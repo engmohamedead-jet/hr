@@ -66,6 +66,7 @@ import { SaleTaxListRelationFilter } from "../saleTax/SaleTaxListRelationFilter"
 import { SaleTeamListRelationFilter } from "../saleTeam/SaleTeamListRelationFilter";
 import { SaleListRelationFilter } from "../sale/SaleListRelationFilter";
 import { ScrapReasonListRelationFilter } from "../scrapReason/ScrapReasonListRelationFilter";
+import { SettingGroupListRelationFilter } from "../settingGroup/SettingGroupListRelationFilter";
 import { ShippingStatusListRelationFilter } from "../shippingStatus/ShippingStatusListRelationFilter";
 import { StoreListRelationFilter } from "../store/StoreListRelationFilter";
 import { SupplierListRelationFilter } from "../supplier/SupplierListRelationFilter";
@@ -150,6 +151,7 @@ export type TenantWhereInput = {
   saleTeams?: SaleTeamListRelationFilter;
   sales?: SaleListRelationFilter;
   scrapReasons?: ScrapReasonListRelationFilter;
+  settingGroups?: SettingGroupListRelationFilter;
   shippingStatuses?: ShippingStatusListRelationFilter;
   stores?: StoreListRelationFilter;
   suppliers?: SupplierListRelationFilter;

@@ -79,6 +79,7 @@ import {
   SaleTeam as PrismaSaleTeam,
   Sale as PrismaSale,
   ScrapReason as PrismaScrapReason,
+  SettingGroup as PrismaSettingGroup,
   ShippingStatus as PrismaShippingStatus,
   Store as PrismaStore,
   Supplier as PrismaSupplier,
@@ -826,6 +827,17 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .scrapReasons(args);
+  }
+
+  async findSettingGroups(
+    parentId: string,
+    args: Prisma.SettingGroupFindManyArgs
+  ): Promise<PrismaSettingGroup[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .settingGroups(args);
   }
 
   async findShippingStatuses(

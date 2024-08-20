@@ -85,6 +85,7 @@ import { SaleTax } from "../../saleTax/base/SaleTax";
 import { SaleTeam } from "../../saleTeam/base/SaleTeam";
 import { Sale } from "../../sale/base/Sale";
 import { ScrapReason } from "../../scrapReason/base/ScrapReason";
+import { SettingGroup } from "../../settingGroup/base/SettingGroup";
 import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
 import { Store } from "../../store/base/Store";
 import { Supplier } from "../../supplier/base/Supplier";
@@ -792,6 +793,15 @@ class Tenant {
   @Type(() => ScrapReason)
   @IsOptional()
   scrapReasons?: Array<ScrapReason>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SettingGroup],
+  })
+  @ValidateNested()
+  @Type(() => SettingGroup)
+  @IsOptional()
+  settingGroups?: Array<SettingGroup>;
 
   @ApiProperty({
     required: false,

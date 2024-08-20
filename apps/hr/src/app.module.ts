@@ -75,6 +75,7 @@ import { PaymentMethodModule } from "./paymentMethod/paymentMethod.module";
 import { BankModule } from "./bank/bank.module";
 import { BankTypeModule } from "./bankType/bankType.module";
 import { BankBranchModule } from "./bankBranch/bankBranch.module";
+import { SettingGroupModule } from "./settingGroup/settingGroup.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -166,6 +167,7 @@ import { AuthModule } from "./auth/auth.module";
     BankModule,
     BankTypeModule,
     BankBranchModule,
+    SettingGroupModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

@@ -221,6 +221,9 @@ import { SaleWhereUniqueInput } from "../../sale/base/SaleWhereUniqueInput";
 import { ScrapReasonFindManyArgs } from "../../scrapReason/base/ScrapReasonFindManyArgs";
 import { ScrapReason } from "../../scrapReason/base/ScrapReason";
 import { ScrapReasonWhereUniqueInput } from "../../scrapReason/base/ScrapReasonWhereUniqueInput";
+import { SettingGroupFindManyArgs } from "../../settingGroup/base/SettingGroupFindManyArgs";
+import { SettingGroup } from "../../settingGroup/base/SettingGroup";
+import { SettingGroupWhereUniqueInput } from "../../settingGroup/base/SettingGroupWhereUniqueInput";
 import { ShippingStatusFindManyArgs } from "../../shippingStatus/base/ShippingStatusFindManyArgs";
 import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
 import { ShippingStatusWhereUniqueInput } from "../../shippingStatus/base/ShippingStatusWhereUniqueInput";
@@ -8630,6 +8633,114 @@ export class TenantControllerBase {
   ): Promise<void> {
     const data = {
       scrapReasons: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/settingGroups")
+  @ApiNestedQuery(SettingGroupFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SettingGroup",
+    action: "read",
+    possession: "any",
+  })
+  async findSettingGroups(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<SettingGroup[]> {
+    const query = plainToClass(SettingGroupFindManyArgs, request.query);
+    const results = await this.service.findSettingGroups(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/settingGroups")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectSettingGroups(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SettingGroupWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      settingGroups: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/settingGroups")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateSettingGroups(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SettingGroupWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      settingGroups: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/settingGroups")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSettingGroups(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: SettingGroupWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      settingGroups: {
         disconnect: body,
       },
     };

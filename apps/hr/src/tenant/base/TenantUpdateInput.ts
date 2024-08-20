@@ -84,6 +84,7 @@ import { SaleTaxUpdateManyWithoutTenantsInput } from "./SaleTaxUpdateManyWithout
 import { SaleTeamUpdateManyWithoutTenantsInput } from "./SaleTeamUpdateManyWithoutTenantsInput";
 import { SaleUpdateManyWithoutTenantsInput } from "./SaleUpdateManyWithoutTenantsInput";
 import { ScrapReasonUpdateManyWithoutTenantsInput } from "./ScrapReasonUpdateManyWithoutTenantsInput";
+import { SettingGroupUpdateManyWithoutTenantsInput } from "./SettingGroupUpdateManyWithoutTenantsInput";
 import { ShippingStatusUpdateManyWithoutTenantsInput } from "./ShippingStatusUpdateManyWithoutTenantsInput";
 import { StoreUpdateManyWithoutTenantsInput } from "./StoreUpdateManyWithoutTenantsInput";
 import { SupplierUpdateManyWithoutTenantsInput } from "./SupplierUpdateManyWithoutTenantsInput";
@@ -979,6 +980,18 @@ class TenantUpdateInput {
     nullable: true,
   })
   scrapReasons?: ScrapReasonUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SettingGroupUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => SettingGroupUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => SettingGroupUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  settingGroups?: SettingGroupUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,

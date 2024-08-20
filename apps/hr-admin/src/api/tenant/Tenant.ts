@@ -63,6 +63,7 @@ import { SaleTax } from "../saleTax/SaleTax";
 import { SaleTeam } from "../saleTeam/SaleTeam";
 import { Sale } from "../sale/Sale";
 import { ScrapReason } from "../scrapReason/ScrapReason";
+import { SettingGroup } from "../settingGroup/SettingGroup";
 import { ShippingStatus } from "../shippingStatus/ShippingStatus";
 import { Store } from "../store/Store";
 import { Supplier } from "../supplier/Supplier";
@@ -148,6 +149,7 @@ export type Tenant = {
   saleTeams?: Array<SaleTeam>;
   sales?: Array<Sale>;
   scrapReasons?: Array<ScrapReason>;
+  settingGroups?: Array<SettingGroup>;
   shippingStatuses?: Array<ShippingStatus>;
   stores?: Array<Store>;
   suppliers?: Array<Supplier>;

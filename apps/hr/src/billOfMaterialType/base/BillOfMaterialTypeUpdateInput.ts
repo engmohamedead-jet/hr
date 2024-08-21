@@ -11,10 +11,31 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import { BillOfMaterialUpdateManyWithoutBillOfMaterialTypesInput } from "./BillOfMaterialUpdateManyWithoutBillOfMaterialTypesInput";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsBoolean,
+} from "class-validator";
+import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class BillOfMaterialTypeUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => BillOfMaterialUpdateManyWithoutBillOfMaterialTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => BillOfMaterialUpdateManyWithoutBillOfMaterialTypesInput)
+  @IsOptional()
+  @Field(() => BillOfMaterialUpdateManyWithoutBillOfMaterialTypesInput, {
+    nullable: true,
+  })
+  billOfMaterials?: BillOfMaterialUpdateManyWithoutBillOfMaterialTypesInput;
+
   @ApiProperty({
     required: false,
     type: String,
@@ -38,6 +59,17 @@ class BillOfMaterialTypeUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -74,6 +106,18 @@ class BillOfMaterialTypeUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { BillOfMaterialTypeUpdateInput as BillOfMaterialTypeUpdateInput };

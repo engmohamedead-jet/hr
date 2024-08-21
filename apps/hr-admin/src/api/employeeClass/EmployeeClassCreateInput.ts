@@ -1,10 +1,13 @@
-import { EmployeeClassSalaryItemValueCreateNestedManyWithoutEmployeeClassesInput } from "./EmployeeClassSalaryItemValueCreateNestedManyWithoutEmployeeClassesInput";
+import { EmployeeCreateNestedManyWithoutEmployeeClassesInput } from "./EmployeeCreateNestedManyWithoutEmployeeClassesInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type EmployeeClassCreateInput = {
-  code: string;
+  code?: string | null;
   description?: string | null;
-  employeeClassSalaryItemValues?: EmployeeClassSalaryItemValueCreateNestedManyWithoutEmployeeClassesInput;
+  employees?: EmployeeCreateNestedManyWithoutEmployeeClassesInput;
+  isActive: boolean;
   name: string;
   normalizedName: string;
-  notes?: string | null;
+  note?: string | null;
+  tenantId?: TenantWhereUniqueInput | null;
 };

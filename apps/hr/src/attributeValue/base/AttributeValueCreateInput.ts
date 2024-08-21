@@ -14,25 +14,33 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AttributeWhereUniqueInput } from "../../attribute/base/AttributeWhereUniqueInput";
 import {
   ValidateNested,
-  IsOptional,
+  IsBoolean,
   IsString,
   MaxLength,
+  IsOptional,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { ProductVariantCreateNestedManyWithoutAttributeValuesInput } from "./ProductVariantCreateNestedManyWithoutAttributeValuesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AttributeValueCreateInput {
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => AttributeWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => AttributeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AttributeWhereUniqueInput, {
-    nullable: true,
+  @Field(() => AttributeWhereUniqueInput)
+  attributeId!: AttributeWhereUniqueInput;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
   })
-  attributeId?: AttributeWhereUniqueInput | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -48,15 +56,36 @@ class AttributeValueCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductVariantCreateNestedManyWithoutAttributeValuesInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductVariantCreateNestedManyWithoutAttributeValuesInput)
+  @IsOptional()
+  @Field(() => ProductVariantCreateNestedManyWithoutAttributeValuesInput, {
+    nullable: true,
+  })
+  productVariants?: ProductVariantCreateNestedManyWithoutAttributeValuesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  value?: string | null;
+  @Field(() => String)
+  value!: string;
 }
 
 export { AttributeValueCreateInput as AttributeValueCreateInput };

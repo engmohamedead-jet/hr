@@ -11,7 +11,16 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
+import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PaymentStatusUpdateInput {
@@ -25,7 +34,7 @@ class PaymentStatusUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -38,6 +47,17 @@ class PaymentStatusUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -74,6 +94,30 @@ class PaymentStatusUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleOrderWhereUniqueInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput | null;
 }
 
 export { PaymentStatusUpdateInput as PaymentStatusUpdateInput };

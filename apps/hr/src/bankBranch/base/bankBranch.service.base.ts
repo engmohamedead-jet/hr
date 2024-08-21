@@ -14,8 +14,9 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   BankBranch as PrismaBankBranch,
-  BankAccount as PrismaBankAccount,
+  SalePayment as PrismaSalePayment,
   Bank as PrismaBank,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class BankBranchServiceBase {
@@ -53,22 +54,30 @@ export class BankBranchServiceBase {
     return this.prisma.bankBranch.delete(args);
   }
 
-  async findBankAccounts(
+  async findSalePayments(
     parentId: string,
-    args: Prisma.BankAccountFindManyArgs
-  ): Promise<PrismaBankAccount[]> {
+    args: Prisma.SalePaymentFindManyArgs
+  ): Promise<PrismaSalePayment[]> {
     return this.prisma.bankBranch
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .bankAccounts(args);
+      .salePayments(args);
   }
 
-  async getBankId(parentId: string): Promise<PrismaBank | null> {
+  async getBank(parentId: string): Promise<PrismaBank | null> {
     return this.prisma.bankBranch
       .findUnique({
         where: { id: parentId },
       })
-      .bankId();
+      .bank();
+  }
+
+  async getTenant(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.bankBranch
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenant();
   }
 }

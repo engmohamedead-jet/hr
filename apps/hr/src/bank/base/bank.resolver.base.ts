@@ -26,13 +26,11 @@ import { BankFindUniqueArgs } from "./BankFindUniqueArgs";
 import { CreateBankArgs } from "./CreateBankArgs";
 import { UpdateBankArgs } from "./UpdateBankArgs";
 import { DeleteBankArgs } from "./DeleteBankArgs";
-import { BankAccountFindManyArgs } from "../../bankAccount/base/BankAccountFindManyArgs";
-import { BankAccount } from "../../bankAccount/base/BankAccount";
 import { BankBranchFindManyArgs } from "../../bankBranch/base/BankBranchFindManyArgs";
 import { BankBranch } from "../../bankBranch/base/BankBranch";
-import { City } from "../../city/base/City";
-import { Country } from "../../country/base/Country";
-import { State } from "../../state/base/State";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { BankType } from "../../bankType/base/BankType";
 import { BankService } from "../bank.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Bank)
@@ -96,21 +94,9 @@ export class BankResolverBase {
       data: {
         ...args.data,
 
-        cityId: args.data.cityId
+        bankType: args.data.bankType
           ? {
-              connect: args.data.cityId,
-            }
-          : undefined,
-
-        countryId: args.data.countryId
-          ? {
-              connect: args.data.countryId,
-            }
-          : undefined,
-
-        stateId: args.data.stateId
-          ? {
-              connect: args.data.stateId,
+              connect: args.data.bankType,
             }
           : undefined,
       },
@@ -131,21 +117,9 @@ export class BankResolverBase {
         data: {
           ...args.data,
 
-          cityId: args.data.cityId
+          bankType: args.data.bankType
             ? {
-                connect: args.data.cityId,
-              }
-            : undefined,
-
-          countryId: args.data.countryId
-            ? {
-                connect: args.data.countryId,
-              }
-            : undefined,
-
-          stateId: args.data.stateId
-            ? {
-                connect: args.data.stateId,
+                connect: args.data.bankType,
               }
             : undefined,
         },
@@ -180,26 +154,6 @@ export class BankResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [BankAccount], { name: "bankAccounts" })
-  @nestAccessControl.UseRoles({
-    resource: "BankAccount",
-    action: "read",
-    possession: "any",
-  })
-  async findBankAccounts(
-    @graphql.Parent() parent: Bank,
-    @graphql.Args() args: BankAccountFindManyArgs
-  ): Promise<BankAccount[]> {
-    const results = await this.service.findBankAccounts(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [BankBranch], { name: "bankBranches" })
   @nestAccessControl.UseRoles({
     resource: "BankBranch",
@@ -220,55 +174,37 @@ export class BankResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => City, {
-    nullable: true,
-    name: "cityId",
-  })
+  @graphql.ResolveField(() => [SalePayment], { name: "salePayments" })
   @nestAccessControl.UseRoles({
-    resource: "City",
+    resource: "SalePayment",
     action: "read",
     possession: "any",
   })
-  async getCityId(@graphql.Parent() parent: Bank): Promise<City | null> {
-    const result = await this.service.getCityId(parent.id);
+  async findSalePayments(
+    @graphql.Parent() parent: Bank,
+    @graphql.Args() args: SalePaymentFindManyArgs
+  ): Promise<SalePayment[]> {
+    const results = await this.service.findSalePayments(parent.id, args);
 
-    if (!result) {
-      return null;
+    if (!results) {
+      return [];
     }
-    return result;
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Country, {
+  @graphql.ResolveField(() => BankType, {
     nullable: true,
-    name: "countryId",
+    name: "bankType",
   })
   @nestAccessControl.UseRoles({
-    resource: "Country",
+    resource: "BankType",
     action: "read",
     possession: "any",
   })
-  async getCountryId(@graphql.Parent() parent: Bank): Promise<Country | null> {
-    const result = await this.service.getCountryId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => State, {
-    nullable: true,
-    name: "stateId",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "State",
-    action: "read",
-    possession: "any",
-  })
-  async getStateId(@graphql.Parent() parent: Bank): Promise<State | null> {
-    const result = await this.service.getStateId(parent.id);
+  async getBankType(@graphql.Parent() parent: Bank): Promise<BankType | null> {
+    const result = await this.service.getBankType(parent.id);
 
     if (!result) {
       return null;

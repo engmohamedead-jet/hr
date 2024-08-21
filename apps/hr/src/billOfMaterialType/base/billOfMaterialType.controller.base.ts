@@ -26,6 +26,9 @@ import { BillOfMaterialType } from "./BillOfMaterialType";
 import { BillOfMaterialTypeFindManyArgs } from "./BillOfMaterialTypeFindManyArgs";
 import { BillOfMaterialTypeWhereUniqueInput } from "./BillOfMaterialTypeWhereUniqueInput";
 import { BillOfMaterialTypeUpdateInput } from "./BillOfMaterialTypeUpdateInput";
+import { BillOfMaterialFindManyArgs } from "../../billOfMaterial/base/BillOfMaterialFindManyArgs";
+import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
+import { BillOfMaterialWhereUniqueInput } from "../../billOfMaterial/base/BillOfMaterialWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -49,15 +52,31 @@ export class BillOfMaterialTypeControllerBase {
     @common.Body() data: BillOfMaterialTypeCreateInput
   ): Promise<BillOfMaterialType> {
     return await this.service.createBillOfMaterialType({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -86,9 +105,17 @@ export class BillOfMaterialTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -116,9 +143,17 @@ export class BillOfMaterialTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -149,15 +184,31 @@ export class BillOfMaterialTypeControllerBase {
     try {
       return await this.service.updateBillOfMaterialType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -193,9 +244,17 @@ export class BillOfMaterialTypeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -207,5 +266,140 @@ export class BillOfMaterialTypeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/billOfMaterials")
+  @ApiNestedQuery(BillOfMaterialFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterial",
+    action: "read",
+    possession: "any",
+  })
+  async findBillOfMaterials(
+    @common.Req() request: Request,
+    @common.Param() params: BillOfMaterialTypeWhereUniqueInput
+  ): Promise<BillOfMaterial[]> {
+    const query = plainToClass(BillOfMaterialFindManyArgs, request.query);
+    const results = await this.service.findBillOfMaterials(params.id, {
+      ...query,
+      select: {
+        billOfMaterialTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        code: true,
+        createdAt: true,
+        daysToPrepareManufacturingOrder: true,
+        endDate: true,
+        id: true,
+        isActive: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        sequence: true,
+        startDate: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        unitId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/billOfMaterials")
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterialType",
+    action: "update",
+    possession: "any",
+  })
+  async connectBillOfMaterials(
+    @common.Param() params: BillOfMaterialTypeWhereUniqueInput,
+    @common.Body() body: BillOfMaterialWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterials: {
+        connect: body,
+      },
+    };
+    await this.service.updateBillOfMaterialType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/billOfMaterials")
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterialType",
+    action: "update",
+    possession: "any",
+  })
+  async updateBillOfMaterials(
+    @common.Param() params: BillOfMaterialTypeWhereUniqueInput,
+    @common.Body() body: BillOfMaterialWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterials: {
+        set: body,
+      },
+    };
+    await this.service.updateBillOfMaterialType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/billOfMaterials")
+  @nestAccessControl.UseRoles({
+    resource: "BillOfMaterialType",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectBillOfMaterials(
+    @common.Param() params: BillOfMaterialTypeWhereUniqueInput,
+    @common.Body() body: BillOfMaterialWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      billOfMaterials: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateBillOfMaterialType({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

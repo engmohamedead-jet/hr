@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { ProductCreateNestedManyWithoutProductTypesInput } from "./ProductCreateNestedManyWithoutProductTypesInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductTypeCreateInput {
@@ -36,16 +37,12 @@ class ProductTypeCreateInput {
   code?: string | null;
 
   @ApiProperty({
-    required: false,
-    type: String,
+    required: true,
+    type: Boolean,
   })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  description?: string | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -99,6 +96,18 @@ class ProductTypeCreateInput {
     nullable: true,
   })
   products?: ProductCreateNestedManyWithoutProductTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductTypeCreateInput as ProductTypeCreateInput };

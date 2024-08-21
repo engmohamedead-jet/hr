@@ -26,6 +26,15 @@ import { Employee } from "./Employee";
 import { EmployeeFindManyArgs } from "./EmployeeFindManyArgs";
 import { EmployeeWhereUniqueInput } from "./EmployeeWhereUniqueInput";
 import { EmployeeUpdateInput } from "./EmployeeUpdateInput";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { PaymentVoucherWhereUniqueInput } from "../../paymentVoucher/base/PaymentVoucherWhereUniqueInput";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { ReceiptVoucherWhereUniqueInput } from "../../receiptVoucher/base/ReceiptVoucherWhereUniqueInput";
+import { SalePersonFindManyArgs } from "../../salePerson/base/SalePersonFindManyArgs";
+import { SalePerson } from "../../salePerson/base/SalePerson";
+import { SalePersonWhereUniqueInput } from "../../salePerson/base/SalePersonWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,28 +61,55 @@ export class EmployeeControllerBase {
       data: {
         ...data,
 
-        departmentId: data.departmentId
+        employeeClassId: data.employeeClassId
           ? {
-              connect: data.departmentId,
+              connect: data.employeeClassId,
+            }
+          : undefined,
+
+        employeeDepartmentId: data.employeeDepartmentId
+          ? {
+              connect: data.employeeDepartmentId,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
             }
           : undefined,
       },
       select: {
         balance: true,
+        code: true,
         createdAt: true,
 
-        departmentId: {
+        employeeClassId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeDepartmentId: {
           select: {
             id: true,
           },
         },
 
         id: true,
+        isActive: true,
         lastYearBalance: true,
         name: true,
         normalizedName: true,
         note: true,
         remainingBalance: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         usedBalance: true,
       },
@@ -98,20 +134,35 @@ export class EmployeeControllerBase {
       ...args,
       select: {
         balance: true,
+        code: true,
         createdAt: true,
 
-        departmentId: {
+        employeeClassId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeDepartmentId: {
           select: {
             id: true,
           },
         },
 
         id: true,
+        isActive: true,
         lastYearBalance: true,
         name: true,
         normalizedName: true,
         note: true,
         remainingBalance: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         usedBalance: true,
       },
@@ -137,20 +188,35 @@ export class EmployeeControllerBase {
       where: params,
       select: {
         balance: true,
+        code: true,
         createdAt: true,
 
-        departmentId: {
+        employeeClassId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeDepartmentId: {
           select: {
             id: true,
           },
         },
 
         id: true,
+        isActive: true,
         lastYearBalance: true,
         name: true,
         normalizedName: true,
         note: true,
         remainingBalance: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         usedBalance: true,
       },
@@ -185,28 +251,55 @@ export class EmployeeControllerBase {
         data: {
           ...data,
 
-          departmentId: data.departmentId
+          employeeClassId: data.employeeClassId
             ? {
-                connect: data.departmentId,
+                connect: data.employeeClassId,
+              }
+            : undefined,
+
+          employeeDepartmentId: data.employeeDepartmentId
+            ? {
+                connect: data.employeeDepartmentId,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
               }
             : undefined,
         },
         select: {
           balance: true,
+          code: true,
           createdAt: true,
 
-          departmentId: {
+          employeeClassId: {
+            select: {
+              id: true,
+            },
+          },
+
+          employeeDepartmentId: {
             select: {
               id: true,
             },
           },
 
           id: true,
+          isActive: true,
           lastYearBalance: true,
           name: true,
           normalizedName: true,
           note: true,
           remainingBalance: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           usedBalance: true,
         },
@@ -240,20 +333,35 @@ export class EmployeeControllerBase {
         where: params,
         select: {
           balance: true,
+          code: true,
           createdAt: true,
 
-          departmentId: {
+          employeeClassId: {
+            select: {
+              id: true,
+            },
+          },
+
+          employeeDepartmentId: {
             select: {
               id: true,
             },
           },
 
           id: true,
+          isActive: true,
           lastYearBalance: true,
           name: true,
           normalizedName: true,
           note: true,
           remainingBalance: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           usedBalance: true,
         },
@@ -266,5 +374,436 @@ export class EmployeeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/paymentVouchers")
+  @ApiNestedQuery(PaymentVoucherFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @common.Req() request: Request,
+    @common.Param() params: EmployeeWhereUniqueInput
+  ): Promise<PaymentVoucher[]> {
+    const query = plainToClass(PaymentVoucherFindManyArgs, request.query);
+    const results = await this.service.findPaymentVouchers(params.id, {
+      ...query,
+      select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        expenseItemId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isActive: true,
+        note: true,
+        paymentVoucherDate: true,
+        statementReference: true,
+
+        supplier: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentVouchers(
+    @common.Param() params: EmployeeWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        connect: body,
+      },
+    };
+    await this.service.updateEmployee({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentVouchers(
+    @common.Param() params: EmployeeWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        set: body,
+      },
+    };
+    await this.service.updateEmployee({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentVouchers(
+    @common.Param() params: EmployeeWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateEmployee({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/receiptVouchers")
+  @ApiNestedQuery(ReceiptVoucherFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @common.Req() request: Request,
+    @common.Param() params: EmployeeWhereUniqueInput
+  ): Promise<ReceiptVoucher[]> {
+    const query = plainToClass(ReceiptVoucherFindManyArgs, request.query);
+    const results = await this.service.findReceiptVouchers(params.id, {
+      ...query,
+      select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeDueDate: true,
+        chequeNumber: true,
+        chequeValue: true,
+        createdAt: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isAcive: true,
+        note: true,
+        receiptVoucherDate: true,
+        sequence: true,
+        statementReference: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        wasChequePaid: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "update",
+    possession: "any",
+  })
+  async connectReceiptVouchers(
+    @common.Param() params: EmployeeWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        connect: body,
+      },
+    };
+    await this.service.updateEmployee({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "update",
+    possession: "any",
+  })
+  async updateReceiptVouchers(
+    @common.Param() params: EmployeeWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        set: body,
+      },
+    };
+    await this.service.updateEmployee({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectReceiptVouchers(
+    @common.Param() params: EmployeeWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateEmployee({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/salePeople")
+  @ApiNestedQuery(SalePersonFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SalePerson",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePeople(
+    @common.Req() request: Request,
+    @common.Param() params: EmployeeWhereUniqueInput
+  ): Promise<SalePerson[]> {
+    const query = plainToClass(SalePersonFindManyArgs, request.query);
+    const results = await this.service.findSalePeople(params.id, {
+      ...query,
+      select: {
+        accountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        address: true,
+        code: true,
+        commissionRate: true,
+        createdAt: true,
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        phoneNumber: true,
+        photo: true,
+
+        saleTeamId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/salePeople")
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "update",
+    possession: "any",
+  })
+  async connectSalePeople(
+    @common.Param() params: EmployeeWhereUniqueInput,
+    @common.Body() body: SalePersonWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePeople: {
+        connect: body,
+      },
+    };
+    await this.service.updateEmployee({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/salePeople")
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "update",
+    possession: "any",
+  })
+  async updateSalePeople(
+    @common.Param() params: EmployeeWhereUniqueInput,
+    @common.Body() body: SalePersonWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePeople: {
+        set: body,
+      },
+    };
+    await this.service.updateEmployee({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/salePeople")
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSalePeople(
+    @common.Param() params: EmployeeWhereUniqueInput,
+    @common.Body() body: SalePersonWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      salePeople: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateEmployee({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

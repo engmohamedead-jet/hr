@@ -14,25 +14,35 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   MaxLength,
-  IsDate,
-  ValidateNested,
   IsOptional,
+  IsDate,
   IsInt,
   IsBoolean,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Customer } from "../../customer/base/Customer";
+import { SaleDetail } from "../../saleDetail/base/SaleDetail";
+import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
+import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
+import { SaleReturn } from "../../saleReturn/base/SaleReturn";
+import { Sale } from "../../sale/base/Sale";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class SalePriceType {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -44,12 +54,15 @@ class SalePriceType {
 
   @ApiProperty({
     required: false,
-    type: () => Customer,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => Customer)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  customers?: Customer | null;
+  @Field(() => String, {
+    nullable: true,
+  })
+  description!: string | null;
 
   @ApiProperty({
     required: true,
@@ -65,7 +78,7 @@ class SalePriceType {
   })
   @IsBoolean()
   @Field(() => Boolean)
-  isDefault!: boolean;
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -96,6 +109,78 @@ class SalePriceType {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetail,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetail)
+  @IsOptional()
+  saleDetails?: SaleDetail | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetail,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetail)
+  @IsOptional()
+  saleOrderDetails?: SaleOrderDetail | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrder,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrder)
+  @IsOptional()
+  saleOrders?: SaleOrder | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetail,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetail)
+  @IsOptional()
+  saleQuotationDetails?: SaleQuotationDetail | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetail,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetail)
+  @IsOptional()
+  saleReturnDetails?: SaleReturnDetail | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturn,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturn)
+  @IsOptional()
+  saleReturns?: SaleReturn | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Sale,
+  })
+  @ValidateNested()
+  @Type(() => Sale)
+  @IsOptional()
+  sales?: Sale | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

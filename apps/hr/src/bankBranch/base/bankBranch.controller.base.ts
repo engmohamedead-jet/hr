@@ -26,9 +26,9 @@ import { BankBranch } from "./BankBranch";
 import { BankBranchFindManyArgs } from "./BankBranchFindManyArgs";
 import { BankBranchWhereUniqueInput } from "./BankBranchWhereUniqueInput";
 import { BankBranchUpdateInput } from "./BankBranchUpdateInput";
-import { BankAccountFindManyArgs } from "../../bankAccount/base/BankAccountFindManyArgs";
-import { BankAccount } from "../../bankAccount/base/BankAccount";
-import { BankAccountWhereUniqueInput } from "../../bankAccount/base/BankAccountWhereUniqueInput";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { SalePaymentWhereUniqueInput } from "../../salePayment/base/SalePaymentWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -55,16 +55,20 @@ export class BankBranchControllerBase {
       data: {
         ...data,
 
-        bankId: data.bankId
+        bank: {
+          connect: data.bank,
+        },
+
+        tenant: data.tenant
           ? {
-              connect: data.bankId,
+              connect: data.tenant,
             }
           : undefined,
       },
       select: {
         address: true,
 
-        bankId: {
+        bank: {
           select: {
             id: true,
           },
@@ -75,9 +79,17 @@ export class BankBranchControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -102,7 +114,7 @@ export class BankBranchControllerBase {
       select: {
         address: true,
 
-        bankId: {
+        bank: {
           select: {
             id: true,
           },
@@ -113,9 +125,17 @@ export class BankBranchControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -141,7 +161,7 @@ export class BankBranchControllerBase {
       select: {
         address: true,
 
-        bankId: {
+        bank: {
           select: {
             id: true,
           },
@@ -152,9 +172,17 @@ export class BankBranchControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -188,16 +216,20 @@ export class BankBranchControllerBase {
         data: {
           ...data,
 
-          bankId: data.bankId
+          bank: {
+            connect: data.bank,
+          },
+
+          tenant: data.tenant
             ? {
-                connect: data.bankId,
+                connect: data.tenant,
               }
             : undefined,
         },
         select: {
           address: true,
 
-          bankId: {
+          bank: {
             select: {
               id: true,
             },
@@ -208,9 +240,17 @@ export class BankBranchControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -244,7 +284,7 @@ export class BankBranchControllerBase {
         select: {
           address: true,
 
-          bankId: {
+          bank: {
             select: {
               id: true,
             },
@@ -255,9 +295,17 @@ export class BankBranchControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -272,43 +320,76 @@ export class BankBranchControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/bankAccounts")
-  @ApiNestedQuery(BankAccountFindManyArgs)
+  @common.Get("/:id/salePayments")
+  @ApiNestedQuery(SalePaymentFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "BankAccount",
+    resource: "SalePayment",
     action: "read",
     possession: "any",
   })
-  async findBankAccounts(
+  async findSalePayments(
     @common.Req() request: Request,
     @common.Param() params: BankBranchWhereUniqueInput
-  ): Promise<BankAccount[]> {
-    const query = plainToClass(BankAccountFindManyArgs, request.query);
-    const results = await this.service.findBankAccounts(params.id, {
+  ): Promise<SalePayment[]> {
+    const query = plainToClass(SalePaymentFindManyArgs, request.query);
+    const results = await this.service.findSalePayments(params.id, {
       ...query,
       select: {
-        accountNumber: true,
+        LocalCurrencyRatl: true,
 
-        bankBranchId: {
+        bank: {
           select: {
             id: true,
           },
         },
 
-        bankId: {
+        bankBrach: true,
+
+        bankBranch: {
           select: {
             id: true,
           },
         },
 
-        code: true,
+        chequeNumber: true,
         createdAt: true,
-        description: true,
-        epan: true,
+        creditCardNumber: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        foreignCurrencyRate: true,
         id: true,
-        name: true,
-        normalizedName: true,
+        isCheque: true,
         note: true,
+        paidValue: true,
+        paymentDate: true,
+
+        paymentMethodId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        seqeunce: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -320,18 +401,18 @@ export class BankBranchControllerBase {
     return results;
   }
 
-  @common.Post("/:id/bankAccounts")
+  @common.Post("/:id/salePayments")
   @nestAccessControl.UseRoles({
     resource: "BankBranch",
     action: "update",
     possession: "any",
   })
-  async connectBankAccounts(
+  async connectSalePayments(
     @common.Param() params: BankBranchWhereUniqueInput,
-    @common.Body() body: BankAccountWhereUniqueInput[]
+    @common.Body() body: SalePaymentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      bankAccounts: {
+      salePayments: {
         connect: body,
       },
     };
@@ -342,18 +423,18 @@ export class BankBranchControllerBase {
     });
   }
 
-  @common.Patch("/:id/bankAccounts")
+  @common.Patch("/:id/salePayments")
   @nestAccessControl.UseRoles({
     resource: "BankBranch",
     action: "update",
     possession: "any",
   })
-  async updateBankAccounts(
+  async updateSalePayments(
     @common.Param() params: BankBranchWhereUniqueInput,
-    @common.Body() body: BankAccountWhereUniqueInput[]
+    @common.Body() body: SalePaymentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      bankAccounts: {
+      salePayments: {
         set: body,
       },
     };
@@ -364,18 +445,18 @@ export class BankBranchControllerBase {
     });
   }
 
-  @common.Delete("/:id/bankAccounts")
+  @common.Delete("/:id/salePayments")
   @nestAccessControl.UseRoles({
     resource: "BankBranch",
     action: "update",
     possession: "any",
   })
-  async disconnectBankAccounts(
+  async disconnectSalePayments(
     @common.Param() params: BankBranchWhereUniqueInput,
-    @common.Body() body: BankAccountWhereUniqueInput[]
+    @common.Body() body: SalePaymentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      bankAccounts: {
+      salePayments: {
         disconnect: body,
       },
     };

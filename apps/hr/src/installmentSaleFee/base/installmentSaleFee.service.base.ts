@@ -16,6 +16,7 @@ import {
   InstallmentSaleFee as PrismaInstallmentSaleFee,
   PaymentTerm as PrismaPaymentTerm,
   Account as PrismaAccount,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class InstallmentSaleFeeServiceBase {
@@ -64,11 +65,19 @@ export class InstallmentSaleFeeServiceBase {
       .paymentTerms(args);
   }
 
-  async getAccount(parentId: string): Promise<PrismaAccount | null> {
+  async getAccountId(parentId: string): Promise<PrismaAccount | null> {
     return this.prisma.installmentSaleFee
       .findUnique({
         where: { id: parentId },
       })
-      .account();
+      .accountId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.installmentSaleFee
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

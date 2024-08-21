@@ -11,58 +11,23 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
+  ValidateNested,
   IsBoolean,
 } from "class-validator";
+import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
 import { Type } from "class-transformer";
-import { ProductGroupCreateNestedManyWithoutProductGroupsInput } from "./ProductGroupCreateNestedManyWithoutProductGroupsInput";
 import { ProductGroupWhereUniqueInput } from "./ProductGroupWhereUniqueInput";
+import { ProductGroupCreateNestedManyWithoutProductGroupsInput } from "./ProductGroupCreateNestedManyWithoutProductGroupsInput";
 import { ProductCreateNestedManyWithoutProductGroupsInput } from "./ProductCreateNestedManyWithoutProductGroupsInput";
 import { SaleTaxWhereUniqueInput } from "../../saleTax/base/SaleTaxWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductGroupCreateInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountWhereUniqueInput, {
-    nullable: true,
-  })
-  PurchaseDiscountAccountId?: AccountWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => AccountWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountWhereUniqueInput, {
-    nullable: true,
-  })
-  SaleReturnAccountId?: AccountWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => AccountWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountWhereUniqueInput, {
-    nullable: true,
-  })
-  account?: AccountWhereUniqueInput | null;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -77,6 +42,18 @@ class ProductGroupCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => AccountWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AccountWhereUniqueInput, {
+    nullable: true,
+  })
+  costOfGoodsSoldAccount?: AccountWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -88,26 +65,20 @@ class ProductGroupCreateInput {
   description?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  excludeFromPurchase?: boolean | null;
+  @Field(() => Boolean)
+  excludeFromPurchase!: boolean;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  excludeFromSale?: boolean | null;
+  @Field(() => Boolean)
+  excludeFromSale!: boolean;
 
   @ApiProperty({
     required: false,
@@ -119,18 +90,23 @@ class ProductGroupCreateInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  inventoryAccountId?: AccountWhereUniqueInput | null;
+  inventoryAccount?: AccountWhereUniqueInput | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
   })
-  isDefault?: boolean | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isDefault!: boolean;
 
   @ApiProperty({
     required: true,
@@ -160,19 +136,7 @@ class ProductGroupCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  notes?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductGroupCreateNestedManyWithoutProductGroupsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductGroupCreateNestedManyWithoutProductGroupsInput)
-  @IsOptional()
-  @Field(() => ProductGroupCreateNestedManyWithoutProductGroupsInput, {
-    nullable: true,
-  })
-  parentProductGroupId?: ProductGroupCreateNestedManyWithoutProductGroupsInput;
+  note?: string | null;
 
   @ApiProperty({
     required: false,
@@ -184,7 +148,19 @@ class ProductGroupCreateInput {
   @Field(() => ProductGroupWhereUniqueInput, {
     nullable: true,
   })
-  productGroups?: ProductGroupWhereUniqueInput | null;
+  parentProductGroupId?: ProductGroupWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductGroupCreateNestedManyWithoutProductGroupsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupCreateNestedManyWithoutProductGroupsInput)
+  @IsOptional()
+  @Field(() => ProductGroupCreateNestedManyWithoutProductGroupsInput, {
+    nullable: true,
+  })
+  productGroups?: ProductGroupCreateNestedManyWithoutProductGroupsInput;
 
   @ApiProperty({
     required: false,
@@ -209,6 +185,18 @@ class ProductGroupCreateInput {
     nullable: true,
   })
   purchaseAccountId?: AccountWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => AccountWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AccountWhereUniqueInput, {
+    nullable: true,
+  })
+  purchaseDiscountAccountId?: AccountWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -248,6 +236,18 @@ class ProductGroupCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => AccountWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AccountWhereUniqueInput, {
+    nullable: true,
+  })
+  saleReturnAccountId?: AccountWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: () => SaleTaxWhereUniqueInput,
   })
   @ValidateNested()
@@ -257,6 +257,18 @@ class ProductGroupCreateInput {
     nullable: true,
   })
   saleTaxId?: SaleTaxWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductGroupCreateInput as ProductGroupCreateInput };

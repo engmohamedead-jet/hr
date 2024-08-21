@@ -1,26 +1,21 @@
-import { BankAccountCreateNestedManyWithoutBanksInput } from "./BankAccountCreateNestedManyWithoutBanksInput";
 import { BankBranchCreateNestedManyWithoutBanksInput } from "./BankBranchCreateNestedManyWithoutBanksInput";
-import { CityWhereUniqueInput } from "../city/CityWhereUniqueInput";
-import { CountryWhereUniqueInput } from "../country/CountryWhereUniqueInput";
-import { StateWhereUniqueInput } from "../state/StateWhereUniqueInput";
+import { BankTypeWhereUniqueInput } from "../bankType/BankTypeWhereUniqueInput";
+import { SalePaymentCreateNestedManyWithoutBanksInput } from "./SalePaymentCreateNestedManyWithoutBanksInput";
 
 export type BankCreateInput = {
   address?: string | null;
-  bankAccounts?: BankAccountCreateNestedManyWithoutBanksInput;
   bankBranches?: BankBranchCreateNestedManyWithoutBanksInput;
+  bankType?: BankTypeWhereUniqueInput | null;
   cellPhoneNumber?: string | null;
-  cityId?: CityWhereUniqueInput | null;
-  code: string;
+  code?: string | null;
   contactPhoneNumber?: string | null;
-  countryId?: CountryWhereUniqueInput | null;
   description?: string | null;
   fax?: string | null;
   homePhoneNumber?: string | null;
-  name: string;
-  normalizedName: string;
-  note?: string | null;
+  name?: string | null;
+  normalizedName?: string | null;
   relationshipOfficerContactNumber?: string | null;
   relationshipOfficerName?: string | null;
-  stateId?: StateWhereUniqueInput | null;
+  salePayments?: SalePaymentCreateNestedManyWithoutBanksInput;
   street?: string | null;
 };

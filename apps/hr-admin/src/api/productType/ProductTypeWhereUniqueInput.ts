@@ -1,3 +1,3 @@
 export type ProductTypeWhereUniqueInput = {
-  id: string;
+  id: number;
 };

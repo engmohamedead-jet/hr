@@ -26,7 +26,7 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
-import { Role } from "../../role/base/Role";
+import { Tenant } from "../../tenant/base/Tenant";
 import { UserService } from "../user.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => User)
@@ -90,9 +90,9 @@ export class UserResolverBase {
       data: {
         ...args.data,
 
-        role: args.data.role
+        tenantId: args.data.tenantId
           ? {
-              connect: args.data.role,
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -113,9 +113,9 @@ export class UserResolverBase {
         data: {
           ...args.data,
 
-          role: args.data.role
+          tenantId: args.data.tenantId
             ? {
-                connect: args.data.role,
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -150,17 +150,17 @@ export class UserResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Role, {
+  @graphql.ResolveField(() => Tenant, {
     nullable: true,
-    name: "role",
+    name: "tenantId",
   })
   @nestAccessControl.UseRoles({
-    resource: "Role",
+    resource: "Tenant",
     action: "read",
     possession: "any",
   })
-  async getRole(@graphql.Parent() parent: User): Promise<Role | null> {
-    const result = await this.service.getRole(parent.id);
+  async getTenantId(@graphql.Parent() parent: User): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

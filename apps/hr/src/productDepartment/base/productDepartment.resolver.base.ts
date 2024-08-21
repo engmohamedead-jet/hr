@@ -26,10 +26,9 @@ import { ProductDepartmentFindUniqueArgs } from "./ProductDepartmentFindUniqueAr
 import { CreateProductDepartmentArgs } from "./CreateProductDepartmentArgs";
 import { UpdateProductDepartmentArgs } from "./UpdateProductDepartmentArgs";
 import { DeleteProductDepartmentArgs } from "./DeleteProductDepartmentArgs";
-import { ProductCategoryFindManyArgs } from "../../productCategory/base/ProductCategoryFindManyArgs";
-import { ProductCategory } from "../../productCategory/base/ProductCategory";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ProductDepartmentService } from "../productDepartment.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductDepartment)
@@ -96,7 +95,21 @@ export class ProductDepartmentResolverBase {
   ): Promise<ProductDepartment> {
     return await this.service.createProductDepartment({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        parentProductDepartmentId: args.data.parentProductDepartmentId
+          ? {
+              connect: args.data.parentProductDepartmentId,
+            }
+          : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -113,7 +126,21 @@ export class ProductDepartmentResolverBase {
     try {
       return await this.service.updateProductDepartment({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          parentProductDepartmentId: args.data.parentProductDepartmentId
+            ? {
+                connect: args.data.parentProductDepartmentId,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -147,17 +174,19 @@ export class ProductDepartmentResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [ProductCategory], { name: "productCategories" })
+  @graphql.ResolveField(() => [ProductDepartment], {
+    name: "productDepartments",
+  })
   @nestAccessControl.UseRoles({
-    resource: "ProductCategory",
+    resource: "ProductDepartment",
     action: "read",
     possession: "any",
   })
-  async findProductCategories(
+  async findProductDepartments(
     @graphql.Parent() parent: ProductDepartment,
-    @graphql.Args() args: ProductCategoryFindManyArgs
-  ): Promise<ProductCategory[]> {
-    const results = await this.service.findProductCategories(parent.id, args);
+    @graphql.Args() args: ProductDepartmentFindManyArgs
+  ): Promise<ProductDepartment[]> {
+    const results = await this.service.findProductDepartments(parent.id, args);
 
     if (!results) {
       return [];
@@ -184,5 +213,47 @@ export class ProductDepartmentResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => ProductDepartment, {
+    nullable: true,
+    name: "parentProductDepartmentId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductDepartment",
+    action: "read",
+    possession: "any",
+  })
+  async getParentProductDepartmentId(
+    @graphql.Parent() parent: ProductDepartment
+  ): Promise<ProductDepartment | null> {
+    const result = await this.service.getParentProductDepartmentId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: ProductDepartment
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

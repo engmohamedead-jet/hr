@@ -18,9 +18,9 @@ import {
   IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { ProductDepartmentWhereUniqueInput } from "../../productDepartment/base/ProductDepartmentWhereUniqueInput";
-import { Type } from "class-transformer";
 import { ProductUpdateManyWithoutProductCategoriesInput } from "./ProductUpdateManyWithoutProductCategoriesInput";
+import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductCategoryUpdateInput {
@@ -57,7 +57,18 @@ class ProductCategoryUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isDefault?: boolean | null;
+  isActive?: boolean;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isDefault?: boolean;
 
   @ApiProperty({
     required: false,
@@ -69,7 +80,7 @@ class ProductCategoryUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  name?: string | null;
+  name?: string;
 
   @ApiProperty({
     required: false,
@@ -81,7 +92,7 @@ class ProductCategoryUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName?: string | null;
+  normalizedName?: string;
 
   @ApiProperty({
     required: false,
@@ -97,18 +108,6 @@ class ProductCategoryUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductDepartmentWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductDepartmentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProductDepartmentWhereUniqueInput, {
-    nullable: true,
-  })
-  productDepartment?: ProductDepartmentWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
     type: () => ProductUpdateManyWithoutProductCategoriesInput,
   })
   @ValidateNested()
@@ -118,6 +117,18 @@ class ProductCategoryUpdateInput {
     nullable: true,
   })
   products?: ProductUpdateManyWithoutProductCategoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductCategoryUpdateInput as ProductCategoryUpdateInput };

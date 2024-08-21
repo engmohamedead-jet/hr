@@ -7,9 +7,13 @@ import {
   ReferenceArrayInput,
   SelectArrayInput,
   TextInput,
+  BooleanInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
 import { AttributeValueTitle } from "../attributeValue/AttributeValueTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const AttributeCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -25,9 +29,17 @@ export const AttributeCreate = (props: CreateProps): React.ReactElement => {
         </ReferenceArrayInput>
         <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Create>
   );

@@ -49,15 +49,55 @@ export class OrderStatusControllerBase {
     @common.Body() data: OrderStatusCreateInput
   ): Promise<OrderStatus> {
     return await this.service.createOrderStatus({
-      data: data,
+      data: {
+        ...data,
+
+        productionOrders: data.productionOrders
+          ? {
+              connect: data.productionOrders,
+            }
+          : undefined,
+
+        saleOrders: data.saleOrders
+          ? {
+              connect: data.saleOrders,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -84,9 +124,29 @@ export class OrderStatusControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -114,9 +174,29 @@ export class OrderStatusControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        productionOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -147,15 +227,55 @@ export class OrderStatusControllerBase {
     try {
       return await this.service.updateOrderStatus({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          productionOrders: data.productionOrders
+            ? {
+                connect: data.productionOrders,
+              }
+            : undefined,
+
+          saleOrders: data.saleOrders
+            ? {
+                connect: data.saleOrders,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          productionOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -191,9 +311,29 @@ export class OrderStatusControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          productionOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          saleOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

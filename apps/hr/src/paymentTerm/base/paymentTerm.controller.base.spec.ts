@@ -22,12 +22,14 @@ const CREATE_INPUT = {
   createdAt: new Date(),
   description: "exampleDescription",
   dueDays: 42,
-  dueOnDate: new Date(),
   gracePeriod: 42,
   id: "exampleId",
+  isActive: "true",
   isDefault: "true",
+  isDueOnDate: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
@@ -35,12 +37,14 @@ const CREATE_RESULT = {
   createdAt: new Date(),
   description: "exampleDescription",
   dueDays: 42,
-  dueOnDate: new Date(),
   gracePeriod: 42,
   id: "exampleId",
+  isActive: "true",
   isDefault: "true",
+  isDueOnDate: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -49,12 +53,14 @@ const FIND_MANY_RESULT = [
     createdAt: new Date(),
     description: "exampleDescription",
     dueDays: 42,
-    dueOnDate: new Date(),
     gracePeriod: 42,
     id: "exampleId",
+    isActive: "true",
     isDefault: "true",
+    isDueOnDate: "true",
     name: "exampleName",
     normalizedName: "exampleNormalizedName",
+    note: "exampleNote",
     updatedAt: new Date(),
   },
 ];
@@ -63,12 +69,14 @@ const FIND_ONE_RESULT = {
   createdAt: new Date(),
   description: "exampleDescription",
   dueDays: 42,
-  dueOnDate: new Date(),
   gracePeriod: 42,
   id: "exampleId",
+  isActive: "true",
   isDefault: "true",
+  isDueOnDate: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 
@@ -155,7 +163,6 @@ describe("PaymentTerm", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        dueOnDate: CREATE_RESULT.dueOnDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -168,7 +175,6 @@ describe("PaymentTerm", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
-          dueOnDate: FIND_MANY_RESULT[0].dueOnDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -192,7 +198,6 @@ describe("PaymentTerm", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
-        dueOnDate: FIND_ONE_RESULT.dueOnDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -206,7 +211,6 @@ describe("PaymentTerm", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        dueOnDate: CREATE_RESULT.dueOnDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

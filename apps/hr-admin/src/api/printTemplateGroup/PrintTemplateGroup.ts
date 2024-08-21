@@ -1,13 +1,14 @@
-import { PrintTemplate } from "../printTemplate/PrintTemplate";
+import { Tenant } from "../tenant/Tenant";
 
 export type PrintTemplateGroup = {
   code: string | null;
   createdAt: Date;
   description: string | null;
   id: number;
-  name: string | null;
+  isActive: boolean;
+  name: string;
   normalizedName: string;
   note: string | null;
-  printTemplates?: Array<PrintTemplate>;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

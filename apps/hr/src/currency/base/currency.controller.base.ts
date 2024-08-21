@@ -26,15 +26,18 @@ import { Currency } from "./Currency";
 import { CurrencyFindManyArgs } from "./CurrencyFindManyArgs";
 import { CurrencyWhereUniqueInput } from "./CurrencyWhereUniqueInput";
 import { CurrencyUpdateInput } from "./CurrencyUpdateInput";
-import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
-import { Account } from "../../account/base/Account";
-import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
-import { ExchangeRateDetailFindManyArgs } from "../../exchangeRateDetail/base/ExchangeRateDetailFindManyArgs";
-import { ExchangeRateDetail } from "../../exchangeRateDetail/base/ExchangeRateDetail";
-import { ExchangeRateDetailWhereUniqueInput } from "../../exchangeRateDetail/base/ExchangeRateDetailWhereUniqueInput";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { PaymentVoucherWhereUniqueInput } from "../../paymentVoucher/base/PaymentVoucherWhereUniqueInput";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { ReceiptVoucherWhereUniqueInput } from "../../receiptVoucher/base/ReceiptVoucherWhereUniqueInput";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
+import { SalePaymentWhereUniqueInput } from "../../salePayment/base/SalePaymentWhereUniqueInput";
 import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
 import { Supplier } from "../../supplier/base/Supplier";
 import { SupplierWhereUniqueInput } from "../../supplier/base/SupplierWhereUniqueInput";
@@ -64,29 +67,28 @@ export class CurrencyControllerBase {
       data: {
         ...data,
 
-        foreignCurrencyName: data.foreignCurrencyName
+        tenantId: data.tenantId
           ? {
-              connect: data.foreignCurrencyName,
+              connect: data.tenantId,
             }
           : undefined,
       },
       select: {
         code: true,
         createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
 
-        foreignCurrencyName: {
+        tenantId: {
           select: {
             id: true,
           },
         },
 
-        hundredthName: true,
-        id: true,
-        isDefault: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-        symbolField: true,
         updatedAt: true,
       },
     });
@@ -111,20 +113,19 @@ export class CurrencyControllerBase {
       select: {
         code: true,
         createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
 
-        foreignCurrencyName: {
+        tenantId: {
           select: {
             id: true,
           },
         },
 
-        hundredthName: true,
-        id: true,
-        isDefault: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-        symbolField: true,
         updatedAt: true,
       },
     });
@@ -150,20 +151,19 @@ export class CurrencyControllerBase {
       select: {
         code: true,
         createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
 
-        foreignCurrencyName: {
+        tenantId: {
           select: {
             id: true,
           },
         },
 
-        hundredthName: true,
-        id: true,
-        isDefault: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-        symbolField: true,
         updatedAt: true,
       },
     });
@@ -197,29 +197,28 @@ export class CurrencyControllerBase {
         data: {
           ...data,
 
-          foreignCurrencyName: data.foreignCurrencyName
+          tenantId: data.tenantId
             ? {
-                connect: data.foreignCurrencyName,
+                connect: data.tenantId,
               }
             : undefined,
         },
         select: {
           code: true,
           createdAt: true,
+          description: true,
+          id: true,
+          isActive: true,
+          name: true,
+          normalizedName: true,
+          note: true,
 
-          foreignCurrencyName: {
+          tenantId: {
             select: {
               id: true,
             },
           },
 
-          hundredthName: true,
-          id: true,
-          isDefault: true,
-          name: true,
-          normalizedName: true,
-          note: true,
-          symbolField: true,
           updatedAt: true,
         },
       });
@@ -253,20 +252,19 @@ export class CurrencyControllerBase {
         select: {
           code: true,
           createdAt: true,
+          description: true,
+          id: true,
+          isActive: true,
+          name: true,
+          normalizedName: true,
+          note: true,
 
-          foreignCurrencyName: {
+          tenantId: {
             select: {
               id: true,
             },
           },
 
-          hundredthName: true,
-          id: true,
-          isDefault: true,
-          name: true,
-          normalizedName: true,
-          note: true,
-          symbolField: true,
           updatedAt: true,
         },
       });
@@ -278,131 +276,6 @@ export class CurrencyControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/accounts")
-  @ApiNestedQuery(AccountFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async findAccounts(
-    @common.Req() request: Request,
-    @common.Param() params: CurrencyWhereUniqueInput
-  ): Promise<Account[]> {
-    const query = plainToClass(AccountFindManyArgs, request.query);
-    const results = await this.service.findAccounts(params.id, {
-      ...query,
-      select: {
-        accountCategory: {
-          select: {
-            id: true,
-          },
-        },
-
-        accountNumber: true,
-
-        accountTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
-        createdAt: true,
-
-        currencyId: {
-          select: {
-            id: true,
-          },
-        },
-
-        description: true,
-        id: true,
-        isActive: true,
-        isMasterAccount: true,
-        isUnderRevision: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-        parentAccountId: true,
-        referenceNumber: true,
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/accounts")
-  @nestAccessControl.UseRoles({
-    resource: "Currency",
-    action: "update",
-    possession: "any",
-  })
-  async connectAccounts(
-    @common.Param() params: CurrencyWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      accounts: {
-        connect: body,
-      },
-    };
-    await this.service.updateCurrency({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/accounts")
-  @nestAccessControl.UseRoles({
-    resource: "Currency",
-    action: "update",
-    possession: "any",
-  })
-  async updateAccounts(
-    @common.Param() params: CurrencyWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      accounts: {
-        set: body,
-      },
-    };
-    await this.service.updateCurrency({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/accounts")
-  @nestAccessControl.UseRoles({
-    resource: "Currency",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectAccounts(
-    @common.Param() params: CurrencyWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      accounts: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateCurrency({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -421,6 +294,7 @@ export class CurrencyControllerBase {
     const results = await this.service.findCustomers(params.id, {
       ...query,
       select: {
+        DefaultSalePriceTypeId: true,
         address: true,
         code: true,
         createdAt: true,
@@ -432,76 +306,33 @@ export class CurrencyControllerBase {
           },
         },
 
-        customerCateogryId: {
-          select: {
-            id: true,
-          },
-        },
-
-        customerTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
         debit: true,
         description: true,
         email: true,
         firstBalance: true,
         firstBalanceDate: true,
-        guarantorAddress: true,
-        guarantorJobTitle: true,
-        guarantorName: true,
-        guarantorNationalIdNumber: true,
-        guarantorPhoneNumber: true,
-
-        guarantorRatingId: {
-          select: {
-            id: true,
-          },
-        },
-
-        guarantorWorkAddress: true,
-        hasMortalOrDiscount: true,
-        hasNoPendingInvoices: true,
         id: true,
         isActive: true,
-        isComplain: true,
         isSystem: true,
         isUnderRevision: true,
-        jobTitle: true,
         maxAllowedDebit: true,
         name: true,
         normalizedName: true,
-        note: true,
         phoneNumber: true,
         previousBalance: true,
-
-        rating: {
-          select: {
-            id: true,
-          },
-        },
-
         revisionDate: true,
         saleDiscountRate: true,
-
-        salePriceTypeId: {
-          select: {
-            id: true,
-          },
-        },
-
-        supplierId: {
-          select: {
-            id: true,
-          },
-        },
-
+        supplierId: true,
         taxNumber: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         website: true,
-        workAddress: true,
       },
     });
     if (results === null) {
@@ -579,40 +410,378 @@ export class CurrencyControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/exchangeRateDetails")
-  @ApiNestedQuery(ExchangeRateDetailFindManyArgs)
+  @common.Get("/:id/paymentVouchers")
+  @ApiNestedQuery(PaymentVoucherFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "ExchangeRateDetail",
+    resource: "PaymentVoucher",
     action: "read",
     possession: "any",
   })
-  async findExchangeRateDetails(
+  async findPaymentVouchers(
     @common.Req() request: Request,
     @common.Param() params: CurrencyWhereUniqueInput
-  ): Promise<ExchangeRateDetail[]> {
-    const query = plainToClass(ExchangeRateDetailFindManyArgs, request.query);
-    const results = await this.service.findExchangeRateDetails(params.id, {
+  ): Promise<PaymentVoucher[]> {
+    const query = plainToClass(PaymentVoucherFindManyArgs, request.query);
+    const results = await this.service.findPaymentVouchers(params.id, {
       ...query,
       select: {
-        createdAt: true,
-        exchangeRateDate: true,
-        exchangeRateValue: true,
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
 
-        foreignCurrencyId: {
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        expenseItemId: {
           select: {
             id: true,
           },
         },
 
         id: true,
+        isActive: true,
+        note: true,
+        paymentVoucherDate: true,
+        statementReference: true,
 
-        localCurrencyId: {
+        supplier: {
           select: {
             id: true,
           },
         },
 
-        unit: true,
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentVouchers(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        connect: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentVouchers(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        set: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentVouchers(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/receiptVouchers")
+  @ApiNestedQuery(ReceiptVoucherFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @common.Req() request: Request,
+    @common.Param() params: CurrencyWhereUniqueInput
+  ): Promise<ReceiptVoucher[]> {
+    const query = plainToClass(ReceiptVoucherFindManyArgs, request.query);
+    const results = await this.service.findReceiptVouchers(params.id, {
+      ...query,
+      select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeDueDate: true,
+        chequeNumber: true,
+        chequeValue: true,
+        createdAt: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isAcive: true,
+        note: true,
+        receiptVoucherDate: true,
+        sequence: true,
+        statementReference: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        wasChequePaid: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async connectReceiptVouchers(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        connect: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async updateReceiptVouchers(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        set: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "Currency",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectReceiptVouchers(
+    @common.Param() params: CurrencyWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCurrency({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/salePayments")
+  @ApiNestedQuery(SalePaymentFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @common.Req() request: Request,
+    @common.Param() params: CurrencyWhereUniqueInput
+  ): Promise<SalePayment[]> {
+    const query = plainToClass(SalePaymentFindManyArgs, request.query);
+    const results = await this.service.findSalePayments(params.id, {
+      ...query,
+      select: {
+        LocalCurrencyRatl: true,
+
+        bank: {
+          select: {
+            id: true,
+          },
+        },
+
+        bankBrach: true,
+
+        bankBranch: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeNumber: true,
+        createdAt: true,
+        creditCardNumber: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        foreignCurrencyRate: true,
+        id: true,
+        isCheque: true,
+        note: true,
+        paidValue: true,
+        paymentDate: true,
+
+        paymentMethodId: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        seqeunce: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -624,18 +793,18 @@ export class CurrencyControllerBase {
     return results;
   }
 
-  @common.Post("/:id/exchangeRateDetails")
+  @common.Post("/:id/salePayments")
   @nestAccessControl.UseRoles({
     resource: "Currency",
     action: "update",
     possession: "any",
   })
-  async connectExchangeRateDetails(
+  async connectSalePayments(
     @common.Param() params: CurrencyWhereUniqueInput,
-    @common.Body() body: ExchangeRateDetailWhereUniqueInput[]
+    @common.Body() body: SalePaymentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      exchangeRateDetails: {
+      salePayments: {
         connect: body,
       },
     };
@@ -646,18 +815,18 @@ export class CurrencyControllerBase {
     });
   }
 
-  @common.Patch("/:id/exchangeRateDetails")
+  @common.Patch("/:id/salePayments")
   @nestAccessControl.UseRoles({
     resource: "Currency",
     action: "update",
     possession: "any",
   })
-  async updateExchangeRateDetails(
+  async updateSalePayments(
     @common.Param() params: CurrencyWhereUniqueInput,
-    @common.Body() body: ExchangeRateDetailWhereUniqueInput[]
+    @common.Body() body: SalePaymentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      exchangeRateDetails: {
+      salePayments: {
         set: body,
       },
     };
@@ -668,18 +837,18 @@ export class CurrencyControllerBase {
     });
   }
 
-  @common.Delete("/:id/exchangeRateDetails")
+  @common.Delete("/:id/salePayments")
   @nestAccessControl.UseRoles({
     resource: "Currency",
     action: "update",
     possession: "any",
   })
-  async disconnectExchangeRateDetails(
+  async disconnectSalePayments(
     @common.Param() params: CurrencyWhereUniqueInput,
-    @common.Body() body: ExchangeRateDetailWhereUniqueInput[]
+    @common.Body() body: SalePaymentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      exchangeRateDetails: {
+      salePayments: {
         disconnect: body,
       },
     };
@@ -711,7 +880,13 @@ export class CurrencyControllerBase {
         createdAt: true,
         credit: true,
 
-        currencyId: {
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
           select: {
             id: true,
           },
@@ -721,10 +896,18 @@ export class CurrencyControllerBase {
         description: true,
         email: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
         phoneNumber: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         website: true,
       },

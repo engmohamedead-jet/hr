@@ -1,13 +1,19 @@
 import * as React from "react";
+
 import {
   Create,
   SimpleForm,
   CreateProps,
   TextInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
+  BooleanInput,
   ReferenceInput,
   SelectInput,
 } from "react-admin";
+
 import { PaymentTermTitle } from "../paymentTerm/PaymentTermTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const PeriodCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -15,22 +21,32 @@ export const PeriodCreate = (props: CreateProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="Code" source="code" />
         <TextInput label="Description" multiline source="description" />
-        <ReferenceInput
-          source="installmentSaleFeePostingPeriod.id"
+        <ReferenceArrayInput
+          source="installmentSaleFeePostingPeriodPaymentTerms"
           reference="PaymentTerm"
-          label="InstallmentSaleFeePostingPeriod"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectInput optionText={PaymentTermTitle} />
-        </ReferenceInput>
+          <SelectArrayInput optionText={PaymentTermTitle} />
+        </ReferenceArrayInput>
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Name" source="name" />
         <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
-        <ReferenceInput
-          source="paymentTerms.id"
+        <ReferenceArrayInput
+          source="paymentTerms1"
           reference="PaymentTerm"
-          label="PaymentTerms"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectInput optionText={PaymentTermTitle} />
+          <SelectArrayInput optionText={PaymentTermTitle} />
+        </ReferenceArrayInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
         </ReferenceInput>
       </SimpleForm>
     </Create>

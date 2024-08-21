@@ -11,52 +11,62 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { BillOfMaterialDetailListRelationFilter } from "../../billOfMaterialDetail/base/BillOfMaterialDetailListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
-import { CompoundUnitWhereUniqueInput } from "../../compoundUnit/base/CompoundUnitWhereUniqueInput";
-import { CompoundUnitListRelationFilter } from "../../compoundUnit/base/CompoundUnitListRelationFilter";
+import { BillOfMaterialListRelationFilter } from "../../billOfMaterial/base/BillOfMaterialListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { ProductUnitWhereUniqueInput } from "../../productUnit/base/ProductUnitWhereUniqueInput";
+import { ProductUnitListRelationFilter } from "../../productUnit/base/ProductUnitListRelationFilter";
+import { ProductionOrderListRelationFilter } from "../../productionOrder/base/ProductionOrderListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
+import { PurchaseDetailListRelationFilter } from "../../purchaseDetail/base/PurchaseDetailListRelationFilter";
+import { PurchaseReturnDetailListRelationFilter } from "../../purchaseReturnDetail/base/PurchaseReturnDetailListRelationFilter";
+import { SaleDetailListRelationFilter } from "../../saleDetail/base/SaleDetailListRelationFilter";
+import { SaleOrderDetailListRelationFilter } from "../../saleOrderDetail/base/SaleOrderDetailListRelationFilter";
+import { SaleQuotationDetailListRelationFilter } from "../../saleQuotationDetail/base/SaleQuotationDetailListRelationFilter";
+import { SaleReturnDetailListRelationFilter } from "../../saleReturnDetail/base/SaleReturnDetailListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class UnitWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: () => BillOfMaterialDetailListRelationFilter,
   })
-  @Type(() => StringFilter)
+  @ValidateNested()
+  @Type(() => BillOfMaterialDetailListRelationFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => BillOfMaterialDetailListRelationFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  billOfMaterialDetails?: BillOfMaterialDetailListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: () => CompoundUnitWhereUniqueInput,
+    type: () => BillOfMaterialListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => CompoundUnitWhereUniqueInput)
+  @Type(() => BillOfMaterialListRelationFilter)
   @IsOptional()
-  @Field(() => CompoundUnitWhereUniqueInput, {
+  @Field(() => BillOfMaterialListRelationFilter, {
     nullable: true,
   })
-  compareUnit?: CompoundUnitWhereUniqueInput;
+  billOfMaterials?: BillOfMaterialListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: () => CompoundUnitListRelationFilter,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => CompoundUnitListRelationFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => CompoundUnitListRelationFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  compoundUnits?: CompoundUnitListRelationFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -82,6 +92,17 @@ class UnitWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
     type: BooleanNullableFilter,
   })
   @Type(() => BooleanNullableFilter)
@@ -93,14 +114,14 @@ class UnitWhereInput {
 
   @ApiProperty({
     required: false,
-    type: BooleanFilter,
+    type: BooleanNullableFilter,
   })
-  @Type(() => BooleanFilter)
+  @Type(() => BooleanNullableFilter)
   @IsOptional()
-  @Field(() => BooleanFilter, {
+  @Field(() => BooleanNullableFilter, {
     nullable: true,
   })
-  isDefault?: BooleanFilter;
+  isDefault?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -137,6 +158,42 @@ class UnitWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductUnitWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUnitWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProductUnitWhereUniqueInput, {
+    nullable: true,
+  })
+  productUnitCompareUnits?: ProductUnitWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductUnitListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductUnitListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductUnitListRelationFilter, {
+    nullable: true,
+  })
+  productUnits?: ProductUnitListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductionOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductionOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductionOrderListRelationFilter, {
+    nullable: true,
+  })
+  productionOrders?: ProductionOrderListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductListRelationFilter,
   })
   @ValidateNested()
@@ -146,6 +203,90 @@ class UnitWhereInput {
     nullable: true,
   })
   products?: ProductListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseDetailListRelationFilter, {
+    nullable: true,
+  })
+  purchaseDetails?: PurchaseDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseReturnDetailListRelationFilter, {
+    nullable: true,
+  })
+  purchaseReturnDetails?: PurchaseReturnDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleOrderDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleReturnDetailListRelationFilter, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { UnitWhereInput as UnitWhereInput };

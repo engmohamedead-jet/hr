@@ -14,14 +14,15 @@ import { ApiProperty } from "@nestjs/swagger";
 import { ProductGroupListRelationFilter } from "../../productGroup/base/ProductGroupListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { AccountCategoryWhereUniqueInput } from "../../accountCategory/base/AccountCategoryWhereUniqueInput";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { AccountTypeWhereUniqueInput } from "../../accountType/base/AccountTypeWhereUniqueInput";
-import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { InstallmentSaleFeeListRelationFilter } from "../../installmentSaleFee/base/InstallmentSaleFeeListRelationFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { AccountWhereUniqueInput } from "./AccountWhereUniqueInput";
+import { AccountListRelationFilter } from "./AccountListRelationFilter";
+import { SalePersonListRelationFilter } from "../../salePerson/base/SalePersonListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AccountWhereInput {
@@ -35,7 +36,18 @@ class AccountWhereInput {
   @Field(() => ProductGroupListRelationFilter, {
     nullable: true,
   })
-  ProductGroupPurchaseReturnAccounts?: ProductGroupListRelationFilter;
+  SaleReturnAccountProductGroups?: ProductGroupListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  accountNumber?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -47,54 +59,19 @@ class AccountWhereInput {
   @Field(() => ProductGroupListRelationFilter, {
     nullable: true,
   })
-  ProductGroupSaleAccounts?: ProductGroupListRelationFilter;
+  aleAccountProductGroups?: ProductGroupListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: () => AccountCategoryWhereUniqueInput,
+    type: () => ProductGroupListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => AccountCategoryWhereUniqueInput)
+  @Type(() => ProductGroupListRelationFilter)
   @IsOptional()
-  @Field(() => AccountCategoryWhereUniqueInput, {
+  @Field(() => ProductGroupListRelationFilter, {
     nullable: true,
   })
-  accountCategory?: AccountCategoryWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  accountNumber?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => AccountTypeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountTypeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountTypeWhereUniqueInput, {
-    nullable: true,
-  })
-  accountTypeId?: AccountTypeWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => CurrencyWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CurrencyWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CurrencyWhereUniqueInput, {
-    nullable: true,
-  })
-  currencyId?: CurrencyWhereUniqueInput;
+  costOfGoodsSoldAccountProductGroups?: ProductGroupListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -132,6 +109,18 @@ class AccountWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductGroupListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductGroupListRelationFilter, {
+    nullable: true,
+  })
+  inventoryAccountProductGroups?: ProductGroupListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: BooleanNullableFilter,
   })
   @Type(() => BooleanNullableFilter)
@@ -151,17 +140,6 @@ class AccountWhereInput {
     nullable: true,
   })
   isMasterAccount?: BooleanFilter;
-
-  @ApiProperty({
-    required: false,
-    type: BooleanNullableFilter,
-  })
-  @Type(() => BooleanNullableFilter)
-  @IsOptional()
-  @Field(() => BooleanNullableFilter, {
-    nullable: true,
-  })
-  isUnderRevision?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -198,14 +176,27 @@ class AccountWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: () => AccountWhereUniqueInput,
   })
-  @Type(() => StringNullableFilter)
+  @ValidateNested()
+  @Type(() => AccountWhereUniqueInput)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  parentAccountId?: StringNullableFilter;
+  parentAccountId?: AccountWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => AccountListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => AccountListRelationFilter)
+  @IsOptional()
+  @Field(() => AccountListRelationFilter, {
+    nullable: true,
+  })
+  parentAccounts?: AccountListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -217,7 +208,7 @@ class AccountWhereInput {
   @Field(() => ProductGroupListRelationFilter, {
     nullable: true,
   })
-  productGroupCostOfGoodsSoldAccounts?: ProductGroupListRelationFilter;
+  purchaseAccountProductGroups?: ProductGroupListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -229,7 +220,7 @@ class AccountWhereInput {
   @Field(() => ProductGroupListRelationFilter, {
     nullable: true,
   })
-  productGroupInventoryAccounts?: ProductGroupListRelationFilter;
+  purchaseDiscountAccountProductGroups?: ProductGroupListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -241,7 +232,7 @@ class AccountWhereInput {
   @Field(() => ProductGroupListRelationFilter, {
     nullable: true,
   })
-  productGroupPurchaseAccounts?: ProductGroupListRelationFilter;
+  purchaseReturnAccountProductGroups?: ProductGroupListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -253,42 +244,31 @@ class AccountWhereInput {
   @Field(() => ProductGroupListRelationFilter, {
     nullable: true,
   })
-  productGroupPurchaseDiscountAccounts?: ProductGroupListRelationFilter;
+  saleDiscountAccountProductGroups?: ProductGroupListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: () => ProductGroupListRelationFilter,
+    type: () => SalePersonListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => ProductGroupListRelationFilter)
+  @Type(() => SalePersonListRelationFilter)
   @IsOptional()
-  @Field(() => ProductGroupListRelationFilter, {
+  @Field(() => SalePersonListRelationFilter, {
     nullable: true,
   })
-  productGroupSaleDiscountAccountIds?: ProductGroupListRelationFilter;
+  salePeople?: SalePersonListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: () => ProductGroupListRelationFilter,
+    type: () => TenantWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => ProductGroupListRelationFilter)
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => ProductGroupListRelationFilter, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  productGroupSaleReturnAccountIds?: ProductGroupListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  referenceNumber?: StringNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { AccountWhereInput as AccountWhereInput };

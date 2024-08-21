@@ -5,10 +5,10 @@ export type PeriodOrderByInput = {
   createdAt?: SortOrder;
   description?: SortOrder;
   id?: SortOrder;
-  installmentSaleFeePostingPeriodId?: SortOrder;
+  isActive?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
-  paymentTermsId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

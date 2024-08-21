@@ -11,28 +11,38 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { CashRepositoryUpdateManyWithoutCashRepositoriesInput } from "./CashRepositoryUpdateManyWithoutCashRepositoriesInput";
 import {
   ValidateNested,
   IsOptional,
   IsString,
   MaxLength,
+  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
+import { PaymentVoucherUpdateManyWithoutCashRepositoriesInput } from "./PaymentVoucherUpdateManyWithoutCashRepositoriesInput";
+import { PurchaseReturnUpdateManyWithoutCashRepositoriesInput } from "./PurchaseReturnUpdateManyWithoutCashRepositoriesInput";
+import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
+import { ReceiptVoucherUpdateManyWithoutCashRepositoriesInput } from "./ReceiptVoucherUpdateManyWithoutCashRepositoriesInput";
+import { SaleOrderUpdateManyWithoutCashRepositoriesInput } from "./SaleOrderUpdateManyWithoutCashRepositoriesInput";
+import { SaleReturnUpdateManyWithoutCashRepositoriesInput } from "./SaleReturnUpdateManyWithoutCashRepositoriesInput";
+import { SaleUpdateManyWithoutCashRepositoriesInput } from "./SaleUpdateManyWithoutCashRepositoriesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CashRepositoryUpdateInput {
   @ApiProperty({
     required: false,
-    type: () => CashRepositoryWhereUniqueInput,
+    type: () => CashRepositoryUpdateManyWithoutCashRepositoriesInput,
   })
   @ValidateNested()
-  @Type(() => CashRepositoryWhereUniqueInput)
+  @Type(() => CashRepositoryUpdateManyWithoutCashRepositoriesInput)
   @IsOptional()
-  @Field(() => CashRepositoryWhereUniqueInput, {
+  @Field(() => CashRepositoryUpdateManyWithoutCashRepositoriesInput, {
     nullable: true,
   })
-  cashRepositories?: CashRepositoryWhereUniqueInput | null;
+  cashRepositories?: CashRepositoryUpdateManyWithoutCashRepositoriesInput;
 
   @ApiProperty({
     required: false,
@@ -44,7 +54,7 @@ class CashRepositoryUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -57,6 +67,17 @@ class CashRepositoryUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -105,6 +126,102 @@ class CashRepositoryUpdateInput {
     nullable: true,
   })
   parentCashRepositoryId?: CashRepositoryWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentVoucherUpdateManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherUpdateManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherUpdateManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnUpdateManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnUpdateManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnUpdateManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnUpdateManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PurchaseWhereUniqueInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherUpdateManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherUpdateManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherUpdateManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderUpdateManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderUpdateManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => SaleOrderUpdateManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderUpdateManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnUpdateManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnUpdateManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => SaleReturnUpdateManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnUpdateManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleUpdateManyWithoutCashRepositoriesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleUpdateManyWithoutCashRepositoriesInput)
+  @IsOptional()
+  @Field(() => SaleUpdateManyWithoutCashRepositoriesInput, {
+    nullable: true,
+  })
+  sales?: SaleUpdateManyWithoutCashRepositoriesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { CashRepositoryUpdateInput as CashRepositoryUpdateInput };

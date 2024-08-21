@@ -5,56 +5,181 @@ import {
   SimpleShowLayout,
   ShowProps,
   TextField,
-  ReferenceField,
   DateField,
   BooleanField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
 } from "react-admin";
 
+import { BILLOFMATERIAL_TITLE_FIELD } from "../billOfMaterial/BillOfMaterialTitle";
+import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
+import { PRODUCTVARIANT_TITLE_FIELD } from "../productVariant/ProductVariantTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 import { UNIT_TITLE_FIELD } from "./UnitTitle";
-import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
+import { WORKCENTERROUTING_TITLE_FIELD } from "../workCenterRouting/WorkCenterRoutingTitle";
+import { BILLOFMATERIALTYPE_TITLE_FIELD } from "../billOfMaterialType/BillOfMaterialTypeTitle";
+import { CUSTOMER_TITLE_FIELD } from "../customer/CustomerTitle";
+import { ORDERSTATUS_TITLE_FIELD } from "../orderStatus/OrderStatusTitle";
 import { STORE_TITLE_FIELD } from "../store/StoreTitle";
 import { PRODUCTCATEGORY_TITLE_FIELD } from "../productCategory/ProductCategoryTitle";
 import { PRODUCTDEPARTMENT_TITLE_FIELD } from "../productDepartment/ProductDepartmentTitle";
+import { PRODUCTGROUP_TITLE_FIELD } from "../productGroup/ProductGroupTitle";
 import { PRODUCTTYPE_TITLE_FIELD } from "../productType/ProductTypeTitle";
 import { SALETAX_TITLE_FIELD } from "../saleTax/SaleTaxTitle";
-import { COMPOUNDUNIT_TITLE_FIELD } from "../compoundUnit/CompoundUnitTitle";
+import { PURCHASE_TITLE_FIELD } from "../purchase/PurchaseTitle";
+import { PURCHASEPRICETYPE_TITLE_FIELD } from "../purchasePriceType/PurchasePriceTypeTitle";
+import { PURCHASERETURN_TITLE_FIELD } from "../purchaseReturn/PurchaseReturnTitle";
+import { SALE_TITLE_FIELD } from "../sale/SaleTitle";
+import { SALEPRICETYPE_TITLE_FIELD } from "../salePriceType/SalePriceTypeTitle";
+import { SALEORDER_TITLE_FIELD } from "../saleOrder/SaleOrderTitle";
+import { SALEQUOTATION_TITLE_FIELD } from "../saleQuotation/SaleQuotationTitle";
+import { SALERETURN_TITLE_FIELD } from "../saleReturn/SaleReturnTitle";
+import { PRODUCTUNIT_TITLE_FIELD } from "../productUnit/ProductUnitTitle";
 
 export const UnitShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
         <TextField label="Code" source="code" />
-        <ReferenceField
-          label="CompareUnit"
-          source="compoundunit.id"
-          reference="CompoundUnit"
-        >
-          <TextField source={COMPOUNDUNIT_TITLE_FIELD} />
-        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <BooleanField label="IsCompound" source="isCompound" />
         <BooleanField label="IsDefault" source="isDefault" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField
+          label="ProductUnitCompareUnits"
+          source="productunit.id"
+          reference="ProductUnit"
+        >
+          <TextField source={PRODUCTUNIT_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
-          reference="CompoundUnit"
-          target="Name"
-          label="CompoundUnits"
+          reference="BillOfMaterialDetail"
+          target="unitIdId"
+          label="BillOfMaterialDetails"
         >
           <Datagrid rowClick="show">
             <ReferenceField
-              label="BaseUnitId"
-              source="unit.id"
-              reference="Unit"
+              label="BillOfMaterial"
+              source="billofmaterial.id"
+              reference="BillOfMaterial"
             >
+              <TextField source={BILLOFMATERIAL_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="CostShare" source="costShare" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField
+              label="IsManualConsumption"
+              source="isManualConsumption"
+            />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="tenant"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
               <TextField source={UNIT_TITLE_FIELD} />
             </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="WorkCenterRoutingId"
+              source="workcenterrouting.id"
+              reference="WorkCenterRouting"
+            >
+              <TextField source={WORKCENTERROUTING_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="BillOfMaterial"
+          target="unitIdId"
+          label="BillOfMaterials"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="BillOfMaterialTypeId"
+              source="billofmaterialtype.id"
+              reference="BillOfMaterialType"
+            >
+              <TextField source={BILLOFMATERIALTYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField
+              label="DaysToPrepareManufacturingOrder"
+              source="daysToPrepareManufacturingOrder"
+            />
+            <TextField label="EndDate" source="endDate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <TextField label="Sequence" source="sequence" />
+            <TextField label="StartDate" source="startDate" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="ProductUnit"
+          target="unitIdId"
+          label="ProductUnits"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Barcode" source="barcode" />
             <ReferenceField
               label="CompareUnitId"
               source="unit.id"
@@ -62,11 +187,112 @@ export const UnitShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={UNIT_TITLE_FIELD} />
             </ReferenceField>
+            <TextField
+              label="CompareUnitQuantity"
+              source="compareUnitQuantity"
+            />
+            <TextField label="CostPrice" source="costPrice" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
-            <TextField label="Notes" source="notes" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField
+              label="IsCostPriceIncludingTax"
+              source="isCostPriceIncludingTax"
+            />
+            <BooleanField
+              label="IsDefaultForPurchase"
+              source="isDefaultForPurchase"
+            />
+            <BooleanField label="IsDefaultForSale" source="isDefaultForSale" />
+            <BooleanField
+              label="IsSalePriceIncludingTax"
+              source="isSalePriceIncludingTax"
+            />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <TextField label="SalePrice" source="salePrice" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label=" UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
-            <TextField label="Value" source="value" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="ProductionOrder"
+          target="unitId"
+          label="ProductionOrders"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="BillOfMaterialId"
+              source="billofmaterial.id"
+              reference="BillOfMaterial"
+            >
+              <TextField source={BILLOFMATERIAL_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <ReferenceField
+              label="CustomerId"
+              source="customer.id"
+              reference="Customer"
+            >
+              <TextField source={CUSTOMER_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="DeadlineDate" source="deadlineDate" />
+            <TextField label="Description" source="description" />
+            <TextField label="FinishDate" source="finishDate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <TextField label="OrderDate" source="orderDate" />
+            <ReferenceField
+              label="OrderStatusId"
+              source="orderstatus.id"
+              reference="OrderStatus"
+            >
+              <TextField source={ORDERSTATUS_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ProductQuantity" source="productQuantity" />
+            <TextField label="SequenceNumber" source="sequenceNumber" />
+            <TextField label="StartDate" source="startDate" />
+            <ReferenceField label="StoreId" source="store.id" reference="Store">
+              <TextField source={STORE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
@@ -75,13 +301,6 @@ export const UnitShow = (props: ShowProps): React.ReactElement => {
           label="Products"
         >
           <Datagrid rowClick="show">
-            <ReferenceField
-              label="ProductGroupId"
-              source="productgroup.id"
-              reference="ProductGroup"
-            >
-              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="Barcode" source="barcode" />
             <BooleanField label="CanExpire" source="canExpire" />
             <TextField label="Code" source="code" />
@@ -130,6 +349,7 @@ export const UnitShow = (props: ShowProps): React.ReactElement => {
             <TextField label="MinimumSalePrice" source="minimumSalePrice" />
             <TextField label="Name" source="name" />
             <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
             <TextField label="Photo" source="photo" />
             <ReferenceField
               label="ProductCategoryId"
@@ -144,6 +364,13 @@ export const UnitShow = (props: ShowProps): React.ReactElement => {
               reference="ProductDepartment"
             >
               <TextField source={PRODUCTDEPARTMENT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductGroupId"
+              source="productgroup.id"
+              reference="ProductGroup"
+            >
+              <TextField source={PRODUCTGROUP_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
               label="ProductTypeId"
@@ -165,6 +392,392 @@ export const UnitShow = (props: ShowProps): React.ReactElement => {
               reference="SaleTax"
             >
               <TextField source={SALETAX_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="PurchaseDetail"
+          target="unitIdId"
+          label="PurchaseDetails"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Barcode" source="barcode" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Discount" source="discount" />
+            <TextField label="DiscountRate" source="discountRate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsError" source="isError" />
+            <BooleanField label="IsReplicated" source="isReplicated" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
+            <TextField label="Note" source="note" />
+            <TextField label="Price" source="price" />
+            <TextField label="PriceTotal" source="priceTotal" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField
+              label="ProductSerialNumber"
+              source="productSerialNumber"
+            />
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="PurchaseId"
+              source="purchase.id"
+              reference="Purchase"
+            >
+              <TextField source={PURCHASE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="PurchasePriceTypeId"
+              source="purchasepricetype.id"
+              reference="PurchasePriceType"
+            >
+              <TextField source={PURCHASEPRICETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="PurchaseReturnDetail"
+          target="unitIdId"
+          label="PurchaseReturnDetails"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Barcode" source="barcode" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Discount" source="discount" />
+            <TextField label="DiscountRate" source="discountRate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsError" source="isError" />
+            <BooleanField label="IsReplicated" source="isReplicated" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
+            <TextField label="Note" source="note" />
+            <TextField label="Price" source="price" />
+            <TextField label="PriceTotal" source="priceTotal" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField
+              label="ProductSerialNumber"
+              source="productSerialNumber"
+            />
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="PurchasePriceTypeId"
+              source="purchasepricetype.id"
+              reference="PurchasePriceType"
+            >
+              <TextField source={PURCHASEPRICETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="PurchaseReturnId"
+              source="purchasereturn.id"
+              reference="PurchaseReturn"
+            >
+              <TextField source={PURCHASERETURN_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="SaleDetail"
+          target="unitIdId"
+          label="SaleDetails"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Barcode" source="barcode" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Discount" source="discount" />
+            <TextField label="DiscountRate" source="discountRate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsError" source="isError" />
+            <BooleanField label="IsReplicated" source="isReplicated" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
+            <TextField label="Note" source="note" />
+            <TextField label="Price" source="price" />
+            <TextField label="PriceTotal" source="priceTotal" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField
+              label="ProductSerialNumber"
+              source="productSerialNumber"
+            />
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <ReferenceField label="SaleId" source="sale.id" reference="Sale">
+              <TextField source={SALE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="SalePriceTypeId"
+              source="salepricetype.id"
+              reference="SalePriceType"
+            >
+              <TextField source={SALEPRICETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="SaleOrderDetail"
+          target="unitIdId"
+          label="SaleOrderDetails"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Barcode" source="barcode" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Discount" source="discount" />
+            <TextField label="DiscountRate" source="discountRate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsError" source="isError" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
+            <TextField label="Price" source="price" />
+            <TextField label="PriceTotal" source="priceTotal" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField
+              label="ProductSerialNumber"
+              source="productSerialNumber"
+            />
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <ReferenceField
+              label="SaleOrderId"
+              source="saleorder.id"
+              reference="SaleOrder"
+            >
+              <TextField source={SALEORDER_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="SalePriceTypeId"
+              source="salepricetype.id"
+              reference="SalePriceType"
+            >
+              <TextField source={SALEPRICETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="Tenant"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="SaleQuotationDetail"
+          target="unitIdId"
+          label="SaleQuotationDetails"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Discount" source="discount" />
+            <TextField label="DiscountRate" source="discountRate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsError" source="isError" />
+            <BooleanField label="IsReplicated" source="isReplicated" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
+            <TextField label="Note" source="note" />
+            <TextField label="Price" source="price" />
+            <TextField label="PriceTotal" source="priceTotal" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <ReferenceField
+              label="SalePriceTypeId"
+              source="salepricetype.id"
+              reference="SalePriceType"
+            >
+              <TextField source={SALEPRICETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="SaleQuotationId"
+              source="salequotation.id"
+              reference="SaleQuotation"
+            >
+              <TextField source={SALEQUOTATION_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Sequence" source="sequence" />
+            <TextField label="ShippingCharge" source="shippingCharge" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="SaleReturnDetail"
+          target="unitIdId"
+          label="SaleReturnDetails"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Barcode" source="barcode" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Discount" source="discount" />
+            <TextField label="DiscountRate" source="discountRate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsError" source="isError" />
+            <BooleanField label="IsReplicated" source="isReplicated" />
+            <BooleanField label="IsTaxed" source="isTaxed" />
+            <TextField label="Price" source="price" />
+            <TextField label="PriceTotal" source="priceTotal" />
+            <ReferenceField
+              label="ProductId"
+              source="product.id"
+              reference="Product"
+            >
+              <TextField source={PRODUCT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField
+              label="ProductSerialNumber"
+              source="productSerialNumber"
+            />
+            <ReferenceField
+              label="ProductVariantId"
+              source="productvariant.id"
+              reference="ProductVariant"
+            >
+              <TextField source={PRODUCTVARIANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Quantity" source="quantity" />
+            <ReferenceField
+              label="SalePriceType"
+              source="salepricetype.id"
+              reference="SalePriceType"
+            >
+              <TextField source={SALEPRICETYPE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="SaleReturnId"
+              source="salereturn.id"
+              reference="SaleReturn"
+            >
+              <TextField source={SALERETURN_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField label="UnitId" source="unit.id" reference="Unit">
+              <TextField source={UNIT_TITLE_FIELD} />
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>

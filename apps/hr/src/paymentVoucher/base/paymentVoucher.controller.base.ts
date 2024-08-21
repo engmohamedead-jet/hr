@@ -49,15 +49,113 @@ export class PaymentVoucherControllerBase {
     @common.Body() data: PaymentVoucherCreateInput
   ): Promise<PaymentVoucher> {
     return await this.service.createPaymentVoucher({
-      data: data,
+      data: {
+        ...data,
+
+        accountTransactionId: data.accountTransactionId
+          ? {
+              connect: data.accountTransactionId,
+            }
+          : undefined,
+
+        cashRepositoryId: {
+          connect: data.cashRepositoryId,
+        },
+
+        currency: {
+          connect: data.currency,
+        },
+
+        employeeId: data.employeeId
+          ? {
+              connect: data.employeeId,
+            }
+          : undefined,
+
+        expenseItemId: data.expenseItemId
+          ? {
+              connect: data.expenseItemId,
+            }
+          : undefined,
+
+        supplier: data.supplier
+          ? {
+              connect: data.supplier,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+
+        voucherTypeId: data.voucherTypeId
+          ? {
+              connect: data.voucherTypeId,
+            }
+          : undefined,
+      },
       select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
         amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        expenseItemId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isActive: true,
         note: true,
         paymentVoucherDate: true,
         statementReference: true,
+
+        supplier: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -81,13 +179,65 @@ export class PaymentVoucherControllerBase {
     return this.service.paymentVouchers({
       ...args,
       select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
         amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        expenseItemId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isActive: true,
         note: true,
         paymentVoucherDate: true,
         statementReference: true,
+
+        supplier: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -110,13 +260,65 @@ export class PaymentVoucherControllerBase {
     const result = await this.service.paymentVoucher({
       where: params,
       select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
         amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        expenseItemId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isActive: true,
         note: true,
         paymentVoucherDate: true,
         statementReference: true,
+
+        supplier: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -146,15 +348,113 @@ export class PaymentVoucherControllerBase {
     try {
       return await this.service.updatePaymentVoucher({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          accountTransactionId: data.accountTransactionId
+            ? {
+                connect: data.accountTransactionId,
+              }
+            : undefined,
+
+          cashRepositoryId: {
+            connect: data.cashRepositoryId,
+          },
+
+          currency: {
+            connect: data.currency,
+          },
+
+          employeeId: data.employeeId
+            ? {
+                connect: data.employeeId,
+              }
+            : undefined,
+
+          expenseItemId: data.expenseItemId
+            ? {
+                connect: data.expenseItemId,
+              }
+            : undefined,
+
+          supplier: data.supplier
+            ? {
+                connect: data.supplier,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+
+          voucherTypeId: data.voucherTypeId
+            ? {
+                connect: data.voucherTypeId,
+              }
+            : undefined,
+        },
         select: {
+          accountTransactionId: {
+            select: {
+              id: true,
+            },
+          },
+
           amount: true,
+
+          cashRepositoryId: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
+
+          currency: {
+            select: {
+              id: true,
+            },
+          },
+
+          employeeId: {
+            select: {
+              id: true,
+            },
+          },
+
+          expenseItemId: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
+          isActive: true,
           note: true,
           paymentVoucherDate: true,
           statementReference: true,
+
+          supplier: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
+
+          voucherTypeId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -185,13 +485,65 @@ export class PaymentVoucherControllerBase {
       return await this.service.deletePaymentVoucher({
         where: params,
         select: {
+          accountTransactionId: {
+            select: {
+              id: true,
+            },
+          },
+
           amount: true,
+
+          cashRepositoryId: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
+
+          currency: {
+            select: {
+              id: true,
+            },
+          },
+
+          employeeId: {
+            select: {
+              id: true,
+            },
+          },
+
+          expenseItemId: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
+          isActive: true,
           note: true,
           paymentVoucherDate: true,
           statementReference: true,
+
+          supplier: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
+
+          voucherTypeId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {

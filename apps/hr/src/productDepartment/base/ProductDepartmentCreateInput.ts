@@ -18,9 +18,11 @@ import {
   IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { ProductCategoryCreateNestedManyWithoutProductDepartmentsInput } from "./ProductCategoryCreateNestedManyWithoutProductDepartmentsInput";
+import { ProductDepartmentWhereUniqueInput } from "./ProductDepartmentWhereUniqueInput";
 import { Type } from "class-transformer";
+import { ProductDepartmentCreateNestedManyWithoutProductDepartmentsInput } from "./ProductDepartmentCreateNestedManyWithoutProductDepartmentsInput";
 import { ProductCreateNestedManyWithoutProductDepartmentsInput } from "./ProductCreateNestedManyWithoutProductDepartmentsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductDepartmentCreateInput {
@@ -49,15 +51,20 @@ class ProductDepartmentCreateInput {
   description?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
   })
-  isDefault?: boolean | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isDefault!: boolean;
 
   @ApiProperty({
     required: true,
@@ -91,15 +98,30 @@ class ProductDepartmentCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductCategoryCreateNestedManyWithoutProductDepartmentsInput,
+    type: () => ProductDepartmentWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => ProductCategoryCreateNestedManyWithoutProductDepartmentsInput)
+  @Type(() => ProductDepartmentWhereUniqueInput)
   @IsOptional()
-  @Field(() => ProductCategoryCreateNestedManyWithoutProductDepartmentsInput, {
+  @Field(() => ProductDepartmentWhereUniqueInput, {
     nullable: true,
   })
-  productCategories?: ProductCategoryCreateNestedManyWithoutProductDepartmentsInput;
+  parentProductDepartmentId?: ProductDepartmentWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductDepartmentCreateNestedManyWithoutProductDepartmentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductDepartmentCreateNestedManyWithoutProductDepartmentsInput)
+  @IsOptional()
+  @Field(
+    () => ProductDepartmentCreateNestedManyWithoutProductDepartmentsInput,
+    {
+      nullable: true,
+    }
+  )
+  productDepartments?: ProductDepartmentCreateNestedManyWithoutProductDepartmentsInput;
 
   @ApiProperty({
     required: false,
@@ -112,6 +134,18 @@ class ProductDepartmentCreateInput {
     nullable: true,
   })
   products?: ProductCreateNestedManyWithoutProductDepartmentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductDepartmentCreateInput as ProductDepartmentCreateInput };

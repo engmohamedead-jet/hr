@@ -1,7 +1,22 @@
+import { PurchaseReturnCreateNestedManyWithoutPaymentTypesInput } from "./PurchaseReturnCreateNestedManyWithoutPaymentTypesInput";
+import { PurchaseCreateNestedManyWithoutPaymentTypesInput } from "./PurchaseCreateNestedManyWithoutPaymentTypesInput";
+import { SaleOrderCreateNestedManyWithoutPaymentTypesInput } from "./SaleOrderCreateNestedManyWithoutPaymentTypesInput";
+import { SaleReturnCreateNestedManyWithoutPaymentTypesInput } from "./SaleReturnCreateNestedManyWithoutPaymentTypesInput";
+import { SaleCreateNestedManyWithoutPaymentTypesInput } from "./SaleCreateNestedManyWithoutPaymentTypesInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+
 export type PaymentTypeCreateInput = {
   code?: string | null;
-  isDefault?: boolean | null;
+  description?: string | null;
+  isActive: boolean;
+  isDefault: boolean;
   name: string;
   normalizedName: string;
-  notes?: string | null;
+  note?: string | null;
+  purchaseReturns?: PurchaseReturnCreateNestedManyWithoutPaymentTypesInput;
+  purchases?: PurchaseCreateNestedManyWithoutPaymentTypesInput;
+  saleOrders?: SaleOrderCreateNestedManyWithoutPaymentTypesInput;
+  saleReturns?: SaleReturnCreateNestedManyWithoutPaymentTypesInput;
+  sales?: SaleCreateNestedManyWithoutPaymentTypesInput;
+  tenantId?: TenantWhereUniqueInput | null;
 };

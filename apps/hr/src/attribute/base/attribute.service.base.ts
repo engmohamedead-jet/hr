@@ -15,6 +15,7 @@ import {
   Prisma,
   Attribute as PrismaAttribute,
   AttributeValue as PrismaAttributeValue,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class AttributeServiceBase {
@@ -61,5 +62,13 @@ export class AttributeServiceBase {
         where: { id: parentId },
       })
       .attributeValues(args);
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.attribute
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

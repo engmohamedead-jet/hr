@@ -17,12 +17,10 @@ import {
   IsOptional,
   ValidateNested,
 } from "class-validator";
-import { BankAccountUpdateManyWithoutBanksInput } from "./BankAccountUpdateManyWithoutBanksInput";
-import { Type } from "class-transformer";
 import { BankBranchUpdateManyWithoutBanksInput } from "./BankBranchUpdateManyWithoutBanksInput";
-import { CityWhereUniqueInput } from "../../city/base/CityWhereUniqueInput";
-import { CountryWhereUniqueInput } from "../../country/base/CountryWhereUniqueInput";
-import { StateWhereUniqueInput } from "../../state/base/StateWhereUniqueInput";
+import { Type } from "class-transformer";
+import { BankTypeWhereUniqueInput } from "../../bankType/base/BankTypeWhereUniqueInput";
+import { SalePaymentUpdateManyWithoutBanksInput } from "./SalePaymentUpdateManyWithoutBanksInput";
 
 @InputType()
 class BankUpdateInput {
@@ -40,18 +38,6 @@ class BankUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => BankAccountUpdateManyWithoutBanksInput,
-  })
-  @ValidateNested()
-  @Type(() => BankAccountUpdateManyWithoutBanksInput)
-  @IsOptional()
-  @Field(() => BankAccountUpdateManyWithoutBanksInput, {
-    nullable: true,
-  })
-  bankAccounts?: BankAccountUpdateManyWithoutBanksInput;
-
-  @ApiProperty({
-    required: false,
     type: () => BankBranchUpdateManyWithoutBanksInput,
   })
   @ValidateNested()
@@ -61,6 +47,18 @@ class BankUpdateInput {
     nullable: true,
   })
   bankBranches?: BankBranchUpdateManyWithoutBanksInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BankTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BankTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  bankType?: BankTypeWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -76,18 +74,6 @@ class BankUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => CityWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CityWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CityWhereUniqueInput, {
-    nullable: true,
-  })
-  cityId?: CityWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
     type: String,
   })
   @IsString()
@@ -96,7 +82,7 @@ class BankUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -109,18 +95,6 @@ class BankUpdateInput {
     nullable: true,
   })
   contactPhoneNumber?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => CountryWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CountryWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CountryWhereUniqueInput, {
-    nullable: true,
-  })
-  countryId?: CountryWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -168,7 +142,7 @@ class BankUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  name?: string;
+  name?: string | null;
 
   @ApiProperty({
     required: false,
@@ -180,19 +154,7 @@ class BankUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName?: string;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  note?: string | null;
+  normalizedName?: string | null;
 
   @ApiProperty({
     required: false,
@@ -220,15 +182,15 @@ class BankUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => StateWhereUniqueInput,
+    type: () => SalePaymentUpdateManyWithoutBanksInput,
   })
   @ValidateNested()
-  @Type(() => StateWhereUniqueInput)
+  @Type(() => SalePaymentUpdateManyWithoutBanksInput)
   @IsOptional()
-  @Field(() => StateWhereUniqueInput, {
+  @Field(() => SalePaymentUpdateManyWithoutBanksInput, {
     nullable: true,
   })
-  stateId?: StateWhereUniqueInput | null;
+  salePayments?: SalePaymentUpdateManyWithoutBanksInput;
 
   @ApiProperty({
     required: false,

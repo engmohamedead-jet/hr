@@ -6,12 +6,14 @@ import {
   ShowProps,
   TextField,
   DateField,
+  BooleanField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
 } from "react-admin";
 
 import { ATTRIBUTE_TITLE_FIELD } from "./AttributeTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const AttributeShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -21,13 +23,17 @@ export const AttributeShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="AttributeValue"
-          target="Name"
+          target="attributeIdId"
           label="AttributeValues"
         >
           <Datagrid rowClick="show">
@@ -40,7 +46,15 @@ export const AttributeShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
             <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
             <TextField label="Value" source="value" />
           </Datagrid>

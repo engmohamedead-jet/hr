@@ -1,19 +1,31 @@
 import { Period } from "../period/Period";
 import { InstallmentSaleFee } from "../installmentSaleFee/InstallmentSaleFee";
+import { PurchaseReturn } from "../purchaseReturn/PurchaseReturn";
+import { Purchase } from "../purchase/Purchase";
+import { SaleReturn } from "../saleReturn/SaleReturn";
+import { Sale } from "../sale/Sale";
+import { Tenant } from "../tenant/Tenant";
 
 export type PaymentTerm = {
   code: string | null;
   createdAt: Date;
   description: string | null;
-  dueDays: number | null;
-  dueOnDate: Date | null;
+  dueDays: number;
   duePeriodId?: Period | null;
-  gracePeriod: number | null;
+  gracePeriod: number;
   id: string;
   installmentSaleFeeId?: InstallmentSaleFee | null;
-  installmentSaleFeePostingPeriodId?: Period | null;
+  installmentSaleFeePostingPeriod?: Period | null;
+  isActive: boolean;
   isDefault: boolean | null;
-  name: string | null;
-  normalizedName: string | null;
+  isDueOnDate: boolean | null;
+  name: string;
+  normalizedName: string;
+  note: string | null;
+  purchaseReturns?: Array<PurchaseReturn>;
+  purchases?: Array<Purchase>;
+  saleReturns?: Array<SaleReturn>;
+  sales?: Array<Sale>;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

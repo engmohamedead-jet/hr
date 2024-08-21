@@ -10,7 +10,13 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, BarcodeType as PrismaBarcodeType } from "@prisma/client";
+
+import {
+  Prisma,
+  BarcodeType as PrismaBarcodeType,
+  ProductBarcode as PrismaProductBarcode,
+  Tenant as PrismaTenant,
+} from "@prisma/client";
 
 export class BarcodeTypeServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +51,24 @@ export class BarcodeTypeServiceBase {
     args: Prisma.BarcodeTypeDeleteArgs
   ): Promise<PrismaBarcodeType> {
     return this.prisma.barcodeType.delete(args);
+  }
+
+  async findProductBarcodes(
+    parentId: number,
+    args: Prisma.ProductBarcodeFindManyArgs
+  ): Promise<PrismaProductBarcode[]> {
+    return this.prisma.barcodeType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .productBarcodes(args);
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.barcodeType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

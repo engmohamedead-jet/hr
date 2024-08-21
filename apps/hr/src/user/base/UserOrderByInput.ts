@@ -72,6 +72,17 @@ class UserOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  isActive?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   lastName?: SortOrder;
 
   @ApiProperty({
@@ -94,7 +105,7 @@ class UserOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  roleId?: SortOrder;
+  roles?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -105,7 +116,7 @@ class UserOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  roles?: SortOrder;
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

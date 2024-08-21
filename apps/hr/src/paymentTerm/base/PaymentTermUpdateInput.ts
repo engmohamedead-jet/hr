@@ -11,21 +11,23 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-
 import {
   IsString,
   MaxLength,
   IsOptional,
   IsInt,
   Max,
-  IsDate,
   ValidateNested,
   IsBoolean,
 } from "class-validator";
-
-import { Type } from "class-transformer";
 import { PeriodWhereUniqueInput } from "../../period/base/PeriodWhereUniqueInput";
+import { Type } from "class-transformer";
 import { InstallmentSaleFeeWhereUniqueInput } from "../../installmentSaleFee/base/InstallmentSaleFeeWhereUniqueInput";
+import { PurchaseReturnUpdateManyWithoutPaymentTermsInput } from "./PurchaseReturnUpdateManyWithoutPaymentTermsInput";
+import { PurchaseUpdateManyWithoutPaymentTermsInput } from "./PurchaseUpdateManyWithoutPaymentTermsInput";
+import { SaleReturnUpdateManyWithoutPaymentTermsInput } from "./SaleReturnUpdateManyWithoutPaymentTermsInput";
+import { SaleUpdateManyWithoutPaymentTermsInput } from "./SaleUpdateManyWithoutPaymentTermsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PaymentTermUpdateInput {
@@ -63,18 +65,7 @@ class PaymentTermUpdateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  dueDays?: number | null;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  dueOnDate?: Date | null;
+  dueDays?: number;
 
   @ApiProperty({
     required: false,
@@ -98,7 +89,7 @@ class PaymentTermUpdateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  gracePeriod?: number | null;
+  gracePeriod?: number;
 
   @ApiProperty({
     required: false,
@@ -122,7 +113,18 @@ class PaymentTermUpdateInput {
   @Field(() => PeriodWhereUniqueInput, {
     nullable: true,
   })
-  installmentSaleFeePostingPeriodId?: PeriodWhereUniqueInput | null;
+  installmentSaleFeePostingPeriod?: PeriodWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -137,15 +139,14 @@ class PaymentTermUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Boolean,
   })
-  @IsString()
-  @MaxLength(1000)
+  @IsBoolean()
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Boolean, {
     nullable: true,
   })
-  name?: string | null;
+  isDueOnDate?: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -157,7 +158,91 @@ class PaymentTermUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName?: string | null;
+  name?: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  normalizedName?: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnUpdateManyWithoutPaymentTermsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnUpdateManyWithoutPaymentTermsInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnUpdateManyWithoutPaymentTermsInput, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnUpdateManyWithoutPaymentTermsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseUpdateManyWithoutPaymentTermsInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseUpdateManyWithoutPaymentTermsInput)
+  @IsOptional()
+  @Field(() => PurchaseUpdateManyWithoutPaymentTermsInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseUpdateManyWithoutPaymentTermsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnUpdateManyWithoutPaymentTermsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnUpdateManyWithoutPaymentTermsInput)
+  @IsOptional()
+  @Field(() => SaleReturnUpdateManyWithoutPaymentTermsInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnUpdateManyWithoutPaymentTermsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleUpdateManyWithoutPaymentTermsInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleUpdateManyWithoutPaymentTermsInput)
+  @IsOptional()
+  @Field(() => SaleUpdateManyWithoutPaymentTermsInput, {
+    nullable: true,
+  })
+  sales?: SaleUpdateManyWithoutPaymentTermsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { PaymentTermUpdateInput as PaymentTermUpdateInput };

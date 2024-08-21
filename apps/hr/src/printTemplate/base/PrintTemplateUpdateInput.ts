@@ -24,24 +24,12 @@ import { EnumPrintTemplatePaperSize } from "./EnumPrintTemplatePaperSize";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
-import { PrintTemplateContentUpdateManyWithoutPrintTemplatesInput } from "./PrintTemplateContentUpdateManyWithoutPrintTemplatesInput";
+import { PrintTemplateContentWhereUniqueInput } from "../../printTemplateContent/base/PrintTemplateContentWhereUniqueInput";
 import { Type } from "class-transformer";
-import { PrintTemplateGroupWhereUniqueInput } from "../../printTemplateGroup/base/PrintTemplateGroupWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PrintTemplateUpdateInput {
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  Description?: string | null;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -64,6 +52,18 @@ class PrintTemplateUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
+  description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
   filePath?: string | null;
 
   @ApiProperty({
@@ -75,7 +75,7 @@ class PrintTemplateUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isCustomized?: boolean | null;
+  isActive?: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -86,7 +86,18 @@ class PrintTemplateUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isFavourite?: boolean | null;
+  isCustomized?: boolean;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isFavourite?: boolean;
 
   @ApiProperty({
     required: false,
@@ -144,7 +155,19 @@ class PrintTemplateUpdateInput {
   @Field(() => EnumPrintTemplatePaperSize, {
     nullable: true,
   })
-  paperSize?: "A1" | "A2" | "A3" | "A4" | "A5" | null;
+  paperSize?:
+    | "A1"
+    | "A2"
+    | "A3"
+    | "A4"
+    | "A5"
+    | "A6"
+    | "B1"
+    | "B2"
+    | "B3"
+    | "B5"
+    | "B6"
+    | null;
 
   @ApiProperty({
     required: false,
@@ -158,27 +181,27 @@ class PrintTemplateUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => PrintTemplateContentUpdateManyWithoutPrintTemplatesInput,
+    type: () => PrintTemplateContentWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => PrintTemplateContentUpdateManyWithoutPrintTemplatesInput)
+  @Type(() => PrintTemplateContentWhereUniqueInput)
   @IsOptional()
-  @Field(() => PrintTemplateContentUpdateManyWithoutPrintTemplatesInput, {
+  @Field(() => PrintTemplateContentWhereUniqueInput, {
     nullable: true,
   })
-  printTemplateContents?: PrintTemplateContentUpdateManyWithoutPrintTemplatesInput;
+  printTemplateContents?: PrintTemplateContentWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
-    type: () => PrintTemplateGroupWhereUniqueInput,
+    type: () => TenantWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => PrintTemplateGroupWhereUniqueInput)
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => PrintTemplateGroupWhereUniqueInput, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  printTemplateGroupId?: PrintTemplateGroupWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { PrintTemplateUpdateInput as PrintTemplateUpdateInput };

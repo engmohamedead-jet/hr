@@ -26,8 +26,7 @@ import { PrintTemplateGroupFindUniqueArgs } from "./PrintTemplateGroupFindUnique
 import { CreatePrintTemplateGroupArgs } from "./CreatePrintTemplateGroupArgs";
 import { UpdatePrintTemplateGroupArgs } from "./UpdatePrintTemplateGroupArgs";
 import { DeletePrintTemplateGroupArgs } from "./DeletePrintTemplateGroupArgs";
-import { PrintTemplateFindManyArgs } from "../../printTemplate/base/PrintTemplateFindManyArgs";
-import { PrintTemplate } from "../../printTemplate/base/PrintTemplate";
+import { Tenant } from "../../tenant/base/Tenant";
 import { PrintTemplateGroupService } from "../printTemplateGroup.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PrintTemplateGroup)
@@ -94,7 +93,15 @@ export class PrintTemplateGroupResolverBase {
   ): Promise<PrintTemplateGroup> {
     return await this.service.createPrintTemplateGroup({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +118,15 @@ export class PrintTemplateGroupResolverBase {
     try {
       return await this.service.updatePrintTemplateGroup({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -145,22 +160,23 @@ export class PrintTemplateGroupResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [PrintTemplate], { name: "printTemplates" })
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
   @nestAccessControl.UseRoles({
-    resource: "PrintTemplate",
+    resource: "Tenant",
     action: "read",
     possession: "any",
   })
-  async findPrintTemplates(
-    @graphql.Parent() parent: PrintTemplateGroup,
-    @graphql.Args() args: PrintTemplateFindManyArgs
-  ): Promise<PrintTemplate[]> {
-    const results = await this.service.findPrintTemplates(parent.id, args);
+  async getTenantId(
+    @graphql.Parent() parent: PrintTemplateGroup
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
-    if (!results) {
-      return [];
+    if (!result) {
+      return null;
     }
-
-    return results;
+    return result;
   }
 }

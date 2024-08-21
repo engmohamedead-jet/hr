@@ -1,16 +1,28 @@
 import { PeriodWhereUniqueInput } from "../period/PeriodWhereUniqueInput";
 import { InstallmentSaleFeeWhereUniqueInput } from "../installmentSaleFee/InstallmentSaleFeeWhereUniqueInput";
+import { PurchaseReturnUpdateManyWithoutPaymentTermsInput } from "./PurchaseReturnUpdateManyWithoutPaymentTermsInput";
+import { PurchaseUpdateManyWithoutPaymentTermsInput } from "./PurchaseUpdateManyWithoutPaymentTermsInput";
+import { SaleReturnUpdateManyWithoutPaymentTermsInput } from "./SaleReturnUpdateManyWithoutPaymentTermsInput";
+import { SaleUpdateManyWithoutPaymentTermsInput } from "./SaleUpdateManyWithoutPaymentTermsInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PaymentTermUpdateInput = {
   code?: string | null;
   description?: string | null;
-  dueDays?: number | null;
-  dueOnDate?: Date | null;
+  dueDays?: number;
   duePeriodId?: PeriodWhereUniqueInput | null;
-  gracePeriod?: number | null;
+  gracePeriod?: number;
   installmentSaleFeeId?: InstallmentSaleFeeWhereUniqueInput | null;
-  installmentSaleFeePostingPeriodId?: PeriodWhereUniqueInput | null;
+  installmentSaleFeePostingPeriod?: PeriodWhereUniqueInput | null;
+  isActive?: boolean;
   isDefault?: boolean | null;
-  name?: string | null;
-  normalizedName?: string | null;
+  isDueOnDate?: boolean | null;
+  name?: string;
+  normalizedName?: string;
+  note?: string | null;
+  purchaseReturns?: PurchaseReturnUpdateManyWithoutPaymentTermsInput;
+  purchases?: PurchaseUpdateManyWithoutPaymentTermsInput;
+  saleReturns?: SaleReturnUpdateManyWithoutPaymentTermsInput;
+  sales?: SaleUpdateManyWithoutPaymentTermsInput;
+  tenantId?: TenantWhereUniqueInput | null;
 };

@@ -1,12 +1,14 @@
-import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { RoleWhereUniqueInput } from "../role/RoleWhereUniqueInput";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type UserWhereInput = {
-  email?: StringNullableFilter;
+  email?: StringFilter;
   firstName?: StringNullableFilter;
   id?: StringFilter;
+  isActive?: BooleanFilter;
   lastName?: StringNullableFilter;
-  role?: RoleWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput;
   username?: StringFilter;
 };

@@ -26,14 +26,17 @@ import { CurrencyFindUniqueArgs } from "./CurrencyFindUniqueArgs";
 import { CreateCurrencyArgs } from "./CreateCurrencyArgs";
 import { UpdateCurrencyArgs } from "./UpdateCurrencyArgs";
 import { DeleteCurrencyArgs } from "./DeleteCurrencyArgs";
-import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
-import { Account } from "../../account/base/Account";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
-import { ExchangeRateDetailFindManyArgs } from "../../exchangeRateDetail/base/ExchangeRateDetailFindManyArgs";
-import { ExchangeRateDetail } from "../../exchangeRateDetail/base/ExchangeRateDetail";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
 import { SupplierFindManyArgs } from "../../supplier/base/SupplierFindManyArgs";
 import { Supplier } from "../../supplier/base/Supplier";
+import { Tenant } from "../../tenant/base/Tenant";
 import { CurrencyService } from "../currency.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Currency)
@@ -103,9 +106,9 @@ export class CurrencyResolverBase {
       data: {
         ...args.data,
 
-        foreignCurrencyName: args.data.foreignCurrencyName
+        tenantId: args.data.tenantId
           ? {
-              connect: args.data.foreignCurrencyName,
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -128,9 +131,9 @@ export class CurrencyResolverBase {
         data: {
           ...args.data,
 
-          foreignCurrencyName: args.data.foreignCurrencyName
+          tenantId: args.data.tenantId
             ? {
-                connect: args.data.foreignCurrencyName,
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -167,26 +170,6 @@ export class CurrencyResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Account], { name: "accounts" })
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async findAccounts(
-    @graphql.Parent() parent: Currency,
-    @graphql.Args() args: AccountFindManyArgs
-  ): Promise<Account[]> {
-    const results = await this.service.findAccounts(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [Customer], { name: "customers" })
   @nestAccessControl.UseRoles({
     resource: "Customer",
@@ -207,19 +190,57 @@ export class CurrencyResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [ExchangeRateDetail], {
-    name: "exchangeRateDetails",
-  })
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
   @nestAccessControl.UseRoles({
-    resource: "ExchangeRateDetail",
+    resource: "PaymentVoucher",
     action: "read",
     possession: "any",
   })
-  async findExchangeRateDetails(
+  async findPaymentVouchers(
     @graphql.Parent() parent: Currency,
-    @graphql.Args() args: ExchangeRateDetailFindManyArgs
-  ): Promise<ExchangeRateDetail[]> {
-    const results = await this.service.findExchangeRateDetails(parent.id, args);
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ReceiptVoucher], { name: "receiptVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @graphql.Parent() parent: Currency,
+    @graphql.Args() args: ReceiptVoucherFindManyArgs
+  ): Promise<ReceiptVoucher[]> {
+    const results = await this.service.findReceiptVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SalePayment], { name: "salePayments" })
+  @nestAccessControl.UseRoles({
+    resource: "SalePayment",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePayments(
+    @graphql.Parent() parent: Currency,
+    @graphql.Args() args: SalePaymentFindManyArgs
+  ): Promise<SalePayment[]> {
+    const results = await this.service.findSalePayments(parent.id, args);
 
     if (!results) {
       return [];
@@ -249,19 +270,19 @@ export class CurrencyResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => ExchangeRateDetail, {
+  @graphql.ResolveField(() => Tenant, {
     nullable: true,
-    name: "foreignCurrencyName",
+    name: "tenantId",
   })
   @nestAccessControl.UseRoles({
-    resource: "ExchangeRateDetail",
+    resource: "Tenant",
     action: "read",
     possession: "any",
   })
-  async getForeignCurrencyName(
+  async getTenantId(
     @graphql.Parent() parent: Currency
-  ): Promise<ExchangeRateDetail | null> {
-    const result = await this.service.getForeignCurrencyName(parent.id);
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

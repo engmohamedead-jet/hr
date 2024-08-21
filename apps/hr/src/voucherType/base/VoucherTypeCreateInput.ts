@@ -15,21 +15,27 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { ReceiptVoucherCreateNestedManyWithoutVoucherTypesInput } from "./ReceiptVoucherCreateNestedManyWithoutVoucherTypesInput";
+import { PaymentVoucherCreateNestedManyWithoutVoucherTypesInput } from "./PaymentVoucherCreateNestedManyWithoutVoucherTypesInput";
 import { Type } from "class-transformer";
+import { ReceiptVoucherCreateNestedManyWithoutVoucherTypesInput } from "./ReceiptVoucherCreateNestedManyWithoutVoucherTypesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class VoucherTypeCreateInput {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -45,6 +51,14 @@ class VoucherTypeCreateInput {
 
   @ApiProperty({
     required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
@@ -53,6 +67,15 @@ class VoucherTypeCreateInput {
   name!: string;
 
   @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  normalizedName!: string;
+
+  @ApiProperty({
     required: false,
     type: String,
   })
@@ -62,19 +85,19 @@ class VoucherTypeCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName?: string | null;
+  note?: string | null;
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => PaymentVoucherCreateNestedManyWithoutVoucherTypesInput,
   })
-  @IsString()
-  @MaxLength(256)
+  @ValidateNested()
+  @Type(() => PaymentVoucherCreateNestedManyWithoutVoucherTypesInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => PaymentVoucherCreateNestedManyWithoutVoucherTypesInput, {
     nullable: true,
   })
-  note?: string | null;
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutVoucherTypesInput;
 
   @ApiProperty({
     required: false,
@@ -87,6 +110,18 @@ class VoucherTypeCreateInput {
     nullable: true,
   })
   receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutVoucherTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { VoucherTypeCreateInput as VoucherTypeCreateInput };

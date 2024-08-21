@@ -26,7 +26,15 @@ import { EmployeeFindUniqueArgs } from "./EmployeeFindUniqueArgs";
 import { CreateEmployeeArgs } from "./CreateEmployeeArgs";
 import { UpdateEmployeeArgs } from "./UpdateEmployeeArgs";
 import { DeleteEmployeeArgs } from "./DeleteEmployeeArgs";
-import { Department } from "../../department/base/Department";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { SalePersonFindManyArgs } from "../../salePerson/base/SalePersonFindManyArgs";
+import { SalePerson } from "../../salePerson/base/SalePerson";
+import { EmployeeClass } from "../../employeeClass/base/EmployeeClass";
+import { EmployeeDepartment } from "../../employeeDepartment/base/EmployeeDepartment";
+import { Tenant } from "../../tenant/base/Tenant";
 import { EmployeeService } from "../employee.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Employee)
@@ -96,9 +104,21 @@ export class EmployeeResolverBase {
       data: {
         ...args.data,
 
-        departmentId: args.data.departmentId
+        employeeClassId: args.data.employeeClassId
           ? {
-              connect: args.data.departmentId,
+              connect: args.data.employeeClassId,
+            }
+          : undefined,
+
+        employeeDepartmentId: args.data.employeeDepartmentId
+          ? {
+              connect: args.data.employeeDepartmentId,
+            }
+          : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -121,9 +141,21 @@ export class EmployeeResolverBase {
         data: {
           ...args.data,
 
-          departmentId: args.data.departmentId
+          employeeClassId: args.data.employeeClassId
             ? {
-                connect: args.data.departmentId,
+                connect: args.data.employeeClassId,
+              }
+            : undefined,
+
+          employeeDepartmentId: args.data.employeeDepartmentId
+            ? {
+                connect: args.data.employeeDepartmentId,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -160,19 +192,121 @@ export class EmployeeResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Department, {
-    nullable: true,
-    name: "departmentId",
-  })
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
   @nestAccessControl.UseRoles({
-    resource: "Department",
+    resource: "PaymentVoucher",
     action: "read",
     possession: "any",
   })
-  async getDepartmentId(
+  async findPaymentVouchers(
+    @graphql.Parent() parent: Employee,
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ReceiptVoucher], { name: "receiptVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @graphql.Parent() parent: Employee,
+    @graphql.Args() args: ReceiptVoucherFindManyArgs
+  ): Promise<ReceiptVoucher[]> {
+    const results = await this.service.findReceiptVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SalePerson], { name: "salePeople" })
+  @nestAccessControl.UseRoles({
+    resource: "SalePerson",
+    action: "read",
+    possession: "any",
+  })
+  async findSalePeople(
+    @graphql.Parent() parent: Employee,
+    @graphql.Args() args: SalePersonFindManyArgs
+  ): Promise<SalePerson[]> {
+    const results = await this.service.findSalePeople(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => EmployeeClass, {
+    nullable: true,
+    name: "employeeClassId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "EmployeeClass",
+    action: "read",
+    possession: "any",
+  })
+  async getEmployeeClassId(
     @graphql.Parent() parent: Employee
-  ): Promise<Department | null> {
-    const result = await this.service.getDepartmentId(parent.id);
+  ): Promise<EmployeeClass | null> {
+    const result = await this.service.getEmployeeClassId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => EmployeeDepartment, {
+    nullable: true,
+    name: "employeeDepartmentId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "EmployeeDepartment",
+    action: "read",
+    possession: "any",
+  })
+  async getEmployeeDepartmentId(
+    @graphql.Parent() parent: Employee
+  ): Promise<EmployeeDepartment | null> {
+    const result = await this.service.getEmployeeDepartmentId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: Employee
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

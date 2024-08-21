@@ -1,13 +1,16 @@
-import { EmployeeClassSalaryItemValue } from "../employeeClassSalaryItemValue/EmployeeClassSalaryItemValue";
+import { Employee } from "../employee/Employee";
+import { Tenant } from "../tenant/Tenant";
 
 export type EmployeeClass = {
-  code: string;
+  code: string | null;
   createdAt: Date;
   description: string | null;
-  employeeClassSalaryItemValues?: Array<EmployeeClassSalaryItemValue>;
-  id: string;
+  employees?: Array<Employee>;
+  id: number;
+  isActive: boolean;
   name: string;
   normalizedName: string;
-  notes: string | null;
+  note: string | null;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

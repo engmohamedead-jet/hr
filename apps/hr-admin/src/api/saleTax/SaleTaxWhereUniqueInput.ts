@@ -1,3 +1,3 @@
 export type SaleTaxWhereUniqueInput = {
-  id: number;
+  id: string;
 };

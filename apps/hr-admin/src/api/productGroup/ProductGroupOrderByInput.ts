@@ -1,25 +1,27 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type ProductGroupOrderByInput = {
-  PurchaseDiscountAccountIdId?: SortOrder;
-  SaleReturnAccountId?: SortOrder;
-  accountId?: SortOrder;
   code?: SortOrder;
+  costOfGoodsSoldAccountId?: SortOrder;
   createdAt?: SortOrder;
   description?: SortOrder;
   excludeFromPurchase?: SortOrder;
   excludeFromSale?: SortOrder;
   id?: SortOrder;
-  inventoryAccountIdId?: SortOrder;
+  inventoryAccountId?: SortOrder;
+  isActive?: SortOrder;
   isDefault?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
-  notes?: SortOrder;
-  productGroupsId?: SortOrder;
+  note?: SortOrder;
+  parentProductGroupIdId?: SortOrder;
   purchaseAccountIdId?: SortOrder;
+  purchaseDiscountAccountIdId?: SortOrder;
   purchaseReturnAccountIdId?: SortOrder;
-  SaleAccountId?: SortOrder;
-  SaleDiscountAccountId?: SortOrder;
+  saleAccountIdId?: SortOrder;
+  saleDiscountAccountIdId?: SortOrder;
+  saleReturnAccountIdId?: SortOrder;
   saleTaxIdId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

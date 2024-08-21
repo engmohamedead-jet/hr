@@ -1,15 +1,30 @@
-import { StringFilter } from "../../util/StringFilter";
-import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { SaleDetailWhereUniqueInput } from "../saleDetail/SaleDetailWhereUniqueInput";
+import { SaleOrderDetailWhereUniqueInput } from "../saleOrderDetail/SaleOrderDetailWhereUniqueInput";
+import { SaleOrderWhereUniqueInput } from "../saleOrder/SaleOrderWhereUniqueInput";
+import { SaleQuotationDetailWhereUniqueInput } from "../saleQuotationDetail/SaleQuotationDetailWhereUniqueInput";
+import { SaleReturnDetailWhereUniqueInput } from "../saleReturnDetail/SaleReturnDetailWhereUniqueInput";
+import { SaleReturnWhereUniqueInput } from "../saleReturn/SaleReturnWhereUniqueInput";
+import { SaleWhereUniqueInput } from "../sale/SaleWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type SalePriceTypeWhereInput = {
-  code?: StringFilter;
-  customers?: CustomerWhereUniqueInput;
+  code?: StringNullableFilter;
+  description?: StringNullableFilter;
   id?: IntFilter;
-  isDefault?: BooleanFilter;
+  isActive?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
+  saleDetails?: SaleDetailWhereUniqueInput;
+  saleOrderDetails?: SaleOrderDetailWhereUniqueInput;
+  saleOrders?: SaleOrderWhereUniqueInput;
+  saleQuotationDetails?: SaleQuotationDetailWhereUniqueInput;
+  saleReturnDetails?: SaleReturnDetailWhereUniqueInput;
+  saleReturns?: SaleReturnWhereUniqueInput;
+  sales?: SaleWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput;
 };

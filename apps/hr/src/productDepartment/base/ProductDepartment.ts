@@ -21,8 +21,8 @@ import {
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { ProductCategory } from "../../productCategory/base/ProductCategory";
 import { Product } from "../../product/base/Product";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class ProductDepartment {
@@ -67,15 +67,20 @@ class ProductDepartment {
   id!: number;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
   })
-  isDefault!: boolean | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isDefault!: boolean;
 
   @ApiProperty({
     required: true,
@@ -109,12 +114,21 @@ class ProductDepartment {
 
   @ApiProperty({
     required: false,
-    type: () => [ProductCategory],
+    type: () => ProductDepartment,
   })
   @ValidateNested()
-  @Type(() => ProductCategory)
+  @Type(() => ProductDepartment)
   @IsOptional()
-  productCategories?: Array<ProductCategory>;
+  parentProductDepartmentId?: ProductDepartment | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductDepartment],
+  })
+  @ValidateNested()
+  @Type(() => ProductDepartment)
+  @IsOptional()
+  productDepartments?: Array<ProductDepartment>;
 
   @ApiProperty({
     required: false,
@@ -124,6 +138,15 @@ class ProductDepartment {
   @Type(() => Product)
   @IsOptional()
   products?: Array<Product>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

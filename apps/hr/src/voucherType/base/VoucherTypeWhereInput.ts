@@ -11,25 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntFilter } from "../../util/IntFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { PaymentVoucherListRelationFilter } from "../../paymentVoucher/base/PaymentVoucherListRelationFilter";
 import { ReceiptVoucherListRelationFilter } from "../../receiptVoucher/base/ReceiptVoucherListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class VoucherTypeWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -55,6 +58,17 @@ class VoucherTypeWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -66,14 +80,14 @@ class VoucherTypeWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  normalizedName?: StringNullableFilter;
+  normalizedName?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -88,6 +102,18 @@ class VoucherTypeWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentVoucherListRelationFilter, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => ReceiptVoucherListRelationFilter,
   })
   @ValidateNested()
@@ -97,6 +123,18 @@ class VoucherTypeWhereInput {
     nullable: true,
   })
   receiptVouchers?: ReceiptVoucherListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { VoucherTypeWhereInput as VoucherTypeWhereInput };

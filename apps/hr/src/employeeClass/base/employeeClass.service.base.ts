@@ -14,7 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   EmployeeClass as PrismaEmployeeClass,
-  EmployeeClassSalaryItemValue as PrismaEmployeeClassSalaryItemValue,
+  Employee as PrismaEmployee,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class EmployeeClassServiceBase {
@@ -52,14 +53,22 @@ export class EmployeeClassServiceBase {
     return this.prisma.employeeClass.delete(args);
   }
 
-  async findEmployeeClassSalaryItemValues(
-    parentId: string,
-    args: Prisma.EmployeeClassSalaryItemValueFindManyArgs
-  ): Promise<PrismaEmployeeClassSalaryItemValue[]> {
+  async findEmployees(
+    parentId: number,
+    args: Prisma.EmployeeFindManyArgs
+  ): Promise<PrismaEmployee[]> {
     return this.prisma.employeeClass
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .employeeClassSalaryItemValues(args);
+      .employees(args);
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.employeeClass
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

@@ -55,9 +55,9 @@ export class ProductCategoryControllerBase {
       data: {
         ...data,
 
-        productDepartment: data.productDepartment
+        tenantId: data.tenantId
           ? {
-              connect: data.productDepartment,
+              connect: data.tenantId,
             }
           : undefined,
       },
@@ -66,12 +66,13 @@ export class ProductCategoryControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        productDepartment: {
+        tenantId: {
           select: {
             id: true,
           },
@@ -105,12 +106,13 @@ export class ProductCategoryControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        productDepartment: {
+        tenantId: {
           select: {
             id: true,
           },
@@ -143,12 +145,13 @@ export class ProductCategoryControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
         note: true,
 
-        productDepartment: {
+        tenantId: {
           select: {
             id: true,
           },
@@ -187,9 +190,9 @@ export class ProductCategoryControllerBase {
         data: {
           ...data,
 
-          productDepartment: data.productDepartment
+          tenantId: data.tenantId
             ? {
-                connect: data.productDepartment,
+                connect: data.tenantId,
               }
             : undefined,
         },
@@ -198,12 +201,13 @@ export class ProductCategoryControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
 
-          productDepartment: {
+          tenantId: {
             select: {
               id: true,
             },
@@ -244,12 +248,13 @@ export class ProductCategoryControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isDefault: true,
           name: true,
           normalizedName: true,
           note: true,
 
-          productDepartment: {
+          tenantId: {
             select: {
               id: true,
             },
@@ -284,12 +289,6 @@ export class ProductCategoryControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -325,6 +324,7 @@ export class ProductCategoryControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -334,6 +334,12 @@ export class ProductCategoryControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },
@@ -351,6 +357,12 @@ export class ProductCategoryControllerBase {
         salePriceIncludesTax: true,
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

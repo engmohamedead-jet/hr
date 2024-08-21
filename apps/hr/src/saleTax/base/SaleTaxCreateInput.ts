@@ -9,7 +9,7 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field, Float } from "@nestjs/graphql";
+import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
@@ -17,14 +17,11 @@ import {
   IsOptional,
   IsBoolean,
   ValidateNested,
-  IsNumber,
-  Max,
 } from "class-validator";
 import { ProductGroupCreateNestedManyWithoutSaleTaxesInput } from "./ProductGroupCreateNestedManyWithoutSaleTaxesInput";
 import { Type } from "class-transformer";
 import { ProductCreateNestedManyWithoutSaleTaxesInput } from "./ProductCreateNestedManyWithoutSaleTaxesInput";
-import { Decimal } from "decimal.js";
-import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SaleTaxCreateInput {
@@ -53,15 +50,12 @@ class SaleTaxCreateInput {
   description?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isExemption?: boolean | null;
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -119,27 +113,15 @@ class SaleTaxCreateInput {
 
   @ApiProperty({
     required: false,
-    type: Number,
-  })
-  @IsNumber()
-  @Max(99999999999)
-  @IsOptional()
-  @Field(() => Float, {
-    nullable: true,
-  })
-  rate?: Decimal | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => StoreWhereUniqueInput,
+    type: () => TenantWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => StoreWhereUniqueInput)
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => StoreWhereUniqueInput, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  store?: StoreWhereUniqueInput | null;
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { SaleTaxCreateInput as SaleTaxCreateInput };

@@ -24,12 +24,9 @@ const CREATE_INPUT = {
   id: "exampleId",
   isActive: "true",
   isMasterAccount: "true",
-  isUnderRevision: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
   note: "exampleNote",
-  parentAccountId: "exampleParentAccountId",
-  referenceNumber: "exampleReferenceNumber",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
@@ -39,12 +36,9 @@ const CREATE_RESULT = {
   id: "exampleId",
   isActive: "true",
   isMasterAccount: "true",
-  isUnderRevision: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
   note: "exampleNote",
-  parentAccountId: "exampleParentAccountId",
-  referenceNumber: "exampleReferenceNumber",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -55,12 +49,9 @@ const FIND_MANY_RESULT = [
     id: "exampleId",
     isActive: "true",
     isMasterAccount: "true",
-    isUnderRevision: "true",
     name: "exampleName",
     normalizedName: "exampleNormalizedName",
     note: "exampleNote",
-    parentAccountId: "exampleParentAccountId",
-    referenceNumber: "exampleReferenceNumber",
     updatedAt: new Date(),
   },
 ];
@@ -71,12 +62,9 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   isActive: "true",
   isMasterAccount: "true",
-  isUnderRevision: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
   note: "exampleNote",
-  parentAccountId: "exampleParentAccountId",
-  referenceNumber: "exampleReferenceNumber",
   updatedAt: new Date(),
 };
 

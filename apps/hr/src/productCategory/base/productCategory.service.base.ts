@@ -15,7 +15,7 @@ import {
   Prisma,
   ProductCategory as PrismaProductCategory,
   Product as PrismaProduct,
-  ProductDepartment as PrismaProductDepartment,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class ProductCategoryServiceBase {
@@ -54,7 +54,7 @@ export class ProductCategoryServiceBase {
   }
 
   async findProducts(
-    parentId: number,
+    parentId: string,
     args: Prisma.ProductFindManyArgs
   ): Promise<PrismaProduct[]> {
     return this.prisma.productCategory
@@ -64,13 +64,11 @@ export class ProductCategoryServiceBase {
       .products(args);
   }
 
-  async getProductDepartment(
-    parentId: number
-  ): Promise<PrismaProductDepartment | null> {
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
     return this.prisma.productCategory
       .findUnique({
         where: { id: parentId },
       })
-      .productDepartment();
+      .tenantId();
   }
 }

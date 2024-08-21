@@ -14,8 +14,13 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   PaymentTerm as PrismaPaymentTerm,
+  PurchaseReturn as PrismaPurchaseReturn,
+  Purchase as PrismaPurchase,
+  SaleReturn as PrismaSaleReturn,
+  Sale as PrismaSale,
   Period as PrismaPeriod,
   InstallmentSaleFee as PrismaInstallmentSaleFee,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class PaymentTermServiceBase {
@@ -53,6 +58,50 @@ export class PaymentTermServiceBase {
     return this.prisma.paymentTerm.delete(args);
   }
 
+  async findPurchaseReturns(
+    parentId: string,
+    args: Prisma.PurchaseReturnFindManyArgs
+  ): Promise<PrismaPurchaseReturn[]> {
+    return this.prisma.paymentTerm
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchaseReturns(args);
+  }
+
+  async findPurchases(
+    parentId: string,
+    args: Prisma.PurchaseFindManyArgs
+  ): Promise<PrismaPurchase[]> {
+    return this.prisma.paymentTerm
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchases(args);
+  }
+
+  async findSaleReturns(
+    parentId: string,
+    args: Prisma.SaleReturnFindManyArgs
+  ): Promise<PrismaSaleReturn[]> {
+    return this.prisma.paymentTerm
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleReturns(args);
+  }
+
+  async findSales(
+    parentId: string,
+    args: Prisma.SaleFindManyArgs
+  ): Promise<PrismaSale[]> {
+    return this.prisma.paymentTerm
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .sales(args);
+  }
+
   async getDuePeriodId(parentId: string): Promise<PrismaPeriod | null> {
     return this.prisma.paymentTerm
       .findUnique({
@@ -71,13 +120,21 @@ export class PaymentTermServiceBase {
       .installmentSaleFeeId();
   }
 
-  async getInstallmentSaleFeePostingPeriodId(
+  async getInstallmentSaleFeePostingPeriod(
     parentId: string
   ): Promise<PrismaPeriod | null> {
     return this.prisma.paymentTerm
       .findUnique({
         where: { id: parentId },
       })
-      .installmentSaleFeePostingPeriodId();
+      .installmentSaleFeePostingPeriod();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.paymentTerm
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

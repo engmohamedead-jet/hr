@@ -28,6 +28,7 @@ import { UpdateAttributeArgs } from "./UpdateAttributeArgs";
 import { DeleteAttributeArgs } from "./DeleteAttributeArgs";
 import { AttributeValueFindManyArgs } from "../../attributeValue/base/AttributeValueFindManyArgs";
 import { AttributeValue } from "../../attributeValue/base/AttributeValue";
+import { Tenant } from "../../tenant/base/Tenant";
 import { AttributeService } from "../attribute.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Attribute)
@@ -94,7 +95,15 @@ export class AttributeResolverBase {
   ): Promise<Attribute> {
     return await this.service.createAttribute({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +120,15 @@ export class AttributeResolverBase {
     try {
       return await this.service.updateAttribute({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -162,5 +179,26 @@ export class AttributeResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: Attribute
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

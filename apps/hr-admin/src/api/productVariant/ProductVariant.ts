@@ -1,0 +1,32 @@
+import { AttributeValue } from "../attributeValue/AttributeValue";
+import { BillOfMaterialDetail } from "../billOfMaterialDetail/BillOfMaterialDetail";
+import { BillOfMaterial } from "../billOfMaterial/BillOfMaterial";
+import { ProductBarcode } from "../productBarcode/ProductBarcode";
+import { Product } from "../product/Product";
+import { PurchaseDetail } from "../purchaseDetail/PurchaseDetail";
+import { PurchaseReturnDetail } from "../purchaseReturnDetail/PurchaseReturnDetail";
+import { SaleDetail } from "../saleDetail/SaleDetail";
+import { SaleOrderDetail } from "../saleOrderDetail/SaleOrderDetail";
+import { SaleQuotationDetail } from "../saleQuotationDetail/SaleQuotationDetail";
+import { SaleReturnDetail } from "../saleReturnDetail/SaleReturnDetail";
+import { Tenant } from "../tenant/Tenant";
+
+export type ProductVariant = {
+  attributeValueId?: AttributeValue;
+  billOfMaterialDetails?: Array<BillOfMaterialDetail>;
+  billOfMaterials?: Array<BillOfMaterial>;
+  createdAt: Date;
+  id: string;
+  isActive: boolean;
+  note: string | null;
+  productBarcodes?: Array<ProductBarcode>;
+  productId?: Product;
+  purchaseDetails?: Array<PurchaseDetail>;
+  purchaseReturnDetails?: Array<PurchaseReturnDetail>;
+  saleDetails?: Array<SaleDetail>;
+  saleOrderDetails?: Array<SaleOrderDetail>;
+  saleQuotationDetails?: Array<SaleQuotationDetail>;
+  saleReturnDetails?: Array<SaleReturnDetail>;
+  tenantId?: Tenant | null;
+  updatedAt: Date;
+};

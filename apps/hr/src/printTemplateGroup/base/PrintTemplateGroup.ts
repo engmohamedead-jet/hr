@@ -17,10 +17,11 @@ import {
   IsOptional,
   IsDate,
   IsInt,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { PrintTemplate } from "../../printTemplate/base/PrintTemplate";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class PrintTemplateGroup {
@@ -65,16 +66,21 @@ class PrintTemplateGroup {
   id!: number;
 
   @ApiProperty({
-    required: false,
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name!: string | null;
+  @Field(() => String)
+  name!: string;
 
   @ApiProperty({
     required: true,
@@ -90,7 +96,7 @@ class PrintTemplateGroup {
     type: String,
   })
   @IsString()
-  @MaxLength(1000)
+  @MaxLength(2561)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -99,12 +105,12 @@ class PrintTemplateGroup {
 
   @ApiProperty({
     required: false,
-    type: () => [PrintTemplate],
+    type: () => Tenant,
   })
   @ValidateNested()
-  @Type(() => PrintTemplate)
+  @Type(() => Tenant)
   @IsOptional()
-  printTemplates?: Array<PrintTemplate>;
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

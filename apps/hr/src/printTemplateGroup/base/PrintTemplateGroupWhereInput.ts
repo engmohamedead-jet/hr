@@ -15,8 +15,9 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { IntFilter } from "../../util/IntFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { PrintTemplateListRelationFilter } from "../../printTemplate/base/PrintTemplateListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PrintTemplateGroupWhereInput {
@@ -55,14 +56,25 @@ class PrintTemplateGroupWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: BooleanFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  name?: StringNullableFilter;
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  name?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -88,15 +100,15 @@ class PrintTemplateGroupWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => PrintTemplateListRelationFilter,
+    type: () => TenantWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => PrintTemplateListRelationFilter)
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => PrintTemplateListRelationFilter, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  printTemplates?: PrintTemplateListRelationFilter;
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { PrintTemplateGroupWhereInput as PrintTemplateGroupWhereInput };

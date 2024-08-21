@@ -1,20 +1,21 @@
-import { AccountUpdateManyWithoutCurrenciesInput } from "./AccountUpdateManyWithoutCurrenciesInput";
 import { CustomerUpdateManyWithoutCurrenciesInput } from "./CustomerUpdateManyWithoutCurrenciesInput";
-import { ExchangeRateDetailUpdateManyWithoutCurrenciesInput } from "./ExchangeRateDetailUpdateManyWithoutCurrenciesInput";
-import { ExchangeRateDetailWhereUniqueInput } from "../exchangeRateDetail/ExchangeRateDetailWhereUniqueInput";
+import { PaymentVoucherUpdateManyWithoutCurrenciesInput } from "./PaymentVoucherUpdateManyWithoutCurrenciesInput";
+import { ReceiptVoucherUpdateManyWithoutCurrenciesInput } from "./ReceiptVoucherUpdateManyWithoutCurrenciesInput";
+import { SalePaymentUpdateManyWithoutCurrenciesInput } from "./SalePaymentUpdateManyWithoutCurrenciesInput";
 import { SupplierUpdateManyWithoutCurrenciesInput } from "./SupplierUpdateManyWithoutCurrenciesInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type CurrencyUpdateInput = {
-  accounts?: AccountUpdateManyWithoutCurrenciesInput;
   code?: string | null;
   customers?: CustomerUpdateManyWithoutCurrenciesInput;
-  exchangeRateDetails?: ExchangeRateDetailUpdateManyWithoutCurrenciesInput;
-  foreignCurrencyName?: ExchangeRateDetailWhereUniqueInput | null;
-  hundredthName?: string;
-  isDefault?: boolean;
+  description?: string | null;
+  isActive?: boolean;
   name?: string;
   normalizedName?: string;
   note?: string | null;
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutCurrenciesInput;
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutCurrenciesInput;
+  salePayments?: SalePaymentUpdateManyWithoutCurrenciesInput;
   suppliers?: SupplierUpdateManyWithoutCurrenciesInput;
-  symbolField?: string;
+  tenantId?: TenantWhereUniqueInput | null;
 };

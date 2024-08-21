@@ -55,14 +55,20 @@ export class InstallmentSaleFeeControllerBase {
       data: {
         ...data,
 
-        account: data.account
+        accountId: data.accountId
           ? {
-              connect: data.account,
+              connect: data.accountId,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
             }
           : undefined,
       },
       select: {
-        account: {
+        accountId: {
           select: {
             id: true,
           },
@@ -72,11 +78,19 @@ export class InstallmentSaleFeeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isFlatAmount: true,
         name: true,
         normalizedName: true,
         note: true,
         rate: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -101,7 +115,7 @@ export class InstallmentSaleFeeControllerBase {
     return this.service.installmentSaleFees({
       ...args,
       select: {
-        account: {
+        accountId: {
           select: {
             id: true,
           },
@@ -111,11 +125,19 @@ export class InstallmentSaleFeeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isFlatAmount: true,
         name: true,
         normalizedName: true,
         note: true,
         rate: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -139,7 +161,7 @@ export class InstallmentSaleFeeControllerBase {
     const result = await this.service.installmentSaleFee({
       where: params,
       select: {
-        account: {
+        accountId: {
           select: {
             id: true,
           },
@@ -149,11 +171,19 @@ export class InstallmentSaleFeeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         isFlatAmount: true,
         name: true,
         normalizedName: true,
         note: true,
         rate: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -187,14 +217,20 @@ export class InstallmentSaleFeeControllerBase {
         data: {
           ...data,
 
-          account: data.account
+          accountId: data.accountId
             ? {
-                connect: data.account,
+                connect: data.accountId,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
               }
             : undefined,
         },
         select: {
-          account: {
+          accountId: {
             select: {
               id: true,
             },
@@ -204,11 +240,19 @@ export class InstallmentSaleFeeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isFlatAmount: true,
           name: true,
           normalizedName: true,
           note: true,
           rate: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -240,7 +284,7 @@ export class InstallmentSaleFeeControllerBase {
       return await this.service.deleteInstallmentSaleFee({
         where: params,
         select: {
-          account: {
+          accountId: {
             select: {
               id: true,
             },
@@ -250,11 +294,19 @@ export class InstallmentSaleFeeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           isFlatAmount: true,
           name: true,
           normalizedName: true,
           note: true,
           rate: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -288,7 +340,6 @@ export class InstallmentSaleFeeControllerBase {
         createdAt: true,
         description: true,
         dueDays: true,
-        dueOnDate: true,
 
         duePeriodId: {
           select: {
@@ -305,15 +356,25 @@ export class InstallmentSaleFeeControllerBase {
           },
         },
 
-        installmentSaleFeePostingPeriodId: {
+        installmentSaleFeePostingPeriod: {
           select: {
             id: true,
           },
         },
 
+        isActive: true,
         isDefault: true,
+        isDueOnDate: true,
         name: true,
         normalizedName: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });

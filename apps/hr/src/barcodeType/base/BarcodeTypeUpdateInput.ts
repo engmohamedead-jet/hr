@@ -11,7 +11,16 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
+import { ProductBarcodeUpdateManyWithoutBarcodeTypesInput } from "./ProductBarcodeUpdateManyWithoutBarcodeTypesInput";
+import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class BarcodeTypeUpdateInput {
@@ -38,6 +47,17 @@ class BarcodeTypeUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -74,6 +94,30 @@ class BarcodeTypeUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductBarcodeUpdateManyWithoutBarcodeTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductBarcodeUpdateManyWithoutBarcodeTypesInput)
+  @IsOptional()
+  @Field(() => ProductBarcodeUpdateManyWithoutBarcodeTypesInput, {
+    nullable: true,
+  })
+  productBarcodes?: ProductBarcodeUpdateManyWithoutBarcodeTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { BarcodeTypeUpdateInput as BarcodeTypeUpdateInput };

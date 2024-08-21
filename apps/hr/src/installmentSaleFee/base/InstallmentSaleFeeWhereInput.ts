@@ -16,9 +16,11 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { PaymentTermListRelationFilter } from "../../paymentTerm/base/PaymentTermListRelationFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class InstallmentSaleFeeWhereInput {
@@ -32,7 +34,7 @@ class InstallmentSaleFeeWhereInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  account?: AccountWhereUniqueInput;
+  accountId?: AccountWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -66,6 +68,17 @@ class InstallmentSaleFeeWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -133,6 +146,18 @@ class InstallmentSaleFeeWhereInput {
     nullable: true,
   })
   rate?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { InstallmentSaleFeeWhereInput as InstallmentSaleFeeWhereInput };

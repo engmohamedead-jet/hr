@@ -1,0 +1,32 @@
+import { Decimal } from "decimal.js";
+import { Product } from "../product/Product";
+import { ProductVariant } from "../productVariant/ProductVariant";
+import { PurchasePriceType } from "../purchasePriceType/PurchasePriceType";
+import { PurchaseReturn } from "../purchaseReturn/PurchaseReturn";
+import { Tenant } from "../tenant/Tenant";
+import { Unit } from "../unit/Unit";
+
+export type PurchaseReturnDetail = {
+  barcode: string | null;
+  createdAt: Date;
+  discount: Decimal | null;
+  discountRate: Decimal | null;
+  id: string;
+  isActive: boolean;
+  isError: boolean;
+  isReplicated: boolean;
+  isTaxed: boolean;
+  note: string | null;
+  price: Decimal;
+  priceTotal: Decimal | null;
+  productId?: Product;
+  productSerialNumber: string | null;
+  productVariantId?: ProductVariant | null;
+  purchasePriceTypeId?: PurchasePriceType | null;
+  purchaseReturnId?: PurchaseReturn | null;
+  quantity: Decimal;
+  sequence: number;
+  tenantId?: Tenant | null;
+  unitId?: Unit;
+  updatedAt: Date;
+};

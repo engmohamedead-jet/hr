@@ -50,9 +50,9 @@ export class UserControllerBase {
       data: {
         ...data,
 
-        role: data.role
+        tenantId: data.tenantId
           ? {
-              connect: data.role,
+              connect: data.tenantId,
             }
           : undefined,
       },
@@ -61,15 +61,16 @@ export class UserControllerBase {
         email: true,
         firstName: true,
         id: true,
+        isActive: true,
         lastName: true,
+        roles: true,
 
-        role: {
+        tenantId: {
           select: {
             id: true,
           },
         },
 
-        roles: true,
         updatedAt: true,
         username: true,
       },
@@ -97,15 +98,16 @@ export class UserControllerBase {
         email: true,
         firstName: true,
         id: true,
+        isActive: true,
         lastName: true,
+        roles: true,
 
-        role: {
+        tenantId: {
           select: {
             id: true,
           },
         },
 
-        roles: true,
         updatedAt: true,
         username: true,
       },
@@ -134,15 +136,16 @@ export class UserControllerBase {
         email: true,
         firstName: true,
         id: true,
+        isActive: true,
         lastName: true,
+        roles: true,
 
-        role: {
+        tenantId: {
           select: {
             id: true,
           },
         },
 
-        roles: true,
         updatedAt: true,
         username: true,
       },
@@ -177,9 +180,9 @@ export class UserControllerBase {
         data: {
           ...data,
 
-          role: data.role
+          tenantId: data.tenantId
             ? {
-                connect: data.role,
+                connect: data.tenantId,
               }
             : undefined,
         },
@@ -188,15 +191,16 @@ export class UserControllerBase {
           email: true,
           firstName: true,
           id: true,
+          isActive: true,
           lastName: true,
+          roles: true,
 
-          role: {
+          tenantId: {
             select: {
               id: true,
             },
           },
 
-          roles: true,
           updatedAt: true,
           username: true,
         },
@@ -233,15 +237,16 @@ export class UserControllerBase {
           email: true,
           firstName: true,
           id: true,
+          isActive: true,
           lastName: true,
+          roles: true,
 
-          role: {
+          tenantId: {
             select: {
               id: true,
             },
           },
 
-          roles: true,
           updatedAt: true,
           username: true,
         },

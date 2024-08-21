@@ -14,9 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   AccountTransaction as PrismaAccountTransaction,
-  AccountTransactionDetail as PrismaAccountTransactionDetail,
-  CostCenter as PrismaCostCenter,
-  Store as PrismaStore,
+  PaymentVoucher as PrismaPaymentVoucher,
+  ReceiptVoucher as PrismaReceiptVoucher,
 } from "@prisma/client";
 
 export class AccountTransactionServiceBase {
@@ -54,30 +53,24 @@ export class AccountTransactionServiceBase {
     return this.prisma.accountTransaction.delete(args);
   }
 
-  async findAccountTransactionDetails(
+  async findPaymentVouchers(
     parentId: string,
-    args: Prisma.AccountTransactionDetailFindManyArgs
-  ): Promise<PrismaAccountTransactionDetail[]> {
+    args: Prisma.PaymentVoucherFindManyArgs
+  ): Promise<PrismaPaymentVoucher[]> {
     return this.prisma.accountTransaction
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .accountTransactionDetails(args);
+      .paymentVouchers(args);
   }
 
-  async getCostCenter(parentId: string): Promise<PrismaCostCenter | null> {
+  async getReceiptVouchers(
+    parentId: string
+  ): Promise<PrismaReceiptVoucher | null> {
     return this.prisma.accountTransaction
       .findUnique({
         where: { id: parentId },
       })
-      .costCenter();
-  }
-
-  async getStore(parentId: string): Promise<PrismaStore | null> {
-    return this.prisma.accountTransaction
-      .findUnique({
-        where: { id: parentId },
-      })
-      .store();
+      .receiptVouchers();
   }
 }

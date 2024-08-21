@@ -28,7 +28,7 @@ import { UpdateProductCategoryArgs } from "./UpdateProductCategoryArgs";
 import { DeleteProductCategoryArgs } from "./DeleteProductCategoryArgs";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
-import { ProductDepartment } from "../../productDepartment/base/ProductDepartment";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ProductCategoryService } from "../productCategory.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ProductCategory)
@@ -98,9 +98,9 @@ export class ProductCategoryResolverBase {
       data: {
         ...args.data,
 
-        productDepartment: args.data.productDepartment
+        tenantId: args.data.tenantId
           ? {
-              connect: args.data.productDepartment,
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -123,9 +123,9 @@ export class ProductCategoryResolverBase {
         data: {
           ...args.data,
 
-          productDepartment: args.data.productDepartment
+          tenantId: args.data.tenantId
             ? {
-                connect: args.data.productDepartment,
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -182,19 +182,19 @@ export class ProductCategoryResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => ProductDepartment, {
+  @graphql.ResolveField(() => Tenant, {
     nullable: true,
-    name: "productDepartment",
+    name: "tenantId",
   })
   @nestAccessControl.UseRoles({
-    resource: "ProductDepartment",
+    resource: "Tenant",
     action: "read",
     possession: "any",
   })
-  async getProductDepartment(
+  async getTenantId(
     @graphql.Parent() parent: ProductCategory
-  ): Promise<ProductDepartment | null> {
-    const result = await this.service.getProductDepartment(parent.id);
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

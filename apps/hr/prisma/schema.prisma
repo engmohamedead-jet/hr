@@ -8,851 +8,18 @@ generator client {
 }
 
 model User {
-  createdAt DateTime @default(now())
-  email     String?  @unique
-  firstName String?
-  id        String   @id @default(cuid())
-  lastName  String?
-  password  String
-  role      Role?    @relation(fields: [roleId], references: [id])
-  roleId    String?
-  roles     Json
-  updatedAt DateTime @updatedAt
-  username  String   @unique
-}
-
-model Department {
-  createdAt          DateTime    @default(now())
-  departments        Department? @relation(name: "departments", fields: [departmentsId], references: [id])
-  departmentsId      String?     @unique
-  description        String?
-  employees          Employee[]
-  id                 String      @id @default(cuid())
-  name               String      @unique
-  normalizedName     String      @unique
-  note               String?
-  noteJson           Json?
-  parentDepartmentId Department? @relation(name: "departments")
-  updatedAt          DateTime    @updatedAt
-}
-
-model Employee {
-  balance          Decimal?
-  createdAt        DateTime    @default(now())
-  departmentId     Department? @relation(fields: [departmentIdId], references: [id])
-  departmentIdId   String?
-  id               String      @id @default(cuid())
-  lastYearBalance  Decimal?
-  name             String?
-  normalizedName   String?
-  note             String?
-  remainingBalance Decimal?
-  updatedAt        DateTime    @updatedAt
-  usedBalance      Decimal?
-}
-
-model Role {
-  createdAt   DateTime @default(now())
-  description String?
-  id          String   @id @default(cuid())
-  isActive    Boolean?
-  name        String?  @unique
-  updatedAt   DateTime @updatedAt
-  users       User[]
-}
-
-model EmployeeClass {
-  code                          String                         @unique
-  createdAt                     DateTime                       @default(now())
-  description                   String?
-  employeeClassSalaryItemValues EmployeeClassSalaryItemValue[]
-  id                            String                         @id @default(cuid())
-  name                          String                         @unique
-  normalizedName                String                         @unique
-  notes                         String?
-  updatedAt                     DateTime                       @updatedAt
-}
-
-model SalaryItem {
-  code                          String                         @unique
-  createdAt                     DateTime                       @default(now())
-  description                   String?
-  employeeClassSalaryItemValues EmployeeClassSalaryItemValue[]
-  employeeSalaryDetails         EmployeeSalaryDetail[]
-  id                            Int                            @id @default(autoincrement())
-  name                          String                         @unique
-  normalizedName                String                         @unique
-  note                          String?
-  updatedAt                     DateTime                       @updatedAt
-}
-
-model FiscalMonth {
-  code             String           @unique
-  createdAt        DateTime         @default(now())
-  description      String?
-  employeeSalaries EmployeeSalary[]
-  endsOn           DateTime?
-  fiscalWeeks      FiscalWeek[]
-  fiscalYear       FiscalYear       @relation(fields: [fiscalYearId], references: [id])
-  fiscalYearId     String
-  id               String           @id @default(cuid())
-  mormalizedName   String           @unique
-  name             String           @unique
-  note             String?
-  startsFrom       DateTime?
-  updatedAt        DateTime         @updatedAt
-}
-
-model EmployeeSalary {
-  createdAt       DateTime    @default(now())
-  fiscalMonthId   FiscalMonth @relation(fields: [fiscalMonthIdId], references: [id])
-  fiscalMonthIdId String
-  id              String      @id @default(cuid())
-  netSalary       Decimal
-  note            String?
-  totalDeserved   Decimal
-  totalDiscount   Decimal
-  updatedAt       DateTime    @updatedAt
-}
-
-model EmployeeSalaryDetail {
-  createdAt       DateTime   @default(now())
-  id              String     @id @default(cuid())
-  notes           String?
-  salaryItemId    SalaryItem @relation(fields: [salaryItemIdId], references: [id])
-  salaryItemIdId  Int
-  salaryItemValue Decimal
-  serial          Int
-  updatedAt       DateTime   @updatedAt
-}
-
-model EmployeeClassSalaryItemValue {
-  createdAt         DateTime      @default(now())
-  employeeClassId   EmployeeClass @relation(fields: [employeeClassIdId], references: [id])
-  employeeClassIdId String
-  id                String        @id @default(cuid())
-  itemValue         Decimal
-  salaryItemId      SalaryItem    @relation(fields: [salaryItemIdId], references: [id])
-  salaryItemIdId    Int
-  updatedAt         DateTime      @updatedAt
-}
-
-model Account {
-  ProductGroupPurchaseReturnAccounts   ProductGroup[]       @relation(name: "ProductGroupPurchaseReturnAccounts")
-  ProductGroupSaleAccounts             ProductGroup[]       @relation(name: "ProductGroupSaleAccounts")
-  accountCategory                      AccountCategory?     @relation(fields: [accountCategoryId], references: [id])
-  accountCategoryId                    String?
-  accountNumber                        String?
-  accountTypeId                        AccountType          @relation(fields: [accountTypeIdId], references: [id])
-  accountTypeIdId                      Int
-  createdAt                            DateTime             @default(now())
-  currencyId                           Currency             @relation(fields: [currencyIdId], references: [id])
-  currencyIdId                         String
-  description                          String?
-  id                                   String               @id @default(cuid())
-  installmentSaleFees                  InstallmentSaleFee[]
-  isActive                             Boolean?
-  isMasterAccount                      Boolean
-  isUnderRevision                      Boolean?
-  name                                 String               @unique
-  normalizedName                       String               @unique
-  note                                 String?
-  parentAccountId                      String?
-  productGroupCostOfGoodsSoldAccounts  ProductGroup[]       @relation(name: "productGroupCostOfGoodsSoldAccounts")
-  productGroupInventoryAccounts        ProductGroup[]       @relation(name: "inventoryAccountId")
-  productGroupPurchaseAccounts         ProductGroup[]       @relation(name: "productGroupPurchaseAccounts")
-  productGroupPurchaseDiscountAccounts ProductGroup[]       @relation(name: "PurchaseDiscountAccountId")
-  productGroupSaleDiscountAccountIds   ProductGroup[]       @relation(name: "productGroupSaleDiscountAccountIds")
-  productGroupSaleReturnAccountIds     ProductGroup[]       @relation(name: "SaleReturnAccountId")
-  referenceNumber                      String?
-  updatedAt                            DateTime             @updatedAt
-}
-
-model Currency {
-  accounts            Account[]
-  code                String?              @unique
-  createdAt           DateTime             @default(now())
-  customers           Customer[]
-  exchangeRateDetails ExchangeRateDetail[] @relation(name: "exchangeRateDetails")
-  foreignCurrencyName ExchangeRateDetail?  @relation(name: "foreignCurrencyId")
-  hundredthName       String
-  id                  String               @id @default(cuid())
-  isDefault           Boolean
-  name                String               @unique
-  normalizedName      String               @unique
-  note                String?
-  suppliers           Supplier[]
-  symbolField         String               @unique
-  updatedAt           DateTime             @updatedAt
-}
-
-model AccountType {
-  accounts       Account[]
-  code           String    @unique
-  createdAt      DateTime  @default(now())
-  description    String?
-  id             Int       @id @default(autoincrement())
-  isSystem       Boolean?
-  name           String    @unique
-  normalizedName String?
-  note           String?
-  updatedAt      DateTime  @updatedAt
-}
-
-model AccountCategory {
-  accounts       Account[]
-  code           String
-  createdAt      DateTime  @default(now())
-  description    String?
-  id             String    @id @default(cuid())
-  name           String    @unique
-  normalizedName String    @unique
-  note           String?
-  updatedAt      DateTime  @updatedAt
-}
-
-model AccountTransaction {
-  accountTransactionDetails AccountTransactionDetail[]
-  costCenter                CostCenter?                @relation(fields: [costCenterId], references: [id])
-  costCenterId              String?
-  createdAt                 DateTime                   @default(now())
-  id                        String                     @id @default(cuid())
-  note                      String?
-  referenceNumber           String?
-  statementReference        String?
-  store                     Store                      @relation(fields: [storeId], references: [id])
-  storeId                   String
-  transactionDate           DateTime?
-  updatedAt                 DateTime                   @updatedAt
-}
-
-model TransactionType {
-  accountTransactionDetails AccountTransactionDetail[]
-  code                      String                     @unique
-  createdAt                 DateTime                   @default(now())
-  description               String?
-  id                        Int                        @id @default(autoincrement())
-  name                      String                     @unique
-  normalizedName            String                     @unique
-  updatedAt                 DateTime                   @updatedAt
-}
-
-model CostCenter {
-  accountTransactions AccountTransaction[]
-  code                String               @unique
-  createdAt           DateTime             @default(now())
-  description         String?
-  id                  String               @id @default(cuid())
-  isSystem            Boolean?
-  name                String               @unique
-  normalizedName      String               @unique
-  note                String?
-  updatedAt           DateTime             @updatedAt
-}
-
-model StoreType {
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  description    String?
-  id             Int      @id @default(autoincrement())
-  isDefault      Boolean?
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  stores         Store[]
-  updatedAt      DateTime @updatedAt
-}
-
-model Store {
-  accountTransactionDetails AccountTransactionDetail[]
-  accountTransactions       AccountTransaction[]
-  addressLine1              String?
-  allowSale                 Boolean
-  cellPhoneNumber           String?
-  code                      String                     @unique
-  createdAt                 DateTime                   @default(now())
-  customerElevators         CustomerElevator[]
-  elevators                 Elevator[]
-  failureReportings         FailureReporting[]
-  fax                       String?
-  homePhoneNumber           String?
-  id                        String                     @id @default(cuid())
-  maintenanceContracts      MaintenanceContract[]
-  maintenanceVisits         MaintenanceVisit[]
-  name                      String                     @unique
-  normalizedName            String                     @unique
-  note                      String?
-  notifications             Notification[]
-  office                    Office                     @relation(fields: [officeId], references: [id])
-  officeId                  String
-  periodicMaintenanceOrders PeriodicMaintenanceOrder[]
-  products                  Product[]
-  saleTaxes                 SaleTax[]
-  storeType                 StoreType                  @relation(fields: [storeTypeId], references: [id])
-  storeTypeId               Int
-  street                    String?
-  updatedAt                 DateTime                   @updatedAt
-}
-
-model Office {
-  address         String?
-  cellPhoneNumber String?
-  code            String         @unique
-  createdAt       DateTime       @default(now())
-  description     String?
-  fax             String?
-  homePhoneNumber String?
-  id              String         @id @default(cuid())
-  name            String         @unique
-  normalizedName  String         @unique
-  note            String?
-  notifications   Notification[]
-  stores          Store[]
-  updatedAt       DateTime       @updatedAt
-}
-
-model AccountTransactionDetail {
-  accountTransactionId   AccountTransaction @relation(fields: [accountTransactionIdId], references: [id])
-  accountTransactionIdId String
-  createdAt              DateTime           @default(now())
-  credit                 Decimal
-  debit                  Decimal
-  exchangeRate           Decimal?
-  id                     String             @id @default(cuid())
-  note                   String?
-  referenceNumber        String?
-  serial                 Int?
-  statementReference     String?
-  storeId                Store              @relation(fields: [storeIdId], references: [id])
-  storeIdId              String
-  transactionDate        DateTime?
-  transactionTypeId      TransactionType    @relation(fields: [transactionTypeIdId], references: [id])
-  transactionTypeIdId    Int
-  updatedAt              DateTime           @updatedAt
-}
-
-model Bank {
-  address                          String?
-  bankAccounts                     BankAccount[]
-  bankBranches                     BankBranch[]
-  cellPhoneNumber                  String?
-  cityId                           City?         @relation(fields: [cityIdId], references: [id])
-  cityIdId                         String?
-  code                             String        @unique
-  contactPhoneNumber               String?
-  countryId                        Country?      @relation(fields: [countryIdId], references: [id])
-  countryIdId                      String?
-  createdAt                        DateTime      @default(now())
-  description                      String?
-  fax                              String?
-  homePhoneNumber                  String?
-  id                               String        @id @default(cuid())
-  name                             String        @unique
-  normalizedName                   String        @unique
-  note                             String?
-  relationshipOfficerContactNumber String?
-  relationshipOfficerName          String?
-  stateId                          State?        @relation(fields: [stateIdId], references: [id])
-  stateIdId                        String?
-  street                           String?
-  updatedAt                        DateTime      @updatedAt
-}
-
-model BankType {
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  description    String?
-  id             Int      @id @default(autoincrement())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model Country {
-  banks          Bank[]
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  description    String?
-  id             String   @id @default(cuid())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  states         State[]
-  updatedAt      DateTime @updatedAt
-}
-
-model State {
-  banks          Bank[]
-  cities         City[]
-  code           String   @unique
-  countryId      Country  @relation(fields: [countryIdId], references: [id])
-  countryIdId    String
-  createdAt      DateTime @default(now())
-  description    String?
-  id             String   @id @default(cuid())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model City {
-  banks          Bank[]
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  description    String?
-  id             String   @id @default(cuid())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  stateId        State    @relation(fields: [stateIdId], references: [id])
-  stateIdId      String
-  updatedAt      DateTime @updatedAt
-}
-
-model BankAccount {
-  accountNumber  String
-  bankBranchId   BankBranch? @relation(fields: [bankBranchIdId], references: [id])
-  bankBranchIdId String?
-  bankId         Bank        @relation(fields: [bankIdId], references: [id])
-  bankIdId       String
-  code           String      @unique
-  createdAt      DateTime    @default(now())
-  description    String?
-  epan           String?
-  id             String      @id @default(cuid())
-  name           String      @unique
-  normalizedName String      @unique
-  note           String?
-  updatedAt      DateTime    @updatedAt
-}
-
-model BankBranch {
-  address            String?
-  bankAccounts       BankAccount[]
-  bankId             Bank?         @relation(fields: [bankIdId], references: [id])
-  bankIdId           String?
-  code               String        @unique
-  contactPhoneNumber String?
-  createdAt          DateTime      @default(now())
-  description        String?
-  id                 String        @id @default(cuid())
-  name               String        @unique
-  normalizedName     String        @unique
-  note               String?
-  updatedAt          DateTime      @updatedAt
-}
-
-model CashRepository {
-  cashRepositories       CashRepository? @relation(name: "cashRepositories")
-  code                   String          @unique
-  createdAt              DateTime        @default(now())
-  description            String?
-  id                     String          @id @default(cuid())
-  name                   String          @unique
-  normalizedName         String          @unique
-  note                   String?
-  parentCashRepositoryId CashRepository? @relation(name: "cashRepositories", fields: [Name], references: [id])
-  Name                   String?         @unique
-  updatedAt              DateTime        @updatedAt
-}
-
-model ReceiptVoucher {
-  amount             Decimal
-  chequeDueDate      DateTime?
-  chequeNumber       String?
-  chequeValue        Decimal?
-  createdAt          DateTime    @default(now())
-  id                 String      @id @default(cuid())
-  note               String?
-  receiptVoucherDate DateTime
-  serialNumber       String?
-  statementReference String?
-  updatedAt          DateTime    @updatedAt
-  voucherTypeId      VoucherType @relation(fields: [voucherTypeIdId], references: [id])
-  voucherTypeIdId    Int
-  wasChequePaid      Boolean?
-}
-
-model VoucherType {
-  code            String           @unique
-  createdAt       DateTime         @default(now())
-  description     String?
-  id              Int              @id @default(autoincrement())
-  name            String
-  normalizedName  String?
-  note            String?
-  receiptVouchers ReceiptVoucher[]
-  updatedAt       DateTime         @updatedAt
-}
-
-model Company {
-  address                 String?
-  createdAt               DateTime @default(now())
-  description             String?
-  id                      String   @id @default(cuid())
-  name                    String   @unique
-  normalizedName          String   @unique
-  note                    String?
-  phoneNumber             String?
-  saleReceiptExtraDetails String?
-  updatedAt               DateTime @updatedAt
-}
-
-model ExchangeRate {
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  id             String   @id @default(cuid())
-  isActive       Boolean
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model ExchangeRateDetail {
-  createdAt         DateTime  @default(now())
-  exchangeRateDate  DateTime?
-  exchangeRateValue Decimal
-  foreignCurrencyId Currency? @relation(name: "foreignCurrencyId", fields: [Name], references: [id])
-  Name              String?   @unique
-  id                String    @id @default(cuid())
-  localCurrencyId   Currency  @relation(name: "exchangeRateDetails", fields: [localCurrencyIdId], references: [id])
-  localCurrencyIdId String
-  unit              Int
-  updatedAt         DateTime  @updatedAt
-}
-
-model ExpenseItem {
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  description    String?
-  id             String   @id @default(cuid())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model IncomeItem {
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  description    String?
-  id             String   @id @default(cuid())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model FiscalYear {
-  code           String?
-  createdAt      DateTime      @default(now())
-  endsOn         DateTime?
-  fiscalMonths   FiscalMonth[]
-  id             String        @id @default(cuid())
-  isEodRequired  Boolean?
-  name           String?
-  normalizedName String?
-  notes          String?
-  startsFrom     DateTime?
-  updatedAt      DateTime      @updatedAt
-}
-
-model FiscalWeek {
-  code            String?
-  createdAt       DateTime    @default(now())
-  endsOn          String?
-  fiscalMonthId   FiscalMonth @relation(fields: [fiscalMonthIdId], references: [id])
-  fiscalMonthIdId String
-  id              String      @id @default(cuid())
-  name            String?
-  normalizedName  String?
-  note            String?
-  startsFrom      String?
-  updatedAt       DateTime    @updatedAt
-}
-
-model Period {
-  code                            String       @unique
-  createdAt                       DateTime     @default(now())
-  description                     String?
-  id                              String       @id @default(cuid())
-  installmentSaleFeePostingPeriod PaymentTerm? @relation(name: "installmentSaleFeePostingPeriod")
-  name                            String       @unique
-  normalizedName                  String       @unique
-  note                            String?
-  paymentTerms                    PaymentTerm? @relation(name: "duePeriodId")
-  updatedAt                       DateTime     @updatedAt
-}
-
-model PaymentVoucher {
-  amount             Decimal
-  createdAt          DateTime @default(now())
-  id                 String   @id @default(cuid())
-  note               String?
-  paymentVoucherDate DateTime
-  statementReference String?
-  updatedAt          DateTime @updatedAt
-}
-
-model Rating {
-  code             String     @unique
-  createdAt        DateTime   @default(now())
-  customers        Customer[] @relation(name: "CustomersOnRating")
-  guarantorRatingI Customer[] @relation(name: "guarantorRatingI")
-  id               Int        @id @default(autoincrement())
-  name             String     @unique
-  normalizedName   String     @unique
-  note             String?
-  updatedAt        DateTime   @updatedAt
-}
-
-model Supplier {
-  address        String?
-  code           String?
-  createdAt      DateTime   @default(now())
-  credit         String?
-  currencyId     Currency?  @relation(fields: [currencyIdId], references: [id])
-  currencyIdId   String?
-  customers      Customer[]
-  debit          String?
-  description    String?
-  email          String?
-  id             String     @id @default(cuid())
-  name           String?
-  normalizedName String?
-  note           String?
-  phoneNumber    String?
-  updatedAt      DateTime   @updatedAt
-  website        String?
-}
-
-model CustomerType {
-  code           String?    @unique
-  createdAt      DateTime   @default(now())
-  customers      Customer[]
-  description    String?
-  id             Int        @id @default(autoincrement())
-  name           String?
-  normalizedName String     @unique
-  note           String?
-  updatedAt      DateTime   @updatedAt
-}
-
-model Customer {
-  address                   String?
-  code                      String                @unique
-  createdAt                 DateTime              @default(now())
-  credit                    Decimal?
-  currencyId                Currency?             @relation(fields: [currencyIdId], references: [id])
-  currencyIdId              String?
-  customerCateogryId        CustomerCateogry?     @relation(fields: [customerCateogryIdId], references: [id])
-  customerCateogryIdId      String?
-  customerTypeId            CustomerType?         @relation(fields: [customerTypeIdId], references: [id])
-  customerTypeIdId          Int?
-  debit                     Decimal?
-  description               String?
-  email                     String?
-  firstBalance              Decimal?
-  firstBalanceDate          DateTime?
-  guarantorAddress          String?
-  guarantorJobTitle         String?
-  guarantorName             String?
-  guarantorNationalIdNumber String?
-  guarantorPhoneNumber      String?
-  guarantorRatingId         Rating?               @relation(name: "guarantorRatingI", fields: [Name], references: [id])
-  Name                      Int?
-  guarantorWorkAddress      String?
-  hasMortalOrDiscount       String?
-  hasNoPendingInvoices      String?
-  id                        String                @id @default(cuid())
-  isActive                  Boolean?
-  isComplain                Boolean?
-  isSystem                  Boolean?
-  isUnderRevision           Boolean?
-  jobTitle                  String?
-  maintenanceContracts      MaintenanceContract[]
-  maxAllowedDebit           Decimal?
-  name                      String                @unique
-  normalizedName            String                @unique
-  note                      String?
-  phoneNumber               String?
-  previousBalance           Decimal?
-  rating                    Rating?               @relation(name: "CustomersOnRating", fields: [ratingId], references: [id])
-  ratingId                  Int?
-  revisionDate              DateTime?
-  saleDiscountRate          Decimal?
-  salePriceTypeId           SalePriceType?        @relation(fields: [Name], references: [id])
-  Name                      Int?                  @unique
-  supplierId                Supplier?             @relation(fields: [supplierIdId], references: [id])
-  supplierIdId              String?
-  taxNumber                 String?
-  updatedAt                 DateTime              @updatedAt
-  website                   String?
-  workAddress               String?
-}
-
-model SalePriceType {
-  code           String    @unique
-  createdAt      DateTime  @default(now())
-  customers      Customer?
-  id             Int       @id @default(autoincrement())
-  isDefault      Boolean
-  name           String    @unique
-  normalizedName String    @unique
-  note           String?
-  updatedAt      DateTime  @updatedAt
-}
-
-model CustomerCateogry {
-  code           String     @unique
-  createdAt      DateTime   @default(now())
-  customers      Customer[]
-  description    String?
-  id             String     @id @default(cuid())
-  name           String     @unique
-  normalizedName String     @unique
-  note           String?
-  updatedAt      DateTime   @updatedAt
-}
-
-model InvoiceType {
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  id             Int      @id @default(autoincrement())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model Notification {
-  createdAt        DateTime  @default(now())
-  description      String?
-  eventDateTime    DateTime?
-  icon             String?
-  id               String    @id @default(cuid())
-  isSystem         Boolean?
-  note             String?
-  notificationText String?
-  officeId         Office?   @relation(fields: [officeIdId], references: [id])
-  officeIdId       String?
-  store            Store?    @relation(fields: [storeId], references: [id])
-  storeId          String?
-  toLoginId        String?
-  toRoleId         Json
-  toUserId         String?   @unique
-  updatedAt        DateTime  @updatedAt
-  url              String?
-}
-
-model OrderStatus {
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  description    String?
-  id             String   @id @default(cuid())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model PaymentMethod {
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  id             Int      @id @default(autoincrement())
-  isDefault      Boolean?
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model PaymentStatus {
-  code           String   @unique
-  createdAt      DateTime @default(now())
-  description    String?
-  id             Int      @id @default(autoincrement())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model PaymentTerm {
-  code                              String?
-  createdAt                         DateTime            @default(now())
-  description                       String?
-  dueDays                           Int?
-  dueOnDate                         DateTime?
-  duePeriodId                       Period?             @relation(name: "duePeriodId", fields: [Name], references: [id])
-  Name                              String?             @unique
-  gracePeriod                       Int?
-  id                                String              @id @default(cuid())
-  installmentSaleFeeId              InstallmentSaleFee? @relation(fields: [installmentSaleFeeIdId], references: [id])
-  installmentSaleFeeIdId            String?
-  installmentSaleFeePostingPeriodId Period?             @relation(name: "installmentSaleFeePostingPeriod", fields: [InstallmentSaleFeePostingPeriod], references: [id])
-  InstallmentSaleFeePostingPeriod   String?             @unique
-  isDefault                         Boolean?
-  name                              String?
-  normalizedName                    String?
-  updatedAt                         DateTime            @updatedAt
-}
-
-model InstallmentSaleFee {
-  account        Account?      @relation(fields: [accountId], references: [id])
-  accountId      String?
-  code           String?
-  createdAt      DateTime      @default(now())
-  description    String?
-  id             String        @id @default(cuid())
-  isFlatAmount   Boolean?
-  name           String        @unique
-  normalizedName String        @unique
-  note           String?
-  paymentTerms   PaymentTerm[]
-  rate           Decimal?
-  updatedAt      DateTime      @updatedAt
-}
-
-model Attachment {
-  createdAt        DateTime @default(now())
-  fileExtension    String
-  filePath         String
-  id               String   @id @default(cuid())
-  note             String?
-  originalFileName String
-  tableKeyName     String
-  tableKeyValue    String?
-  tableName        String
-  updatedAt        DateTime @updatedAt
-}
-
-model PaymentType {
-  code           String?
-  createdAt      DateTime @default(now())
-  id             Int      @id @default(autoincrement())
-  isDefault      Boolean?
-  name           String   @unique
-  normalizedName String   @unique
-  notes          String?
-  updatedAt      DateTime @updatedAt
-}
-
-model Attendance {
-  attendanceDate       DateTime?
-  checkInTime          DateTime?
-  checkOutTime         DateTime?
-  createdAt            DateTime  @default(now())
-  id                   String    @id @default(cuid())
-  note                 String?
-  overtimeHours        Decimal?
-  reasonForAbsenteeism String?
-  updatedAt            DateTime  @updatedAt
-  wasAbsent            Boolean?
-  wasPresent           Boolean
+  createdAt  DateTime @default(now())
+  email      String   @unique
+  firstName  String?
+  id         String   @id @default(cuid())
+  isActive   Boolean  @default(1)
+  lastName   String?
+  password   String
+  roles      Json
+  tenantId   Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId String?
+  updatedAt  DateTime @updatedAt
+  username   String   @unique
 }
 
 model Attribute {
@@ -861,619 +28,320 @@ model Attribute {
   createdAt       DateTime         @default(now())
   description     String?
   id              Int              @id @default(autoincrement())
+  isActive        Boolean          @default(1)
   name            String           @unique
   normalizedName  String           @unique
   note            String?
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
   updatedAt       DateTime         @updatedAt
 }
 
 model AttributeValue {
-  attributeId Attribute? @relation(fields: [Name], references: [id])
-  Name        Int?
-  createdAt   DateTime   @default(now())
-  id          String     @id @default(cuid())
-  note        String?
-  updatedAt   DateTime   @updatedAt
-  value       String?
+  attributeId     Attribute        @relation(fields: [attributeIdId], references: [id])
+  attributeIdId   Int
+  createdAt       DateTime         @default(now())
+  id              String           @id @default(cuid())
+  isActive        Boolean          @default(1)
+  note            String?
+  productVariants ProductVariant[]
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
+  value           String
 }
 
 model BarcodeType {
-  code           String?
-  createdAt      DateTime @default(now())
-  description    String?
-  id             Int      @id @default(autoincrement())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
+  code            String?
+  createdAt       DateTime         @default(now())
+  description     String?
+  id              Int              @id @default(autoincrement())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  productBarcodes ProductBarcode[]
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
 }
 
 model BillOfMaterialType {
-  code           String?
-  createdAt      DateTime @default(now())
-  description    String?
-  id             Int      @id @default(autoincrement())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model Brand {
-  code           String?
-  createdAt      DateTime @default(now())
-  description    String?
-  id             String   @id @default(cuid())
-  isDefault      Boolean?
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model PressType {
-  code           String?
-  createdAt      DateTime @default(now())
-  description    String?
-  id             Int      @id @default(autoincrement())
-  name           String   @unique
-  normalizedName String   @unique
-  notes          String?
-  updatedAt      DateTime @updatedAt
-}
-
-model ControlType {
-  code        String?
-  createdAt   DateTime   @default(now())
-  description String     @unique
-  elevators   Elevator[]
-  id          Int        @id @default(autoincrement())
-  isActive    Boolean?
-  name        String?
-  note        String?
-  noted       String?
-  updatedAt   DateTime   @updatedAt
-}
-
-model ContractStatus {
-  Codec                 String?
-  code                  String?
-  createdAt             DateTime              @default(now())
-  description           String?
-  id                    String                @id @default(cuid())
-  installationContracts InstallationContract?
-  isActive              Boolean?
-  name                  String                @unique
-  note                  String?
-  updatedAt             DateTime              @updatedAt
-}
-
-model DoorType {
-  code           String?
-  createdAt      DateTime   @default(now())
-  description    String?
-  elevators      Elevator[]
-  id             Int        @id @default(autoincrement())
-  name           String     @unique
-  normalizedName String?
-  notes          String?
-  updatedAt      DateTime   @updatedAt
-}
-
-model ElevatorType {
-  code           String?
-  createdAt      DateTime   @default(now())
-  description    String?
-  elevators      Elevator[]
-  id             Int        @id @default(autoincrement())
-  name           String     @unique
-  normalizedName String     @unique
-  notes          String?
-  updatedAt      DateTime   @updatedAt
-}
-
-model FailureType {
-  code              String?
-  createdAt         DateTime           @default(now())
-  description       String?
-  failureReportings FailureReporting[]
-  id                Int                @id @default(autoincrement())
-  name              String             @unique
-  normalizedName    String             @unique
-  notes             String?
-  updatedAt         DateTime           @updatedAt
-}
-
-model ImageCategory {
-  code           String?
-  createdAt      DateTime @default(now())
-  description    String?
-  id             Int      @id @default(autoincrement())
-  name           String   @unique
-  normalizedName String   @unique
-  notes          String?
-  updatedAt      DateTime @updatedAt
-}
-
-model Calendar {
-  averageHoursPerDay Decimal?
-  code               String?
-  createdAt          DateTime @default(now())
-  description        String?
-  id                 String   @id @default(cuid())
-  isActive           Boolean?
-  isTwoWeeksCalendar Boolean?
-  name               String?
-  normalizedName     String?
-  note               String?
-  updatedAt          DateTime @updatedAt
-}
-
-model CashTransfer {
-  amount             Decimal
-  createdAt          DateTime @default(now())
-  id                 String   @id @default(cuid())
-  note               String?
-  referenceNumber    String?
-  statementReference String?
-  transferDate       DateTime
-  updatedAt          DateTime @updatedAt
-}
-
-model Unit {
-  code           String         @unique
-  compareUnit    CompoundUnit?  @relation(name: "compareUnit")
-  compoundUnits  CompoundUnit[] @relation(name: "baseUnitId")
-  createdAt      DateTime       @default(now())
-  description    String?
-  id             String         @id @default(cuid())
-  isCompound     Boolean?
-  isDefault      Boolean
-  name           String         @unique
-  normalizedName String         @unique
-  note           String?
-  products       Product[]
-  updatedAt      DateTime       @updatedAt
-}
-
-model CompoundUnit {
-  baseUnitId    Unit     @relation(name: "baseUnitId", fields: [Name], references: [id])
-  Name          String
-  compareUnitId Unit     @relation(name: "compareUnit", fields: [Name], references: [id])
-  Name          String   @unique
-  createdAt     DateTime @default(now())
-  id            String   @id @default(cuid())
-  notes         String?
-  updatedAt     DateTime @updatedAt
-  value         Decimal
-}
-
-model ContractPeriod {
-  Description          String?
-  code                 String?
-  createdAt            DateTime              @default(now())
-  id                   Int                   @id @default(autoincrement())
-  maintenanceContracts MaintenanceContract[]
-  name                 String                @unique
-  normalizedName       String                @unique
-  note                 String?
-  updatedAt            DateTime              @updatedAt
-}
-
-model CurrencySetting {
-  createdAt   DateTime @default(now())
-  description String?
-  id          String   @id @default(cuid())
-  key         String
-  note        String?
-  updatedAt   DateTime @updatedAt
-  value       String
-}
-
-model CustomerElevator {
-  address                             String?
-  amount                              String?
-  code                                String?
-  createdAt                           DateTime                   @default(now())
-  elevatorId                          Elevator                   @relation(fields: [elevatorIdId], references: [id])
-  elevatorIdId                        String
-  failureReportings                   FailureReporting[]
-  hasPendingMaintenanceContractOrders String?
-  id                                  String                     @id @default(cuid())
-  installationContracts               InstallationContract[]
-  maintenanceContractDocumentImage    Json?
-  maintenanceEndDate                  DateTime?
-  maintenanceStartDate                DateTime?
-  name                                String?
-  normalizedName                      String?
-  note                                String?
-  periodicMaintenanceOrders           PeriodicMaintenanceOrder[]
-  phoneNumber                         String?
-  storeId                             Store                      @relation(fields: [storeIdId], references: [id])
-  storeIdId                           String
-  updatedAt                           DateTime                   @updatedAt
-}
-
-model MotorType {
-  code           String?
-  createdAt      DateTime   @default(now())
-  description    String?
-  elevators      Elevator[]
-  id             Int        @id @default(autoincrement())
-  name           String     @unique
-  normalizedName String?
-  notes          String?
-  updatedAt      DateTime   @updatedAt
-}
-
-model Elevator {
-  bannerSize                String?
-  cabinetSize               String?
-  code                      String?
-  controlTypeId             ControlType?               @relation(fields: [controlTypeIdId], references: [id])
-  controlTypeIdId           Int?
-  createdAt                 DateTime                   @default(now())
-  customerElevators         CustomerElevator[]
-  customerUsers             CustomerUser[]
-  description               String?
-  doorSize                  Decimal?
-  doorTypeId                DoorType?                  @relation(fields: [doorTypeIdId], references: [id])
-  doorTypeIdId              Int?
-  elevatorSpareParts        ElevatorSparePart[]
-  elevatorTypeId            ElevatorType?              @relation(fields: [elevatorTypeIdId], references: [id])
-  elevatorTypeIdId          Int?
-  failureReportings         FailureReporting[]
-  freight                   Decimal?
-  id                        String                     @id @default(cuid())
-  installationContracts     InstallationContract[]
-  maintenanceContracts      MaintenanceContract[]
-  maintenanceVisits         MaintenanceVisit[]
-  motorPower                String?
-  motorTypeId               MotorType?                 @relation(fields: [motorTypeIdId], references: [id])
-  motorTypeIdId             Int?
-  name                      String                     @unique
-  normalizedName            String                     @unique
-  periodicMaintenanceOrders PeriodicMaintenanceOrder[]
-  personsCount              Int?
-  stationsCount             Int?
-  storeId                   Store                      @relation(fields: [storeIdId], references: [id])
-  storeIdId                 String
-  updatedAt                 DateTime                   @updatedAt
-}
-
-model Debit {
-  amountTotal    Decimal?
-  contractDate   DateTime?
-  contractNumber String?
-  createdAt      DateTime  @default(now())
-  firstShare     Decimal?
-  fourthShare    Decimal?
-  id             String    @id @default(cuid())
-  note           String?
-  paidTotal      Decimal?
-  remaining      Decimal?
-  secondShare    Decimal?
-  thirdShare     Decimal?
-  updatedAt      DateTime  @updatedAt
-}
-
-model ElevatorSparePart {
-  createdAt      DateTime  @default(now())
-  elevator       Elevator? @relation(fields: [elevatorId], references: [id])
-  elevatorId     String?
-  id             String    @id @default(cuid())
-  price          Float?
-  updatedAt      DateTime  @updatedAt
-  wholeSalePrice Float?
-}
-
-model ElevatorStatus {
-  code           String?
-  createdAt      DateTime @default(now())
-  description    String
-  id             Int      @id @default(autoincrement())
-  name           String   @unique
-  normalizedName String   @unique
-  note           String?
-  updatedAt      DateTime @updatedAt
-}
-
-model Failure {
-  createdAt     DateTime  @default(now())
-  failureDate   DateTime?
-  failureReport String?
-  id            String    @id @default(cuid())
-  note          String?
-  serial        Int
-  updatedAt     DateTime  @updatedAt
-}
-
-model FailureReporting {
-  contactingFromTime   DateTime?
-  contactingToTime     DateTime?
-  createdAt            DateTime         @default(now())
-  customerElevatorId   CustomerElevator @relation(fields: [customerElevatorIdId], references: [id])
-  customerElevatorIdId String
-  customerUser         CustomerUser     @relation(fields: [customerUserId], references: [id])
-  customerUserId       String
-  elevator             Elevator?        @relation(fields: [elevatorId], references: [id])
-  elevatorId           String?
-  failureDescription   String?
-  failureTypeId        FailureType      @relation(fields: [failureTypeIdId], references: [id])
-  failureTypeIdId      Int
-  id                   String           @id @default(cuid())
-  note                 String?
-  reportingDate        DateTime
-  reviewDate           DateTime?
-  store                Store?           @relation(fields: [storeId], references: [id])
-  storeId              String?
-  updatedAt            DateTime         @updatedAt
-  wasReviewed          Boolean?
-}
-
-model CustomerUser {
-  accessFailedCount               Int?
-  createdAt                       DateTime                   @default(now())
-  elevatorId                      Elevator                   @relation(fields: [elevatorIdId], references: [id])
-  elevatorIdId                    String
-  email                           String
-  emailConfirmed                  Boolean?
-  entityVersion                   String?
-  failureReportings               FailureReporting[]
-  id                              String                     @id @default(cuid())
-  isActive                        Boolean?
-  isExternal                      Boolean?
-  lastPasswordChangeTime          DateTime?
-  lockoutEnabled                  Boolean?
-  lockoutEnd                      DateTime?
-  maintenanceContracts            MaintenanceContract[]
-  name                            String
-  normalizedEmail                 String
-  normalizedUserName              String
-  note                            String?
-  passwordHash                    String?
-  periodicMaintenanceOrders       PeriodicMaintenanceOrder[]
-  phoneNumber                     String?
-  phoneNumberConfirmed            Boolean?
-  securityStamp                   String?
-  shouldChangePasswordOnNextLogin Boolean?
-  surname                         String?
-  twoFactorEnabled                Boolean?
-  updatedAt                       DateTime                   @updatedAt
-  userName                        String                     @unique
-}
-
-model InstallationContract {
-  address               String?
-  amount                Decimal
-  cabinetTechnician     String?
-  contractDate          DateTime?
-  contractNumber        String           @unique
-  contractStatusId      ContractStatus   @relation(fields: [Name], references: [id])
-  Name                  String           @unique
-  createdAt             DateTime         @default(now())
-  customerElevatorId    CustomerElevator @relation(fields: [customerElevatorIdId], references: [id])
-  customerElevatorIdId  String
-  doorTechnician        String?
-  electricityTechnician String?
-  elevatorId            Elevator         @relation(fields: [elevatorIdId], references: [id])
-  elevatorIdId          String
-  elevatorsCount        String?
-  id                    String           @id @default(cuid())
-  phoneNumber           String?
-  updatedAt             DateTime         @updatedAt
-}
-
-model MaintenanceContract {
-  confirmDate        DateTime?
-  contactEndTime     DateTime?
-  contactStartTime   DateTime?
-  contractPeriodId   ContractPeriod @relation(fields: [contractPeriodIdId], references: [id])
-  contractPeriodIdId Int
-  contractStartDate  DateTime
-  createdAt          DateTime       @default(now())
-  customerId         Customer       @relation(fields: [customerIdId], references: [id])
-  customerIdId       String
-  customerUserId     CustomerUser?  @relation(fields: [customerUserIdId], references: [id])
-  customerUserIdId   String?
-  elevatorId         Elevator       @relation(fields: [elevatorIdId], references: [id])
-  elevatorIdId       String
-  id                 String         @id @default(cuid())
-  isConfirmed        Boolean?
-  note               String?
-  orderDate          DateTime?
-  storeId            Store?         @relation(fields: [storeIdId], references: [id])
-  storeIdId          String?
-  updatedAt          DateTime       @updatedAt
-}
-
-model MaintenanceVisit {
-  createdAt          DateTime                             @default(now())
-  elevator           Elevator                             @relation(fields: [elevatorId], references: [id])
-  elevatorId         String
-  elevatorStatusId   EnumMaintenanceVisitElevatorStatusId
-  id                 String                               @id @default(cuid())
-  spareParts         String?
-  store              Store                                @relation(fields: [storeId], references: [id])
-  storeId            String
-  updatedAt          DateTime                             @updatedAt
-  visitDate          DateTime
-  visitDocumentImage Json?
-}
-
-model ProductType {
-  code           String?
-  createdAt      DateTime  @default(now())
-  description    String?
-  id             String    @id @default(cuid())
-  isComponent    Boolean?
-  name           String    @unique
-  normalizedName String    @unique
-  note           String?
-  products       Product[]
-  updatedAt      DateTime  @updatedAt
-}
-
-model ProductCategory {
-  code                String?
-  createdAt           DateTime           @default(now())
-  description         String?
-  id                  Int                @id @default(autoincrement())
-  isDefault           Boolean?
-  name                String?
-  normalizedName      String?
-  note                String?
-  productDepartment   ProductDepartment? @relation(fields: [productDepartmentId], references: [id])
-  productDepartmentId Int?
-  products            Product[]
-  updatedAt           DateTime           @updatedAt
-}
-
-model ProductDepartment {
-  code              String?
-  createdAt         DateTime          @default(now())
-  description       String?
-  id                Int               @id @default(autoincrement())
-  isDefault Boolean? @default(
-  name              String            @unique
-  normalizedName    String            @unique
-  note              String?
-  productCategories ProductCategory[]
-  products          Product[]
-  updatedAt         DateTime          @updatedAt
-}
-
-model ProductGroup {
-  PurchaseDiscountAccountId   Account?       @relation(name: "PurchaseDiscountAccountId", fields: [PurchaseDiscountAccountIdId], references: [id])
-  PurchaseDiscountAccountIdId String?
-  SaleReturnAccountId         Account?       @relation(name: "SaleReturnAccountId", fields: [SaleReturnAccountId], references: [id])
-  SaleReturnAccountId         String?
-  account                     Account?       @relation(name: "productGroupCostOfGoodsSoldAccounts", fields: [accountId], references: [id])
-  accountId                   String?
-  code                        String?
-  createdAt                   DateTime       @default(now())
-  description                 String?
-  excludeFromPurchase         Boolean?       @default(0)
-  excludeFromSale             Boolean?       @default(0)
-  id                          String         @id @default(cuid())
-  inventoryAccountId          Account?       @relation(name: "inventoryAccountId", fields: [inventoryAccountIdId], references: [id])
-  inventoryAccountIdId        String?
-  isDefault                   Boolean?       @default(0)
-  name                        String         @unique
-  normalizedName              String         @unique
-  notes                       String?
-  parentProductGroupId        ProductGroup[] @relation(name: "parentProductGroupId")
-  productGroups               ProductGroup?  @relation(name: "parentProductGroupId", fields: [productGroupsId], references: [id])
-  productGroupsId             String?
-  products                    Product[]
-  purchaseAccountId           Account?       @relation(name: "productGroupPurchaseAccounts", fields: [purchaseAccountIdId], references: [id])
-  purchaseAccountIdId         String?
-  purchaseReturnAccountId     Account?       @relation(name: "ProductGroupPurchaseReturnAccounts", fields: [purchaseReturnAccountIdId], references: [id])
-  purchaseReturnAccountIdId   String?
-  saleAccountId               Account?       @relation(name: "ProductGroupSaleAccounts", fields: [SaleAccountId], references: [id])
-  SaleAccountId               String?
-  saleDiscountAccountId       Account?       @relation(name: "productGroupSaleDiscountAccountIds", fields: [SaleDiscountAccountId], references: [id])
-  SaleDiscountAccountId       String?
-  saleTaxId                   SaleTax?       @relation(fields: [saleTaxIdId], references: [id])
-  saleTaxIdId                 Int?
-  updatedAt                   DateTime       @updatedAt
-}
-
-model SaleTax {
-  code           String?
-  createdAt      DateTime       @default(now())
-  description    String?
-  id             Int            @id @default(autoincrement())
-  isExemption    Boolean?
-  name           String         @unique
-  normalizedName String         @unique
-  note           String?
-  productGroups  ProductGroup[]
-  products       Product[]
-  rate           Decimal?
-  store          Store?         @relation(fields: [storeId], references: [id])
-  storeId        String?
-  updatedAt      DateTime       @updatedAt
-}
-
-model PeriodicMaintenanceOrder {
-  confirmDate        DateTime?
-  contractEndDate    DateTime
-  contractStartDate  DateTime
-  createdAt          DateTime          @default(now())
-  customerElevator   CustomerElevator? @relation(fields: [customerElevatorId], references: [id])
-  customerElevatorId String?
-  customerUserId     CustomerUser?     @relation(fields: [customerUserIdId], references: [id])
-  customerUserIdId   String?
-  elevatorId         Elevator?         @relation(fields: [elevatorIdId], references: [id])
-  elevatorIdId       String?
-  id                 String            @id @default(cuid())
-  isConfirmed        Boolean?          @default(0)
-  orderDate          DateTime
-  storeId            Store             @relation(fields: [storeIdId], references: [id])
-  storeIdId          String
-  updatedAt          DateTime          @updatedAt
-}
-
-model PrintTemplate {
-  Description            String?
-  code                   String?
-  createdAt              DateTime                      @default(now())
-  filePath               String?
-  id                     Int                           @id @default(autoincrement())
-  isCustomized           Boolean?                      @default(0)
-  isFavourite            Boolean?                      @default(0)
-  name                   String                        @unique
-  normalizedName         String
-  note                   String?
-  paperLayout            EnumPrintTemplatePaperLayout?
-  paperSize              EnumPrintTemplatePaperSize?
-  previewImage           Json?
-  printTemplateContents  PrintTemplateContent[]
-  printTemplateGroupId   PrintTemplateGroup            @relation(fields: [printTemplateGroupIdId], references: [id])
-  printTemplateGroupIdId Int
-  updatedAt              DateTime                      @updatedAt
+  billOfMaterials BillOfMaterial[]
+  code            String?
+  createdAt       DateTime         @default(now())
+  description     String?
+  id              Int              @id @default(autoincrement())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
 }
 
 model PrintTemplateGroup {
   code           String?
-  createdAt      DateTime        @default(now())
+  createdAt      DateTime @default(now())
   description    String?
-  id             Int             @id @default(autoincrement())
-  name           String?
-  normalizedName String          @unique
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
   note           String?
-  printTemplates PrintTemplate[]
-  updatedAt      DateTime        @updatedAt
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model PrintTemplate {
+  code                    String?
+  createdAt               DateTime                      @default(now())
+  description             String?
+  filePath                String?
+  id                      String                        @id @default(cuid())
+  isActive                Boolean?                      @default(1)
+  isCustomized            Boolean                       @default(0)
+  isFavourite             Boolean                       @default(0)
+  name                    String                        @unique
+  normalizedName          String                        @unique
+  note                    String?
+  paperLayout             EnumPrintTemplatePaperLayout?
+  paperSize               EnumPrintTemplatePaperSize?
+  previewImage            Json?
+  printTemplateContents   PrintTemplateContent?         @relation(fields: [printTemplateContentsId], references: [id])
+  printTemplateContentsId String?                       @unique
+  tenantId                Tenant?                       @relation(fields: [tenantIdId], references: [id])
+  tenantIdId              String?
+  updatedAt               DateTime                      @updatedAt
 }
 
 model PrintTemplateContent {
-  createdAt         DateTime       @default(now())
-  display           String?
-  fieldValue        String
-  id                String         @id @default(cuid())
-  key               String
-  note              String?
-  printTemplateId   PrintTemplate? @relation(fields: [printTemplateIdId], references: [id])
-  printTemplateIdId Int?
-  updatedAt         DateTime       @updatedAt
-  value             String
+  createdAt       DateTime       @default(now())
+  display         String?
+  fieldValue      String
+  id              String         @id @default(cuid())
+  isActive        Boolean?       @default(1)
+  key             String         @unique
+  note            String?
+  printTemplateId PrintTemplate?
+  tenantId        Tenant?        @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime       @updatedAt
+  value           String
+}
+
+model Customer {
+  DefaultSalePriceTypeId Float?
+  address                String?
+  code                   String?
+  createdAt              DateTime          @default(now())
+  credit                 Decimal?
+  currencyId             Currency?         @relation(fields: [currencyIdId], references: [id])
+  currencyIdId           String?
+  debit                  Decimal?
+  description            String?
+  email                  String?
+  firstBalance           Decimal?
+  firstBalanceDate       DateTime?
+  id                     String            @id @default(cuid())
+  isActive               Boolean           @default(1)
+  isSystem               Boolean?          @default(0)
+  isUnderRevision        Boolean?          @default(0)
+  maxAllowedDebit        Decimal?
+  name                   String            @unique
+  normalizedName         String            @unique
+  phoneNumber            String?
+  previousBalance        Decimal?
+  productionOrders       ProductionOrder[]
+  receiptVouchers        ReceiptVoucher[]
+  revisionDate           DateTime?
+  saleDiscountRate       Decimal?
+  saleOrders             SaleOrder[]
+  saleReturns            SaleReturn[]
+  sales                  Sale[]
+  supplierId             String?
+  suppliers              Supplier[]
+  taxNumber              String?
+  tenant                 Tenant?           @relation(fields: [tenantId], references: [id])
+  tenantId               String?
+  updatedAt              DateTime          @updatedAt
+  website                String?
+}
+
+model SalePriceType {
+  code                 String?
+  createdAt            DateTime             @default(now())
+  description          String?
+  id                   Int                  @id @default(autoincrement())
+  isActive             Boolean              @default(1)
+  name                 String               @unique
+  normalizedName       String               @unique
+  note                 String?
+  saleDetails          SaleDetail?
+  saleOrderDetails     SaleOrderDetail?
+  saleOrders           SaleOrder?
+  saleQuotationDetails SaleQuotationDetail?
+  saleReturnDetails    SaleReturnDetail?
+  saleReturns          SaleReturn?
+  sales                Sale?
+  tenantId             Tenant?              @relation(fields: [tenantIdId], references: [id])
+  tenantIdId           String?
+  updatedAt            DateTime             @updatedAt
+}
+
+model Currency {
+  code            String?
+  createdAt       DateTime         @default(now())
+  customers       Customer[]
+  description     String?
+  id              String           @id @default(cuid())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  paymentVouchers PaymentVoucher[]
+  receiptVouchers ReceiptVoucher[]
+  salePayments    SalePayment[]
+  suppliers       Supplier[]
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
+}
+
+model OrderStatus {
+  code             String?
+  createdAt        DateTime         @default(now())
+  description      String?
+  id               Int              @id @default(autoincrement())
+  isActive         Boolean?         @default(1)
+  name             String           @unique
+  normalizedName   String           @unique
+  note             String?
+  productionOrders ProductionOrder?
+  saleOrders       SaleOrder?
+  tenantId         Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId       String?
+  updatedAt        DateTime         @updatedAt
+}
+
+model Store {
+  addressLine1     String?
+  allowSale        Boolean           @default(1)
+  cellPhoneNumber  String?
+  code             String?
+  createdAt        DateTime          @default(now())
+  fax              String?
+  homePhoneNumber  String?
+  id               String            @id @default(cuid())
+  isActive         Boolean           @default(1)
+  name             String            @unique
+  normalizedName   String            @unique
+  note             String?
+  productionOrders ProductionOrder[]
+  products         Product[]
+  purchaseReturns  PurchaseReturn[]
+  purchases        Purchase[]
+  saleOrders       SaleOrder[]
+  saleReturns      SaleReturn[]
+  sales            Sale[]
+  storeLocations   StoreLocation[]
+  storeTypId       StoreType?        @relation(fields: [storeTypIdId], references: [id])
+  storeTypIdId     String?
+  street           String?
+  tenantId         Tenant?           @relation(fields: [tenantIdId], references: [id])
+  tenantIdId       String?
+  updatedAt        DateTime          @updatedAt
+
+  @@@default(0)
+}
+
+model Unit {
+  billOfMaterialDetails   BillOfMaterialDetail[]
+  billOfMaterials         BillOfMaterial[]
+  code                    String?
+  createdAt               DateTime               @default(now())
+  description             String?
+  id                      String                 @id @default(cuid())
+  isActive                Boolean                @default(1)
+  isCompound              Boolean?
+  isDefault               Boolean?               @default(0)
+  name                    String                 @unique
+  normalizedName          String                 @unique
+  note                    String?
+  productUnitCompareUnits ProductUnit?           @relation(name: "compareUnitId")
+  productUnits            ProductUnit[]          @relation(name: "ProductUnitUnitIdUnitProductUnits")
+  productionOrders        ProductionOrder[]
+  products                Product[]
+  purchaseDetails         PurchaseDetail[]
+  purchaseReturnDetails   PurchaseReturnDetail[]
+  saleDetails             SaleDetail[]
+  saleOrderDetails        SaleOrderDetail[]
+  saleQuotationDetails    SaleQuotationDetail[]
+  saleReturnDetails       SaleReturnDetail[]
+  tenantId                Tenant?                @relation(fields: [tenantIdId], references: [id])
+  tenantIdId              String?
+  updatedAt               DateTime               @updatedAt
+}
+
+model WorkCenter {
+  analyticDistribution String?
+  code                 String?
+  color                Int?
+  costPerHour          Decimal?
+  createdAt            DateTime            @default(now())
+  defaultCapacity      Decimal?
+  id                   Int                 @id @default(autoincrement())
+  isActive             Boolean             @default(1)
+  isProductive         Boolean             @default(0)
+  name                 String              @unique
+  normalizedName       String              @unique
+  note                 String?
+  oeeTareget           Decimal?
+  sequence             Int                 @default(1)
+  startTime            Decimal?
+  stopTime             Decimal?
+  tenantId             Tenant?             @relation(fields: [tenantIdId], references: [id])
+  tenantIdId           String?
+  timeEfficiency       Decimal?
+  updatedAt            DateTime            @updatedAt
+  workCenterRoutings   WorkCenterRouting[]
+}
+
+model WorkCenterRouting {
+  billOfMaterialDetails BillOfMaterialDetail[]
+  code                  String?
+  createdAt             DateTime               @default(now())
+  id                    String                 @id @default(cuid())
+  isActive              Boolean                @default(1)
+  name                  String                 @unique
+  normalizedName        String                 @unique
+  note                  String?
+  sequence              Int
+  tenantId              Tenant?                @relation(fields: [tenantIdId], references: [id])
+  tenantIdId            String?
+  timeCycleManual       Decimal?
+  timeModeBatch         Int?
+  updatedAt             DateTime               @updatedAt
+  workCenterId          WorkCenter?            @relation(fields: [workCenterIdId], references: [id])
+  workCenterIdId        Int?
 }
 
 model Product {
-  ProductGroupId                       ProductGroup?      @relation(fields: [ProductGroupIdId], references: [id])
-  ProductGroupIdId                     String?
   barcode                              String?
-  canExpire                            Boolean            @default(0)
+  billOfMaterialDetails                BillOfMaterialDetail[]
+  billOfMaterials                      BillOfMaterial[]
+  canExpire                            Boolean                @default(0)
   code                                 String?
-  costPrice                            Decimal?
-  costPriceIncludesTax                 Boolean?           @default(1)
-  createdAt                            DateTime           @default(now())
+  costPrice                            Decimal
+  costPriceIncludesTax                 Boolean?               @default(1)
+  createdAt                            DateTime               @default(now())
   currentStockQuantity                 Decimal
-  daysToManufacture                    Decimal?
-  defaultStoreId                       Store              @relation(fields: [defaultStoreIdId], references: [id])
-  defaultStoreIdId                     String
-  defaultUnitId                        Unit               @relation(fields: [defaultUnitIdId], references: [id])
+  daysToManufacture                    Int?
+  defaultStoreId                       Store?                 @relation(fields: [defaultStoreIdId], references: [id])
+  defaultStoreIdId                     String?
+  defaultUnitId                        Unit                   @relation(fields: [defaultUnitIdId], references: [id])
   defaultUnitIdId                      String
   description                          String?
   discontinuedDate                     DateTime?
@@ -1481,32 +349,1644 @@ model Product {
   expireAlarmInDays                    Int?
   expireIsDefaultAfterDaysFromPurchase Int?
   firstStockQuantity                   Decimal?
-  id                                   String             @id @default(cuid())
-  isActive                             Boolean            @default(0)
-  isCompound Boolean? @#default(0)
-  isFavorite                           Boolean            @default(0)
-  maintainInventory                    Boolean            @default(1)
+  id                                   String                 @id @default(cuid())
+  isActive                             Boolean                @default(1)
+  isCompound                           Boolean?               @default(0)
+  isFavorite                           Boolean                @default(0)
+  maintainInventory                    Boolean                @default(1)
   minimumSalePrice                     Decimal?
-  name                                 String             @unique
-  normalizedName                       String
+  name                                 String                 @unique
+  normalizedName                       String                 @unique
+  note                                 String?
   photo                                Json?
-  productCategoryId                    ProductCategory?   @relation(fields: [productCategoryIdId], references: [id])
-  productCategoryIdId                  Int?
-  productDepartmentId                  ProductDepartment? @relation(fields: [productDepartmentIdId], references: [id])
+  productBarcodes                      ProductBarcode[]
+  productCategoryId                    ProductCategory?       @relation(fields: [productCategoryIdId], references: [id])
+  productCategoryIdId                  String?
+  productDepartmentId                  ProductDepartment?     @relation(fields: [productDepartmentIdId], references: [id])
   productDepartmentIdId                Int?
-  productTypeId                        ProductType        @relation(fields: [productTypeIdId], references: [id])
-  productTypeIdId                      String
+  productGroupId                       ProductGroup?          @relation(fields: [productGroupIdId], references: [id])
+  productGroupIdId                     String?
+  productTypeId                        ProductType            @relation(fields: [productTypeIdId], references: [id])
+  productTypeIdId                      Int
+  productUnits                         ProductUnit[]
+  productVariants                      ProductVariant[]
+  productionOrders                     ProductionOrder[]
   profitRate                           Decimal?
+  purchaseDetails                      PurchaseDetail[]
+  purchaseReturnDetails                PurchaseReturnDetail[]
   reorderQuantity                      Decimal?
-  salePrice                            Float
-  salePriceIncludesTax                 Boolean?           @default(1)
-  saleTaxId                            SaleTax?           @relation(fields: [saleTaxIdId], references: [id])
-  saleTaxIdId                          Int?
-  updatedAt                            DateTime           @updatedAt
+  saleDetails                          SaleDetail[]
+  saleOrderDetails                     SaleOrderDetail[]
+  salePrice                            Decimal
+  salePriceIncludesTax                 Boolean                @default(1)
+  saleQuotationDetails                 SaleQuotationDetail[]
+  saleReturnDetails                    SaleReturnDetail[]
+  saleTaxId                            SaleTax?               @relation(fields: [saleTaxIdId], references: [id])
+  saleTaxIdId                          String?
+  tenantId                             Tenant?                @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                           String?
+  updatedAt                            DateTime               @updatedAt
 }
 
-enum EnumMaintenanceVisitElevatorStatusId {
-  Option1
+model ProductType {
+  code           String?
+  createdAt      DateTime  @default(now())
+  id             Int       @id @default(autoincrement())
+  isActive       Boolean   @default(1)
+  isComponent    Boolean?  @default(0)
+  name           String    @unique
+  normalizedName String    @unique
+  note           String?
+  products       Product[]
+  tenantId       Tenant?   @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime  @updatedAt
+}
+
+model ProductDepartment {
+  code                        String?
+  createdAt                   DateTime            @default(now())
+  description                 String?
+  id                          Int                 @id @default(autoincrement())
+  isActive                    Boolean             @default(1)
+  isDefault                   Boolean             @default(0)
+  name                        String              @unique
+  normalizedName              String              @unique
+  note                        String?
+  parentProductDepartmentId   ProductDepartment?  @relation(name: "parentProductDepartmentId", fields: [parentProductDepartmentIdId], references: [id])
+  parentProductDepartmentIdId Int?
+  productDepartments          ProductDepartment[] @relation(name: "parentProductDepartmentId")
+  products                    Product[]
+  tenantId                    Tenant?             @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                  String?
+  updatedAt                   DateTime            @updatedAt
+}
+
+model ProductGroup {
+  code                        String?
+  costOfGoodsSoldAccount      Account?       @relation(name: "costOfGoodsSoldAccount", fields: [costOfGoodsSoldAccountId], references: [id])
+  costOfGoodsSoldAccountId    String?
+  createdAt                   DateTime       @default(now())
+  description                 String?
+  excludeFromPurchase         Boolean        @default(0)
+  excludeFromSale             Boolean        @default(0)
+  id                          String         @id @default(cuid())
+  inventoryAccount            Account?       @relation(name: "inventoryAccount", fields: [inventoryAccountId], references: [id])
+  inventoryAccountId          String?
+  isActive                    Boolean        @default(1)
+  isDefault                   Boolean        @default(0)
+  name                        String         @unique
+  normalizedName              String         @unique
+  note                        String?
+  parentProductGroupId        ProductGroup?  @relation(name: "parentProductGroupId", fields: [parentProductGroupIdId], references: [id])
+  parentProductGroupIdId      String?
+  productGroups               ProductGroup[] @relation(name: "parentProductGroupId")
+  products                    Product[]
+  purchaseAccountId           Account?       @relation(name: "purchaseAccountId", fields: [purchaseAccountIdId], references: [id])
+  purchaseAccountIdId         String?
+  purchaseDiscountAccountId   Account?       @relation(name: "purchaseDiscountAccountId", fields: [purchaseDiscountAccountIdId], references: [id])
+  purchaseDiscountAccountIdId String?
+  purchaseReturnAccountId     Account?       @relation(name: "purchaseReturnAccountId", fields: [purchaseReturnAccountIdId], references: [id])
+  purchaseReturnAccountIdId   String?
+  saleAccountId               Account?       @relation(name: "aleAccountProductGroups", fields: [saleAccountIdId], references: [id])
+  saleAccountIdId             String?
+  saleDiscountAccountId       Account?       @relation(name: "saleDiscountAccountId", fields: [saleDiscountAccountIdId], references: [id])
+  saleDiscountAccountIdId     String?
+  saleReturnAccountId         Account?       @relation(name: "SaleReturnAccountProductGroups", fields: [saleReturnAccountIdId], references: [id])
+  saleReturnAccountIdId       String?
+  saleTaxId                   SaleTax?       @relation(fields: [saleTaxIdId], references: [id])
+  saleTaxIdId                 String?
+  tenantId                    Tenant?        @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                  String?
+  updatedAt                   DateTime       @updatedAt
+}
+
+model Account {
+  SaleReturnAccountProductGroups       ProductGroup[]       @relation(name: "SaleReturnAccountProductGroups")
+  accountNumber                        String               @unique
+  aleAccountProductGroups              ProductGroup[]       @relation(name: "aleAccountProductGroups")
+  costOfGoodsSoldAccountProductGroups  ProductGroup[]       @relation(name: "costOfGoodsSoldAccount")
+  createdAt                            DateTime             @default(now())
+  description                          String?
+  id                                   String               @id @default(cuid())
+  installmentSaleFees                  InstallmentSaleFee[]
+  inventoryAccountProductGroups        ProductGroup[]       @relation(name: "inventoryAccount")
+  isActive                             Boolean?             @default(1)
+  isMasterAccount                      Boolean              @default(0)
+  name                                 String               @unique
+  normalizedName                       String               @unique
+  note                                 String?
+  parentAccountId                      Account?             @relation(name: "parentAccountId", fields: [parentAccountIdId], references: [id])
+  parentAccountIdId                    String?
+  parentAccounts                       Account[]            @relation(name: "parentAccountId")
+  purchaseAccountProductGroups         ProductGroup[]       @relation(name: "purchaseAccountId")
+  purchaseDiscountAccountProductGroups ProductGroup[]       @relation(name: "purchaseDiscountAccountId")
+  purchaseReturnAccountProductGroups   ProductGroup[]       @relation(name: "purchaseReturnAccountId")
+  saleDiscountAccountProductGroups     ProductGroup[]       @relation(name: "saleDiscountAccountId")
+  salePeople                           SalePerson[]
+  tenantId                             Tenant?              @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                           String?
+  updatedAt                            DateTime             @updatedAt
+}
+
+model SaleTax {
+  code           String?
+  createdAt      DateTime       @default(now())
+  description    String?
+  id             String         @id @default(cuid())
+  isActive       Boolean        @default(1)
+  name           String         @unique
+  normalizedName String         @unique
+  note           String?
+  productGroups  ProductGroup[]
+  products       Product[]
+  tenantId       Tenant?        @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime       @updatedAt
+}
+
+model ProductCategory {
+  code           String?
+  createdAt      DateTime  @default(now())
+  description    String?
+  id             String    @id @default(cuid())
+  isActive       Boolean   @default(1)
+  isDefault      Boolean   @default(0)
+  name           String    @unique
+  normalizedName String    @unique
+  note           String?
+  products       Product[]
+  tenantId       Tenant?   @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime  @updatedAt
+}
+
+model ProductVariant {
+  attributeValueId      AttributeValue         @relation(fields: [attributeValueIdId], references: [id])
+  attributeValueIdId    String
+  billOfMaterialDetails BillOfMaterialDetail[]
+  billOfMaterials       BillOfMaterial[]
+  createdAt             DateTime               @default(now())
+  id                    String                 @id @default(cuid())
+  isActive              Boolean                @default(1)
+  note                  String?
+  productBarcodes       ProductBarcode[]
+  productId             Product                @relation(fields: [productIdId], references: [id])
+  productIdId           String
+  purchaseDetails       PurchaseDetail[]
+  purchaseReturnDetails PurchaseReturnDetail[]
+  saleDetails           SaleDetail[]
+  saleOrderDetails      SaleOrderDetail[]
+  saleQuotationDetails  SaleQuotationDetail[]
+  saleReturnDetails     SaleReturnDetail[]
+  tenantId              Tenant?                @relation(fields: [tenantIdId], references: [id])
+  tenantIdId            String?
+  updatedAt             DateTime               @updatedAt
+}
+
+model ProductionDocument {
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  isActive   Boolean  @default(1)
+  note       String?
+  priority   String?
+  tenantId   Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId String?
+  updatedAt  DateTime @updatedAt
+}
+
+model BillOfMaterial {
+  billOfMaterialDetails           BillOfMaterialDetail[]
+  billOfMaterialTypeId            BillOfMaterialType     @relation(fields: [billOfMaterialTypeIdId], references: [id])
+  billOfMaterialTypeIdId          Int
+  code                            String
+  createdAt                       DateTime               @default(now())
+  daysToPrepareManufacturingOrder Int                    @default(1)
+  endDate                         DateTime?
+  id                              String                 @id @default(cuid())
+  isActive                        Boolean                @default(1)
+  note                            String?
+  productId                       Product                @relation(fields: [productIdId], references: [id])
+  productIdId                     String
+  productVariantId                ProductVariant?        @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId              String?
+  productionOrders                ProductionOrder[]
+  quantity                        Decimal?
+  sequence                        Int?
+  startDate                       DateTime?
+  tenantId                        Tenant?                @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                      String?
+  unitId                          Unit                   @relation(fields: [unitIdId], references: [id])
+  unitIdId                        String
+  updatedAt                       DateTime               @updatedAt
+}
+
+model BillOfMaterialDetail {
+  billOfMaterial        BillOfMaterial     @relation(fields: [billOfMaterialId], references: [id])
+  billOfMaterialId      String
+  costShare             Decimal?
+  createdAt             DateTime           @default(now())
+  id                    String             @id @default(cuid())
+  isActive              Boolean            @default(1)
+  isManualConsumption   Boolean?
+  note                  String?
+  productId             Product            @relation(fields: [productIdId], references: [id])
+  productIdId           String
+  productVariantId      ProductVariant?    @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId    String?
+  quantity              Decimal?
+  sequence              Int?
+  tenant                Tenant?            @relation(fields: [tenantId], references: [id])
+  tenantId              String?
+  unitId                Unit               @relation(fields: [unitIdId], references: [id])
+  unitIdId              String
+  updatedAt             DateTime           @updatedAt
+  workCenterRoutingId   WorkCenterRouting? @relation(fields: [workCenterRoutingIdId], references: [id])
+  workCenterRoutingIdId String?
+}
+
+model ProductBarcode {
+  barcode            String
+  barcodeTypeId      BarcodeType?    @relation(fields: [barcodeTypeIdId], references: [id])
+  barcodeTypeIdId    Int?
+  createdAt          DateTime        @default(now())
+  id                 String          @id @default(cuid())
+  isActive           Boolean?        @default(1)
+  note               String?
+  productId          Product         @relation(fields: [productIdId], references: [id])
+  productIdId        String
+  productVariantId   ProductVariant? @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId String?
+  tenantId           Tenant?         @relation(fields: [tenantIdId], references: [id])
+  tenantIdId         String?
+  updatedAt          DateTime        @updatedAt
+}
+
+model ProductionOrder {
+  billOfMaterialId   BillOfMaterial? @relation(fields: [billOfMaterialIdId], references: [id])
+  billOfMaterialIdId String?
+  code               String?
+  createdAt          DateTime        @default(now())
+  customerId         Customer?       @relation(fields: [customerIdId], references: [id])
+  customerIdId       String?
+  deadlineDate       DateTime?
+  description        String?
+  finishDate         DateTime?
+  id                 String          @id @default(cuid())
+  isActive           Boolean         @default(1)
+  name               String          @unique
+  normalizedName     String          @unique
+  note               String?
+  orderDate          DateTime?
+  orderStatusId      OrderStatus     @relation(fields: [Name], references: [id])
+  Name               Int             @unique
+  productId          Product         @relation(fields: [productIdId], references: [id])
+  productIdId        String
+  productQuantity    Decimal?
+  sequenceNumber     String?
+  startDate          DateTime?
+  storeId            Store           @relation(fields: [storeIdId], references: [id])
+  storeIdId          String
+  tenantId           Tenant?         @relation(fields: [tenantIdId], references: [id])
+  tenantIdId         String?
+  unit               Unit            @relation(fields: [unitId], references: [id])
+  unitId             String
+  updatedAt          DateTime        @updatedAt
+}
+
+model ProductionAvailability {
+  code           String?
+  createdAt      DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenantIId      Tenant?  @relation(fields: [tenantIIdId], references: [id])
+  tenantIIdId    String?
+  updatedAt      DateTime @updatedAt
+}
+
+model ProductUnit {
+  barcode                 String?
+  compareUnitId           Unit?    @relation(name: "compareUnitId", fields: [CompareUnitId], references: [id])
+  CompareUnitId           String?  @unique
+  compareUnitQuantity     Decimal?
+  costPrice               Float?
+  createdAt               DateTime @default(now())
+  id                      String   @id @default(cuid())
+  isActive                Boolean  @default(1)
+  isCostPriceIncludingTax Boolean? @default(1)
+  isDefaultForPurchase    Boolean? @default(0)
+  isDefaultForSale        Boolean? @default(0)
+  isSalePriceIncludingTax Boolean? @default(1)
+  note                    String?
+  productId               Product  @relation(fields: [productIdId], references: [id])
+  productIdId             String
+  quantity                Decimal?
+  salePrice               Decimal?
+  tenantId                Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId              String?
+  unitId                  Unit?    @relation(name: "ProductUnitUnitIdUnitProductUnits", fields: [unitIdId], references: [id])
+  unitIdId                String?
+  updatedAt               DateTime @updatedAt
+}
+
+model Purchase {
+  cashRepositoryId    CashRepository    @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId  String            @unique
+  createdAt           DateTime          @default(now())
+  discountTotal       Decimal
+  id                  String            @id @default(cuid())
+  invoiceTypeId       InvoiceType?      @relation(fields: [invoiceTypeIdId], references: [id])
+  invoiceTypeIdId     Int?
+  isActive            Boolean?          @default(1)
+  isCancelled         Boolean           @default(0)
+  isReplicated        Boolean           @default(0)
+  netTotal            Decimal
+  nonTaxableTotal     Decimal?
+  note                String?
+  paid                Decimal
+  paymentTermId       PaymentTerm?      @relation(fields: [paymentTermIdId], references: [id])
+  paymentTermIdId     String?
+  paymentTypeId       PaymentType       @relation(fields: [paymentTypeIdId], references: [id])
+  paymentTypeIdId     Int
+  purchaseDate        DateTime
+  purchaseDetails     PurchaseDetail[]
+  purchasePriceTypeId PurchasePriceType @relation(fields: [Name], references: [id])
+  Name                Int               @unique
+  purchaseReturns     PurchaseReturn[]
+  purchaseTotal       Decimal
+  referenceNumber     String?
+  remaining           Decimal
+  sequenceNumber      String            @unique
+  storeId             Store             @relation(fields: [storeIdId], references: [id])
+  storeIdId           String
+  supplierId          Supplier          @relation(fields: [supplierIdId], references: [id])
+  supplierIdId        String
+  tax                 Decimal?
+  taxRate             Decimal?
+  taxableTotal        Decimal?
+  tenantId            Tenant?           @relation(fields: [tenantIdId], references: [id])
+  tenantIdId          String?
+  updatedAt           DateTime          @updatedAt
+}
+
+model InvoiceType {
+  code            String?
+  createdAt       DateTime         @default(now())
+  description     String?
+  id              Int              @id @default(autoincrement())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  purchaseReturns PurchaseReturn[]
+  purchases       Purchase[]
+  saleOrders      SaleOrder[]
+  saleReturns     SaleReturn[]
+  sales           Sale[]
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
+}
+
+model PaymentType {
+  code            String?
+  createdAt       DateTime         @default(now())
+  description     String?
+  id              Int              @id @default(autoincrement())
+  isActive        Boolean          @default(1)
+  isDefault       Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  purchaseReturns PurchaseReturn[]
+  purchases       Purchase[]
+  saleOrders      SaleOrder[]
+  saleReturns     SaleReturn[]
+  sales           Sale[]
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
+}
+
+model PaymentTerm {
+  code                              String?
+  createdAt                         DateTime            @default(now())
+  description                       String?
+  dueDays                           Int
+  duePeriodId                       Period?             @relation(name: "duePeriodId", fields: [duePeriodIdId], references: [id])
+  duePeriodIdId                     String?
+  gracePeriod                       Int
+  id                                String              @id @default(cuid())
+  installmentSaleFeeId              InstallmentSaleFee? @relation(fields: [installmentSaleFeeIdId], references: [id])
+  installmentSaleFeeIdId            String?
+  installmentSaleFeePostingPeriod   Period?             @relation(name: "installmentSaleFeePostingPeriod", fields: [installmentSaleFeePostingPeriodId], references: [id])
+  installmentSaleFeePostingPeriodId String?
+  isActive                          Boolean             @default(1)
+  isDefault                         Boolean?            @default(1)
+  isDueOnDate                       Boolean?
+  name                              String              @unique
+  normalizedName                    String              @unique
+  note                              String?
+  purchaseReturns                   PurchaseReturn[]
+  purchases                         Purchase[]
+  saleReturns                       SaleReturn[]
+  sales                             Sale[]
+  tenantId                          Tenant?             @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                        String?
+  updatedAt                         DateTime            @updatedAt
+}
+
+model Period {
+  code                                        String?
+  createdAt                                   DateTime      @default(now())
+  description                                 String?
+  id                                          String        @id @default(cuid())
+  installmentSaleFeePostingPeriodPaymentTerms PaymentTerm[] @relation(name: "installmentSaleFeePostingPeriod")
+  isActive                                    Boolean       @default(1)
+  name                                        String        @unique
+  normalizedName                              String        @unique
+  note                                        String?
+  paymentTerms1                               PaymentTerm[] @relation(name: "duePeriodId")
+  tenantId                                    Tenant?       @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                                  String?
+  updatedAt                                   DateTime      @updatedAt
+}
+
+model InstallmentSaleFee {
+  accountId      Account?      @relation(fields: [accountIdId], references: [id])
+  accountIdId    String?
+  code           String?
+  createdAt      DateTime      @default(now())
+  description    String?
+  id             String        @id @default(cuid())
+  isActive       Boolean       @default(1)
+  isFlatAmount   Boolean?
+  name           String        @unique
+  normalizedName String
+  note           String?
+  paymentTerms   PaymentTerm[]
+  rate           Decimal?
+  tenantId       Tenant?       @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime      @updatedAt
+}
+
+model PurchasePriceType {
+  code                  String?
+  createdAt             DateTime              @default(now())
+  description           String?
+  id                    Int                   @id @default(autoincrement())
+  isActive              Boolean?              @default(1)
+  isDefault             Boolean               @default(1)
+  name                  String                @unique
+  normalizedName        String                @unique
+  note                  String?
+  purchaseDetails       PurchaseDetail?
+  purchaseReturnDetails PurchaseReturnDetail?
+  purchaseReturns       PurchaseReturn?
+  purchases             Purchase?
+  tenantId              Tenant?               @relation(fields: [tenantIdId], references: [id])
+  tenantIdId            String?
+  updatedAt             DateTime              @updatedAt
+}
+
+model Supplier {
+  address         String?
+  code            String?
+  createdAt       DateTime         @default(now())
+  credit          Decimal?
+  currency        Currency?        @relation(fields: [currencyId], references: [id])
+  currencyId      String?
+  customerId      Customer?        @relation(fields: [customerIdId], references: [id])
+  customerIdId    String?
+  debit           Decimal?
+  description     String?
+  email           String?
+  id              String           @id @default(cuid())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  paymentVouchers PaymentVoucher[]
+  phoneNumber     String?
+  purchaseReturns PurchaseReturn[]
+  purchases       Purchase[]
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
+  website         String?
+}
+
+model CashRepository {
+  cashRepositories         CashRepository[] @relation(name: "parentCashRepositoryId")
+  code                     String?
+  createdAt                DateTime         @default(now())
+  description              String?
+  id                       String           @id @default(cuid())
+  isActive                 Boolean          @default(1)
+  name                     String           @unique
+  normalizedName           String           @unique
+  note                     String?
+  parentCashRepositoryId   CashRepository?  @relation(name: "parentCashRepositoryId", fields: [parentCashRepositoryIdId], references: [id])
+  parentCashRepositoryIdId String?
+  paymentVouchers          PaymentVoucher[]
+  purchaseReturns          PurchaseReturn[]
+  purchases                Purchase?
+  receiptVouchers          ReceiptVoucher[]
+  saleOrders               SaleOrder[]
+  saleReturns              SaleReturn[]
+  sales                    Sale[]
+  tenantId                 Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId               String?
+  updatedAt                DateTime         @updatedAt
+}
+
+model PurchaseDetail {
+  barcode               String?
+  createdAt             DateTime           @default(now())
+  discount              Decimal?
+  discountRate          Decimal?
+  id                    String             @id @default(cuid())
+  isActive              Boolean            @default(1)
+  isError               Boolean?           @default(0)
+  isReplicated          Boolean            @default(0)
+  isTaxed               Boolean            @default(1)
+  note                  String?
+  price                 Decimal
+  priceTotal            Decimal
+  productId             Product            @relation(fields: [productIdId], references: [id])
+  productIdId           String
+  productSerialNumber   String?
+  productVariantId      ProductVariant?    @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId    String?
+  purchaseId            Purchase           @relation(fields: [purchaseIdId], references: [id])
+  purchaseIdId          String
+  purchasePriceTypeId   PurchasePriceType? @relation(fields: [purchasePriceTypeIdId], references: [id])
+  purchasePriceTypeIdId Int?               @unique
+  quantity              Decimal
+  sequence              Int
+  tenantId              Tenant?            @relation(fields: [tenantIdId], references: [id])
+  tenantIdId            String?
+  unitId                Unit               @relation(fields: [unitIdId], references: [id])
+  unitIdId              String
+  updatedAt             DateTime           @updatedAt
+}
+
+model PurchaseReturn {
+  cashRepositoryId      CashRepository         @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId    String
+  createdAt             DateTime               @default(now())
+  discountTotal         Decimal
+  id                    String                 @id @default(cuid())
+  invoiceTypeId         InvoiceType?           @relation(fields: [invoiceTypeIdId], references: [id])
+  invoiceTypeIdId       Int?
+  isActive              Boolean                @default(1)
+  isCancelled           Boolean                @default(0)
+  isReplicated          Boolean                @default(0)
+  netTotal              Decimal
+  nonTaxableTotal       Decimal?
+  note                  String?
+  paid                  Decimal
+  paymentTermId         PaymentTerm?           @relation(fields: [paymentTermIdId], references: [id])
+  paymentTermIdId       String?
+  paymentTypeId         PaymentType            @relation(fields: [paymentTypeIdId], references: [id])
+  paymentTypeIdId       Int
+  purchaseId            Purchase?              @relation(fields: [purchaseIdId], references: [id])
+  purchaseIdId          String?
+  purchasePriceTypeId   PurchasePriceType      @relation(fields: [purchasePriceTypeIdId], references: [id])
+  purchasePriceTypeIdId Int                    @unique
+  purchaseReturnDate    DateTime
+  purchaseReturnDetails PurchaseReturnDetail[]
+  purchaseReturnTotal   Decimal
+  referenceNumber       String?
+  remaining             Decimal
+  sequenceNumber        String                 @unique
+  storeId               Store                  @relation(fields: [storeIdId], references: [id])
+  storeIdId             String
+  supplierId            Supplier               @relation(fields: [supplierIdId], references: [id])
+  supplierIdId          String
+  tax                   Decimal?
+  taxRate               Decimal?
+  taxableTotal          Decimal?
+  tenantId              Tenant?                @relation(fields: [tenantIdId], references: [id])
+  tenantIdId            String?
+  updatedAt             DateTime               @updatedAt
+}
+
+model PurchaseReturnDetail {
+  barcode               String?
+  createdAt             DateTime           @default(now())
+  discount              Decimal?
+  discountRate          Decimal?
+  id                    String             @id @default(cuid())
+  isActive              Boolean            @default(1)
+  isError               Boolean            @default(0)
+  isReplicated          Boolean            @default(0)
+  isTaxed               Boolean            @default(1)
+  note                  String?
+  price                 Decimal
+  priceTotal            Decimal?
+  productId             Product            @relation(fields: [productIdId], references: [id])
+  productIdId           String
+  productSerialNumber   String?
+  productVariantId      ProductVariant?    @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId    String?
+  purchasePriceTypeId   PurchasePriceType? @relation(fields: [purchasePriceTypeIdId], references: [id])
+  purchasePriceTypeIdId Int?               @unique
+  purchaseReturnId      PurchaseReturn?    @relation(fields: [purchaseReturnIdId], references: [id])
+  purchaseReturnIdId    String?
+  quantity              Decimal
+  sequence              Int
+  tenantId              Tenant?            @relation(fields: [tenantIdId], references: [id])
+  tenantIdId            String?
+  unitId                Unit               @relation(fields: [unitIdId], references: [id])
+  unitIdId              String
+  updatedAt             DateTime           @updatedAt
+}
+
+model ResourceType {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  id             Int        @id @default(autoincrement())
+  isActive       Boolean    @default(1)
+  name           String     @unique
+  normalizedName String     @unique
+  note           String?
+  resources      Resource[]
+  tenantId       Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model Resource {
+  code             String?
+  createdAt        DateTime      @default(now())
+  description      String?
+  id               String        @id @default(cuid())
+  isActive         Boolean       @default(1)
+  name             String        @unique
+  normalizedName   String        @unique
+  note             String?
+  resourceTypeId   ResourceType? @relation(fields: [resourceTypeIdId], references: [id])
+  resourceTypeIdId Int?
+  tenantId         Tenant?       @relation(fields: [tenantIdId], references: [id])
+  tenantIdId       String?
+  timeEfficiency   Decimal?
+  updatedAt        DateTime      @updatedAt
+}
+
+model RoleGroup {
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model SalaryItemGroup {
+  code           String?
+  createdAt      DateTime     @default(now())
+  description    String?
+  id             Int          @id @default(autoincrement())
+  isActive       Boolean      @default(1)
+  name           String       @unique
+  normalizedName String       @unique
+  note           String?
+  salaryItems    SalaryItem[]
+  tenantId       Tenant?      @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime     @updatedAt
+}
+
+model SalaryItemType {
+  code           String?
+  createdAt      DateTime     @default(now())
+  description    String?
+  id             Int          @id @default(autoincrement())
+  isActive       Boolean      @default(1)
+  name           String       @unique
+  normalizedName String       @unique
+  note           String?
+  salaryItems    SalaryItem[]
+  tenantId       Tenant?      @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime     @updatedAt
+}
+
+model SalaryLaw {
+  code           String?
+  createdAt      DateTime     @default(now())
+  description    String?
+  effectiveDate  DateTime
+  id             Int          @id @default(autoincrement())
+  isActive       Boolean
+  name           String       @unique
+  normalizedName String       @unique
+  note           String?
+  salaryItems    SalaryItem[]
+  tenantId       Tenant?      @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime     @updatedAt
+}
+
+model SalaryItem {
+  code                String?
+  createdAt           DateTime         @default(now())
+  description         String?
+  id                  String           @id @default(cuid())
+  isActive            Boolean          @default(1)
+  name                String           @unique
+  normalizedName      String           @unique
+  note                String?
+  salaryItemGroupId   SalaryItemGroup? @relation(fields: [salaryItemGroupIdId], references: [id])
+  salaryItemGroupIdId Int?
+  salaryItemTypeId    SalaryItemType   @relation(fields: [salaryItemTypeIdId], references: [id])
+  salaryItemTypeIdId  Int
+  salaryLawId         SalaryLaw?       @relation(fields: [salaryLawIdId], references: [id])
+  salaryLawIdId       Int?
+  tenantId            Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId          String?
+  updatedAt           DateTime         @updatedAt
+}
+
+model SaleTeam {
+  code           String?
+  createdAt      DateTime     @default(now())
+  description    String?
+  id             String       @id @default(cuid())
+  isActive       Boolean      @default(1)
+  name           String       @unique
+  normalizedName String?
+  note           String?
+  salePeople     SalePerson[]
+  tenantId       Tenant?      @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime     @updatedAt
+}
+
+model ScrapReason {
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model SalePerson {
+  accountId      Account?  @relation(fields: [accountIdId], references: [id])
+  accountIdId    String?
+  address        String?
+  code           String?
+  commissionRate Decimal?
+  createdAt      DateTime  @default(now())
+  employeeId     Employee? @relation(fields: [employeeIdId], references: [id])
+  employeeIdId   String?
+  id             String    @id @default(cuid())
+  isActive       Boolean   @default(1)
+  name           String    @unique
+  normalizedName String    @unique
+  phoneNumber    String?
+  photo          Json?
+  saleTeamId     SaleTeam  @relation(fields: [saleTeamIdId], references: [id])
+  saleTeamIdId   String
+  tenantId       Tenant?   @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime  @updatedAt
+}
+
+model EmployeeDepartment {
+  code                         String?
+  createdAt                    DateTime             @default(now())
+  description                  String?
+  employeeDepartments          EmployeeDepartment[] @relation(name: "parentEmployeeDepartmentId")
+  employees                    Employee[]
+  id                           String               @id @default(cuid())
+  isActive                     Boolean              @default(1)
+  name                         String               @unique
+  normalizedName               String               @unique
+  note                         String?
+  parentEmployeeDepartmentId   EmployeeDepartment?  @relation(name: "parentEmployeeDepartmentId", fields: [parentEmployeeDepartmentIdId], references: [id])
+  parentEmployeeDepartmentIdId String?
+  tenantId                     Tenant?              @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                   String?
+  updatedAt                    DateTime             @updatedAt
+}
+
+model EmployeeClass {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  employees      Employee[]
+  id             Int        @id @default(autoincrement())
+  isActive       Boolean    @default(1)
+  name           String     @unique
+  normalizedName String     @unique
+  note           String?
+  tenantId       Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model Employee {
+  balance                Decimal?
+  code                   String?
+  createdAt              DateTime            @default(now())
+  employeeClassId        EmployeeClass?      @relation(fields: [employeeClassIdId], references: [id])
+  employeeClassIdId      Int?
+  employeeDepartmentId   EmployeeDepartment? @relation(fields: [employeeDepartmentIdId], references: [id])
+  employeeDepartmentIdId String?
+  id                     String              @id @default(cuid())
+  isActive               Boolean             @default(1)
+  lastYearBalance        Decimal?
+  name                   String              @unique
+  normalizedName         String              @unique
+  note                   String?
+  paymentVouchers        PaymentVoucher[]
+  receiptVouchers        ReceiptVoucher[]
+  remainingBalance       Decimal?
+  salePeople             SalePerson[]
+  tenantId               Tenant?             @relation(fields: [tenantIdId], references: [id])
+  tenantIdId             String?
+  updatedAt              DateTime            @updatedAt
+  usedBalance            Decimal?
+}
+
+model Tenant {
+  accounts                 Account[]
+  applicationDependencies  ApplicationDependency[]
+  applications             Application[]
+  attributeValues          AttributeValue[]
+  attributes               Attribute[]
+  bankBranches             BankBranch[]
+  bankTypes                BankType[]
+  barcodeTypes             BarcodeType[]
+  billOfMaterialDetails    BillOfMaterialDetail[]
+  billOfMaterialTypes      BillOfMaterialType[]
+  billOfMaterials          BillOfMaterial[]
+  cashRepositories         CashRepository[]
+  code                     String?
+  createdAt                DateTime                 @default(now())
+  creatorUserId            String?
+  currencies               Currency[]
+  customers                Customer[]
+  description              String?
+  email                    String?
+  employeeClasses          EmployeeClass[]
+  employeeDepartments      EmployeeDepartment[]
+  employees                Employee[]
+  expenseItems             ExpenseItem[]
+  id                       String                   @id @default(cuid())
+  installmentSaleFees      InstallmentSaleFee[]
+  invoiceTypes             InvoiceType[]
+  isActive                 Boolean                  @default(1)
+  lastModifierUserIdl      String?
+  name                     String
+  normalizedName           String                   @unique
+  note                     String?
+  orderStatuses            OrderStatus[]
+  paymentMethods           PaymentMethod[]
+  paymentStatuses          PaymentStatus[]
+  paymentTerms             PaymentTerm[]
+  paymentTypes             PaymentType[]
+  paymentVouchers          PaymentVoucher[]
+  periods                  Period[]
+  printTemplateContents    PrintTemplateContent[]
+  printTemplateGroups      PrintTemplateGroup[]
+  printTemplates           PrintTemplate[]
+  productBarcodes          ProductBarcode[]
+  productCategories        ProductCategory[]
+  productDepartments       ProductDepartment[]
+  productGroups            ProductGroup[]
+  productTypes             ProductType[]
+  productUnits             ProductUnit[]
+  productVariants          ProductVariant[]
+  productionAvailabilities ProductionAvailability[]
+  productionDocuments      ProductionDocument[]
+  productionOrders         ProductionOrder[]
+  products                 Product[]
+  purchaseDetails          PurchaseDetail[]
+  purchasePriceTypes       PurchasePriceType[]
+  purchaseReturnDetails    PurchaseReturnDetail[]
+  purchaseReturns          PurchaseReturn[]
+  purchases                Purchase[]
+  receiptVouchers          ReceiptVoucher[]
+  resourceTypes            ResourceType[]
+  resources                Resource[]
+  roleGroups               RoleGroup[]
+  salaryItemGroups         SalaryItemGroup[]
+  salaryItemTypes          SalaryItemType[]
+  salaryItems              SalaryItem[]
+  salaryLaws               SalaryLaw[]
+  saleDetails              SaleDetail[]
+  saleOrderDetails         SaleOrderDetail[]
+  saleOrders               SaleOrder[]
+  salePayments             SalePayment[]
+  salePeople               SalePerson[]
+  salePriceTypes           SalePriceType[]
+  saleQuotationDetails     SaleQuotationDetail[]
+  saleQuotations           SaleQuotation[]
+  saleReturnDetails        SaleReturnDetail[]
+  saleReturns              SaleReturn[]
+  saleTaxes                SaleTax[]
+  saleTeams                SaleTeam[]
+  sales                    Sale[]
+  scrapReasons             ScrapReason[]
+  settingGroups            SettingGroup[]
+  settings                 Setting[]
+  shifts                   Shift[]
+  shippingStatuses         ShippingStatus[]
+  storeLocations           StoreLocation[]
+  storeTypes               StoreType[]
+  stores                   Store[]
+  suppliers                Supplier[]
+  tenancyName              String                   @unique
+  timeModes                TimeMode[]
+  timeoffTypes             TimeoffType[]
+  units                    Unit[]
+  updatedAt                DateTime                 @updatedAt
+  users                    User[]
+  voucherTypes             VoucherType[]
+  workCenterRoutings       WorkCenterRouting[]
+  workCenters              WorkCenter[]
+}
+
+model Sale {
+  cashRepositoryId   CashRepository @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId String
+  createdAt          DateTime       @default(now())
+  customerId         Customer       @relation(fields: [customerIdId], references: [id])
+  customerIdId       String
+  discountTotal      Decimal
+  id                 String         @id @default(cuid())
+  invoiceTypeId      InvoiceType?   @relation(fields: [invoiceTypeIdId], references: [id])
+  invoiceTypeIdId    Int?
+  isActive           Boolean        @default(1)
+  isCancelled        Boolean        @default(0)
+  isReplicated       Boolean        @default(0)
+  netTotal           Decimal?
+  nonTaxableTotal    Decimal?
+  note               String?
+  paid               Decimal?
+  paymentTerm        PaymentTerm?   @relation(fields: [paymentTermId], references: [id])
+  paymentTermId      String?
+  paymentTypeId      PaymentType    @relation(fields: [paymentTypeIdId], references: [id])
+  paymentTypeIdId    Int
+  referenceNumber    String?
+  remaining          Decimal?
+  saleDate           DateTime
+  saleDetails        SaleDetail[]
+  salePayments       SalePayment[]
+  salePriceTypeId    SalePriceType  @relation(fields: [salePriceTypeIdId], references: [id])
+  salePriceTypeIdId  Int            @unique
+  saleReturns        SaleReturn[]
+  saleTotal          Decimal
+  sequenceNumber     String         @unique
+  storeId            Store          @relation(fields: [storeIdId], references: [id])
+  storeIdId          String
+  tax                Decimal?
+  taxRate            Decimal?
+  taxableTotal       Decimal?
+  tenantId           Tenant?        @relation(fields: [tenantIdId], references: [id])
+  tenantIdId         String?
+  updatedAt          DateTime       @updatedAt
+}
+
+model SaleDetail {
+  barcode             String?
+  createdAt           DateTime        @default(now())
+  discount            Decimal?
+  discountRate        Decimal?
+  id                  String          @id @default(cuid())
+  isActive            Boolean         @default(1)
+  isError             Boolean         @default(0)
+  isReplicated        Boolean         @default(0)
+  isTaxed             Boolean         @default(1)
+  note                String?
+  price               Decimal
+  priceTotal          Decimal
+  productId           Product         @relation(fields: [productIdId], references: [id])
+  productIdId         String
+  productSerialNumber String?
+  productVariantId    ProductVariant? @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId  String?
+  quantity            Decimal         @unique
+  saleId              Sale            @relation(fields: [saleIdId], references: [id])
+  saleIdId            String
+  salePriceTypeId     SalePriceType   @relation(fields: [salePriceTypeIdId], references: [id])
+  salePriceTypeIdId   Int             @unique
+  sequence            Int
+  tenantId            Tenant?         @relation(fields: [tenantIdId], references: [id])
+  tenantIdId          String?
+  unitId              Unit            @relation(fields: [unitIdId], references: [id])
+  unitIdId            String
+  updatedAt           DateTime        @updatedAt
+}
+
+model SaleQuotation {
+  createdAt            DateTime              @default(now())
+  discount             Decimal?
+  discountRate         Decimal?
+  expectedDeliveryDate DateTime?
+  id                   String                @id @default(cuid())
+  internalMemo         String?
+  isActive             Boolean               @default(1)
+  isCancelled          Boolean?
+  nonTaxableTotal      Decimal
+  note                 String?
+  referenceNumber      String?
+  saleOrders           SaleOrder[]
+  saleQuotationDate    DateTime
+  saleQuotationDetails SaleQuotationDetail[]
+  sequenceNumber       String
+  taxRate              Decimal
+  taxTotal             Decimal
+  taxableTotal         Decimal?
+  tenantId             Tenant?               @relation(fields: [tenantIdId], references: [id])
+  tenantIdId           String?
+  terms                String?
+  transactionDateTime  DateTime?
+  updatedAt            DateTime              @updatedAt
+}
+
+model SaleReturn {
+  cashRepositoryId   CashRepository     @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId String
+  createdAt          DateTime           @default(now())
+  customerId         Customer           @relation(fields: [customerIdId], references: [id])
+  customerIdId       String
+  discountTotal      Decimal
+  id                 String             @id @default(cuid())
+  invoiceTypeId      InvoiceType?       @relation(fields: [invoiceTypeIdId], references: [id])
+  invoiceTypeIdId    Int?
+  isActive           Boolean            @default(1)
+  isCancelled        Boolean            @default(0)
+  isReplicated       Boolean            @default(0)
+  netTotal           Decimal
+  nonTaxableTotal    Decimal?
+  note               String?
+  paid               Decimal
+  paymentTermId      PaymentTerm?       @relation(fields: [paymentTermIdId], references: [id])
+  paymentTermIdId    String?
+  paymentTypeId      PaymentType        @relation(fields: [paymentTypeIdId], references: [id])
+  paymentTypeIdId    Int
+  referenceNumber    String?
+  remaining          Decimal
+  returnTotal        Decimal
+  saleId             Sale?              @relation(fields: [saleIdId], references: [id])
+  saleIdId           String?
+  salePriceTyped     SalePriceType      @relation(fields: [Name], references: [id])
+  Name               Int                @unique
+  saleReturnDate     DateTime
+  saleReturnDetails  SaleReturnDetail[]
+  sequence           String
+  storeId            Store              @relation(fields: [storeIdId], references: [id])
+  storeIdId          String
+  tax                Decimal?
+  taxRate            Decimal?
+  taxableTotal       Decimal?
+  tenant             Tenant?            @relation(fields: [tenantId], references: [id])
+  tenantId           String?
+  updatedAt          DateTime           @updatedAt
+}
+
+model SaleReturnDetail {
+  barcode             String?
+  createdAt           DateTime        @default(now())
+  discount            Decimal?
+  discountRate        Decimal?
+  id                  String          @id @default(cuid())
+  isActive            Boolean         @default(1)
+  isError             Boolean         @default(0)
+  isReplicated        Boolean         @default(0)
+  isTaxed             Boolean         @default(1)
+  price               Decimal
+  priceTotal          Decimal
+  productId           Product         @relation(fields: [productIdId], references: [id])
+  productIdId         String
+  productSerialNumber String?
+  productVariantId    ProductVariant? @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId  String?
+  quantity            Decimal?
+  salePriceType       SalePriceType?  @relation(fields: [salePriceTypeId], references: [id])
+  salePriceTypeId     Int?            @unique
+  saleReturnId        SaleReturn      @relation(fields: [saleReturnIdId], references: [id])
+  saleReturnIdId      String
+  sequence            Int
+  tenantId            Tenant?         @relation(fields: [tenantIdId], references: [id])
+  tenantIdId          String?
+  unitId              Unit            @relation(fields: [unitIdId], references: [id])
+  unitIdId            String
+  updatedAt           DateTime        @updatedAt
+}
+
+model Application {
+  DependsOnApplicationDependency   ApplicationDependency? @relation(name: "DependsOnApplicationDependency", fields: [DependsOnApplicationDependencyId], references: [id])
+  DependsOnApplicationDependencyId String?
+  applicationDependency            ApplicationDependency? @relation(name: "applicationDependency", fields: [applicationDependencyId], references: [id])
+  applicationDependencyId          String?                @unique
+  code                             String?
+  createdAt                        DateTime               @default(now())
+  description                      String?
+  i18nKey                          String
+  icon                             String?
+  id                               String                 @id @default(cuid())
+  isActive                         Boolean                @default(1)
+  landingUrl                       String?
+  name                             String                 @unique
+  normalizedName                   String                 @unique
+  note                             String?
+  publishedDateTime                DateTime?
+  publisher                        String?
+  tenantId                         Tenant?                @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                       String?
+  updatedAt                        DateTime               @updatedAt
+  versionNumber                    String
+}
+
+model ApplicationDependency {
+  applicationId          Application?  @relation(name: "applicationDependency")
+  code                   String?
+  createdAt              DateTime      @default(now())
+  dependsOnApplicationId Application[] @relation(name: "DependsOnApplicationDependency")
+  description            String?
+  id                     String        @id @default(cuid())
+  isActive               Boolean       @default(1)
+  name                   String        @unique
+  normalizedName         String        @unique
+  note                   String?
+  tenantId               Tenant?       @relation(fields: [tenantIdId], references: [id])
+  tenantIdId             String?
+  updatedAt              DateTime      @updatedAt
+}
+
+model SaleQuotationDetail {
+  createdAt          DateTime        @default(now())
+  discount           Decimal?
+  discountRate       Decimal?
+  id                 String          @id @default(cuid())
+  isActive           Boolean         @default(1)
+  isError            Boolean         @default(0)
+  isReplicated       Boolean         @default(0)
+  isTaxed            Boolean         @default(1)
+  note               String?
+  price              Decimal
+  priceTotal         Decimal
+  productId          Product         @relation(fields: [productIdId], references: [id])
+  productIdId        String
+  productVariantId   ProductVariant? @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId String?
+  quantity           Decimal
+  salePriceType      SalePriceType?  @relation(fields: [Name], references: [id])
+  Name               Int?            @unique
+  saleQuotationId    SaleQuotation?  @relation(fields: [saleQuotationIdId], references: [id])
+  saleQuotationIdId  String?
+  sequence           String
+  shippingCharge     Decimal?
+  tenantId           Tenant?         @relation(fields: [tenantIdId], references: [id])
+  tenantIdId         String?
+  unitId             Unit            @relation(fields: [unitIdId], references: [id])
+  unitIdId           String
+  updatedAt          DateTime        @updatedAt
+}
+
+model SaleOrder {
+  billingAddress       String?
+  cashRepositoryId     CashRepository?   @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId   String?
+  createdAt            DateTime          @default(now())
+  customerId           Customer          @relation(fields: [customerIdId], references: [id])
+  customerIdId         String
+  deliveryDate         DateTime?
+  discountTotal        Decimal
+  expectedDeliveryDate DateTime?
+  id                   String            @id @default(cuid())
+  invoiceTypeId        InvoiceType?      @relation(fields: [invoiceTypeIdId], references: [id])
+  invoiceTypeIdId      Int?
+  isActive             Boolean           @default(1)
+  isCancelled          Boolean           @default(0)
+  isReplicated         Boolean
+  netTotal             Decimal
+  nonTaxableTotal      Decimal?
+  note                 String?
+  orderStatus          OrderStatus       @relation(fields: [Name], references: [id])
+  Name                 Int               @unique
+  paymentStatus        PaymentStatus?    @relation(fields: [paymentStatusId], references: [id])
+  paymentStatusId      Int?              @unique
+  paymentTypeId        PaymentType?      @relation(fields: [paymentTypeIdId], references: [id])
+  paymentTypeIdId      Int?
+  referenceNumber      String?
+  saleOrderDate        DateTime
+  saleOrderDetails     SaleOrderDetail[]
+  salePriceType        SalePriceType     @relation(fields: [Name], references: [id])
+  Name                 Int               @unique
+  salePriceTypeId      Float
+  saleQuotation        SaleQuotation?    @relation(fields: [saleQuotationId], references: [id])
+  saleQuotationId      String?
+  saleTotal            Decimal
+  shippingAddress      String?
+  shippingCost         Decimal?
+  shippingStatus       ShippingStatus?   @relation(fields: [shippingStatusId], references: [id])
+  shippingStatusId     Int?              @unique
+  storeId              Store?            @relation(fields: [storeIdId], references: [id])
+  storeIdId            String?
+  tax                  Decimal?
+  taxRate              Decimal?
+  taxableTotal         Decimal?
+  tenant               Tenant?           @relation(fields: [tenantId], references: [id])
+  tenantId             String?
+  transactionDateTime  DateTime?
+  updatedAt            DateTime          @updatedAt
+}
+
+model SaleOrderDetail {
+  barcode             String?
+  createdAt           DateTime        @default(now())
+  discount            Decimal?
+  discountRate        Decimal
+  id                  String          @id @default(cuid())
+  isActive            Boolean         @default(1)
+  isError             Boolean         @default(0)
+  isTaxed             Boolean         @default(1)
+  price               Decimal
+  priceTotal          Decimal
+  productId           Product         @relation(fields: [productIdId], references: [id])
+  productIdId         String
+  productSerialNumber String?
+  productVariantId    ProductVariant? @relation(fields: [productVariantIdId], references: [id])
+  productVariantIdId  String?
+  quantity            Decimal
+  saleOrder           SaleOrder       @relation(fields: [saleOrderId], references: [id])
+  saleOrderId         String
+  salePriceTypeId     SalePriceType   @relation(fields: [salePriceTypeIdId], references: [id])
+  salePriceTypeIdId   Int             @unique
+  sequence            String
+  tenant              Tenant?         @relation(fields: [tenantId], references: [id])
+  tenantId            String?
+  unitId              Unit            @relation(fields: [unitIdId], references: [id])
+  unitIdId            String
+  updatedAt           DateTime        @updatedAt
+}
+
+model PaymentStatus {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  id             Int        @id @default(autoincrement())
+  isActive       Boolean    @default(1)
+  name           String     @unique
+  normalizedName String     @unique
+  note           String?
+  saleOrders     SaleOrder?
+  tenant         Tenant?    @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model ShippingStatus {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  id             Int        @id @default(autoincrement())
+  isActive       Boolean    @default(1)
+  name           String     @unique
+  normalizedName String     @unique
+  note           String?
+  saleOrders     SaleOrder?
+  tenant         Tenant?    @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model SalePayment {
+  LocalCurrencyRatl   Decimal
+  bank                Bank?         @relation(fields: [bankId], references: [id])
+  bankId              String?
+  bankBrach           String
+  bankBranch          BankBranch?   @relation(fields: [bankBranchId], references: [id])
+  bankBranchId        String?
+  chequeNumber        String?
+  createdAt           DateTime      @default(now())
+  creditCardNumber    String?
+  currencyId          Currency?     @relation(fields: [currencyIdId], references: [id])
+  currencyIdId        String?
+  foreignCurrencyRate Decimal
+  id                  String        @id @default(cuid())
+  isCheque            Boolean?
+  note                String?
+  paidValue           String?
+  paymentDate         DateTime
+  paymentMethodId     PaymentMethod @relation(fields: [paymentMethodIdId], references: [id])
+  paymentMethodIdId   Int
+  quantity            Int?
+  saleId              Sale?         @relation(fields: [saleIdId], references: [id])
+  saleIdId            String?
+  seqeunce            Int
+  tenant              Tenant?       @relation(fields: [tenantId], references: [id])
+  tenantId            String?
+  updatedAt           DateTime      @updatedAt
+}
+
+model PaymentMethod {
+  code           String?
+  createdAt      DateTime      @default(now())
+  description    String?
+  id             Int           @id @default(autoincrement())
+  isActive       Boolean       @default(1)
+  name           String        @unique
+  normalizedName String        @unique
+  note           String?
+  salePayments   SalePayment[]
+  tenant         Tenant?       @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime      @updatedAt
+}
+
+model Bank {
+  address                          String?
+  bankBranches                     BankBranch[]
+  bankType                         BankType?     @relation(fields: [bankTypeId], references: [id])
+  bankTypeId                       Int?
+  cellPhoneNumber                  String?
+  code                             String?
+  contactPhoneNumber               String?
+  createdAt                        DateTime      @default(now())
+  description                      String?
+  fax                              String?
+  homePhoneNumber                  String?
+  id                               String        @id @default(cuid())
+  name                             String?
+  normalizedName                   String?
+  relationshipOfficerContactNumber String?
+  relationshipOfficerName          String?
+  salePayments                     SalePayment[]
+  street                           String?
+  updatedAt                        DateTime      @updatedAt
+}
+
+model BankType {
+  banks          Bank[]
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean? @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenant         Tenant?  @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime @updatedAt
+}
+
+model BankBranch {
+  address            String?
+  bank               Bank          @relation(fields: [bankId], references: [id])
+  bankId             String
+  code               String?
+  contactPhoneNumber String?
+  createdAt          DateTime      @default(now())
+  description        String?
+  id                 String        @id @default(cuid())
+  isActive           Boolean?      @default(1)
+  name               String        @unique
+  normalizedName     String        @unique
+  note               String?
+  salePayments       SalePayment[]
+  tenant             Tenant?       @relation(fields: [tenantId], references: [id])
+  tenantId           String?
+  updatedAt          DateTime      @updatedAt
+}
+
+model SettingGroup {
+  code           String?
+  createdAt      DateTime  @default(now())
+  description    String?
+  id             Int       @id @default(autoincrement())
+  isActive       Boolean?  @default(1)
+  name           String    @unique
+  normalizedName String    @unique
+  note           String?
+  settings       Setting[]
+  tenant         Tenant?   @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime  @updatedAt
+}
+
+model Setting {
+  code           String?
+  createdAt      DateTime      @default(now())
+  id             String        @id @default(cuid())
+  isActive       Boolean       @default(1)
+  isEnabled      Boolean       @default(1)
+  isSystem       Boolean       @default(1)
+  key            String        @unique
+  note           String?
+  settingGroup   SettingGroup? @relation(fields: [settingGroupId], references: [id])
+  settingGroupId Int?
+  tenant         Tenant?       @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime      @updatedAt
+  value          String
+}
+
+model Shift {
+  code               String?
+  createdAt          DateTime  @default(now())
+  endTime            DateTime?
+  id                 Int       @id @default(autoincrement())
+  isActive           Boolean   @default(1)
+  name               String    @unique
+  nameNormalizedName String    @unique
+  note               String?
+  startTime          DateTime
+  tenantid           Tenant?   @relation(fields: [tenantidId], references: [id])
+  tenantidId         String?
+  updatedAt          DateTime  @updatedAt
+}
+
+model StoreLocation {
+  code           String?
+  createdAt      DateTime                       @default(now())
+  createdAtSide  EnumStoreLocationCreatedAtSide
+  id             String                         @id @default(cuid())
+  isActive       Boolean                        @default(1)
+  name           String                         @unique
+  normalizedName String                         @unique
+  note           String?
+  storeId        Store                          @relation(fields: [storeIdId], references: [id])
+  storeIdId      String
+  tenantId       Tenant?                        @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime                       @updatedAt
+}
+
+model StoreType {
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             String   @id @default(cuid())
+  isActive       Boolean  @default(1)
+  isDefault      Boolean
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  stores         Store[]
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model ReceiptVoucher {
+  accountTransactionId   AccountTransaction? @relation(fields: [accountTransactionIdId], references: [id])
+  accountTransactionIdId String?             @unique
+  amount                 Decimal
+  cashRepositoryId       CashRepository      @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId     String
+  chequeDueDate          DateTime?
+  chequeNumber           String?
+  chequeValue            String?
+  createdAt              DateTime            @default(now())
+  currencyId             Currency?           @relation(fields: [currencyIdId], references: [id])
+  currencyIdId           String?
+  customerId             Customer?           @relation(fields: [customerIdId], references: [id])
+  customerIdId           String?
+  employeeId             Employee?           @relation(fields: [employeeIdId], references: [id])
+  employeeIdId           String?
+  id                     String              @id @default(cuid())
+  isAcive                Boolean             @default(1)
+  note                   String?
+  receiptVoucherDate     DateTime
+  sequence               String?
+  statementReference     String?
+  tenant                 Tenant?             @relation(fields: [tenantId], references: [id])
+  tenantId               String?
+  updatedAt              DateTime            @updatedAt
+  voucherTypeId          VoucherType         @relation(fields: [voucherTypeIdId], references: [id])
+  voucherTypeIdId        Int
+  wasChequePaid          Boolean             @default(0)
+}
+
+model VoucherType {
+  code            String?
+  createdAt       DateTime         @default(now())
+  description     String?
+  id              Int              @id @default(autoincrement())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  paymentVouchers PaymentVoucher[]
+  receiptVouchers ReceiptVoucher[]
+  tenantId        Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId      String?
+  updatedAt       DateTime         @updatedAt
+}
+
+model AccountTransaction {
+  code            String?
+  createdAt       DateTime         @default(now())
+  id              String           @id @default(cuid())
+  name            String?
+  paymentVouchers PaymentVoucher[]
+  receiptVouchers ReceiptVoucher?
+  updatedAt       DateTime         @updatedAt
+}
+
+model ExpenseItem {
+  code            String?
+  createdAt       DateTime         @default(now())
+  description     String?
+  id              String           @id @default(cuid())
+  isActive        Boolean          @default(1)
+  name            String           @unique
+  normalizedName  String           @unique
+  note            String?
+  paymentVouchers PaymentVoucher[]
+  tenant          Tenant?          @relation(fields: [tenantId], references: [id])
+  tenantId        String?
+  updatedAt       DateTime         @updatedAt
+}
+
+model PaymentVoucher {
+  accountTransactionId   AccountTransaction? @relation(fields: [accountTransactionIdId], references: [id])
+  accountTransactionIdId String?
+  amount                 Decimal?
+  cashRepositoryId       CashRepository      @relation(fields: [cashRepositoryIdId], references: [id])
+  cashRepositoryIdId     String
+  createdAt              DateTime            @default(now())
+  currency               Currency            @relation(fields: [currencyId], references: [id])
+  currencyId             String
+  employeeId             Employee?           @relation(fields: [employeeIdId], references: [id])
+  employeeIdId           String?
+  expenseItemId          ExpenseItem?        @relation(fields: [expenseItemIdId], references: [id])
+  expenseItemIdId        String?
+  id                     String              @id @default(cuid())
+  isActive               Boolean             @default(1)
+  note                   String?
+  paymentVoucherDate     DateTime
+  statementReference     String?
+  supplier               Supplier?           @relation(fields: [supplierId], references: [id])
+  supplierId             String?
+  tenantId               Tenant?             @relation(fields: [tenantIdId], references: [id])
+  tenantIdId             String?
+  updatedAt              DateTime            @updatedAt
+  voucherTypeId          VoucherType?        @relation(fields: [voucherTypeIdId], references: [id])
+  voucherTypeIdId        Int?
+}
+
+model TimeMode {
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model TimeoffType {
+  code           String?
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model Timezone {
+  createdAt      DateTime @default(now())
+  description    String?
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  updatedAt      DateTime @updatedAt
 }
 
 enum EnumPrintTemplatePaperLayout {
@@ -1520,4 +2000,15 @@ enum EnumPrintTemplatePaperSize {
   A3
   A4
   A5
+  A6
+  B1
+  B2
+  B3
+  B5
+  B6
+}
+
+enum EnumStoreLocationCreatedAtSide {
+  Server
+  Client
 }

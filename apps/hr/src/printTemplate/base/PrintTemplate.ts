@@ -11,18 +11,15 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-
 import {
   IsString,
   MaxLength,
   IsOptional,
   IsDate,
-  IsInt,
   IsBoolean,
   IsEnum,
   ValidateNested,
 } from "class-validator";
-
 import { Type } from "class-transformer";
 import { EnumPrintTemplatePaperLayout } from "./EnumPrintTemplatePaperLayout";
 import { EnumPrintTemplatePaperSize } from "./EnumPrintTemplatePaperSize";
@@ -30,22 +27,10 @@ import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { PrintTemplateContent } from "../../printTemplateContent/base/PrintTemplateContent";
-import { PrintTemplateGroup } from "../../printTemplateGroup/base/PrintTemplateGroup";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class PrintTemplate {
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  Description!: string | null;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -76,15 +61,27 @@ class PrintTemplate {
   @Field(() => String, {
     nullable: true,
   })
+  description!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
   filePath!: string | null;
 
   @ApiProperty({
     required: true,
-    type: Number,
+    type: String,
   })
-  @IsInt()
-  @Field(() => Number)
-  id!: number;
+  @IsString()
+  @Field(() => String)
+  id!: string;
 
   @ApiProperty({
     required: false,
@@ -95,18 +92,23 @@ class PrintTemplate {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isCustomized!: boolean | null;
+  isActive!: boolean | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
+  @Field(() => Boolean)
+  isCustomized!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
   })
-  isFavourite!: boolean | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isFavourite!: boolean;
 
   @ApiProperty({
     required: true,
@@ -158,7 +160,19 @@ class PrintTemplate {
   @Field(() => EnumPrintTemplatePaperSize, {
     nullable: true,
   })
-  paperSize?: "A1" | "A2" | "A3" | "A4" | "A5" | null;
+  paperSize?:
+    | "A1"
+    | "A2"
+    | "A3"
+    | "A4"
+    | "A5"
+    | "A6"
+    | "B1"
+    | "B2"
+    | "B3"
+    | "B5"
+    | "B6"
+    | null;
 
   @ApiProperty({
     required: false,
@@ -172,20 +186,21 @@ class PrintTemplate {
 
   @ApiProperty({
     required: false,
-    type: () => [PrintTemplateContent],
+    type: () => PrintTemplateContent,
   })
   @ValidateNested()
   @Type(() => PrintTemplateContent)
   @IsOptional()
-  printTemplateContents?: Array<PrintTemplateContent>;
+  printTemplateContents?: PrintTemplateContent | null;
 
   @ApiProperty({
-    required: true,
-    type: () => PrintTemplateGroup,
+    required: false,
+    type: () => Tenant,
   })
   @ValidateNested()
-  @Type(() => PrintTemplateGroup)
-  printTemplateGroupId?: PrintTemplateGroup;
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

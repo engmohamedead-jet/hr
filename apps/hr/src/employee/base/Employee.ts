@@ -11,18 +11,27 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+
 import {
   IsNumber,
+  Min,
   Max,
   IsOptional,
-  IsDate,
-  ValidateNested,
   IsString,
   MaxLength,
+  IsDate,
+  ValidateNested,
+  IsBoolean,
 } from "class-validator";
+
 import { Decimal } from "decimal.js";
 import { Type } from "class-transformer";
-import { Department } from "../../department/base/Department";
+import { EmployeeClass } from "../../employeeClass/base/EmployeeClass";
+import { EmployeeDepartment } from "../../employeeDepartment/base/EmployeeDepartment";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { SalePerson } from "../../salePerson/base/SalePerson";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class Employee {
@@ -31,12 +40,25 @@ class Employee {
     type: Number,
   })
   @IsNumber()
+  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   balance!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -48,12 +70,21 @@ class Employee {
 
   @ApiProperty({
     required: false,
-    type: () => Department,
+    type: () => EmployeeClass,
   })
   @ValidateNested()
-  @Type(() => Department)
+  @Type(() => EmployeeClass)
   @IsOptional()
-  departmentId?: Department | null;
+  employeeClassId?: EmployeeClass | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeDepartment,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeDepartment)
+  @IsOptional()
+  employeeDepartmentId?: EmployeeDepartment | null;
 
   @ApiProperty({
     required: true,
@@ -64,10 +95,19 @@ class Employee {
   id!: string;
 
   @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
     required: false,
     type: Number,
   })
   @IsNumber()
+  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
@@ -76,28 +116,22 @@ class Employee {
   lastYearBalance!: Decimal | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name!: string | null;
+  @Field(() => String)
+  name!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  normalizedName!: string | null;
+  @Field(() => String)
+  normalizedName!: string;
 
   @ApiProperty({
     required: false,
@@ -113,15 +147,52 @@ class Employee {
 
   @ApiProperty({
     required: false,
+    type: () => [PaymentVoucher],
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucher)
+  @IsOptional()
+  paymentVouchers?: Array<PaymentVoucher>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ReceiptVoucher],
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucher)
+  @IsOptional()
+  receiptVouchers?: Array<ReceiptVoucher>;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
+  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   remainingBalance!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SalePerson],
+  })
+  @ValidateNested()
+  @Type(() => SalePerson)
+  @IsOptional()
+  salePeople?: Array<SalePerson>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,
@@ -136,6 +207,7 @@ class Employee {
     type: Number,
   })
   @IsNumber()
+  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {

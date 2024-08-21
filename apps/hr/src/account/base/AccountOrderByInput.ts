@@ -28,17 +28,6 @@ class AccountOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  accountCategoryId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   accountNumber?: SortOrder;
 
   @ApiProperty({
@@ -50,29 +39,7 @@ class AccountOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  accountTypeIdId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   createdAt?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  currencyIdId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -127,17 +94,6 @@ class AccountOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  isUnderRevision?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   name?: SortOrder;
 
   @ApiProperty({
@@ -171,7 +127,7 @@ class AccountOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  parentAccountId?: SortOrder;
+  parentAccountIdId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -182,7 +138,7 @@ class AccountOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  referenceNumber?: SortOrder;
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

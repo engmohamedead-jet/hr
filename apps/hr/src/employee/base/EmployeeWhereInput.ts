@@ -14,9 +14,15 @@ import { ApiProperty } from "@nestjs/swagger";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { DepartmentWhereUniqueInput } from "../../department/base/DepartmentWhereUniqueInput";
-import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { EmployeeClassWhereUniqueInput } from "../../employeeClass/base/EmployeeClassWhereUniqueInput";
+import { EmployeeDepartmentWhereUniqueInput } from "../../employeeDepartment/base/EmployeeDepartmentWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { PaymentVoucherListRelationFilter } from "../../paymentVoucher/base/PaymentVoucherListRelationFilter";
+import { ReceiptVoucherListRelationFilter } from "../../receiptVoucher/base/ReceiptVoucherListRelationFilter";
+import { SalePersonListRelationFilter } from "../../salePerson/base/SalePersonListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class EmployeeWhereInput {
@@ -33,15 +39,38 @@ class EmployeeWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => DepartmentWhereUniqueInput,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => DepartmentWhereUniqueInput)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => DepartmentWhereUniqueInput, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  departmentId?: DepartmentWhereUniqueInput;
+  code?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeClassWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeClassWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeClassWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeClassId?: EmployeeClassWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeDepartmentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeDepartmentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeDepartmentWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeDepartmentId?: EmployeeDepartmentWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -56,6 +85,17 @@ class EmployeeWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
     type: DecimalNullableFilter,
   })
   @Type(() => DecimalNullableFilter)
@@ -67,25 +107,25 @@ class EmployeeWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  name?: StringNullableFilter;
+  name?: StringFilter;
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: StringFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  normalizedName?: StringNullableFilter;
+  normalizedName?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -100,6 +140,30 @@ class EmployeeWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentVoucherListRelationFilter, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => ReceiptVoucherListRelationFilter, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: DecimalNullableFilter,
   })
   @Type(() => DecimalNullableFilter)
@@ -108,6 +172,30 @@ class EmployeeWhereInput {
     nullable: true,
   })
   remainingBalance?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePersonListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SalePersonListRelationFilter)
+  @IsOptional()
+  @Field(() => SalePersonListRelationFilter, {
+    nullable: true,
+  })
+  salePeople?: SalePersonListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,

@@ -2,102 +2,92 @@ import { Module } from "@nestjs/common";
 import { CacheModule } from "@nestjs/cache-manager";
 import { redisStore } from "cache-manager-ioredis-yet";
 import { UserModule } from "./user/user.module";
-import { DepartmentModule } from "./department/department.module";
-import { EmployeeModule } from "./employee/employee.module";
-import { RoleModule } from "./role/role.module";
-import { EmployeeClassModule } from "./employeeClass/employeeClass.module";
-import { SalaryItemModule } from "./salaryItem/salaryItem.module";
-import { FiscalMonthModule } from "./fiscalMonth/fiscalMonth.module";
-import { EmployeeSalaryModule } from "./employeeSalary/employeeSalary.module";
-import { EmployeeSalaryDetailModule } from "./employeeSalaryDetail/employeeSalaryDetail.module";
-import { EmployeeClassSalaryItemValueModule } from "./employeeClassSalaryItemValue/employeeClassSalaryItemValue.module";
-import { AccountModule } from "./account/account.module";
-import { CurrencyModule } from "./currency/currency.module";
-import { AccountTypeModule } from "./accountType/accountType.module";
-import { AccountCategoryModule } from "./accountCategory/accountCategory.module";
-import { AccountTransactionModule } from "./accountTransaction/accountTransaction.module";
-import { TransactionTypeModule } from "./transactionType/transactionType.module";
-import { CostCenterModule } from "./costCenter/costCenter.module";
-import { StoreTypeModule } from "./storeType/storeType.module";
-import { StoreModule } from "./store/store.module";
-import { OfficeModule } from "./office/office.module";
-import { AccountTransactionDetailModule } from "./accountTransactionDetail/accountTransactionDetail.module";
-import { BankModule } from "./bank/bank.module";
-import { BankTypeModule } from "./bankType/bankType.module";
-import { CountryModule } from "./country/country.module";
-import { StateModule } from "./state/state.module";
-import { CityModule } from "./city/city.module";
-import { BankAccountModule } from "./bankAccount/bankAccount.module";
-import { BankBranchModule } from "./bankBranch/bankBranch.module";
-import { CashRepositoryModule } from "./cashRepository/cashRepository.module";
-import { ReceiptVoucherModule } from "./receiptVoucher/receiptVoucher.module";
-import { VoucherTypeModule } from "./voucherType/voucherType.module";
-import { CompanyModule } from "./company/company.module";
-import { ExchangeRateModule } from "./exchangeRate/exchangeRate.module";
-import { ExchangeRateDetailModule } from "./exchangeRateDetail/exchangeRateDetail.module";
-import { ExpenseItemModule } from "./expenseItem/expenseItem.module";
-import { IncomeItemModule } from "./incomeItem/incomeItem.module";
-import { FiscalYearModule } from "./fiscalYear/fiscalYear.module";
-import { FiscalWeekModule } from "./fiscalWeek/fiscalWeek.module";
-import { PeriodModule } from "./period/period.module";
-import { PaymentVoucherModule } from "./paymentVoucher/paymentVoucher.module";
-import { RatingModule } from "./rating/rating.module";
-import { SupplierModule } from "./supplier/supplier.module";
-import { CustomerTypeModule } from "./customerType/customerType.module";
-import { CustomerModule } from "./customer/customer.module";
-import { SalePriceTypeModule } from "./salePriceType/salePriceType.module";
-import { CustomerCateogryModule } from "./customerCateogry/customerCateogry.module";
-import { InvoiceTypeModule } from "./invoiceType/invoiceType.module";
-import { NotificationModule } from "./notification/notification.module";
-import { OrderStatusModule } from "./orderStatus/orderStatus.module";
-import { PaymentMethodModule } from "./paymentMethod/paymentMethod.module";
-import { PaymentStatusModule } from "./paymentStatus/paymentStatus.module";
-import { PaymentTermModule } from "./paymentTerm/paymentTerm.module";
-import { InstallmentSaleFeeModule } from "./installmentSaleFee/installmentSaleFee.module";
-import { AttachmentModule } from "./attachment/attachment.module";
-import { PaymentTypeModule } from "./paymentType/paymentType.module";
-import { AttendanceModule } from "./attendance/attendance.module";
 import { AttributeModule } from "./attribute/attribute.module";
 import { AttributeValueModule } from "./attributeValue/attributeValue.module";
 import { BarcodeTypeModule } from "./barcodeType/barcodeType.module";
 import { BillOfMaterialTypeModule } from "./billOfMaterialType/billOfMaterialType.module";
-import { BrandModule } from "./brand/brand.module";
-import { PressTypeModule } from "./pressType/pressType.module";
-import { ControlTypeModule } from "./controlType/controlType.module";
-import { ContractStatusModule } from "./contractStatus/contractStatus.module";
-import { DoorTypeModule } from "./doorType/doorType.module";
-import { ElevatorTypeModule } from "./elevatorType/elevatorType.module";
-import { FailureTypeModule } from "./failureType/failureType.module";
-import { ImageCategoryModule } from "./imageCategory/imageCategory.module";
-import { CalendarModule } from "./calendar/calendar.module";
-import { CashTransferModule } from "./cashTransfer/cashTransfer.module";
+import { PrintTemplateGroupModule } from "./printTemplateGroup/printTemplateGroup.module";
+import { PrintTemplateModule } from "./printTemplate/printTemplate.module";
+import { PrintTemplateContentModule } from "./printTemplateContent/printTemplateContent.module";
+import { CustomerModule } from "./customer/customer.module";
+import { SalePriceTypeModule } from "./salePriceType/salePriceType.module";
+import { CurrencyModule } from "./currency/currency.module";
+import { OrderStatusModule } from "./orderStatus/orderStatus.module";
+import { StoreModule } from "./store/store.module";
 import { UnitModule } from "./unit/unit.module";
-import { CompoundUnitModule } from "./compoundUnit/compoundUnit.module";
-import { ContractPeriodModule } from "./contractPeriod/contractPeriod.module";
-import { CurrencySettingModule } from "./currencySetting/currencySetting.module";
-import { CustomerElevatorModule } from "./customerElevator/customerElevator.module";
-import { MotorTypeModule } from "./motorType/motorType.module";
-import { ElevatorModule } from "./elevator/elevator.module";
-import { DebitModule } from "./debit/debit.module";
-import { ElevatorSparePartModule } from "./elevatorSparePart/elevatorSparePart.module";
-import { ElevatorStatusModule } from "./elevatorStatus/elevatorStatus.module";
-import { FailureModule } from "./failure/failure.module";
-import { FailureReportingModule } from "./failureReporting/failureReporting.module";
-import { CustomerUserModule } from "./customerUser/customerUser.module";
-import { InstallationContractModule } from "./installationContract/installationContract.module";
-import { MaintenanceContractModule } from "./maintenanceContract/maintenanceContract.module";
-import { MaintenanceVisitModule } from "./maintenanceVisit/maintenanceVisit.module";
+import { WorkCenterModule } from "./workCenter/workCenter.module";
+import { WorkCenterRoutingModule } from "./workCenterRouting/workCenterRouting.module";
+import { ProductModule } from "./product/product.module";
 import { ProductTypeModule } from "./productType/productType.module";
-import { ProductCategoryModule } from "./productCategory/productCategory.module";
 import { ProductDepartmentModule } from "./productDepartment/productDepartment.module";
 import { ProductGroupModule } from "./productGroup/productGroup.module";
+import { AccountModule } from "./account/account.module";
 import { SaleTaxModule } from "./saleTax/saleTax.module";
-import { PeriodicMaintenanceOrderModule } from "./periodicMaintenanceOrder/periodicMaintenanceOrder.module";
-import { PrintTemplateModule } from "./printTemplate/printTemplate.module";
-import { PrintTemplateGroupModule } from "./printTemplateGroup/printTemplateGroup.module";
-import { PrintTemplateContentModule } from "./printTemplateContent/printTemplateContent.module";
-import { ProductModule } from "./product/product.module";
-import { PrismaSeedsModule } from "./prismaseeds/prismaseeds.module";
+import { ProductCategoryModule } from "./productCategory/productCategory.module";
+import { ProductVariantModule } from "./productVariant/productVariant.module";
+import { ProductionDocumentModule } from "./productionDocument/productionDocument.module";
+import { BillOfMaterialModule } from "./billOfMaterial/billOfMaterial.module";
+import { BillOfMaterialDetailModule } from "./billOfMaterialDetail/billOfMaterialDetail.module";
+import { ProductBarcodeModule } from "./productBarcode/productBarcode.module";
+import { ProductionOrderModule } from "./productionOrder/productionOrder.module";
+import { ProductionAvailabilityModule } from "./productionAvailability/productionAvailability.module";
+import { ProductUnitModule } from "./productUnit/productUnit.module";
+import { PurchaseModule } from "./purchase/purchase.module";
+import { InvoiceTypeModule } from "./invoiceType/invoiceType.module";
+import { PaymentTypeModule } from "./paymentType/paymentType.module";
+import { PaymentTermModule } from "./paymentTerm/paymentTerm.module";
+import { PeriodModule } from "./period/period.module";
+import { InstallmentSaleFeeModule } from "./installmentSaleFee/installmentSaleFee.module";
+import { PurchasePriceTypeModule } from "./purchasePriceType/purchasePriceType.module";
+import { SupplierModule } from "./supplier/supplier.module";
+import { CashRepositoryModule } from "./cashRepository/cashRepository.module";
+import { PurchaseDetailModule } from "./purchaseDetail/purchaseDetail.module";
+import { PurchaseReturnModule } from "./purchaseReturn/purchaseReturn.module";
+import { PurchaseReturnDetailModule } from "./purchaseReturnDetail/purchaseReturnDetail.module";
+import { ResourceTypeModule } from "./resourceType/resourceType.module";
+import { ResourceModule } from "./resource/resource.module";
+import { RoleGroupModule } from "./roleGroup/roleGroup.module";
+import { SalaryItemGroupModule } from "./salaryItemGroup/salaryItemGroup.module";
+import { SalaryItemTypeModule } from "./salaryItemType/salaryItemType.module";
+import { SalaryLawModule } from "./salaryLaw/salaryLaw.module";
+import { SalaryItemModule } from "./salaryItem/salaryItem.module";
+import { SaleTeamModule } from "./saleTeam/saleTeam.module";
+import { ScrapReasonModule } from "./scrapReason/scrapReason.module";
+import { SalePersonModule } from "./salePerson/salePerson.module";
+import { EmployeeDepartmentModule } from "./employeeDepartment/employeeDepartment.module";
+import { EmployeeClassModule } from "./employeeClass/employeeClass.module";
+import { EmployeeModule } from "./employee/employee.module";
+import { TenantModule } from "./tenant/tenant.module";
+import { SaleModule } from "./sale/sale.module";
+import { SaleDetailModule } from "./saleDetail/saleDetail.module";
+import { SaleQuotationModule } from "./saleQuotation/saleQuotation.module";
+import { SaleReturnModule } from "./saleReturn/saleReturn.module";
+import { SaleReturnDetailModule } from "./saleReturnDetail/saleReturnDetail.module";
+import { ApplicationModule } from "./application/application.module";
+import { ApplicationDependencyModule } from "./applicationDependency/applicationDependency.module";
+import { SaleQuotationDetailModule } from "./saleQuotationDetail/saleQuotationDetail.module";
+import { SaleOrderModule } from "./saleOrder/saleOrder.module";
+import { SaleOrderDetailModule } from "./saleOrderDetail/saleOrderDetail.module";
+import { PaymentStatusModule } from "./paymentStatus/paymentStatus.module";
+import { ShippingStatusModule } from "./shippingStatus/shippingStatus.module";
+import { SalePaymentModule } from "./salePayment/salePayment.module";
+import { PaymentMethodModule } from "./paymentMethod/paymentMethod.module";
+import { BankModule } from "./bank/bank.module";
+import { BankTypeModule } from "./bankType/bankType.module";
+import { BankBranchModule } from "./bankBranch/bankBranch.module";
+import { SettingGroupModule } from "./settingGroup/settingGroup.module";
+import { SettingModule } from "./setting/setting.module";
+import { ShiftModule } from "./shift/shift.module";
+import { StoreLocationModule } from "./storeLocation/storeLocation.module";
+import { StoreTypeModule } from "./storeType/storeType.module";
+import { ReceiptVoucherModule } from "./receiptVoucher/receiptVoucher.module";
+import { VoucherTypeModule } from "./voucherType/voucherType.module";
+import { AccountTransactionModule } from "./accountTransaction/accountTransaction.module";
+import { ExpenseItemModule } from "./expenseItem/expenseItem.module";
+import { PaymentVoucherModule } from "./paymentVoucher/paymentVoucher.module";
+import { TimeModeModule } from "./timeMode/timeMode.module";
+import { TimeoffTypeModule } from "./timeoffType/timeoffType.module";
+import { TimezoneModule } from "./timezone/timezone.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -116,102 +106,92 @@ import { AuthModule } from "./auth/auth.module";
     ACLModule,
     AuthModule,
     UserModule,
-    DepartmentModule,
-    EmployeeModule,
-    RoleModule,
-    EmployeeClassModule,
-    SalaryItemModule,
-    FiscalMonthModule,
-    EmployeeSalaryModule,
-    EmployeeSalaryDetailModule,
-    EmployeeClassSalaryItemValueModule,
-    AccountModule,
-    CurrencyModule,
-    AccountTypeModule,
-    AccountCategoryModule,
-    AccountTransactionModule,
-    TransactionTypeModule,
-    CostCenterModule,
-    StoreTypeModule,
-    StoreModule,
-    OfficeModule,
-    AccountTransactionDetailModule,
-    BankModule,
-    BankTypeModule,
-    CountryModule,
-    StateModule,
-    CityModule,
-    BankAccountModule,
-    BankBranchModule,
-    CashRepositoryModule,
-    ReceiptVoucherModule,
-    VoucherTypeModule,
-    CompanyModule,
-    ExchangeRateModule,
-    ExchangeRateDetailModule,
-    ExpenseItemModule,
-    IncomeItemModule,
-    FiscalYearModule,
-    FiscalWeekModule,
-    PeriodModule,
-    PaymentVoucherModule,
-    RatingModule,
-    SupplierModule,
-    CustomerTypeModule,
-    CustomerModule,
-    SalePriceTypeModule,
-    CustomerCateogryModule,
-    InvoiceTypeModule,
-    NotificationModule,
-    OrderStatusModule,
-    PaymentMethodModule,
-    PaymentStatusModule,
-    PaymentTermModule,
-    InstallmentSaleFeeModule,
-    AttachmentModule,
-    PaymentTypeModule,
-    AttendanceModule,
     AttributeModule,
     AttributeValueModule,
     BarcodeTypeModule,
     BillOfMaterialTypeModule,
-    BrandModule,
-    PressTypeModule,
-    ControlTypeModule,
-    ContractStatusModule,
-    DoorTypeModule,
-    ElevatorTypeModule,
-    FailureTypeModule,
-    ImageCategoryModule,
-    CalendarModule,
-    CashTransferModule,
+    PrintTemplateGroupModule,
+    PrintTemplateModule,
+    PrintTemplateContentModule,
+    CustomerModule,
+    SalePriceTypeModule,
+    CurrencyModule,
+    OrderStatusModule,
+    StoreModule,
     UnitModule,
-    CompoundUnitModule,
-    ContractPeriodModule,
-    CurrencySettingModule,
-    CustomerElevatorModule,
-    MotorTypeModule,
-    ElevatorModule,
-    DebitModule,
-    ElevatorSparePartModule,
-    ElevatorStatusModule,
-    FailureModule,
-    FailureReportingModule,
-    CustomerUserModule,
-    InstallationContractModule,
-    MaintenanceContractModule,
-    MaintenanceVisitModule,
+    WorkCenterModule,
+    WorkCenterRoutingModule,
+    ProductModule,
     ProductTypeModule,
-    ProductCategoryModule,
     ProductDepartmentModule,
     ProductGroupModule,
+    AccountModule,
     SaleTaxModule,
-    PeriodicMaintenanceOrderModule,
-    PrintTemplateModule,
-    PrintTemplateGroupModule,
-    PrintTemplateContentModule,
-    ProductModule,
-    PrismaSeedsModule,
+    ProductCategoryModule,
+    ProductVariantModule,
+    ProductionDocumentModule,
+    BillOfMaterialModule,
+    BillOfMaterialDetailModule,
+    ProductBarcodeModule,
+    ProductionOrderModule,
+    ProductionAvailabilityModule,
+    ProductUnitModule,
+    PurchaseModule,
+    InvoiceTypeModule,
+    PaymentTypeModule,
+    PaymentTermModule,
+    PeriodModule,
+    InstallmentSaleFeeModule,
+    PurchasePriceTypeModule,
+    SupplierModule,
+    CashRepositoryModule,
+    PurchaseDetailModule,
+    PurchaseReturnModule,
+    PurchaseReturnDetailModule,
+    ResourceTypeModule,
+    ResourceModule,
+    RoleGroupModule,
+    SalaryItemGroupModule,
+    SalaryItemTypeModule,
+    SalaryLawModule,
+    SalaryItemModule,
+    SaleTeamModule,
+    ScrapReasonModule,
+    SalePersonModule,
+    EmployeeDepartmentModule,
+    EmployeeClassModule,
+    EmployeeModule,
+    TenantModule,
+    SaleModule,
+    SaleDetailModule,
+    SaleQuotationModule,
+    SaleReturnModule,
+    SaleReturnDetailModule,
+    ApplicationModule,
+    ApplicationDependencyModule,
+    SaleQuotationDetailModule,
+    SaleOrderModule,
+    SaleOrderDetailModule,
+    PaymentStatusModule,
+    ShippingStatusModule,
+    SalePaymentModule,
+    PaymentMethodModule,
+    BankModule,
+    BankTypeModule,
+    BankBranchModule,
+    SettingGroupModule,
+    SettingModule,
+    ShiftModule,
+    StoreLocationModule,
+    StoreTypeModule,
+    ReceiptVoucherModule,
+    VoucherTypeModule,
+    AccountTransactionModule,
+    ExpenseItemModule,
+    PaymentVoucherModule,
+    TimeModeModule,
+    TimeoffTypeModule,
+    TimezoneModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

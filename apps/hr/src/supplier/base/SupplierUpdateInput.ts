@@ -9,17 +9,28 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
+import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+
 import {
   IsString,
   MaxLength,
   IsOptional,
+  IsNumber,
+  Min,
+  Max,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
+
+import { Decimal } from "decimal.js";
 import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { Type } from "class-transformer";
-import { CustomerUpdateManyWithoutSuppliersInput } from "./CustomerUpdateManyWithoutSuppliersInput";
+import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { PaymentVoucherUpdateManyWithoutSuppliersInput } from "./PaymentVoucherUpdateManyWithoutSuppliersInput";
+import { PurchaseReturnUpdateManyWithoutSuppliersInput } from "./PurchaseReturnUpdateManyWithoutSuppliersInput";
+import { PurchaseUpdateManyWithoutSuppliersInput } from "./PurchaseUpdateManyWithoutSuppliersInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SupplierUpdateInput {
@@ -49,15 +60,16 @@ class SupplierUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Number,
   })
-  @IsString()
-  @MaxLength(1000)
+  @IsNumber()
+  @Min(-99999999999)
+  @Max(99999999999)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Float, {
     nullable: true,
   })
-  credit?: string | null;
+  credit?: Decimal | null;
 
   @ApiProperty({
     required: false,
@@ -69,31 +81,32 @@ class SupplierUpdateInput {
   @Field(() => CurrencyWhereUniqueInput, {
     nullable: true,
   })
-  currencyId?: CurrencyWhereUniqueInput | null;
+  currency?: CurrencyWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
-    type: () => CustomerUpdateManyWithoutSuppliersInput,
+    type: () => CustomerWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => CustomerUpdateManyWithoutSuppliersInput)
+  @Type(() => CustomerWhereUniqueInput)
   @IsOptional()
-  @Field(() => CustomerUpdateManyWithoutSuppliersInput, {
+  @Field(() => CustomerWhereUniqueInput, {
     nullable: true,
   })
-  customers?: CustomerUpdateManyWithoutSuppliersInput;
+  customerId?: CustomerWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Number,
   })
-  @IsString()
-  @MaxLength(1000)
+  @IsNumber()
+  @Min(-99999999999)
+  @Max(99999999999)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Float, {
     nullable: true,
   })
-  debit?: string | null;
+  debit?: Decimal | null;
 
   @ApiProperty({
     required: false,
@@ -120,15 +133,14 @@ class SupplierUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Boolean,
   })
-  @IsString()
-  @MaxLength(1000)
+  @IsBoolean()
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Boolean, {
     nullable: true,
   })
-  name?: string | null;
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -140,7 +152,19 @@ class SupplierUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName?: string | null;
+  name?: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  normalizedName?: string;
 
   @ApiProperty({
     required: false,
@@ -156,6 +180,18 @@ class SupplierUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentVoucherUpdateManyWithoutSuppliersInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherUpdateManyWithoutSuppliersInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherUpdateManyWithoutSuppliersInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutSuppliersInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -165,6 +201,42 @@ class SupplierUpdateInput {
     nullable: true,
   })
   phoneNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnUpdateManyWithoutSuppliersInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnUpdateManyWithoutSuppliersInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnUpdateManyWithoutSuppliersInput, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnUpdateManyWithoutSuppliersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseUpdateManyWithoutSuppliersInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseUpdateManyWithoutSuppliersInput)
+  @IsOptional()
+  @Field(() => PurchaseUpdateManyWithoutSuppliersInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseUpdateManyWithoutSuppliersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

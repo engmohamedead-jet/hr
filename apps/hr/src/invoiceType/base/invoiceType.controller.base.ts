@@ -26,6 +26,21 @@ import { InvoiceType } from "./InvoiceType";
 import { InvoiceTypeFindManyArgs } from "./InvoiceTypeFindManyArgs";
 import { InvoiceTypeWhereUniqueInput } from "./InvoiceTypeWhereUniqueInput";
 import { InvoiceTypeUpdateInput } from "./InvoiceTypeUpdateInput";
+import { PurchaseReturnFindManyArgs } from "../../purchaseReturn/base/PurchaseReturnFindManyArgs";
+import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
+import { PurchaseReturnWhereUniqueInput } from "../../purchaseReturn/base/PurchaseReturnWhereUniqueInput";
+import { PurchaseFindManyArgs } from "../../purchase/base/PurchaseFindManyArgs";
+import { Purchase } from "../../purchase/base/Purchase";
+import { PurchaseWhereUniqueInput } from "../../purchase/base/PurchaseWhereUniqueInput";
+import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
+import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindManyArgs";
+import { SaleReturn } from "../../saleReturn/base/SaleReturn";
+import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWhereUniqueInput";
+import { SaleFindManyArgs } from "../../sale/base/SaleFindManyArgs";
+import { Sale } from "../../sale/base/Sale";
+import { SaleWhereUniqueInput } from "../../sale/base/SaleWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -49,14 +64,31 @@ export class InvoiceTypeControllerBase {
     @common.Body() data: InvoiceTypeCreateInput
   ): Promise<InvoiceType> {
     return await this.service.createInvoiceType({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
+        description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -81,10 +113,19 @@ export class InvoiceTypeControllerBase {
       select: {
         code: true,
         createdAt: true,
+        description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -110,10 +151,19 @@ export class InvoiceTypeControllerBase {
       select: {
         code: true,
         createdAt: true,
+        description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -144,14 +194,31 @@ export class InvoiceTypeControllerBase {
     try {
       return await this.service.updateInvoiceType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
+          description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -185,10 +252,19 @@ export class InvoiceTypeControllerBase {
         select: {
           code: true,
           createdAt: true,
+          description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -200,5 +276,863 @@ export class InvoiceTypeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/purchaseReturns")
+  @ApiNestedQuery(PurchaseReturnFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PurchaseReturn",
+    action: "read",
+    possession: "any",
+  })
+  async findPurchaseReturns(
+    @common.Req() request: Request,
+    @common.Param() params: InvoiceTypeWhereUniqueInput
+  ): Promise<PurchaseReturn[]> {
+    const query = plainToClass(PurchaseReturnFindManyArgs, request.query);
+    const results = await this.service.findPurchaseReturns(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchasePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseReturnDate: true,
+        purchaseReturnTotal: true,
+        referenceNumber: true,
+        remaining: true,
+        sequenceNumber: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        supplierId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/purchaseReturns")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async connectPurchaseReturns(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: PurchaseReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseReturns: {
+        connect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/purchaseReturns")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async updatePurchaseReturns(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: PurchaseReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseReturns: {
+        set: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/purchaseReturns")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPurchaseReturns(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: PurchaseReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseReturns: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/purchases")
+  @ApiNestedQuery(PurchaseFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Purchase",
+    action: "read",
+    possession: "any",
+  })
+  async findPurchases(
+    @common.Req() request: Request,
+    @common.Param() params: InvoiceTypeWhereUniqueInput
+  ): Promise<Purchase[]> {
+    const query = plainToClass(PurchaseFindManyArgs, request.query);
+    const results = await this.service.findPurchases(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseDate: true,
+
+        purchasePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseTotal: true,
+        referenceNumber: true,
+        remaining: true,
+        sequenceNumber: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        supplierId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/purchases")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async connectPurchases(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: PurchaseWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchases: {
+        connect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/purchases")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async updatePurchases(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: PurchaseWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchases: {
+        set: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/purchases")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPurchases(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: PurchaseWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchases: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleOrders")
+  @ApiNestedQuery(SaleOrderFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrders(
+    @common.Req() request: Request,
+    @common.Param() params: InvoiceTypeWhereUniqueInput
+  ): Promise<SaleOrder[]> {
+    const query = plainToClass(SaleOrderFindManyArgs, request.query);
+    const results = await this.service.findSaleOrders(params.id, {
+      ...query,
+      select: {
+        billingAddress: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        deliveryDate: true,
+        discountTotal: true,
+        expectedDeliveryDate: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+
+        orderStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
+        saleOrderDate: true,
+
+        salePriceType: {
+          select: {
+            id: true,
+          },
+        },
+
+        salePriceTypeId: true,
+
+        saleQuotation: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleTotal: true,
+        shippingAddress: true,
+        shippingCost: true,
+
+        shippingStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        transactionDateTime: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleOrders(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        connect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleOrders(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        set: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleOrders(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleReturns")
+  @ApiNestedQuery(SaleReturnFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleReturn",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleReturns(
+    @common.Req() request: Request,
+    @common.Param() params: InvoiceTypeWhereUniqueInput
+  ): Promise<SaleReturn[]> {
+    const query = plainToClass(SaleReturnFindManyArgs, request.query);
+    const results = await this.service.findSaleReturns(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
+        remaining: true,
+        returnTotal: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        salePriceTyped: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnDate: true,
+        sequence: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleReturns")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleReturns(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: SaleReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturns: {
+        connect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleReturns")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleReturns(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: SaleReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturns: {
+        set: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleReturns")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleReturns(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: SaleReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturns: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/sales")
+  @ApiNestedQuery(SaleFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Sale",
+    action: "read",
+    possession: "any",
+  })
+  async findSales(
+    @common.Req() request: Request,
+    @common.Param() params: InvoiceTypeWhereUniqueInput
+  ): Promise<Sale[]> {
+    const query = plainToClass(SaleFindManyArgs, request.query);
+    const results = await this.service.findSales(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTerm: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
+        remaining: true,
+        saleDate: true,
+
+        salePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleTotal: true,
+        sequenceNumber: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/sales")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async connectSales(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: SaleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      sales: {
+        connect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/sales")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async updateSales(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: SaleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      sales: {
+        set: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/sales")
+  @nestAccessControl.UseRoles({
+    resource: "InvoiceType",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSales(
+    @common.Param() params: InvoiceTypeWhereUniqueInput,
+    @common.Body() body: SaleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      sales: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateInvoiceType({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

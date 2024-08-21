@@ -11,31 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountListRelationFilter } from "../../account/base/AccountListRelationFilter";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
 import { CustomerListRelationFilter } from "../../customer/base/CustomerListRelationFilter";
-import { ExchangeRateDetailListRelationFilter } from "../../exchangeRateDetail/base/ExchangeRateDetailListRelationFilter";
-import { ExchangeRateDetailWhereUniqueInput } from "../../exchangeRateDetail/base/ExchangeRateDetailWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { PaymentVoucherListRelationFilter } from "../../paymentVoucher/base/PaymentVoucherListRelationFilter";
+import { ReceiptVoucherListRelationFilter } from "../../receiptVoucher/base/ReceiptVoucherListRelationFilter";
+import { SalePaymentListRelationFilter } from "../../salePayment/base/SalePaymentListRelationFilter";
 import { SupplierListRelationFilter } from "../../supplier/base/SupplierListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CurrencyWhereInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => AccountListRelationFilter)
-  @IsOptional()
-  @Field(() => AccountListRelationFilter, {
-    nullable: true,
-  })
-  accounts?: AccountListRelationFilter;
-
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -61,38 +50,14 @@ class CurrencyWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => ExchangeRateDetailListRelationFilter,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetailListRelationFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => ExchangeRateDetailListRelationFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  exchangeRateDetails?: ExchangeRateDetailListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => ExchangeRateDetailWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetailWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ExchangeRateDetailWhereUniqueInput, {
-    nullable: true,
-  })
-  foreignCurrencyName?: ExchangeRateDetailWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: StringFilter,
-  })
-  @Type(() => StringFilter)
-  @IsOptional()
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  hundredthName?: StringFilter;
+  description?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -114,7 +79,7 @@ class CurrencyWhereInput {
   @Field(() => BooleanFilter, {
     nullable: true,
   })
-  isDefault?: BooleanFilter;
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -151,6 +116,42 @@ class CurrencyWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => PaymentVoucherListRelationFilter, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherListRelationFilter)
+  @IsOptional()
+  @Field(() => ReceiptVoucherListRelationFilter, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentListRelationFilter)
+  @IsOptional()
+  @Field(() => SalePaymentListRelationFilter, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => SupplierListRelationFilter,
   })
   @ValidateNested()
@@ -163,14 +164,15 @@ class CurrencyWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: () => TenantWhereUniqueInput,
   })
-  @Type(() => StringFilter)
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  symbolField?: StringFilter;
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { CurrencyWhereInput as CurrencyWhereInput };

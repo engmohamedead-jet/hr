@@ -1,0 +1,31 @@
+import { SortOrder } from "../../util/SortOrder";
+
+export type SaleOrderByInput = {
+  cashRepositoryIdId?: SortOrder;
+  createdAt?: SortOrder;
+  customerIdId?: SortOrder;
+  discountTotal?: SortOrder;
+  id?: SortOrder;
+  invoiceTypeIdId?: SortOrder;
+  isActive?: SortOrder;
+  isCancelled?: SortOrder;
+  isReplicated?: SortOrder;
+  netTotal?: SortOrder;
+  nonTaxableTotal?: SortOrder;
+  note?: SortOrder;
+  paid?: SortOrder;
+  paymentTermId?: SortOrder;
+  paymentTypeIdId?: SortOrder;
+  referenceNumber?: SortOrder;
+  remaining?: SortOrder;
+  saleDate?: SortOrder;
+  salePriceTypeIdId?: SortOrder;
+  saleTotal?: SortOrder;
+  sequenceNumber?: SortOrder;
+  storeIdId?: SortOrder;
+  tax?: SortOrder;
+  taxRate?: SortOrder;
+  taxableTotal?: SortOrder;
+  tenantIdId?: SortOrder;
+  updatedAt?: SortOrder;
+};

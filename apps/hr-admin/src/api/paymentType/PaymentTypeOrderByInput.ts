@@ -3,10 +3,13 @@ import { SortOrder } from "../../util/SortOrder";
 export type PaymentTypeOrderByInput = {
   code?: SortOrder;
   createdAt?: SortOrder;
+  description?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   isDefault?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
-  notes?: SortOrder;
+  note?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

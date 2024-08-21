@@ -52,16 +52,31 @@ export class ProductTypeControllerBase {
     @common.Body() data: ProductTypeCreateInput
   ): Promise<ProductType> {
     return await this.service.createProductType({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
-        description: true,
         id: true,
+        isActive: true,
         isComponent: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -86,12 +101,19 @@ export class ProductTypeControllerBase {
       select: {
         code: true,
         createdAt: true,
-        description: true,
         id: true,
+        isActive: true,
         isComponent: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -117,12 +139,19 @@ export class ProductTypeControllerBase {
       select: {
         code: true,
         createdAt: true,
-        description: true,
         id: true,
+        isActive: true,
         isComponent: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -153,16 +182,31 @@ export class ProductTypeControllerBase {
     try {
       return await this.service.updateProductType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
-          description: true,
           id: true,
+          isActive: true,
           isComponent: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -196,12 +240,19 @@ export class ProductTypeControllerBase {
         select: {
           code: true,
           createdAt: true,
-          description: true,
           id: true,
+          isActive: true,
           isComponent: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -231,12 +282,6 @@ export class ProductTypeControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -272,6 +317,7 @@ export class ProductTypeControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -281,6 +327,12 @@ export class ProductTypeControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },
@@ -298,6 +350,12 @@ export class ProductTypeControllerBase {
         salePriceIncludesTax: true,
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

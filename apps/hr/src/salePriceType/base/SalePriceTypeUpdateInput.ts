@@ -15,11 +15,18 @@ import {
   IsString,
   MaxLength,
   IsOptional,
-  ValidateNested,
   IsBoolean,
+  ValidateNested,
 } from "class-validator";
-import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { SaleDetailWhereUniqueInput } from "../../saleDetail/base/SaleDetailWhereUniqueInput";
 import { Type } from "class-transformer";
+import { SaleOrderDetailWhereUniqueInput } from "../../saleOrderDetail/base/SaleOrderDetailWhereUniqueInput";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
+import { SaleQuotationDetailWhereUniqueInput } from "../../saleQuotationDetail/base/SaleQuotationDetailWhereUniqueInput";
+import { SaleReturnDetailWhereUniqueInput } from "../../saleReturnDetail/base/SaleReturnDetailWhereUniqueInput";
+import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWhereUniqueInput";
+import { SaleWhereUniqueInput } from "../../sale/base/SaleWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SalePriceTypeUpdateInput {
@@ -33,19 +40,19 @@ class SalePriceTypeUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
-    type: () => CustomerWhereUniqueInput,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => CustomerWhereUniqueInput)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => CustomerWhereUniqueInput, {
+  @Field(() => String, {
     nullable: true,
   })
-  customers?: CustomerWhereUniqueInput | null;
+  description?: string | null;
 
   @ApiProperty({
     required: false,
@@ -56,7 +63,7 @@ class SalePriceTypeUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isDefault?: boolean;
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -93,6 +100,102 @@ class SalePriceTypeUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleOrderWhereUniqueInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleReturnDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleReturnWhereUniqueInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleWhereUniqueInput, {
+    nullable: true,
+  })
+  sales?: SaleWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { SalePriceTypeUpdateInput as SalePriceTypeUpdateInput };

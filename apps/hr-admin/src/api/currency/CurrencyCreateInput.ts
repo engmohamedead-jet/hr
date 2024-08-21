@@ -1,20 +1,21 @@
-import { AccountCreateNestedManyWithoutCurrenciesInput } from "./AccountCreateNestedManyWithoutCurrenciesInput";
 import { CustomerCreateNestedManyWithoutCurrenciesInput } from "./CustomerCreateNestedManyWithoutCurrenciesInput";
-import { ExchangeRateDetailCreateNestedManyWithoutCurrenciesInput } from "./ExchangeRateDetailCreateNestedManyWithoutCurrenciesInput";
-import { ExchangeRateDetailWhereUniqueInput } from "../exchangeRateDetail/ExchangeRateDetailWhereUniqueInput";
+import { PaymentVoucherCreateNestedManyWithoutCurrenciesInput } from "./PaymentVoucherCreateNestedManyWithoutCurrenciesInput";
+import { ReceiptVoucherCreateNestedManyWithoutCurrenciesInput } from "./ReceiptVoucherCreateNestedManyWithoutCurrenciesInput";
+import { SalePaymentCreateNestedManyWithoutCurrenciesInput } from "./SalePaymentCreateNestedManyWithoutCurrenciesInput";
 import { SupplierCreateNestedManyWithoutCurrenciesInput } from "./SupplierCreateNestedManyWithoutCurrenciesInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type CurrencyCreateInput = {
-  accounts?: AccountCreateNestedManyWithoutCurrenciesInput;
   code?: string | null;
   customers?: CustomerCreateNestedManyWithoutCurrenciesInput;
-  exchangeRateDetails?: ExchangeRateDetailCreateNestedManyWithoutCurrenciesInput;
-  foreignCurrencyName?: ExchangeRateDetailWhereUniqueInput | null;
-  hundredthName: string;
-  isDefault: boolean;
+  description?: string | null;
+  isActive: boolean;
   name: string;
   normalizedName: string;
   note?: string | null;
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutCurrenciesInput;
+  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutCurrenciesInput;
+  salePayments?: SalePaymentCreateNestedManyWithoutCurrenciesInput;
   suppliers?: SupplierCreateNestedManyWithoutCurrenciesInput;
-  symbolField: string;
+  tenantId?: TenantWhereUniqueInput | null;
 };

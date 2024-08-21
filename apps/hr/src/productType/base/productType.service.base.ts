@@ -10,10 +10,12 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   ProductType as PrismaProductType,
   Product as PrismaProduct,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class ProductTypeServiceBase {
@@ -52,7 +54,7 @@ export class ProductTypeServiceBase {
   }
 
   async findProducts(
-    parentId: string,
+    parentId: number,
     args: Prisma.ProductFindManyArgs
   ): Promise<PrismaProduct[]> {
     return this.prisma.productType
@@ -60,5 +62,13 @@ export class ProductTypeServiceBase {
         where: { id: parentId },
       })
       .products(args);
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.productType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

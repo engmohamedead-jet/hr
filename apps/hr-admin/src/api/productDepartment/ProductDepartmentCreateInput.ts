@@ -1,13 +1,18 @@
-import { ProductCategoryCreateNestedManyWithoutProductDepartmentsInput } from "./ProductCategoryCreateNestedManyWithoutProductDepartmentsInput";
+import { ProductDepartmentWhereUniqueInput } from "./ProductDepartmentWhereUniqueInput";
+import { ProductDepartmentCreateNestedManyWithoutProductDepartmentsInput } from "./ProductDepartmentCreateNestedManyWithoutProductDepartmentsInput";
 import { ProductCreateNestedManyWithoutProductDepartmentsInput } from "./ProductCreateNestedManyWithoutProductDepartmentsInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type ProductDepartmentCreateInput = {
   code?: string | null;
   description?: string | null;
-  isDefault?: boolean | null;
+  isActive: boolean;
+  isDefault: boolean;
   name: string;
   normalizedName: string;
   note?: string | null;
-  productCategories?: ProductCategoryCreateNestedManyWithoutProductDepartmentsInput;
+  parentProductDepartmentId?: ProductDepartmentWhereUniqueInput | null;
+  productDepartments?: ProductDepartmentCreateNestedManyWithoutProductDepartmentsInput;
   products?: ProductCreateNestedManyWithoutProductDepartmentsInput;
+  tenantId?: TenantWhereUniqueInput | null;
 };

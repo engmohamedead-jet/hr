@@ -24,10 +24,11 @@ const CREATE_INPUT = {
   excludeFromPurchase: "true",
   excludeFromSale: "true",
   id: "exampleId",
+  isActive: "true",
   isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
-  notes: "exampleNotes",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
@@ -37,10 +38,11 @@ const CREATE_RESULT = {
   excludeFromPurchase: "true",
   excludeFromSale: "true",
   id: "exampleId",
+  isActive: "true",
   isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
-  notes: "exampleNotes",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -51,10 +53,11 @@ const FIND_MANY_RESULT = [
     excludeFromPurchase: "true",
     excludeFromSale: "true",
     id: "exampleId",
+    isActive: "true",
     isDefault: "true",
     name: "exampleName",
     normalizedName: "exampleNormalizedName",
-    notes: "exampleNotes",
+    note: "exampleNote",
     updatedAt: new Date(),
   },
 ];
@@ -65,10 +68,11 @@ const FIND_ONE_RESULT = {
   excludeFromPurchase: "true",
   excludeFromSale: "true",
   id: "exampleId",
+  isActive: "true",
   isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
-  notes: "exampleNotes",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 

@@ -11,24 +11,27 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { EmployeeClassSalaryItemValueListRelationFilter } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValueListRelationFilter";
+import { EmployeeListRelationFilter } from "../../employee/base/EmployeeListRelationFilter";
+import { IntFilter } from "../../util/IntFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class EmployeeClassWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -43,26 +46,37 @@ class EmployeeClassWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => EmployeeClassSalaryItemValueListRelationFilter,
+    type: () => EmployeeListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => EmployeeClassSalaryItemValueListRelationFilter)
+  @Type(() => EmployeeListRelationFilter)
   @IsOptional()
-  @Field(() => EmployeeClassSalaryItemValueListRelationFilter, {
+  @Field(() => EmployeeListRelationFilter, {
     nullable: true,
   })
-  employeeClassSalaryItemValues?: EmployeeClassSalaryItemValueListRelationFilter;
+  employees?: EmployeeListRelationFilter;
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: IntFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  id?: StringFilter;
+  id?: IntFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -77,6 +91,17 @@ class EmployeeClassWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  normalizedName?: StringFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -84,7 +109,19 @@ class EmployeeClassWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  notes?: StringNullableFilter;
+  note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { EmployeeClassWhereInput as EmployeeClassWhereInput };

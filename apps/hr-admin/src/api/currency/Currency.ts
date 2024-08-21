@@ -1,22 +1,24 @@
-import { Account } from "../account/Account";
 import { Customer } from "../customer/Customer";
-import { ExchangeRateDetail } from "../exchangeRateDetail/ExchangeRateDetail";
+import { PaymentVoucher } from "../paymentVoucher/PaymentVoucher";
+import { ReceiptVoucher } from "../receiptVoucher/ReceiptVoucher";
+import { SalePayment } from "../salePayment/SalePayment";
 import { Supplier } from "../supplier/Supplier";
+import { Tenant } from "../tenant/Tenant";
 
 export type Currency = {
-  accounts?: Array<Account>;
   code: string | null;
   createdAt: Date;
   customers?: Array<Customer>;
-  exchangeRateDetails?: Array<ExchangeRateDetail>;
-  foreignCurrencyName?: ExchangeRateDetail | null;
-  hundredthName: string;
+  description: string | null;
   id: string;
-  isDefault: boolean;
+  isActive: boolean;
   name: string;
   normalizedName: string;
   note: string | null;
+  paymentVouchers?: Array<PaymentVoucher>;
+  receiptVouchers?: Array<ReceiptVoucher>;
+  salePayments?: Array<SalePayment>;
   suppliers?: Array<Supplier>;
-  symbolField: string;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

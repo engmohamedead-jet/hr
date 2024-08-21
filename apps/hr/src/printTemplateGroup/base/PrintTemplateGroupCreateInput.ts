@@ -15,9 +15,10 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput } from "./PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { Type } from "class-transformer";
 
 @InputType()
@@ -47,16 +48,21 @@ class PrintTemplateGroupCreateInput {
   description?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name?: string | null;
+  @Field(() => String)
+  name!: string;
 
   @ApiProperty({
     required: true,
@@ -72,7 +78,7 @@ class PrintTemplateGroupCreateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(1000)
+  @MaxLength(2561)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -81,15 +87,15 @@ class PrintTemplateGroupCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput,
+    type: () => TenantWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput)
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  printTemplates?: PrintTemplateCreateNestedManyWithoutPrintTemplateGroupsInput;
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { PrintTemplateGroupCreateInput as PrintTemplateGroupCreateInput };

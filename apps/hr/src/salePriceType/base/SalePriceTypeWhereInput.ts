@@ -11,38 +11,44 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 import { IntFilter } from "../../util/IntFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { SaleDetailWhereUniqueInput } from "../../saleDetail/base/SaleDetailWhereUniqueInput";
+import { SaleOrderDetailWhereUniqueInput } from "../../saleOrderDetail/base/SaleOrderDetailWhereUniqueInput";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
+import { SaleQuotationDetailWhereUniqueInput } from "../../saleQuotationDetail/base/SaleQuotationDetailWhereUniqueInput";
+import { SaleReturnDetailWhereUniqueInput } from "../../saleReturnDetail/base/SaleReturnDetailWhereUniqueInput";
+import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWhereUniqueInput";
+import { SaleWhereUniqueInput } from "../../sale/base/SaleWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SalePriceTypeWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
-    type: () => CustomerWhereUniqueInput,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => CustomerWhereUniqueInput)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => CustomerWhereUniqueInput, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  customers?: CustomerWhereUniqueInput;
+  description?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -64,7 +70,7 @@ class SalePriceTypeWhereInput {
   @Field(() => BooleanFilter, {
     nullable: true,
   })
-  isDefault?: BooleanFilter;
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -98,6 +104,102 @@ class SalePriceTypeWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleDetails?: SaleDetailWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleOrderDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleOrderDetails?: SaleOrderDetailWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleOrderWhereUniqueInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleQuotationDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleQuotationDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleQuotationDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleQuotationDetails?: SaleQuotationDetailWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleReturnDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  saleReturnDetails?: SaleReturnDetailWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleReturnWhereUniqueInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SaleWhereUniqueInput, {
+    nullable: true,
+  })
+  sales?: SaleWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { SalePriceTypeWhereInput as SalePriceTypeWhereInput };

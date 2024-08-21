@@ -17,6 +17,7 @@ import {
   Product as PrismaProduct,
   Account as PrismaAccount,
   SaleTax as PrismaSaleTax,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class ProductGroupServiceBase {
@@ -54,7 +55,7 @@ export class ProductGroupServiceBase {
     return this.prisma.productGroup.delete(args);
   }
 
-  async findParentProductGroupId(
+  async findProductGroups(
     parentId: string,
     args: Prisma.ProductGroupFindManyArgs
   ): Promise<PrismaProductGroup[]> {
@@ -62,7 +63,7 @@ export class ProductGroupServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .parentProductGroupId(args);
+      .productGroups(args);
   }
 
   async findProducts(
@@ -76,48 +77,32 @@ export class ProductGroupServiceBase {
       .products(args);
   }
 
-  async getPurchaseDiscountAccountId(
+  async getCostOfGoodsSoldAccount(
     parentId: string
   ): Promise<PrismaAccount | null> {
     return this.prisma.productGroup
       .findUnique({
         where: { id: parentId },
       })
-      .PurchaseDiscountAccountId();
+      .costOfGoodsSoldAccount();
   }
 
-  async getSaleReturnAccountId(
+  async getInventoryAccount(parentId: string): Promise<PrismaAccount | null> {
+    return this.prisma.productGroup
+      .findUnique({
+        where: { id: parentId },
+      })
+      .inventoryAccount();
+  }
+
+  async getParentProductGroupId(
     parentId: string
-  ): Promise<PrismaAccount | null> {
+  ): Promise<PrismaProductGroup | null> {
     return this.prisma.productGroup
       .findUnique({
         where: { id: parentId },
       })
-      .SaleReturnAccountId();
-  }
-
-  async getAccount(parentId: string): Promise<PrismaAccount | null> {
-    return this.prisma.productGroup
-      .findUnique({
-        where: { id: parentId },
-      })
-      .account();
-  }
-
-  async getInventoryAccountId(parentId: string): Promise<PrismaAccount | null> {
-    return this.prisma.productGroup
-      .findUnique({
-        where: { id: parentId },
-      })
-      .inventoryAccountId();
-  }
-
-  async getProductGroups(parentId: string): Promise<PrismaProductGroup | null> {
-    return this.prisma.productGroup
-      .findUnique({
-        where: { id: parentId },
-      })
-      .productGroups();
+      .parentProductGroupId();
   }
 
   async getPurchaseAccountId(parentId: string): Promise<PrismaAccount | null> {
@@ -126,6 +111,16 @@ export class ProductGroupServiceBase {
         where: { id: parentId },
       })
       .purchaseAccountId();
+  }
+
+  async getPurchaseDiscountAccountId(
+    parentId: string
+  ): Promise<PrismaAccount | null> {
+    return this.prisma.productGroup
+      .findUnique({
+        where: { id: parentId },
+      })
+      .purchaseDiscountAccountId();
   }
 
   async getPurchaseReturnAccountId(
@@ -156,11 +151,29 @@ export class ProductGroupServiceBase {
       .saleDiscountAccountId();
   }
 
+  async getSaleReturnAccountId(
+    parentId: string
+  ): Promise<PrismaAccount | null> {
+    return this.prisma.productGroup
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleReturnAccountId();
+  }
+
   async getSaleTaxId(parentId: string): Promise<PrismaSaleTax | null> {
     return this.prisma.productGroup
       .findUnique({
         where: { id: parentId },
       })
       .saleTaxId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.productGroup
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

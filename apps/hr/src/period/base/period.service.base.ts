@@ -10,10 +10,12 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Period as PrismaPeriod,
   PaymentTerm as PrismaPaymentTerm,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class PeriodServiceBase {
@@ -41,21 +43,33 @@ export class PeriodServiceBase {
     return this.prisma.period.delete(args);
   }
 
-  async getInstallmentSaleFeePostingPeriod(
-    parentId: string
-  ): Promise<PrismaPaymentTerm | null> {
+  async findInstallmentSaleFeePostingPeriodPaymentTerms(
+    parentId: string,
+    args: Prisma.PaymentTermFindManyArgs
+  ): Promise<PrismaPaymentTerm[]> {
     return this.prisma.period
-      .findUnique({
+      .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .installmentSaleFeePostingPeriod();
+      .installmentSaleFeePostingPeriodPaymentTerms(args);
   }
 
-  async getPaymentTerms(parentId: string): Promise<PrismaPaymentTerm | null> {
+  async findPaymentTerms1(
+    parentId: string,
+    args: Prisma.PaymentTermFindManyArgs
+  ): Promise<PrismaPaymentTerm[]> {
+    return this.prisma.period
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentTerms1(args);
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
     return this.prisma.period
       .findUnique({
         where: { id: parentId },
       })
-      .paymentTerms();
+      .tenantId();
   }
 }

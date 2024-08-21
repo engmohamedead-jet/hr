@@ -10,7 +10,17 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, PaymentType as PrismaPaymentType } from "@prisma/client";
+
+import {
+  Prisma,
+  PaymentType as PrismaPaymentType,
+  PurchaseReturn as PrismaPurchaseReturn,
+  Purchase as PrismaPurchase,
+  SaleOrder as PrismaSaleOrder,
+  SaleReturn as PrismaSaleReturn,
+  Sale as PrismaSale,
+  Tenant as PrismaTenant,
+} from "@prisma/client";
 
 export class PaymentTypeServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +55,68 @@ export class PaymentTypeServiceBase {
     args: Prisma.PaymentTypeDeleteArgs
   ): Promise<PrismaPaymentType> {
     return this.prisma.paymentType.delete(args);
+  }
+
+  async findPurchaseReturns(
+    parentId: number,
+    args: Prisma.PurchaseReturnFindManyArgs
+  ): Promise<PrismaPurchaseReturn[]> {
+    return this.prisma.paymentType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchaseReturns(args);
+  }
+
+  async findPurchases(
+    parentId: number,
+    args: Prisma.PurchaseFindManyArgs
+  ): Promise<PrismaPurchase[]> {
+    return this.prisma.paymentType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .purchases(args);
+  }
+
+  async findSaleOrders(
+    parentId: number,
+    args: Prisma.SaleOrderFindManyArgs
+  ): Promise<PrismaSaleOrder[]> {
+    return this.prisma.paymentType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrders(args);
+  }
+
+  async findSaleReturns(
+    parentId: number,
+    args: Prisma.SaleReturnFindManyArgs
+  ): Promise<PrismaSaleReturn[]> {
+    return this.prisma.paymentType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleReturns(args);
+  }
+
+  async findSales(
+    parentId: number,
+    args: Prisma.SaleFindManyArgs
+  ): Promise<PrismaSale[]> {
+    return this.prisma.paymentType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .sales(args);
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.paymentType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

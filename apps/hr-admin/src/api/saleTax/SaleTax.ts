@@ -1,20 +1,18 @@
 import { ProductGroup } from "../productGroup/ProductGroup";
 import { Product } from "../product/Product";
-import { Decimal } from "decimal.js";
-import { Store } from "../store/Store";
+import { Tenant } from "../tenant/Tenant";
 
 export type SaleTax = {
   code: string | null;
   createdAt: Date;
   description: string | null;
-  id: number;
-  isExemption: boolean | null;
+  id: string;
+  isActive: boolean;
   name: string;
   normalizedName: string;
   note: string | null;
   productGroups?: Array<ProductGroup>;
   products?: Array<Product>;
-  rate: Decimal | null;
-  store?: Store | null;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

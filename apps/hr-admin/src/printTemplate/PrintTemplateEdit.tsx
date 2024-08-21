@@ -7,21 +7,20 @@ import {
   TextInput,
   BooleanInput,
   SelectInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
   ReferenceInput,
 } from "react-admin";
 
 import { PrintTemplateContentTitle } from "../printTemplateContent/PrintTemplateContentTitle";
-import { PrintTemplateGroupTitle } from "../printTemplateGroup/PrintTemplateGroupTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 
 export const PrintTemplateEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput label="Description" multiline source="Description" />
         <TextInput label="Code" source="code" />
+        <TextInput label="Description" multiline source="description" />
         <TextInput label="FilePath" source="filePath" />
+        <BooleanInput label="IsActive" source="isActive" />
         <BooleanInput label="IsCustomized" source="isCustomized" />
         <BooleanInput label="IsFavourite" source="isFavourite" />
         <TextInput label="Name" source="name" />
@@ -47,26 +46,31 @@ export const PrintTemplateEdit = (props: EditProps): React.ReactElement => {
             { label: "A3", value: "A3" },
             { label: "A4", value: "A4" },
             { label: "A5", value: "A5" },
+            { label: "A6", value: "A6" },
+            { label: "B1", value: "B1" },
+            { label: "B2", value: "B2" },
+            { label: "B3", value: "B3" },
+            { label: "B5", value: "B5" },
+            { label: "B6", value: "B6" },
           ]}
           optionText="label"
           allowEmpty
           optionValue="value"
         />
         <div />
-        <ReferenceArrayInput
-          source="printTemplateContents"
-          reference="PrintTemplateContent"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PrintTemplateContentTitle} />
-        </ReferenceArrayInput>
         <ReferenceInput
-          source="printTemplateGroupId.id"
-          reference="PrintTemplateGroup"
-          label="PrintTemplateGroupId"
+          source="printTemplateContents.id"
+          reference="PrintTemplateContent"
+          label="PrintTemplateContents"
         >
-          <SelectInput optionText={PrintTemplateGroupTitle} />
+          <SelectInput optionText={PrintTemplateContentTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
         </ReferenceInput>
       </SimpleForm>
     </Edit>

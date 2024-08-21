@@ -1,0 +1,33 @@
+import { BillOfMaterial } from "../billOfMaterial/BillOfMaterial";
+import { Customer } from "../customer/Customer";
+import { OrderStatus } from "../orderStatus/OrderStatus";
+import { Product } from "../product/Product";
+import { Decimal } from "decimal.js";
+import { Store } from "../store/Store";
+import { Tenant } from "../tenant/Tenant";
+import { Unit } from "../unit/Unit";
+
+export type ProductionOrder = {
+  billOfMaterialId?: BillOfMaterial | null;
+  code: string | null;
+  createdAt: Date;
+  customerId?: Customer | null;
+  deadlineDate: Date | null;
+  description: string | null;
+  finishDate: Date | null;
+  id: string;
+  isActive: boolean;
+  name: string;
+  normalizedName: string;
+  note: string | null;
+  orderDate: Date | null;
+  orderStatusId?: OrderStatus;
+  productId?: Product;
+  productQuantity: Decimal | null;
+  sequenceNumber: string | null;
+  startDate: Date | null;
+  storeId?: Store;
+  tenantId?: Tenant | null;
+  unit?: Unit;
+  updatedAt: Date;
+};

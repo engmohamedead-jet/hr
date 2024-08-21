@@ -1,12 +1,13 @@
-import { RoleWhereUniqueInput } from "../role/RoleWhereUniqueInput";
 import { InputJsonValue } from "../../types";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type UserCreateInput = {
-  email?: string | null;
+  email: string;
   firstName?: string | null;
+  isActive: boolean;
   lastName?: string | null;
   password: string;
-  role?: RoleWhereUniqueInput | null;
   roles: InputJsonValue;
+  tenantId?: TenantWhereUniqueInput | null;
   username: string;
 };

@@ -1,16 +1,18 @@
-import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StoreListRelationFilter } from "../store/StoreListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type StoreTypeWhereInput = {
-  code?: StringFilter;
+  code?: StringNullableFilter;
   description?: StringNullableFilter;
-  id?: IntFilter;
-  isDefault?: BooleanNullableFilter;
+  id?: StringFilter;
+  isActive?: BooleanFilter;
+  isDefault?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
   stores?: StoreListRelationFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

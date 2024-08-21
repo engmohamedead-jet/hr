@@ -26,6 +26,9 @@ import { BarcodeTypeFindUniqueArgs } from "./BarcodeTypeFindUniqueArgs";
 import { CreateBarcodeTypeArgs } from "./CreateBarcodeTypeArgs";
 import { UpdateBarcodeTypeArgs } from "./UpdateBarcodeTypeArgs";
 import { DeleteBarcodeTypeArgs } from "./DeleteBarcodeTypeArgs";
+import { ProductBarcodeFindManyArgs } from "../../productBarcode/base/ProductBarcodeFindManyArgs";
+import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
+import { Tenant } from "../../tenant/base/Tenant";
 import { BarcodeTypeService } from "../barcodeType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => BarcodeType)
@@ -92,7 +95,15 @@ export class BarcodeTypeResolverBase {
   ): Promise<BarcodeType> {
     return await this.service.createBarcodeType({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +120,15 @@ export class BarcodeTypeResolverBase {
     try {
       return await this.service.updateBarcodeType({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +159,46 @@ export class BarcodeTypeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductBarcode], { name: "productBarcodes" })
+  @nestAccessControl.UseRoles({
+    resource: "ProductBarcode",
+    action: "read",
+    possession: "any",
+  })
+  async findProductBarcodes(
+    @graphql.Parent() parent: BarcodeType,
+    @graphql.Args() args: ProductBarcodeFindManyArgs
+  ): Promise<ProductBarcode[]> {
+    const results = await this.service.findProductBarcodes(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: BarcodeType
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

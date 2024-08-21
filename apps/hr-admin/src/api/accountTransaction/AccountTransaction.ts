@@ -1,16 +1,12 @@
-import { AccountTransactionDetail } from "../accountTransactionDetail/AccountTransactionDetail";
-import { CostCenter } from "../costCenter/CostCenter";
-import { Store } from "../store/Store";
+import { PaymentVoucher } from "../paymentVoucher/PaymentVoucher";
+import { ReceiptVoucher } from "../receiptVoucher/ReceiptVoucher";
 
 export type AccountTransaction = {
-  accountTransactionDetails?: Array<AccountTransactionDetail>;
-  costCenter?: CostCenter | null;
+  code: string | null;
   createdAt: Date;
   id: string;
-  note: string | null;
-  referenceNumber: string | null;
-  statementReference: string | null;
-  store?: Store;
-  transactionDate: Date | null;
+  name: string | null;
+  paymentVouchers?: Array<PaymentVoucher>;
+  receiptVouchers?: ReceiptVoucher | null;
   updatedAt: Date;
 };

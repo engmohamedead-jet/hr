@@ -14,7 +14,9 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   VoucherType as PrismaVoucherType,
+  PaymentVoucher as PrismaPaymentVoucher,
   ReceiptVoucher as PrismaReceiptVoucher,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class VoucherTypeServiceBase {
@@ -52,6 +54,17 @@ export class VoucherTypeServiceBase {
     return this.prisma.voucherType.delete(args);
   }
 
+  async findPaymentVouchers(
+    parentId: number,
+    args: Prisma.PaymentVoucherFindManyArgs
+  ): Promise<PrismaPaymentVoucher[]> {
+    return this.prisma.voucherType
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .paymentVouchers(args);
+  }
+
   async findReceiptVouchers(
     parentId: number,
     args: Prisma.ReceiptVoucherFindManyArgs
@@ -61,5 +74,13 @@ export class VoucherTypeServiceBase {
         where: { id: parentId },
       })
       .receiptVouchers(args);
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.voucherType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

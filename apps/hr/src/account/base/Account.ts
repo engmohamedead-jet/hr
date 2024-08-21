@@ -21,10 +21,9 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { AccountCategory } from "../../accountCategory/base/AccountCategory";
-import { AccountType } from "../../accountType/base/AccountType";
-import { Currency } from "../../currency/base/Currency";
 import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
+import { SalePerson } from "../../salePerson/base/SalePerson";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class Account {
@@ -35,7 +34,16 @@ class Account {
   @ValidateNested()
   @Type(() => ProductGroup)
   @IsOptional()
-  ProductGroupPurchaseReturnAccounts?: Array<ProductGroup>;
+  SaleReturnAccountProductGroups?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  accountNumber!: string;
 
   @ApiProperty({
     required: false,
@@ -44,36 +52,16 @@ class Account {
   @ValidateNested()
   @Type(() => ProductGroup)
   @IsOptional()
-  ProductGroupSaleAccounts?: Array<ProductGroup>;
+  aleAccountProductGroups?: Array<ProductGroup>;
 
   @ApiProperty({
     required: false,
-    type: () => AccountCategory,
+    type: () => [ProductGroup],
   })
   @ValidateNested()
-  @Type(() => AccountCategory)
+  @Type(() => ProductGroup)
   @IsOptional()
-  accountCategory?: AccountCategory | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(100)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  accountNumber!: string | null;
-
-  @ApiProperty({
-    required: true,
-    type: () => AccountType,
-  })
-  @ValidateNested()
-  @Type(() => AccountType)
-  accountTypeId?: AccountType;
+  costOfGoodsSoldAccountProductGroups?: Array<ProductGroup>;
 
   @ApiProperty({
     required: true,
@@ -82,14 +70,6 @@ class Account {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
-
-  @ApiProperty({
-    required: true,
-    type: () => Currency,
-  })
-  @ValidateNested()
-  @Type(() => Currency)
-  currencyId?: Currency;
 
   @ApiProperty({
     required: false,
@@ -122,6 +102,15 @@ class Account {
 
   @ApiProperty({
     required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  inventoryAccountProductGroups?: Array<ProductGroup>;
+
+  @ApiProperty({
+    required: false,
     type: Boolean,
   })
   @IsBoolean()
@@ -140,22 +129,11 @@ class Account {
   isMasterAccount!: boolean;
 
   @ApiProperty({
-    required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isUnderRevision!: boolean | null;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   name!: string;
 
@@ -164,7 +142,7 @@ class Account {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   normalizedName!: string;
 
@@ -182,15 +160,21 @@ class Account {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => Account,
   })
-  @IsString()
-  @MaxLength(1000)
+  @ValidateNested()
+  @Type(() => Account)
   @IsOptional()
-  @Field(() => String, {
-    nullable: true,
+  parentAccountId?: Account | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Account],
   })
-  parentAccountId!: string | null;
+  @ValidateNested()
+  @Type(() => Account)
+  @IsOptional()
+  parentAccounts?: Array<Account>;
 
   @ApiProperty({
     required: false,
@@ -199,7 +183,7 @@ class Account {
   @ValidateNested()
   @Type(() => ProductGroup)
   @IsOptional()
-  productGroupCostOfGoodsSoldAccounts?: Array<ProductGroup>;
+  purchaseAccountProductGroups?: Array<ProductGroup>;
 
   @ApiProperty({
     required: false,
@@ -208,7 +192,7 @@ class Account {
   @ValidateNested()
   @Type(() => ProductGroup)
   @IsOptional()
-  productGroupInventoryAccounts?: Array<ProductGroup>;
+  purchaseDiscountAccountProductGroups?: Array<ProductGroup>;
 
   @ApiProperty({
     required: false,
@@ -217,7 +201,7 @@ class Account {
   @ValidateNested()
   @Type(() => ProductGroup)
   @IsOptional()
-  productGroupPurchaseAccounts?: Array<ProductGroup>;
+  purchaseReturnAccountProductGroups?: Array<ProductGroup>;
 
   @ApiProperty({
     required: false,
@@ -226,37 +210,25 @@ class Account {
   @ValidateNested()
   @Type(() => ProductGroup)
   @IsOptional()
-  productGroupPurchaseDiscountAccounts?: Array<ProductGroup>;
+  saleDiscountAccountProductGroups?: Array<ProductGroup>;
 
   @ApiProperty({
     required: false,
-    type: () => [ProductGroup],
+    type: () => [SalePerson],
   })
   @ValidateNested()
-  @Type(() => ProductGroup)
+  @Type(() => SalePerson)
   @IsOptional()
-  productGroupSaleDiscountAccountIds?: Array<ProductGroup>;
+  salePeople?: Array<SalePerson>;
 
   @ApiProperty({
     required: false,
-    type: () => [ProductGroup],
+    type: () => Tenant,
   })
   @ValidateNested()
-  @Type(() => ProductGroup)
+  @Type(() => Tenant)
   @IsOptional()
-  productGroupSaleReturnAccountIds?: Array<ProductGroup>;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  referenceNumber!: string | null;
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

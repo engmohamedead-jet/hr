@@ -11,17 +11,26 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+
 import {
   IsNumber,
+  Min,
   Max,
   IsOptional,
-  ValidateNested,
   IsString,
   MaxLength,
+  ValidateNested,
+  IsBoolean,
 } from "class-validator";
+
 import { Decimal } from "decimal.js";
-import { DepartmentWhereUniqueInput } from "../../department/base/DepartmentWhereUniqueInput";
+import { EmployeeClassWhereUniqueInput } from "../../employeeClass/base/EmployeeClassWhereUniqueInput";
 import { Type } from "class-transformer";
+import { EmployeeDepartmentWhereUniqueInput } from "../../employeeDepartment/base/EmployeeDepartmentWhereUniqueInput";
+import { PaymentVoucherUpdateManyWithoutEmployeesInput } from "./PaymentVoucherUpdateManyWithoutEmployeesInput";
+import { ReceiptVoucherUpdateManyWithoutEmployeesInput } from "./ReceiptVoucherUpdateManyWithoutEmployeesInput";
+import { SalePersonUpdateManyWithoutEmployeesInput } from "./SalePersonUpdateManyWithoutEmployeesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class EmployeeUpdateInput {
@@ -30,6 +39,7 @@ class EmployeeUpdateInput {
     type: Number,
   })
   @IsNumber()
+  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
@@ -39,21 +49,57 @@ class EmployeeUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => DepartmentWhereUniqueInput,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => DepartmentWhereUniqueInput)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => DepartmentWhereUniqueInput, {
+  @Field(() => String, {
     nullable: true,
   })
-  departmentId?: DepartmentWhereUniqueInput | null;
+  code?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeClassWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeClassWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeClassWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeClassId?: EmployeeClassWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeDepartmentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeDepartmentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeDepartmentWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeDepartmentId?: EmployeeDepartmentWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
     type: Number,
   })
   @IsNumber()
+  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
@@ -71,7 +117,7 @@ class EmployeeUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  name?: string | null;
+  name?: string;
 
   @ApiProperty({
     required: false,
@@ -83,7 +129,7 @@ class EmployeeUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName?: string | null;
+  normalizedName?: string;
 
   @ApiProperty({
     required: false,
@@ -99,9 +145,34 @@ class EmployeeUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentVoucherUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherUpdateManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherUpdateManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
+  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
@@ -111,9 +182,34 @@ class EmployeeUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SalePersonUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePersonUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => SalePersonUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  salePeople?: SalePersonUpdateManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
+  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {

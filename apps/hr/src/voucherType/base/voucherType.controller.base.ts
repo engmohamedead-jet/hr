@@ -26,6 +26,9 @@ import { VoucherType } from "./VoucherType";
 import { VoucherTypeFindManyArgs } from "./VoucherTypeFindManyArgs";
 import { VoucherTypeWhereUniqueInput } from "./VoucherTypeWhereUniqueInput";
 import { VoucherTypeUpdateInput } from "./VoucherTypeUpdateInput";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { PaymentVoucherWhereUniqueInput } from "../../paymentVoucher/base/PaymentVoucherWhereUniqueInput";
 import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
 import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 import { ReceiptVoucherWhereUniqueInput } from "../../receiptVoucher/base/ReceiptVoucherWhereUniqueInput";
@@ -52,15 +55,31 @@ export class VoucherTypeControllerBase {
     @common.Body() data: VoucherTypeCreateInput
   ): Promise<VoucherType> {
     return await this.service.createVoucherType({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -87,9 +106,17 @@ export class VoucherTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -117,9 +144,17 @@ export class VoucherTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -150,15 +185,31 @@ export class VoucherTypeControllerBase {
     try {
       return await this.service.updateVoucherType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -194,9 +245,17 @@ export class VoucherTypeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -208,6 +267,157 @@ export class VoucherTypeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/paymentVouchers")
+  @ApiNestedQuery(PaymentVoucherFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @common.Req() request: Request,
+    @common.Param() params: VoucherTypeWhereUniqueInput
+  ): Promise<PaymentVoucher[]> {
+    const query = plainToClass(PaymentVoucherFindManyArgs, request.query);
+    const results = await this.service.findPaymentVouchers(params.id, {
+      ...query,
+      select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        expenseItemId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isActive: true,
+        note: true,
+        paymentVoucherDate: true,
+        statementReference: true,
+
+        supplier: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "VoucherType",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentVouchers(
+    @common.Param() params: VoucherTypeWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        connect: body,
+      },
+    };
+    await this.service.updateVoucherType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "VoucherType",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentVouchers(
+    @common.Param() params: VoucherTypeWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        set: body,
+      },
+    };
+    await this.service.updateVoucherType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "VoucherType",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentVouchers(
+    @common.Param() params: VoucherTypeWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateVoucherType({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -226,16 +436,56 @@ export class VoucherTypeControllerBase {
     const results = await this.service.findReceiptVouchers(params.id, {
       ...query,
       select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
         amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
         chequeDueDate: true,
         chequeNumber: true,
         chequeValue: true,
         createdAt: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isAcive: true,
         note: true,
         receiptVoucherDate: true,
-        serialNumber: true,
+        sequence: true,
         statementReference: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
 
         voucherTypeId: {

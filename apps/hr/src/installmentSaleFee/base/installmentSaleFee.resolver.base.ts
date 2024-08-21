@@ -29,6 +29,7 @@ import { DeleteInstallmentSaleFeeArgs } from "./DeleteInstallmentSaleFeeArgs";
 import { PaymentTermFindManyArgs } from "../../paymentTerm/base/PaymentTermFindManyArgs";
 import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
 import { Account } from "../../account/base/Account";
+import { Tenant } from "../../tenant/base/Tenant";
 import { InstallmentSaleFeeService } from "../installmentSaleFee.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => InstallmentSaleFee)
@@ -98,9 +99,15 @@ export class InstallmentSaleFeeResolverBase {
       data: {
         ...args.data,
 
-        account: args.data.account
+        accountId: args.data.accountId
           ? {
-              connect: args.data.account,
+              connect: args.data.accountId,
+            }
+          : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -123,9 +130,15 @@ export class InstallmentSaleFeeResolverBase {
         data: {
           ...args.data,
 
-          account: args.data.account
+          accountId: args.data.accountId
             ? {
-                connect: args.data.account,
+                connect: args.data.accountId,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -184,17 +197,38 @@ export class InstallmentSaleFeeResolverBase {
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Account, {
     nullable: true,
-    name: "account",
+    name: "accountId",
   })
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
     possession: "any",
   })
-  async getAccount(
+  async getAccountId(
     @graphql.Parent() parent: InstallmentSaleFee
   ): Promise<Account | null> {
-    const result = await this.service.getAccount(parent.id);
+    const result = await this.service.getAccountId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: InstallmentSaleFee
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

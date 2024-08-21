@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { StoreUpdateManyWithoutStoreTypesInput } from "./StoreUpdateManyWithoutStoreTypesInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class StoreTypeUpdateInput {
@@ -33,7 +34,7 @@ class StoreTypeUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -56,7 +57,18 @@ class StoreTypeUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isDefault?: boolean | null;
+  isActive?: boolean;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isDefault?: boolean;
 
   @ApiProperty({
     required: false,
@@ -105,6 +117,18 @@ class StoreTypeUpdateInput {
     nullable: true,
   })
   stores?: StoreUpdateManyWithoutStoreTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { StoreTypeUpdateInput as StoreTypeUpdateInput };

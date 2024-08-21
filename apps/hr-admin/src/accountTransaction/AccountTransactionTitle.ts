@@ -1,9 +1,9 @@
 import { AccountTransaction as TAccountTransaction } from "../api/accountTransaction/AccountTransaction";
 
-export const ACCOUNTTRANSACTION_TITLE_FIELD = "note";
+export const ACCOUNTTRANSACTION_TITLE_FIELD = "name";
 
 export const AccountTransactionTitle = (
   record: TAccountTransaction
 ): string => {
-  return record.note?.toString() || String(record.id);
+  return record.name?.toString() || String(record.id);
 };

@@ -1,26 +1,21 @@
-import { BankAccountUpdateManyWithoutBanksInput } from "./BankAccountUpdateManyWithoutBanksInput";
 import { BankBranchUpdateManyWithoutBanksInput } from "./BankBranchUpdateManyWithoutBanksInput";
-import { CityWhereUniqueInput } from "../city/CityWhereUniqueInput";
-import { CountryWhereUniqueInput } from "../country/CountryWhereUniqueInput";
-import { StateWhereUniqueInput } from "../state/StateWhereUniqueInput";
+import { BankTypeWhereUniqueInput } from "../bankType/BankTypeWhereUniqueInput";
+import { SalePaymentUpdateManyWithoutBanksInput } from "./SalePaymentUpdateManyWithoutBanksInput";
 
 export type BankUpdateInput = {
   address?: string | null;
-  bankAccounts?: BankAccountUpdateManyWithoutBanksInput;
   bankBranches?: BankBranchUpdateManyWithoutBanksInput;
+  bankType?: BankTypeWhereUniqueInput | null;
   cellPhoneNumber?: string | null;
-  cityId?: CityWhereUniqueInput | null;
-  code?: string;
+  code?: string | null;
   contactPhoneNumber?: string | null;
-  countryId?: CountryWhereUniqueInput | null;
   description?: string | null;
   fax?: string | null;
   homePhoneNumber?: string | null;
-  name?: string;
-  normalizedName?: string;
-  note?: string | null;
+  name?: string | null;
+  normalizedName?: string | null;
   relationshipOfficerContactNumber?: string | null;
   relationshipOfficerName?: string | null;
-  stateId?: StateWhereUniqueInput | null;
+  salePayments?: SalePaymentUpdateManyWithoutBanksInput;
   street?: string | null;
 };

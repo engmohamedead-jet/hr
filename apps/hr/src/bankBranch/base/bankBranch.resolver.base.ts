@@ -26,9 +26,10 @@ import { BankBranchFindUniqueArgs } from "./BankBranchFindUniqueArgs";
 import { CreateBankBranchArgs } from "./CreateBankBranchArgs";
 import { UpdateBankBranchArgs } from "./UpdateBankBranchArgs";
 import { DeleteBankBranchArgs } from "./DeleteBankBranchArgs";
-import { BankAccountFindManyArgs } from "../../bankAccount/base/BankAccountFindManyArgs";
-import { BankAccount } from "../../bankAccount/base/BankAccount";
+import { SalePaymentFindManyArgs } from "../../salePayment/base/SalePaymentFindManyArgs";
+import { SalePayment } from "../../salePayment/base/SalePayment";
 import { Bank } from "../../bank/base/Bank";
+import { Tenant } from "../../tenant/base/Tenant";
 import { BankBranchService } from "../bankBranch.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => BankBranch)
@@ -98,9 +99,13 @@ export class BankBranchResolverBase {
       data: {
         ...args.data,
 
-        bankId: args.data.bankId
+        bank: {
+          connect: args.data.bank,
+        },
+
+        tenant: args.data.tenant
           ? {
-              connect: args.data.bankId,
+              connect: args.data.tenant,
             }
           : undefined,
       },
@@ -123,9 +128,13 @@ export class BankBranchResolverBase {
         data: {
           ...args.data,
 
-          bankId: args.data.bankId
+          bank: {
+            connect: args.data.bank,
+          },
+
+          tenant: args.data.tenant
             ? {
-                connect: args.data.bankId,
+                connect: args.data.tenant,
               }
             : undefined,
         },
@@ -162,17 +171,17 @@ export class BankBranchResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [BankAccount], { name: "bankAccounts" })
+  @graphql.ResolveField(() => [SalePayment], { name: "salePayments" })
   @nestAccessControl.UseRoles({
-    resource: "BankAccount",
+    resource: "SalePayment",
     action: "read",
     possession: "any",
   })
-  async findBankAccounts(
+  async findSalePayments(
     @graphql.Parent() parent: BankBranch,
-    @graphql.Args() args: BankAccountFindManyArgs
-  ): Promise<BankAccount[]> {
-    const results = await this.service.findBankAccounts(parent.id, args);
+    @graphql.Args() args: SalePaymentFindManyArgs
+  ): Promise<SalePayment[]> {
+    const results = await this.service.findSalePayments(parent.id, args);
 
     if (!results) {
       return [];
@@ -184,15 +193,36 @@ export class BankBranchResolverBase {
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Bank, {
     nullable: true,
-    name: "bankId",
+    name: "bank",
   })
   @nestAccessControl.UseRoles({
     resource: "Bank",
     action: "read",
     possession: "any",
   })
-  async getBankId(@graphql.Parent() parent: BankBranch): Promise<Bank | null> {
-    const result = await this.service.getBankId(parent.id);
+  async getBank(@graphql.Parent() parent: BankBranch): Promise<Bank | null> {
+    const result = await this.service.getBank(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenant",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenant(
+    @graphql.Parent() parent: BankBranch
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenant(parent.id);
 
     if (!result) {
       return null;

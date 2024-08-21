@@ -49,15 +49,43 @@ export class PaymentStatusControllerBase {
     @common.Body() data: PaymentStatusCreateInput
   ): Promise<PaymentStatus> {
     return await this.service.createPaymentStatus({
-      data: data,
+      data: {
+        ...data,
+
+        saleOrders: data.saleOrders
+          ? {
+              connect: data.saleOrders,
+            }
+          : undefined,
+
+        tenant: data.tenant
+          ? {
+              connect: data.tenant,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -86,9 +114,23 @@ export class PaymentStatusControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -116,9 +158,23 @@ export class PaymentStatusControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        saleOrders: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -149,15 +205,43 @@ export class PaymentStatusControllerBase {
     try {
       return await this.service.updatePaymentStatus({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          saleOrders: data.saleOrders
+            ? {
+                connect: data.saleOrders,
+              }
+            : undefined,
+
+          tenant: data.tenant
+            ? {
+                connect: data.tenant,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          saleOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -193,9 +277,23 @@ export class PaymentStatusControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          saleOrders: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenant: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

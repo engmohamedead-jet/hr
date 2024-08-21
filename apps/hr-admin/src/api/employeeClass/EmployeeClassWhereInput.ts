@@ -1,12 +1,18 @@
-import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { EmployeeClassSalaryItemValueListRelationFilter } from "../employeeClassSalaryItemValue/EmployeeClassSalaryItemValueListRelationFilter";
+import { EmployeeListRelationFilter } from "../employee/EmployeeListRelationFilter";
+import { IntFilter } from "../../util/IntFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type EmployeeClassWhereInput = {
-  code?: StringFilter;
+  code?: StringNullableFilter;
   description?: StringNullableFilter;
-  employeeClassSalaryItemValues?: EmployeeClassSalaryItemValueListRelationFilter;
-  id?: StringFilter;
+  employees?: EmployeeListRelationFilter;
+  id?: IntFilter;
+  isActive?: BooleanFilter;
   name?: StringFilter;
-  notes?: StringNullableFilter;
+  normalizedName?: StringFilter;
+  note?: StringNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

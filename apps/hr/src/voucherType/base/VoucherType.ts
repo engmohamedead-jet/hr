@@ -14,24 +14,30 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   MaxLength,
-  IsDate,
   IsOptional,
+  IsDate,
   IsInt,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
 import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class VoucherType {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -63,6 +69,14 @@ class VoucherType {
 
   @ApiProperty({
     required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
@@ -71,6 +85,15 @@ class VoucherType {
   name!: string;
 
   @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  normalizedName!: string;
+
+  @ApiProperty({
     required: false,
     type: String,
   })
@@ -80,19 +103,16 @@ class VoucherType {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName!: string | null;
+  note!: string | null;
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => [PaymentVoucher],
   })
-  @IsString()
-  @MaxLength(256)
+  @ValidateNested()
+  @Type(() => PaymentVoucher)
   @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  note!: string | null;
+  paymentVouchers?: Array<PaymentVoucher>;
 
   @ApiProperty({
     required: false,
@@ -102,6 +122,15 @@ class VoucherType {
   @Type(() => ReceiptVoucher)
   @IsOptional()
   receiptVouchers?: Array<ReceiptVoucher>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

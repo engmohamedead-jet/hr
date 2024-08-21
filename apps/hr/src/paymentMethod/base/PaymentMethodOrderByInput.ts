@@ -50,6 +50,17 @@ class PaymentMethodOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  description?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   id?: SortOrder;
 
   @ApiProperty({
@@ -61,7 +72,7 @@ class PaymentMethodOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  isDefault?: SortOrder;
+  isActive?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -95,6 +106,17 @@ class PaymentMethodOrderByInput {
     nullable: true,
   })
   note?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantId?: SortOrder;
 
   @ApiProperty({
     required: false,

@@ -17,8 +17,12 @@ import {
   IsOptional,
   IsDate,
   IsInt,
+  IsBoolean,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class BarcodeType {
@@ -64,6 +68,14 @@ class BarcodeType {
 
   @ApiProperty({
     required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
     type: String,
   })
   @IsString()
@@ -91,6 +103,24 @@ class BarcodeType {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductBarcode],
+  })
+  @ValidateNested()
+  @Type(() => ProductBarcode)
+  @IsOptional()
+  productBarcodes?: Array<ProductBarcode>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

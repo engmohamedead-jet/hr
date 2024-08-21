@@ -18,12 +18,10 @@ import {
   ValidateNested,
   IsDate,
 } from "class-validator";
-import { BankAccount } from "../../bankAccount/base/BankAccount";
-import { Type } from "class-transformer";
 import { BankBranch } from "../../bankBranch/base/BankBranch";
-import { City } from "../../city/base/City";
-import { Country } from "../../country/base/Country";
-import { State } from "../../state/base/State";
+import { Type } from "class-transformer";
+import { BankType } from "../../bankType/base/BankType";
+import { SalePayment } from "../../salePayment/base/SalePayment";
 
 @ObjectType()
 class Bank {
@@ -41,21 +39,21 @@ class Bank {
 
   @ApiProperty({
     required: false,
-    type: () => [BankAccount],
-  })
-  @ValidateNested()
-  @Type(() => BankAccount)
-  @IsOptional()
-  bankAccounts?: Array<BankAccount>;
-
-  @ApiProperty({
-    required: false,
     type: () => [BankBranch],
   })
   @ValidateNested()
   @Type(() => BankBranch)
   @IsOptional()
   bankBranches?: Array<BankBranch>;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankType,
+  })
+  @ValidateNested()
+  @Type(() => BankType)
+  @IsOptional()
+  bankType?: BankType | null;
 
   @ApiProperty({
     required: false,
@@ -71,21 +69,15 @@ class Bank {
 
   @ApiProperty({
     required: false,
-    type: () => City,
-  })
-  @ValidateNested()
-  @Type(() => City)
-  @IsOptional()
-  cityId?: City | null;
-
-  @ApiProperty({
-    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: false,
@@ -98,15 +90,6 @@ class Bank {
     nullable: true,
   })
   contactPhoneNumber!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Country,
-  })
-  @ValidateNested()
-  @Type(() => Country)
-  @IsOptional()
-  countryId?: Country | null;
 
   @ApiProperty({
     required: true,
@@ -161,22 +144,16 @@ class Bank {
   id!: string;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  name!: string;
-
-  @ApiProperty({
-    required: true,
-    type: String,
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
   })
-  @IsString()
-  @MaxLength(1000)
-  @Field(() => String)
-  normalizedName!: string;
+  name!: string | null;
 
   @ApiProperty({
     required: false,
@@ -188,7 +165,7 @@ class Bank {
   @Field(() => String, {
     nullable: true,
   })
-  note!: string | null;
+  normalizedName!: string | null;
 
   @ApiProperty({
     required: false,
@@ -216,12 +193,12 @@ class Bank {
 
   @ApiProperty({
     required: false,
-    type: () => State,
+    type: () => [SalePayment],
   })
   @ValidateNested()
-  @Type(() => State)
+  @Type(() => SalePayment)
   @IsOptional()
-  stateId?: State | null;
+  salePayments?: Array<SalePayment>;
 
   @ApiProperty({
     required: false,

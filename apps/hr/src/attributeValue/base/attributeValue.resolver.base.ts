@@ -26,7 +26,10 @@ import { AttributeValueFindUniqueArgs } from "./AttributeValueFindUniqueArgs";
 import { CreateAttributeValueArgs } from "./CreateAttributeValueArgs";
 import { UpdateAttributeValueArgs } from "./UpdateAttributeValueArgs";
 import { DeleteAttributeValueArgs } from "./DeleteAttributeValueArgs";
+import { ProductVariantFindManyArgs } from "../../productVariant/base/ProductVariantFindManyArgs";
+import { ProductVariant } from "../../productVariant/base/ProductVariant";
 import { Attribute } from "../../attribute/base/Attribute";
+import { Tenant } from "../../tenant/base/Tenant";
 import { AttributeValueService } from "../attributeValue.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => AttributeValue)
@@ -96,9 +99,13 @@ export class AttributeValueResolverBase {
       data: {
         ...args.data,
 
-        attributeId: args.data.attributeId
+        attributeId: {
+          connect: args.data.attributeId,
+        },
+
+        tenantId: args.data.tenantId
           ? {
-              connect: args.data.attributeId,
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -121,9 +128,13 @@ export class AttributeValueResolverBase {
         data: {
           ...args.data,
 
-          attributeId: args.data.attributeId
+          attributeId: {
+            connect: args.data.attributeId,
+          },
+
+          tenantId: args.data.tenantId
             ? {
-                connect: args.data.attributeId,
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -160,6 +171,26 @@ export class AttributeValueResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ProductVariant], { name: "productVariants" })
+  @nestAccessControl.UseRoles({
+    resource: "ProductVariant",
+    action: "read",
+    possession: "any",
+  })
+  async findProductVariants(
+    @graphql.Parent() parent: AttributeValue,
+    @graphql.Args() args: ProductVariantFindManyArgs
+  ): Promise<ProductVariant[]> {
+    const results = await this.service.findProductVariants(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Attribute, {
     nullable: true,
     name: "attributeId",
@@ -173,6 +204,27 @@ export class AttributeValueResolverBase {
     @graphql.Parent() parent: AttributeValue
   ): Promise<Attribute | null> {
     const result = await this.service.getAttributeId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: AttributeValue
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

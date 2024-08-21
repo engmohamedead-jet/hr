@@ -11,40 +11,29 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountCreateNestedManyWithoutCurrenciesInput } from "./AccountCreateNestedManyWithoutCurrenciesInput";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
+  ValidateNested,
   IsBoolean,
 } from "class-validator";
-import { Type } from "class-transformer";
 import { CustomerCreateNestedManyWithoutCurrenciesInput } from "./CustomerCreateNestedManyWithoutCurrenciesInput";
-import { ExchangeRateDetailCreateNestedManyWithoutCurrenciesInput } from "./ExchangeRateDetailCreateNestedManyWithoutCurrenciesInput";
-import { ExchangeRateDetailWhereUniqueInput } from "../../exchangeRateDetail/base/ExchangeRateDetailWhereUniqueInput";
+import { Type } from "class-transformer";
+import { PaymentVoucherCreateNestedManyWithoutCurrenciesInput } from "./PaymentVoucherCreateNestedManyWithoutCurrenciesInput";
+import { ReceiptVoucherCreateNestedManyWithoutCurrenciesInput } from "./ReceiptVoucherCreateNestedManyWithoutCurrenciesInput";
+import { SalePaymentCreateNestedManyWithoutCurrenciesInput } from "./SalePaymentCreateNestedManyWithoutCurrenciesInput";
 import { SupplierCreateNestedManyWithoutCurrenciesInput } from "./SupplierCreateNestedManyWithoutCurrenciesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class CurrencyCreateInput {
   @ApiProperty({
     required: false,
-    type: () => AccountCreateNestedManyWithoutCurrenciesInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountCreateNestedManyWithoutCurrenciesInput)
-  @IsOptional()
-  @Field(() => AccountCreateNestedManyWithoutCurrenciesInput, {
-    nullable: true,
-  })
-  accounts?: AccountCreateNestedManyWithoutCurrenciesInput;
-
-  @ApiProperty({
-    required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(100)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -65,36 +54,15 @@ class CurrencyCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ExchangeRateDetailCreateNestedManyWithoutCurrenciesInput,
-  })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetailCreateNestedManyWithoutCurrenciesInput)
-  @IsOptional()
-  @Field(() => ExchangeRateDetailCreateNestedManyWithoutCurrenciesInput, {
-    nullable: true,
-  })
-  exchangeRateDetails?: ExchangeRateDetailCreateNestedManyWithoutCurrenciesInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ExchangeRateDetailWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ExchangeRateDetailWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ExchangeRateDetailWhereUniqueInput, {
-    nullable: true,
-  })
-  foreignCurrencyName?: ExchangeRateDetailWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
-  @Field(() => String)
-  hundredthName!: string;
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  description?: string | null;
 
   @ApiProperty({
     required: true,
@@ -102,14 +70,14 @@ class CurrencyCreateInput {
   })
   @IsBoolean()
   @Field(() => Boolean)
-  isDefault!: boolean;
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   name!: string;
 
@@ -118,7 +86,7 @@ class CurrencyCreateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   normalizedName!: string;
 
@@ -136,6 +104,42 @@ class CurrencyCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => PaymentVoucherCreateNestedManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentVoucherCreateNestedManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => PaymentVoucherCreateNestedManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutCurrenciesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptVoucherCreateNestedManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucherCreateNestedManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => ReceiptVoucherCreateNestedManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutCurrenciesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentCreateNestedManyWithoutCurrenciesInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentCreateNestedManyWithoutCurrenciesInput)
+  @IsOptional()
+  @Field(() => SalePaymentCreateNestedManyWithoutCurrenciesInput, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentCreateNestedManyWithoutCurrenciesInput;
+
+  @ApiProperty({
+    required: false,
     type: () => SupplierCreateNestedManyWithoutCurrenciesInput,
   })
   @ValidateNested()
@@ -147,13 +151,16 @@ class CurrencyCreateInput {
   suppliers?: SupplierCreateNestedManyWithoutCurrenciesInput;
 
   @ApiProperty({
-    required: true,
-    type: String,
+    required: false,
+    type: () => TenantWhereUniqueInput,
   })
-  @IsString()
-  @MaxLength(100)
-  @Field(() => String)
-  symbolField!: string;
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { CurrencyCreateInput as CurrencyCreateInput };

@@ -27,6 +27,7 @@ import { CreatePrintTemplateContentArgs } from "./CreatePrintTemplateContentArgs
 import { UpdatePrintTemplateContentArgs } from "./UpdatePrintTemplateContentArgs";
 import { DeletePrintTemplateContentArgs } from "./DeletePrintTemplateContentArgs";
 import { PrintTemplate } from "../../printTemplate/base/PrintTemplate";
+import { Tenant } from "../../tenant/base/Tenant";
 import { PrintTemplateContentService } from "../printTemplateContent.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => PrintTemplateContent)
@@ -101,6 +102,12 @@ export class PrintTemplateContentResolverBase {
               connect: args.data.printTemplateId,
             }
           : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
       },
     });
   }
@@ -124,6 +131,12 @@ export class PrintTemplateContentResolverBase {
           printTemplateId: args.data.printTemplateId
             ? {
                 connect: args.data.printTemplateId,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -173,6 +186,27 @@ export class PrintTemplateContentResolverBase {
     @graphql.Parent() parent: PrintTemplateContent
   ): Promise<PrintTemplate | null> {
     const result = await this.service.getPrintTemplateId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: PrintTemplateContent
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

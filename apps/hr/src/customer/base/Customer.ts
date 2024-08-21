@@ -13,12 +13,13 @@ import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 
 import {
+  IsNumber,
+  Min,
+  Max,
+  IsOptional,
   IsString,
   MaxLength,
-  IsOptional,
   IsDate,
-  IsNumber,
-  Max,
   ValidateNested,
   IsBoolean,
 } from "class-validator";
@@ -26,15 +27,29 @@ import {
 import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { Currency } from "../../currency/base/Currency";
-import { CustomerCateogry } from "../../customerCateogry/base/CustomerCateogry";
-import { CustomerType } from "../../customerType/base/CustomerType";
-import { Rating } from "../../rating/base/Rating";
-import { MaintenanceContract } from "../../maintenanceContract/base/MaintenanceContract";
-import { SalePriceType } from "../../salePriceType/base/SalePriceType";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { SaleReturn } from "../../saleReturn/base/SaleReturn";
+import { Sale } from "../../sale/base/Sale";
 import { Supplier } from "../../supplier/base/Supplier";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class Customer {
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  DefaultSalePriceTypeId!: number | null;
+
   @ApiProperty({
     required: false,
     type: String,
@@ -48,13 +63,16 @@ class Customer {
   address!: string | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -84,24 +102,6 @@ class Customer {
   @Type(() => Currency)
   @IsOptional()
   currencyId?: Currency | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => CustomerCateogry,
-  })
-  @ValidateNested()
-  @Type(() => CustomerCateogry)
-  @IsOptional()
-  customerCateogryId?: CustomerCateogry | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => CustomerType,
-  })
-  @ValidateNested()
-  @Type(() => CustomerType)
-  @IsOptional()
-  customerTypeId?: CustomerType | null;
 
   @ApiProperty({
     required: false,
@@ -162,111 +162,6 @@ class Customer {
   firstBalanceDate!: Date | null;
 
   @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorAddress!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorJobTitle!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorName!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorNationalIdNumber!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorPhoneNumber!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Rating,
-  })
-  @ValidateNested()
-  @Type(() => Rating)
-  @IsOptional()
-  guarantorRatingId?: Rating | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  guarantorWorkAddress!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  hasMortalOrDiscount!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  hasNoPendingInvoices!: string | null;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
@@ -275,26 +170,12 @@ class Customer {
   id!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isActive!: boolean | null;
-
-  @ApiProperty({
-    required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isComplain!: boolean | null;
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: false,
@@ -317,27 +198,6 @@ class Customer {
     nullable: true,
   })
   isUnderRevision!: boolean | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  jobTitle!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [MaintenanceContract],
-  })
-  @ValidateNested()
-  @Type(() => MaintenanceContract)
-  @IsOptional()
-  maintenanceContracts?: Array<MaintenanceContract>;
 
   @ApiProperty({
     required: false,
@@ -379,18 +239,6 @@ class Customer {
   @Field(() => String, {
     nullable: true,
   })
-  note!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
   phoneNumber!: string | null;
 
   @ApiProperty({
@@ -407,12 +255,21 @@ class Customer {
 
   @ApiProperty({
     required: false,
-    type: () => Rating,
+    type: () => [ProductionOrder],
   })
   @ValidateNested()
-  @Type(() => Rating)
+  @Type(() => ProductionOrder)
   @IsOptional()
-  rating?: Rating | null;
+  productionOrders?: Array<ProductionOrder>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ReceiptVoucher],
+  })
+  @ValidateNested()
+  @Type(() => ReceiptVoucher)
+  @IsOptional()
+  receiptVouchers?: Array<ReceiptVoucher>;
 
   @ApiProperty({
     required: false,
@@ -439,21 +296,51 @@ class Customer {
 
   @ApiProperty({
     required: false,
-    type: () => SalePriceType,
+    type: () => [SaleOrder],
   })
   @ValidateNested()
-  @Type(() => SalePriceType)
+  @Type(() => SaleOrder)
   @IsOptional()
-  salePriceTypeId?: SalePriceType | null;
+  saleOrders?: Array<SaleOrder>;
 
   @ApiProperty({
     required: false,
-    type: () => Supplier,
+    type: () => [SaleReturn],
+  })
+  @ValidateNested()
+  @Type(() => SaleReturn)
+  @IsOptional()
+  saleReturns?: Array<SaleReturn>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Sale],
+  })
+  @ValidateNested()
+  @Type(() => Sale)
+  @IsOptional()
+  sales?: Array<Sale>;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  supplierId!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Supplier],
   })
   @ValidateNested()
   @Type(() => Supplier)
   @IsOptional()
-  supplierId?: Supplier | null;
+  suppliers?: Array<Supplier>;
 
   @ApiProperty({
     required: false,
@@ -466,6 +353,15 @@ class Customer {
     nullable: true,
   })
   taxNumber!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenant?: Tenant | null;
 
   @ApiProperty({
     required: true,
@@ -486,18 +382,6 @@ class Customer {
     nullable: true,
   })
   website!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  workAddress!: string | null;
 }
 
 export { Customer as Customer };

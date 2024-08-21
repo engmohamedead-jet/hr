@@ -26,9 +26,6 @@ import { PrintTemplateGroup } from "./PrintTemplateGroup";
 import { PrintTemplateGroupFindManyArgs } from "./PrintTemplateGroupFindManyArgs";
 import { PrintTemplateGroupWhereUniqueInput } from "./PrintTemplateGroupWhereUniqueInput";
 import { PrintTemplateGroupUpdateInput } from "./PrintTemplateGroupUpdateInput";
-import { PrintTemplateFindManyArgs } from "../../printTemplate/base/PrintTemplateFindManyArgs";
-import { PrintTemplate } from "../../printTemplate/base/PrintTemplate";
-import { PrintTemplateWhereUniqueInput } from "../../printTemplate/base/PrintTemplateWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,15 +49,31 @@ export class PrintTemplateGroupControllerBase {
     @common.Body() data: PrintTemplateGroupCreateInput
   ): Promise<PrintTemplateGroup> {
     return await this.service.createPrintTemplateGroup({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -89,9 +102,17 @@ export class PrintTemplateGroupControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -119,9 +140,17 @@ export class PrintTemplateGroupControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -152,15 +181,31 @@ export class PrintTemplateGroupControllerBase {
     try {
       return await this.service.updatePrintTemplateGroup({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -196,9 +241,17 @@ export class PrintTemplateGroupControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -210,118 +263,5 @@ export class PrintTemplateGroupControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/printTemplates")
-  @ApiNestedQuery(PrintTemplateFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "PrintTemplate",
-    action: "read",
-    possession: "any",
-  })
-  async findPrintTemplates(
-    @common.Req() request: Request,
-    @common.Param() params: PrintTemplateGroupWhereUniqueInput
-  ): Promise<PrintTemplate[]> {
-    const query = plainToClass(PrintTemplateFindManyArgs, request.query);
-    const results = await this.service.findPrintTemplates(params.id, {
-      ...query,
-      select: {
-        Description: true,
-        code: true,
-        createdAt: true,
-        filePath: true,
-        id: true,
-        isCustomized: true,
-        isFavourite: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-        paperLayout: true,
-        paperSize: true,
-        previewImage: true,
-
-        printTemplateGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/printTemplates")
-  @nestAccessControl.UseRoles({
-    resource: "PrintTemplateGroup",
-    action: "update",
-    possession: "any",
-  })
-  async connectPrintTemplates(
-    @common.Param() params: PrintTemplateGroupWhereUniqueInput,
-    @common.Body() body: PrintTemplateWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      printTemplates: {
-        connect: body,
-      },
-    };
-    await this.service.updatePrintTemplateGroup({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/printTemplates")
-  @nestAccessControl.UseRoles({
-    resource: "PrintTemplateGroup",
-    action: "update",
-    possession: "any",
-  })
-  async updatePrintTemplates(
-    @common.Param() params: PrintTemplateGroupWhereUniqueInput,
-    @common.Body() body: PrintTemplateWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      printTemplates: {
-        set: body,
-      },
-    };
-    await this.service.updatePrintTemplateGroup({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/printTemplates")
-  @nestAccessControl.UseRoles({
-    resource: "PrintTemplateGroup",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectPrintTemplates(
-    @common.Param() params: PrintTemplateGroupWhereUniqueInput,
-    @common.Body() body: PrintTemplateWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      printTemplates: {
-        disconnect: body,
-      },
-    };
-    await this.service.updatePrintTemplateGroup({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

@@ -1,0 +1,34 @@
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { DecimalFilter } from "../../util/DecimalFilter";
+import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
+import { ProductVariantWhereUniqueInput } from "../productVariant/ProductVariantWhereUniqueInput";
+import { SalePriceTypeWhereUniqueInput } from "../salePriceType/SalePriceTypeWhereUniqueInput";
+import { SaleReturnWhereUniqueInput } from "../saleReturn/SaleReturnWhereUniqueInput";
+import { IntFilter } from "../../util/IntFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { UnitWhereUniqueInput } from "../unit/UnitWhereUniqueInput";
+
+export type SaleReturnDetailWhereInput = {
+  barcode?: StringNullableFilter;
+  discount?: DecimalNullableFilter;
+  discountRate?: DecimalNullableFilter;
+  id?: StringFilter;
+  isActive?: BooleanFilter;
+  isError?: BooleanFilter;
+  isReplicated?: BooleanFilter;
+  isTaxed?: BooleanFilter;
+  price?: DecimalFilter;
+  priceTotal?: DecimalFilter;
+  productId?: ProductWhereUniqueInput;
+  productSerialNumber?: StringNullableFilter;
+  productVariantId?: ProductVariantWhereUniqueInput;
+  quantity?: DecimalNullableFilter;
+  salePriceType?: SalePriceTypeWhereUniqueInput;
+  saleReturnId?: SaleReturnWhereUniqueInput;
+  sequence?: IntFilter;
+  tenantId?: TenantWhereUniqueInput;
+  unitId?: UnitWhereUniqueInput;
+};

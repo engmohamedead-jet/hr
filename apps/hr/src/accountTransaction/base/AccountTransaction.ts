@@ -11,37 +11,30 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountTransactionDetail } from "../../accountTransactionDetail/base/AccountTransactionDetail";
 import {
-  ValidateNested,
-  IsOptional,
-  IsDate,
   IsString,
   MaxLength,
+  IsOptional,
+  IsDate,
+  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { CostCenter } from "../../costCenter/base/CostCenter";
-import { Store } from "../../store/base/Store";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
 
 @ObjectType()
 class AccountTransaction {
   @ApiProperty({
     required: false,
-    type: () => [AccountTransactionDetail],
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => AccountTransactionDetail)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  accountTransactionDetails?: Array<AccountTransactionDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => CostCenter,
+  @Field(() => String, {
+    nullable: true,
   })
-  @ValidateNested()
-  @Type(() => CostCenter)
-  @IsOptional()
-  costCenter?: CostCenter | null;
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -69,50 +62,25 @@ class AccountTransaction {
   @Field(() => String, {
     nullable: true,
   })
-  note!: string | null;
+  name!: string | null;
 
   @ApiProperty({
     required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  referenceNumber!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  statementReference!: string | null;
-
-  @ApiProperty({
-    required: true,
-    type: () => Store,
+    type: () => [PaymentVoucher],
   })
   @ValidateNested()
-  @Type(() => Store)
-  store?: Store;
+  @Type(() => PaymentVoucher)
+  @IsOptional()
+  paymentVouchers?: Array<PaymentVoucher>;
 
   @ApiProperty({
     required: false,
+    type: () => ReceiptVoucher,
   })
-  @IsDate()
-  @Type(() => Date)
+  @ValidateNested()
+  @Type(() => ReceiptVoucher)
   @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  transactionDate!: Date | null;
+  receiptVouchers?: ReceiptVoucher | null;
 
   @ApiProperty({
     required: true,

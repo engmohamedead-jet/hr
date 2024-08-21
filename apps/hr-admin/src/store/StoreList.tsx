@@ -11,8 +11,8 @@ import {
 } from "react-admin";
 
 import Pagination from "../Components/Pagination";
-import { OFFICE_TITLE_FIELD } from "../office/OfficeTitle";
 import { STORETYPE_TITLE_FIELD } from "../storeType/StoreTypeTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const StoreList = (props: ListProps): React.ReactElement => {
   return (
@@ -32,12 +32,10 @@ export const StoreList = (props: ListProps): React.ReactElement => {
         <TextField label="Fax" source="fax" />
         <TextField label="HomePhoneNumber" source="homePhoneNumber" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
-        <ReferenceField label="OfficeId" source="office.id" reference="Office">
-          <TextField source={OFFICE_TITLE_FIELD} />
-        </ReferenceField>
         <ReferenceField
           label="StoreTypeId"
           source="storetype.id"
@@ -46,6 +44,9 @@ export const StoreList = (props: ListProps): React.ReactElement => {
           <TextField source={STORETYPE_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="Street" source="street" />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

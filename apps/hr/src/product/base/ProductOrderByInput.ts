@@ -28,17 +28,6 @@ class ProductOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  ProductGroupIdId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   barcode?: SortOrder;
 
   @ApiProperty({
@@ -303,6 +292,17 @@ class ProductOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  note?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   photo?: SortOrder;
 
   @ApiProperty({
@@ -326,6 +326,17 @@ class ProductOrderByInput {
     nullable: true,
   })
   productDepartmentIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  productGroupIdId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -392,6 +403,17 @@ class ProductOrderByInput {
     nullable: true,
   })
   saleTaxIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

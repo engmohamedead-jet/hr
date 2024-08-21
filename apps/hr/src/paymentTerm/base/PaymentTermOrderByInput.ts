@@ -72,18 +72,7 @@ class PaymentTermOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  dueOnDate?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  Name?: SortOrder;
+  duePeriodIdId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -127,7 +116,18 @@ class PaymentTermOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  InstallmentSaleFeePostingPeriod?: SortOrder;
+  installmentSaleFeePostingPeriodId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  isActive?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -139,6 +139,17 @@ class PaymentTermOrderByInput {
     nullable: true,
   })
   isDefault?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  isDueOnDate?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -161,6 +172,28 @@ class PaymentTermOrderByInput {
     nullable: true,
   })
   normalizedName?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  note?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

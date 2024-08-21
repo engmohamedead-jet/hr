@@ -26,6 +26,9 @@ import { OrderStatusFindUniqueArgs } from "./OrderStatusFindUniqueArgs";
 import { CreateOrderStatusArgs } from "./CreateOrderStatusArgs";
 import { UpdateOrderStatusArgs } from "./UpdateOrderStatusArgs";
 import { DeleteOrderStatusArgs } from "./DeleteOrderStatusArgs";
+import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { Tenant } from "../../tenant/base/Tenant";
 import { OrderStatusService } from "../orderStatus.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => OrderStatus)
@@ -92,7 +95,27 @@ export class OrderStatusResolverBase {
   ): Promise<OrderStatus> {
     return await this.service.createOrderStatus({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        productionOrders: args.data.productionOrders
+          ? {
+              connect: args.data.productionOrders,
+            }
+          : undefined,
+
+        saleOrders: args.data.saleOrders
+          ? {
+              connect: args.data.saleOrders,
+            }
+          : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +132,27 @@ export class OrderStatusResolverBase {
     try {
       return await this.service.updateOrderStatus({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          productionOrders: args.data.productionOrders
+            ? {
+                connect: args.data.productionOrders,
+              }
+            : undefined,
+
+          saleOrders: args.data.saleOrders
+            ? {
+                connect: args.data.saleOrders,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +183,68 @@ export class OrderStatusResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => ProductionOrder, {
+    nullable: true,
+    name: "productionOrders",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ProductionOrder",
+    action: "read",
+    possession: "any",
+  })
+  async getProductionOrders(
+    @graphql.Parent() parent: OrderStatus
+  ): Promise<ProductionOrder | null> {
+    const result = await this.service.getProductionOrders(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SaleOrder, {
+    nullable: true,
+    name: "saleOrders",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async getSaleOrders(
+    @graphql.Parent() parent: OrderStatus
+  ): Promise<SaleOrder | null> {
+    const result = await this.service.getSaleOrders(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: OrderStatus
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

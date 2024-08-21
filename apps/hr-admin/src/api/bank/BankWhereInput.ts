@@ -1,29 +1,24 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { BankAccountListRelationFilter } from "../bankAccount/BankAccountListRelationFilter";
 import { BankBranchListRelationFilter } from "../bankBranch/BankBranchListRelationFilter";
-import { CityWhereUniqueInput } from "../city/CityWhereUniqueInput";
+import { BankTypeWhereUniqueInput } from "../bankType/BankTypeWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
-import { CountryWhereUniqueInput } from "../country/CountryWhereUniqueInput";
-import { StateWhereUniqueInput } from "../state/StateWhereUniqueInput";
+import { SalePaymentListRelationFilter } from "../salePayment/SalePaymentListRelationFilter";
 
 export type BankWhereInput = {
   address?: StringNullableFilter;
-  bankAccounts?: BankAccountListRelationFilter;
   bankBranches?: BankBranchListRelationFilter;
+  bankType?: BankTypeWhereUniqueInput;
   cellPhoneNumber?: StringNullableFilter;
-  cityId?: CityWhereUniqueInput;
-  code?: StringFilter;
+  code?: StringNullableFilter;
   contactPhoneNumber?: StringNullableFilter;
-  countryId?: CountryWhereUniqueInput;
   description?: StringNullableFilter;
   fax?: StringNullableFilter;
   homePhoneNumber?: StringNullableFilter;
   id?: StringFilter;
-  name?: StringFilter;
-  normalizedName?: StringFilter;
-  note?: StringNullableFilter;
+  name?: StringNullableFilter;
+  normalizedName?: StringNullableFilter;
   relationshipOfficerContactNumber?: StringNullableFilter;
   relationshipOfficerName?: StringNullableFilter;
-  stateId?: StateWhereUniqueInput;
+  salePayments?: SalePaymentListRelationFilter;
   street?: StringNullableFilter;
 };

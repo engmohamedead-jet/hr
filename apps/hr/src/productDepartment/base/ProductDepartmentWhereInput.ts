@@ -15,10 +15,12 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { ProductCategoryListRelationFilter } from "../../productCategory/base/ProductCategoryListRelationFilter";
+import { ProductDepartmentWhereUniqueInput } from "./ProductDepartmentWhereUniqueInput";
+import { ProductDepartmentListRelationFilter } from "./ProductDepartmentListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductDepartmentWhereInput {
@@ -57,14 +59,25 @@ class ProductDepartmentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: BooleanNullableFilter,
+    type: BooleanFilter,
   })
-  @Type(() => BooleanNullableFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => BooleanNullableFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  isDefault?: BooleanNullableFilter;
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isDefault?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -101,15 +114,27 @@ class ProductDepartmentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductCategoryListRelationFilter,
+    type: () => ProductDepartmentWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => ProductCategoryListRelationFilter)
+  @Type(() => ProductDepartmentWhereUniqueInput)
   @IsOptional()
-  @Field(() => ProductCategoryListRelationFilter, {
+  @Field(() => ProductDepartmentWhereUniqueInput, {
     nullable: true,
   })
-  productCategories?: ProductCategoryListRelationFilter;
+  parentProductDepartmentId?: ProductDepartmentWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductDepartmentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProductDepartmentListRelationFilter)
+  @IsOptional()
+  @Field(() => ProductDepartmentListRelationFilter, {
+    nullable: true,
+  })
+  productDepartments?: ProductDepartmentListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -122,6 +147,18 @@ class ProductDepartmentWhereInput {
     nullable: true,
   })
   products?: ProductListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { ProductDepartmentWhereInput as ProductDepartmentWhereInput };

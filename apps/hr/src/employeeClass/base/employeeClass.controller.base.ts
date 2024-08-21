@@ -26,9 +26,9 @@ import { EmployeeClass } from "./EmployeeClass";
 import { EmployeeClassFindManyArgs } from "./EmployeeClassFindManyArgs";
 import { EmployeeClassWhereUniqueInput } from "./EmployeeClassWhereUniqueInput";
 import { EmployeeClassUpdateInput } from "./EmployeeClassUpdateInput";
-import { EmployeeClassSalaryItemValueFindManyArgs } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValueFindManyArgs";
-import { EmployeeClassSalaryItemValue } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValue";
-import { EmployeeClassSalaryItemValueWhereUniqueInput } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValueWhereUniqueInput";
+import { EmployeeFindManyArgs } from "../../employee/base/EmployeeFindManyArgs";
+import { Employee } from "../../employee/base/Employee";
+import { EmployeeWhereUniqueInput } from "../../employee/base/EmployeeWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,15 +52,31 @@ export class EmployeeClassControllerBase {
     @common.Body() data: EmployeeClassCreateInput
   ): Promise<EmployeeClass> {
     return await this.service.createEmployeeClass({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
-        notes: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -89,9 +105,17 @@ export class EmployeeClassControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
-        notes: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -119,9 +143,17 @@ export class EmployeeClassControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
-        notes: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -152,15 +184,31 @@ export class EmployeeClassControllerBase {
     try {
       return await this.service.updateEmployeeClass({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
-          notes: true,
+          note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -196,9 +244,17 @@ export class EmployeeClassControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
-          notes: true,
+          note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -213,47 +269,55 @@ export class EmployeeClassControllerBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/employeeClassSalaryItemValues")
-  @ApiNestedQuery(EmployeeClassSalaryItemValueFindManyArgs)
+  @common.Get("/:id/employees")
+  @ApiNestedQuery(EmployeeFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "EmployeeClassSalaryItemValue",
+    resource: "Employee",
     action: "read",
     possession: "any",
   })
-  async findEmployeeClassSalaryItemValues(
+  async findEmployees(
     @common.Req() request: Request,
     @common.Param() params: EmployeeClassWhereUniqueInput
-  ): Promise<EmployeeClassSalaryItemValue[]> {
-    const query = plainToClass(
-      EmployeeClassSalaryItemValueFindManyArgs,
-      request.query
-    );
-    const results = await this.service.findEmployeeClassSalaryItemValues(
-      params.id,
-      {
-        ...query,
-        select: {
-          createdAt: true,
+  ): Promise<Employee[]> {
+    const query = plainToClass(EmployeeFindManyArgs, request.query);
+    const results = await this.service.findEmployees(params.id, {
+      ...query,
+      select: {
+        balance: true,
+        code: true,
+        createdAt: true,
 
-          employeeClassId: {
-            select: {
-              id: true,
-            },
+        employeeClassId: {
+          select: {
+            id: true,
           },
-
-          id: true,
-          itemValue: true,
-
-          salaryItemId: {
-            select: {
-              id: true,
-            },
-          },
-
-          updatedAt: true,
         },
-      }
-    );
+
+        employeeDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isActive: true,
+        lastYearBalance: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        remainingBalance: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+        usedBalance: true,
+      },
+    });
     if (results === null) {
       throw new errors.NotFoundException(
         `No resource was found for ${JSON.stringify(params)}`
@@ -262,18 +326,18 @@ export class EmployeeClassControllerBase {
     return results;
   }
 
-  @common.Post("/:id/employeeClassSalaryItemValues")
+  @common.Post("/:id/employees")
   @nestAccessControl.UseRoles({
     resource: "EmployeeClass",
     action: "update",
     possession: "any",
   })
-  async connectEmployeeClassSalaryItemValues(
+  async connectEmployees(
     @common.Param() params: EmployeeClassWhereUniqueInput,
-    @common.Body() body: EmployeeClassSalaryItemValueWhereUniqueInput[]
+    @common.Body() body: EmployeeWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      employeeClassSalaryItemValues: {
+      employees: {
         connect: body,
       },
     };
@@ -284,18 +348,18 @@ export class EmployeeClassControllerBase {
     });
   }
 
-  @common.Patch("/:id/employeeClassSalaryItemValues")
+  @common.Patch("/:id/employees")
   @nestAccessControl.UseRoles({
     resource: "EmployeeClass",
     action: "update",
     possession: "any",
   })
-  async updateEmployeeClassSalaryItemValues(
+  async updateEmployees(
     @common.Param() params: EmployeeClassWhereUniqueInput,
-    @common.Body() body: EmployeeClassSalaryItemValueWhereUniqueInput[]
+    @common.Body() body: EmployeeWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      employeeClassSalaryItemValues: {
+      employees: {
         set: body,
       },
     };
@@ -306,18 +370,18 @@ export class EmployeeClassControllerBase {
     });
   }
 
-  @common.Delete("/:id/employeeClassSalaryItemValues")
+  @common.Delete("/:id/employees")
   @nestAccessControl.UseRoles({
     resource: "EmployeeClass",
     action: "update",
     possession: "any",
   })
-  async disconnectEmployeeClassSalaryItemValues(
+  async disconnectEmployees(
     @common.Param() params: EmployeeClassWhereUniqueInput,
-    @common.Body() body: EmployeeClassSalaryItemValueWhereUniqueInput[]
+    @common.Body() body: EmployeeWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      employeeClassSalaryItemValues: {
+      employees: {
         disconnect: body,
       },
     };

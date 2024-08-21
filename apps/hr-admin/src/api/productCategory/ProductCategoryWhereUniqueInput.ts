@@ -1,3 +1,3 @@
 export type ProductCategoryWhereUniqueInput = {
-  id: number;
+  id: string;
 };

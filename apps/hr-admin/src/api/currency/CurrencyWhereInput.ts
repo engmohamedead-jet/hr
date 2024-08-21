@@ -1,24 +1,25 @@
-import { AccountListRelationFilter } from "../account/AccountListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { CustomerListRelationFilter } from "../customer/CustomerListRelationFilter";
-import { ExchangeRateDetailListRelationFilter } from "../exchangeRateDetail/ExchangeRateDetailListRelationFilter";
-import { ExchangeRateDetailWhereUniqueInput } from "../exchangeRateDetail/ExchangeRateDetailWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { PaymentVoucherListRelationFilter } from "../paymentVoucher/PaymentVoucherListRelationFilter";
+import { ReceiptVoucherListRelationFilter } from "../receiptVoucher/ReceiptVoucherListRelationFilter";
+import { SalePaymentListRelationFilter } from "../salePayment/SalePaymentListRelationFilter";
 import { SupplierListRelationFilter } from "../supplier/SupplierListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type CurrencyWhereInput = {
-  accounts?: AccountListRelationFilter;
   code?: StringNullableFilter;
   customers?: CustomerListRelationFilter;
-  exchangeRateDetails?: ExchangeRateDetailListRelationFilter;
-  foreignCurrencyName?: ExchangeRateDetailWhereUniqueInput;
-  hundredthName?: StringFilter;
+  description?: StringNullableFilter;
   id?: StringFilter;
-  isDefault?: BooleanFilter;
+  isActive?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
+  paymentVouchers?: PaymentVoucherListRelationFilter;
+  receiptVouchers?: ReceiptVoucherListRelationFilter;
+  salePayments?: SalePaymentListRelationFilter;
   suppliers?: SupplierListRelationFilter;
-  symbolField?: StringFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

@@ -20,10 +20,11 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { AccountCategoryWhereUniqueInput } from "../../accountCategory/base/AccountCategoryWhereUniqueInput";
-import { AccountTypeWhereUniqueInput } from "../../accountType/base/AccountTypeWhereUniqueInput";
-import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
 import { InstallmentSaleFeeUpdateManyWithoutAccountsInput } from "./InstallmentSaleFeeUpdateManyWithoutAccountsInput";
+import { AccountWhereUniqueInput } from "./AccountWhereUniqueInput";
+import { AccountUpdateManyWithoutAccountsInput } from "./AccountUpdateManyWithoutAccountsInput";
+import { SalePersonUpdateManyWithoutAccountsInput } from "./SalePersonUpdateManyWithoutAccountsInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AccountUpdateInput {
@@ -37,7 +38,19 @@ class AccountUpdateInput {
   @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
     nullable: true,
   })
-  ProductGroupPurchaseReturnAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  SaleReturnAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  accountNumber?: string;
 
   @ApiProperty({
     required: false,
@@ -49,55 +62,19 @@ class AccountUpdateInput {
   @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
     nullable: true,
   })
-  ProductGroupSaleAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  aleAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
-    type: () => AccountCategoryWhereUniqueInput,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
   })
   @ValidateNested()
-  @Type(() => AccountCategoryWhereUniqueInput)
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
   @IsOptional()
-  @Field(() => AccountCategoryWhereUniqueInput, {
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
     nullable: true,
   })
-  accountCategory?: AccountCategoryWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(100)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  accountNumber?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => AccountTypeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountTypeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountTypeWhereUniqueInput, {
-    nullable: true,
-  })
-  accountTypeId?: AccountTypeWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => CurrencyWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CurrencyWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CurrencyWhereUniqueInput, {
-    nullable: true,
-  })
-  currencyId?: CurrencyWhereUniqueInput;
+  costOfGoodsSoldAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -125,6 +102,18 @@ class AccountUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  inventoryAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
+
+  @ApiProperty({
+    required: false,
     type: Boolean,
   })
   @IsBoolean()
@@ -147,21 +136,10 @@ class AccountUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isUnderRevision?: boolean | null;
-
-  @ApiProperty({
-    required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -173,7 +151,7 @@ class AccountUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -194,15 +172,27 @@ class AccountUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => AccountWhereUniqueInput,
   })
-  @IsString()
-  @MaxLength(1000)
+  @ValidateNested()
+  @Type(() => AccountWhereUniqueInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  parentAccountId?: string | null;
+  parentAccountId?: AccountWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => AccountUpdateManyWithoutAccountsInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountUpdateManyWithoutAccountsInput)
+  @IsOptional()
+  @Field(() => AccountUpdateManyWithoutAccountsInput, {
+    nullable: true,
+  })
+  parentAccounts?: AccountUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -214,7 +204,7 @@ class AccountUpdateInput {
   @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
     nullable: true,
   })
-  productGroupCostOfGoodsSoldAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  purchaseAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -226,7 +216,7 @@ class AccountUpdateInput {
   @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
     nullable: true,
   })
-  productGroupInventoryAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  purchaseDiscountAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -238,7 +228,7 @@ class AccountUpdateInput {
   @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
     nullable: true,
   })
-  productGroupPurchaseAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  purchaseReturnAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
@@ -250,43 +240,31 @@ class AccountUpdateInput {
   @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
     nullable: true,
   })
-  productGroupPurchaseDiscountAccounts?: ProductGroupUpdateManyWithoutAccountsInput;
+  saleDiscountAccountProductGroups?: ProductGroupUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
-    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+    type: () => SalePersonUpdateManyWithoutAccountsInput,
   })
   @ValidateNested()
-  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @Type(() => SalePersonUpdateManyWithoutAccountsInput)
   @IsOptional()
-  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+  @Field(() => SalePersonUpdateManyWithoutAccountsInput, {
     nullable: true,
   })
-  productGroupSaleDiscountAccountIds?: ProductGroupUpdateManyWithoutAccountsInput;
+  salePeople?: SalePersonUpdateManyWithoutAccountsInput;
 
   @ApiProperty({
     required: false,
-    type: () => ProductGroupUpdateManyWithoutAccountsInput,
+    type: () => TenantWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => ProductGroupUpdateManyWithoutAccountsInput)
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => ProductGroupUpdateManyWithoutAccountsInput, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  productGroupSaleReturnAccountIds?: ProductGroupUpdateManyWithoutAccountsInput;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  referenceNumber?: string | null;
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { AccountUpdateInput as AccountUpdateInput };

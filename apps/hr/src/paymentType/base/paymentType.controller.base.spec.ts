@@ -20,43 +20,51 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   code: "exampleCode",
   createdAt: new Date(),
+  description: "exampleDescription",
   id: 42,
+  isActive: "true",
   isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
-  notes: "exampleNotes",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   code: "exampleCode",
   createdAt: new Date(),
+  description: "exampleDescription",
   id: 42,
+  isActive: "true",
   isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
-  notes: "exampleNotes",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     code: "exampleCode",
     createdAt: new Date(),
+    description: "exampleDescription",
     id: 42,
+    isActive: "true",
     isDefault: "true",
     name: "exampleName",
     normalizedName: "exampleNormalizedName",
-    notes: "exampleNotes",
+    note: "exampleNote",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   code: "exampleCode",
   createdAt: new Date(),
+  description: "exampleDescription",
   id: 42,
+  isActive: "true",
   isDefault: "true",
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
-  notes: "exampleNotes",
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 

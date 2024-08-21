@@ -15,22 +15,28 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { EmployeeClassSalaryItemValueCreateNestedManyWithoutSalaryItemsInput } from "./EmployeeClassSalaryItemValueCreateNestedManyWithoutSalaryItemsInput";
+import { SalaryItemGroupWhereUniqueInput } from "../../salaryItemGroup/base/SalaryItemGroupWhereUniqueInput";
 import { Type } from "class-transformer";
-import { EmployeeSalaryDetailCreateNestedManyWithoutSalaryItemsInput } from "./EmployeeSalaryDetailCreateNestedManyWithoutSalaryItemsInput";
+import { SalaryItemTypeWhereUniqueInput } from "../../salaryItemType/base/SalaryItemTypeWhereUniqueInput";
+import { SalaryLawWhereUniqueInput } from "../../salaryLaw/base/SalaryLawWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SalaryItemCreateInput {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(100)
-  @Field(() => String)
-  code!: string;
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -45,41 +51,19 @@ class SalaryItemCreateInput {
   description?: string | null;
 
   @ApiProperty({
-    required: false,
-    type: () =>
-      EmployeeClassSalaryItemValueCreateNestedManyWithoutSalaryItemsInput,
+    required: true,
+    type: Boolean,
   })
-  @ValidateNested()
-  @Type(
-    () => EmployeeClassSalaryItemValueCreateNestedManyWithoutSalaryItemsInput
-  )
-  @IsOptional()
-  @Field(
-    () => EmployeeClassSalaryItemValueCreateNestedManyWithoutSalaryItemsInput,
-    {
-      nullable: true,
-    }
-  )
-  employeeClassSalaryItemValues?: EmployeeClassSalaryItemValueCreateNestedManyWithoutSalaryItemsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => EmployeeSalaryDetailCreateNestedManyWithoutSalaryItemsInput,
-  })
-  @ValidateNested()
-  @Type(() => EmployeeSalaryDetailCreateNestedManyWithoutSalaryItemsInput)
-  @IsOptional()
-  @Field(() => EmployeeSalaryDetailCreateNestedManyWithoutSalaryItemsInput, {
-    nullable: true,
-  })
-  employeeSalaryDetails?: EmployeeSalaryDetailCreateNestedManyWithoutSalaryItemsInput;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   name!: string;
 
@@ -88,7 +72,7 @@ class SalaryItemCreateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   normalizedName!: string;
 
@@ -103,6 +87,51 @@ class SalaryItemCreateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryItemGroupWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalaryItemGroupWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SalaryItemGroupWhereUniqueInput, {
+    nullable: true,
+  })
+  salaryItemGroupId?: SalaryItemGroupWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: true,
+    type: () => SalaryItemTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalaryItemTypeWhereUniqueInput)
+  @Field(() => SalaryItemTypeWhereUniqueInput)
+  salaryItemTypeId!: SalaryItemTypeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryLawWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalaryLawWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SalaryLawWhereUniqueInput, {
+    nullable: true,
+  })
+  salaryLawId?: SalaryLawWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { SalaryItemCreateInput as SalaryItemCreateInput };

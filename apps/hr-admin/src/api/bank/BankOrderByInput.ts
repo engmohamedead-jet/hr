@@ -2,11 +2,10 @@ import { SortOrder } from "../../util/SortOrder";
 
 export type BankOrderByInput = {
   address?: SortOrder;
+  bankTypeId?: SortOrder;
   cellPhoneNumber?: SortOrder;
-  cityIdId?: SortOrder;
   code?: SortOrder;
   contactPhoneNumber?: SortOrder;
-  countryIdId?: SortOrder;
   createdAt?: SortOrder;
   description?: SortOrder;
   fax?: SortOrder;
@@ -14,10 +13,8 @@ export type BankOrderByInput = {
   id?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
-  note?: SortOrder;
   relationshipOfficerContactNumber?: SortOrder;
   relationshipOfficerName?: SortOrder;
-  stateIdId?: SortOrder;
   street?: SortOrder;
   updatedAt?: SortOrder;
 };

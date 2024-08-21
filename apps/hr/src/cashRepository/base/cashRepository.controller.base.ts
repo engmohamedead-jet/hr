@@ -26,6 +26,24 @@ import { CashRepository } from "./CashRepository";
 import { CashRepositoryFindManyArgs } from "./CashRepositoryFindManyArgs";
 import { CashRepositoryWhereUniqueInput } from "./CashRepositoryWhereUniqueInput";
 import { CashRepositoryUpdateInput } from "./CashRepositoryUpdateInput";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { PaymentVoucherWhereUniqueInput } from "../../paymentVoucher/base/PaymentVoucherWhereUniqueInput";
+import { PurchaseReturnFindManyArgs } from "../../purchaseReturn/base/PurchaseReturnFindManyArgs";
+import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
+import { PurchaseReturnWhereUniqueInput } from "../../purchaseReturn/base/PurchaseReturnWhereUniqueInput";
+import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
+import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { ReceiptVoucherWhereUniqueInput } from "../../receiptVoucher/base/ReceiptVoucherWhereUniqueInput";
+import { SaleOrderFindManyArgs } from "../../saleOrder/base/SaleOrderFindManyArgs";
+import { SaleOrder } from "../../saleOrder/base/SaleOrder";
+import { SaleOrderWhereUniqueInput } from "../../saleOrder/base/SaleOrderWhereUniqueInput";
+import { SaleReturnFindManyArgs } from "../../saleReturn/base/SaleReturnFindManyArgs";
+import { SaleReturn } from "../../saleReturn/base/SaleReturn";
+import { SaleReturnWhereUniqueInput } from "../../saleReturn/base/SaleReturnWhereUniqueInput";
+import { SaleFindManyArgs } from "../../sale/base/SaleFindManyArgs";
+import { Sale } from "../../sale/base/Sale";
+import { SaleWhereUniqueInput } from "../../sale/base/SaleWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -52,34 +70,47 @@ export class CashRepositoryControllerBase {
       data: {
         ...data,
 
-        cashRepositories: data.cashRepositories
-          ? {
-              connect: data.cashRepositories,
-            }
-          : undefined,
-
         parentCashRepositoryId: data.parentCashRepositoryId
           ? {
               connect: data.parentCashRepositoryId,
             }
           : undefined,
+
+        purchases: data.purchases
+          ? {
+              connect: data.purchases,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
       },
       select: {
-        cashRepositories: {
-          select: {
-            id: true,
-          },
-        },
-
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
         parentCashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchases: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -109,21 +140,28 @@ export class CashRepositoryControllerBase {
     return this.service.cashRepositories({
       ...args,
       select: {
-        cashRepositories: {
-          select: {
-            id: true,
-          },
-        },
-
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
         parentCashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchases: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -152,21 +190,28 @@ export class CashRepositoryControllerBase {
     const result = await this.service.cashRepository({
       where: params,
       select: {
-        cashRepositories: {
-          select: {
-            id: true,
-          },
-        },
-
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
 
         parentCashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchases: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -205,34 +250,47 @@ export class CashRepositoryControllerBase {
         data: {
           ...data,
 
-          cashRepositories: data.cashRepositories
-            ? {
-                connect: data.cashRepositories,
-              }
-            : undefined,
-
           parentCashRepositoryId: data.parentCashRepositoryId
             ? {
                 connect: data.parentCashRepositoryId,
               }
             : undefined,
+
+          purchases: data.purchases
+            ? {
+                connect: data.purchases,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
         },
         select: {
-          cashRepositories: {
-            select: {
-              id: true,
-            },
-          },
-
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
 
           parentCashRepositoryId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchases: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -269,21 +327,28 @@ export class CashRepositoryControllerBase {
       return await this.service.deleteCashRepository({
         where: params,
         select: {
-          cashRepositories: {
-            select: {
-              id: true,
-            },
-          },
-
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
 
           parentCashRepositoryId: {
+            select: {
+              id: true,
+            },
+          },
+
+          purchases: {
+            select: {
+              id: true,
+            },
+          },
+
+          tenantId: {
             select: {
               id: true,
             },
@@ -300,5 +365,1121 @@ export class CashRepositoryControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/cashRepositories")
+  @ApiNestedQuery(CashRepositoryFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "read",
+    possession: "any",
+  })
+  async findCashRepositories(
+    @common.Req() request: Request,
+    @common.Param() params: CashRepositoryWhereUniqueInput
+  ): Promise<CashRepository[]> {
+    const query = plainToClass(CashRepositoryFindManyArgs, request.query);
+    const results = await this.service.findCashRepositories(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        parentCashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchases: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/cashRepositories")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async connectCashRepositories(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: CashRepositoryWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      cashRepositories: {
+        connect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/cashRepositories")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async updateCashRepositories(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: CashRepositoryWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      cashRepositories: {
+        set: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/cashRepositories")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectCashRepositories(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: CashRepositoryWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      cashRepositories: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/paymentVouchers")
+  @ApiNestedQuery(PaymentVoucherFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @common.Req() request: Request,
+    @common.Param() params: CashRepositoryWhereUniqueInput
+  ): Promise<PaymentVoucher[]> {
+    const query = plainToClass(PaymentVoucherFindManyArgs, request.query);
+    const results = await this.service.findPaymentVouchers(params.id, {
+      ...query,
+      select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        currency: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        expenseItemId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isActive: true,
+        note: true,
+        paymentVoucherDate: true,
+        statementReference: true,
+
+        supplier: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async connectPaymentVouchers(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        connect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async updatePaymentVouchers(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        set: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/paymentVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPaymentVouchers(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: PaymentVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      paymentVouchers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/purchaseReturns")
+  @ApiNestedQuery(PurchaseReturnFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PurchaseReturn",
+    action: "read",
+    possession: "any",
+  })
+  async findPurchaseReturns(
+    @common.Req() request: Request,
+    @common.Param() params: CashRepositoryWhereUniqueInput
+  ): Promise<PurchaseReturn[]> {
+    const query = plainToClass(PurchaseReturnFindManyArgs, request.query);
+    const results = await this.service.findPurchaseReturns(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchasePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseReturnDate: true,
+        purchaseReturnTotal: true,
+        referenceNumber: true,
+        remaining: true,
+        sequenceNumber: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        supplierId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/purchaseReturns")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async connectPurchaseReturns(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: PurchaseReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseReturns: {
+        connect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/purchaseReturns")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async updatePurchaseReturns(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: PurchaseReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseReturns: {
+        set: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/purchaseReturns")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPurchaseReturns(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: PurchaseReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      purchaseReturns: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/receiptVouchers")
+  @ApiNestedQuery(ReceiptVoucherFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findReceiptVouchers(
+    @common.Req() request: Request,
+    @common.Param() params: CashRepositoryWhereUniqueInput
+  ): Promise<ReceiptVoucher[]> {
+    const query = plainToClass(ReceiptVoucherFindManyArgs, request.query);
+    const results = await this.service.findReceiptVouchers(params.id, {
+      ...query,
+      select: {
+        accountTransactionId: {
+          select: {
+            id: true,
+          },
+        },
+
+        amount: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        chequeDueDate: true,
+        chequeNumber: true,
+        chequeValue: true,
+        createdAt: true,
+
+        currencyId: {
+          select: {
+            id: true,
+          },
+        },
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        isAcive: true,
+        note: true,
+        receiptVoucherDate: true,
+        sequence: true,
+        statementReference: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        voucherTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        wasChequePaid: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async connectReceiptVouchers(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        connect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async updateReceiptVouchers(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        set: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/receiptVouchers")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectReceiptVouchers(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: ReceiptVoucherWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      receiptVouchers: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleOrders")
+  @ApiNestedQuery(SaleOrderFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleOrders(
+    @common.Req() request: Request,
+    @common.Param() params: CashRepositoryWhereUniqueInput
+  ): Promise<SaleOrder[]> {
+    const query = plainToClass(SaleOrderFindManyArgs, request.query);
+    const results = await this.service.findSaleOrders(params.id, {
+      ...query,
+      select: {
+        billingAddress: true,
+
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        deliveryDate: true,
+        discountTotal: true,
+        expectedDeliveryDate: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+
+        orderStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
+        saleOrderDate: true,
+
+        salePriceType: {
+          select: {
+            id: true,
+          },
+        },
+
+        salePriceTypeId: true,
+
+        saleQuotation: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleTotal: true,
+        shippingAddress: true,
+        shippingCost: true,
+
+        shippingStatus: {
+          select: {
+            id: true,
+          },
+        },
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        transactionDateTime: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleOrders(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        connect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleOrders(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        set: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleOrders")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleOrders(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: SaleOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleOrders: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/saleReturns")
+  @ApiNestedQuery(SaleReturnFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "SaleReturn",
+    action: "read",
+    possession: "any",
+  })
+  async findSaleReturns(
+    @common.Req() request: Request,
+    @common.Param() params: CashRepositoryWhereUniqueInput
+  ): Promise<SaleReturn[]> {
+    const query = plainToClass(SaleReturnFindManyArgs, request.query);
+    const results = await this.service.findSaleReturns(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTermId: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
+        remaining: true,
+        returnTotal: true,
+
+        saleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        salePriceTyped: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleReturnDate: true,
+        sequence: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/saleReturns")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async connectSaleReturns(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: SaleReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturns: {
+        connect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/saleReturns")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async updateSaleReturns(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: SaleReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturns: {
+        set: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/saleReturns")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSaleReturns(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: SaleReturnWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      saleReturns: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/sales")
+  @ApiNestedQuery(SaleFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Sale",
+    action: "read",
+    possession: "any",
+  })
+  async findSales(
+    @common.Req() request: Request,
+    @common.Param() params: CashRepositoryWhereUniqueInput
+  ): Promise<Sale[]> {
+    const query = plainToClass(SaleFindManyArgs, request.query);
+    const results = await this.service.findSales(params.id, {
+      ...query,
+      select: {
+        cashRepositoryId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        customerId: {
+          select: {
+            id: true,
+          },
+        },
+
+        discountTotal: true,
+        id: true,
+
+        invoiceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        isActive: true,
+        isCancelled: true,
+        isReplicated: true,
+        netTotal: true,
+        nonTaxableTotal: true,
+        note: true,
+        paid: true,
+
+        paymentTerm: {
+          select: {
+            id: true,
+          },
+        },
+
+        paymentTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        referenceNumber: true,
+        remaining: true,
+        saleDate: true,
+
+        salePriceTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        saleTotal: true,
+        sequenceNumber: true,
+
+        storeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tax: true,
+        taxRate: true,
+        taxableTotal: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/sales")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async connectSales(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: SaleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      sales: {
+        connect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/sales")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async updateSales(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: SaleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      sales: {
+        set: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/sales")
+  @nestAccessControl.UseRoles({
+    resource: "CashRepository",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectSales(
+    @common.Param() params: CashRepositoryWhereUniqueInput,
+    @common.Body() body: SaleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      sales: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCashRepository({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

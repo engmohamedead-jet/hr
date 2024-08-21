@@ -5,13 +5,14 @@ import {
   SimpleForm,
   EditProps,
   TextInput,
+  BooleanInput,
   PasswordInput,
+  SelectArrayInput,
   ReferenceInput,
   SelectInput,
-  SelectArrayInput,
 } from "react-admin";
 
-import { RoleTitle } from "../role/RoleTitle";
+import { TenantTitle } from "../tenant/TenantTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserEdit = (props: EditProps): React.ReactElement => {
@@ -20,17 +21,22 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="Email" source="email" type="email" />
         <TextInput label="First Name" source="firstName" />
+        <BooleanInput label="IsActive" source="isActive" />
         <TextInput label="Last Name" source="lastName" />
         <PasswordInput label="Password" source="password" />
-        <ReferenceInput source="role.id" reference="Role" label="Role">
-          <SelectInput optionText={RoleTitle} />
-        </ReferenceInput>
         <SelectArrayInput
           source="roles"
           choices={ROLES_OPTIONS}
           optionText="label"
           optionValue="value"
         />
+        <ReferenceInput
+          source="tenantId.id"
+          reference="Tenant"
+          label="TenantId"
+        >
+          <SelectInput optionText={TenantTitle} />
+        </ReferenceInput>
         <TextInput label="Username" source="username" />
       </SimpleForm>
     </Edit>

@@ -11,24 +11,26 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { PaymentTermWhereUniqueInput } from "../../paymentTerm/base/PaymentTermWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
+import { PaymentTermListRelationFilter } from "../../paymentTerm/base/PaymentTermListRelationFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PeriodWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -54,15 +56,26 @@ class PeriodWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentTermWhereUniqueInput,
+    type: () => PaymentTermListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => PaymentTermWhereUniqueInput)
+  @Type(() => PaymentTermListRelationFilter)
   @IsOptional()
-  @Field(() => PaymentTermWhereUniqueInput, {
+  @Field(() => PaymentTermListRelationFilter, {
     nullable: true,
   })
-  installmentSaleFeePostingPeriod?: PaymentTermWhereUniqueInput;
+  installmentSaleFeePostingPeriodPaymentTerms?: PaymentTermListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -99,15 +112,27 @@ class PeriodWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentTermWhereUniqueInput,
+    type: () => PaymentTermListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => PaymentTermWhereUniqueInput)
+  @Type(() => PaymentTermListRelationFilter)
   @IsOptional()
-  @Field(() => PaymentTermWhereUniqueInput, {
+  @Field(() => PaymentTermListRelationFilter, {
     nullable: true,
   })
-  paymentTerms?: PaymentTermWhereUniqueInput;
+  paymentTerms1?: PaymentTermListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { PeriodWhereInput as PeriodWhereInput };

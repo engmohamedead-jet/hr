@@ -1,18 +1,23 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { ProductCategoryListRelationFilter } from "../productCategory/ProductCategoryListRelationFilter";
+import { ProductDepartmentWhereUniqueInput } from "./ProductDepartmentWhereUniqueInput";
+import { ProductDepartmentListRelationFilter } from "./ProductDepartmentListRelationFilter";
 import { ProductListRelationFilter } from "../product/ProductListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type ProductDepartmentWhereInput = {
   code?: StringNullableFilter;
   description?: StringNullableFilter;
   id?: IntFilter;
-  isDefault?: BooleanNullableFilter;
+  isActive?: BooleanFilter;
+  isDefault?: BooleanFilter;
   name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
-  productCategories?: ProductCategoryListRelationFilter;
+  parentProductDepartmentId?: ProductDepartmentWhereUniqueInput;
+  productDepartments?: ProductDepartmentListRelationFilter;
   products?: ProductListRelationFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

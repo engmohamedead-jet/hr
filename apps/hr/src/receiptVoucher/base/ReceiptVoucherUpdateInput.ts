@@ -11,24 +11,42 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { AccountTransactionWhereUniqueInput } from "../../accountTransaction/base/AccountTransactionWhereUniqueInput";
 
 import {
+  ValidateNested,
+  IsOptional,
   IsNumber,
   Max,
-  IsOptional,
   IsDate,
   IsString,
   MaxLength,
-  ValidateNested,
   IsBoolean,
 } from "class-validator";
 
-import { Decimal } from "decimal.js";
 import { Type } from "class-transformer";
+import { Decimal } from "decimal.js";
+import { CashRepositoryWhereUniqueInput } from "../../cashRepository/base/CashRepositoryWhereUniqueInput";
+import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
+import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { EmployeeWhereUniqueInput } from "../../employee/base/EmployeeWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { VoucherTypeWhereUniqueInput } from "../../voucherType/base/VoucherTypeWhereUniqueInput";
 
 @InputType()
 class ReceiptVoucherUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => AccountTransactionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountTransactionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AccountTransactionWhereUniqueInput, {
+    nullable: true,
+  })
+  accountTransactionId?: AccountTransactionWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
     type: Number,
@@ -40,6 +58,18 @@ class ReceiptVoucherUpdateInput {
     nullable: true,
   })
   amount?: Decimal;
+
+  @ApiProperty({
+    required: false,
+    type: () => CashRepositoryWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CashRepositoryWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CashRepositoryWhereUniqueInput, {
+    nullable: true,
+  })
+  cashRepositoryId?: CashRepositoryWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -66,15 +96,62 @@ class ReceiptVoucherUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: String,
   })
-  @IsNumber()
-  @Max(99999999999)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => Float, {
+  @Field(() => String, {
     nullable: true,
   })
-  chequeValue?: Decimal | null;
+  chequeValue?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => CurrencyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CurrencyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CurrencyWhereUniqueInput, {
+    nullable: true,
+  })
+  currencyId?: CurrencyWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => CustomerWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CustomerWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CustomerWhereUniqueInput, {
+    nullable: true,
+  })
+  customerId?: CustomerWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeId?: EmployeeWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isAcive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -109,7 +186,7 @@ class ReceiptVoucherUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  serialNumber?: string | null;
+  sequence?: string | null;
 
   @ApiProperty({
     required: false,
@@ -122,6 +199,18 @@ class ReceiptVoucherUpdateInput {
     nullable: true,
   })
   statementReference?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -144,7 +233,7 @@ class ReceiptVoucherUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  wasChequePaid?: boolean | null;
+  wasChequePaid?: boolean;
 }
 
 export { ReceiptVoucherUpdateInput as ReceiptVoucherUpdateInput };

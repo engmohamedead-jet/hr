@@ -28,7 +28,7 @@ class InstallmentSaleFeeOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  accountId?: SortOrder;
+  accountIdId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -73,6 +73,17 @@ class InstallmentSaleFeeOrderByInput {
     nullable: true,
   })
   id?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  isActive?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -128,6 +139,17 @@ class InstallmentSaleFeeOrderByInput {
     nullable: true,
   })
   rate?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

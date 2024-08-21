@@ -10,10 +10,18 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   SalePriceType as PrismaSalePriceType,
-  Customer as PrismaCustomer,
+  SaleDetail as PrismaSaleDetail,
+  SaleOrderDetail as PrismaSaleOrderDetail,
+  SaleOrder as PrismaSaleOrder,
+  SaleQuotationDetail as PrismaSaleQuotationDetail,
+  SaleReturnDetail as PrismaSaleReturnDetail,
+  SaleReturn as PrismaSaleReturn,
+  Sale as PrismaSale,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class SalePriceTypeServiceBase {
@@ -51,11 +59,73 @@ export class SalePriceTypeServiceBase {
     return this.prisma.salePriceType.delete(args);
   }
 
-  async getCustomers(parentId: number): Promise<PrismaCustomer | null> {
+  async getSaleDetails(parentId: number): Promise<PrismaSaleDetail | null> {
     return this.prisma.salePriceType
       .findUnique({
         where: { id: parentId },
       })
-      .customers();
+      .saleDetails();
+  }
+
+  async getSaleOrderDetails(
+    parentId: number
+  ): Promise<PrismaSaleOrderDetail | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleOrderDetails();
+  }
+
+  async getSaleOrders(parentId: number): Promise<PrismaSaleOrder | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleOrders();
+  }
+
+  async getSaleQuotationDetails(
+    parentId: number
+  ): Promise<PrismaSaleQuotationDetail | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleQuotationDetails();
+  }
+
+  async getSaleReturnDetails(
+    parentId: number
+  ): Promise<PrismaSaleReturnDetail | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleReturnDetails();
+  }
+
+  async getSaleReturns(parentId: number): Promise<PrismaSaleReturn | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .saleReturns();
+  }
+
+  async getSales(parentId: number): Promise<PrismaSale | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .sales();
+  }
+
+  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+    return this.prisma.salePriceType
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

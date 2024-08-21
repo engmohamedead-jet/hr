@@ -14,13 +14,11 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { ProductGroupListRelationFilter } from "../../productGroup/base/ProductGroupListRelationFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
-import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
-import { StoreWhereUniqueInput } from "../../store/base/StoreWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SaleTaxWhereInput {
@@ -48,25 +46,25 @@ class SaleTaxWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntFilter,
+    type: StringFilter,
   })
-  @Type(() => IntFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => IntFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  id?: IntFilter;
+  id?: StringFilter;
 
   @ApiProperty({
     required: false,
-    type: BooleanNullableFilter,
+    type: BooleanFilter,
   })
-  @Type(() => BooleanNullableFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => BooleanNullableFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  isExemption?: BooleanNullableFilter;
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -127,26 +125,15 @@ class SaleTaxWhereInput {
 
   @ApiProperty({
     required: false,
-    type: DecimalNullableFilter,
-  })
-  @Type(() => DecimalNullableFilter)
-  @IsOptional()
-  @Field(() => DecimalNullableFilter, {
-    nullable: true,
-  })
-  rate?: DecimalNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => StoreWhereUniqueInput,
+    type: () => TenantWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => StoreWhereUniqueInput)
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => StoreWhereUniqueInput, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  store?: StoreWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { SaleTaxWhereInput as SaleTaxWhereInput };

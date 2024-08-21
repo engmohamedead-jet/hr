@@ -14,12 +14,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { BankAccountListRelationFilter } from "../../bankAccount/base/BankAccountListRelationFilter";
 import { BankBranchListRelationFilter } from "../../bankBranch/base/BankBranchListRelationFilter";
-import { CityWhereUniqueInput } from "../../city/base/CityWhereUniqueInput";
+import { BankTypeWhereUniqueInput } from "../../bankType/base/BankTypeWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
-import { CountryWhereUniqueInput } from "../../country/base/CountryWhereUniqueInput";
-import { StateWhereUniqueInput } from "../../state/base/StateWhereUniqueInput";
+import { SalePaymentListRelationFilter } from "../../salePayment/base/SalePaymentListRelationFilter";
 
 @InputType()
 class BankWhereInput {
@@ -36,18 +34,6 @@ class BankWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => BankAccountListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => BankAccountListRelationFilter)
-  @IsOptional()
-  @Field(() => BankAccountListRelationFilter, {
-    nullable: true,
-  })
-  bankAccounts?: BankAccountListRelationFilter;
-
-  @ApiProperty({
-    required: false,
     type: () => BankBranchListRelationFilter,
   })
   @ValidateNested()
@@ -57,6 +43,18 @@ class BankWhereInput {
     nullable: true,
   })
   bankBranches?: BankBranchListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BankTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BankTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  bankType?: BankTypeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -71,26 +69,14 @@ class BankWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => CityWhereUniqueInput,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => CityWhereUniqueInput)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => CityWhereUniqueInput, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  cityId?: CityWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: StringFilter,
-  })
-  @Type(() => StringFilter)
-  @IsOptional()
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  code?: StringFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -102,18 +88,6 @@ class BankWhereInput {
     nullable: true,
   })
   contactPhoneNumber?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => CountryWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CountryWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CountryWhereUniqueInput, {
-    nullable: true,
-  })
-  countryId?: CountryWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -161,25 +135,14 @@ class BankWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  name?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringFilter,
-  })
-  @Type(() => StringFilter)
-  @IsOptional()
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  normalizedName?: StringFilter;
+  name?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -190,7 +153,7 @@ class BankWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  note?: StringNullableFilter;
+  normalizedName?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -216,15 +179,15 @@ class BankWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => StateWhereUniqueInput,
+    type: () => SalePaymentListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => StateWhereUniqueInput)
+  @Type(() => SalePaymentListRelationFilter)
   @IsOptional()
-  @Field(() => StateWhereUniqueInput, {
+  @Field(() => SalePaymentListRelationFilter, {
     nullable: true,
   })
-  stateId?: StateWhereUniqueInput;
+  salePayments?: SalePaymentListRelationFilter;
 
   @ApiProperty({
     required: false,

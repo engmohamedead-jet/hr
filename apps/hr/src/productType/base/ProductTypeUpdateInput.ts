@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { ProductUpdateManyWithoutProductTypesInput } from "./ProductUpdateManyWithoutProductTypesInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class ProductTypeUpdateInput {
@@ -37,15 +38,14 @@ class ProductTypeUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Boolean,
   })
-  @IsString()
-  @MaxLength(1000)
+  @IsBoolean()
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Boolean, {
     nullable: true,
   })
-  description?: string | null;
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
@@ -105,6 +105,18 @@ class ProductTypeUpdateInput {
     nullable: true,
   })
   products?: ProductUpdateManyWithoutProductTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { ProductTypeUpdateInput as ProductTypeUpdateInput };

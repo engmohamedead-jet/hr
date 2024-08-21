@@ -26,6 +26,9 @@ import { ExpenseItemFindUniqueArgs } from "./ExpenseItemFindUniqueArgs";
 import { CreateExpenseItemArgs } from "./CreateExpenseItemArgs";
 import { UpdateExpenseItemArgs } from "./UpdateExpenseItemArgs";
 import { DeleteExpenseItemArgs } from "./DeleteExpenseItemArgs";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
+import { Tenant } from "../../tenant/base/Tenant";
 import { ExpenseItemService } from "../expenseItem.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ExpenseItem)
@@ -92,7 +95,15 @@ export class ExpenseItemResolverBase {
   ): Promise<ExpenseItem> {
     return await this.service.createExpenseItem({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenant: args.data.tenant
+          ? {
+              connect: args.data.tenant,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +120,15 @@ export class ExpenseItemResolverBase {
     try {
       return await this.service.updateExpenseItem({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenant: args.data.tenant
+            ? {
+                connect: args.data.tenant,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +159,46 @@ export class ExpenseItemResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @graphql.Parent() parent: ExpenseItem,
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenant",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenant(
+    @graphql.Parent() parent: ExpenseItem
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenant(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

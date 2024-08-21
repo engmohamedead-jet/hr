@@ -11,19 +11,36 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DecimalFilter } from "../../util/DecimalFilter";
+import { AccountTransactionWhereUniqueInput } from "../../accountTransaction/base/AccountTransactionWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { DecimalFilter } from "../../util/DecimalFilter";
+import { CashRepositoryWhereUniqueInput } from "../../cashRepository/base/CashRepositoryWhereUniqueInput";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { CurrencyWhereUniqueInput } from "../../currency/base/CurrencyWhereUniqueInput";
+import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import { EmployeeWhereUniqueInput } from "../../employee/base/EmployeeWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { VoucherTypeWhereUniqueInput } from "../../voucherType/base/VoucherTypeWhereUniqueInput";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 
 @InputType()
 class ReceiptVoucherWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => AccountTransactionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountTransactionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AccountTransactionWhereUniqueInput, {
+    nullable: true,
+  })
+  accountTransactionId?: AccountTransactionWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: DecimalFilter,
@@ -34,6 +51,18 @@ class ReceiptVoucherWhereInput {
     nullable: true,
   })
   amount?: DecimalFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CashRepositoryWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CashRepositoryWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CashRepositoryWhereUniqueInput, {
+    nullable: true,
+  })
+  cashRepositoryId?: CashRepositoryWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -59,14 +88,50 @@ class ReceiptVoucherWhereInput {
 
   @ApiProperty({
     required: false,
-    type: DecimalNullableFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => DecimalNullableFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => DecimalNullableFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  chequeValue?: DecimalNullableFilter;
+  chequeValue?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CurrencyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CurrencyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CurrencyWhereUniqueInput, {
+    nullable: true,
+  })
+  currencyId?: CurrencyWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CustomerWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CustomerWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CustomerWhereUniqueInput, {
+    nullable: true,
+  })
+  customerId?: CustomerWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeId?: EmployeeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -78,6 +143,17 @@ class ReceiptVoucherWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isAcive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -110,7 +186,7 @@ class ReceiptVoucherWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  serialNumber?: StringNullableFilter;
+  sequence?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -122,6 +198,18 @@ class ReceiptVoucherWhereInput {
     nullable: true,
   })
   statementReference?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -137,14 +225,14 @@ class ReceiptVoucherWhereInput {
 
   @ApiProperty({
     required: false,
-    type: BooleanNullableFilter,
+    type: BooleanFilter,
   })
-  @Type(() => BooleanNullableFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => BooleanNullableFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  wasChequePaid?: BooleanNullableFilter;
+  wasChequePaid?: BooleanFilter;
 }
 
 export { ReceiptVoucherWhereInput as ReceiptVoucherWhereInput };

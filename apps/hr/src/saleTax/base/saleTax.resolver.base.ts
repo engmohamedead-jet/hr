@@ -30,7 +30,7 @@ import { ProductGroupFindManyArgs } from "../../productGroup/base/ProductGroupFi
 import { ProductGroup } from "../../productGroup/base/ProductGroup";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
-import { Store } from "../../store/base/Store";
+import { Tenant } from "../../tenant/base/Tenant";
 import { SaleTaxService } from "../saleTax.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => SaleTax)
@@ -100,9 +100,9 @@ export class SaleTaxResolverBase {
       data: {
         ...args.data,
 
-        store: args.data.store
+        tenantId: args.data.tenantId
           ? {
-              connect: args.data.store,
+              connect: args.data.tenantId,
             }
           : undefined,
       },
@@ -125,9 +125,9 @@ export class SaleTaxResolverBase {
         data: {
           ...args.data,
 
-          store: args.data.store
+          tenantId: args.data.tenantId
             ? {
-                connect: args.data.store,
+                connect: args.data.tenantId,
               }
             : undefined,
         },
@@ -204,17 +204,17 @@ export class SaleTaxResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Store, {
+  @graphql.ResolveField(() => Tenant, {
     nullable: true,
-    name: "store",
+    name: "tenantId",
   })
   @nestAccessControl.UseRoles({
-    resource: "Store",
+    resource: "Tenant",
     action: "read",
     possession: "any",
   })
-  async getStore(@graphql.Parent() parent: SaleTax): Promise<Store | null> {
-    const result = await this.service.getStore(parent.id);
+  async getTenantId(@graphql.Parent() parent: SaleTax): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

@@ -39,7 +39,7 @@ class BankOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  cellPhoneNumber?: SortOrder;
+  bankTypeId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -50,7 +50,7 @@ class BankOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  cityIdId?: SortOrder;
+  cellPhoneNumber?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -73,17 +73,6 @@ class BankOrderByInput {
     nullable: true,
   })
   contactPhoneNumber?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  countryIdId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -171,17 +160,6 @@ class BankOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  note?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   relationshipOfficerContactNumber?: SortOrder;
 
   @ApiProperty({
@@ -194,17 +172,6 @@ class BankOrderByInput {
     nullable: true,
   })
   relationshipOfficerName?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  stateIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

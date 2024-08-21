@@ -1,18 +1,31 @@
+import { AccountTransaction } from "../accountTransaction/AccountTransaction";
 import { Decimal } from "decimal.js";
+import { CashRepository } from "../cashRepository/CashRepository";
+import { Currency } from "../currency/Currency";
+import { Customer } from "../customer/Customer";
+import { Employee } from "../employee/Employee";
+import { Tenant } from "../tenant/Tenant";
 import { VoucherType } from "../voucherType/VoucherType";
 
 export type ReceiptVoucher = {
+  accountTransactionId?: AccountTransaction | null;
   amount: Decimal;
+  cashRepositoryId?: CashRepository;
   chequeDueDate: Date | null;
   chequeNumber: string | null;
-  chequeValue: Decimal | null;
+  chequeValue: string | null;
   createdAt: Date;
+  currencyId?: Currency | null;
+  customerId?: Customer | null;
+  employeeId?: Employee | null;
   id: string;
+  isAcive: boolean;
   note: string | null;
   receiptVoucherDate: Date;
-  serialNumber: string | null;
+  sequence: string | null;
   statementReference: string | null;
+  tenant?: Tenant | null;
   updatedAt: Date;
   voucherTypeId?: VoucherType;
-  wasChequePaid: boolean | null;
+  wasChequePaid: boolean;
 };

@@ -11,7 +11,7 @@ import {
 } from "react-admin";
 
 import Pagination from "../Components/Pagination";
-import { PRODUCTDEPARTMENT_TITLE_FIELD } from "../productDepartment/ProductDepartmentTitle";
+import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const ProductCategoryList = (props: ListProps): React.ReactElement => {
   return (
@@ -27,16 +27,13 @@ export const ProductCategoryList = (props: ListProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="Description" source="description" />
         <TextField label="ID" source="id" />
+        <BooleanField label="IsActive" source="isActive" />
         <BooleanField label="IsDefault" source="isDefault" />
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
-        <ReferenceField
-          label="ParentProductDepartmentId"
-          source="productdepartment.id"
-          reference="ProductDepartment"
-        >
-          <TextField source={PRODUCTDEPARTMENT_TITLE_FIELD} />
+        <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
+          <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

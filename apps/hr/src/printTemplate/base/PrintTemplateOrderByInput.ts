@@ -28,17 +28,6 @@ class PrintTemplateOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  Description?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   code?: SortOrder;
 
   @ApiProperty({
@@ -61,6 +50,17 @@ class PrintTemplateOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  description?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   filePath?: SortOrder;
 
   @ApiProperty({
@@ -73,6 +73,17 @@ class PrintTemplateOrderByInput {
     nullable: true,
   })
   id?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  isActive?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -171,7 +182,18 @@ class PrintTemplateOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  printTemplateGroupIdId?: SortOrder;
+  printTemplateContentsId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

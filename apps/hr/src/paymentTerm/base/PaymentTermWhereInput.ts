@@ -14,12 +14,17 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { IntFilter } from "../../util/IntFilter";
 import { PeriodWhereUniqueInput } from "../../period/base/PeriodWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { InstallmentSaleFeeWhereUniqueInput } from "../../installmentSaleFee/base/InstallmentSaleFeeWhereUniqueInput";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { PurchaseReturnListRelationFilter } from "../../purchaseReturn/base/PurchaseReturnListRelationFilter";
+import { PurchaseListRelationFilter } from "../../purchase/base/PurchaseListRelationFilter";
+import { SaleReturnListRelationFilter } from "../../saleReturn/base/SaleReturnListRelationFilter";
+import { SaleListRelationFilter } from "../../sale/base/SaleListRelationFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PaymentTermWhereInput {
@@ -47,25 +52,14 @@ class PaymentTermWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: IntFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  dueDays?: IntNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: DateTimeNullableFilter,
-  })
-  @Type(() => DateTimeNullableFilter)
-  @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
-    nullable: true,
-  })
-  dueOnDate?: DateTimeNullableFilter;
+  dueDays?: IntFilter;
 
   @ApiProperty({
     required: false,
@@ -81,14 +75,14 @@ class PaymentTermWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: IntFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  gracePeriod?: IntNullableFilter;
+  gracePeriod?: IntFilter;
 
   @ApiProperty({
     required: false,
@@ -123,7 +117,18 @@ class PaymentTermWhereInput {
   @Field(() => PeriodWhereUniqueInput, {
     nullable: true,
   })
-  installmentSaleFeePostingPeriodId?: PeriodWhereUniqueInput;
+  installmentSaleFeePostingPeriod?: PeriodWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -138,14 +143,36 @@ class PaymentTermWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: BooleanNullableFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => BooleanNullableFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => BooleanNullableFilter, {
     nullable: true,
   })
-  name?: StringNullableFilter;
+  isDueOnDate?: BooleanNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  name?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  normalizedName?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -156,7 +183,67 @@ class PaymentTermWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  normalizedName?: StringNullableFilter;
+  note?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseReturnListRelationFilter, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseListRelationFilter)
+  @IsOptional()
+  @Field(() => PurchaseListRelationFilter, {
+    nullable: true,
+  })
+  purchases?: PurchaseListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleReturnListRelationFilter, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SaleListRelationFilter)
+  @IsOptional()
+  @Field(() => SaleListRelationFilter, {
+    nullable: true,
+  })
+  sales?: SaleListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { PaymentTermWhereInput as PaymentTermWhereInput };

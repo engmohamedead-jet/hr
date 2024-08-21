@@ -14,7 +14,9 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   AttributeValue as PrismaAttributeValue,
+  ProductVariant as PrismaProductVariant,
   Attribute as PrismaAttribute,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class AttributeValueServiceBase {
@@ -52,11 +54,30 @@ export class AttributeValueServiceBase {
     return this.prisma.attributeValue.delete(args);
   }
 
+  async findProductVariants(
+    parentId: string,
+    args: Prisma.ProductVariantFindManyArgs
+  ): Promise<PrismaProductVariant[]> {
+    return this.prisma.attributeValue
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .productVariants(args);
+  }
+
   async getAttributeId(parentId: string): Promise<PrismaAttribute | null> {
     return this.prisma.attributeValue
       .findUnique({
         where: { id: parentId },
       })
       .attributeId();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.attributeValue
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

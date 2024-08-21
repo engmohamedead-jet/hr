@@ -14,28 +14,17 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, IsEnum, ValidateNested } from "class-validator";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { EnumPrintTemplatePaperLayout } from "./EnumPrintTemplatePaperLayout";
 import { EnumPrintTemplatePaperSize } from "./EnumPrintTemplatePaperSize";
 import { JsonFilter } from "../../util/JsonFilter";
-import { PrintTemplateContentListRelationFilter } from "../../printTemplateContent/base/PrintTemplateContentListRelationFilter";
-import { PrintTemplateGroupWhereUniqueInput } from "../../printTemplateGroup/base/PrintTemplateGroupWhereUniqueInput";
+import { PrintTemplateContentWhereUniqueInput } from "../../printTemplateContent/base/PrintTemplateContentWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PrintTemplateWhereInput {
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  Description?: StringNullableFilter;
-
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -56,18 +45,29 @@ class PrintTemplateWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
+  description?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
   filePath?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
-    type: IntFilter,
+    type: StringFilter,
   })
-  @Type(() => IntFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => IntFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  id?: IntFilter;
+  id?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -78,18 +78,29 @@ class PrintTemplateWhereInput {
   @Field(() => BooleanNullableFilter, {
     nullable: true,
   })
-  isCustomized?: BooleanNullableFilter;
+  isActive?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,
-    type: BooleanNullableFilter,
+    type: BooleanFilter,
   })
-  @Type(() => BooleanNullableFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => BooleanNullableFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  isFavourite?: BooleanNullableFilter;
+  isCustomized?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isFavourite?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -144,7 +155,18 @@ class PrintTemplateWhereInput {
   @Field(() => EnumPrintTemplatePaperSize, {
     nullable: true,
   })
-  paperSize?: "A1" | "A2" | "A3" | "A4" | "A5";
+  paperSize?:
+    | "A1"
+    | "A2"
+    | "A3"
+    | "A4"
+    | "A5"
+    | "A6"
+    | "B1"
+    | "B2"
+    | "B3"
+    | "B5"
+    | "B6";
 
   @ApiProperty({
     required: false,
@@ -159,27 +181,27 @@ class PrintTemplateWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => PrintTemplateContentListRelationFilter,
+    type: () => PrintTemplateContentWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => PrintTemplateContentListRelationFilter)
+  @Type(() => PrintTemplateContentWhereUniqueInput)
   @IsOptional()
-  @Field(() => PrintTemplateContentListRelationFilter, {
+  @Field(() => PrintTemplateContentWhereUniqueInput, {
     nullable: true,
   })
-  printTemplateContents?: PrintTemplateContentListRelationFilter;
+  printTemplateContents?: PrintTemplateContentWhereUniqueInput;
 
   @ApiProperty({
     required: false,
-    type: () => PrintTemplateGroupWhereUniqueInput,
+    type: () => TenantWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => PrintTemplateGroupWhereUniqueInput)
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => PrintTemplateGroupWhereUniqueInput, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  printTemplateGroupId?: PrintTemplateGroupWhereUniqueInput;
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { PrintTemplateWhereInput as PrintTemplateWhereInput };

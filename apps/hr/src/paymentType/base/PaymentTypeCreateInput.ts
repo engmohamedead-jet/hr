@@ -11,7 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional, IsBoolean } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
+import { PurchaseReturnCreateNestedManyWithoutPaymentTypesInput } from "./PurchaseReturnCreateNestedManyWithoutPaymentTypesInput";
+import { Type } from "class-transformer";
+import { PurchaseCreateNestedManyWithoutPaymentTypesInput } from "./PurchaseCreateNestedManyWithoutPaymentTypesInput";
+import { SaleOrderCreateNestedManyWithoutPaymentTypesInput } from "./SaleOrderCreateNestedManyWithoutPaymentTypesInput";
+import { SaleReturnCreateNestedManyWithoutPaymentTypesInput } from "./SaleReturnCreateNestedManyWithoutPaymentTypesInput";
+import { SaleCreateNestedManyWithoutPaymentTypesInput } from "./SaleCreateNestedManyWithoutPaymentTypesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PaymentTypeCreateInput {
@@ -29,14 +42,31 @@ class PaymentTypeCreateInput {
 
   @ApiProperty({
     required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  description?: string | null;
+
+  @ApiProperty({
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
   })
-  isDefault?: boolean | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isDefault!: boolean;
 
   @ApiProperty({
     required: true,
@@ -66,7 +96,79 @@ class PaymentTypeCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  notes?: string | null;
+  note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnCreateNestedManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnCreateNestedManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnCreateNestedManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnCreateNestedManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseCreateNestedManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseCreateNestedManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => PurchaseCreateNestedManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseCreateNestedManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderCreateNestedManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderCreateNestedManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => SaleOrderCreateNestedManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderCreateNestedManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnCreateNestedManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnCreateNestedManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => SaleReturnCreateNestedManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnCreateNestedManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleCreateNestedManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleCreateNestedManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => SaleCreateNestedManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  sales?: SaleCreateNestedManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { PaymentTypeCreateInput as PaymentTypeCreateInput };

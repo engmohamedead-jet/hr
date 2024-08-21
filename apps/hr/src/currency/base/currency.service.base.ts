@@ -14,10 +14,12 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Currency as PrismaCurrency,
-  Account as PrismaAccount,
   Customer as PrismaCustomer,
-  ExchangeRateDetail as PrismaExchangeRateDetail,
+  PaymentVoucher as PrismaPaymentVoucher,
+  ReceiptVoucher as PrismaReceiptVoucher,
+  SalePayment as PrismaSalePayment,
   Supplier as PrismaSupplier,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class CurrencyServiceBase {
@@ -53,17 +55,6 @@ export class CurrencyServiceBase {
     return this.prisma.currency.delete(args);
   }
 
-  async findAccounts(
-    parentId: string,
-    args: Prisma.AccountFindManyArgs
-  ): Promise<PrismaAccount[]> {
-    return this.prisma.currency
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .accounts(args);
-  }
-
   async findCustomers(
     parentId: string,
     args: Prisma.CustomerFindManyArgs
@@ -75,15 +66,37 @@ export class CurrencyServiceBase {
       .customers(args);
   }
 
-  async findExchangeRateDetails(
+  async findPaymentVouchers(
     parentId: string,
-    args: Prisma.ExchangeRateDetailFindManyArgs
-  ): Promise<PrismaExchangeRateDetail[]> {
+    args: Prisma.PaymentVoucherFindManyArgs
+  ): Promise<PrismaPaymentVoucher[]> {
     return this.prisma.currency
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .exchangeRateDetails(args);
+      .paymentVouchers(args);
+  }
+
+  async findReceiptVouchers(
+    parentId: string,
+    args: Prisma.ReceiptVoucherFindManyArgs
+  ): Promise<PrismaReceiptVoucher[]> {
+    return this.prisma.currency
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .receiptVouchers(args);
+  }
+
+  async findSalePayments(
+    parentId: string,
+    args: Prisma.SalePaymentFindManyArgs
+  ): Promise<PrismaSalePayment[]> {
+    return this.prisma.currency
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .salePayments(args);
   }
 
   async findSuppliers(
@@ -97,13 +110,11 @@ export class CurrencyServiceBase {
       .suppliers(args);
   }
 
-  async getForeignCurrencyName(
-    parentId: string
-  ): Promise<PrismaExchangeRateDetail | null> {
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
     return this.prisma.currency
       .findUnique({
         where: { id: parentId },
       })
-      .foreignCurrencyName();
+      .tenantId();
   }
 }

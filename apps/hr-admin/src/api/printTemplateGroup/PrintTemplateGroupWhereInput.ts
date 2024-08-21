@@ -1,14 +1,16 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntFilter } from "../../util/IntFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { PrintTemplateListRelationFilter } from "../printTemplate/PrintTemplateListRelationFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type PrintTemplateGroupWhereInput = {
   code?: StringNullableFilter;
   description?: StringNullableFilter;
   id?: IntFilter;
-  name?: StringNullableFilter;
+  isActive?: BooleanFilter;
+  name?: StringFilter;
   normalizedName?: StringFilter;
   note?: StringNullableFilter;
-  printTemplates?: PrintTemplateListRelationFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

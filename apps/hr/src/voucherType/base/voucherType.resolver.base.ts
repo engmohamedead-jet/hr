@@ -26,8 +26,11 @@ import { VoucherTypeFindUniqueArgs } from "./VoucherTypeFindUniqueArgs";
 import { CreateVoucherTypeArgs } from "./CreateVoucherTypeArgs";
 import { UpdateVoucherTypeArgs } from "./UpdateVoucherTypeArgs";
 import { DeleteVoucherTypeArgs } from "./DeleteVoucherTypeArgs";
+import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
+import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
 import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
 import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
+import { Tenant } from "../../tenant/base/Tenant";
 import { VoucherTypeService } from "../voucherType.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => VoucherType)
@@ -94,7 +97,15 @@ export class VoucherTypeResolverBase {
   ): Promise<VoucherType> {
     return await this.service.createVoucherType({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +122,15 @@ export class VoucherTypeResolverBase {
     try {
       return await this.service.updateVoucherType({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -145,6 +164,26 @@ export class VoucherTypeResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
+  @nestAccessControl.UseRoles({
+    resource: "PaymentVoucher",
+    action: "read",
+    possession: "any",
+  })
+  async findPaymentVouchers(
+    @graphql.Parent() parent: VoucherType,
+    @graphql.Args() args: PaymentVoucherFindManyArgs
+  ): Promise<PaymentVoucher[]> {
+    const results = await this.service.findPaymentVouchers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [ReceiptVoucher], { name: "receiptVouchers" })
   @nestAccessControl.UseRoles({
     resource: "ReceiptVoucher",
@@ -162,5 +201,26 @@ export class VoucherTypeResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: VoucherType
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

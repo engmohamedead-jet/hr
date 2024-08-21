@@ -11,48 +11,22 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Account } from "../../account/base/Account";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
+  ValidateNested,
   IsDate,
   IsBoolean,
 } from "class-validator";
+import { Account } from "../../account/base/Account";
 import { Type } from "class-transformer";
 import { Product } from "../../product/base/Product";
 import { SaleTax } from "../../saleTax/base/SaleTax";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class ProductGroup {
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  PurchaseDiscountAccountId?: Account | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  SaleReturnAccountId?: Account | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  account?: Account | null;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -64,6 +38,15 @@ class ProductGroup {
     nullable: true,
   })
   code!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Account,
+  })
+  @ValidateNested()
+  @Type(() => Account)
+  @IsOptional()
+  costOfGoodsSoldAccount?: Account | null;
 
   @ApiProperty({
     required: true,
@@ -86,26 +69,20 @@ class ProductGroup {
   description!: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  excludeFromPurchase!: boolean | null;
+  @Field(() => Boolean)
+  excludeFromPurchase!: boolean;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  excludeFromSale!: boolean | null;
+  @Field(() => Boolean)
+  excludeFromSale!: boolean;
 
   @ApiProperty({
     required: true,
@@ -122,18 +99,23 @@ class ProductGroup {
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  inventoryAccountId?: Account | null;
+  inventoryAccount?: Account | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Boolean,
   })
   @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
+  @Field(() => Boolean)
+  isActive!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
   })
-  isDefault!: boolean | null;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isDefault!: boolean;
 
   @ApiProperty({
     required: true,
@@ -163,16 +145,7 @@ class ProductGroup {
   @Field(() => String, {
     nullable: true,
   })
-  notes!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductGroup],
-  })
-  @ValidateNested()
-  @Type(() => ProductGroup)
-  @IsOptional()
-  parentProductGroupId?: Array<ProductGroup>;
+  note!: string | null;
 
   @ApiProperty({
     required: false,
@@ -181,7 +154,16 @@ class ProductGroup {
   @ValidateNested()
   @Type(() => ProductGroup)
   @IsOptional()
-  productGroups?: ProductGroup | null;
+  parentProductGroupId?: ProductGroup | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductGroup],
+  })
+  @ValidateNested()
+  @Type(() => ProductGroup)
+  @IsOptional()
+  productGroups?: Array<ProductGroup>;
 
   @ApiProperty({
     required: false,
@@ -200,6 +182,15 @@ class ProductGroup {
   @Type(() => Account)
   @IsOptional()
   purchaseAccountId?: Account | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Account,
+  })
+  @ValidateNested()
+  @Type(() => Account)
+  @IsOptional()
+  purchaseDiscountAccountId?: Account | null;
 
   @ApiProperty({
     required: false,
@@ -230,12 +221,30 @@ class ProductGroup {
 
   @ApiProperty({
     required: false,
+    type: () => Account,
+  })
+  @ValidateNested()
+  @Type(() => Account)
+  @IsOptional()
+  saleReturnAccountId?: Account | null;
+
+  @ApiProperty({
+    required: false,
     type: () => SaleTax,
   })
   @ValidateNested()
   @Type(() => SaleTax)
   @IsOptional()
   saleTaxId?: SaleTax | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

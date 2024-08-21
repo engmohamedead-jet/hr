@@ -26,6 +26,9 @@ import { BarcodeType } from "./BarcodeType";
 import { BarcodeTypeFindManyArgs } from "./BarcodeTypeFindManyArgs";
 import { BarcodeTypeWhereUniqueInput } from "./BarcodeTypeWhereUniqueInput";
 import { BarcodeTypeUpdateInput } from "./BarcodeTypeUpdateInput";
+import { ProductBarcodeFindManyArgs } from "../../productBarcode/base/ProductBarcodeFindManyArgs";
+import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
+import { ProductBarcodeWhereUniqueInput } from "../../productBarcode/base/ProductBarcodeWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -49,15 +52,31 @@ export class BarcodeTypeControllerBase {
     @common.Body() data: BarcodeTypeCreateInput
   ): Promise<BarcodeType> {
     return await this.service.createBarcodeType({
-      data: data,
+      data: {
+        ...data,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
         code: true,
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -84,9 +103,17 @@ export class BarcodeTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -114,9 +141,17 @@ export class BarcodeTypeControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -147,15 +182,31 @@ export class BarcodeTypeControllerBase {
     try {
       return await this.service.updateBarcodeType({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
           code: true,
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -191,9 +242,17 @@ export class BarcodeTypeControllerBase {
           createdAt: true,
           description: true,
           id: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -205,5 +264,129 @@ export class BarcodeTypeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/productBarcodes")
+  @ApiNestedQuery(ProductBarcodeFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ProductBarcode",
+    action: "read",
+    possession: "any",
+  })
+  async findProductBarcodes(
+    @common.Req() request: Request,
+    @common.Param() params: BarcodeTypeWhereUniqueInput
+  ): Promise<ProductBarcode[]> {
+    const query = plainToClass(ProductBarcodeFindManyArgs, request.query);
+    const results = await this.service.findProductBarcodes(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+
+        barcodeTypeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        isActive: true,
+        note: true,
+
+        productId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productVariantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/productBarcodes")
+  @nestAccessControl.UseRoles({
+    resource: "BarcodeType",
+    action: "update",
+    possession: "any",
+  })
+  async connectProductBarcodes(
+    @common.Param() params: BarcodeTypeWhereUniqueInput,
+    @common.Body() body: ProductBarcodeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productBarcodes: {
+        connect: body,
+      },
+    };
+    await this.service.updateBarcodeType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/productBarcodes")
+  @nestAccessControl.UseRoles({
+    resource: "BarcodeType",
+    action: "update",
+    possession: "any",
+  })
+  async updateProductBarcodes(
+    @common.Param() params: BarcodeTypeWhereUniqueInput,
+    @common.Body() body: ProductBarcodeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productBarcodes: {
+        set: body,
+      },
+    };
+    await this.service.updateBarcodeType({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/productBarcodes")
+  @nestAccessControl.UseRoles({
+    resource: "BarcodeType",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectProductBarcodes(
+    @common.Param() params: BarcodeTypeWhereUniqueInput,
+    @common.Body() body: ProductBarcodeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      productBarcodes: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateBarcodeType({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

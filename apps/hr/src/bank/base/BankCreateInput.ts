@@ -17,12 +17,10 @@ import {
   IsOptional,
   ValidateNested,
 } from "class-validator";
-import { BankAccountCreateNestedManyWithoutBanksInput } from "./BankAccountCreateNestedManyWithoutBanksInput";
-import { Type } from "class-transformer";
 import { BankBranchCreateNestedManyWithoutBanksInput } from "./BankBranchCreateNestedManyWithoutBanksInput";
-import { CityWhereUniqueInput } from "../../city/base/CityWhereUniqueInput";
-import { CountryWhereUniqueInput } from "../../country/base/CountryWhereUniqueInput";
-import { StateWhereUniqueInput } from "../../state/base/StateWhereUniqueInput";
+import { Type } from "class-transformer";
+import { BankTypeWhereUniqueInput } from "../../bankType/base/BankTypeWhereUniqueInput";
+import { SalePaymentCreateNestedManyWithoutBanksInput } from "./SalePaymentCreateNestedManyWithoutBanksInput";
 
 @InputType()
 class BankCreateInput {
@@ -40,18 +38,6 @@ class BankCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => BankAccountCreateNestedManyWithoutBanksInput,
-  })
-  @ValidateNested()
-  @Type(() => BankAccountCreateNestedManyWithoutBanksInput)
-  @IsOptional()
-  @Field(() => BankAccountCreateNestedManyWithoutBanksInput, {
-    nullable: true,
-  })
-  bankAccounts?: BankAccountCreateNestedManyWithoutBanksInput;
-
-  @ApiProperty({
-    required: false,
     type: () => BankBranchCreateNestedManyWithoutBanksInput,
   })
   @ValidateNested()
@@ -61,6 +47,18 @@ class BankCreateInput {
     nullable: true,
   })
   bankBranches?: BankBranchCreateNestedManyWithoutBanksInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BankTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BankTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  bankType?: BankTypeWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -76,24 +74,15 @@ class BankCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => CityWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CityWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CityWhereUniqueInput, {
-    nullable: true,
-  })
-  cityId?: CityWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -106,18 +95,6 @@ class BankCreateInput {
     nullable: true,
   })
   contactPhoneNumber?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => CountryWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => CountryWhereUniqueInput)
-  @IsOptional()
-  @Field(() => CountryWhereUniqueInput, {
-    nullable: true,
-  })
-  countryId?: CountryWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -156,22 +133,16 @@ class BankCreateInput {
   homePhoneNumber?: string | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  name!: string;
-
-  @ApiProperty({
-    required: true,
-    type: String,
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
   })
-  @IsString()
-  @MaxLength(1000)
-  @Field(() => String)
-  normalizedName!: string;
+  name?: string | null;
 
   @ApiProperty({
     required: false,
@@ -183,7 +154,7 @@ class BankCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  note?: string | null;
+  normalizedName?: string | null;
 
   @ApiProperty({
     required: false,
@@ -211,15 +182,15 @@ class BankCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => StateWhereUniqueInput,
+    type: () => SalePaymentCreateNestedManyWithoutBanksInput,
   })
   @ValidateNested()
-  @Type(() => StateWhereUniqueInput)
+  @Type(() => SalePaymentCreateNestedManyWithoutBanksInput)
   @IsOptional()
-  @Field(() => StateWhereUniqueInput, {
+  @Field(() => SalePaymentCreateNestedManyWithoutBanksInput, {
     nullable: true,
   })
-  stateId?: StateWhereUniqueInput | null;
+  salePayments?: SalePaymentCreateNestedManyWithoutBanksInput;
 
   @ApiProperty({
     required: false,

@@ -19,8 +19,10 @@ const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   balance: 42.424242424,
+  code: "exampleCode",
   createdAt: new Date(),
   id: "exampleId",
+  isActive: "true",
   lastYearBalance: 42.424242424,
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
@@ -31,8 +33,10 @@ const CREATE_INPUT = {
 };
 const CREATE_RESULT = {
   balance: 42.424242424,
+  code: "exampleCode",
   createdAt: new Date(),
   id: "exampleId",
+  isActive: "true",
   lastYearBalance: 42.424242424,
   name: "exampleName",
   normalizedName: "exampleNormalizedName",
@@ -44,8 +48,10 @@ const CREATE_RESULT = {
 const FIND_MANY_RESULT = [
   {
     balance: 42.424242424,
+    code: "exampleCode",
     createdAt: new Date(),
     id: "exampleId",
+    isActive: "true",
     lastYearBalance: 42.424242424,
     name: "exampleName",
     normalizedName: "exampleNormalizedName",
@@ -57,8 +63,10 @@ const FIND_MANY_RESULT = [
 ];
 const FIND_ONE_RESULT = {
   balance: 42.424242424,
+  code: "exampleCode",
   createdAt: new Date(),
   id: "exampleId",
+  isActive: "true",
   lastYearBalance: 42.424242424,
   name: "exampleName",
   normalizedName: "exampleNormalizedName",

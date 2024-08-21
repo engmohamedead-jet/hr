@@ -1,11 +1,12 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type PrintTemplateOrderByInput = {
-  Description?: SortOrder;
   code?: SortOrder;
   createdAt?: SortOrder;
+  description?: SortOrder;
   filePath?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   isCustomized?: SortOrder;
   isFavourite?: SortOrder;
   name?: SortOrder;
@@ -14,6 +15,7 @@ export type PrintTemplateOrderByInput = {
   paperLayout?: SortOrder;
   paperSize?: SortOrder;
   previewImage?: SortOrder;
-  printTemplateGroupIdId?: SortOrder;
+  printTemplateContentsId?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

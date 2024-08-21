@@ -14,25 +14,30 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   MaxLength,
-  IsDate,
   IsOptional,
+  IsDate,
+  IsBoolean,
   ValidateNested,
-  IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { EmployeeClassSalaryItemValue } from "../../employeeClassSalaryItemValue/base/EmployeeClassSalaryItemValue";
-import { EmployeeSalaryDetail } from "../../employeeSalaryDetail/base/EmployeeSalaryDetail";
+import { SalaryItemGroup } from "../../salaryItemGroup/base/SalaryItemGroup";
+import { SalaryItemType } from "../../salaryItemType/base/SalaryItemType";
+import { SalaryLaw } from "../../salaryLaw/base/SalaryLaw";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class SalaryItem {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(100)
-  @Field(() => String)
-  code!: string;
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -55,37 +60,27 @@ class SalaryItem {
   description!: string | null;
 
   @ApiProperty({
-    required: false,
-    type: () => [EmployeeClassSalaryItemValue],
+    required: true,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => EmployeeClassSalaryItemValue)
-  @IsOptional()
-  employeeClassSalaryItemValues?: Array<EmployeeClassSalaryItemValue>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [EmployeeSalaryDetail],
-  })
-  @ValidateNested()
-  @Type(() => EmployeeSalaryDetail)
-  @IsOptional()
-  employeeSalaryDetails?: Array<EmployeeSalaryDetail>;
+  @IsString()
+  @Field(() => String)
+  id!: string;
 
   @ApiProperty({
     required: true,
-    type: Number,
+    type: Boolean,
   })
-  @IsInt()
-  @Field(() => Number)
-  id!: number;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   name!: string;
 
@@ -94,7 +89,7 @@ class SalaryItem {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   normalizedName!: string;
 
@@ -109,6 +104,41 @@ class SalaryItem {
     nullable: true,
   })
   note!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryItemGroup,
+  })
+  @ValidateNested()
+  @Type(() => SalaryItemGroup)
+  @IsOptional()
+  salaryItemGroupId?: SalaryItemGroup | null;
+
+  @ApiProperty({
+    required: true,
+    type: () => SalaryItemType,
+  })
+  @ValidateNested()
+  @Type(() => SalaryItemType)
+  salaryItemTypeId?: SalaryItemType;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryLaw,
+  })
+  @ValidateNested()
+  @Type(() => SalaryLaw)
+  @IsOptional()
+  salaryLawId?: SalaryLaw | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

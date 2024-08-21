@@ -16,10 +16,12 @@ import {
   MaxLength,
   IsOptional,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
-import { BankAccountUpdateManyWithoutBankBranchesInput } from "./BankAccountUpdateManyWithoutBankBranchesInput";
-import { Type } from "class-transformer";
 import { BankWhereUniqueInput } from "../../bank/base/BankWhereUniqueInput";
+import { Type } from "class-transformer";
+import { SalePaymentUpdateManyWithoutBankBranchesInput } from "./SalePaymentUpdateManyWithoutBankBranchesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class BankBranchUpdateInput {
@@ -28,24 +30,12 @@ class BankBranchUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(256)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   address?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => BankAccountUpdateManyWithoutBankBranchesInput,
-  })
-  @ValidateNested()
-  @Type(() => BankAccountUpdateManyWithoutBankBranchesInput)
-  @IsOptional()
-  @Field(() => BankAccountUpdateManyWithoutBankBranchesInput, {
-    nullable: true,
-  })
-  bankAccounts?: BankAccountUpdateManyWithoutBankBranchesInput;
 
   @ApiProperty({
     required: false,
@@ -57,7 +47,7 @@ class BankBranchUpdateInput {
   @Field(() => BankWhereUniqueInput, {
     nullable: true,
   })
-  bankId?: BankWhereUniqueInput | null;
+  bank?: BankWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -69,7 +59,7 @@ class BankBranchUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -94,6 +84,17 @@ class BankBranchUpdateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -124,12 +125,36 @@ class BankBranchUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(256)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalePaymentUpdateManyWithoutBankBranchesInput,
+  })
+  @ValidateNested()
+  @Type(() => SalePaymentUpdateManyWithoutBankBranchesInput)
+  @IsOptional()
+  @Field(() => SalePaymentUpdateManyWithoutBankBranchesInput, {
+    nullable: true,
+  })
+  salePayments?: SalePaymentUpdateManyWithoutBankBranchesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenant?: TenantWhereUniqueInput | null;
 }
 
 export { BankBranchUpdateInput as BankBranchUpdateInput };

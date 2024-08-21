@@ -58,9 +58,9 @@ export class SaleTaxControllerBase {
       data: {
         ...data,
 
-        store: data.store
+        tenantId: data.tenantId
           ? {
-              connect: data.store,
+              connect: data.tenantId,
             }
           : undefined,
       },
@@ -69,13 +69,12 @@ export class SaleTaxControllerBase {
         createdAt: true,
         description: true,
         id: true,
-        isExemption: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
-        rate: true,
 
-        store: {
+        tenantId: {
           select: {
             id: true,
           },
@@ -107,13 +106,12 @@ export class SaleTaxControllerBase {
         createdAt: true,
         description: true,
         id: true,
-        isExemption: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
-        rate: true,
 
-        store: {
+        tenantId: {
           select: {
             id: true,
           },
@@ -146,13 +144,12 @@ export class SaleTaxControllerBase {
         createdAt: true,
         description: true,
         id: true,
-        isExemption: true,
+        isActive: true,
         name: true,
         normalizedName: true,
         note: true,
-        rate: true,
 
-        store: {
+        tenantId: {
           select: {
             id: true,
           },
@@ -191,9 +188,9 @@ export class SaleTaxControllerBase {
         data: {
           ...data,
 
-          store: data.store
+          tenantId: data.tenantId
             ? {
-                connect: data.store,
+                connect: data.tenantId,
               }
             : undefined,
         },
@@ -202,13 +199,12 @@ export class SaleTaxControllerBase {
           createdAt: true,
           description: true,
           id: true,
-          isExemption: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
-          rate: true,
 
-          store: {
+          tenantId: {
             select: {
               id: true,
             },
@@ -249,13 +245,12 @@ export class SaleTaxControllerBase {
           createdAt: true,
           description: true,
           id: true,
-          isExemption: true,
+          isActive: true,
           name: true,
           normalizedName: true,
           note: true,
-          rate: true,
 
-          store: {
+          tenantId: {
             select: {
               id: true,
             },
@@ -290,49 +285,45 @@ export class SaleTaxControllerBase {
     const results = await this.service.findProductGroups(params.id, {
       ...query,
       select: {
-        PurchaseDiscountAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        SaleReturnAccountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        account: {
-          select: {
-            id: true,
-          },
-        },
-
         code: true,
+
+        costOfGoodsSoldAccount: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         excludeFromPurchase: true,
         excludeFromSale: true,
         id: true,
 
-        inventoryAccountId: {
+        inventoryAccount: {
           select: {
             id: true,
           },
         },
 
+        isActive: true,
         isDefault: true,
         name: true,
         normalizedName: true,
-        notes: true,
+        note: true,
 
-        productGroups: {
+        parentProductGroupId: {
           select: {
             id: true,
           },
         },
 
         purchaseAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
+        purchaseDiscountAccountId: {
           select: {
             id: true,
           },
@@ -356,7 +347,19 @@ export class SaleTaxControllerBase {
           },
         },
 
+        saleReturnAccountId: {
+          select: {
+            id: true,
+          },
+        },
+
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },
@@ -455,12 +458,6 @@ export class SaleTaxControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
-        ProductGroupId: {
-          select: {
-            id: true,
-          },
-        },
-
         barcode: true,
         canExpire: true,
         code: true,
@@ -496,6 +493,7 @@ export class SaleTaxControllerBase {
         minimumSalePrice: true,
         name: true,
         normalizedName: true,
+        note: true,
         photo: true,
 
         productCategoryId: {
@@ -505,6 +503,12 @@ export class SaleTaxControllerBase {
         },
 
         productDepartmentId: {
+          select: {
+            id: true,
+          },
+        },
+
+        productGroupId: {
           select: {
             id: true,
           },
@@ -522,6 +526,12 @@ export class SaleTaxControllerBase {
         salePriceIncludesTax: true,
 
         saleTaxId: {
+          select: {
+            id: true,
+          },
+        },
+
+        tenantId: {
           select: {
             id: true,
           },

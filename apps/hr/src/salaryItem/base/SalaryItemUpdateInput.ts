@@ -15,11 +15,14 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  IsBoolean,
   ValidateNested,
 } from "class-validator";
-import { EmployeeClassSalaryItemValueUpdateManyWithoutSalaryItemsInput } from "./EmployeeClassSalaryItemValueUpdateManyWithoutSalaryItemsInput";
+import { SalaryItemGroupWhereUniqueInput } from "../../salaryItemGroup/base/SalaryItemGroupWhereUniqueInput";
 import { Type } from "class-transformer";
-import { EmployeeSalaryDetailUpdateManyWithoutSalaryItemsInput } from "./EmployeeSalaryDetailUpdateManyWithoutSalaryItemsInput";
+import { SalaryItemTypeWhereUniqueInput } from "../../salaryItemType/base/SalaryItemTypeWhereUniqueInput";
+import { SalaryLawWhereUniqueInput } from "../../salaryLaw/base/SalaryLawWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class SalaryItemUpdateInput {
@@ -28,12 +31,12 @@ class SalaryItemUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(100)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -49,34 +52,21 @@ class SalaryItemUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => EmployeeClassSalaryItemValueUpdateManyWithoutSalaryItemsInput,
+    type: Boolean,
   })
-  @ValidateNested()
-  @Type(() => EmployeeClassSalaryItemValueUpdateManyWithoutSalaryItemsInput)
+  @IsBoolean()
   @IsOptional()
-  @Field(() => EmployeeClassSalaryItemValueUpdateManyWithoutSalaryItemsInput, {
+  @Field(() => Boolean, {
     nullable: true,
   })
-  employeeClassSalaryItemValues?: EmployeeClassSalaryItemValueUpdateManyWithoutSalaryItemsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => EmployeeSalaryDetailUpdateManyWithoutSalaryItemsInput,
-  })
-  @ValidateNested()
-  @Type(() => EmployeeSalaryDetailUpdateManyWithoutSalaryItemsInput)
-  @IsOptional()
-  @Field(() => EmployeeSalaryDetailUpdateManyWithoutSalaryItemsInput, {
-    nullable: true,
-  })
-  employeeSalaryDetails?: EmployeeSalaryDetailUpdateManyWithoutSalaryItemsInput;
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -88,7 +78,7 @@ class SalaryItemUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -106,6 +96,54 @@ class SalaryItemUpdateInput {
     nullable: true,
   })
   note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryItemGroupWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalaryItemGroupWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SalaryItemGroupWhereUniqueInput, {
+    nullable: true,
+  })
+  salaryItemGroupId?: SalaryItemGroupWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryItemTypeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalaryItemTypeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SalaryItemTypeWhereUniqueInput, {
+    nullable: true,
+  })
+  salaryItemTypeId?: SalaryItemTypeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SalaryLawWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SalaryLawWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SalaryLawWhereUniqueInput, {
+    nullable: true,
+  })
+  salaryLawId?: SalaryLawWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { SalaryItemUpdateInput as SalaryItemUpdateInput };

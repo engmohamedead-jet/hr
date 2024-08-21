@@ -11,7 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional, IsBoolean } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
+import { PurchaseReturnUpdateManyWithoutPaymentTypesInput } from "./PurchaseReturnUpdateManyWithoutPaymentTypesInput";
+import { Type } from "class-transformer";
+import { PurchaseUpdateManyWithoutPaymentTypesInput } from "./PurchaseUpdateManyWithoutPaymentTypesInput";
+import { SaleOrderUpdateManyWithoutPaymentTypesInput } from "./SaleOrderUpdateManyWithoutPaymentTypesInput";
+import { SaleReturnUpdateManyWithoutPaymentTypesInput } from "./SaleReturnUpdateManyWithoutPaymentTypesInput";
+import { SaleUpdateManyWithoutPaymentTypesInput } from "./SaleUpdateManyWithoutPaymentTypesInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class PaymentTypeUpdateInput {
@@ -29,6 +42,18 @@ class PaymentTypeUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  description?: string | null;
+
+  @ApiProperty({
+    required: false,
     type: Boolean,
   })
   @IsBoolean()
@@ -36,7 +61,18 @@ class PaymentTypeUpdateInput {
   @Field(() => Boolean, {
     nullable: true,
   })
-  isDefault?: boolean | null;
+  isActive?: boolean;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isDefault?: boolean;
 
   @ApiProperty({
     required: false,
@@ -72,7 +108,79 @@ class PaymentTypeUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  notes?: string | null;
+  note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseReturnUpdateManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseReturnUpdateManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => PurchaseReturnUpdateManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  purchaseReturns?: PurchaseReturnUpdateManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PurchaseUpdateManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => PurchaseUpdateManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => PurchaseUpdateManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  purchases?: PurchaseUpdateManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleOrderUpdateManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleOrderUpdateManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => SaleOrderUpdateManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  saleOrders?: SaleOrderUpdateManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleReturnUpdateManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleReturnUpdateManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => SaleReturnUpdateManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  saleReturns?: SaleReturnUpdateManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SaleUpdateManyWithoutPaymentTypesInput,
+  })
+  @ValidateNested()
+  @Type(() => SaleUpdateManyWithoutPaymentTypesInput)
+  @IsOptional()
+  @Field(() => SaleUpdateManyWithoutPaymentTypesInput, {
+    nullable: true,
+  })
+  sales?: SaleUpdateManyWithoutPaymentTypesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { PaymentTypeUpdateInput as PaymentTypeUpdateInput };

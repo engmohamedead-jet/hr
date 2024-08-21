@@ -14,23 +14,28 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   MaxLength,
-  IsDate,
   IsOptional,
+  IsDate,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class Period {
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @Field(() => String)
-  code!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  code!: string | null;
 
   @ApiProperty({
     required: true,
@@ -62,12 +67,20 @@ class Period {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentTerm,
+    type: () => [PaymentTerm],
   })
   @ValidateNested()
   @Type(() => PaymentTerm)
   @IsOptional()
-  installmentSaleFeePostingPeriod?: PaymentTerm | null;
+  installmentSaleFeePostingPeriodPaymentTerms?: Array<PaymentTerm>;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
@@ -101,12 +114,21 @@ class Period {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentTerm,
+    type: () => [PaymentTerm],
   })
   @ValidateNested()
   @Type(() => PaymentTerm)
   @IsOptional()
-  paymentTerms?: PaymentTerm | null;
+  paymentTerms1?: Array<PaymentTerm>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
+  })
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

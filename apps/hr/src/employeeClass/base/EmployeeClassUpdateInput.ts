@@ -16,9 +16,11 @@ import {
   MaxLength,
   IsOptional,
   ValidateNested,
+  IsBoolean,
 } from "class-validator";
-import { EmployeeClassSalaryItemValueUpdateManyWithoutEmployeeClassesInput } from "./EmployeeClassSalaryItemValueUpdateManyWithoutEmployeeClassesInput";
+import { EmployeeUpdateManyWithoutEmployeeClassesInput } from "./EmployeeUpdateManyWithoutEmployeeClassesInput";
 import { Type } from "class-transformer";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class EmployeeClassUpdateInput {
@@ -27,12 +29,12 @@ class EmployeeClassUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(100)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
-  code?: string;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -48,26 +50,33 @@ class EmployeeClassUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () =>
-      EmployeeClassSalaryItemValueUpdateManyWithoutEmployeeClassesInput,
+    type: () => EmployeeUpdateManyWithoutEmployeeClassesInput,
   })
   @ValidateNested()
-  @Type(() => EmployeeClassSalaryItemValueUpdateManyWithoutEmployeeClassesInput)
+  @Type(() => EmployeeUpdateManyWithoutEmployeeClassesInput)
   @IsOptional()
-  @Field(
-    () => EmployeeClassSalaryItemValueUpdateManyWithoutEmployeeClassesInput,
-    {
-      nullable: true,
-    }
-  )
-  employeeClassSalaryItemValues?: EmployeeClassSalaryItemValueUpdateManyWithoutEmployeeClassesInput;
+  @Field(() => EmployeeUpdateManyWithoutEmployeeClassesInput, {
+    nullable: true,
+  })
+  employees?: EmployeeUpdateManyWithoutEmployeeClassesInput;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -79,7 +88,7 @@ class EmployeeClassUpdateInput {
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
@@ -96,7 +105,19 @@ class EmployeeClassUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  notes?: string | null;
+  note?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { EmployeeClassUpdateInput as EmployeeClassUpdateInput };

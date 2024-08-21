@@ -1,0 +1,33 @@
+import { BillOfMaterialDetailListRelationFilter } from "../billOfMaterialDetail/BillOfMaterialDetailListRelationFilter";
+import { BillOfMaterialTypeWhereUniqueInput } from "../billOfMaterialType/BillOfMaterialTypeWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
+import { IntFilter } from "../../util/IntFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
+import { ProductVariantWhereUniqueInput } from "../productVariant/ProductVariantWhereUniqueInput";
+import { ProductionOrderListRelationFilter } from "../productionOrder/ProductionOrderListRelationFilter";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { UnitWhereUniqueInput } from "../unit/UnitWhereUniqueInput";
+
+export type BillOfMaterialWhereInput = {
+  billOfMaterialDetails?: BillOfMaterialDetailListRelationFilter;
+  billOfMaterialTypeId?: BillOfMaterialTypeWhereUniqueInput;
+  code?: StringFilter;
+  daysToPrepareManufacturingOrder?: IntFilter;
+  endDate?: DateTimeNullableFilter;
+  id?: StringFilter;
+  isActive?: BooleanFilter;
+  note?: StringNullableFilter;
+  productId?: ProductWhereUniqueInput;
+  productVariantId?: ProductVariantWhereUniqueInput;
+  productionOrders?: ProductionOrderListRelationFilter;
+  quantity?: DecimalNullableFilter;
+  sequence?: IntNullableFilter;
+  startDate?: DateTimeNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
+  unitId?: UnitWhereUniqueInput;
+};

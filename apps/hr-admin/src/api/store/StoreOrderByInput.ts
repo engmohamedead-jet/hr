@@ -9,11 +9,12 @@ export type StoreOrderByInput = {
   fax?: SortOrder;
   homePhoneNumber?: SortOrder;
   id?: SortOrder;
+  isActive?: SortOrder;
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
-  officeId?: SortOrder;
-  storeTypeId?: SortOrder;
+  storeTypIdId?: SortOrder;
   street?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

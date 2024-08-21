@@ -14,14 +14,19 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Customer as PrismaCustomer,
-  MaintenanceContract as PrismaMaintenanceContract,
-  Currency as PrismaCurrency,
-  CustomerCateogry as PrismaCustomerCateogry,
-  CustomerType as PrismaCustomerType,
-  Rating as PrismaRating,
-  SalePriceType as PrismaSalePriceType,
+  ProductionOrder as PrismaProductionOrder,
+  ReceiptVoucher as PrismaReceiptVoucher,
+  SaleOrder as PrismaSaleOrder,
+  SaleReturn as PrismaSaleReturn,
+  Sale as PrismaSale,
   Supplier as PrismaSupplier,
+  Currency as PrismaCurrency,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
+
+import { CustomerWhereUniqueInput } from "./CustomerWhereUniqueInput";
+import { Customer } from "./Customer";
+import { CustomerWhereInput } from "./CustomerWhereInput";
 
 export class CustomerServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -56,15 +61,70 @@ export class CustomerServiceBase {
     return this.prisma.customer.delete(args);
   }
 
-  async findMaintenanceContracts(
+  async findProductionOrders(
     parentId: string,
-    args: Prisma.MaintenanceContractFindManyArgs
-  ): Promise<PrismaMaintenanceContract[]> {
+    args: Prisma.ProductionOrderFindManyArgs
+  ): Promise<PrismaProductionOrder[]> {
     return this.prisma.customer
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .maintenanceContracts(args);
+      .productionOrders(args);
+  }
+
+  async findReceiptVouchers(
+    parentId: string,
+    args: Prisma.ReceiptVoucherFindManyArgs
+  ): Promise<PrismaReceiptVoucher[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .receiptVouchers(args);
+  }
+
+  async findSaleOrders(
+    parentId: string,
+    args: Prisma.SaleOrderFindManyArgs
+  ): Promise<PrismaSaleOrder[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleOrders(args);
+  }
+
+  async findSaleReturns(
+    parentId: string,
+    args: Prisma.SaleReturnFindManyArgs
+  ): Promise<PrismaSaleReturn[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .saleReturns(args);
+  }
+
+  async findSales(
+    parentId: string,
+    args: Prisma.SaleFindManyArgs
+  ): Promise<PrismaSale[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .sales(args);
+  }
+
+  async findSuppliers(
+    parentId: string,
+    args: Prisma.SupplierFindManyArgs
+  ): Promise<PrismaSupplier[]> {
+    return this.prisma.customer
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .suppliers(args);
   }
 
   async getCurrencyId(parentId: string): Promise<PrismaCurrency | null> {
@@ -75,57 +135,19 @@ export class CustomerServiceBase {
       .currencyId();
   }
 
-  async getCustomerCateogryId(
-    parentId: string
-  ): Promise<PrismaCustomerCateogry | null> {
+  async getTenant(parentId: string): Promise<PrismaTenant | null> {
     return this.prisma.customer
       .findUnique({
         where: { id: parentId },
       })
-      .customerCateogryId();
+      .tenant();
   }
-
-  async getCustomerTypeId(
-    parentId: string
-  ): Promise<PrismaCustomerType | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .customerTypeId();
+  async GetCustomerByTenantAndId(
+    args: CustomerWhereUniqueInput
+  ): Promise<Customer> {
+    throw new Error("Not implemented");
   }
-
-  async getGuarantorRatingId(parentId: string): Promise<PrismaRating | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .guarantorRatingId();
-  }
-
-  async getRating(parentId: string): Promise<PrismaRating | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .rating();
-  }
-
-  async getSalePriceTypeId(
-    parentId: string
-  ): Promise<PrismaSalePriceType | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .salePriceTypeId();
-  }
-
-  async getSupplierId(parentId: string): Promise<PrismaSupplier | null> {
-    return this.prisma.customer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .supplierId();
+  async GetCustomersByTenant(args: CustomerWhereInput): Promise<Customer[]> {
+    throw new Error("Not implemented");
   }
 }

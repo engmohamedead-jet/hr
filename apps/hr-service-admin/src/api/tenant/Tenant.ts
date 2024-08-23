@@ -1,0 +1,36 @@
+import { Attendance } from "../attendance/Attendance";
+import { BonusRequest } from "../bonusRequest/BonusRequest";
+import { CheckInOut } from "../checkInOut/CheckInOut";
+import { DailyMovementRequest } from "../dailyMovementRequest/DailyMovementRequest";
+import { DayOffRequest } from "../dayOffRequest/DayOffRequest";
+import { EmployeeDepartment } from "../employeeDepartment/EmployeeDepartment";
+import { EmployeeGroup } from "../employeeGroup/EmployeeGroup";
+import { EmployeeRole } from "../employeeRole/EmployeeRole";
+import { Employee } from "../employee/Employee";
+import { Machine } from "../machine/Machine";
+import { FiscalMonth } from "../fiscalMonth/FiscalMonth";
+import { JobTitle } from "../jobTitle/JobTitle";
+import { LeaveRequestType } from "../leaveRequestType/LeaveRequestType";
+import { LeaveRequest } from "../leaveRequest/LeaveRequest";
+import { OverNightRequest } from "../overNightRequest/OverNightRequest";
+
+export type Tenant = {
+  attendances?: Array<Attendance>;
+  bonusRequests?: Array<BonusRequest>;
+  checkInOuts?: Array<CheckInOut>;
+  createdAt: Date;
+  dailyMovements?: Array<DailyMovementRequest>;
+  dayOffs?: Array<DayOffRequest>;
+  employeeDepartments?: Array<EmployeeDepartment>;
+  employeeGroups?: Array<EmployeeGroup>;
+  employeeRoles?: Array<EmployeeRole>;
+  employees?: Array<Employee>;
+  fingerprintMachines?: Array<Machine>;
+  fiscalMonths?: Array<FiscalMonth>;
+  id: string;
+  jobTitles?: Array<JobTitle>;
+  leaveRequestTypes?: Array<LeaveRequestType>;
+  leaveRequests?: Array<LeaveRequest>;
+  overNights?: Array<OverNightRequest>;
+  updatedAt: Date;
+};

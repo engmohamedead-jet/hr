@@ -1,0 +1,343 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Employee {
+  attendances               Attendance[]
+  balance                   Decimal?
+  bonusRequests             BonusRequest[]
+  checkInOuts               CheckInOut[]
+  code                      String?
+  createdAt                 DateTime               @default(now())
+  dailyMovementRequests     DailyMovementRequest[]
+  dayOffRequests            DayOffRequest[]
+  employeeDepartmentId      EmployeeDepartment?    @relation(fields: [employeeDepartmentIdId], references: [id])
+  employeeDepartmentIdId    String?
+  employeeGroup             EmployeeGroup?         @relation(fields: [employeeGroupId], references: [id])
+  employeeGroupId           String?
+  employeeRoleId            EmployeeRole?          @relation(fields: [employeeRoleIdId], references: [id])
+  employeeRoleIdId          String?
+  hireDate                  DateTime?
+  id                        String                 @id @default(cuid())
+  isActive                  Boolean                @default(1)
+  jobTitle                  JobTitle?              @relation(fields: [jobTitleId], references: [id])
+  jobTitleId                String?
+  lastYearBalance           Decimal?
+  leavingPermissionRequests LeaveRequest[]
+  name                      String
+  note                      String?
+  overNightRequests         OverNightRequest[]
+  remainingBalance          Decimal?
+  tenantId                  Tenant?                @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                String?
+  updatedAt                 DateTime               @updatedAt
+  usedBalance               Decimal?
+}
+
+model EmployeeDepartment {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  employees      Employee[]
+  id             String     @id @default(cuid())
+  isActive       Boolean    @defau1t(1)
+  name           String     @unique
+  normalizedName String     @unique
+  note           String?
+  tenantId       Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model Attendance {
+  ApprovedByUserId     User?    @relation(fields: [ApprovedByUserIdId], references: [id])
+  ApprovedByUserIdId   String?
+  attendanceDate       DateTime
+  checkInTime          String?
+  checkOutTime         String?
+  createdAt            DateTime @default(now())
+  employeeId           Employee @relation(fields: [employeeIdId], references: [id])
+  employeeIdId         String
+  id                   String   @id @default(cuid())
+  isActive             Boolean  @default(1)
+  isAppreoved          Boolean  @default(0)
+  note                 String?
+  overtimeHours        String?
+  reasonForAbsenteeism String?
+  tenantId             Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId           String?
+  updatedAt            DateTime @updatedAt
+  wasAbsent            String?  @default(0)
+  wasPresent           String   @default(1)
+}
+
+model JobTitle {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  employees      Employee[]
+  id             String     @id @default(cuid())
+  isActive       Boolean?   @default(1)
+  name           String     @unique
+  normalizedName String     @unique
+  note           String?
+  tenantId       Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model TenantUser {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Tenant {
+  attendances         Attendance[]
+  bonusRequests       BonusRequest[]
+  checkInOuts         CheckInOut[]
+  createdAt           DateTime               @default(now())
+  dailyMovements      DailyMovementRequest[]
+  dayOffs             DayOffRequest[]
+  employeeDepartments EmployeeDepartment[]
+  employeeGroups      EmployeeGroup[]
+  employeeRoles       EmployeeRole[]
+  employees           Employee[]
+  fingerprintMachines Machine[]
+  fiscalMonths        FiscalMonth[]
+  id                  String                 @id @default(cuid())
+  jobTitles           JobTitle[]
+  leaveRequestTypes   LeaveRequestType[]
+  leaveRequests       LeaveRequest[]
+  overNights          OverNightRequest[]
+  updatedAt           DateTime               @updatedAt
+}
+
+model User {
+  attendances    Attendance[]
+  bonuses        BonusRequest[]
+  checkInOuts    CheckInOut[]
+  createdAt      DateTime               @default(now())
+  dailyMovements DailyMovementRequest[]
+  dayOffs        DayOffRequest[]
+  email          String?                @unique
+  firstName      String?
+  id             String                 @id @default(cuid())
+  lastName       String?
+  leaveRequests  LeaveRequest[]
+  overNights     OverNightRequest[]
+  password       String
+  roles          Json
+  updatedAt      DateTime               @updatedAt
+  username       String                 @unique
+}
+
+model EmployeeRole {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  employees      Employee[]
+  id             String     @id @default(cuid())
+  isActive       Boolean?   @default(1)
+  name           String     @unique
+  normalizedName String
+  note           String?
+  tenantId       Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model EmployeeGroup {
+  code           String?
+  createdAt      DateTime   @default(now())
+  descripption   String?
+  employees      Employee[]
+  id             String     @id @default(cuid())
+  isActive       Boolean?   @default(1)
+  name           String     @unique
+  normalziedName String     @unique
+  note           String?
+  tenant         Tenant?    @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime   @updatedAt
+}
+
+model BonusRequest {
+  absent                Decimal?
+  actual                Decimal?
+  allStoreValue         Decimal?
+  annualLeave           Decimal?
+  approvedByUserId      User?        @relation(fields: [approvedByUserIdId], references: [id])
+  approvedByUserIdId    String?
+  assistantManager      Decimal?
+  createdAt             DateTime     @default(now())
+  employee              Employee     @relation(fields: [employeeId], references: [id])
+  employeeId            String
+  finalAmount           Decimal?
+  fiscalMonthId         FiscalMonth? @relation(fields: [fiscalMonthIdId], references: [id])
+  fiscalMonthIdId       String?      @unique
+  id                    String       @id @default(cuid())
+  isActive              Boolean?     @default(1)
+  isAppreoved           Boolean      @default(0)
+  note                  String?
+  penalty               Decimal?
+  percentage2           Decimal?
+  present               Decimal?
+  proratedValue         Decimal?
+  sales                 Decimal?
+  salesStaff            Decimal?
+  salesTargetPercentage Decimal?
+  shopManager           Decimal?
+  sickLeave             Decimal?
+  target                Decimal?
+  tenantId              Tenant?      @relation(fields: [tenantIdId], references: [id])
+  tenantIdId            String?
+  updatedAt             DateTime     @updatedAt
+  warning               Decimal?
+}
+
+model Machine {
+  checkInOuts    CheckInOut[]
+  code           String?
+  createdAt      DateTime     @default(now())
+  id             String       @id @default(cuid())
+  ip             String?
+  isAndroid      Boolean      @default(0)
+  name           String       @unique
+  normalizedName String       @unique
+  note           String?
+  tenantId       Tenant?      @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime     @updatedAt
+}
+
+model CheckInOut {
+  approvedByUserId   User?                   @relation(fields: [approvedByUserIdId], references: [id])
+  approvedByUserIdId String?
+  checkDate          DateTime
+  checkTime          DateTime
+  checkType          EnumCheckInOutCheckType
+  createdAt          DateTime                @default(now())
+  employee           Employee                @relation(fields: [employeeId], references: [id])
+  employeeId         String
+  id                 String                  @id @default(cuid())
+  isActive           Boolean                 @default(1)
+  isAppreoved        Boolean                 @default(0)
+  machine            Machine                 @relation(fields: [machineId], references: [id])
+  machineId          String
+  note               String?
+  tenantId           Tenant?                 @relation(fields: [tenantIdId], references: [id])
+  tenantIdId         String?
+  updatedAt          DateTime                @updatedAt
+}
+
+model DailyMovementRequest {
+  approvedByUserId   User?    @relation(fields: [approvedByUserIdId], references: [id])
+  approvedByUserIdId String?
+  createdAt          DateTime @default(now())
+  employeeId         Employee @relation(fields: [employeeIdId], references: [id])
+  employeeIdId       String
+  id                 String   @id @default(cuid())
+  isActive           Boolean  @default(1)
+  isAppreoved        Boolean  @default(0)
+  movementDate       DateTime
+  note               String?
+  reason             String?
+  tenantId           Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId         String?
+  totalHours         Decimal?
+  updatedAt          DateTime @updatedAt
+}
+
+model DayOffRequest {
+  approvedByUserId   User?    @relation(fields: [approvedByUserIdId], references: [id])
+  approvedByUserIdId String?
+  createdAt          DateTime @default(now())
+  dayOffDate         DateTime
+  employeeId         Employee @relation(fields: [employeeIdId], references: [id])
+  employeeIdId       String
+  id                 String   @id @default(cuid())
+  isActive           Boolean  @default(1)
+  isAppreoved        Boolean  @default(0)
+  note               String?
+  tenantId           Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId         String?
+  updatedAt          DateTime @updatedAt
+}
+
+model LeaveRequest {
+  LeaveDate            DateTime
+  approvedByUserId     User?            @relation(fields: [approvedByUserIdId], references: [id])
+  approvedByUserIdId   String?
+  cause                String?
+  createdAt            DateTime         @default(now())
+  employee             Employee         @relation(fields: [employeeId], references: [id])
+  employeeId           String
+  id                   String           @id @default(cuid())
+  isActive             Boolean          @default(1)
+  isAppreoved          Boolean          @default(0)
+  leaveRequestTypeId   LeaveRequestType @relation(fields: [leaveRequestTypeIdId], references: [id])
+  leaveRequestTypeIdId String
+  note                 String?
+  tenantId             Tenant?          @relation(fields: [tenantIdId], references: [id])
+  tenantIdId           String?
+  updatedAt            DateTime         @updatedAt
+}
+
+model LeaveRequestType {
+  code               String?
+  createdAt          DateTime       @default(now())
+  description        String?
+  id                 String         @id @default(cuid())
+  isActive           Boolean?
+  leavingPermissions LeaveRequest[]
+  name               String?
+  normalizedName     String?
+  note               String?
+  tenantId           Tenant?        @relation(fields: [tenantIdId], references: [id])
+  tenantIdId         String?
+  updatedAt          DateTime       @updatedAt
+}
+
+model OverNightRequest {
+  approvedByUserId   User?    @relation(fields: [approvedByUserIdId], references: [id])
+  approvedByUserIdId String?
+  createdAt          DateTime @default(now())
+  employeeId         Employee @relation(fields: [employeeIdId], references: [id])
+  employeeIdId       String
+  endDateTime        DateTime
+  id                 String   @id @default(cuid())
+  isActive           Boolean  @default(1)
+  isAppreoved        Boolean  @default(0)
+  note               String?
+  startDateTime      DateTime
+  tenantId           Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId         String?
+  updatedAt          DateTime @updatedAt
+}
+
+model FiscalMonth {
+  bonusRequests  BonusRequest?
+  code           String?
+  createdAt      DateTime      @default(now())
+  endsOn         DateTime
+  id             String        @id @default(cuid())
+  isActive       Boolean       @default(1)
+  name           String        @unique
+  normalizedName String        @unique
+  note           String?
+  startsFrom     DateTime
+  tenantId       Tenant?       @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime      @updatedAt
+}
+
+enum EnumCheckInOutCheckType {
+  In
+  Out
+}

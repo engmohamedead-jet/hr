@@ -1,0 +1,31 @@
+import { SortOrder } from "../../util/SortOrder";
+
+export type BonusRequestOrderByInput = {
+  absent?: SortOrder;
+  actual?: SortOrder;
+  allStoreValue?: SortOrder;
+  annualLeave?: SortOrder;
+  approvedByUserIdId?: SortOrder;
+  assistantManager?: SortOrder;
+  createdAt?: SortOrder;
+  employeeId?: SortOrder;
+  finalAmount?: SortOrder;
+  fiscalMonthIdId?: SortOrder;
+  id?: SortOrder;
+  isActive?: SortOrder;
+  isAppreoved?: SortOrder;
+  note?: SortOrder;
+  penalty?: SortOrder;
+  percentage2?: SortOrder;
+  present?: SortOrder;
+  proratedValue?: SortOrder;
+  sales?: SortOrder;
+  salesStaff?: SortOrder;
+  salesTargetPercentage?: SortOrder;
+  shopManager?: SortOrder;
+  sickLeave?: SortOrder;
+  target?: SortOrder;
+  tenantIdId?: SortOrder;
+  updatedAt?: SortOrder;
+  warning?: SortOrder;
+};

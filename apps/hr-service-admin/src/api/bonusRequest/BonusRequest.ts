@@ -1,0 +1,35 @@
+import { Decimal } from "decimal.js";
+import { User } from "../user/User";
+import { Employee } from "../employee/Employee";
+import { FiscalMonth } from "../fiscalMonth/FiscalMonth";
+import { Tenant } from "../tenant/Tenant";
+
+export type BonusRequest = {
+  absent: Decimal | null;
+  actual: Decimal | null;
+  allStoreValue: Decimal | null;
+  annualLeave: Decimal | null;
+  approvedByUserId?: User | null;
+  assistantManager: Decimal | null;
+  createdAt: Date;
+  employee?: Employee;
+  finalAmount: Decimal | null;
+  fiscalMonthId?: FiscalMonth | null;
+  id: string;
+  isActive: boolean | null;
+  isAppreoved: boolean;
+  note: string | null;
+  penalty: Decimal | null;
+  percentage2: Decimal | null;
+  present: Decimal | null;
+  proratedValue: Decimal | null;
+  sales: Decimal | null;
+  salesStaff: Decimal | null;
+  salesTargetPercentage: Decimal | null;
+  shopManager: Decimal | null;
+  sickLeave: Decimal | null;
+  target: Decimal | null;
+  tenantId?: Tenant | null;
+  updatedAt: Date;
+  warning: Decimal | null;
+};

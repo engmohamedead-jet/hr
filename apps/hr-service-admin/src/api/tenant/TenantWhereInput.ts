@@ -1,0 +1,35 @@
+import { AttendanceListRelationFilter } from "../attendance/AttendanceListRelationFilter";
+import { BonusRequestListRelationFilter } from "../bonusRequest/BonusRequestListRelationFilter";
+import { CheckInOutListRelationFilter } from "../checkInOut/CheckInOutListRelationFilter";
+import { DailyMovementRequestListRelationFilter } from "../dailyMovementRequest/DailyMovementRequestListRelationFilter";
+import { DayOffRequestListRelationFilter } from "../dayOffRequest/DayOffRequestListRelationFilter";
+import { EmployeeDepartmentListRelationFilter } from "../employeeDepartment/EmployeeDepartmentListRelationFilter";
+import { EmployeeGroupListRelationFilter } from "../employeeGroup/EmployeeGroupListRelationFilter";
+import { EmployeeRoleListRelationFilter } from "../employeeRole/EmployeeRoleListRelationFilter";
+import { EmployeeListRelationFilter } from "../employee/EmployeeListRelationFilter";
+import { MachineListRelationFilter } from "../machine/MachineListRelationFilter";
+import { FiscalMonthListRelationFilter } from "../fiscalMonth/FiscalMonthListRelationFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { JobTitleListRelationFilter } from "../jobTitle/JobTitleListRelationFilter";
+import { LeaveRequestTypeListRelationFilter } from "../leaveRequestType/LeaveRequestTypeListRelationFilter";
+import { LeaveRequestListRelationFilter } from "../leaveRequest/LeaveRequestListRelationFilter";
+import { OverNightRequestListRelationFilter } from "../overNightRequest/OverNightRequestListRelationFilter";
+
+export type TenantWhereInput = {
+  attendances?: AttendanceListRelationFilter;
+  bonusRequests?: BonusRequestListRelationFilter;
+  checkInOuts?: CheckInOutListRelationFilter;
+  dailyMovements?: DailyMovementRequestListRelationFilter;
+  dayOffs?: DayOffRequestListRelationFilter;
+  employeeDepartments?: EmployeeDepartmentListRelationFilter;
+  employeeGroups?: EmployeeGroupListRelationFilter;
+  employeeRoles?: EmployeeRoleListRelationFilter;
+  employees?: EmployeeListRelationFilter;
+  fingerprintMachines?: MachineListRelationFilter;
+  fiscalMonths?: FiscalMonthListRelationFilter;
+  id?: StringFilter;
+  jobTitles?: JobTitleListRelationFilter;
+  leaveRequestTypes?: LeaveRequestTypeListRelationFilter;
+  leaveRequests?: LeaveRequestListRelationFilter;
+  overNights?: OverNightRequestListRelationFilter;
+};

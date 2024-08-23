@@ -1,0 +1,37 @@
+import { AttendanceUpdateManyWithoutEmployeesInput } from "./AttendanceUpdateManyWithoutEmployeesInput";
+import { Decimal } from "decimal.js";
+import { BonusRequestUpdateManyWithoutEmployeesInput } from "./BonusRequestUpdateManyWithoutEmployeesInput";
+import { CheckInOutUpdateManyWithoutEmployeesInput } from "./CheckInOutUpdateManyWithoutEmployeesInput";
+import { DailyMovementRequestUpdateManyWithoutEmployeesInput } from "./DailyMovementRequestUpdateManyWithoutEmployeesInput";
+import { DayOffRequestUpdateManyWithoutEmployeesInput } from "./DayOffRequestUpdateManyWithoutEmployeesInput";
+import { EmployeeDepartmentWhereUniqueInput } from "../employeeDepartment/EmployeeDepartmentWhereUniqueInput";
+import { EmployeeGroupWhereUniqueInput } from "../employeeGroup/EmployeeGroupWhereUniqueInput";
+import { EmployeeRoleWhereUniqueInput } from "../employeeRole/EmployeeRoleWhereUniqueInput";
+import { JobTitleWhereUniqueInput } from "../jobTitle/JobTitleWhereUniqueInput";
+import { LeaveRequestUpdateManyWithoutEmployeesInput } from "./LeaveRequestUpdateManyWithoutEmployeesInput";
+import { OverNightRequestUpdateManyWithoutEmployeesInput } from "./OverNightRequestUpdateManyWithoutEmployeesInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+
+export type EmployeeUpdateInput = {
+  attendances?: AttendanceUpdateManyWithoutEmployeesInput;
+  balance?: Decimal | null;
+  bonusRequests?: BonusRequestUpdateManyWithoutEmployeesInput;
+  checkInOuts?: CheckInOutUpdateManyWithoutEmployeesInput;
+  code?: string | null;
+  dailyMovementRequests?: DailyMovementRequestUpdateManyWithoutEmployeesInput;
+  dayOffRequests?: DayOffRequestUpdateManyWithoutEmployeesInput;
+  employeeDepartmentId?: EmployeeDepartmentWhereUniqueInput | null;
+  employeeGroup?: EmployeeGroupWhereUniqueInput | null;
+  employeeRoleId?: EmployeeRoleWhereUniqueInput | null;
+  hireDate?: Date | null;
+  isActive?: boolean;
+  jobTitle?: JobTitleWhereUniqueInput | null;
+  lastYearBalance?: Decimal | null;
+  leavingPermissionRequests?: LeaveRequestUpdateManyWithoutEmployeesInput;
+  name?: string;
+  note?: string | null;
+  overNightRequests?: OverNightRequestUpdateManyWithoutEmployeesInput;
+  remainingBalance?: Decimal | null;
+  tenantId?: TenantWhereUniqueInput | null;
+  usedBalance?: Decimal | null;
+};

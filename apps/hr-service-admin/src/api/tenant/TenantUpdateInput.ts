@@ -1,0 +1,33 @@
+import { AttendanceUpdateManyWithoutTenantsInput } from "./AttendanceUpdateManyWithoutTenantsInput";
+import { BonusRequestUpdateManyWithoutTenantsInput } from "./BonusRequestUpdateManyWithoutTenantsInput";
+import { CheckInOutUpdateManyWithoutTenantsInput } from "./CheckInOutUpdateManyWithoutTenantsInput";
+import { DailyMovementRequestUpdateManyWithoutTenantsInput } from "./DailyMovementRequestUpdateManyWithoutTenantsInput";
+import { DayOffRequestUpdateManyWithoutTenantsInput } from "./DayOffRequestUpdateManyWithoutTenantsInput";
+import { EmployeeDepartmentUpdateManyWithoutTenantsInput } from "./EmployeeDepartmentUpdateManyWithoutTenantsInput";
+import { EmployeeGroupUpdateManyWithoutTenantsInput } from "./EmployeeGroupUpdateManyWithoutTenantsInput";
+import { EmployeeRoleUpdateManyWithoutTenantsInput } from "./EmployeeRoleUpdateManyWithoutTenantsInput";
+import { EmployeeUpdateManyWithoutTenantsInput } from "./EmployeeUpdateManyWithoutTenantsInput";
+import { MachineUpdateManyWithoutTenantsInput } from "./MachineUpdateManyWithoutTenantsInput";
+import { FiscalMonthUpdateManyWithoutTenantsInput } from "./FiscalMonthUpdateManyWithoutTenantsInput";
+import { JobTitleUpdateManyWithoutTenantsInput } from "./JobTitleUpdateManyWithoutTenantsInput";
+import { LeaveRequestTypeUpdateManyWithoutTenantsInput } from "./LeaveRequestTypeUpdateManyWithoutTenantsInput";
+import { LeaveRequestUpdateManyWithoutTenantsInput } from "./LeaveRequestUpdateManyWithoutTenantsInput";
+import { OverNightRequestUpdateManyWithoutTenantsInput } from "./OverNightRequestUpdateManyWithoutTenantsInput";
+
+export type TenantUpdateInput = {
+  attendances?: AttendanceUpdateManyWithoutTenantsInput;
+  bonusRequests?: BonusRequestUpdateManyWithoutTenantsInput;
+  checkInOuts?: CheckInOutUpdateManyWithoutTenantsInput;
+  dailyMovements?: DailyMovementRequestUpdateManyWithoutTenantsInput;
+  dayOffs?: DayOffRequestUpdateManyWithoutTenantsInput;
+  employeeDepartments?: EmployeeDepartmentUpdateManyWithoutTenantsInput;
+  employeeGroups?: EmployeeGroupUpdateManyWithoutTenantsInput;
+  employeeRoles?: EmployeeRoleUpdateManyWithoutTenantsInput;
+  employees?: EmployeeUpdateManyWithoutTenantsInput;
+  fingerprintMachines?: MachineUpdateManyWithoutTenantsInput;
+  fiscalMonths?: FiscalMonthUpdateManyWithoutTenantsInput;
+  jobTitles?: JobTitleUpdateManyWithoutTenantsInput;
+  leaveRequestTypes?: LeaveRequestTypeUpdateManyWithoutTenantsInput;
+  leaveRequests?: LeaveRequestUpdateManyWithoutTenantsInput;
+  overNights?: OverNightRequestUpdateManyWithoutTenantsInput;
+};

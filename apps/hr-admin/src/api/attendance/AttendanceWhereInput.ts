@@ -1,18 +1,24 @@
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
-import { StringFilter } from "../../util/StringFilter";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { EmployeeWhereUniqueInput } from "../employee/EmployeeWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type AttendanceWhereInput = {
-  attendanceDate?: DateTimeNullableFilter;
-  checkInTime?: DateTimeNullableFilter;
-  checkOutTime?: DateTimeNullableFilter;
+  ApprovedByUserId?: UserWhereUniqueInput;
+  attendanceDate?: DateTimeFilter;
+  checkInTime?: StringNullableFilter;
+  checkOutTime?: StringNullableFilter;
+  employeeId?: EmployeeWhereUniqueInput;
   id?: StringFilter;
+  isActive?: BooleanFilter;
+  isAppreoved?: BooleanFilter;
   note?: StringNullableFilter;
-  overtimeHours?: DecimalNullableFilter;
+  overtimeHours?: StringNullableFilter;
   reasonForAbsenteeism?: StringNullableFilter;
-  wasAbsent?: BooleanNullableFilter;
-  wasPresent?: BooleanFilter;
+  tenantId?: TenantWhereUniqueInput;
+  wasAbsent?: StringNullableFilter;
+  wasPresent?: StringFilter;
 };

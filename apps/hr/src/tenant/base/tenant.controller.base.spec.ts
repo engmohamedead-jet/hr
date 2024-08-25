@@ -18,65 +18,25 @@ import { TenantService } from "../tenant.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
-  code: "exampleCode",
   createdAt: new Date(),
-  creatorUserId: "exampleCreatorUserId",
-  description: "exampleDescription",
-  email: "exampleEmail",
   id: "exampleId",
-  isActive: "true",
-  lastModifierUserIdl: "exampleLastModifierUserIdl",
-  name: "exampleName",
-  normalizedName: "exampleNormalizedName",
-  note: "exampleNote",
-  tenancyName: "exampleTenancyName",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
-  code: "exampleCode",
   createdAt: new Date(),
-  creatorUserId: "exampleCreatorUserId",
-  description: "exampleDescription",
-  email: "exampleEmail",
   id: "exampleId",
-  isActive: "true",
-  lastModifierUserIdl: "exampleLastModifierUserIdl",
-  name: "exampleName",
-  normalizedName: "exampleNormalizedName",
-  note: "exampleNote",
-  tenancyName: "exampleTenancyName",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
-    code: "exampleCode",
     createdAt: new Date(),
-    creatorUserId: "exampleCreatorUserId",
-    description: "exampleDescription",
-    email: "exampleEmail",
     id: "exampleId",
-    isActive: "true",
-    lastModifierUserIdl: "exampleLastModifierUserIdl",
-    name: "exampleName",
-    normalizedName: "exampleNormalizedName",
-    note: "exampleNote",
-    tenancyName: "exampleTenancyName",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
-  code: "exampleCode",
   createdAt: new Date(),
-  creatorUserId: "exampleCreatorUserId",
-  description: "exampleDescription",
-  email: "exampleEmail",
   id: "exampleId",
-  isActive: "true",
-  lastModifierUserIdl: "exampleLastModifierUserIdl",
-  name: "exampleName",
-  normalizedName: "exampleNormalizedName",
-  note: "exampleNote",
-  tenancyName: "exampleTenancyName",
   updatedAt: new Date(),
 };
 

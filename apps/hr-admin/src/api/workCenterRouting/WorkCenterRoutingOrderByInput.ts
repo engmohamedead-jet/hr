@@ -1,6 +1,7 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type WorkCenterRoutingOrderByInput = {
+  billOfMaterialId?: SortOrder;
   code?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
@@ -9,7 +10,7 @@ export type WorkCenterRoutingOrderByInput = {
   normalizedName?: SortOrder;
   note?: SortOrder;
   sequence?: SortOrder;
-  tenantIdId?: SortOrder;
+  tenantId?: SortOrder;
   timeCycleManual?: SortOrder;
   timeModeBatch?: SortOrder;
   updatedAt?: SortOrder;

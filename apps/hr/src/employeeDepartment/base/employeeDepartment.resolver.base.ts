@@ -98,12 +98,6 @@ export class EmployeeDepartmentResolverBase {
       data: {
         ...args.data,
 
-        parentEmployeeDepartmentId: args.data.parentEmployeeDepartmentId
-          ? {
-              connect: args.data.parentEmployeeDepartmentId,
-            }
-          : undefined,
-
         tenantId: args.data.tenantId
           ? {
               connect: args.data.tenantId,
@@ -128,12 +122,6 @@ export class EmployeeDepartmentResolverBase {
         ...args,
         data: {
           ...args.data,
-
-          parentEmployeeDepartmentId: args.data.parentEmployeeDepartmentId
-            ? {
-                connect: args.data.parentEmployeeDepartmentId,
-              }
-            : undefined,
 
           tenantId: args.data.tenantId
             ? {
@@ -174,28 +162,6 @@ export class EmployeeDepartmentResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [EmployeeDepartment], {
-    name: "employeeDepartments",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "EmployeeDepartment",
-    action: "read",
-    possession: "any",
-  })
-  async findEmployeeDepartments(
-    @graphql.Parent() parent: EmployeeDepartment,
-    @graphql.Args() args: EmployeeDepartmentFindManyArgs
-  ): Promise<EmployeeDepartment[]> {
-    const results = await this.service.findEmployeeDepartments(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [Employee], { name: "employees" })
   @nestAccessControl.UseRoles({
     resource: "Employee",
@@ -213,27 +179,6 @@ export class EmployeeDepartmentResolverBase {
     }
 
     return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => EmployeeDepartment, {
-    nullable: true,
-    name: "parentEmployeeDepartmentId",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "EmployeeDepartment",
-    action: "read",
-    possession: "any",
-  })
-  async getParentEmployeeDepartmentId(
-    @graphql.Parent() parent: EmployeeDepartment
-  ): Promise<EmployeeDepartment | null> {
-    const result = await this.service.getParentEmployeeDepartmentId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

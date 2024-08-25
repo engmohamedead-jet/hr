@@ -11,7 +11,6 @@ import {
 } from "react-admin";
 
 import Pagination from "../Components/Pagination";
-import { EMPLOYEEDEPARTMENT_TITLE_FIELD } from "./EmployeeDepartmentTitle";
 import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const EmployeeDepartmentList = (
@@ -34,13 +33,6 @@ export const EmployeeDepartmentList = (
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
-        <ReferenceField
-          label="ParentEmployeeDepartmentId"
-          source="employeedepartment.id"
-          reference="EmployeeDepartment"
-        >
-          <TextField source={EMPLOYEEDEPARTMENT_TITLE_FIELD} />
-        </ReferenceField>
         <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
           <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>

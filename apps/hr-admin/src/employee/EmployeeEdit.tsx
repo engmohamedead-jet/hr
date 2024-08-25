@@ -4,35 +4,75 @@ import {
   Edit,
   SimpleForm,
   EditProps,
+  ReferenceArrayInput,
+  SelectArrayInput,
   NumberInput,
   TextInput,
   ReferenceInput,
   SelectInput,
+  DateTimeInput,
   BooleanInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
 } from "react-admin";
 
-import { EmployeeClassTitle } from "../employeeClass/EmployeeClassTitle";
+import { AttendanceTitle } from "../attendance/AttendanceTitle";
+import { BonusRequestTitle } from "../bonusRequest/BonusRequestTitle";
+import { CheckInOutTitle } from "../checkInOut/CheckInOutTitle";
+import { DailyMovementRequestTitle } from "../dailyMovementRequest/DailyMovementRequestTitle";
+import { DayOffRequestTitle } from "../dayOffRequest/DayOffRequestTitle";
 import { EmployeeDepartmentTitle } from "../employeeDepartment/EmployeeDepartmentTitle";
-import { PaymentVoucherTitle } from "../paymentVoucher/PaymentVoucherTitle";
-import { ReceiptVoucherTitle } from "../receiptVoucher/ReceiptVoucherTitle";
-import { SalePersonTitle } from "../salePerson/SalePersonTitle";
+import { EmployeeGroupTitle } from "../employeeGroup/EmployeeGroupTitle";
+import { EmployeeRoleTitle } from "../employeeRole/EmployeeRoleTitle";
+import { JobTitleTitle } from "../jobTitle/JobTitleTitle";
+import { LeaveRequestTitle } from "../leaveRequest/LeaveRequestTitle";
+import { OverNightRequestTitle } from "../overNightRequest/OverNightRequestTitle";
 import { TenantTitle } from "../tenant/TenantTitle";
 
 export const EmployeeEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <NumberInput label="Balance" source="balance" />
-        <TextInput label="Code" source="code" />
-        <ReferenceInput
-          source="employeeClassId.id"
-          reference="EmployeeClass"
-          label="EmployeeClassId"
+        <ReferenceArrayInput
+          source="attendances"
+          reference="Attendance"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectInput optionText={EmployeeClassTitle} />
-        </ReferenceInput>
+          <SelectArrayInput optionText={AttendanceTitle} />
+        </ReferenceArrayInput>
+        <NumberInput label="Balance" source="balance" />
+        <ReferenceArrayInput
+          source="bonusRequests"
+          reference="BonusRequest"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={BonusRequestTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="checkInOuts"
+          reference="CheckInOut"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={CheckInOutTitle} />
+        </ReferenceArrayInput>
+        <TextInput label="Code" source="code" />
+        <ReferenceArrayInput
+          source="dailyMovementRequests"
+          reference="DailyMovementRequest"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={DailyMovementRequestTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="dayOffRequests"
+          reference="DayOffRequest"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={DayOffRequestTitle} />
+        </ReferenceArrayInput>
         <ReferenceInput
           source="employeeDepartmentId.id"
           reference="EmployeeDepartment"
@@ -40,36 +80,49 @@ export const EmployeeEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={EmployeeDepartmentTitle} />
         </ReferenceInput>
+        <ReferenceInput
+          source="employeeGroup.id"
+          reference="EmployeeGroup"
+          label="EmployeeGroupId"
+        >
+          <SelectInput optionText={EmployeeGroupTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="employeeRoleId.id"
+          reference="EmployeeRole"
+          label="EmployeeRoleId"
+        >
+          <SelectInput optionText={EmployeeRoleTitle} />
+        </ReferenceInput>
+        <DateTimeInput label="HireDate" source="hireDate" />
         <BooleanInput label="IsActive" source="isActive" />
+        <ReferenceInput
+          source="jobTitle.id"
+          reference="JobTitle"
+          label="JobTitleId"
+        >
+          <SelectInput optionText={JobTitleTitle} />
+        </ReferenceInput>
         <NumberInput label="LastYearBalance" source="lastYearBalance" />
+        <ReferenceArrayInput
+          source="leavingPermissionRequests"
+          reference="LeaveRequest"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={LeaveRequestTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Name" source="name" />
-        <TextInput label="NormalizedName" source="normalizedName" />
         <TextInput label="Note" multiline source="note" />
         <ReferenceArrayInput
-          source="paymentVouchers"
-          reference="PaymentVoucher"
+          source="overNightRequests"
+          reference="OverNightRequest"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={PaymentVoucherTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="receiptVouchers"
-          reference="ReceiptVoucher"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ReceiptVoucherTitle} />
+          <SelectArrayInput optionText={OverNightRequestTitle} />
         </ReferenceArrayInput>
         <NumberInput label="RemainingBalance" source="remainingBalance" />
-        <ReferenceArrayInput
-          source="salePeople"
-          reference="SalePerson"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SalePersonTitle} />
-        </ReferenceArrayInput>
         <ReferenceInput
           source="tenantId.id"
           reference="Tenant"

@@ -11,25 +11,90 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { AttendanceListRelationFilter } from "../../attendance/base/AttendanceListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { BonusRequestListRelationFilter } from "../../bonusRequest/base/BonusRequestListRelationFilter";
+import { CheckInOutListRelationFilter } from "../../checkInOut/base/CheckInOutListRelationFilter";
+import { DailyMovementRequestListRelationFilter } from "../../dailyMovementRequest/base/DailyMovementRequestListRelationFilter";
+import { DayOffRequestListRelationFilter } from "../../dayOffRequest/base/DayOffRequestListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { BooleanFilter } from "../../util/BooleanFilter";
-import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
+import { LeaveRequestListRelationFilter } from "../../leaveRequest/base/LeaveRequestListRelationFilter";
+import { OverNightRequestListRelationFilter } from "../../overNightRequest/base/OverNightRequestListRelationFilter";
 
 @InputType()
 class UserWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: () => AttendanceListRelationFilter,
   })
-  @Type(() => StringFilter)
+  @ValidateNested()
+  @Type(() => AttendanceListRelationFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => AttendanceListRelationFilter, {
     nullable: true,
   })
-  email?: StringFilter;
+  attendances?: AttendanceListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BonusRequestListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => BonusRequestListRelationFilter)
+  @IsOptional()
+  @Field(() => BonusRequestListRelationFilter, {
+    nullable: true,
+  })
+  bonuses?: BonusRequestListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CheckInOutListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CheckInOutListRelationFilter)
+  @IsOptional()
+  @Field(() => CheckInOutListRelationFilter, {
+    nullable: true,
+  })
+  checkInOuts?: CheckInOutListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DailyMovementRequestListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DailyMovementRequestListRelationFilter)
+  @IsOptional()
+  @Field(() => DailyMovementRequestListRelationFilter, {
+    nullable: true,
+  })
+  dailyMovements?: DailyMovementRequestListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DayOffRequestListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DayOffRequestListRelationFilter)
+  @IsOptional()
+  @Field(() => DayOffRequestListRelationFilter, {
+    nullable: true,
+  })
+  dayOffs?: DayOffRequestListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  email?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -55,17 +120,6 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
-    type: BooleanFilter,
-  })
-  @Type(() => BooleanFilter)
-  @IsOptional()
-  @Field(() => BooleanFilter, {
-    nullable: true,
-  })
-  isActive?: BooleanFilter;
-
-  @ApiProperty({
-    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -77,15 +131,27 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => TenantWhereUniqueInput,
+    type: () => LeaveRequestListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => TenantWhereUniqueInput)
+  @Type(() => LeaveRequestListRelationFilter)
   @IsOptional()
-  @Field(() => TenantWhereUniqueInput, {
+  @Field(() => LeaveRequestListRelationFilter, {
     nullable: true,
   })
-  tenantId?: TenantWhereUniqueInput;
+  leaveRequests?: LeaveRequestListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => OverNightRequestListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => OverNightRequestListRelationFilter)
+  @IsOptional()
+  @Field(() => OverNightRequestListRelationFilter, {
+    nullable: true,
+  })
+  overNights?: OverNightRequestListRelationFilter;
 
   @ApiProperty({
     required: false,

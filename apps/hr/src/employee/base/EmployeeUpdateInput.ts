@@ -11,41 +11,82 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { AttendanceUpdateManyWithoutEmployeesInput } from "./AttendanceUpdateManyWithoutEmployeesInput";
 
 import {
-  IsNumber,
-  Min,
-  Max,
+  ValidateNested,
   IsOptional,
+  IsNumber,
+  Max,
   IsString,
   MaxLength,
-  ValidateNested,
+  IsDate,
   IsBoolean,
 } from "class-validator";
 
-import { Decimal } from "decimal.js";
-import { EmployeeClassWhereUniqueInput } from "../../employeeClass/base/EmployeeClassWhereUniqueInput";
 import { Type } from "class-transformer";
+import { Decimal } from "decimal.js";
+import { BonusRequestUpdateManyWithoutEmployeesInput } from "./BonusRequestUpdateManyWithoutEmployeesInput";
+import { CheckInOutUpdateManyWithoutEmployeesInput } from "./CheckInOutUpdateManyWithoutEmployeesInput";
+import { DailyMovementRequestUpdateManyWithoutEmployeesInput } from "./DailyMovementRequestUpdateManyWithoutEmployeesInput";
+import { DayOffRequestUpdateManyWithoutEmployeesInput } from "./DayOffRequestUpdateManyWithoutEmployeesInput";
 import { EmployeeDepartmentWhereUniqueInput } from "../../employeeDepartment/base/EmployeeDepartmentWhereUniqueInput";
-import { PaymentVoucherUpdateManyWithoutEmployeesInput } from "./PaymentVoucherUpdateManyWithoutEmployeesInput";
-import { ReceiptVoucherUpdateManyWithoutEmployeesInput } from "./ReceiptVoucherUpdateManyWithoutEmployeesInput";
-import { SalePersonUpdateManyWithoutEmployeesInput } from "./SalePersonUpdateManyWithoutEmployeesInput";
+import { EmployeeGroupWhereUniqueInput } from "../../employeeGroup/base/EmployeeGroupWhereUniqueInput";
+import { EmployeeRoleWhereUniqueInput } from "../../employeeRole/base/EmployeeRoleWhereUniqueInput";
+import { JobTitleWhereUniqueInput } from "../../jobTitle/base/JobTitleWhereUniqueInput";
+import { LeaveRequestUpdateManyWithoutEmployeesInput } from "./LeaveRequestUpdateManyWithoutEmployeesInput";
+import { OverNightRequestUpdateManyWithoutEmployeesInput } from "./OverNightRequestUpdateManyWithoutEmployeesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class EmployeeUpdateInput {
   @ApiProperty({
     required: false,
+    type: () => AttendanceUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => AttendanceUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => AttendanceUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  attendances?: AttendanceUpdateManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   balance?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => BonusRequestUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => BonusRequestUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => BonusRequestUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  bonusRequests?: BonusRequestUpdateManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CheckInOutUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => CheckInOutUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => CheckInOutUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  checkInOuts?: CheckInOutUpdateManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,
@@ -61,15 +102,27 @@ class EmployeeUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => EmployeeClassWhereUniqueInput,
+    type: () => DailyMovementRequestUpdateManyWithoutEmployeesInput,
   })
   @ValidateNested()
-  @Type(() => EmployeeClassWhereUniqueInput)
+  @Type(() => DailyMovementRequestUpdateManyWithoutEmployeesInput)
   @IsOptional()
-  @Field(() => EmployeeClassWhereUniqueInput, {
+  @Field(() => DailyMovementRequestUpdateManyWithoutEmployeesInput, {
     nullable: true,
   })
-  employeeClassId?: EmployeeClassWhereUniqueInput | null;
+  dailyMovementRequests?: DailyMovementRequestUpdateManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DayOffRequestUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => DayOffRequestUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => DayOffRequestUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  dayOffRequests?: DayOffRequestUpdateManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,
@@ -85,6 +138,41 @@ class EmployeeUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => EmployeeGroupWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeGroupWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeGroupWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeGroup?: EmployeeGroupWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeRoleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeRoleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeRoleWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeRoleId?: EmployeeRoleWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  hireDate?: Date | null;
+
+  @ApiProperty({
+    required: false,
     type: Boolean,
   })
   @IsBoolean()
@@ -96,16 +184,39 @@ class EmployeeUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => JobTitleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => JobTitleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => JobTitleWhereUniqueInput, {
+    nullable: true,
+  })
+  jobTitle?: JobTitleWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   lastYearBalance?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => LeaveRequestUpdateManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => LeaveRequestUpdateManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => LeaveRequestUpdateManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  leavingPermissionRequests?: LeaveRequestUpdateManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,
@@ -129,68 +240,31 @@ class EmployeeUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  normalizedName?: string;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
   note?: string | null;
 
   @ApiProperty({
     required: false,
-    type: () => PaymentVoucherUpdateManyWithoutEmployeesInput,
+    type: () => OverNightRequestUpdateManyWithoutEmployeesInput,
   })
   @ValidateNested()
-  @Type(() => PaymentVoucherUpdateManyWithoutEmployeesInput)
+  @Type(() => OverNightRequestUpdateManyWithoutEmployeesInput)
   @IsOptional()
-  @Field(() => PaymentVoucherUpdateManyWithoutEmployeesInput, {
+  @Field(() => OverNightRequestUpdateManyWithoutEmployeesInput, {
     nullable: true,
   })
-  paymentVouchers?: PaymentVoucherUpdateManyWithoutEmployeesInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ReceiptVoucherUpdateManyWithoutEmployeesInput,
-  })
-  @ValidateNested()
-  @Type(() => ReceiptVoucherUpdateManyWithoutEmployeesInput)
-  @IsOptional()
-  @Field(() => ReceiptVoucherUpdateManyWithoutEmployeesInput, {
-    nullable: true,
-  })
-  receiptVouchers?: ReceiptVoucherUpdateManyWithoutEmployeesInput;
+  overNightRequests?: OverNightRequestUpdateManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   remainingBalance?: Decimal | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalePersonUpdateManyWithoutEmployeesInput,
-  })
-  @ValidateNested()
-  @Type(() => SalePersonUpdateManyWithoutEmployeesInput)
-  @IsOptional()
-  @Field(() => SalePersonUpdateManyWithoutEmployeesInput, {
-    nullable: true,
-  })
-  salePeople?: SalePersonUpdateManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,
@@ -209,7 +283,6 @@ class EmployeeUpdateInput {
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {

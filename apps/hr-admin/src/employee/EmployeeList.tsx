@@ -11,8 +11,10 @@ import {
 } from "react-admin";
 
 import Pagination from "../Components/Pagination";
-import { EMPLOYEECLASS_TITLE_FIELD } from "../employeeClass/EmployeeClassTitle";
 import { EMPLOYEEDEPARTMENT_TITLE_FIELD } from "../employeeDepartment/EmployeeDepartmentTitle";
+import { EMPLOYEEGROUP_TITLE_FIELD } from "../employeeGroup/EmployeeGroupTitle";
+import { EMPLOYEEROLE_TITLE_FIELD } from "../employeeRole/EmployeeRoleTitle";
+import { JOBTITLE_TITLE_FIELD } from "../jobTitle/JobTitleTitle";
 import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
 
 export const EmployeeList = (props: ListProps): React.ReactElement => {
@@ -29,24 +31,38 @@ export const EmployeeList = (props: ListProps): React.ReactElement => {
         <TextField label="Code" source="code" />
         <DateField source="createdAt" label="Created At" />
         <ReferenceField
-          label="EmployeeClassId"
-          source="employeeclass.id"
-          reference="EmployeeClass"
-        >
-          <TextField source={EMPLOYEECLASS_TITLE_FIELD} />
-        </ReferenceField>
-        <ReferenceField
           label="EmployeeDepartmentId"
           source="employeedepartment.id"
           reference="EmployeeDepartment"
         >
           <TextField source={EMPLOYEEDEPARTMENT_TITLE_FIELD} />
         </ReferenceField>
+        <ReferenceField
+          label="EmployeeGroupId"
+          source="employeegroup.id"
+          reference="EmployeeGroup"
+        >
+          <TextField source={EMPLOYEEGROUP_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField
+          label="EmployeeRoleId"
+          source="employeerole.id"
+          reference="EmployeeRole"
+        >
+          <TextField source={EMPLOYEEROLE_TITLE_FIELD} />
+        </ReferenceField>
+        <TextField label="HireDate" source="hireDate" />
         <TextField label="ID" source="id" />
         <BooleanField label="IsActive" source="isActive" />
+        <ReferenceField
+          label="JobTitleId"
+          source="jobtitle.id"
+          reference="JobTitle"
+        >
+          <TextField source={JOBTITLE_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="LastYearBalance" source="lastYearBalance" />
         <TextField label="Name" source="name" />
-        <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
         <TextField label="RemainingBalance" source="remainingBalance" />
         <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">

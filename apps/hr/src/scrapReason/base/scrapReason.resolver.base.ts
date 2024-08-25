@@ -26,6 +26,8 @@ import { ScrapReasonFindUniqueArgs } from "./ScrapReasonFindUniqueArgs";
 import { CreateScrapReasonArgs } from "./CreateScrapReasonArgs";
 import { UpdateScrapReasonArgs } from "./UpdateScrapReasonArgs";
 import { DeleteScrapReasonArgs } from "./DeleteScrapReasonArgs";
+import { WorkOrderFindManyArgs } from "../../workOrder/base/WorkOrderFindManyArgs";
+import { WorkOrder } from "../../workOrder/base/WorkOrder";
 import { Tenant } from "../../tenant/base/Tenant";
 import { ScrapReasonService } from "../scrapReason.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -157,6 +159,26 @@ export class ScrapReasonResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkOrder], { name: "workOrders" })
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrders(
+    @graphql.Parent() parent: ScrapReason,
+    @graphql.Args() args: WorkOrderFindManyArgs
+  ): Promise<WorkOrder[]> {
+    const results = await this.service.findWorkOrders(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

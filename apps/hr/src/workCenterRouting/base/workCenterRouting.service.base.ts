@@ -14,7 +14,6 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   WorkCenterRouting as PrismaWorkCenterRouting,
-  BillOfMaterialDetail as PrismaBillOfMaterialDetail,
   Tenant as PrismaTenant,
   WorkCenter as PrismaWorkCenter,
 } from "@prisma/client";
@@ -54,23 +53,12 @@ export class WorkCenterRoutingServiceBase {
     return this.prisma.workCenterRouting.delete(args);
   }
 
-  async findBillOfMaterialDetails(
-    parentId: string,
-    args: Prisma.BillOfMaterialDetailFindManyArgs
-  ): Promise<PrismaBillOfMaterialDetail[]> {
-    return this.prisma.workCenterRouting
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .billOfMaterialDetails(args);
-  }
-
-  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+  async getTenant(parentId: string): Promise<PrismaTenant | null> {
     return this.prisma.workCenterRouting
       .findUnique({
         where: { id: parentId },
       })
-      .tenantId();
+      .tenant();
   }
 
   async getWorkCenterId(parentId: string): Promise<PrismaWorkCenter | null> {

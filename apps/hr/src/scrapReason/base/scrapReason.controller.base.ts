@@ -26,6 +26,9 @@ import { ScrapReason } from "./ScrapReason";
 import { ScrapReasonFindManyArgs } from "./ScrapReasonFindManyArgs";
 import { ScrapReasonWhereUniqueInput } from "./ScrapReasonWhereUniqueInput";
 import { ScrapReasonUpdateInput } from "./ScrapReasonUpdateInput";
+import { WorkOrderFindManyArgs } from "../../workOrder/base/WorkOrderFindManyArgs";
+import { WorkOrder } from "../../workOrder/base/WorkOrder";
+import { WorkOrderWhereUniqueInput } from "../../workOrder/base/WorkOrderWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -261,5 +264,134 @@ export class ScrapReasonControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workOrders")
+  @ApiNestedQuery(WorkOrderFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrders(
+    @common.Req() request: Request,
+    @common.Param() params: ScrapReasonWhereUniqueInput
+  ): Promise<WorkOrder[]> {
+    const query = plainToClass(WorkOrderFindManyArgs, request.query);
+    const results = await this.service.findWorkOrders(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+        code: true,
+        costsPerHour: true,
+        createdAt: true,
+        duaration: true,
+        duarationExpected: true,
+        duarationPercent: true,
+        duarationUnit: true,
+        dueDate: true,
+        endDate: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        orderQuantity: true,
+        productionDate: true,
+        quantityProduced: true,
+        quantityReportedFromPreviouseWorkOrder: true,
+
+        scrapReasonId: {
+          select: {
+            id: true,
+          },
+        },
+
+        scrappedQuantity: true,
+        startDate: true,
+        stockQuantity: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workOrders")
+  @nestAccessControl.UseRoles({
+    resource: "ScrapReason",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkOrders(
+    @common.Param() params: ScrapReasonWhereUniqueInput,
+    @common.Body() body: WorkOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrders: {
+        connect: body,
+      },
+    };
+    await this.service.updateScrapReason({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workOrders")
+  @nestAccessControl.UseRoles({
+    resource: "ScrapReason",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkOrders(
+    @common.Param() params: ScrapReasonWhereUniqueInput,
+    @common.Body() body: WorkOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrders: {
+        set: body,
+      },
+    };
+    await this.service.updateScrapReason({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workOrders")
+  @nestAccessControl.UseRoles({
+    resource: "ScrapReason",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkOrders(
+    @common.Param() params: ScrapReasonWhereUniqueInput,
+    @common.Body() body: WorkOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrders: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateScrapReason({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

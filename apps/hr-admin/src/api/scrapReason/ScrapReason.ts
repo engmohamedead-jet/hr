@@ -1,4 +1,5 @@
 import { Tenant } from "../tenant/Tenant";
+import { WorkOrder } from "../workOrder/WorkOrder";
 
 export type ScrapReason = {
   code: string | null;
@@ -11,4 +12,5 @@ export type ScrapReason = {
   note: string | null;
   tenantId?: Tenant | null;
   updatedAt: Date;
+  workOrders?: Array<WorkOrder>;
 };

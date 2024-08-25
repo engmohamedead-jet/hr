@@ -14,9 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   FiscalMonth as PrismaFiscalMonth,
-  EmployeeSalary as PrismaEmployeeSalary,
-  FiscalWeek as PrismaFiscalWeek,
-  FiscalYear as PrismaFiscalYear,
+  BonusRequest as PrismaBonusRequest,
+  Tenant as PrismaTenant,
 } from "@prisma/client";
 
 export class FiscalMonthServiceBase {
@@ -54,33 +53,19 @@ export class FiscalMonthServiceBase {
     return this.prisma.fiscalMonth.delete(args);
   }
 
-  async findEmployeeSalaries(
-    parentId: string,
-    args: Prisma.EmployeeSalaryFindManyArgs
-  ): Promise<PrismaEmployeeSalary[]> {
-    return this.prisma.fiscalMonth
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .employeeSalaries(args);
-  }
-
-  async findFiscalWeeks(
-    parentId: string,
-    args: Prisma.FiscalWeekFindManyArgs
-  ): Promise<PrismaFiscalWeek[]> {
-    return this.prisma.fiscalMonth
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .fiscalWeeks(args);
-  }
-
-  async getFiscalYear(parentId: string): Promise<PrismaFiscalYear | null> {
+  async getBonusRequests(parentId: string): Promise<PrismaBonusRequest | null> {
     return this.prisma.fiscalMonth
       .findUnique({
         where: { id: parentId },
       })
-      .fiscalYear();
+      .bonusRequests();
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+    return this.prisma.fiscalMonth
+      .findUnique({
+        where: { id: parentId },
+      })
+      .tenantId();
   }
 }

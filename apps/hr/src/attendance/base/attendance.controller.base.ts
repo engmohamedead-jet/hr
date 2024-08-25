@@ -49,16 +49,56 @@ export class AttendanceControllerBase {
     @common.Body() data: AttendanceCreateInput
   ): Promise<Attendance> {
     return await this.service.createAttendance({
-      data: data,
+      data: {
+        ...data,
+
+        ApprovedByUserId: data.ApprovedByUserId
+          ? {
+              connect: data.ApprovedByUserId,
+            }
+          : undefined,
+
+        employeeId: {
+          connect: data.employeeId,
+        },
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
+      },
       select: {
+        ApprovedByUserId: {
+          select: {
+            id: true,
+          },
+        },
+
         attendanceDate: true,
         checkInTime: true,
         checkOutTime: true,
         createdAt: true,
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isActive: true,
+        isAppreoved: true,
         note: true,
         overtimeHours: true,
         reasonForAbsenteeism: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         wasAbsent: true,
         wasPresent: true,
@@ -83,14 +123,36 @@ export class AttendanceControllerBase {
     return this.service.attendances({
       ...args,
       select: {
+        ApprovedByUserId: {
+          select: {
+            id: true,
+          },
+        },
+
         attendanceDate: true,
         checkInTime: true,
         checkOutTime: true,
         createdAt: true,
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isActive: true,
+        isAppreoved: true,
         note: true,
         overtimeHours: true,
         reasonForAbsenteeism: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         wasAbsent: true,
         wasPresent: true,
@@ -116,14 +178,36 @@ export class AttendanceControllerBase {
     const result = await this.service.attendance({
       where: params,
       select: {
+        ApprovedByUserId: {
+          select: {
+            id: true,
+          },
+        },
+
         attendanceDate: true,
         checkInTime: true,
         checkOutTime: true,
         createdAt: true,
+
+        employeeId: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
+        isActive: true,
+        isAppreoved: true,
         note: true,
         overtimeHours: true,
         reasonForAbsenteeism: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
         wasAbsent: true,
         wasPresent: true,
@@ -156,16 +240,56 @@ export class AttendanceControllerBase {
     try {
       return await this.service.updateAttendance({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          ApprovedByUserId: data.ApprovedByUserId
+            ? {
+                connect: data.ApprovedByUserId,
+              }
+            : undefined,
+
+          employeeId: {
+            connect: data.employeeId,
+          },
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
+        },
         select: {
+          ApprovedByUserId: {
+            select: {
+              id: true,
+            },
+          },
+
           attendanceDate: true,
           checkInTime: true,
           checkOutTime: true,
           createdAt: true,
+
+          employeeId: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
+          isActive: true,
+          isAppreoved: true,
           note: true,
           overtimeHours: true,
           reasonForAbsenteeism: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           wasAbsent: true,
           wasPresent: true,
@@ -199,14 +323,36 @@ export class AttendanceControllerBase {
       return await this.service.deleteAttendance({
         where: params,
         select: {
+          ApprovedByUserId: {
+            select: {
+              id: true,
+            },
+          },
+
           attendanceDate: true,
           checkInTime: true,
           checkOutTime: true,
           createdAt: true,
+
+          employeeId: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
+          isActive: true,
+          isAppreoved: true,
           note: true,
           overtimeHours: true,
           reasonForAbsenteeism: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
           wasAbsent: true,
           wasPresent: true,

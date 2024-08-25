@@ -1,15 +1,16 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type FiscalMonthOrderByInput = {
+  bonusRequestsId?: SortOrder;
   code?: SortOrder;
   createdAt?: SortOrder;
-  description?: SortOrder;
   endsOn?: SortOrder;
-  fiscalYearId?: SortOrder;
   id?: SortOrder;
-  mormalizedName?: SortOrder;
+  isActive?: SortOrder;
   name?: SortOrder;
+  normalizedName?: SortOrder;
   note?: SortOrder;
   startsFrom?: SortOrder;
+  tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

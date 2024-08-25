@@ -18,6 +18,7 @@ import { WorkCenterRoutingService } from "../workCenterRouting.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  billOfMaterialId: "exampleBillOfMaterialId",
   code: "exampleCode",
   createdAt: new Date(),
   id: "exampleId",
@@ -31,6 +32,7 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  billOfMaterialId: "exampleBillOfMaterialId",
   code: "exampleCode",
   createdAt: new Date(),
   id: "exampleId",
@@ -45,6 +47,7 @@ const CREATE_RESULT = {
 };
 const FIND_MANY_RESULT = [
   {
+    billOfMaterialId: "exampleBillOfMaterialId",
     code: "exampleCode",
     createdAt: new Date(),
     id: "exampleId",
@@ -59,6 +62,7 @@ const FIND_MANY_RESULT = [
   },
 ];
 const FIND_ONE_RESULT = {
+  billOfMaterialId: "exampleBillOfMaterialId",
   code: "exampleCode",
   createdAt: new Date(),
   id: "exampleId",

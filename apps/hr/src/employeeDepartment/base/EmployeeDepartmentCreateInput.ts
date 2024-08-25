@@ -18,10 +18,8 @@ import {
   ValidateNested,
   IsBoolean,
 } from "class-validator";
-import { EmployeeDepartmentCreateNestedManyWithoutEmployeeDepartmentsInput } from "./EmployeeDepartmentCreateNestedManyWithoutEmployeeDepartmentsInput";
-import { Type } from "class-transformer";
 import { EmployeeCreateNestedManyWithoutEmployeeDepartmentsInput } from "./EmployeeCreateNestedManyWithoutEmployeeDepartmentsInput";
-import { EmployeeDepartmentWhereUniqueInput } from "./EmployeeDepartmentWhereUniqueInput";
+import { Type } from "class-transformer";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
@@ -49,22 +47,6 @@ class EmployeeDepartmentCreateInput {
     nullable: true,
   })
   description?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () =>
-      EmployeeDepartmentCreateNestedManyWithoutEmployeeDepartmentsInput,
-  })
-  @ValidateNested()
-  @Type(() => EmployeeDepartmentCreateNestedManyWithoutEmployeeDepartmentsInput)
-  @IsOptional()
-  @Field(
-    () => EmployeeDepartmentCreateNestedManyWithoutEmployeeDepartmentsInput,
-    {
-      nullable: true,
-    }
-  )
-  employeeDepartments?: EmployeeDepartmentCreateNestedManyWithoutEmployeeDepartmentsInput;
 
   @ApiProperty({
     required: false,
@@ -115,18 +97,6 @@ class EmployeeDepartmentCreateInput {
     nullable: true,
   })
   note?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => EmployeeDepartmentWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => EmployeeDepartmentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => EmployeeDepartmentWhereUniqueInput, {
-    nullable: true,
-  })
-  parentEmployeeDepartmentId?: EmployeeDepartmentWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

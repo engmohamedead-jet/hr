@@ -18,6 +18,7 @@ import { IntFilter } from "../../util/IntFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
+import { WorkOrderListRelationFilter } from "../../workOrder/base/WorkOrderListRelationFilter";
 
 @InputType()
 class ScrapReasonWhereInput {
@@ -109,6 +110,18 @@ class ScrapReasonWhereInput {
     nullable: true,
   })
   tenantId?: TenantWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkOrderListRelationFilter, {
+    nullable: true,
+  })
+  workOrders?: WorkOrderListRelationFilter;
 }
 
 export { ScrapReasonWhereInput as ScrapReasonWhereInput };

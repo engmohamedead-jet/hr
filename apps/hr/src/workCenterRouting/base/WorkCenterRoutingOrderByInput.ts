@@ -28,6 +28,17 @@ class WorkCenterRoutingOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  billOfMaterialId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   code?: SortOrder;
 
   @ApiProperty({
@@ -116,7 +127,7 @@ class WorkCenterRoutingOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  tenantIdId?: SortOrder;
+  tenantId?: SortOrder;
 
   @ApiProperty({
     required: false,

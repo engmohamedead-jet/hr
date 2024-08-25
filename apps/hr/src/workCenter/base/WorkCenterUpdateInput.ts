@@ -27,7 +27,12 @@ import {
 import { Decimal } from "decimal.js";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { Type } from "class-transformer";
+import { WorkCenterAlternativeUpdateManyWithoutWorkCentersInput } from "./WorkCenterAlternativeUpdateManyWithoutWorkCentersInput";
+import { WorkCenterCapacityUpdateManyWithoutWorkCentersInput } from "./WorkCenterCapacityUpdateManyWithoutWorkCentersInput";
+import { WorkCenterProductivityUpdateManyWithoutWorkCentersInput } from "./WorkCenterProductivityUpdateManyWithoutWorkCentersInput";
+import { WorkCenterProductivityLossUpdateManyWithoutWorkCentersInput } from "./WorkCenterProductivityLossUpdateManyWithoutWorkCentersInput";
 import { WorkCenterRoutingUpdateManyWithoutWorkCentersInput } from "./WorkCenterRoutingUpdateManyWithoutWorkCentersInput";
+import { WorkCenterWorkCenterTagUpdateManyWithoutWorkCentersInput } from "./WorkCenterWorkCenterTagUpdateManyWithoutWorkCentersInput";
 
 @InputType()
 class WorkCenterUpdateInput {
@@ -224,6 +229,66 @@ class WorkCenterUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => WorkCenterAlternativeUpdateManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternativeUpdateManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterAlternativeUpdateManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterAlternativeWorkCenters?: WorkCenterAlternativeUpdateManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterAlternativeUpdateManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternativeUpdateManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterAlternativeUpdateManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterAlternatives?: WorkCenterAlternativeUpdateManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterCapacityUpdateManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterCapacityUpdateManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterCapacityUpdateManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterCapacities?: WorkCenterCapacityUpdateManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityUpdateManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityUpdateManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityUpdateManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterProductivities?: WorkCenterProductivityUpdateManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityLossUpdateManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossUpdateManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityLossUpdateManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterProductivityLosses?: WorkCenterProductivityLossUpdateManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
     type: () => WorkCenterRoutingUpdateManyWithoutWorkCentersInput,
   })
   @ValidateNested()
@@ -233,6 +298,18 @@ class WorkCenterUpdateInput {
     nullable: true,
   })
   workCenterRoutings?: WorkCenterRoutingUpdateManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterWorkCenterTagUpdateManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTagUpdateManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterWorkCenterTagUpdateManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagUpdateManyWithoutWorkCentersInput;
 }
 
 export { WorkCenterUpdateInput as WorkCenterUpdateInput };

@@ -11,21 +11,40 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { AttendanceListRelationFilter } from "../../attendance/base/AttendanceListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { BonusRequestListRelationFilter } from "../../bonusRequest/base/BonusRequestListRelationFilter";
+import { CheckInOutListRelationFilter } from "../../checkInOut/base/CheckInOutListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { EmployeeClassWhereUniqueInput } from "../../employeeClass/base/EmployeeClassWhereUniqueInput";
+import { DailyMovementRequestListRelationFilter } from "../../dailyMovementRequest/base/DailyMovementRequestListRelationFilter";
+import { DayOffRequestListRelationFilter } from "../../dayOffRequest/base/DayOffRequestListRelationFilter";
 import { EmployeeDepartmentWhereUniqueInput } from "../../employeeDepartment/base/EmployeeDepartmentWhereUniqueInput";
+import { EmployeeGroupWhereUniqueInput } from "../../employeeGroup/base/EmployeeGroupWhereUniqueInput";
+import { EmployeeRoleWhereUniqueInput } from "../../employeeRole/base/EmployeeRoleWhereUniqueInput";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
-import { PaymentVoucherListRelationFilter } from "../../paymentVoucher/base/PaymentVoucherListRelationFilter";
-import { ReceiptVoucherListRelationFilter } from "../../receiptVoucher/base/ReceiptVoucherListRelationFilter";
-import { SalePersonListRelationFilter } from "../../salePerson/base/SalePersonListRelationFilter";
+import { JobTitleWhereUniqueInput } from "../../jobTitle/base/JobTitleWhereUniqueInput";
+import { LeaveRequestListRelationFilter } from "../../leaveRequest/base/LeaveRequestListRelationFilter";
+import { OverNightRequestListRelationFilter } from "../../overNightRequest/base/OverNightRequestListRelationFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class EmployeeWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => AttendanceListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => AttendanceListRelationFilter)
+  @IsOptional()
+  @Field(() => AttendanceListRelationFilter, {
+    nullable: true,
+  })
+  attendances?: AttendanceListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: DecimalNullableFilter,
@@ -36,6 +55,30 @@ class EmployeeWhereInput {
     nullable: true,
   })
   balance?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BonusRequestListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => BonusRequestListRelationFilter)
+  @IsOptional()
+  @Field(() => BonusRequestListRelationFilter, {
+    nullable: true,
+  })
+  bonusRequests?: BonusRequestListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CheckInOutListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CheckInOutListRelationFilter)
+  @IsOptional()
+  @Field(() => CheckInOutListRelationFilter, {
+    nullable: true,
+  })
+  checkInOuts?: CheckInOutListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -50,15 +93,27 @@ class EmployeeWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => EmployeeClassWhereUniqueInput,
+    type: () => DailyMovementRequestListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => EmployeeClassWhereUniqueInput)
+  @Type(() => DailyMovementRequestListRelationFilter)
   @IsOptional()
-  @Field(() => EmployeeClassWhereUniqueInput, {
+  @Field(() => DailyMovementRequestListRelationFilter, {
     nullable: true,
   })
-  employeeClassId?: EmployeeClassWhereUniqueInput;
+  dailyMovementRequests?: DailyMovementRequestListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DayOffRequestListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DayOffRequestListRelationFilter)
+  @IsOptional()
+  @Field(() => DayOffRequestListRelationFilter, {
+    nullable: true,
+  })
+  dayOffRequests?: DayOffRequestListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -71,6 +126,41 @@ class EmployeeWhereInput {
     nullable: true,
   })
   employeeDepartmentId?: EmployeeDepartmentWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeGroupWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeGroupWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeGroupWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeGroup?: EmployeeGroupWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeRoleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeRoleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeRoleWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeRoleId?: EmployeeRoleWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  hireDate?: DateTimeNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -96,6 +186,18 @@ class EmployeeWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => JobTitleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => JobTitleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => JobTitleWhereUniqueInput, {
+    nullable: true,
+  })
+  jobTitle?: JobTitleWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: DecimalNullableFilter,
   })
   @Type(() => DecimalNullableFilter)
@@ -104,6 +206,18 @@ class EmployeeWhereInput {
     nullable: true,
   })
   lastYearBalance?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => LeaveRequestListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => LeaveRequestListRelationFilter)
+  @IsOptional()
+  @Field(() => LeaveRequestListRelationFilter, {
+    nullable: true,
+  })
+  leavingPermissionRequests?: LeaveRequestListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -118,17 +232,6 @@ class EmployeeWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
-  })
-  @Type(() => StringFilter)
-  @IsOptional()
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  normalizedName?: StringFilter;
-
-  @ApiProperty({
-    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -140,27 +243,15 @@ class EmployeeWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentVoucherListRelationFilter,
+    type: () => OverNightRequestListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => PaymentVoucherListRelationFilter)
+  @Type(() => OverNightRequestListRelationFilter)
   @IsOptional()
-  @Field(() => PaymentVoucherListRelationFilter, {
+  @Field(() => OverNightRequestListRelationFilter, {
     nullable: true,
   })
-  paymentVouchers?: PaymentVoucherListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => ReceiptVoucherListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => ReceiptVoucherListRelationFilter)
-  @IsOptional()
-  @Field(() => ReceiptVoucherListRelationFilter, {
-    nullable: true,
-  })
-  receiptVouchers?: ReceiptVoucherListRelationFilter;
+  overNightRequests?: OverNightRequestListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -172,18 +263,6 @@ class EmployeeWhereInput {
     nullable: true,
   })
   remainingBalance?: DecimalNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalePersonListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => SalePersonListRelationFilter)
-  @IsOptional()
-  @Field(() => SalePersonListRelationFilter, {
-    nullable: true,
-  })
-  salePeople?: SalePersonListRelationFilter;
 
   @ApiProperty({
     required: false,

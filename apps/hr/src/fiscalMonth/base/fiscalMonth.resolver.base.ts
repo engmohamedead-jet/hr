@@ -26,11 +26,8 @@ import { FiscalMonthFindUniqueArgs } from "./FiscalMonthFindUniqueArgs";
 import { CreateFiscalMonthArgs } from "./CreateFiscalMonthArgs";
 import { UpdateFiscalMonthArgs } from "./UpdateFiscalMonthArgs";
 import { DeleteFiscalMonthArgs } from "./DeleteFiscalMonthArgs";
-import { EmployeeSalaryFindManyArgs } from "../../employeeSalary/base/EmployeeSalaryFindManyArgs";
-import { EmployeeSalary } from "../../employeeSalary/base/EmployeeSalary";
-import { FiscalWeekFindManyArgs } from "../../fiscalWeek/base/FiscalWeekFindManyArgs";
-import { FiscalWeek } from "../../fiscalWeek/base/FiscalWeek";
-import { FiscalYear } from "../../fiscalYear/base/FiscalYear";
+import { BonusRequest } from "../../bonusRequest/base/BonusRequest";
+import { Tenant } from "../../tenant/base/Tenant";
 import { FiscalMonthService } from "../fiscalMonth.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => FiscalMonth)
@@ -100,9 +97,17 @@ export class FiscalMonthResolverBase {
       data: {
         ...args.data,
 
-        fiscalYear: {
-          connect: args.data.fiscalYear,
-        },
+        bonusRequests: args.data.bonusRequests
+          ? {
+              connect: args.data.bonusRequests,
+            }
+          : undefined,
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
       },
     });
   }
@@ -123,9 +128,17 @@ export class FiscalMonthResolverBase {
         data: {
           ...args.data,
 
-          fiscalYear: {
-            connect: args.data.fiscalYear,
-          },
+          bonusRequests: args.data.bonusRequests
+            ? {
+                connect: args.data.bonusRequests,
+              }
+            : undefined,
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
         },
       });
     } catch (error) {
@@ -160,59 +173,40 @@ export class FiscalMonthResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [EmployeeSalary], { name: "employeeSalaries" })
-  @nestAccessControl.UseRoles({
-    resource: "EmployeeSalary",
-    action: "read",
-    possession: "any",
-  })
-  async findEmployeeSalaries(
-    @graphql.Parent() parent: FiscalMonth,
-    @graphql.Args() args: EmployeeSalaryFindManyArgs
-  ): Promise<EmployeeSalary[]> {
-    const results = await this.service.findEmployeeSalaries(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [FiscalWeek], { name: "fiscalWeeks" })
-  @nestAccessControl.UseRoles({
-    resource: "FiscalWeek",
-    action: "read",
-    possession: "any",
-  })
-  async findFiscalWeeks(
-    @graphql.Parent() parent: FiscalMonth,
-    @graphql.Args() args: FiscalWeekFindManyArgs
-  ): Promise<FiscalWeek[]> {
-    const results = await this.service.findFiscalWeeks(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => FiscalYear, {
+  @graphql.ResolveField(() => BonusRequest, {
     nullable: true,
-    name: "fiscalYear",
+    name: "bonusRequests",
   })
   @nestAccessControl.UseRoles({
-    resource: "FiscalYear",
+    resource: "BonusRequest",
     action: "read",
     possession: "any",
   })
-  async getFiscalYear(
+  async getBonusRequests(
     @graphql.Parent() parent: FiscalMonth
-  ): Promise<FiscalYear | null> {
-    const result = await this.service.getFiscalYear(parent.id);
+  ): Promise<BonusRequest | null> {
+    const result = await this.service.getBonusRequests(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: FiscalMonth
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
 
     if (!result) {
       return null;

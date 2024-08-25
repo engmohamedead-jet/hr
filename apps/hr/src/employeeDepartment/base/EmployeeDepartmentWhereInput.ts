@@ -14,11 +14,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { EmployeeDepartmentListRelationFilter } from "./EmployeeDepartmentListRelationFilter";
 import { EmployeeListRelationFilter } from "../../employee/base/EmployeeListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
-import { EmployeeDepartmentWhereUniqueInput } from "./EmployeeDepartmentWhereUniqueInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
@@ -44,18 +42,6 @@ class EmployeeDepartmentWhereInput {
     nullable: true,
   })
   description?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => EmployeeDepartmentListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => EmployeeDepartmentListRelationFilter)
-  @IsOptional()
-  @Field(() => EmployeeDepartmentListRelationFilter, {
-    nullable: true,
-  })
-  employeeDepartments?: EmployeeDepartmentListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -123,18 +109,6 @@ class EmployeeDepartmentWhereInput {
     nullable: true,
   })
   note?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => EmployeeDepartmentWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => EmployeeDepartmentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => EmployeeDepartmentWhereUniqueInput, {
-    nullable: true,
-  })
-  parentEmployeeDepartmentId?: EmployeeDepartmentWhereUniqueInput;
 
   @ApiProperty({
     required: false,

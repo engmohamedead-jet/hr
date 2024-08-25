@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   push:
     branches: ["*"]
-    paths: ["apps/hr-service-server"]
+    paths: ["apps/hr"]
 
 jobs:
   continuous-integration:
@@ -25,12 +25,12 @@ jobs:
 
       - name: install dependencies
         run: npm install
-        working-directory: apps/hr-service-server
+        working-directory: apps/hr
 
       - name: build
         run: npm run build
-        working-directory: apps/hr-service-server
+        working-directory: apps/hr
 
       - name: test
         run: npm test
-        working-directory: apps/hr-service-server
+        working-directory: apps/hr

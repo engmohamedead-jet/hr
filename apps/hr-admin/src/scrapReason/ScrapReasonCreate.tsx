@@ -8,9 +8,12 @@ import {
   BooleanInput,
   ReferenceInput,
   SelectInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
 
 import { TenantTitle } from "../tenant/TenantTitle";
+import { WorkOrderTitle } from "../workOrder/WorkOrderTitle";
 
 export const ScrapReasonCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -29,6 +32,14 @@ export const ScrapReasonCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectInput optionText={TenantTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="workOrders"
+          reference="WorkOrder"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkOrderTitle} />
+        </ReferenceArrayInput>
       </SimpleForm>
     </Create>
   );

@@ -10,9 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   ScrapReason as PrismaScrapReason,
+  WorkOrder as PrismaWorkOrder,
   Tenant as PrismaTenant,
 } from "@prisma/client";
 
@@ -49,6 +51,17 @@ export class ScrapReasonServiceBase {
     args: Prisma.ScrapReasonDeleteArgs
   ): Promise<PrismaScrapReason> {
     return this.prisma.scrapReason.delete(args);
+  }
+
+  async findWorkOrders(
+    parentId: number,
+    args: Prisma.WorkOrderFindManyArgs
+  ): Promise<PrismaWorkOrder[]> {
+    return this.prisma.scrapReason
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workOrders(args);
   }
 
   async getTenantId(parentId: number): Promise<PrismaTenant | null> {

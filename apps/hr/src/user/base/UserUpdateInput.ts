@@ -11,21 +11,86 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { AttendanceUpdateManyWithoutUsersInput } from "./AttendanceUpdateManyWithoutUsersInput";
 import {
-  IsString,
-  IsOptional,
-  MaxLength,
-  IsBoolean,
   ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
 } from "class-validator";
+import { Type } from "class-transformer";
+import { BonusRequestUpdateManyWithoutUsersInput } from "./BonusRequestUpdateManyWithoutUsersInput";
+import { CheckInOutUpdateManyWithoutUsersInput } from "./CheckInOutUpdateManyWithoutUsersInput";
+import { DailyMovementRequestUpdateManyWithoutUsersInput } from "./DailyMovementRequestUpdateManyWithoutUsersInput";
+import { DayOffRequestUpdateManyWithoutUsersInput } from "./DayOffRequestUpdateManyWithoutUsersInput";
+import { LeaveRequestUpdateManyWithoutUsersInput } from "./LeaveRequestUpdateManyWithoutUsersInput";
+import { OverNightRequestUpdateManyWithoutUsersInput } from "./OverNightRequestUpdateManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
-import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
-import { Type } from "class-transformer";
 
 @InputType()
 class UserUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => AttendanceUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => AttendanceUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => AttendanceUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  attendances?: AttendanceUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BonusRequestUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => BonusRequestUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => BonusRequestUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  bonuses?: BonusRequestUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CheckInOutUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => CheckInOutUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => CheckInOutUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  checkInOuts?: CheckInOutUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DailyMovementRequestUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => DailyMovementRequestUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => DailyMovementRequestUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  dailyMovements?: DailyMovementRequestUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DayOffRequestUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => DayOffRequestUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => DayOffRequestUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  dayOffs?: DayOffRequestUpdateManyWithoutUsersInput;
+
   @ApiProperty({
     required: false,
     type: String,
@@ -35,7 +100,7 @@ class UserUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  email?: string;
+  email?: string | null;
 
   @ApiProperty({
     required: false,
@@ -51,17 +116,6 @@ class UserUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isActive?: boolean;
-
-  @ApiProperty({
-    required: false,
     type: String,
   })
   @IsString()
@@ -71,6 +125,30 @@ class UserUpdateInput {
     nullable: true,
   })
   lastName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => LeaveRequestUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => LeaveRequestUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => LeaveRequestUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  leaveRequests?: LeaveRequestUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => OverNightRequestUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => OverNightRequestUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => OverNightRequestUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  overNights?: OverNightRequestUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,
@@ -92,18 +170,6 @@ class UserUpdateInput {
     nullable: true,
   })
   roles?: InputJsonValue;
-
-  @ApiProperty({
-    required: false,
-    type: () => TenantWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => TenantWhereUniqueInput)
-  @IsOptional()
-  @Field(() => TenantWhereUniqueInput, {
-    nullable: true,
-  })
-  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

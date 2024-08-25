@@ -26,6 +26,9 @@ import { AttendanceFindUniqueArgs } from "./AttendanceFindUniqueArgs";
 import { CreateAttendanceArgs } from "./CreateAttendanceArgs";
 import { UpdateAttendanceArgs } from "./UpdateAttendanceArgs";
 import { DeleteAttendanceArgs } from "./DeleteAttendanceArgs";
+import { User } from "../../user/base/User";
+import { Employee } from "../../employee/base/Employee";
+import { Tenant } from "../../tenant/base/Tenant";
 import { AttendanceService } from "../attendance.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Attendance)
@@ -92,7 +95,25 @@ export class AttendanceResolverBase {
   ): Promise<Attendance> {
     return await this.service.createAttendance({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        ApprovedByUserId: args.data.ApprovedByUserId
+          ? {
+              connect: args.data.ApprovedByUserId,
+            }
+          : undefined,
+
+        employeeId: {
+          connect: args.data.employeeId,
+        },
+
+        tenantId: args.data.tenantId
+          ? {
+              connect: args.data.tenantId,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +130,25 @@ export class AttendanceResolverBase {
     try {
       return await this.service.updateAttendance({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          ApprovedByUserId: args.data.ApprovedByUserId
+            ? {
+                connect: args.data.ApprovedByUserId,
+              }
+            : undefined,
+
+          employeeId: {
+            connect: args.data.employeeId,
+          },
+
+          tenantId: args.data.tenantId
+            ? {
+                connect: args.data.tenantId,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +179,68 @@ export class AttendanceResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => User, {
+    nullable: true,
+    name: "approvedByUserId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  async getApprovedByUserId(
+    @graphql.Parent() parent: Attendance
+  ): Promise<User | null> {
+    const result = await this.service.getApprovedByUserId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Employee, {
+    nullable: true,
+    name: "employeeId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Employee",
+    action: "read",
+    possession: "any",
+  })
+  async getEmployeeId(
+    @graphql.Parent() parent: Attendance
+  ): Promise<Employee | null> {
+    const result = await this.service.getEmployeeId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Tenant, {
+    nullable: true,
+    name: "tenantId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "read",
+    possession: "any",
+  })
+  async getTenantId(
+    @graphql.Parent() parent: Attendance
+  ): Promise<Tenant | null> {
+    const result = await this.service.getTenantId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

@@ -53,17 +53,6 @@ export class EmployeeDepartmentServiceBase {
     return this.prisma.employeeDepartment.delete(args);
   }
 
-  async findEmployeeDepartments(
-    parentId: string,
-    args: Prisma.EmployeeDepartmentFindManyArgs
-  ): Promise<PrismaEmployeeDepartment[]> {
-    return this.prisma.employeeDepartment
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .employeeDepartments(args);
-  }
-
   async findEmployees(
     parentId: string,
     args: Prisma.EmployeeFindManyArgs
@@ -73,16 +62,6 @@ export class EmployeeDepartmentServiceBase {
         where: { id: parentId },
       })
       .employees(args);
-  }
-
-  async getParentEmployeeDepartmentId(
-    parentId: string
-  ): Promise<PrismaEmployeeDepartment | null> {
-    return this.prisma.employeeDepartment
-      .findUnique({
-        where: { id: parentId },
-      })
-      .parentEmployeeDepartmentId();
   }
 
   async getTenantId(parentId: string): Promise<PrismaTenant | null> {

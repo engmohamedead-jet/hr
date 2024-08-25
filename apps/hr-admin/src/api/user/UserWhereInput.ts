@@ -1,14 +1,24 @@
-import { StringFilter } from "../../util/StringFilter";
+import { AttendanceListRelationFilter } from "../attendance/AttendanceListRelationFilter";
+import { BonusRequestListRelationFilter } from "../bonusRequest/BonusRequestListRelationFilter";
+import { CheckInOutListRelationFilter } from "../checkInOut/CheckInOutListRelationFilter";
+import { DailyMovementRequestListRelationFilter } from "../dailyMovementRequest/DailyMovementRequestListRelationFilter";
+import { DayOffRequestListRelationFilter } from "../dayOffRequest/DayOffRequestListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { BooleanFilter } from "../../util/BooleanFilter";
-import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
+import { LeaveRequestListRelationFilter } from "../leaveRequest/LeaveRequestListRelationFilter";
+import { OverNightRequestListRelationFilter } from "../overNightRequest/OverNightRequestListRelationFilter";
 
 export type UserWhereInput = {
-  email?: StringFilter;
+  attendances?: AttendanceListRelationFilter;
+  bonuses?: BonusRequestListRelationFilter;
+  checkInOuts?: CheckInOutListRelationFilter;
+  dailyMovements?: DailyMovementRequestListRelationFilter;
+  dayOffs?: DayOffRequestListRelationFilter;
+  email?: StringNullableFilter;
   firstName?: StringNullableFilter;
   id?: StringFilter;
-  isActive?: BooleanFilter;
   lastName?: StringNullableFilter;
-  tenantId?: TenantWhereUniqueInput;
+  leaveRequests?: LeaveRequestListRelationFilter;
+  overNights?: OverNightRequestListRelationFilter;
   username?: StringFilter;
 };

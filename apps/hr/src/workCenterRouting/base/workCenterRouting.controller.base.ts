@@ -26,9 +26,6 @@ import { WorkCenterRouting } from "./WorkCenterRouting";
 import { WorkCenterRoutingFindManyArgs } from "./WorkCenterRoutingFindManyArgs";
 import { WorkCenterRoutingWhereUniqueInput } from "./WorkCenterRoutingWhereUniqueInput";
 import { WorkCenterRoutingUpdateInput } from "./WorkCenterRoutingUpdateInput";
-import { BillOfMaterialDetailFindManyArgs } from "../../billOfMaterialDetail/base/BillOfMaterialDetailFindManyArgs";
-import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
-import { BillOfMaterialDetailWhereUniqueInput } from "../../billOfMaterialDetail/base/BillOfMaterialDetailWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -55,19 +52,18 @@ export class WorkCenterRoutingControllerBase {
       data: {
         ...data,
 
-        tenantId: data.tenantId
+        tenant: data.tenant
           ? {
-              connect: data.tenantId,
+              connect: data.tenant,
             }
           : undefined,
 
-        workCenterId: data.workCenterId
-          ? {
-              connect: data.workCenterId,
-            }
-          : undefined,
+        workCenterId: {
+          connect: data.workCenterId,
+        },
       },
       select: {
+        billOfMaterialId: true,
         code: true,
         createdAt: true,
         id: true,
@@ -77,7 +73,7 @@ export class WorkCenterRoutingControllerBase {
         note: true,
         sequence: true,
 
-        tenantId: {
+        tenant: {
           select: {
             id: true,
           },
@@ -115,6 +111,7 @@ export class WorkCenterRoutingControllerBase {
     return this.service.workCenterRoutings({
       ...args,
       select: {
+        billOfMaterialId: true,
         code: true,
         createdAt: true,
         id: true,
@@ -124,7 +121,7 @@ export class WorkCenterRoutingControllerBase {
         note: true,
         sequence: true,
 
-        tenantId: {
+        tenant: {
           select: {
             id: true,
           },
@@ -161,6 +158,7 @@ export class WorkCenterRoutingControllerBase {
     const result = await this.service.workCenterRouting({
       where: params,
       select: {
+        billOfMaterialId: true,
         code: true,
         createdAt: true,
         id: true,
@@ -170,7 +168,7 @@ export class WorkCenterRoutingControllerBase {
         note: true,
         sequence: true,
 
-        tenantId: {
+        tenant: {
           select: {
             id: true,
           },
@@ -217,19 +215,18 @@ export class WorkCenterRoutingControllerBase {
         data: {
           ...data,
 
-          tenantId: data.tenantId
+          tenant: data.tenant
             ? {
-                connect: data.tenantId,
+                connect: data.tenant,
               }
             : undefined,
 
-          workCenterId: data.workCenterId
-            ? {
-                connect: data.workCenterId,
-              }
-            : undefined,
+          workCenterId: {
+            connect: data.workCenterId,
+          },
         },
         select: {
+          billOfMaterialId: true,
           code: true,
           createdAt: true,
           id: true,
@@ -239,7 +236,7 @@ export class WorkCenterRoutingControllerBase {
           note: true,
           sequence: true,
 
-          tenantId: {
+          tenant: {
             select: {
               id: true,
             },
@@ -284,6 +281,7 @@ export class WorkCenterRoutingControllerBase {
       return await this.service.deleteWorkCenterRouting({
         where: params,
         select: {
+          billOfMaterialId: true,
           code: true,
           createdAt: true,
           id: true,
@@ -293,7 +291,7 @@ export class WorkCenterRoutingControllerBase {
           note: true,
           sequence: true,
 
-          tenantId: {
+          tenant: {
             select: {
               id: true,
             },
@@ -318,144 +316,5 @@ export class WorkCenterRoutingControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/billOfMaterialDetails")
-  @ApiNestedQuery(BillOfMaterialDetailFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "BillOfMaterialDetail",
-    action: "read",
-    possession: "any",
-  })
-  async findBillOfMaterialDetails(
-    @common.Req() request: Request,
-    @common.Param() params: WorkCenterRoutingWhereUniqueInput
-  ): Promise<BillOfMaterialDetail[]> {
-    const query = plainToClass(BillOfMaterialDetailFindManyArgs, request.query);
-    const results = await this.service.findBillOfMaterialDetails(params.id, {
-      ...query,
-      select: {
-        billOfMaterial: {
-          select: {
-            id: true,
-          },
-        },
-
-        costShare: true,
-        createdAt: true,
-        id: true,
-        isActive: true,
-        isManualConsumption: true,
-        note: true,
-
-        productId: {
-          select: {
-            id: true,
-          },
-        },
-
-        productVariantId: {
-          select: {
-            id: true,
-          },
-        },
-
-        quantity: true,
-        sequence: true,
-
-        tenant: {
-          select: {
-            id: true,
-          },
-        },
-
-        unitId: {
-          select: {
-            id: true,
-          },
-        },
-
-        updatedAt: true,
-
-        workCenterRoutingId: {
-          select: {
-            id: true,
-          },
-        },
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/billOfMaterialDetails")
-  @nestAccessControl.UseRoles({
-    resource: "WorkCenterRouting",
-    action: "update",
-    possession: "any",
-  })
-  async connectBillOfMaterialDetails(
-    @common.Param() params: WorkCenterRoutingWhereUniqueInput,
-    @common.Body() body: BillOfMaterialDetailWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      billOfMaterialDetails: {
-        connect: body,
-      },
-    };
-    await this.service.updateWorkCenterRouting({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/billOfMaterialDetails")
-  @nestAccessControl.UseRoles({
-    resource: "WorkCenterRouting",
-    action: "update",
-    possession: "any",
-  })
-  async updateBillOfMaterialDetails(
-    @common.Param() params: WorkCenterRoutingWhereUniqueInput,
-    @common.Body() body: BillOfMaterialDetailWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      billOfMaterialDetails: {
-        set: body,
-      },
-    };
-    await this.service.updateWorkCenterRouting({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/billOfMaterialDetails")
-  @nestAccessControl.UseRoles({
-    resource: "WorkCenterRouting",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectBillOfMaterialDetails(
-    @common.Param() params: WorkCenterRoutingWhereUniqueInput,
-    @common.Body() body: BillOfMaterialDetailWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      billOfMaterialDetails: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateWorkCenterRouting({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

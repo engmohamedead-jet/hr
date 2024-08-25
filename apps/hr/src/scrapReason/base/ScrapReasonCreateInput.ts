@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { Type } from "class-transformer";
+import { WorkOrderCreateNestedManyWithoutScrapReasonsInput } from "./WorkOrderCreateNestedManyWithoutScrapReasonsInput";
 
 @InputType()
 class ScrapReasonCreateInput {
@@ -96,6 +97,18 @@ class ScrapReasonCreateInput {
     nullable: true,
   })
   tenantId?: TenantWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderCreateNestedManyWithoutScrapReasonsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderCreateNestedManyWithoutScrapReasonsInput)
+  @IsOptional()
+  @Field(() => WorkOrderCreateNestedManyWithoutScrapReasonsInput, {
+    nullable: true,
+  })
+  workOrders?: WorkOrderCreateNestedManyWithoutScrapReasonsInput;
 }
 
 export { ScrapReasonCreateInput as ScrapReasonCreateInput };

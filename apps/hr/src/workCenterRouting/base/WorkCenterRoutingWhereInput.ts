@@ -11,10 +11,9 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { BillOfMaterialDetailListRelationFilter } from "../../billOfMaterialDetail/base/BillOfMaterialDetailListRelationFilter";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { IntFilter } from "../../util/IntFilter";
@@ -27,15 +26,14 @@ import { WorkCenterWhereUniqueInput } from "../../workCenter/base/WorkCenterWher
 class WorkCenterRoutingWhereInput {
   @ApiProperty({
     required: false,
-    type: () => BillOfMaterialDetailListRelationFilter,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => BillOfMaterialDetailListRelationFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => BillOfMaterialDetailListRelationFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  billOfMaterialDetails?: BillOfMaterialDetailListRelationFilter;
+  billOfMaterialId?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -124,7 +122,7 @@ class WorkCenterRoutingWhereInput {
   @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  tenantId?: TenantWhereUniqueInput;
+  tenant?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,

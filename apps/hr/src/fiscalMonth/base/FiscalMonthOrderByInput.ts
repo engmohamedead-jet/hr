@@ -28,6 +28,17 @@ class FiscalMonthOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  bonusRequestsId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   code?: SortOrder;
 
   @ApiProperty({
@@ -50,29 +61,7 @@ class FiscalMonthOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  description?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   endsOn?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  fiscalYearId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -94,7 +83,7 @@ class FiscalMonthOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  mormalizedName?: SortOrder;
+  isActive?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -106,6 +95,17 @@ class FiscalMonthOrderByInput {
     nullable: true,
   })
   name?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  normalizedName?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -128,6 +128,17 @@ class FiscalMonthOrderByInput {
     nullable: true,
   })
   startsFrom?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  tenantIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

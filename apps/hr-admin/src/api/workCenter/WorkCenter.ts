@@ -1,6 +1,11 @@
 import { Decimal } from "decimal.js";
 import { Tenant } from "../tenant/Tenant";
+import { WorkCenterAlternative } from "../workCenterAlternative/WorkCenterAlternative";
+import { WorkCenterCapacity } from "../workCenterCapacity/WorkCenterCapacity";
+import { WorkCenterProductivity } from "../workCenterProductivity/WorkCenterProductivity";
+import { WorkCenterProductivityLoss } from "../workCenterProductivityLoss/WorkCenterProductivityLoss";
 import { WorkCenterRouting } from "../workCenterRouting/WorkCenterRouting";
+import { WorkCenterWorkCenterTag } from "../workCenterWorkCenterTag/WorkCenterWorkCenterTag";
 
 export type WorkCenter = {
   analyticDistribution: string | null;
@@ -9,7 +14,7 @@ export type WorkCenter = {
   costPerHour: Decimal | null;
   createdAt: Date;
   defaultCapacity: Decimal | null;
-  id: number;
+  id: string;
   isActive: boolean;
   isProductive: boolean;
   name: string;
@@ -22,5 +27,11 @@ export type WorkCenter = {
   tenantId?: Tenant | null;
   timeEfficiency: Decimal | null;
   updatedAt: Date;
+  workCenterAlternativeWorkCenters?: Array<WorkCenterAlternative>;
+  workCenterAlternatives?: Array<WorkCenterAlternative>;
+  workCenterCapacities?: Array<WorkCenterCapacity>;
+  workCenterProductivities?: Array<WorkCenterProductivity>;
+  workCenterProductivityLosses?: Array<WorkCenterProductivityLoss>;
   workCenterRoutings?: Array<WorkCenterRouting>;
+  workCenterWorkCenterTags?: Array<WorkCenterWorkCenterTag>;
 };

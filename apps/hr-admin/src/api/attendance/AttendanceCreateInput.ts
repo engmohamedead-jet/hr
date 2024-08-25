@@ -1,12 +1,19 @@
-import { Decimal } from "decimal.js";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { EmployeeWhereUniqueInput } from "../employee/EmployeeWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type AttendanceCreateInput = {
-  attendanceDate?: Date | null;
-  checkInTime?: Date | null;
-  checkOutTime?: Date | null;
+  ApprovedByUserId?: UserWhereUniqueInput | null;
+  attendanceDate: Date;
+  checkInTime?: string | null;
+  checkOutTime?: string | null;
+  employeeId: EmployeeWhereUniqueInput;
+  isActive: boolean;
+  isAppreoved: boolean;
   note?: string | null;
-  overtimeHours?: Decimal | null;
+  overtimeHours?: string | null;
   reasonForAbsenteeism?: string | null;
-  wasAbsent?: boolean | null;
-  wasPresent: boolean;
+  tenantId?: TenantWhereUniqueInput | null;
+  wasAbsent?: string | null;
+  wasPresent: string;
 };

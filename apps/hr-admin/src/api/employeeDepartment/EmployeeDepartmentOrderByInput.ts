@@ -9,7 +9,6 @@ export type EmployeeDepartmentOrderByInput = {
   name?: SortOrder;
   normalizedName?: SortOrder;
   note?: SortOrder;
-  parentEmployeeDepartmentIdId?: SortOrder;
   tenantIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

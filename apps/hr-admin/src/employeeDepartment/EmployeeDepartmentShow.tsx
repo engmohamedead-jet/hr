@@ -13,8 +13,10 @@ import {
 } from "react-admin";
 
 import { EMPLOYEEDEPARTMENT_TITLE_FIELD } from "./EmployeeDepartmentTitle";
+import { EMPLOYEEGROUP_TITLE_FIELD } from "../employeeGroup/EmployeeGroupTitle";
+import { EMPLOYEEROLE_TITLE_FIELD } from "../employeeRole/EmployeeRoleTitle";
+import { JOBTITLE_TITLE_FIELD } from "../jobTitle/JobTitleTitle";
 import { TENANT_TITLE_FIELD } from "../tenant/TenantTitle";
-import { EMPLOYEECLASS_TITLE_FIELD } from "../employeeClass/EmployeeClassTitle";
 
 export const EmployeeDepartmentShow = (
   props: ShowProps
@@ -30,48 +32,10 @@ export const EmployeeDepartmentShow = (
         <TextField label="Name" source="name" />
         <TextField label="NormalizedName" source="normalizedName" />
         <TextField label="Note" source="note" />
-        <ReferenceField
-          label="ParentEmployeeDepartmentId"
-          source="employeedepartment.id"
-          reference="EmployeeDepartment"
-        >
-          <TextField source={EMPLOYEEDEPARTMENT_TITLE_FIELD} />
-        </ReferenceField>
         <ReferenceField label="TenantId" source="tenant.id" reference="Tenant">
           <TextField source={TENANT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
-        <ReferenceManyField
-          reference="EmployeeDepartment"
-          target="parentEmployeeDepartmentIdId"
-          label="EmployeeDepartments"
-        >
-          <Datagrid rowClick="show">
-            <TextField label="Code" source="code" />
-            <DateField source="createdAt" label="Created At" />
-            <TextField label="Description" source="description" />
-            <TextField label="ID" source="id" />
-            <BooleanField label="IsActive" source="isActive" />
-            <TextField label="Name" source="name" />
-            <TextField label="NormalizedName" source="normalizedName" />
-            <TextField label="Note" source="note" />
-            <ReferenceField
-              label="ParentEmployeeDepartmentId"
-              source="employeedepartment.id"
-              reference="EmployeeDepartment"
-            >
-              <TextField source={EMPLOYEEDEPARTMENT_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField
-              label="TenantId"
-              source="tenant.id"
-              reference="Tenant"
-            >
-              <TextField source={TENANT_TITLE_FIELD} />
-            </ReferenceField>
-            <DateField source="updatedAt" label="Updated At" />
-          </Datagrid>
-        </ReferenceManyField>
         <ReferenceManyField
           reference="Employee"
           target="employeeDepartmentIdId"
@@ -82,24 +46,38 @@ export const EmployeeDepartmentShow = (
             <TextField label="Code" source="code" />
             <DateField source="createdAt" label="Created At" />
             <ReferenceField
-              label="EmployeeClassId"
-              source="employeeclass.id"
-              reference="EmployeeClass"
-            >
-              <TextField source={EMPLOYEECLASS_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField
               label="EmployeeDepartmentId"
               source="employeedepartment.id"
               reference="EmployeeDepartment"
             >
               <TextField source={EMPLOYEEDEPARTMENT_TITLE_FIELD} />
             </ReferenceField>
+            <ReferenceField
+              label="EmployeeGroupId"
+              source="employeegroup.id"
+              reference="EmployeeGroup"
+            >
+              <TextField source={EMPLOYEEGROUP_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="EmployeeRoleId"
+              source="employeerole.id"
+              reference="EmployeeRole"
+            >
+              <TextField source={EMPLOYEEROLE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="HireDate" source="hireDate" />
             <TextField label="ID" source="id" />
             <BooleanField label="IsActive" source="isActive" />
+            <ReferenceField
+              label="JobTitleId"
+              source="jobtitle.id"
+              reference="JobTitle"
+            >
+              <TextField source={JOBTITLE_TITLE_FIELD} />
+            </ReferenceField>
             <TextField label="LastYearBalance" source="lastYearBalance" />
             <TextField label="Name" source="name" />
-            <TextField label="NormalizedName" source="normalizedName" />
             <TextField label="Note" source="note" />
             <TextField label="RemainingBalance" source="remainingBalance" />
             <ReferenceField

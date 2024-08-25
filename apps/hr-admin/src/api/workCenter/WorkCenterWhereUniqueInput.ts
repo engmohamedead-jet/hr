@@ -1,3 +1,3 @@
 export type WorkCenterWhereUniqueInput = {
-  id: number;
+  id: string;
 };

@@ -27,7 +27,12 @@ import {
 import { Decimal } from "decimal.js";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { Type } from "class-transformer";
+import { WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput";
 import { WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput";
 
 @InputType()
 class WorkCenterCreateInput {
@@ -209,6 +214,70 @@ class WorkCenterCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterAlternativeWorkCenters?: WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterAlternatives?: WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterCapacities?: WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterProductivities?: WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () =>
+      WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(
+    () => WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput,
+    {
+      nullable: true,
+    }
+  )
+  workCenterProductivityLosses?: WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
     type: () => WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput,
   })
   @ValidateNested()
@@ -218,6 +287,18 @@ class WorkCenterCreateInput {
     nullable: true,
   })
   workCenterRoutings?: WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput)
+  @IsOptional()
+  @Field(() => WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput, {
+    nullable: true,
+  })
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput;
 }
 
 export { WorkCenterCreateInput as WorkCenterCreateInput };

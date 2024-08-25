@@ -22,6 +22,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Tenant } from "../../tenant/base/Tenant";
+import { WorkOrder } from "../../workOrder/base/WorkOrder";
 
 @ObjectType()
 class ScrapReason {
@@ -119,6 +120,15 @@ class ScrapReason {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkOrder],
+  })
+  @ValidateNested()
+  @Type(() => WorkOrder)
+  @IsOptional()
+  workOrders?: Array<WorkOrder>;
 }
 
 export { ScrapReason as ScrapReason };

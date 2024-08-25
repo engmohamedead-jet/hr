@@ -24,6 +24,7 @@ export const WorkCenterRoutingList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
+        <TextField label="BillOfMaterialId" source="billOfMaterialId" />
         <TextField label="Code" source="code" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />

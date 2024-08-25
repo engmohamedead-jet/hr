@@ -26,8 +26,18 @@ import { WorkCenterFindUniqueArgs } from "./WorkCenterFindUniqueArgs";
 import { CreateWorkCenterArgs } from "./CreateWorkCenterArgs";
 import { UpdateWorkCenterArgs } from "./UpdateWorkCenterArgs";
 import { DeleteWorkCenterArgs } from "./DeleteWorkCenterArgs";
+import { WorkCenterAlternativeFindManyArgs } from "../../workCenterAlternative/base/WorkCenterAlternativeFindManyArgs";
+import { WorkCenterAlternative } from "../../workCenterAlternative/base/WorkCenterAlternative";
+import { WorkCenterCapacityFindManyArgs } from "../../workCenterCapacity/base/WorkCenterCapacityFindManyArgs";
+import { WorkCenterCapacity } from "../../workCenterCapacity/base/WorkCenterCapacity";
+import { WorkCenterProductivityFindManyArgs } from "../../workCenterProductivity/base/WorkCenterProductivityFindManyArgs";
+import { WorkCenterProductivity } from "../../workCenterProductivity/base/WorkCenterProductivity";
+import { WorkCenterProductivityLossFindManyArgs } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLossFindManyArgs";
+import { WorkCenterProductivityLoss } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLoss";
 import { WorkCenterRoutingFindManyArgs } from "../../workCenterRouting/base/WorkCenterRoutingFindManyArgs";
 import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
+import { WorkCenterWorkCenterTagFindManyArgs } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTagFindManyArgs";
+import { WorkCenterWorkCenterTag } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTag";
 import { Tenant } from "../../tenant/base/Tenant";
 import { WorkCenterService } from "../workCenter.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -162,6 +172,131 @@ export class WorkCenterResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterAlternative], {
+    name: "workCenterAlternativeWorkCenters",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterAlternative",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterAlternativeWorkCenters(
+    @graphql.Parent() parent: WorkCenter,
+    @graphql.Args() args: WorkCenterAlternativeFindManyArgs
+  ): Promise<WorkCenterAlternative[]> {
+    const results = await this.service.findWorkCenterAlternativeWorkCenters(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterAlternative], {
+    name: "workCenterAlternatives",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterAlternative",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterAlternatives(
+    @graphql.Parent() parent: WorkCenter,
+    @graphql.Args() args: WorkCenterAlternativeFindManyArgs
+  ): Promise<WorkCenterAlternative[]> {
+    const results = await this.service.findWorkCenterAlternatives(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterCapacity], {
+    name: "workCenterCapacities",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterCapacity",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterCapacities(
+    @graphql.Parent() parent: WorkCenter,
+    @graphql.Args() args: WorkCenterCapacityFindManyArgs
+  ): Promise<WorkCenterCapacity[]> {
+    const results = await this.service.findWorkCenterCapacities(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterProductivity], {
+    name: "workCenterProductivities",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterProductivity",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterProductivities(
+    @graphql.Parent() parent: WorkCenter,
+    @graphql.Args() args: WorkCenterProductivityFindManyArgs
+  ): Promise<WorkCenterProductivity[]> {
+    const results = await this.service.findWorkCenterProductivities(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterProductivityLoss], {
+    name: "workCenterProductivityLosses",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterProductivityLoss",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterProductivityLosses(
+    @graphql.Parent() parent: WorkCenter,
+    @graphql.Args() args: WorkCenterProductivityLossFindManyArgs
+  ): Promise<WorkCenterProductivityLoss[]> {
+    const results = await this.service.findWorkCenterProductivityLosses(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [WorkCenterRouting], {
     name: "workCenterRoutings",
   })
@@ -175,6 +310,31 @@ export class WorkCenterResolverBase {
     @graphql.Args() args: WorkCenterRoutingFindManyArgs
   ): Promise<WorkCenterRouting[]> {
     const results = await this.service.findWorkCenterRoutings(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterWorkCenterTag], {
+    name: "workCenterWorkCenterTags",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterWorkCenterTag",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterWorkCenterTags(
+    @graphql.Parent() parent: WorkCenter,
+    @graphql.Args() args: WorkCenterWorkCenterTagFindManyArgs
+  ): Promise<WorkCenterWorkCenterTag[]> {
+    const results = await this.service.findWorkCenterWorkCenterTags(
+      parent.id,
+      args
+    );
 
     if (!results) {
       return [];

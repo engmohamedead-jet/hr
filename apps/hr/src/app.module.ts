@@ -1,93 +1,41 @@
 import { Module } from "@nestjs/common";
 import { CacheModule } from "@nestjs/cache-manager";
 import { redisStore } from "cache-manager-ioredis-yet";
-import { UserModule } from "./user/user.module";
-import { AttributeModule } from "./attribute/attribute.module";
-import { AttributeValueModule } from "./attributeValue/attributeValue.module";
-import { BarcodeTypeModule } from "./barcodeType/barcodeType.module";
-import { BillOfMaterialTypeModule } from "./billOfMaterialType/billOfMaterialType.module";
-import { PrintTemplateGroupModule } from "./printTemplateGroup/printTemplateGroup.module";
-import { PrintTemplateModule } from "./printTemplate/printTemplate.module";
-import { PrintTemplateContentModule } from "./printTemplateContent/printTemplateContent.module";
-import { CustomerModule } from "./customer/customer.module";
-import { SalePriceTypeModule } from "./salePriceType/salePriceType.module";
-import { CurrencyModule } from "./currency/currency.module";
-import { OrderStatusModule } from "./orderStatus/orderStatus.module";
-import { StoreModule } from "./store/store.module";
-import { UnitModule } from "./unit/unit.module";
-import { WorkCenterModule } from "./workCenter/workCenter.module";
-import { WorkCenterRoutingModule } from "./workCenterRouting/workCenterRouting.module";
-import { ProductModule } from "./product/product.module";
-import { ProductTypeModule } from "./productType/productType.module";
-import { ProductDepartmentModule } from "./productDepartment/productDepartment.module";
-import { ProductGroupModule } from "./productGroup/productGroup.module";
-import { AccountModule } from "./account/account.module";
-import { SaleTaxModule } from "./saleTax/saleTax.module";
-import { ProductCategoryModule } from "./productCategory/productCategory.module";
-import { ProductVariantModule } from "./productVariant/productVariant.module";
-import { ProductionDocumentModule } from "./productionDocument/productionDocument.module";
-import { BillOfMaterialModule } from "./billOfMaterial/billOfMaterial.module";
-import { BillOfMaterialDetailModule } from "./billOfMaterialDetail/billOfMaterialDetail.module";
-import { ProductBarcodeModule } from "./productBarcode/productBarcode.module";
-import { ProductionOrderModule } from "./productionOrder/productionOrder.module";
-import { ProductionAvailabilityModule } from "./productionAvailability/productionAvailability.module";
-import { ProductUnitModule } from "./productUnit/productUnit.module";
-import { PurchaseModule } from "./purchase/purchase.module";
-import { InvoiceTypeModule } from "./invoiceType/invoiceType.module";
-import { PaymentTypeModule } from "./paymentType/paymentType.module";
-import { PaymentTermModule } from "./paymentTerm/paymentTerm.module";
-import { PeriodModule } from "./period/period.module";
-import { InstallmentSaleFeeModule } from "./installmentSaleFee/installmentSaleFee.module";
-import { PurchasePriceTypeModule } from "./purchasePriceType/purchasePriceType.module";
-import { SupplierModule } from "./supplier/supplier.module";
-import { CashRepositoryModule } from "./cashRepository/cashRepository.module";
-import { PurchaseDetailModule } from "./purchaseDetail/purchaseDetail.module";
-import { PurchaseReturnModule } from "./purchaseReturn/purchaseReturn.module";
-import { PurchaseReturnDetailModule } from "./purchaseReturnDetail/purchaseReturnDetail.module";
-import { ResourceTypeModule } from "./resourceType/resourceType.module";
-import { ResourceModule } from "./resource/resource.module";
-import { RoleGroupModule } from "./roleGroup/roleGroup.module";
-import { SalaryItemGroupModule } from "./salaryItemGroup/salaryItemGroup.module";
-import { SalaryItemTypeModule } from "./salaryItemType/salaryItemType.module";
-import { SalaryLawModule } from "./salaryLaw/salaryLaw.module";
-import { SalaryItemModule } from "./salaryItem/salaryItem.module";
-import { SaleTeamModule } from "./saleTeam/saleTeam.module";
-import { ScrapReasonModule } from "./scrapReason/scrapReason.module";
-import { SalePersonModule } from "./salePerson/salePerson.module";
+import { RedisModule } from "./redis/redis.module";
 import { EmployeeDepartmentModule } from "./employeeDepartment/employeeDepartment.module";
-import { EmployeeClassModule } from "./employeeClass/employeeClass.module";
 import { EmployeeModule } from "./employee/employee.module";
+import { AttendanceModule } from "./attendance/attendance.module";
+import { JobTitleModule } from "./jobTitle/jobTitle.module";
+import { TenantUserModule } from "./tenantUser/tenantUser.module";
 import { TenantModule } from "./tenant/tenant.module";
-import { SaleModule } from "./sale/sale.module";
-import { SaleDetailModule } from "./saleDetail/saleDetail.module";
-import { SaleQuotationModule } from "./saleQuotation/saleQuotation.module";
-import { SaleReturnModule } from "./saleReturn/saleReturn.module";
-import { SaleReturnDetailModule } from "./saleReturnDetail/saleReturnDetail.module";
-import { ApplicationModule } from "./application/application.module";
-import { ApplicationDependencyModule } from "./applicationDependency/applicationDependency.module";
-import { SaleQuotationDetailModule } from "./saleQuotationDetail/saleQuotationDetail.module";
-import { SaleOrderModule } from "./saleOrder/saleOrder.module";
-import { SaleOrderDetailModule } from "./saleOrderDetail/saleOrderDetail.module";
-import { PaymentStatusModule } from "./paymentStatus/paymentStatus.module";
-import { ShippingStatusModule } from "./shippingStatus/shippingStatus.module";
-import { SalePaymentModule } from "./salePayment/salePayment.module";
-import { PaymentMethodModule } from "./paymentMethod/paymentMethod.module";
-import { BankModule } from "./bank/bank.module";
-import { BankTypeModule } from "./bankType/bankType.module";
-import { BankBranchModule } from "./bankBranch/bankBranch.module";
-import { SettingGroupModule } from "./settingGroup/settingGroup.module";
-import { SettingModule } from "./setting/setting.module";
-import { ShiftModule } from "./shift/shift.module";
-import { StoreLocationModule } from "./storeLocation/storeLocation.module";
-import { StoreTypeModule } from "./storeType/storeType.module";
-import { ReceiptVoucherModule } from "./receiptVoucher/receiptVoucher.module";
-import { VoucherTypeModule } from "./voucherType/voucherType.module";
-import { AccountTransactionModule } from "./accountTransaction/accountTransaction.module";
-import { ExpenseItemModule } from "./expenseItem/expenseItem.module";
-import { PaymentVoucherModule } from "./paymentVoucher/paymentVoucher.module";
-import { TimeModeModule } from "./timeMode/timeMode.module";
-import { TimeoffTypeModule } from "./timeoffType/timeoffType.module";
-import { TimezoneModule } from "./timezone/timezone.module";
+import { UserModule } from "./user/user.module";
+import { EmployeeRoleModule } from "./employeeRole/employeeRole.module";
+import { EmployeeGroupModule } from "./employeeGroup/employeeGroup.module";
+import { BonusRequestModule } from "./bonusRequest/bonusRequest.module";
+import { MachineModule } from "./machine/machine.module";
+import { CheckInOutModule } from "./checkInOut/checkInOut.module";
+import { DailyMovementRequestModule } from "./dailyMovementRequest/dailyMovementRequest.module";
+import { DayOffRequestModule } from "./dayOffRequest/dayOffRequest.module";
+import { LeaveRequestModule } from "./leaveRequest/leaveRequest.module";
+import { LeaveRequestTypeModule } from "./leaveRequestType/leaveRequestType.module";
+import { OverNightRequestModule } from "./overNightRequest/overNightRequest.module";
+import { FiscalMonthModule } from "./fiscalMonth/fiscalMonth.module";
+import { TradingSummaryModule } from "./tradingSummary/tradingSummary.module";
+import { WorkCenterModule } from "./workCenter/workCenter.module";
+import { WorkCenterAlternativeModule } from "./workCenterAlternative/workCenterAlternative.module";
+import { WorkCenterCapacityModule } from "./workCenterCapacity/workCenterCapacity.module";
+import { WorkCenterProductivityModule } from "./workCenterProductivity/workCenterProductivity.module";
+import { WorkCenterProductivityLossModule } from "./workCenterProductivityLoss/workCenterProductivityLoss.module";
+import { WorkCenterProductivityLossTypeModule } from "./workCenterProductivityLossType/workCenterProductivityLossType.module";
+import { WorkCenterRoutingModule } from "./workCenterRouting/workCenterRouting.module";
+import { WorkCenterTagModule } from "./workCenterTag/workCenterTag.module";
+import { WorkCenterWorkCenterTagModule } from "./workCenterWorkCenterTag/workCenterWorkCenterTag.module";
+import { WorkSheetTypeModule } from "./workSheetType/workSheetType.module";
+import { WorkOrderStatusModule } from "./workOrderStatus/workOrderStatus.module";
+import { WorkOrderModule } from "./workOrder/workOrder.module";
+import { ScrapReasonModule } from "./scrapReason/scrapReason.module";
+import { WorkOrderRoutingModule } from "./workOrderRouting/workOrderRouting.module";
+import { WorkOrderDependencyModule } from "./workOrderDependency/workOrderDependency.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -105,93 +53,40 @@ import { AuthModule } from "./auth/auth.module";
   imports: [
     ACLModule,
     AuthModule,
-    UserModule,
-    AttributeModule,
-    AttributeValueModule,
-    BarcodeTypeModule,
-    BillOfMaterialTypeModule,
-    PrintTemplateGroupModule,
-    PrintTemplateModule,
-    PrintTemplateContentModule,
-    CustomerModule,
-    SalePriceTypeModule,
-    CurrencyModule,
-    OrderStatusModule,
-    StoreModule,
-    UnitModule,
-    WorkCenterModule,
-    WorkCenterRoutingModule,
-    ProductModule,
-    ProductTypeModule,
-    ProductDepartmentModule,
-    ProductGroupModule,
-    AccountModule,
-    SaleTaxModule,
-    ProductCategoryModule,
-    ProductVariantModule,
-    ProductionDocumentModule,
-    BillOfMaterialModule,
-    BillOfMaterialDetailModule,
-    ProductBarcodeModule,
-    ProductionOrderModule,
-    ProductionAvailabilityModule,
-    ProductUnitModule,
-    PurchaseModule,
-    InvoiceTypeModule,
-    PaymentTypeModule,
-    PaymentTermModule,
-    PeriodModule,
-    InstallmentSaleFeeModule,
-    PurchasePriceTypeModule,
-    SupplierModule,
-    CashRepositoryModule,
-    PurchaseDetailModule,
-    PurchaseReturnModule,
-    PurchaseReturnDetailModule,
-    ResourceTypeModule,
-    ResourceModule,
-    RoleGroupModule,
-    SalaryItemGroupModule,
-    SalaryItemTypeModule,
-    SalaryLawModule,
-    SalaryItemModule,
-    SaleTeamModule,
-    ScrapReasonModule,
-    SalePersonModule,
     EmployeeDepartmentModule,
-    EmployeeClassModule,
     EmployeeModule,
+    AttendanceModule,
+    JobTitleModule,
+    TenantUserModule,
     TenantModule,
-    SaleModule,
-    SaleDetailModule,
-    SaleQuotationModule,
-    SaleReturnModule,
-    SaleReturnDetailModule,
-    ApplicationModule,
-    ApplicationDependencyModule,
-    SaleQuotationDetailModule,
-    SaleOrderModule,
-    SaleOrderDetailModule,
-    PaymentStatusModule,
-    ShippingStatusModule,
-    SalePaymentModule,
-    PaymentMethodModule,
-    BankModule,
-    BankTypeModule,
-    BankBranchModule,
-    SettingGroupModule,
-    SettingModule,
-    ShiftModule,
-    StoreLocationModule,
-    StoreTypeModule,
-    ReceiptVoucherModule,
-    VoucherTypeModule,
-    AccountTransactionModule,
-    ExpenseItemModule,
-    PaymentVoucherModule,
-    TimeModeModule,
-    TimeoffTypeModule,
-    TimezoneModule,
+    UserModule,
+    EmployeeRoleModule,
+    EmployeeGroupModule,
+    BonusRequestModule,
+    MachineModule,
+    CheckInOutModule,
+    DailyMovementRequestModule,
+    DayOffRequestModule,
+    LeaveRequestModule,
+    LeaveRequestTypeModule,
+    OverNightRequestModule,
+    FiscalMonthModule,
+    TradingSummaryModule,
+    WorkCenterModule,
+    WorkCenterAlternativeModule,
+    WorkCenterCapacityModule,
+    WorkCenterProductivityModule,
+    WorkCenterProductivityLossModule,
+    WorkCenterProductivityLossTypeModule,
+    WorkCenterRoutingModule,
+    WorkCenterTagModule,
+    WorkCenterWorkCenterTagModule,
+    WorkSheetTypeModule,
+    WorkOrderStatusModule,
+    WorkOrderModule,
+    ScrapReasonModule,
+    WorkOrderRoutingModule,
+    WorkOrderDependencyModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
@@ -238,6 +133,7 @@ import { AuthModule } from "./auth/auth.module";
 
       inject: [ConfigService],
     }),
+    RedisModule,
   ],
   providers: [],
 })

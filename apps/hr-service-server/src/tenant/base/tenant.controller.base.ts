@@ -71,6 +71,54 @@ import { LeaveRequestWhereUniqueInput } from "../../leaveRequest/base/LeaveReque
 import { OverNightRequestFindManyArgs } from "../../overNightRequest/base/OverNightRequestFindManyArgs";
 import { OverNightRequest } from "../../overNightRequest/base/OverNightRequest";
 import { OverNightRequestWhereUniqueInput } from "../../overNightRequest/base/OverNightRequestWhereUniqueInput";
+import { ScrapReasonFindManyArgs } from "../../scrapReason/base/ScrapReasonFindManyArgs";
+import { ScrapReason } from "../../scrapReason/base/ScrapReason";
+import { ScrapReasonWhereUniqueInput } from "../../scrapReason/base/ScrapReasonWhereUniqueInput";
+import { TradingSummaryFindManyArgs } from "../../tradingSummary/base/TradingSummaryFindManyArgs";
+import { TradingSummary } from "../../tradingSummary/base/TradingSummary";
+import { TradingSummaryWhereUniqueInput } from "../../tradingSummary/base/TradingSummaryWhereUniqueInput";
+import { WorkCenterAlternativeFindManyArgs } from "../../workCenterAlternative/base/WorkCenterAlternativeFindManyArgs";
+import { WorkCenterAlternative } from "../../workCenterAlternative/base/WorkCenterAlternative";
+import { WorkCenterAlternativeWhereUniqueInput } from "../../workCenterAlternative/base/WorkCenterAlternativeWhereUniqueInput";
+import { WorkCenterCapacityFindManyArgs } from "../../workCenterCapacity/base/WorkCenterCapacityFindManyArgs";
+import { WorkCenterCapacity } from "../../workCenterCapacity/base/WorkCenterCapacity";
+import { WorkCenterCapacityWhereUniqueInput } from "../../workCenterCapacity/base/WorkCenterCapacityWhereUniqueInput";
+import { WorkCenterProductivityFindManyArgs } from "../../workCenterProductivity/base/WorkCenterProductivityFindManyArgs";
+import { WorkCenterProductivity } from "../../workCenterProductivity/base/WorkCenterProductivity";
+import { WorkCenterProductivityWhereUniqueInput } from "../../workCenterProductivity/base/WorkCenterProductivityWhereUniqueInput";
+import { WorkCenterProductivityLossTypeFindManyArgs } from "../../workCenterProductivityLossType/base/WorkCenterProductivityLossTypeFindManyArgs";
+import { WorkCenterProductivityLossType } from "../../workCenterProductivityLossType/base/WorkCenterProductivityLossType";
+import { WorkCenterProductivityLossTypeWhereUniqueInput } from "../../workCenterProductivityLossType/base/WorkCenterProductivityLossTypeWhereUniqueInput";
+import { WorkCenterProductivityLossFindManyArgs } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLossFindManyArgs";
+import { WorkCenterProductivityLoss } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLoss";
+import { WorkCenterProductivityLossWhereUniqueInput } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLossWhereUniqueInput";
+import { WorkCenterRoutingFindManyArgs } from "../../workCenterRouting/base/WorkCenterRoutingFindManyArgs";
+import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
+import { WorkCenterRoutingWhereUniqueInput } from "../../workCenterRouting/base/WorkCenterRoutingWhereUniqueInput";
+import { WorkCenterTagFindManyArgs } from "../../workCenterTag/base/WorkCenterTagFindManyArgs";
+import { WorkCenterTag } from "../../workCenterTag/base/WorkCenterTag";
+import { WorkCenterTagWhereUniqueInput } from "../../workCenterTag/base/WorkCenterTagWhereUniqueInput";
+import { WorkCenterWorkCenterTagFindManyArgs } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTagFindManyArgs";
+import { WorkCenterWorkCenterTag } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTag";
+import { WorkCenterWorkCenterTagWhereUniqueInput } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTagWhereUniqueInput";
+import { WorkCenterFindManyArgs } from "../../workCenter/base/WorkCenterFindManyArgs";
+import { WorkCenter } from "../../workCenter/base/WorkCenter";
+import { WorkCenterWhereUniqueInput } from "../../workCenter/base/WorkCenterWhereUniqueInput";
+import { WorkOrderDependencyFindManyArgs } from "../../workOrderDependency/base/WorkOrderDependencyFindManyArgs";
+import { WorkOrderDependency } from "../../workOrderDependency/base/WorkOrderDependency";
+import { WorkOrderDependencyWhereUniqueInput } from "../../workOrderDependency/base/WorkOrderDependencyWhereUniqueInput";
+import { WorkOrderRoutingFindManyArgs } from "../../workOrderRouting/base/WorkOrderRoutingFindManyArgs";
+import { WorkOrderRouting } from "../../workOrderRouting/base/WorkOrderRouting";
+import { WorkOrderRoutingWhereUniqueInput } from "../../workOrderRouting/base/WorkOrderRoutingWhereUniqueInput";
+import { WorkOrderStatusFindManyArgs } from "../../workOrderStatus/base/WorkOrderStatusFindManyArgs";
+import { WorkOrderStatus } from "../../workOrderStatus/base/WorkOrderStatus";
+import { WorkOrderStatusWhereUniqueInput } from "../../workOrderStatus/base/WorkOrderStatusWhereUniqueInput";
+import { WorkOrderFindManyArgs } from "../../workOrder/base/WorkOrderFindManyArgs";
+import { WorkOrder } from "../../workOrder/base/WorkOrder";
+import { WorkOrderWhereUniqueInput } from "../../workOrder/base/WorkOrderWhereUniqueInput";
+import { WorkSheetTypeFindManyArgs } from "../../workSheetType/base/WorkSheetTypeFindManyArgs";
+import { WorkSheetType } from "../../workSheetType/base/WorkSheetType";
+import { WorkSheetTypeWhereUniqueInput } from "../../workSheetType/base/WorkSheetTypeWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -1999,6 +2047,1858 @@ export class TenantControllerBase {
   ): Promise<void> {
     const data = {
       overNights: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/scrapReasons")
+  @ApiNestedQuery(ScrapReasonFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ScrapReason",
+    action: "read",
+    possession: "any",
+  })
+  async findScrapReasons(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<ScrapReason[]> {
+    const query = plainToClass(ScrapReasonFindManyArgs, request.query);
+    const results = await this.service.findScrapReasons(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/scrapReasons")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectScrapReasons(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: ScrapReasonWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      scrapReasons: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/scrapReasons")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateScrapReasons(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: ScrapReasonWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      scrapReasons: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/scrapReasons")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectScrapReasons(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: ScrapReasonWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      scrapReasons: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/tradingSummaries")
+  @ApiNestedQuery(TradingSummaryFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "TradingSummary",
+    action: "read",
+    possession: "any",
+  })
+  async findTradingSummaries(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<TradingSummary[]> {
+    const query = plainToClass(TradingSummaryFindManyArgs, request.query);
+    const results = await this.service.findTradingSummaries(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        fiscalWeekId: true,
+        id: true,
+        isActive: true,
+        note: true,
+        partyId: true,
+        price: true,
+        priceTotal: true,
+        productId: true,
+        productVariantId: true,
+        quantity: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        transactionDate: true,
+        transactionTypeId: true,
+        unitId: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/tradingSummaries")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectTradingSummaries(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: TradingSummaryWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      tradingSummaries: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/tradingSummaries")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateTradingSummaries(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: TradingSummaryWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      tradingSummaries: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/tradingSummaries")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectTradingSummaries(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: TradingSummaryWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      tradingSummaries: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workCenterAlternatives")
+  @ApiNestedQuery(WorkCenterAlternativeFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterAlternative",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterAlternatives(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkCenterAlternative[]> {
+    const query = plainToClass(
+      WorkCenterAlternativeFindManyArgs,
+      request.query
+    );
+    const results = await this.service.findWorkCenterAlternatives(params.id, {
+      ...query,
+      select: {
+        alternativeWorkCenterId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        isActive: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        workCenterId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workCenterAlternatives")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkCenterAlternatives(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterAlternativeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterAlternatives: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workCenterAlternatives")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkCenterAlternatives(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterAlternativeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterAlternatives: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workCenterAlternatives")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkCenterAlternatives(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterAlternativeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterAlternatives: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workCenterCapacities")
+  @ApiNestedQuery(WorkCenterCapacityFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterCapacity",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterCapacities(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkCenterCapacity[]> {
+    const query = plainToClass(WorkCenterCapacityFindManyArgs, request.query);
+    const results = await this.service.findWorkCenterCapacities(params.id, {
+      ...query,
+      select: {
+        capacity: true,
+        createdAt: true,
+        id: true,
+        isActive: true,
+        note: true,
+        startTime: true,
+        stopTime: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        workCenterId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workCenterCapacities")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkCenterCapacities(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterCapacityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterCapacities: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workCenterCapacities")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkCenterCapacities(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterCapacityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterCapacities: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workCenterCapacities")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkCenterCapacities(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterCapacityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterCapacities: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workCenterProductivities")
+  @ApiNestedQuery(WorkCenterProductivityFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterProductivity",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterProductivities(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkCenterProductivity[]> {
+    const query = plainToClass(
+      WorkCenterProductivityFindManyArgs,
+      request.query
+    );
+    const results = await this.service.findWorkCenterProductivities(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        description: true,
+        duration: true,
+        endDate: true,
+        id: true,
+        isActive: true,
+        note: true,
+        startDate: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        workCenterId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workCenterProductivities")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkCenterProductivities(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterProductivityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterProductivities: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workCenterProductivities")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkCenterProductivities(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterProductivityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterProductivities: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workCenterProductivities")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkCenterProductivities(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterProductivityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterProductivities: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workCenterProductivityLossTypes")
+  @ApiNestedQuery(WorkCenterProductivityLossTypeFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterProductivityLossType",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterProductivityLossTypes(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkCenterProductivityLossType[]> {
+    const query = plainToClass(
+      WorkCenterProductivityLossTypeFindManyArgs,
+      request.query
+    );
+    const results = await this.service.findWorkCenterProductivityLossTypes(
+      params.id,
+      {
+        ...query,
+        select: {
+          code: true,
+          createdAt: true,
+          description: true,
+          id: true,
+          isActive: true,
+          name: true,
+          normalizedName: true,
+          note: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
+          updatedAt: true,
+        },
+      }
+    );
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workCenterProductivityLossTypes")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkCenterProductivityLossTypes(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterProductivityLossTypeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterProductivityLossTypes: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workCenterProductivityLossTypes")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkCenterProductivityLossTypes(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterProductivityLossTypeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterProductivityLossTypes: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workCenterProductivityLossTypes")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkCenterProductivityLossTypes(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterProductivityLossTypeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterProductivityLossTypes: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workCenterProductivityLosses")
+  @ApiNestedQuery(WorkCenterProductivityLossFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterProductivityLoss",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterProductivityLosses(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkCenterProductivityLoss[]> {
+    const query = plainToClass(
+      WorkCenterProductivityLossFindManyArgs,
+      request.query
+    );
+    const results = await this.service.findWorkCenterProductivityLosses(
+      params.id,
+      {
+        ...query,
+        select: {
+          code: true,
+          createdAt: true,
+          id: true,
+          isActive: true,
+          isManual: true,
+          lossType: true,
+          name: true,
+          normalizedName: true,
+          note: true,
+          sequence: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
+          updatedAt: true,
+
+          workCenterId: {
+            select: {
+              id: true,
+            },
+          },
+
+          workCenterProductivityLossTypeI: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      }
+    );
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workCenterProductivityLosses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkCenterProductivityLosses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterProductivityLossWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterProductivityLosses: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workCenterProductivityLosses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkCenterProductivityLosses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterProductivityLossWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterProductivityLosses: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workCenterProductivityLosses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkCenterProductivityLosses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterProductivityLossWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterProductivityLosses: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workCenterRoutings")
+  @ApiNestedQuery(WorkCenterRoutingFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterRouting",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterRoutings(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkCenterRouting[]> {
+    const query = plainToClass(WorkCenterRoutingFindManyArgs, request.query);
+    const results = await this.service.findWorkCenterRoutings(params.id, {
+      ...query,
+      select: {
+        billOfMaterialId: true,
+        code: true,
+        createdAt: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        sequence: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        timeCycleManual: true,
+        timeModeBatch: true,
+        updatedAt: true,
+
+        workCenterId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workCenterRoutings")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkCenterRoutings(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterRoutingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterRoutings: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workCenterRoutings")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkCenterRoutings(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterRoutingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterRoutings: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workCenterRoutings")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkCenterRoutings(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterRoutingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterRoutings: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workCenterTags")
+  @ApiNestedQuery(WorkCenterTagFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterTag",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterTags(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkCenterTag[]> {
+    const query = plainToClass(WorkCenterTagFindManyArgs, request.query);
+    const results = await this.service.findWorkCenterTags(params.id, {
+      ...query,
+      select: {
+        Desciption: true,
+        code: true,
+        color: true,
+        createdAt: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workCenterTags")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkCenterTags(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterTagWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterTags: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workCenterTags")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkCenterTags(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterTagWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterTags: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workCenterTags")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkCenterTags(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterTagWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterTags: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workCenterWorkCenterTags")
+  @ApiNestedQuery(WorkCenterWorkCenterTagFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterWorkCenterTag",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterWorkCenterTags(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkCenterWorkCenterTag[]> {
+    const query = plainToClass(
+      WorkCenterWorkCenterTagFindManyArgs,
+      request.query
+    );
+    const results = await this.service.findWorkCenterWorkCenterTags(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        isActive: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        workCenter: {
+          select: {
+            id: true,
+          },
+        },
+
+        workCenterTagId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workCenterWorkCenterTags")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkCenterWorkCenterTags(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterWorkCenterTagWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterWorkCenterTags: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workCenterWorkCenterTags")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkCenterWorkCenterTags(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterWorkCenterTagWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterWorkCenterTags: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workCenterWorkCenterTags")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkCenterWorkCenterTags(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterWorkCenterTagWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenterWorkCenterTags: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workCenters")
+  @ApiNestedQuery(WorkCenterFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenter",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenters(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkCenter[]> {
+    const query = plainToClass(WorkCenterFindManyArgs, request.query);
+    const results = await this.service.findWorkCenters(params.id, {
+      ...query,
+      select: {
+        analyticDistribution: true,
+        code: true,
+        color: true,
+        costPerHour: true,
+        createdAt: true,
+        defaultCapacity: true,
+        id: true,
+        isActive: true,
+        isProductive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        oeeTareget: true,
+        sequence: true,
+        startTime: true,
+        stopTime: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        timeEfficiency: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workCenters")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkCenters(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenters: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workCenters")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkCenters(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenters: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workCenters")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkCenters(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkCenterWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workCenters: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workOrderDependencies")
+  @ApiNestedQuery(WorkOrderDependencyFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrderDependency",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrderDependencies(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkOrderDependency[]> {
+    const query = plainToClass(WorkOrderDependencyFindManyArgs, request.query);
+    const results = await this.service.findWorkOrderDependencies(params.id, {
+      ...query,
+      select: {
+        blockedByWorkOrderId: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        isActive: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        workOrderId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workOrderDependencies")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkOrderDependencies(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderDependencyWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrderDependencies: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workOrderDependencies")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkOrderDependencies(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderDependencyWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrderDependencies: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workOrderDependencies")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkOrderDependencies(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderDependencyWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrderDependencies: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workOrderRoutings")
+  @ApiNestedQuery(WorkOrderRoutingFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrderRouting",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrderRoutings(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkOrderRouting[]> {
+    const query = plainToClass(WorkOrderRoutingFindManyArgs, request.query);
+    const results = await this.service.findWorkOrderRoutings(params.id, {
+      ...query,
+      select: {
+        actualCost: true,
+        actualEndDate: true,
+        actualResourceHours: true,
+        actualStartDate: true,
+        createdAt: true,
+        id: true,
+        isActive: true,
+        note: true,
+        plannedCost: true,
+        scheduledEndDate: true,
+        scheduledStartDate: true,
+        sequence: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        workOrderId: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workOrderRoutings")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkOrderRoutings(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderRoutingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrderRoutings: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workOrderRoutings")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkOrderRoutings(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderRoutingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrderRoutings: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workOrderRoutings")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkOrderRoutings(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderRoutingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrderRoutings: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workOrderStatuses")
+  @ApiNestedQuery(WorkOrderStatusFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrderStatus",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrderStatuses(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkOrderStatus[]> {
+    const query = plainToClass(WorkOrderStatusFindManyArgs, request.query);
+    const results = await this.service.findWorkOrderStatuses(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workOrderStatuses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkOrderStatuses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderStatusWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrderStatuses: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workOrderStatuses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkOrderStatuses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderStatusWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrderStatuses: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workOrderStatuses")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkOrderStatuses(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderStatusWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrderStatuses: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workOrders")
+  @ApiNestedQuery(WorkOrderFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrders(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkOrder[]> {
+    const query = plainToClass(WorkOrderFindManyArgs, request.query);
+    const results = await this.service.findWorkOrders(params.id, {
+      ...query,
+      select: {
+        barcode: true,
+        code: true,
+        costsPerHour: true,
+        createdAt: true,
+        duaration: true,
+        duarationExpected: true,
+        duarationPercent: true,
+        duarationUnit: true,
+        dueDate: true,
+        endDate: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+        orderQuantity: true,
+        productionDate: true,
+        quantityProduced: true,
+        quantityReportedFromPreviouseWorkOrder: true,
+
+        scrapReasonId: {
+          select: {
+            id: true,
+          },
+        },
+
+        scrappedQuantity: true,
+        startDate: true,
+        stockQuantity: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkOrders(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrders: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkOrders(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrders: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workOrders")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkOrders(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkOrderWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workOrders: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/workSheetTypes")
+  @ApiNestedQuery(WorkSheetTypeFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "WorkSheetType",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkSheetTypes(
+    @common.Req() request: Request,
+    @common.Param() params: TenantWhereUniqueInput
+  ): Promise<WorkSheetType[]> {
+    const query = plainToClass(WorkSheetTypeFindManyArgs, request.query);
+    const results = await this.service.findWorkSheetTypes(params.id, {
+      ...query,
+      select: {
+        code: true,
+        createdAt: true,
+        id: true,
+        isActive: true,
+        name: true,
+        normalizedName: true,
+        note: true,
+
+        tenant: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/workSheetTypes")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async connectWorkSheetTypes(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkSheetTypeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workSheetTypes: {
+        connect: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/workSheetTypes")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async updateWorkSheetTypes(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkSheetTypeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workSheetTypes: {
+        set: body,
+      },
+    };
+    await this.service.updateTenant({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/workSheetTypes")
+  @nestAccessControl.UseRoles({
+    resource: "Tenant",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectWorkSheetTypes(
+    @common.Param() params: TenantWhereUniqueInput,
+    @common.Body() body: WorkSheetTypeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      workSheetTypes: {
         disconnect: body,
       },
     };

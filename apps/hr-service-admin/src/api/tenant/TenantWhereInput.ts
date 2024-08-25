@@ -14,6 +14,22 @@ import { JobTitleListRelationFilter } from "../jobTitle/JobTitleListRelationFilt
 import { LeaveRequestTypeListRelationFilter } from "../leaveRequestType/LeaveRequestTypeListRelationFilter";
 import { LeaveRequestListRelationFilter } from "../leaveRequest/LeaveRequestListRelationFilter";
 import { OverNightRequestListRelationFilter } from "../overNightRequest/OverNightRequestListRelationFilter";
+import { ScrapReasonListRelationFilter } from "../scrapReason/ScrapReasonListRelationFilter";
+import { TradingSummaryListRelationFilter } from "../tradingSummary/TradingSummaryListRelationFilter";
+import { WorkCenterAlternativeListRelationFilter } from "../workCenterAlternative/WorkCenterAlternativeListRelationFilter";
+import { WorkCenterCapacityListRelationFilter } from "../workCenterCapacity/WorkCenterCapacityListRelationFilter";
+import { WorkCenterProductivityListRelationFilter } from "../workCenterProductivity/WorkCenterProductivityListRelationFilter";
+import { WorkCenterProductivityLossTypeListRelationFilter } from "../workCenterProductivityLossType/WorkCenterProductivityLossTypeListRelationFilter";
+import { WorkCenterProductivityLossListRelationFilter } from "../workCenterProductivityLoss/WorkCenterProductivityLossListRelationFilter";
+import { WorkCenterRoutingListRelationFilter } from "../workCenterRouting/WorkCenterRoutingListRelationFilter";
+import { WorkCenterTagListRelationFilter } from "../workCenterTag/WorkCenterTagListRelationFilter";
+import { WorkCenterWorkCenterTagListRelationFilter } from "../workCenterWorkCenterTag/WorkCenterWorkCenterTagListRelationFilter";
+import { WorkCenterListRelationFilter } from "../workCenter/WorkCenterListRelationFilter";
+import { WorkOrderDependencyListRelationFilter } from "../workOrderDependency/WorkOrderDependencyListRelationFilter";
+import { WorkOrderRoutingListRelationFilter } from "../workOrderRouting/WorkOrderRoutingListRelationFilter";
+import { WorkOrderStatusListRelationFilter } from "../workOrderStatus/WorkOrderStatusListRelationFilter";
+import { WorkOrderListRelationFilter } from "../workOrder/WorkOrderListRelationFilter";
+import { WorkSheetTypeListRelationFilter } from "../workSheetType/WorkSheetTypeListRelationFilter";
 
 export type TenantWhereInput = {
   attendances?: AttendanceListRelationFilter;
@@ -32,4 +48,20 @@ export type TenantWhereInput = {
   leaveRequestTypes?: LeaveRequestTypeListRelationFilter;
   leaveRequests?: LeaveRequestListRelationFilter;
   overNights?: OverNightRequestListRelationFilter;
+  scrapReasons?: ScrapReasonListRelationFilter;
+  tradingSummaries?: TradingSummaryListRelationFilter;
+  workCenterAlternatives?: WorkCenterAlternativeListRelationFilter;
+  workCenterCapacities?: WorkCenterCapacityListRelationFilter;
+  workCenterProductivities?: WorkCenterProductivityListRelationFilter;
+  workCenterProductivityLossTypes?: WorkCenterProductivityLossTypeListRelationFilter;
+  workCenterProductivityLosses?: WorkCenterProductivityLossListRelationFilter;
+  workCenterRoutings?: WorkCenterRoutingListRelationFilter;
+  workCenterTags?: WorkCenterTagListRelationFilter;
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagListRelationFilter;
+  workCenters?: WorkCenterListRelationFilter;
+  workOrderDependencies?: WorkOrderDependencyListRelationFilter;
+  workOrderRoutings?: WorkOrderRoutingListRelationFilter;
+  workOrderStatuses?: WorkOrderStatusListRelationFilter;
+  workOrders?: WorkOrderListRelationFilter;
+  workSheetTypes?: WorkSheetTypeListRelationFilter;
 };

@@ -29,6 +29,22 @@ import { JobTitleListRelationFilter } from "../../jobTitle/base/JobTitleListRela
 import { LeaveRequestTypeListRelationFilter } from "../../leaveRequestType/base/LeaveRequestTypeListRelationFilter";
 import { LeaveRequestListRelationFilter } from "../../leaveRequest/base/LeaveRequestListRelationFilter";
 import { OverNightRequestListRelationFilter } from "../../overNightRequest/base/OverNightRequestListRelationFilter";
+import { ScrapReasonListRelationFilter } from "../../scrapReason/base/ScrapReasonListRelationFilter";
+import { TradingSummaryListRelationFilter } from "../../tradingSummary/base/TradingSummaryListRelationFilter";
+import { WorkCenterAlternativeListRelationFilter } from "../../workCenterAlternative/base/WorkCenterAlternativeListRelationFilter";
+import { WorkCenterCapacityListRelationFilter } from "../../workCenterCapacity/base/WorkCenterCapacityListRelationFilter";
+import { WorkCenterProductivityListRelationFilter } from "../../workCenterProductivity/base/WorkCenterProductivityListRelationFilter";
+import { WorkCenterProductivityLossTypeListRelationFilter } from "../../workCenterProductivityLossType/base/WorkCenterProductivityLossTypeListRelationFilter";
+import { WorkCenterProductivityLossListRelationFilter } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLossListRelationFilter";
+import { WorkCenterRoutingListRelationFilter } from "../../workCenterRouting/base/WorkCenterRoutingListRelationFilter";
+import { WorkCenterTagListRelationFilter } from "../../workCenterTag/base/WorkCenterTagListRelationFilter";
+import { WorkCenterWorkCenterTagListRelationFilter } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTagListRelationFilter";
+import { WorkCenterListRelationFilter } from "../../workCenter/base/WorkCenterListRelationFilter";
+import { WorkOrderDependencyListRelationFilter } from "../../workOrderDependency/base/WorkOrderDependencyListRelationFilter";
+import { WorkOrderRoutingListRelationFilter } from "../../workOrderRouting/base/WorkOrderRoutingListRelationFilter";
+import { WorkOrderStatusListRelationFilter } from "../../workOrderStatus/base/WorkOrderStatusListRelationFilter";
+import { WorkOrderListRelationFilter } from "../../workOrder/base/WorkOrderListRelationFilter";
+import { WorkSheetTypeListRelationFilter } from "../../workSheetType/base/WorkSheetTypeListRelationFilter";
 
 @InputType()
 class TenantWhereInput {
@@ -222,6 +238,198 @@ class TenantWhereInput {
     nullable: true,
   })
   overNights?: OverNightRequestListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ScrapReasonListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ScrapReasonListRelationFilter)
+  @IsOptional()
+  @Field(() => ScrapReasonListRelationFilter, {
+    nullable: true,
+  })
+  scrapReasons?: ScrapReasonListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TradingSummaryListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => TradingSummaryListRelationFilter)
+  @IsOptional()
+  @Field(() => TradingSummaryListRelationFilter, {
+    nullable: true,
+  })
+  tradingSummaries?: TradingSummaryListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterAlternativeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternativeListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterAlternativeListRelationFilter, {
+    nullable: true,
+  })
+  workCenterAlternatives?: WorkCenterAlternativeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterCapacityListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterCapacityListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterCapacityListRelationFilter, {
+    nullable: true,
+  })
+  workCenterCapacities?: WorkCenterCapacityListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityListRelationFilter, {
+    nullable: true,
+  })
+  workCenterProductivities?: WorkCenterProductivityListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityLossTypeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossTypeListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityLossTypeListRelationFilter, {
+    nullable: true,
+  })
+  workCenterProductivityLossTypes?: WorkCenterProductivityLossTypeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityLossListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityLossListRelationFilter, {
+    nullable: true,
+  })
+  workCenterProductivityLosses?: WorkCenterProductivityLossListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterRoutingListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterRoutingListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterRoutingListRelationFilter, {
+    nullable: true,
+  })
+  workCenterRoutings?: WorkCenterRoutingListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterTagListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterTagListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterTagListRelationFilter, {
+    nullable: true,
+  })
+  workCenterTags?: WorkCenterTagListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterWorkCenterTagListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTagListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterWorkCenterTagListRelationFilter, {
+    nullable: true,
+  })
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterListRelationFilter, {
+    nullable: true,
+  })
+  workCenters?: WorkCenterListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderDependencyListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderDependencyListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkOrderDependencyListRelationFilter, {
+    nullable: true,
+  })
+  workOrderDependencies?: WorkOrderDependencyListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderRoutingListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderRoutingListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkOrderRoutingListRelationFilter, {
+    nullable: true,
+  })
+  workOrderRoutings?: WorkOrderRoutingListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderStatusListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderStatusListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkOrderStatusListRelationFilter, {
+    nullable: true,
+  })
+  workOrderStatuses?: WorkOrderStatusListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkOrderListRelationFilter, {
+    nullable: true,
+  })
+  workOrders?: WorkOrderListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkSheetTypeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkSheetTypeListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkSheetTypeListRelationFilter, {
+    nullable: true,
+  })
+  workSheetTypes?: WorkSheetTypeListRelationFilter;
 }
 
 export { TenantWhereInput as TenantWhereInput };

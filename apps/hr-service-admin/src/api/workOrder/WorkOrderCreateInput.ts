@@ -1,0 +1,33 @@
+import { Decimal } from "decimal.js";
+import { ScrapReasonWhereUniqueInput } from "../scrapReason/ScrapReasonWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { WorkOrderDependencyCreateNestedManyWithoutWorkOrdersInput } from "./WorkOrderDependencyCreateNestedManyWithoutWorkOrdersInput";
+import { WorkOrderRoutingCreateNestedManyWithoutWorkOrdersInput } from "./WorkOrderRoutingCreateNestedManyWithoutWorkOrdersInput";
+
+export type WorkOrderCreateInput = {
+  barcode?: string | null;
+  code?: string | null;
+  costsPerHour?: Decimal | null;
+  duaration?: Decimal | null;
+  duarationExpected?: Decimal | null;
+  duarationPercent?: Decimal | null;
+  duarationUnit?: Decimal | null;
+  dueDate?: Date | null;
+  endDate?: Date | null;
+  isActive: boolean;
+  name: string;
+  normalizedName: string;
+  note?: string | null;
+  orderQuantity?: Decimal | null;
+  productionDate?: Date | null;
+  quantityProduced?: Decimal | null;
+  quantityReportedFromPreviouseWorkOrder?: Decimal | null;
+  scrapReasonId?: ScrapReasonWhereUniqueInput | null;
+  scrappedQuantity?: Decimal | null;
+  startDate?: Date | null;
+  stockQuantity?: Decimal | null;
+  tenantId?: TenantWhereUniqueInput | null;
+  workOrderBaseDependencies?: WorkOrderDependencyCreateNestedManyWithoutWorkOrdersInput;
+  workOrderDependencies?: WorkOrderDependencyCreateNestedManyWithoutWorkOrdersInput;
+  workOrderRoutings?: WorkOrderRoutingCreateNestedManyWithoutWorkOrdersInput;
+};

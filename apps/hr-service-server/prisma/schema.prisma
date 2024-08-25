@@ -7,6 +7,21 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model EmployeeDepartment {
+  code           String?
+  createdAt      DateTime   @default(now())
+  description    String?
+  employees      Employee[]
+  id             String     @id @default(cuid())
+  isActive       Boolean    @defau1t(1)
+  name           String     @unique
+  normalizedName String     @unique
+  note           String?
+  tenantId       Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime   @updatedAt
+}
+
 model Employee {
   attendances               Attendance[]
   balance                   Decimal?
@@ -37,21 +52,6 @@ model Employee {
   tenantIdId                String?
   updatedAt                 DateTime               @updatedAt
   usedBalance               Decimal?
-}
-
-model EmployeeDepartment {
-  code           String?
-  createdAt      DateTime   @default(now())
-  description    String?
-  employees      Employee[]
-  id             String     @id @default(cuid())
-  isActive       Boolean    @defau1t(1)
-  name           String     @unique
-  normalizedName String     @unique
-  note           String?
-  tenantId       Tenant?    @relation(fields: [tenantIdId], references: [id])
-  tenantIdId     String?
-  updatedAt      DateTime   @updatedAt
 }
 
 model Attendance {
@@ -98,24 +98,40 @@ model TenantUser {
 }
 
 model Tenant {
-  attendances         Attendance[]
-  bonusRequests       BonusRequest[]
-  checkInOuts         CheckInOut[]
-  createdAt           DateTime               @default(now())
-  dailyMovements      DailyMovementRequest[]
-  dayOffs             DayOffRequest[]
-  employeeDepartments EmployeeDepartment[]
-  employeeGroups      EmployeeGroup[]
-  employeeRoles       EmployeeRole[]
-  employees           Employee[]
-  fingerprintMachines Machine[]
-  fiscalMonths        FiscalMonth[]
-  id                  String                 @id @default(cuid())
-  jobTitles           JobTitle[]
-  leaveRequestTypes   LeaveRequestType[]
-  leaveRequests       LeaveRequest[]
-  overNights          OverNightRequest[]
-  updatedAt           DateTime               @updatedAt
+  attendances                     Attendance[]
+  bonusRequests                   BonusRequest[]
+  checkInOuts                     CheckInOut[]
+  createdAt                       DateTime                         @default(now())
+  dailyMovements                  DailyMovementRequest[]
+  dayOffs                         DayOffRequest[]
+  employeeDepartments             EmployeeDepartment[]
+  employeeGroups                  EmployeeGroup[]
+  employeeRoles                   EmployeeRole[]
+  employees                       Employee[]
+  fingerprintMachines             Machine[]
+  fiscalMonths                    FiscalMonth[]
+  id                              String                           @id @default(cuid())
+  jobTitles                       JobTitle[]
+  leaveRequestTypes               LeaveRequestType[]
+  leaveRequests                   LeaveRequest[]
+  overNights                      OverNightRequest[]
+  scrapReasons                    ScrapReason[]
+  tradingSummaries                TradingSummary[]
+  updatedAt                       DateTime                         @updatedAt
+  workCenterAlternatives          WorkCenterAlternative[]
+  workCenterCapacities            WorkCenterCapacity[]
+  workCenterProductivities        WorkCenterProductivity[]
+  workCenterProductivityLossTypes WorkCenterProductivityLossType[]
+  workCenterProductivityLosses    WorkCenterProductivityLoss[]
+  workCenterRoutings              WorkCenterRouting[]
+  workCenterTags                  WorkCenterTag[]
+  workCenterWorkCenterTags        WorkCenterWorkCenterTag[]
+  workCenters                     WorkCenter[]
+  workOrderDependencies           WorkOrderDependency[]
+  workOrderRoutings               WorkOrderRouting[]
+  workOrderStatuses               WorkOrderStatus[]
+  workOrders                      WorkOrder[]
+  workSheetTypes                  WorkSheetType[]
 }
 
 model User {
@@ -337,7 +353,301 @@ model FiscalMonth {
   updatedAt      DateTime      @updatedAt
 }
 
+model TradingSummary {
+  createdAt         DateTime @default(now())
+  fiscalWeekId      String?
+  id                String   @id @default(cuid())
+  isActive          Boolean  @default(1)
+  note              String?
+  partyId           String?
+  price             Decimal
+  priceTotal        Decimal
+  productId         String
+  productVariantId  String?
+  quantity          Decimal
+  tenantId          Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId        String?
+  transactionDate   DateTime
+  transactionTypeId String?
+  unitId            String
+  updatedAt         DateTime @updatedAt
+}
+
+model WorkCenter {
+  analyticDistribution             String?
+  code                             String?
+  color                            Int?
+  costPerHour                      Decimal?
+  createdAt                        DateTime                     @default(now())
+  defaultCapacity                  Decimal?
+  id                               String                       @id @default(cuid())
+  isActive                         Boolean                      @default(1)
+  isProductive                     Boolean                      @default(0)
+  name                             String                       @unique
+  normalizedName                   String                       @unique
+  note                             String?
+  oeeTareget                       Decimal?
+  sequence                         Int
+  startTime                        Decimal?
+  stopTime                         Decimal?
+  tenantId                         Tenant?                      @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                       String?
+  timeEfficiency                   Decimal?
+  updatedAt                        DateTime                     @updatedAt
+  workCenterAlternativeWorkCenters WorkCenterAlternative[]      @relation(name: "workCenterAlternativeWorkCenters")
+  workCenterAlternatives           WorkCenterAlternative[]      @relation(name: "alternativeWorkCenterId")
+  workCenterCapacities             WorkCenterCapacity[]
+  workCenterProductivities         WorkCenterProductivity[]
+  workCenterProductivityLosses     WorkCenterProductivityLoss[]
+  workCenterRoutings               WorkCenterRouting[]
+  workCenterWorkCenterTags         WorkCenterWorkCenterTag[]
+}
+
+model WorkCenterAlternative {
+  alternativeWorkCenterId   WorkCenter @relation(name: "alternativeWorkCenterId", fields: [alternativeWorkCenterIdId], references: [id])
+  alternativeWorkCenterIdId String
+  createdAt                 DateTime   @default(now())
+  id                        String     @id @default(cuid())
+  isActive                  Boolean?
+  note                      String?
+  tenantId                  Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                String?
+  updatedAt                 DateTime   @updatedAt
+  workCenterId              WorkCenter @relation(name: "workCenterAlternativeWorkCenters", fields: [workCenterIdId], references: [id])
+  workCenterIdId            String
+}
+
+model WorkCenterCapacity {
+  capacity       Decimal
+  createdAt      DateTime   @default(now())
+  id             String     @id @default(cuid())
+  isActive       Boolean    @default(1)
+  note           String?
+  startTime      Decimal?
+  stopTime       Decimal?
+  tenantId       Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime   @updatedAt
+  workCenterId   WorkCenter @relation(fields: [workCenterIdId], references: [id])
+  workCenterIdId String
+}
+
+model WorkCenterProductivity {
+  createdAt      DateTime    @default(now())
+  description    String?
+  duration       Decimal?
+  endDate        DateTime?
+  id             String      @id @default(cuid())
+  isActive       Boolean     @default(1)
+  note           String?
+  startDate      DateTime?
+  tenantId       Tenant?     @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime    @updatedAt
+  workCenterId   WorkCenter? @relation(fields: [workCenterIdId], references: [id])
+  workCenterIdId String?
+}
+
+model WorkCenterProductivityLoss {
+  code                              String?
+  createdAt                         DateTime                                @default(now())
+  id                                String                                  @id @default(cuid())
+  isActive                          Boolean                                 @default(1)
+  isManual                          Boolean                                 @default(0)
+  lossType                          EnumWorkCenterProductivityLossLossType? @Availability
+  name                              String                                  @unique
+  normalizedName                    String                                  @unique
+  note                              String?
+  sequence                          Int?
+  tenantId                          Tenant?                                 @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                        String?
+  updatedAt                         DateTime                                @updatedAt
+  workCenterId                      WorkCenter?                             @relation(fields: [workCenterIdId], references: [id])
+  workCenterIdId                    String?
+  workCenterProductivityLossTypeI   WorkCenterProductivityLossType          @relation(fields: [workCenterProductivityLossTypeIId], references: [id])
+  workCenterProductivityLossTypeIId Int
+}
+
+model WorkCenterProductivityLossType {
+  code                         String?
+  createdAt                    DateTime                     @default(now())
+  description                  String?
+  id                           Int                          @id @default(autoincrement())
+  isActive                     Boolean                      @default(1)
+  name                         String                       @unique
+  normalizedName               String                       @unique
+  note                         String?
+  tenantId                     Tenant?                      @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                   String?
+  updatedAt                    DateTime                     @updatedAt
+  workCenterProductivityLosses WorkCenterProductivityLoss[]
+}
+
+model WorkCenterRouting {
+  billOfMaterialId String?
+  code             String?
+  createdAt        DateTime   @default(now())
+  id               String     @id @default(cuid())
+  isActive         Boolean    @default(1)
+  name             String     @unique
+  normalizedName   String     @unique
+  note             String?
+  sequence         Int
+  tenant           Tenant?    @relation(fields: [tenantId], references: [id])
+  tenantId         String?
+  timeCycleManual  Decimal?
+  timeModeBatch    Int?
+  updatedAt        DateTime   @updatedAt
+  workCenterId     WorkCenter @relation(fields: [workCenterIdId], references: [id])
+  workCenterIdId   String
+}
+
+model WorkCenterTag {
+  Desciption               String?
+  code                     String?
+  color                    Int?
+  createdAt                DateTime                  @default(now())
+  id                       String                    @id @default(cuid())
+  isActive                 Boolean                   @default(1)
+  name                     String                    @unique
+  normalizedName           String                    @unique
+  note                     String?
+  tenantId                 Tenant?                   @relation(fields: [tenantIdId], references: [id])
+  tenantIdId               String?
+  updatedAt                DateTime                  @updatedAt
+  workCenterWorkCenterTags WorkCenterWorkCenterTag[]
+}
+
+model WorkCenterWorkCenterTag {
+  createdAt         DateTime      @default(now())
+  id                String        @id @default(cuid())
+  isActive          Boolean       @default(1)
+  note              String?
+  tenantId          Tenant?       @relation(fields: [tenantIdId], references: [id])
+  tenantIdId        String?
+  updatedAt         DateTime      @updatedAt
+  workCenter        WorkCenter    @relation(fields: [workCenterId], references: [id])
+  workCenterId      String
+  workCenterTagId   WorkCenterTag @relation(fields: [workCenterTagIdId], references: [id])
+  workCenterTagIdId String
+}
+
+model WorkSheetType {
+  code           String?
+  createdAt      DateTime @default(now())
+  id             String   @id @default(cuid())
+  isActive       Boolean  @default(1)
+  name           String   @unique
+  normalizedName String
+  note           String?
+  tenant         Tenant?  @relation(fields: [tenantId], references: [id])
+  tenantId       String?
+  updatedAt      DateTime @updatedAt
+}
+
+model WorkOrderStatus {
+  code           String?
+  createdAt      DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  isActive       Boolean? @default(1)
+  name           String   @unique
+  normalizedName String   @unique
+  note           String?
+  tenantId       Tenant?  @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime @updatedAt
+}
+
+model WorkOrder {
+  barcode                                String?
+  code                                   String?
+  costsPerHour                           Decimal?
+  createdAt                              DateTime              @default(now())
+  duaration                              Decimal?
+  duarationExpected                      Decimal?
+  duarationPercent                       Decimal?
+  duarationUnit                          Decimal?
+  dueDate                                DateTime?
+  endDate                                DateTime?
+  id                                     String                @id @default(cuid())
+  isActive                               Boolean               @default(1)
+  name                                   String                @unique
+  normalizedName                         String                @unique
+  note                                   String?
+  orderQuantity                          Decimal?
+  productionDate                         DateTime?
+  quantityProduced                       Decimal?
+  quantityReportedFromPreviouseWorkOrder Decimal?
+  scrapReasonId                          ScrapReason?          @relation(fields: [scrapReasonIdId], references: [id])
+  scrapReasonIdId                        Int?
+  scrappedQuantity                       Decimal?
+  startDate                              DateTime?
+  stockQuantity                          Decimal?
+  tenantId                               Tenant?               @relation(fields: [tenantIdId], references: [id])
+  tenantIdId                             String?
+  updatedAt                              DateTime              @updatedAt
+  workOrderBaseDependencies              WorkOrderDependency[] @relation(name: "workOrderBaseDependencies")
+  workOrderDependencies                  WorkOrderDependency[] @relation(name: "blockedByWorkOrderId")
+  workOrderRoutings                      WorkOrderRouting[]
+}
+
+model ScrapReason {
+  code           String?
+  createdAt      DateTime    @default(now())
+  description    String?
+  id             Int         @id @default(autoincrement())
+  isActive       Boolean     @default(1)
+  name           String      @unique
+  normalizedName String      @unique
+  note           String?
+  tenantId       Tenant?     @relation(fields: [tenantIdId], references: [id])
+  tenantIdId     String?
+  updatedAt      DateTime    @updatedAt
+  workOrders     WorkOrder[]
+}
+
+model WorkOrderRouting {
+  actualCost          Decimal?
+  actualEndDate       DateTime?
+  actualResourceHours Decimal?
+  actualStartDate     DateTime?
+  createdAt           DateTime  @default(now())
+  id                  String    @id @default(cuid())
+  isActive            Boolean?  @default(1)
+  note                String?
+  plannedCost         Decimal?
+  scheduledEndDate    DateTime?
+  scheduledStartDate  DateTime?
+  sequence            Int?
+  tenantId            Tenant?   @relation(fields: [tenantIdId], references: [id])
+  tenantIdId          String?
+  updatedAt           DateTime  @updatedAt
+  workOrderId         WorkOrder @relation(fields: [workOrderIdId], references: [id])
+  workOrderIdId       String
+}
+
+model WorkOrderDependency {
+  blockedByWorkOrderId   WorkOrder  @relation(name: "blockedByWorkOrderId", fields: [blockedByWorkOrderIdId], references: [id])
+  blockedByWorkOrderIdId String
+  createdAt              DateTime   @default(now())
+  id                     String     @id @default(cuid())
+  isActive               Boolean    @default(1)
+  note                   String?
+  tenantId               Tenant?    @relation(fields: [tenantIdId], references: [id])
+  tenantIdId             String?
+  updatedAt              DateTime   @updatedAt
+  workOrderId            WorkOrder? @relation(name: "workOrderBaseDependencies", fields: [workOrderIdId], references: [id])
+  workOrderIdId          String?
+}
+
 enum EnumCheckInOutCheckType {
   In
   Out
+}
+
+enum EnumWorkCenterProductivityLossLossType {
+  Availability
+  Perfomance
+  Quality
+  Productive
 }

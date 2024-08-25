@@ -28,6 +28,22 @@ import { JobTitleCreateNestedManyWithoutTenantsInput } from "./JobTitleCreateNes
 import { LeaveRequestTypeCreateNestedManyWithoutTenantsInput } from "./LeaveRequestTypeCreateNestedManyWithoutTenantsInput";
 import { LeaveRequestCreateNestedManyWithoutTenantsInput } from "./LeaveRequestCreateNestedManyWithoutTenantsInput";
 import { OverNightRequestCreateNestedManyWithoutTenantsInput } from "./OverNightRequestCreateNestedManyWithoutTenantsInput";
+import { ScrapReasonCreateNestedManyWithoutTenantsInput } from "./ScrapReasonCreateNestedManyWithoutTenantsInput";
+import { TradingSummaryCreateNestedManyWithoutTenantsInput } from "./TradingSummaryCreateNestedManyWithoutTenantsInput";
+import { WorkCenterAlternativeCreateNestedManyWithoutTenantsInput } from "./WorkCenterAlternativeCreateNestedManyWithoutTenantsInput";
+import { WorkCenterCapacityCreateNestedManyWithoutTenantsInput } from "./WorkCenterCapacityCreateNestedManyWithoutTenantsInput";
+import { WorkCenterProductivityCreateNestedManyWithoutTenantsInput } from "./WorkCenterProductivityCreateNestedManyWithoutTenantsInput";
+import { WorkCenterProductivityLossTypeCreateNestedManyWithoutTenantsInput } from "./WorkCenterProductivityLossTypeCreateNestedManyWithoutTenantsInput";
+import { WorkCenterProductivityLossCreateNestedManyWithoutTenantsInput } from "./WorkCenterProductivityLossCreateNestedManyWithoutTenantsInput";
+import { WorkCenterRoutingCreateNestedManyWithoutTenantsInput } from "./WorkCenterRoutingCreateNestedManyWithoutTenantsInput";
+import { WorkCenterTagCreateNestedManyWithoutTenantsInput } from "./WorkCenterTagCreateNestedManyWithoutTenantsInput";
+import { WorkCenterWorkCenterTagCreateNestedManyWithoutTenantsInput } from "./WorkCenterWorkCenterTagCreateNestedManyWithoutTenantsInput";
+import { WorkCenterCreateNestedManyWithoutTenantsInput } from "./WorkCenterCreateNestedManyWithoutTenantsInput";
+import { WorkOrderDependencyCreateNestedManyWithoutTenantsInput } from "./WorkOrderDependencyCreateNestedManyWithoutTenantsInput";
+import { WorkOrderRoutingCreateNestedManyWithoutTenantsInput } from "./WorkOrderRoutingCreateNestedManyWithoutTenantsInput";
+import { WorkOrderStatusCreateNestedManyWithoutTenantsInput } from "./WorkOrderStatusCreateNestedManyWithoutTenantsInput";
+import { WorkOrderCreateNestedManyWithoutTenantsInput } from "./WorkOrderCreateNestedManyWithoutTenantsInput";
+import { WorkSheetTypeCreateNestedManyWithoutTenantsInput } from "./WorkSheetTypeCreateNestedManyWithoutTenantsInput";
 
 @InputType()
 class TenantCreateInput {
@@ -210,6 +226,202 @@ class TenantCreateInput {
     nullable: true,
   })
   overNights?: OverNightRequestCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ScrapReasonCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ScrapReasonCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ScrapReasonCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  scrapReasons?: ScrapReasonCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TradingSummaryCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => TradingSummaryCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => TradingSummaryCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  tradingSummaries?: TradingSummaryCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterAlternativeCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternativeCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterAlternativeCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterAlternatives?: WorkCenterAlternativeCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterCapacityCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterCapacityCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterCapacityCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterCapacities?: WorkCenterCapacityCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterProductivities?: WorkCenterProductivityCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () =>
+      WorkCenterProductivityLossTypeCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossTypeCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(
+    () => WorkCenterProductivityLossTypeCreateNestedManyWithoutTenantsInput,
+    {
+      nullable: true,
+    }
+  )
+  workCenterProductivityLossTypes?: WorkCenterProductivityLossTypeCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityLossCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityLossCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterProductivityLosses?: WorkCenterProductivityLossCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterRoutingCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterRoutingCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterRoutingCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterRoutings?: WorkCenterRoutingCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterTagCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterTagCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterTagCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterTags?: WorkCenterTagCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterWorkCenterTagCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTagCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterWorkCenterTagCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenters?: WorkCenterCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderDependencyCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderDependencyCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderDependencyCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrderDependencies?: WorkOrderDependencyCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderRoutingCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderRoutingCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderRoutingCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrderRoutings?: WorkOrderRoutingCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderStatusCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderStatusCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderStatusCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrderStatuses?: WorkOrderStatusCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrders?: WorkOrderCreateNestedManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkSheetTypeCreateNestedManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkSheetTypeCreateNestedManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkSheetTypeCreateNestedManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workSheetTypes?: WorkSheetTypeCreateNestedManyWithoutTenantsInput;
 }
 
 export { TenantCreateInput as TenantCreateInput };

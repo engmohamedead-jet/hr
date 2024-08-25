@@ -5,14 +5,14 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
-import { EmployeeList } from "./employee/EmployeeList";
-import { EmployeeCreate } from "./employee/EmployeeCreate";
-import { EmployeeEdit } from "./employee/EmployeeEdit";
-import { EmployeeShow } from "./employee/EmployeeShow";
 import { EmployeeDepartmentList } from "./employeeDepartment/EmployeeDepartmentList";
 import { EmployeeDepartmentCreate } from "./employeeDepartment/EmployeeDepartmentCreate";
 import { EmployeeDepartmentEdit } from "./employeeDepartment/EmployeeDepartmentEdit";
 import { EmployeeDepartmentShow } from "./employeeDepartment/EmployeeDepartmentShow";
+import { EmployeeList } from "./employee/EmployeeList";
+import { EmployeeCreate } from "./employee/EmployeeCreate";
+import { EmployeeEdit } from "./employee/EmployeeEdit";
+import { EmployeeShow } from "./employee/EmployeeShow";
 import { AttendanceList } from "./attendance/AttendanceList";
 import { AttendanceCreate } from "./attendance/AttendanceCreate";
 import { AttendanceEdit } from "./attendance/AttendanceEdit";
@@ -77,6 +77,70 @@ import { FiscalMonthList } from "./fiscalMonth/FiscalMonthList";
 import { FiscalMonthCreate } from "./fiscalMonth/FiscalMonthCreate";
 import { FiscalMonthEdit } from "./fiscalMonth/FiscalMonthEdit";
 import { FiscalMonthShow } from "./fiscalMonth/FiscalMonthShow";
+import { TradingSummaryList } from "./tradingSummary/TradingSummaryList";
+import { TradingSummaryCreate } from "./tradingSummary/TradingSummaryCreate";
+import { TradingSummaryEdit } from "./tradingSummary/TradingSummaryEdit";
+import { TradingSummaryShow } from "./tradingSummary/TradingSummaryShow";
+import { WorkCenterList } from "./workCenter/WorkCenterList";
+import { WorkCenterCreate } from "./workCenter/WorkCenterCreate";
+import { WorkCenterEdit } from "./workCenter/WorkCenterEdit";
+import { WorkCenterShow } from "./workCenter/WorkCenterShow";
+import { WorkCenterAlternativeList } from "./workCenterAlternative/WorkCenterAlternativeList";
+import { WorkCenterAlternativeCreate } from "./workCenterAlternative/WorkCenterAlternativeCreate";
+import { WorkCenterAlternativeEdit } from "./workCenterAlternative/WorkCenterAlternativeEdit";
+import { WorkCenterAlternativeShow } from "./workCenterAlternative/WorkCenterAlternativeShow";
+import { WorkCenterCapacityList } from "./workCenterCapacity/WorkCenterCapacityList";
+import { WorkCenterCapacityCreate } from "./workCenterCapacity/WorkCenterCapacityCreate";
+import { WorkCenterCapacityEdit } from "./workCenterCapacity/WorkCenterCapacityEdit";
+import { WorkCenterCapacityShow } from "./workCenterCapacity/WorkCenterCapacityShow";
+import { WorkCenterProductivityList } from "./workCenterProductivity/WorkCenterProductivityList";
+import { WorkCenterProductivityCreate } from "./workCenterProductivity/WorkCenterProductivityCreate";
+import { WorkCenterProductivityEdit } from "./workCenterProductivity/WorkCenterProductivityEdit";
+import { WorkCenterProductivityShow } from "./workCenterProductivity/WorkCenterProductivityShow";
+import { WorkCenterProductivityLossList } from "./workCenterProductivityLoss/WorkCenterProductivityLossList";
+import { WorkCenterProductivityLossCreate } from "./workCenterProductivityLoss/WorkCenterProductivityLossCreate";
+import { WorkCenterProductivityLossEdit } from "./workCenterProductivityLoss/WorkCenterProductivityLossEdit";
+import { WorkCenterProductivityLossShow } from "./workCenterProductivityLoss/WorkCenterProductivityLossShow";
+import { WorkCenterProductivityLossTypeList } from "./workCenterProductivityLossType/WorkCenterProductivityLossTypeList";
+import { WorkCenterProductivityLossTypeCreate } from "./workCenterProductivityLossType/WorkCenterProductivityLossTypeCreate";
+import { WorkCenterProductivityLossTypeEdit } from "./workCenterProductivityLossType/WorkCenterProductivityLossTypeEdit";
+import { WorkCenterProductivityLossTypeShow } from "./workCenterProductivityLossType/WorkCenterProductivityLossTypeShow";
+import { WorkCenterRoutingList } from "./workCenterRouting/WorkCenterRoutingList";
+import { WorkCenterRoutingCreate } from "./workCenterRouting/WorkCenterRoutingCreate";
+import { WorkCenterRoutingEdit } from "./workCenterRouting/WorkCenterRoutingEdit";
+import { WorkCenterRoutingShow } from "./workCenterRouting/WorkCenterRoutingShow";
+import { WorkCenterTagList } from "./workCenterTag/WorkCenterTagList";
+import { WorkCenterTagCreate } from "./workCenterTag/WorkCenterTagCreate";
+import { WorkCenterTagEdit } from "./workCenterTag/WorkCenterTagEdit";
+import { WorkCenterTagShow } from "./workCenterTag/WorkCenterTagShow";
+import { WorkCenterWorkCenterTagList } from "./workCenterWorkCenterTag/WorkCenterWorkCenterTagList";
+import { WorkCenterWorkCenterTagCreate } from "./workCenterWorkCenterTag/WorkCenterWorkCenterTagCreate";
+import { WorkCenterWorkCenterTagEdit } from "./workCenterWorkCenterTag/WorkCenterWorkCenterTagEdit";
+import { WorkCenterWorkCenterTagShow } from "./workCenterWorkCenterTag/WorkCenterWorkCenterTagShow";
+import { WorkSheetTypeList } from "./workSheetType/WorkSheetTypeList";
+import { WorkSheetTypeCreate } from "./workSheetType/WorkSheetTypeCreate";
+import { WorkSheetTypeEdit } from "./workSheetType/WorkSheetTypeEdit";
+import { WorkSheetTypeShow } from "./workSheetType/WorkSheetTypeShow";
+import { WorkOrderStatusList } from "./workOrderStatus/WorkOrderStatusList";
+import { WorkOrderStatusCreate } from "./workOrderStatus/WorkOrderStatusCreate";
+import { WorkOrderStatusEdit } from "./workOrderStatus/WorkOrderStatusEdit";
+import { WorkOrderStatusShow } from "./workOrderStatus/WorkOrderStatusShow";
+import { WorkOrderList } from "./workOrder/WorkOrderList";
+import { WorkOrderCreate } from "./workOrder/WorkOrderCreate";
+import { WorkOrderEdit } from "./workOrder/WorkOrderEdit";
+import { WorkOrderShow } from "./workOrder/WorkOrderShow";
+import { ScrapReasonList } from "./scrapReason/ScrapReasonList";
+import { ScrapReasonCreate } from "./scrapReason/ScrapReasonCreate";
+import { ScrapReasonEdit } from "./scrapReason/ScrapReasonEdit";
+import { ScrapReasonShow } from "./scrapReason/ScrapReasonShow";
+import { WorkOrderRoutingList } from "./workOrderRouting/WorkOrderRoutingList";
+import { WorkOrderRoutingCreate } from "./workOrderRouting/WorkOrderRoutingCreate";
+import { WorkOrderRoutingEdit } from "./workOrderRouting/WorkOrderRoutingEdit";
+import { WorkOrderRoutingShow } from "./workOrderRouting/WorkOrderRoutingShow";
+import { WorkOrderDependencyList } from "./workOrderDependency/WorkOrderDependencyList";
+import { WorkOrderDependencyCreate } from "./workOrderDependency/WorkOrderDependencyCreate";
+import { WorkOrderDependencyEdit } from "./workOrderDependency/WorkOrderDependencyEdit";
+import { WorkOrderDependencyShow } from "./workOrderDependency/WorkOrderDependencyShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -104,18 +168,18 @@ const App = (): React.ReactElement => {
         loginPage={Login}
       >
         <Resource
-          name="Employee"
-          list={EmployeeList}
-          edit={EmployeeEdit}
-          create={EmployeeCreate}
-          show={EmployeeShow}
-        />
-        <Resource
           name="EmployeeDepartment"
           list={EmployeeDepartmentList}
           edit={EmployeeDepartmentEdit}
           create={EmployeeDepartmentCreate}
           show={EmployeeDepartmentShow}
+        />
+        <Resource
+          name="Employee"
+          list={EmployeeList}
+          edit={EmployeeEdit}
+          create={EmployeeCreate}
+          show={EmployeeShow}
         />
         <Resource
           name="Attendance"
@@ -228,6 +292,118 @@ const App = (): React.ReactElement => {
           edit={FiscalMonthEdit}
           create={FiscalMonthCreate}
           show={FiscalMonthShow}
+        />
+        <Resource
+          name="TradingSummary"
+          list={TradingSummaryList}
+          edit={TradingSummaryEdit}
+          create={TradingSummaryCreate}
+          show={TradingSummaryShow}
+        />
+        <Resource
+          name="WorkCenter"
+          list={WorkCenterList}
+          edit={WorkCenterEdit}
+          create={WorkCenterCreate}
+          show={WorkCenterShow}
+        />
+        <Resource
+          name="WorkCenterAlternative"
+          list={WorkCenterAlternativeList}
+          edit={WorkCenterAlternativeEdit}
+          create={WorkCenterAlternativeCreate}
+          show={WorkCenterAlternativeShow}
+        />
+        <Resource
+          name="WorkCenterCapacity"
+          list={WorkCenterCapacityList}
+          edit={WorkCenterCapacityEdit}
+          create={WorkCenterCapacityCreate}
+          show={WorkCenterCapacityShow}
+        />
+        <Resource
+          name="WorkCenterProductivity"
+          list={WorkCenterProductivityList}
+          edit={WorkCenterProductivityEdit}
+          create={WorkCenterProductivityCreate}
+          show={WorkCenterProductivityShow}
+        />
+        <Resource
+          name="WorkCenterProductivityLoss"
+          list={WorkCenterProductivityLossList}
+          edit={WorkCenterProductivityLossEdit}
+          create={WorkCenterProductivityLossCreate}
+          show={WorkCenterProductivityLossShow}
+        />
+        <Resource
+          name="WorkCenterProductivityLossType"
+          list={WorkCenterProductivityLossTypeList}
+          edit={WorkCenterProductivityLossTypeEdit}
+          create={WorkCenterProductivityLossTypeCreate}
+          show={WorkCenterProductivityLossTypeShow}
+        />
+        <Resource
+          name="WorkCenterRouting"
+          list={WorkCenterRoutingList}
+          edit={WorkCenterRoutingEdit}
+          create={WorkCenterRoutingCreate}
+          show={WorkCenterRoutingShow}
+        />
+        <Resource
+          name="WorkCenterTag"
+          list={WorkCenterTagList}
+          edit={WorkCenterTagEdit}
+          create={WorkCenterTagCreate}
+          show={WorkCenterTagShow}
+        />
+        <Resource
+          name="WorkCenterWorkCenterTag"
+          list={WorkCenterWorkCenterTagList}
+          edit={WorkCenterWorkCenterTagEdit}
+          create={WorkCenterWorkCenterTagCreate}
+          show={WorkCenterWorkCenterTagShow}
+        />
+        <Resource
+          name="WorkSheetType"
+          list={WorkSheetTypeList}
+          edit={WorkSheetTypeEdit}
+          create={WorkSheetTypeCreate}
+          show={WorkSheetTypeShow}
+        />
+        <Resource
+          name="WorkOrderStatus"
+          list={WorkOrderStatusList}
+          edit={WorkOrderStatusEdit}
+          create={WorkOrderStatusCreate}
+          show={WorkOrderStatusShow}
+        />
+        <Resource
+          name="WorkOrder"
+          list={WorkOrderList}
+          edit={WorkOrderEdit}
+          create={WorkOrderCreate}
+          show={WorkOrderShow}
+        />
+        <Resource
+          name="ScrapReason"
+          list={ScrapReasonList}
+          edit={ScrapReasonEdit}
+          create={ScrapReasonCreate}
+          show={ScrapReasonShow}
+        />
+        <Resource
+          name="WorkOrderRouting"
+          list={WorkOrderRoutingList}
+          edit={WorkOrderRoutingEdit}
+          create={WorkOrderRoutingCreate}
+          show={WorkOrderRoutingShow}
+        />
+        <Resource
+          name="WorkOrderDependency"
+          list={WorkOrderDependencyList}
+          edit={WorkOrderDependencyEdit}
+          create={WorkOrderDependencyCreate}
+          show={WorkOrderDependencyShow}
         />
       </Admin>
     </div>

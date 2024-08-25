@@ -29,6 +29,22 @@ import {
   LeaveRequestType as PrismaLeaveRequestType,
   LeaveRequest as PrismaLeaveRequest,
   OverNightRequest as PrismaOverNightRequest,
+  ScrapReason as PrismaScrapReason,
+  TradingSummary as PrismaTradingSummary,
+  WorkCenterAlternative as PrismaWorkCenterAlternative,
+  WorkCenterCapacity as PrismaWorkCenterCapacity,
+  WorkCenterProductivity as PrismaWorkCenterProductivity,
+  WorkCenterProductivityLossType as PrismaWorkCenterProductivityLossType,
+  WorkCenterProductivityLoss as PrismaWorkCenterProductivityLoss,
+  WorkCenterRouting as PrismaWorkCenterRouting,
+  WorkCenterTag as PrismaWorkCenterTag,
+  WorkCenterWorkCenterTag as PrismaWorkCenterWorkCenterTag,
+  WorkCenter as PrismaWorkCenter,
+  WorkOrderDependency as PrismaWorkOrderDependency,
+  WorkOrderRouting as PrismaWorkOrderRouting,
+  WorkOrderStatus as PrismaWorkOrderStatus,
+  WorkOrder as PrismaWorkOrder,
+  WorkSheetType as PrismaWorkSheetType,
 } from "@prisma/client";
 
 export class TenantServiceBase {
@@ -219,5 +235,181 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .overNights(args);
+  }
+
+  async findScrapReasons(
+    parentId: string,
+    args: Prisma.ScrapReasonFindManyArgs
+  ): Promise<PrismaScrapReason[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .scrapReasons(args);
+  }
+
+  async findTradingSummaries(
+    parentId: string,
+    args: Prisma.TradingSummaryFindManyArgs
+  ): Promise<PrismaTradingSummary[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .tradingSummaries(args);
+  }
+
+  async findWorkCenterAlternatives(
+    parentId: string,
+    args: Prisma.WorkCenterAlternativeFindManyArgs
+  ): Promise<PrismaWorkCenterAlternative[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterAlternatives(args);
+  }
+
+  async findWorkCenterCapacities(
+    parentId: string,
+    args: Prisma.WorkCenterCapacityFindManyArgs
+  ): Promise<PrismaWorkCenterCapacity[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterCapacities(args);
+  }
+
+  async findWorkCenterProductivities(
+    parentId: string,
+    args: Prisma.WorkCenterProductivityFindManyArgs
+  ): Promise<PrismaWorkCenterProductivity[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterProductivities(args);
+  }
+
+  async findWorkCenterProductivityLossTypes(
+    parentId: string,
+    args: Prisma.WorkCenterProductivityLossTypeFindManyArgs
+  ): Promise<PrismaWorkCenterProductivityLossType[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterProductivityLossTypes(args);
+  }
+
+  async findWorkCenterProductivityLosses(
+    parentId: string,
+    args: Prisma.WorkCenterProductivityLossFindManyArgs
+  ): Promise<PrismaWorkCenterProductivityLoss[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterProductivityLosses(args);
+  }
+
+  async findWorkCenterRoutings(
+    parentId: string,
+    args: Prisma.WorkCenterRoutingFindManyArgs
+  ): Promise<PrismaWorkCenterRouting[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterRoutings(args);
+  }
+
+  async findWorkCenterTags(
+    parentId: string,
+    args: Prisma.WorkCenterTagFindManyArgs
+  ): Promise<PrismaWorkCenterTag[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterTags(args);
+  }
+
+  async findWorkCenterWorkCenterTags(
+    parentId: string,
+    args: Prisma.WorkCenterWorkCenterTagFindManyArgs
+  ): Promise<PrismaWorkCenterWorkCenterTag[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterWorkCenterTags(args);
+  }
+
+  async findWorkCenters(
+    parentId: string,
+    args: Prisma.WorkCenterFindManyArgs
+  ): Promise<PrismaWorkCenter[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenters(args);
+  }
+
+  async findWorkOrderDependencies(
+    parentId: string,
+    args: Prisma.WorkOrderDependencyFindManyArgs
+  ): Promise<PrismaWorkOrderDependency[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workOrderDependencies(args);
+  }
+
+  async findWorkOrderRoutings(
+    parentId: string,
+    args: Prisma.WorkOrderRoutingFindManyArgs
+  ): Promise<PrismaWorkOrderRouting[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workOrderRoutings(args);
+  }
+
+  async findWorkOrderStatuses(
+    parentId: string,
+    args: Prisma.WorkOrderStatusFindManyArgs
+  ): Promise<PrismaWorkOrderStatus[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workOrderStatuses(args);
+  }
+
+  async findWorkOrders(
+    parentId: string,
+    args: Prisma.WorkOrderFindManyArgs
+  ): Promise<PrismaWorkOrder[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workOrders(args);
+  }
+
+  async findWorkSheetTypes(
+    parentId: string,
+    args: Prisma.WorkSheetTypeFindManyArgs
+  ): Promise<PrismaWorkSheetType[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workSheetTypes(args);
   }
 }

@@ -1,0 +1,34 @@
+import { Decimal } from "decimal.js";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput";
+
+export type WorkCenterCreateInput = {
+  analyticDistribution?: string | null;
+  code?: string | null;
+  color?: number | null;
+  costPerHour?: Decimal | null;
+  defaultCapacity?: Decimal | null;
+  isActive: boolean;
+  isProductive: boolean;
+  name: string;
+  normalizedName: string;
+  note?: string | null;
+  oeeTareget?: Decimal | null;
+  sequence: number;
+  startTime?: Decimal | null;
+  stopTime?: Decimal | null;
+  tenantId?: TenantWhereUniqueInput | null;
+  timeEfficiency?: Decimal | null;
+  workCenterAlternativeWorkCenters?: WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput;
+  workCenterAlternatives?: WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput;
+  workCenterCapacities?: WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput;
+  workCenterProductivities?: WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput;
+  workCenterProductivityLosses?: WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput;
+  workCenterRoutings?: WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput;
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput;
+};

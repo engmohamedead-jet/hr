@@ -13,6 +13,22 @@ import { JobTitleCreateNestedManyWithoutTenantsInput } from "./JobTitleCreateNes
 import { LeaveRequestTypeCreateNestedManyWithoutTenantsInput } from "./LeaveRequestTypeCreateNestedManyWithoutTenantsInput";
 import { LeaveRequestCreateNestedManyWithoutTenantsInput } from "./LeaveRequestCreateNestedManyWithoutTenantsInput";
 import { OverNightRequestCreateNestedManyWithoutTenantsInput } from "./OverNightRequestCreateNestedManyWithoutTenantsInput";
+import { ScrapReasonCreateNestedManyWithoutTenantsInput } from "./ScrapReasonCreateNestedManyWithoutTenantsInput";
+import { TradingSummaryCreateNestedManyWithoutTenantsInput } from "./TradingSummaryCreateNestedManyWithoutTenantsInput";
+import { WorkCenterAlternativeCreateNestedManyWithoutTenantsInput } from "./WorkCenterAlternativeCreateNestedManyWithoutTenantsInput";
+import { WorkCenterCapacityCreateNestedManyWithoutTenantsInput } from "./WorkCenterCapacityCreateNestedManyWithoutTenantsInput";
+import { WorkCenterProductivityCreateNestedManyWithoutTenantsInput } from "./WorkCenterProductivityCreateNestedManyWithoutTenantsInput";
+import { WorkCenterProductivityLossTypeCreateNestedManyWithoutTenantsInput } from "./WorkCenterProductivityLossTypeCreateNestedManyWithoutTenantsInput";
+import { WorkCenterProductivityLossCreateNestedManyWithoutTenantsInput } from "./WorkCenterProductivityLossCreateNestedManyWithoutTenantsInput";
+import { WorkCenterRoutingCreateNestedManyWithoutTenantsInput } from "./WorkCenterRoutingCreateNestedManyWithoutTenantsInput";
+import { WorkCenterTagCreateNestedManyWithoutTenantsInput } from "./WorkCenterTagCreateNestedManyWithoutTenantsInput";
+import { WorkCenterWorkCenterTagCreateNestedManyWithoutTenantsInput } from "./WorkCenterWorkCenterTagCreateNestedManyWithoutTenantsInput";
+import { WorkCenterCreateNestedManyWithoutTenantsInput } from "./WorkCenterCreateNestedManyWithoutTenantsInput";
+import { WorkOrderDependencyCreateNestedManyWithoutTenantsInput } from "./WorkOrderDependencyCreateNestedManyWithoutTenantsInput";
+import { WorkOrderRoutingCreateNestedManyWithoutTenantsInput } from "./WorkOrderRoutingCreateNestedManyWithoutTenantsInput";
+import { WorkOrderStatusCreateNestedManyWithoutTenantsInput } from "./WorkOrderStatusCreateNestedManyWithoutTenantsInput";
+import { WorkOrderCreateNestedManyWithoutTenantsInput } from "./WorkOrderCreateNestedManyWithoutTenantsInput";
+import { WorkSheetTypeCreateNestedManyWithoutTenantsInput } from "./WorkSheetTypeCreateNestedManyWithoutTenantsInput";
 
 export type TenantCreateInput = {
   attendances?: AttendanceCreateNestedManyWithoutTenantsInput;
@@ -30,4 +46,20 @@ export type TenantCreateInput = {
   leaveRequestTypes?: LeaveRequestTypeCreateNestedManyWithoutTenantsInput;
   leaveRequests?: LeaveRequestCreateNestedManyWithoutTenantsInput;
   overNights?: OverNightRequestCreateNestedManyWithoutTenantsInput;
+  scrapReasons?: ScrapReasonCreateNestedManyWithoutTenantsInput;
+  tradingSummaries?: TradingSummaryCreateNestedManyWithoutTenantsInput;
+  workCenterAlternatives?: WorkCenterAlternativeCreateNestedManyWithoutTenantsInput;
+  workCenterCapacities?: WorkCenterCapacityCreateNestedManyWithoutTenantsInput;
+  workCenterProductivities?: WorkCenterProductivityCreateNestedManyWithoutTenantsInput;
+  workCenterProductivityLossTypes?: WorkCenterProductivityLossTypeCreateNestedManyWithoutTenantsInput;
+  workCenterProductivityLosses?: WorkCenterProductivityLossCreateNestedManyWithoutTenantsInput;
+  workCenterRoutings?: WorkCenterRoutingCreateNestedManyWithoutTenantsInput;
+  workCenterTags?: WorkCenterTagCreateNestedManyWithoutTenantsInput;
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagCreateNestedManyWithoutTenantsInput;
+  workCenters?: WorkCenterCreateNestedManyWithoutTenantsInput;
+  workOrderDependencies?: WorkOrderDependencyCreateNestedManyWithoutTenantsInput;
+  workOrderRoutings?: WorkOrderRoutingCreateNestedManyWithoutTenantsInput;
+  workOrderStatuses?: WorkOrderStatusCreateNestedManyWithoutTenantsInput;
+  workOrders?: WorkOrderCreateNestedManyWithoutTenantsInput;
+  workSheetTypes?: WorkSheetTypeCreateNestedManyWithoutTenantsInput;
 };

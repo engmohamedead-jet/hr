@@ -56,6 +56,38 @@ import { LeaveRequestFindManyArgs } from "../../leaveRequest/base/LeaveRequestFi
 import { LeaveRequest } from "../../leaveRequest/base/LeaveRequest";
 import { OverNightRequestFindManyArgs } from "../../overNightRequest/base/OverNightRequestFindManyArgs";
 import { OverNightRequest } from "../../overNightRequest/base/OverNightRequest";
+import { ScrapReasonFindManyArgs } from "../../scrapReason/base/ScrapReasonFindManyArgs";
+import { ScrapReason } from "../../scrapReason/base/ScrapReason";
+import { TradingSummaryFindManyArgs } from "../../tradingSummary/base/TradingSummaryFindManyArgs";
+import { TradingSummary } from "../../tradingSummary/base/TradingSummary";
+import { WorkCenterAlternativeFindManyArgs } from "../../workCenterAlternative/base/WorkCenterAlternativeFindManyArgs";
+import { WorkCenterAlternative } from "../../workCenterAlternative/base/WorkCenterAlternative";
+import { WorkCenterCapacityFindManyArgs } from "../../workCenterCapacity/base/WorkCenterCapacityFindManyArgs";
+import { WorkCenterCapacity } from "../../workCenterCapacity/base/WorkCenterCapacity";
+import { WorkCenterProductivityFindManyArgs } from "../../workCenterProductivity/base/WorkCenterProductivityFindManyArgs";
+import { WorkCenterProductivity } from "../../workCenterProductivity/base/WorkCenterProductivity";
+import { WorkCenterProductivityLossTypeFindManyArgs } from "../../workCenterProductivityLossType/base/WorkCenterProductivityLossTypeFindManyArgs";
+import { WorkCenterProductivityLossType } from "../../workCenterProductivityLossType/base/WorkCenterProductivityLossType";
+import { WorkCenterProductivityLossFindManyArgs } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLossFindManyArgs";
+import { WorkCenterProductivityLoss } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLoss";
+import { WorkCenterRoutingFindManyArgs } from "../../workCenterRouting/base/WorkCenterRoutingFindManyArgs";
+import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
+import { WorkCenterTagFindManyArgs } from "../../workCenterTag/base/WorkCenterTagFindManyArgs";
+import { WorkCenterTag } from "../../workCenterTag/base/WorkCenterTag";
+import { WorkCenterWorkCenterTagFindManyArgs } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTagFindManyArgs";
+import { WorkCenterWorkCenterTag } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTag";
+import { WorkCenterFindManyArgs } from "../../workCenter/base/WorkCenterFindManyArgs";
+import { WorkCenter } from "../../workCenter/base/WorkCenter";
+import { WorkOrderDependencyFindManyArgs } from "../../workOrderDependency/base/WorkOrderDependencyFindManyArgs";
+import { WorkOrderDependency } from "../../workOrderDependency/base/WorkOrderDependency";
+import { WorkOrderRoutingFindManyArgs } from "../../workOrderRouting/base/WorkOrderRoutingFindManyArgs";
+import { WorkOrderRouting } from "../../workOrderRouting/base/WorkOrderRouting";
+import { WorkOrderStatusFindManyArgs } from "../../workOrderStatus/base/WorkOrderStatusFindManyArgs";
+import { WorkOrderStatus } from "../../workOrderStatus/base/WorkOrderStatus";
+import { WorkOrderFindManyArgs } from "../../workOrder/base/WorkOrderFindManyArgs";
+import { WorkOrder } from "../../workOrder/base/WorkOrder";
+import { WorkSheetTypeFindManyArgs } from "../../workSheetType/base/WorkSheetTypeFindManyArgs";
+import { WorkSheetType } from "../../workSheetType/base/WorkSheetType";
 import { TenantService } from "../tenant.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Tenant)
@@ -464,6 +496,363 @@ export class TenantResolverBase {
     @graphql.Args() args: OverNightRequestFindManyArgs
   ): Promise<OverNightRequest[]> {
     const results = await this.service.findOverNights(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ScrapReason], { name: "scrapReasons" })
+  @nestAccessControl.UseRoles({
+    resource: "ScrapReason",
+    action: "read",
+    possession: "any",
+  })
+  async findScrapReasons(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: ScrapReasonFindManyArgs
+  ): Promise<ScrapReason[]> {
+    const results = await this.service.findScrapReasons(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [TradingSummary], { name: "tradingSummaries" })
+  @nestAccessControl.UseRoles({
+    resource: "TradingSummary",
+    action: "read",
+    possession: "any",
+  })
+  async findTradingSummaries(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: TradingSummaryFindManyArgs
+  ): Promise<TradingSummary[]> {
+    const results = await this.service.findTradingSummaries(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterAlternative], {
+    name: "workCenterAlternatives",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterAlternative",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterAlternatives(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkCenterAlternativeFindManyArgs
+  ): Promise<WorkCenterAlternative[]> {
+    const results = await this.service.findWorkCenterAlternatives(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterCapacity], {
+    name: "workCenterCapacities",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterCapacity",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterCapacities(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkCenterCapacityFindManyArgs
+  ): Promise<WorkCenterCapacity[]> {
+    const results = await this.service.findWorkCenterCapacities(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterProductivity], {
+    name: "workCenterProductivities",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterProductivity",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterProductivities(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkCenterProductivityFindManyArgs
+  ): Promise<WorkCenterProductivity[]> {
+    const results = await this.service.findWorkCenterProductivities(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterProductivityLossType], {
+    name: "workCenterProductivityLossTypes",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterProductivityLossType",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterProductivityLossTypes(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkCenterProductivityLossTypeFindManyArgs
+  ): Promise<WorkCenterProductivityLossType[]> {
+    const results = await this.service.findWorkCenterProductivityLossTypes(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterProductivityLoss], {
+    name: "workCenterProductivityLosses",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterProductivityLoss",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterProductivityLosses(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkCenterProductivityLossFindManyArgs
+  ): Promise<WorkCenterProductivityLoss[]> {
+    const results = await this.service.findWorkCenterProductivityLosses(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterRouting], {
+    name: "workCenterRoutings",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterRouting",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterRoutings(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkCenterRoutingFindManyArgs
+  ): Promise<WorkCenterRouting[]> {
+    const results = await this.service.findWorkCenterRoutings(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterTag], { name: "workCenterTags" })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterTag",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterTags(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkCenterTagFindManyArgs
+  ): Promise<WorkCenterTag[]> {
+    const results = await this.service.findWorkCenterTags(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenterWorkCenterTag], {
+    name: "workCenterWorkCenterTags",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenterWorkCenterTag",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenterWorkCenterTags(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkCenterWorkCenterTagFindManyArgs
+  ): Promise<WorkCenterWorkCenterTag[]> {
+    const results = await this.service.findWorkCenterWorkCenterTags(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkCenter], { name: "workCenters" })
+  @nestAccessControl.UseRoles({
+    resource: "WorkCenter",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkCenters(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkCenterFindManyArgs
+  ): Promise<WorkCenter[]> {
+    const results = await this.service.findWorkCenters(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkOrderDependency], {
+    name: "workOrderDependencies",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrderDependency",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrderDependencies(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkOrderDependencyFindManyArgs
+  ): Promise<WorkOrderDependency[]> {
+    const results = await this.service.findWorkOrderDependencies(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkOrderRouting], { name: "workOrderRoutings" })
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrderRouting",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrderRoutings(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkOrderRoutingFindManyArgs
+  ): Promise<WorkOrderRouting[]> {
+    const results = await this.service.findWorkOrderRoutings(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkOrderStatus], { name: "workOrderStatuses" })
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrderStatus",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrderStatuses(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkOrderStatusFindManyArgs
+  ): Promise<WorkOrderStatus[]> {
+    const results = await this.service.findWorkOrderStatuses(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkOrder], { name: "workOrders" })
+  @nestAccessControl.UseRoles({
+    resource: "WorkOrder",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkOrders(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkOrderFindManyArgs
+  ): Promise<WorkOrder[]> {
+    const results = await this.service.findWorkOrders(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [WorkSheetType], { name: "workSheetTypes" })
+  @nestAccessControl.UseRoles({
+    resource: "WorkSheetType",
+    action: "read",
+    possession: "any",
+  })
+  async findWorkSheetTypes(
+    @graphql.Parent() parent: Tenant,
+    @graphql.Args() args: WorkSheetTypeFindManyArgs
+  ): Promise<WorkSheetType[]> {
+    const results = await this.service.findWorkSheetTypes(parent.id, args);
 
     if (!results) {
       return [];

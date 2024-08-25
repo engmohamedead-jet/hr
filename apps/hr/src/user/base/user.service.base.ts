@@ -10,11 +10,19 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   User as PrismaUser,
-  Tenant as PrismaTenant,
+  Attendance as PrismaAttendance,
+  BonusRequest as PrismaBonusRequest,
+  CheckInOut as PrismaCheckInOut,
+  DailyMovementRequest as PrismaDailyMovementRequest,
+  DayOffRequest as PrismaDayOffRequest,
+  LeaveRequest as PrismaLeaveRequest,
+  OverNightRequest as PrismaOverNightRequest,
 } from "@prisma/client";
+
 import { PasswordService } from "../../auth/password.service";
 import { transformStringFieldUpdateInput } from "../../prisma.util";
 
@@ -64,11 +72,80 @@ export class UserServiceBase {
     return this.prisma.user.delete(args);
   }
 
-  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
+  async findAttendances(
+    parentId: string,
+    args: Prisma.AttendanceFindManyArgs
+  ): Promise<PrismaAttendance[]> {
     return this.prisma.user
-      .findUnique({
+      .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .tenantId();
+      .attendances(args);
+  }
+
+  async findBonuses(
+    parentId: string,
+    args: Prisma.BonusRequestFindManyArgs
+  ): Promise<PrismaBonusRequest[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .bonuses(args);
+  }
+
+  async findCheckInOuts(
+    parentId: string,
+    args: Prisma.CheckInOutFindManyArgs
+  ): Promise<PrismaCheckInOut[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .checkInOuts(args);
+  }
+
+  async findDailyMovements(
+    parentId: string,
+    args: Prisma.DailyMovementRequestFindManyArgs
+  ): Promise<PrismaDailyMovementRequest[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .dailyMovements(args);
+  }
+
+  async findDayOffs(
+    parentId: string,
+    args: Prisma.DayOffRequestFindManyArgs
+  ): Promise<PrismaDayOffRequest[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .dayOffs(args);
+  }
+
+  async findLeaveRequests(
+    parentId: string,
+    args: Prisma.LeaveRequestFindManyArgs
+  ): Promise<PrismaLeaveRequest[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .leaveRequests(args);
+  }
+
+  async findOverNights(
+    parentId: string,
+    args: Prisma.OverNightRequestFindManyArgs
+  ): Promise<PrismaOverNightRequest[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .overNights(args);
   }
 }

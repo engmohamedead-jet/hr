@@ -11,22 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { BillOfMaterialDetailUpdateManyWithoutWorkCenterRoutingsInput } from "./BillOfMaterialDetailUpdateManyWithoutWorkCenterRoutingsInput";
 
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
   IsBoolean,
   IsInt,
-  Min,
   Max,
+  ValidateNested,
   IsNumber,
 } from "class-validator";
 
-import { Type } from "class-transformer";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
+import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { WorkCenterWhereUniqueInput } from "../../workCenter/base/WorkCenterWhereUniqueInput";
 
@@ -34,15 +32,15 @@ import { WorkCenterWhereUniqueInput } from "../../workCenter/base/WorkCenterWher
 class WorkCenterRoutingUpdateInput {
   @ApiProperty({
     required: false,
-    type: () => BillOfMaterialDetailUpdateManyWithoutWorkCenterRoutingsInput,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => BillOfMaterialDetailUpdateManyWithoutWorkCenterRoutingsInput)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => BillOfMaterialDetailUpdateManyWithoutWorkCenterRoutingsInput, {
+  @Field(() => String, {
     nullable: true,
   })
-  billOfMaterialDetails?: BillOfMaterialDetailUpdateManyWithoutWorkCenterRoutingsInput;
+  billOfMaterialId?: string | null;
 
   @ApiProperty({
     required: false,
@@ -108,7 +106,6 @@ class WorkCenterRoutingUpdateInput {
     type: Number,
   })
   @IsInt()
-  @Min(1)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Number, {
@@ -126,7 +123,7 @@ class WorkCenterRoutingUpdateInput {
   @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  tenantId?: TenantWhereUniqueInput | null;
+  tenant?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -162,7 +159,7 @@ class WorkCenterRoutingUpdateInput {
   @Field(() => WorkCenterWhereUniqueInput, {
     nullable: true,
   })
-  workCenterId?: WorkCenterWhereUniqueInput | null;
+  workCenterId?: WorkCenterWhereUniqueInput;
 }
 
 export { WorkCenterRoutingUpdateInput as WorkCenterRoutingUpdateInput };

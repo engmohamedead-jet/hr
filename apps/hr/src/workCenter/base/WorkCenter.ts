@@ -28,7 +28,12 @@ import {
 import { Decimal } from "decimal.js";
 import { Type } from "class-transformer";
 import { Tenant } from "../../tenant/base/Tenant";
+import { WorkCenterAlternative } from "../../workCenterAlternative/base/WorkCenterAlternative";
+import { WorkCenterCapacity } from "../../workCenterCapacity/base/WorkCenterCapacity";
+import { WorkCenterProductivity } from "../../workCenterProductivity/base/WorkCenterProductivity";
+import { WorkCenterProductivityLoss } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLoss";
 import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
+import { WorkCenterWorkCenterTag } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTag";
 
 @ObjectType()
 class WorkCenter {
@@ -102,11 +107,11 @@ class WorkCenter {
 
   @ApiProperty({
     required: true,
-    type: Number,
+    type: String,
   })
-  @IsInt()
-  @Field(() => Number)
-  id!: number;
+  @IsString()
+  @Field(() => String)
+  id!: string;
 
   @ApiProperty({
     required: true,
@@ -231,12 +236,66 @@ class WorkCenter {
 
   @ApiProperty({
     required: false,
+    type: () => [WorkCenterAlternative],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternative)
+  @IsOptional()
+  workCenterAlternativeWorkCenters?: Array<WorkCenterAlternative>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterAlternative],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternative)
+  @IsOptional()
+  workCenterAlternatives?: Array<WorkCenterAlternative>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterCapacity],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterCapacity)
+  @IsOptional()
+  workCenterCapacities?: Array<WorkCenterCapacity>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterProductivity],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivity)
+  @IsOptional()
+  workCenterProductivities?: Array<WorkCenterProductivity>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterProductivityLoss],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLoss)
+  @IsOptional()
+  workCenterProductivityLosses?: Array<WorkCenterProductivityLoss>;
+
+  @ApiProperty({
+    required: false,
     type: () => [WorkCenterRouting],
   })
   @ValidateNested()
   @Type(() => WorkCenterRouting)
   @IsOptional()
   workCenterRoutings?: Array<WorkCenterRouting>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterWorkCenterTag],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTag)
+  @IsOptional()
+  workCenterWorkCenterTags?: Array<WorkCenterWorkCenterTag>;
 }
 
 export { WorkCenter as WorkCenter };

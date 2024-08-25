@@ -9,32 +9,34 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field, Float } from "@nestjs/graphql";
+import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import {
-  IsDate,
+  ValidateNested,
   IsOptional,
+  IsDate,
   IsString,
   MaxLength,
-  IsNumber,
-  Max,
   IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Decimal } from "decimal.js";
+import { EmployeeWhereUniqueInput } from "../../employee/base/EmployeeWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AttendanceUpdateInput {
   @ApiProperty({
     required: false,
+    type: () => UserWhereUniqueInput,
   })
-  @IsDate()
-  @Type(() => Date)
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
   @IsOptional()
-  @Field(() => Date, {
+  @Field(() => UserWhereUniqueInput, {
     nullable: true,
   })
-  attendanceDate?: Date | null;
+  ApprovedByUserId?: UserWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -45,18 +47,65 @@ class AttendanceUpdateInput {
   @Field(() => Date, {
     nullable: true,
   })
-  checkInTime?: Date | null;
+  attendanceDate?: Date;
 
   @ApiProperty({
     required: false,
+    type: String,
   })
-  @IsDate()
-  @Type(() => Date)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => Date, {
+  @Field(() => String, {
     nullable: true,
   })
-  checkOutTime?: Date | null;
+  checkInTime?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  checkOutTime?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeId?: EmployeeWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isActive?: boolean;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isAppreoved?: boolean;
 
   @ApiProperty({
     required: false,
@@ -72,15 +121,15 @@ class AttendanceUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: String,
   })
-  @IsNumber()
-  @Max(99999999999)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => Float, {
+  @Field(() => String, {
     nullable: true,
   })
-  overtimeHours?: Decimal | null;
+  overtimeHours?: string | null;
 
   @ApiProperty({
     required: false,
@@ -96,25 +145,39 @@ class AttendanceUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: Boolean,
+    type: () => TenantWhereUniqueInput,
   })
-  @IsBoolean()
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => Boolean, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  wasAbsent?: boolean | null;
+  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
-    type: Boolean,
+    type: String,
   })
-  @IsBoolean()
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => Boolean, {
+  @Field(() => String, {
     nullable: true,
   })
-  wasPresent?: boolean;
+  wasAbsent?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  wasPresent?: string;
 }
 
 export { AttendanceUpdateInput as AttendanceUpdateInput };

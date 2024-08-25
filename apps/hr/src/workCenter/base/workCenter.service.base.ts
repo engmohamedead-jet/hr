@@ -14,7 +14,12 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   WorkCenter as PrismaWorkCenter,
+  WorkCenterAlternative as PrismaWorkCenterAlternative,
+  WorkCenterCapacity as PrismaWorkCenterCapacity,
+  WorkCenterProductivity as PrismaWorkCenterProductivity,
+  WorkCenterProductivityLoss as PrismaWorkCenterProductivityLoss,
   WorkCenterRouting as PrismaWorkCenterRouting,
+  WorkCenterWorkCenterTag as PrismaWorkCenterWorkCenterTag,
   Tenant as PrismaTenant,
 } from "@prisma/client";
 
@@ -53,8 +58,63 @@ export class WorkCenterServiceBase {
     return this.prisma.workCenter.delete(args);
   }
 
+  async findWorkCenterAlternativeWorkCenters(
+    parentId: string,
+    args: Prisma.WorkCenterAlternativeFindManyArgs
+  ): Promise<PrismaWorkCenterAlternative[]> {
+    return this.prisma.workCenter
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterAlternativeWorkCenters(args);
+  }
+
+  async findWorkCenterAlternatives(
+    parentId: string,
+    args: Prisma.WorkCenterAlternativeFindManyArgs
+  ): Promise<PrismaWorkCenterAlternative[]> {
+    return this.prisma.workCenter
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterAlternatives(args);
+  }
+
+  async findWorkCenterCapacities(
+    parentId: string,
+    args: Prisma.WorkCenterCapacityFindManyArgs
+  ): Promise<PrismaWorkCenterCapacity[]> {
+    return this.prisma.workCenter
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterCapacities(args);
+  }
+
+  async findWorkCenterProductivities(
+    parentId: string,
+    args: Prisma.WorkCenterProductivityFindManyArgs
+  ): Promise<PrismaWorkCenterProductivity[]> {
+    return this.prisma.workCenter
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterProductivities(args);
+  }
+
+  async findWorkCenterProductivityLosses(
+    parentId: string,
+    args: Prisma.WorkCenterProductivityLossFindManyArgs
+  ): Promise<PrismaWorkCenterProductivityLoss[]> {
+    return this.prisma.workCenter
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterProductivityLosses(args);
+  }
+
   async findWorkCenterRoutings(
-    parentId: number,
+    parentId: string,
     args: Prisma.WorkCenterRoutingFindManyArgs
   ): Promise<PrismaWorkCenterRouting[]> {
     return this.prisma.workCenter
@@ -64,7 +124,18 @@ export class WorkCenterServiceBase {
       .workCenterRoutings(args);
   }
 
-  async getTenantId(parentId: number): Promise<PrismaTenant | null> {
+  async findWorkCenterWorkCenterTags(
+    parentId: string,
+    args: Prisma.WorkCenterWorkCenterTagFindManyArgs
+  ): Promise<PrismaWorkCenterWorkCenterTag[]> {
+    return this.prisma.workCenter
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterWorkCenterTags(args);
+  }
+
+  async getTenantId(parentId: string): Promise<PrismaTenant | null> {
     return this.prisma.workCenter
       .findUnique({
         where: { id: parentId },

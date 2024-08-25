@@ -14,89 +14,37 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Tenant as PrismaTenant,
-  Account as PrismaAccount,
-  ApplicationDependency as PrismaApplicationDependency,
-  Application as PrismaApplication,
-  AttributeValue as PrismaAttributeValue,
-  Attribute as PrismaAttribute,
-  BankBranch as PrismaBankBranch,
-  BankType as PrismaBankType,
-  BarcodeType as PrismaBarcodeType,
-  BillOfMaterialDetail as PrismaBillOfMaterialDetail,
-  BillOfMaterialType as PrismaBillOfMaterialType,
-  BillOfMaterial as PrismaBillOfMaterial,
-  CashRepository as PrismaCashRepository,
-  Currency as PrismaCurrency,
-  Customer as PrismaCustomer,
-  EmployeeClass as PrismaEmployeeClass,
+  Attendance as PrismaAttendance,
+  BonusRequest as PrismaBonusRequest,
+  CheckInOut as PrismaCheckInOut,
+  DailyMovementRequest as PrismaDailyMovementRequest,
+  DayOffRequest as PrismaDayOffRequest,
   EmployeeDepartment as PrismaEmployeeDepartment,
+  EmployeeGroup as PrismaEmployeeGroup,
+  EmployeeRole as PrismaEmployeeRole,
   Employee as PrismaEmployee,
-  ExpenseItem as PrismaExpenseItem,
-  InstallmentSaleFee as PrismaInstallmentSaleFee,
-  InvoiceType as PrismaInvoiceType,
-  OrderStatus as PrismaOrderStatus,
-  PaymentMethod as PrismaPaymentMethod,
-  PaymentStatus as PrismaPaymentStatus,
-  PaymentTerm as PrismaPaymentTerm,
-  PaymentType as PrismaPaymentType,
-  PaymentVoucher as PrismaPaymentVoucher,
-  Period as PrismaPeriod,
-  PrintTemplateContent as PrismaPrintTemplateContent,
-  PrintTemplateGroup as PrismaPrintTemplateGroup,
-  PrintTemplate as PrismaPrintTemplate,
-  ProductBarcode as PrismaProductBarcode,
-  ProductCategory as PrismaProductCategory,
-  ProductDepartment as PrismaProductDepartment,
-  ProductGroup as PrismaProductGroup,
-  ProductType as PrismaProductType,
-  ProductUnit as PrismaProductUnit,
-  ProductVariant as PrismaProductVariant,
-  ProductionAvailability as PrismaProductionAvailability,
-  ProductionDocument as PrismaProductionDocument,
-  ProductionOrder as PrismaProductionOrder,
-  Product as PrismaProduct,
-  PurchaseDetail as PrismaPurchaseDetail,
-  PurchasePriceType as PrismaPurchasePriceType,
-  PurchaseReturnDetail as PrismaPurchaseReturnDetail,
-  PurchaseReturn as PrismaPurchaseReturn,
-  Purchase as PrismaPurchase,
-  ReceiptVoucher as PrismaReceiptVoucher,
-  ResourceType as PrismaResourceType,
-  Resource as PrismaResource,
-  RoleGroup as PrismaRoleGroup,
-  SalaryItemGroup as PrismaSalaryItemGroup,
-  SalaryItemType as PrismaSalaryItemType,
-  SalaryItem as PrismaSalaryItem,
-  SalaryLaw as PrismaSalaryLaw,
-  SaleDetail as PrismaSaleDetail,
-  SaleOrderDetail as PrismaSaleOrderDetail,
-  SaleOrder as PrismaSaleOrder,
-  SalePayment as PrismaSalePayment,
-  SalePerson as PrismaSalePerson,
-  SalePriceType as PrismaSalePriceType,
-  SaleQuotationDetail as PrismaSaleQuotationDetail,
-  SaleQuotation as PrismaSaleQuotation,
-  SaleReturnDetail as PrismaSaleReturnDetail,
-  SaleReturn as PrismaSaleReturn,
-  SaleTax as PrismaSaleTax,
-  SaleTeam as PrismaSaleTeam,
-  Sale as PrismaSale,
+  Machine as PrismaMachine,
+  FiscalMonth as PrismaFiscalMonth,
+  JobTitle as PrismaJobTitle,
+  LeaveRequestType as PrismaLeaveRequestType,
+  LeaveRequest as PrismaLeaveRequest,
+  OverNightRequest as PrismaOverNightRequest,
   ScrapReason as PrismaScrapReason,
-  SettingGroup as PrismaSettingGroup,
-  Setting as PrismaSetting,
-  Shift as PrismaShift,
-  ShippingStatus as PrismaShippingStatus,
-  StoreLocation as PrismaStoreLocation,
-  StoreType as PrismaStoreType,
-  Store as PrismaStore,
-  Supplier as PrismaSupplier,
-  TimeMode as PrismaTimeMode,
-  TimeoffType as PrismaTimeoffType,
-  Unit as PrismaUnit,
-  User as PrismaUser,
-  VoucherType as PrismaVoucherType,
+  TradingSummary as PrismaTradingSummary,
+  WorkCenterAlternative as PrismaWorkCenterAlternative,
+  WorkCenterCapacity as PrismaWorkCenterCapacity,
+  WorkCenterProductivity as PrismaWorkCenterProductivity,
+  WorkCenterProductivityLossType as PrismaWorkCenterProductivityLossType,
+  WorkCenterProductivityLoss as PrismaWorkCenterProductivityLoss,
   WorkCenterRouting as PrismaWorkCenterRouting,
+  WorkCenterTag as PrismaWorkCenterTag,
+  WorkCenterWorkCenterTag as PrismaWorkCenterWorkCenterTag,
   WorkCenter as PrismaWorkCenter,
+  WorkOrderDependency as PrismaWorkOrderDependency,
+  WorkOrderRouting as PrismaWorkOrderRouting,
+  WorkOrderStatus as PrismaWorkOrderStatus,
+  WorkOrder as PrismaWorkOrder,
+  WorkSheetType as PrismaWorkSheetType,
 } from "@prisma/client";
 
 export class TenantServiceBase {
@@ -124,169 +72,59 @@ export class TenantServiceBase {
     return this.prisma.tenant.delete(args);
   }
 
-  async findAccounts(
+  async findAttendances(
     parentId: string,
-    args: Prisma.AccountFindManyArgs
-  ): Promise<PrismaAccount[]> {
+    args: Prisma.AttendanceFindManyArgs
+  ): Promise<PrismaAttendance[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .accounts(args);
+      .attendances(args);
   }
 
-  async findApplicationDependencies(
+  async findBonusRequests(
     parentId: string,
-    args: Prisma.ApplicationDependencyFindManyArgs
-  ): Promise<PrismaApplicationDependency[]> {
+    args: Prisma.BonusRequestFindManyArgs
+  ): Promise<PrismaBonusRequest[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .applicationDependencies(args);
+      .bonusRequests(args);
   }
 
-  async findApplications(
+  async findCheckInOuts(
     parentId: string,
-    args: Prisma.ApplicationFindManyArgs
-  ): Promise<PrismaApplication[]> {
+    args: Prisma.CheckInOutFindManyArgs
+  ): Promise<PrismaCheckInOut[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .applications(args);
+      .checkInOuts(args);
   }
 
-  async findAttributeValues(
+  async findDailyMovements(
     parentId: string,
-    args: Prisma.AttributeValueFindManyArgs
-  ): Promise<PrismaAttributeValue[]> {
+    args: Prisma.DailyMovementRequestFindManyArgs
+  ): Promise<PrismaDailyMovementRequest[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .attributeValues(args);
+      .dailyMovements(args);
   }
 
-  async findAttributes(
+  async findDayOffs(
     parentId: string,
-    args: Prisma.AttributeFindManyArgs
-  ): Promise<PrismaAttribute[]> {
+    args: Prisma.DayOffRequestFindManyArgs
+  ): Promise<PrismaDayOffRequest[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .attributes(args);
-  }
-
-  async findBankBranches(
-    parentId: string,
-    args: Prisma.BankBranchFindManyArgs
-  ): Promise<PrismaBankBranch[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .bankBranches(args);
-  }
-
-  async findBankTypes(
-    parentId: string,
-    args: Prisma.BankTypeFindManyArgs
-  ): Promise<PrismaBankType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .bankTypes(args);
-  }
-
-  async findBarcodeTypes(
-    parentId: string,
-    args: Prisma.BarcodeTypeFindManyArgs
-  ): Promise<PrismaBarcodeType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .barcodeTypes(args);
-  }
-
-  async findBillOfMaterialDetails(
-    parentId: string,
-    args: Prisma.BillOfMaterialDetailFindManyArgs
-  ): Promise<PrismaBillOfMaterialDetail[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .billOfMaterialDetails(args);
-  }
-
-  async findBillOfMaterialTypes(
-    parentId: string,
-    args: Prisma.BillOfMaterialTypeFindManyArgs
-  ): Promise<PrismaBillOfMaterialType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .billOfMaterialTypes(args);
-  }
-
-  async findBillOfMaterials(
-    parentId: string,
-    args: Prisma.BillOfMaterialFindManyArgs
-  ): Promise<PrismaBillOfMaterial[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .billOfMaterials(args);
-  }
-
-  async findCashRepositories(
-    parentId: string,
-    args: Prisma.CashRepositoryFindManyArgs
-  ): Promise<PrismaCashRepository[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .cashRepositories(args);
-  }
-
-  async findCurrencies(
-    parentId: string,
-    args: Prisma.CurrencyFindManyArgs
-  ): Promise<PrismaCurrency[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .currencies(args);
-  }
-
-  async findCustomers(
-    parentId: string,
-    args: Prisma.CustomerFindManyArgs
-  ): Promise<PrismaCustomer[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .customers(args);
-  }
-
-  async findEmployeeClasses(
-    parentId: string,
-    args: Prisma.EmployeeClassFindManyArgs
-  ): Promise<PrismaEmployeeClass[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .employeeClasses(args);
+      .dayOffs(args);
   }
 
   async findEmployeeDepartments(
@@ -300,6 +138,28 @@ export class TenantServiceBase {
       .employeeDepartments(args);
   }
 
+  async findEmployeeGroups(
+    parentId: string,
+    args: Prisma.EmployeeGroupFindManyArgs
+  ): Promise<PrismaEmployeeGroup[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .employeeGroups(args);
+  }
+
+  async findEmployeeRoles(
+    parentId: string,
+    args: Prisma.EmployeeRoleFindManyArgs
+  ): Promise<PrismaEmployeeRole[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .employeeRoles(args);
+  }
+
   async findEmployees(
     parentId: string,
     args: Prisma.EmployeeFindManyArgs
@@ -311,554 +171,70 @@ export class TenantServiceBase {
       .employees(args);
   }
 
-  async findExpenseItems(
+  async findFingerprintMachines(
     parentId: string,
-    args: Prisma.ExpenseItemFindManyArgs
-  ): Promise<PrismaExpenseItem[]> {
+    args: Prisma.MachineFindManyArgs
+  ): Promise<PrismaMachine[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .expenseItems(args);
+      .fingerprintMachines(args);
   }
 
-  async findInstallmentSaleFees(
+  async findFiscalMonths(
     parentId: string,
-    args: Prisma.InstallmentSaleFeeFindManyArgs
-  ): Promise<PrismaInstallmentSaleFee[]> {
+    args: Prisma.FiscalMonthFindManyArgs
+  ): Promise<PrismaFiscalMonth[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .installmentSaleFees(args);
+      .fiscalMonths(args);
   }
 
-  async findInvoiceTypes(
+  async findJobTitles(
     parentId: string,
-    args: Prisma.InvoiceTypeFindManyArgs
-  ): Promise<PrismaInvoiceType[]> {
+    args: Prisma.JobTitleFindManyArgs
+  ): Promise<PrismaJobTitle[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .invoiceTypes(args);
+      .jobTitles(args);
   }
 
-  async findOrderStatuses(
+  async findLeaveRequestTypes(
     parentId: string,
-    args: Prisma.OrderStatusFindManyArgs
-  ): Promise<PrismaOrderStatus[]> {
+    args: Prisma.LeaveRequestTypeFindManyArgs
+  ): Promise<PrismaLeaveRequestType[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .orderStatuses(args);
+      .leaveRequestTypes(args);
   }
 
-  async findPaymentMethods(
+  async findLeaveRequests(
     parentId: string,
-    args: Prisma.PaymentMethodFindManyArgs
-  ): Promise<PrismaPaymentMethod[]> {
+    args: Prisma.LeaveRequestFindManyArgs
+  ): Promise<PrismaLeaveRequest[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .paymentMethods(args);
+      .leaveRequests(args);
   }
 
-  async findPaymentStatuses(
+  async findOverNights(
     parentId: string,
-    args: Prisma.PaymentStatusFindManyArgs
-  ): Promise<PrismaPaymentStatus[]> {
+    args: Prisma.OverNightRequestFindManyArgs
+  ): Promise<PrismaOverNightRequest[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .paymentStatuses(args);
-  }
-
-  async findPaymentTerms(
-    parentId: string,
-    args: Prisma.PaymentTermFindManyArgs
-  ): Promise<PrismaPaymentTerm[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .paymentTerms(args);
-  }
-
-  async findPaymentTypes(
-    parentId: string,
-    args: Prisma.PaymentTypeFindManyArgs
-  ): Promise<PrismaPaymentType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .paymentTypes(args);
-  }
-
-  async findPaymentVouchers(
-    parentId: string,
-    args: Prisma.PaymentVoucherFindManyArgs
-  ): Promise<PrismaPaymentVoucher[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .paymentVouchers(args);
-  }
-
-  async findPeriods(
-    parentId: string,
-    args: Prisma.PeriodFindManyArgs
-  ): Promise<PrismaPeriod[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .periods(args);
-  }
-
-  async findPrintTemplateContents(
-    parentId: string,
-    args: Prisma.PrintTemplateContentFindManyArgs
-  ): Promise<PrismaPrintTemplateContent[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .printTemplateContents(args);
-  }
-
-  async findPrintTemplateGroups(
-    parentId: string,
-    args: Prisma.PrintTemplateGroupFindManyArgs
-  ): Promise<PrismaPrintTemplateGroup[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .printTemplateGroups(args);
-  }
-
-  async findPrintTemplates(
-    parentId: string,
-    args: Prisma.PrintTemplateFindManyArgs
-  ): Promise<PrismaPrintTemplate[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .printTemplates(args);
-  }
-
-  async findProductBarcodes(
-    parentId: string,
-    args: Prisma.ProductBarcodeFindManyArgs
-  ): Promise<PrismaProductBarcode[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productBarcodes(args);
-  }
-
-  async findProductCategories(
-    parentId: string,
-    args: Prisma.ProductCategoryFindManyArgs
-  ): Promise<PrismaProductCategory[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productCategories(args);
-  }
-
-  async findProductDepartments(
-    parentId: string,
-    args: Prisma.ProductDepartmentFindManyArgs
-  ): Promise<PrismaProductDepartment[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productDepartments(args);
-  }
-
-  async findProductGroups(
-    parentId: string,
-    args: Prisma.ProductGroupFindManyArgs
-  ): Promise<PrismaProductGroup[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productGroups(args);
-  }
-
-  async findProductTypes(
-    parentId: string,
-    args: Prisma.ProductTypeFindManyArgs
-  ): Promise<PrismaProductType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productTypes(args);
-  }
-
-  async findProductUnits(
-    parentId: string,
-    args: Prisma.ProductUnitFindManyArgs
-  ): Promise<PrismaProductUnit[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productUnits(args);
-  }
-
-  async findProductVariants(
-    parentId: string,
-    args: Prisma.ProductVariantFindManyArgs
-  ): Promise<PrismaProductVariant[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productVariants(args);
-  }
-
-  async findProductionAvailabilities(
-    parentId: string,
-    args: Prisma.ProductionAvailabilityFindManyArgs
-  ): Promise<PrismaProductionAvailability[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productionAvailabilities(args);
-  }
-
-  async findProductionDocuments(
-    parentId: string,
-    args: Prisma.ProductionDocumentFindManyArgs
-  ): Promise<PrismaProductionDocument[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productionDocuments(args);
-  }
-
-  async findProductionOrders(
-    parentId: string,
-    args: Prisma.ProductionOrderFindManyArgs
-  ): Promise<PrismaProductionOrder[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .productionOrders(args);
-  }
-
-  async findProducts(
-    parentId: string,
-    args: Prisma.ProductFindManyArgs
-  ): Promise<PrismaProduct[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .products(args);
-  }
-
-  async findPurchaseDetails(
-    parentId: string,
-    args: Prisma.PurchaseDetailFindManyArgs
-  ): Promise<PrismaPurchaseDetail[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .purchaseDetails(args);
-  }
-
-  async findPurchasePriceTypes(
-    parentId: string,
-    args: Prisma.PurchasePriceTypeFindManyArgs
-  ): Promise<PrismaPurchasePriceType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .purchasePriceTypes(args);
-  }
-
-  async findPurchaseReturnDetails(
-    parentId: string,
-    args: Prisma.PurchaseReturnDetailFindManyArgs
-  ): Promise<PrismaPurchaseReturnDetail[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .purchaseReturnDetails(args);
-  }
-
-  async findPurchaseReturns(
-    parentId: string,
-    args: Prisma.PurchaseReturnFindManyArgs
-  ): Promise<PrismaPurchaseReturn[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .purchaseReturns(args);
-  }
-
-  async findPurchases(
-    parentId: string,
-    args: Prisma.PurchaseFindManyArgs
-  ): Promise<PrismaPurchase[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .purchases(args);
-  }
-
-  async findReceiptVouchers(
-    parentId: string,
-    args: Prisma.ReceiptVoucherFindManyArgs
-  ): Promise<PrismaReceiptVoucher[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .receiptVouchers(args);
-  }
-
-  async findResourceTypes(
-    parentId: string,
-    args: Prisma.ResourceTypeFindManyArgs
-  ): Promise<PrismaResourceType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .resourceTypes(args);
-  }
-
-  async findResources(
-    parentId: string,
-    args: Prisma.ResourceFindManyArgs
-  ): Promise<PrismaResource[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .resources(args);
-  }
-
-  async findRoleGroups(
-    parentId: string,
-    args: Prisma.RoleGroupFindManyArgs
-  ): Promise<PrismaRoleGroup[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .roleGroups(args);
-  }
-
-  async findSalaryItemGroups(
-    parentId: string,
-    args: Prisma.SalaryItemGroupFindManyArgs
-  ): Promise<PrismaSalaryItemGroup[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .salaryItemGroups(args);
-  }
-
-  async findSalaryItemTypes(
-    parentId: string,
-    args: Prisma.SalaryItemTypeFindManyArgs
-  ): Promise<PrismaSalaryItemType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .salaryItemTypes(args);
-  }
-
-  async findSalaryItems(
-    parentId: string,
-    args: Prisma.SalaryItemFindManyArgs
-  ): Promise<PrismaSalaryItem[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .salaryItems(args);
-  }
-
-  async findSalaryLaws(
-    parentId: string,
-    args: Prisma.SalaryLawFindManyArgs
-  ): Promise<PrismaSalaryLaw[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .salaryLaws(args);
-  }
-
-  async findSaleDetails(
-    parentId: string,
-    args: Prisma.SaleDetailFindManyArgs
-  ): Promise<PrismaSaleDetail[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleDetails(args);
-  }
-
-  async findSaleOrderDetails(
-    parentId: string,
-    args: Prisma.SaleOrderDetailFindManyArgs
-  ): Promise<PrismaSaleOrderDetail[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleOrderDetails(args);
-  }
-
-  async findSaleOrders(
-    parentId: string,
-    args: Prisma.SaleOrderFindManyArgs
-  ): Promise<PrismaSaleOrder[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleOrders(args);
-  }
-
-  async findSalePayments(
-    parentId: string,
-    args: Prisma.SalePaymentFindManyArgs
-  ): Promise<PrismaSalePayment[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .salePayments(args);
-  }
-
-  async findSalePeople(
-    parentId: string,
-    args: Prisma.SalePersonFindManyArgs
-  ): Promise<PrismaSalePerson[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .salePeople(args);
-  }
-
-  async findSalePriceTypes(
-    parentId: string,
-    args: Prisma.SalePriceTypeFindManyArgs
-  ): Promise<PrismaSalePriceType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .salePriceTypes(args);
-  }
-
-  async findSaleQuotationDetails(
-    parentId: string,
-    args: Prisma.SaleQuotationDetailFindManyArgs
-  ): Promise<PrismaSaleQuotationDetail[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleQuotationDetails(args);
-  }
-
-  async findSaleQuotations(
-    parentId: string,
-    args: Prisma.SaleQuotationFindManyArgs
-  ): Promise<PrismaSaleQuotation[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleQuotations(args);
-  }
-
-  async findSaleReturnDetails(
-    parentId: string,
-    args: Prisma.SaleReturnDetailFindManyArgs
-  ): Promise<PrismaSaleReturnDetail[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleReturnDetails(args);
-  }
-
-  async findSaleReturns(
-    parentId: string,
-    args: Prisma.SaleReturnFindManyArgs
-  ): Promise<PrismaSaleReturn[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleReturns(args);
-  }
-
-  async findSaleTaxes(
-    parentId: string,
-    args: Prisma.SaleTaxFindManyArgs
-  ): Promise<PrismaSaleTax[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleTaxes(args);
-  }
-
-  async findSaleTeams(
-    parentId: string,
-    args: Prisma.SaleTeamFindManyArgs
-  ): Promise<PrismaSaleTeam[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .saleTeams(args);
-  }
-
-  async findSales(
-    parentId: string,
-    args: Prisma.SaleFindManyArgs
-  ): Promise<PrismaSale[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .sales(args);
+      .overNights(args);
   }
 
   async findScrapReasons(
@@ -872,147 +248,70 @@ export class TenantServiceBase {
       .scrapReasons(args);
   }
 
-  async findSettingGroups(
+  async findTradingSummaries(
     parentId: string,
-    args: Prisma.SettingGroupFindManyArgs
-  ): Promise<PrismaSettingGroup[]> {
+    args: Prisma.TradingSummaryFindManyArgs
+  ): Promise<PrismaTradingSummary[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .settingGroups(args);
+      .tradingSummaries(args);
   }
 
-  async findSettings(
+  async findWorkCenterAlternatives(
     parentId: string,
-    args: Prisma.SettingFindManyArgs
-  ): Promise<PrismaSetting[]> {
+    args: Prisma.WorkCenterAlternativeFindManyArgs
+  ): Promise<PrismaWorkCenterAlternative[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .settings(args);
+      .workCenterAlternatives(args);
   }
 
-  async findShifts(
+  async findWorkCenterCapacities(
     parentId: string,
-    args: Prisma.ShiftFindManyArgs
-  ): Promise<PrismaShift[]> {
+    args: Prisma.WorkCenterCapacityFindManyArgs
+  ): Promise<PrismaWorkCenterCapacity[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .shifts(args);
+      .workCenterCapacities(args);
   }
 
-  async findShippingStatuses(
+  async findWorkCenterProductivities(
     parentId: string,
-    args: Prisma.ShippingStatusFindManyArgs
-  ): Promise<PrismaShippingStatus[]> {
+    args: Prisma.WorkCenterProductivityFindManyArgs
+  ): Promise<PrismaWorkCenterProductivity[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .shippingStatuses(args);
+      .workCenterProductivities(args);
   }
 
-  async findStoreLocations(
+  async findWorkCenterProductivityLossTypes(
     parentId: string,
-    args: Prisma.StoreLocationFindManyArgs
-  ): Promise<PrismaStoreLocation[]> {
+    args: Prisma.WorkCenterProductivityLossTypeFindManyArgs
+  ): Promise<PrismaWorkCenterProductivityLossType[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .storeLocations(args);
+      .workCenterProductivityLossTypes(args);
   }
 
-  async findStoreTypes(
+  async findWorkCenterProductivityLosses(
     parentId: string,
-    args: Prisma.StoreTypeFindManyArgs
-  ): Promise<PrismaStoreType[]> {
+    args: Prisma.WorkCenterProductivityLossFindManyArgs
+  ): Promise<PrismaWorkCenterProductivityLoss[]> {
     return this.prisma.tenant
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .storeTypes(args);
-  }
-
-  async findStores(
-    parentId: string,
-    args: Prisma.StoreFindManyArgs
-  ): Promise<PrismaStore[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .stores(args);
-  }
-
-  async findSuppliers(
-    parentId: string,
-    args: Prisma.SupplierFindManyArgs
-  ): Promise<PrismaSupplier[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .suppliers(args);
-  }
-
-  async findTimeModes(
-    parentId: string,
-    args: Prisma.TimeModeFindManyArgs
-  ): Promise<PrismaTimeMode[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .timeModes(args);
-  }
-
-  async findTimeoffTypes(
-    parentId: string,
-    args: Prisma.TimeoffTypeFindManyArgs
-  ): Promise<PrismaTimeoffType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .timeoffTypes(args);
-  }
-
-  async findUnits(
-    parentId: string,
-    args: Prisma.UnitFindManyArgs
-  ): Promise<PrismaUnit[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .units(args);
-  }
-
-  async findUsers(
-    parentId: string,
-    args: Prisma.UserFindManyArgs
-  ): Promise<PrismaUser[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .users(args);
-  }
-
-  async findVoucherTypes(
-    parentId: string,
-    args: Prisma.VoucherTypeFindManyArgs
-  ): Promise<PrismaVoucherType[]> {
-    return this.prisma.tenant
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .voucherTypes(args);
+      .workCenterProductivityLosses(args);
   }
 
   async findWorkCenterRoutings(
@@ -1026,6 +325,28 @@ export class TenantServiceBase {
       .workCenterRoutings(args);
   }
 
+  async findWorkCenterTags(
+    parentId: string,
+    args: Prisma.WorkCenterTagFindManyArgs
+  ): Promise<PrismaWorkCenterTag[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterTags(args);
+  }
+
+  async findWorkCenterWorkCenterTags(
+    parentId: string,
+    args: Prisma.WorkCenterWorkCenterTagFindManyArgs
+  ): Promise<PrismaWorkCenterWorkCenterTag[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workCenterWorkCenterTags(args);
+  }
+
   async findWorkCenters(
     parentId: string,
     args: Prisma.WorkCenterFindManyArgs
@@ -1035,5 +356,60 @@ export class TenantServiceBase {
         where: { id: parentId },
       })
       .workCenters(args);
+  }
+
+  async findWorkOrderDependencies(
+    parentId: string,
+    args: Prisma.WorkOrderDependencyFindManyArgs
+  ): Promise<PrismaWorkOrderDependency[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workOrderDependencies(args);
+  }
+
+  async findWorkOrderRoutings(
+    parentId: string,
+    args: Prisma.WorkOrderRoutingFindManyArgs
+  ): Promise<PrismaWorkOrderRouting[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workOrderRoutings(args);
+  }
+
+  async findWorkOrderStatuses(
+    parentId: string,
+    args: Prisma.WorkOrderStatusFindManyArgs
+  ): Promise<PrismaWorkOrderStatus[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workOrderStatuses(args);
+  }
+
+  async findWorkOrders(
+    parentId: string,
+    args: Prisma.WorkOrderFindManyArgs
+  ): Promise<PrismaWorkOrder[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workOrders(args);
+  }
+
+  async findWorkSheetTypes(
+    parentId: string,
+    args: Prisma.WorkSheetTypeFindManyArgs
+  ): Promise<PrismaWorkSheetType[]> {
+    return this.prisma.tenant
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .workSheetTypes(args);
   }
 }

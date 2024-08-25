@@ -16,11 +16,16 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { IntFilter } from "../../util/IntFilter";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
+import { WorkCenterAlternativeListRelationFilter } from "../../workCenterAlternative/base/WorkCenterAlternativeListRelationFilter";
+import { WorkCenterCapacityListRelationFilter } from "../../workCenterCapacity/base/WorkCenterCapacityListRelationFilter";
+import { WorkCenterProductivityListRelationFilter } from "../../workCenterProductivity/base/WorkCenterProductivityListRelationFilter";
+import { WorkCenterProductivityLossListRelationFilter } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLossListRelationFilter";
 import { WorkCenterRoutingListRelationFilter } from "../../workCenterRouting/base/WorkCenterRoutingListRelationFilter";
+import { WorkCenterWorkCenterTagListRelationFilter } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTagListRelationFilter";
 
 @InputType()
 class WorkCenterWhereInput {
@@ -81,14 +86,14 @@ class WorkCenterWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntFilter,
+    type: StringFilter,
   })
-  @Type(() => IntFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => IntFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  id?: IntFilter;
+  id?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -214,6 +219,66 @@ class WorkCenterWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => WorkCenterAlternativeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternativeListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterAlternativeListRelationFilter, {
+    nullable: true,
+  })
+  workCenterAlternativeWorkCenters?: WorkCenterAlternativeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterAlternativeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternativeListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterAlternativeListRelationFilter, {
+    nullable: true,
+  })
+  workCenterAlternatives?: WorkCenterAlternativeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterCapacityListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterCapacityListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterCapacityListRelationFilter, {
+    nullable: true,
+  })
+  workCenterCapacities?: WorkCenterCapacityListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityListRelationFilter, {
+    nullable: true,
+  })
+  workCenterProductivities?: WorkCenterProductivityListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityLossListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityLossListRelationFilter, {
+    nullable: true,
+  })
+  workCenterProductivityLosses?: WorkCenterProductivityLossListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => WorkCenterRoutingListRelationFilter,
   })
   @ValidateNested()
@@ -223,6 +288,18 @@ class WorkCenterWhereInput {
     nullable: true,
   })
   workCenterRoutings?: WorkCenterRoutingListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterWorkCenterTagListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTagListRelationFilter)
+  @IsOptional()
+  @Field(() => WorkCenterWorkCenterTagListRelationFilter, {
+    nullable: true,
+  })
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagListRelationFilter;
 }
 
 export { WorkCenterWhereInput as WorkCenterWhereInput };

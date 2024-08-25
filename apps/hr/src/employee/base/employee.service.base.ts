@@ -14,11 +14,17 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Employee as PrismaEmployee,
-  PaymentVoucher as PrismaPaymentVoucher,
-  ReceiptVoucher as PrismaReceiptVoucher,
-  SalePerson as PrismaSalePerson,
-  EmployeeClass as PrismaEmployeeClass,
+  Attendance as PrismaAttendance,
+  BonusRequest as PrismaBonusRequest,
+  CheckInOut as PrismaCheckInOut,
+  DailyMovementRequest as PrismaDailyMovementRequest,
+  DayOffRequest as PrismaDayOffRequest,
+  LeaveRequest as PrismaLeaveRequest,
+  OverNightRequest as PrismaOverNightRequest,
   EmployeeDepartment as PrismaEmployeeDepartment,
+  EmployeeGroup as PrismaEmployeeGroup,
+  EmployeeRole as PrismaEmployeeRole,
+  JobTitle as PrismaJobTitle,
   Tenant as PrismaTenant,
 } from "@prisma/client";
 
@@ -55,47 +61,81 @@ export class EmployeeServiceBase {
     return this.prisma.employee.delete(args);
   }
 
-  async findPaymentVouchers(
+  async findAttendances(
     parentId: string,
-    args: Prisma.PaymentVoucherFindManyArgs
-  ): Promise<PrismaPaymentVoucher[]> {
+    args: Prisma.AttendanceFindManyArgs
+  ): Promise<PrismaAttendance[]> {
     return this.prisma.employee
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .paymentVouchers(args);
+      .attendances(args);
   }
 
-  async findReceiptVouchers(
+  async findBonusRequests(
     parentId: string,
-    args: Prisma.ReceiptVoucherFindManyArgs
-  ): Promise<PrismaReceiptVoucher[]> {
+    args: Prisma.BonusRequestFindManyArgs
+  ): Promise<PrismaBonusRequest[]> {
     return this.prisma.employee
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .receiptVouchers(args);
+      .bonusRequests(args);
   }
 
-  async findSalePeople(
+  async findCheckInOuts(
     parentId: string,
-    args: Prisma.SalePersonFindManyArgs
-  ): Promise<PrismaSalePerson[]> {
+    args: Prisma.CheckInOutFindManyArgs
+  ): Promise<PrismaCheckInOut[]> {
     return this.prisma.employee
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .salePeople(args);
+      .checkInOuts(args);
   }
 
-  async getEmployeeClassId(
-    parentId: string
-  ): Promise<PrismaEmployeeClass | null> {
+  async findDailyMovementRequests(
+    parentId: string,
+    args: Prisma.DailyMovementRequestFindManyArgs
+  ): Promise<PrismaDailyMovementRequest[]> {
     return this.prisma.employee
-      .findUnique({
+      .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .employeeClassId();
+      .dailyMovementRequests(args);
+  }
+
+  async findDayOffRequests(
+    parentId: string,
+    args: Prisma.DayOffRequestFindManyArgs
+  ): Promise<PrismaDayOffRequest[]> {
+    return this.prisma.employee
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .dayOffRequests(args);
+  }
+
+  async findLeavingPermissionRequests(
+    parentId: string,
+    args: Prisma.LeaveRequestFindManyArgs
+  ): Promise<PrismaLeaveRequest[]> {
+    return this.prisma.employee
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .leavingPermissionRequests(args);
+  }
+
+  async findOverNightRequests(
+    parentId: string,
+    args: Prisma.OverNightRequestFindManyArgs
+  ): Promise<PrismaOverNightRequest[]> {
+    return this.prisma.employee
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .overNightRequests(args);
   }
 
   async getEmployeeDepartmentId(
@@ -106,6 +146,34 @@ export class EmployeeServiceBase {
         where: { id: parentId },
       })
       .employeeDepartmentId();
+  }
+
+  async getEmployeeGroup(
+    parentId: string
+  ): Promise<PrismaEmployeeGroup | null> {
+    return this.prisma.employee
+      .findUnique({
+        where: { id: parentId },
+      })
+      .employeeGroup();
+  }
+
+  async getEmployeeRoleId(
+    parentId: string
+  ): Promise<PrismaEmployeeRole | null> {
+    return this.prisma.employee
+      .findUnique({
+        where: { id: parentId },
+      })
+      .employeeRoleId();
+  }
+
+  async getJobTitle(parentId: string): Promise<PrismaJobTitle | null> {
+    return this.prisma.employee
+      .findUnique({
+        where: { id: parentId },
+      })
+      .jobTitle();
   }
 
   async getTenantId(parentId: string): Promise<PrismaTenant | null> {

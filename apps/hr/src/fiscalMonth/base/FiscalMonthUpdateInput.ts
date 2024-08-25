@@ -11,31 +11,31 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { BonusRequestWhereUniqueInput } from "../../bonusRequest/base/BonusRequestWhereUniqueInput";
 import {
+  ValidateNested,
+  IsOptional,
   IsString,
   MaxLength,
-  IsOptional,
-  ValidateNested,
   IsDate,
+  IsBoolean,
 } from "class-validator";
-import { EmployeeSalaryUpdateManyWithoutFiscalMonthsInput } from "./EmployeeSalaryUpdateManyWithoutFiscalMonthsInput";
 import { Type } from "class-transformer";
-import { FiscalWeekUpdateManyWithoutFiscalMonthsInput } from "./FiscalWeekUpdateManyWithoutFiscalMonthsInput";
-import { FiscalYearWhereUniqueInput } from "../../fiscalYear/base/FiscalYearWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class FiscalMonthUpdateInput {
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => BonusRequestWhereUniqueInput,
   })
-  @IsString()
-  @MaxLength(100)
+  @ValidateNested()
+  @Type(() => BonusRequestWhereUniqueInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => BonusRequestWhereUniqueInput, {
     nullable: true,
   })
-  code?: string;
+  bonusRequests?: BonusRequestWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -47,19 +47,7 @@ class FiscalMonthUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  description?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => EmployeeSalaryUpdateManyWithoutFiscalMonthsInput,
-  })
-  @ValidateNested()
-  @Type(() => EmployeeSalaryUpdateManyWithoutFiscalMonthsInput)
-  @IsOptional()
-  @Field(() => EmployeeSalaryUpdateManyWithoutFiscalMonthsInput, {
-    nullable: true,
-  })
-  employeeSalaries?: EmployeeSalaryUpdateManyWithoutFiscalMonthsInput;
+  code?: string | null;
 
   @ApiProperty({
     required: false,
@@ -70,55 +58,42 @@ class FiscalMonthUpdateInput {
   @Field(() => Date, {
     nullable: true,
   })
-  endsOn?: Date | null;
+  endsOn?: Date;
 
   @ApiProperty({
     required: false,
-    type: () => FiscalWeekUpdateManyWithoutFiscalMonthsInput,
+    type: Boolean,
   })
-  @ValidateNested()
-  @Type(() => FiscalWeekUpdateManyWithoutFiscalMonthsInput)
+  @IsBoolean()
   @IsOptional()
-  @Field(() => FiscalWeekUpdateManyWithoutFiscalMonthsInput, {
+  @Field(() => Boolean, {
     nullable: true,
   })
-  fiscalWeeks?: FiscalWeekUpdateManyWithoutFiscalMonthsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => FiscalYearWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => FiscalYearWhereUniqueInput)
-  @IsOptional()
-  @Field(() => FiscalYearWhereUniqueInput, {
-    nullable: true,
-  })
-  fiscalYear?: FiscalYearWhereUniqueInput;
+  isActive?: boolean;
 
   @ApiProperty({
     required: false,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  mormalizedName?: string;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @IsOptional()
   @Field(() => String, {
     nullable: true,
   })
   name?: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  normalizedName?: string;
 
   @ApiProperty({
     required: false,
@@ -141,7 +116,19 @@ class FiscalMonthUpdateInput {
   @Field(() => Date, {
     nullable: true,
   })
-  startsFrom?: Date | null;
+  startsFrom?: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput | null;
 }
 
 export { FiscalMonthUpdateInput as FiscalMonthUpdateInput };

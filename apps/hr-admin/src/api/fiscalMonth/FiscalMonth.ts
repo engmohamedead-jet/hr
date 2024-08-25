@@ -1,19 +1,17 @@
-import { EmployeeSalary } from "../employeeSalary/EmployeeSalary";
-import { FiscalWeek } from "../fiscalWeek/FiscalWeek";
-import { FiscalYear } from "../fiscalYear/FiscalYear";
+import { BonusRequest } from "../bonusRequest/BonusRequest";
+import { Tenant } from "../tenant/Tenant";
 
 export type FiscalMonth = {
-  code: string;
+  bonusRequests?: BonusRequest | null;
+  code: string | null;
   createdAt: Date;
-  description: string | null;
-  employeeSalaries?: Array<EmployeeSalary>;
-  endsOn: Date | null;
-  fiscalWeeks?: Array<FiscalWeek>;
-  fiscalYear?: FiscalYear;
+  endsOn: Date;
   id: string;
-  mormalizedName: string;
+  isActive: boolean;
   name: string;
+  normalizedName: string;
   note: string | null;
-  startsFrom: Date | null;
+  startsFrom: Date;
+  tenantId?: Tenant | null;
   updatedAt: Date;
 };

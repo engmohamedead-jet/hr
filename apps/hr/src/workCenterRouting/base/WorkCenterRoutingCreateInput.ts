@@ -11,22 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { BillOfMaterialDetailCreateNestedManyWithoutWorkCenterRoutingsInput } from "./BillOfMaterialDetailCreateNestedManyWithoutWorkCenterRoutingsInput";
 
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
   IsBoolean,
   IsInt,
-  Min,
   Max,
+  ValidateNested,
   IsNumber,
 } from "class-validator";
 
-import { Type } from "class-transformer";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
+import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { WorkCenterWhereUniqueInput } from "../../workCenter/base/WorkCenterWhereUniqueInput";
 
@@ -34,21 +32,15 @@ import { WorkCenterWhereUniqueInput } from "../../workCenter/base/WorkCenterWher
 class WorkCenterRoutingCreateInput {
   @ApiProperty({
     required: false,
-    type: () =>
-      BillOfMaterialDetailCreateNestedManyWithoutWorkCenterRoutingsInput,
+    type: String,
   })
-  @ValidateNested()
-  @Type(
-    () => BillOfMaterialDetailCreateNestedManyWithoutWorkCenterRoutingsInput
-  )
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(
-    () => BillOfMaterialDetailCreateNestedManyWithoutWorkCenterRoutingsInput,
-    {
-      nullable: true,
-    }
-  )
-  billOfMaterialDetails?: BillOfMaterialDetailCreateNestedManyWithoutWorkCenterRoutingsInput;
+  @Field(() => String, {
+    nullable: true,
+  })
+  billOfMaterialId?: string | null;
 
   @ApiProperty({
     required: false,
@@ -105,7 +97,6 @@ class WorkCenterRoutingCreateInput {
     type: Number,
   })
   @IsInt()
-  @Min(1)
   @Max(99999999999)
   @Field(() => Number)
   sequence!: number;
@@ -120,7 +111,7 @@ class WorkCenterRoutingCreateInput {
   @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  tenantId?: TenantWhereUniqueInput | null;
+  tenant?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -147,16 +138,13 @@ class WorkCenterRoutingCreateInput {
   timeModeBatch?: number | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => WorkCenterWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => WorkCenterWhereUniqueInput)
-  @IsOptional()
-  @Field(() => WorkCenterWhereUniqueInput, {
-    nullable: true,
-  })
-  workCenterId?: WorkCenterWhereUniqueInput | null;
+  @Field(() => WorkCenterWhereUniqueInput)
+  workCenterId!: WorkCenterWhereUniqueInput;
 }
 
 export { WorkCenterRoutingCreateInput as WorkCenterRoutingCreateInput };

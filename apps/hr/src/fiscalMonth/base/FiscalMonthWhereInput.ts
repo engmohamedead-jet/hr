@@ -11,27 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { BonusRequestWhereUniqueInput } from "../../bonusRequest/base/BonusRequestWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { EmployeeSalaryListRelationFilter } from "../../employeeSalary/base/EmployeeSalaryListRelationFilter";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
-import { FiscalWeekListRelationFilter } from "../../fiscalWeek/base/FiscalWeekListRelationFilter";
-import { FiscalYearWhereUniqueInput } from "../../fiscalYear/base/FiscalYearWhereUniqueInput";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class FiscalMonthWhereInput {
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: () => BonusRequestWhereUniqueInput,
   })
-  @Type(() => StringFilter)
+  @ValidateNested()
+  @Type(() => BonusRequestWhereUniqueInput)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => BonusRequestWhereUniqueInput, {
     nullable: true,
   })
-  code?: StringFilter;
+  bonusRequests?: BonusRequestWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -42,54 +43,18 @@ class FiscalMonthWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  description?: StringNullableFilter;
+  code?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
-    type: () => EmployeeSalaryListRelationFilter,
+    type: DateTimeFilter,
   })
-  @ValidateNested()
-  @Type(() => EmployeeSalaryListRelationFilter)
+  @Type(() => DateTimeFilter)
   @IsOptional()
-  @Field(() => EmployeeSalaryListRelationFilter, {
+  @Field(() => DateTimeFilter, {
     nullable: true,
   })
-  employeeSalaries?: EmployeeSalaryListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: DateTimeNullableFilter,
-  })
-  @Type(() => DateTimeNullableFilter)
-  @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
-    nullable: true,
-  })
-  endsOn?: DateTimeNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => FiscalWeekListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => FiscalWeekListRelationFilter)
-  @IsOptional()
-  @Field(() => FiscalWeekListRelationFilter, {
-    nullable: true,
-  })
-  fiscalWeeks?: FiscalWeekListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => FiscalYearWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => FiscalYearWhereUniqueInput)
-  @IsOptional()
-  @Field(() => FiscalYearWhereUniqueInput, {
-    nullable: true,
-  })
-  fiscalYear?: FiscalYearWhereUniqueInput;
+  endsOn?: DateTimeFilter;
 
   @ApiProperty({
     required: false,
@@ -104,14 +69,14 @@ class FiscalMonthWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: BooleanFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => BooleanFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => BooleanFilter, {
     nullable: true,
   })
-  mormalizedName?: StringFilter;
+  isActive?: BooleanFilter;
 
   @ApiProperty({
     required: false,
@@ -126,6 +91,17 @@ class FiscalMonthWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  normalizedName?: StringFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -137,14 +113,26 @@ class FiscalMonthWhereInput {
 
   @ApiProperty({
     required: false,
-    type: DateTimeNullableFilter,
+    type: DateTimeFilter,
   })
-  @Type(() => DateTimeNullableFilter)
+  @Type(() => DateTimeFilter)
   @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
+  @Field(() => DateTimeFilter, {
     nullable: true,
   })
-  startsFrom?: DateTimeNullableFilter;
+  startsFrom?: DateTimeFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TenantWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TenantWhereUniqueInput, {
+    nullable: true,
+  })
+  tenantId?: TenantWhereUniqueInput;
 }
 
 export { FiscalMonthWhereInput as FiscalMonthWhereInput };

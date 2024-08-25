@@ -1,6 +1,11 @@
 import { Decimal } from "decimal.js";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput";
 import { WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput";
+import { WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput } from "./WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput";
 
 export type WorkCenterCreateInput = {
   analyticDistribution?: string | null;
@@ -19,5 +24,11 @@ export type WorkCenterCreateInput = {
   stopTime?: Decimal | null;
   tenantId?: TenantWhereUniqueInput | null;
   timeEfficiency?: Decimal | null;
+  workCenterAlternativeWorkCenters?: WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput;
+  workCenterAlternatives?: WorkCenterAlternativeCreateNestedManyWithoutWorkCentersInput;
+  workCenterCapacities?: WorkCenterCapacityCreateNestedManyWithoutWorkCentersInput;
+  workCenterProductivities?: WorkCenterProductivityCreateNestedManyWithoutWorkCentersInput;
+  workCenterProductivityLosses?: WorkCenterProductivityLossCreateNestedManyWithoutWorkCentersInput;
   workCenterRoutings?: WorkCenterRoutingCreateNestedManyWithoutWorkCentersInput;
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagCreateNestedManyWithoutWorkCentersInput;
 };

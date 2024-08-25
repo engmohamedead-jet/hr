@@ -1,20 +1,19 @@
-import { StringFilter } from "../../util/StringFilter";
+import { BonusRequestWhereUniqueInput } from "../bonusRequest/BonusRequestWhereUniqueInput";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { EmployeeSalaryListRelationFilter } from "../employeeSalary/EmployeeSalaryListRelationFilter";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
-import { FiscalWeekListRelationFilter } from "../fiscalWeek/FiscalWeekListRelationFilter";
-import { FiscalYearWhereUniqueInput } from "../fiscalYear/FiscalYearWhereUniqueInput";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type FiscalMonthWhereInput = {
-  code?: StringFilter;
-  description?: StringNullableFilter;
-  employeeSalaries?: EmployeeSalaryListRelationFilter;
-  endsOn?: DateTimeNullableFilter;
-  fiscalWeeks?: FiscalWeekListRelationFilter;
-  fiscalYear?: FiscalYearWhereUniqueInput;
+  bonusRequests?: BonusRequestWhereUniqueInput;
+  code?: StringNullableFilter;
+  endsOn?: DateTimeFilter;
   id?: StringFilter;
-  mormalizedName?: StringFilter;
+  isActive?: BooleanFilter;
   name?: StringFilter;
+  normalizedName?: StringFilter;
   note?: StringNullableFilter;
-  startsFrom?: DateTimeNullableFilter;
+  startsFrom?: DateTimeFilter;
+  tenantId?: TenantWhereUniqueInput;
 };

@@ -4,13 +4,15 @@ export type EmployeeOrderByInput = {
   balance?: SortOrder;
   code?: SortOrder;
   createdAt?: SortOrder;
-  employeeClassIdId?: SortOrder;
   employeeDepartmentIdId?: SortOrder;
+  employeeGroupId?: SortOrder;
+  employeeRoleIdId?: SortOrder;
+  hireDate?: SortOrder;
   id?: SortOrder;
   isActive?: SortOrder;
+  jobTitleId?: SortOrder;
   lastYearBalance?: SortOrder;
   name?: SortOrder;
-  normalizedName?: SortOrder;
   note?: SortOrder;
   remainingBalance?: SortOrder;
   tenantIdId?: SortOrder;

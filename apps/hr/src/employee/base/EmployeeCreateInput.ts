@@ -11,41 +11,82 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { AttendanceCreateNestedManyWithoutEmployeesInput } from "./AttendanceCreateNestedManyWithoutEmployeesInput";
 
 import {
-  IsNumber,
-  Min,
-  Max,
+  ValidateNested,
   IsOptional,
+  IsNumber,
+  Max,
   IsString,
   MaxLength,
-  ValidateNested,
+  IsDate,
   IsBoolean,
 } from "class-validator";
 
-import { Decimal } from "decimal.js";
-import { EmployeeClassWhereUniqueInput } from "../../employeeClass/base/EmployeeClassWhereUniqueInput";
 import { Type } from "class-transformer";
+import { Decimal } from "decimal.js";
+import { BonusRequestCreateNestedManyWithoutEmployeesInput } from "./BonusRequestCreateNestedManyWithoutEmployeesInput";
+import { CheckInOutCreateNestedManyWithoutEmployeesInput } from "./CheckInOutCreateNestedManyWithoutEmployeesInput";
+import { DailyMovementRequestCreateNestedManyWithoutEmployeesInput } from "./DailyMovementRequestCreateNestedManyWithoutEmployeesInput";
+import { DayOffRequestCreateNestedManyWithoutEmployeesInput } from "./DayOffRequestCreateNestedManyWithoutEmployeesInput";
 import { EmployeeDepartmentWhereUniqueInput } from "../../employeeDepartment/base/EmployeeDepartmentWhereUniqueInput";
-import { PaymentVoucherCreateNestedManyWithoutEmployeesInput } from "./PaymentVoucherCreateNestedManyWithoutEmployeesInput";
-import { ReceiptVoucherCreateNestedManyWithoutEmployeesInput } from "./ReceiptVoucherCreateNestedManyWithoutEmployeesInput";
-import { SalePersonCreateNestedManyWithoutEmployeesInput } from "./SalePersonCreateNestedManyWithoutEmployeesInput";
+import { EmployeeGroupWhereUniqueInput } from "../../employeeGroup/base/EmployeeGroupWhereUniqueInput";
+import { EmployeeRoleWhereUniqueInput } from "../../employeeRole/base/EmployeeRoleWhereUniqueInput";
+import { JobTitleWhereUniqueInput } from "../../jobTitle/base/JobTitleWhereUniqueInput";
+import { LeaveRequestCreateNestedManyWithoutEmployeesInput } from "./LeaveRequestCreateNestedManyWithoutEmployeesInput";
+import { OverNightRequestCreateNestedManyWithoutEmployeesInput } from "./OverNightRequestCreateNestedManyWithoutEmployeesInput";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class EmployeeCreateInput {
   @ApiProperty({
     required: false,
+    type: () => AttendanceCreateNestedManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => AttendanceCreateNestedManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => AttendanceCreateNestedManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  attendances?: AttendanceCreateNestedManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   balance?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => BonusRequestCreateNestedManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => BonusRequestCreateNestedManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => BonusRequestCreateNestedManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  bonusRequests?: BonusRequestCreateNestedManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CheckInOutCreateNestedManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => CheckInOutCreateNestedManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => CheckInOutCreateNestedManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  checkInOuts?: CheckInOutCreateNestedManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,
@@ -61,15 +102,27 @@ class EmployeeCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => EmployeeClassWhereUniqueInput,
+    type: () => DailyMovementRequestCreateNestedManyWithoutEmployeesInput,
   })
   @ValidateNested()
-  @Type(() => EmployeeClassWhereUniqueInput)
+  @Type(() => DailyMovementRequestCreateNestedManyWithoutEmployeesInput)
   @IsOptional()
-  @Field(() => EmployeeClassWhereUniqueInput, {
+  @Field(() => DailyMovementRequestCreateNestedManyWithoutEmployeesInput, {
     nullable: true,
   })
-  employeeClassId?: EmployeeClassWhereUniqueInput | null;
+  dailyMovementRequests?: DailyMovementRequestCreateNestedManyWithoutEmployeesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DayOffRequestCreateNestedManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => DayOffRequestCreateNestedManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => DayOffRequestCreateNestedManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  dayOffRequests?: DayOffRequestCreateNestedManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,
@@ -84,6 +137,41 @@ class EmployeeCreateInput {
   employeeDepartmentId?: EmployeeDepartmentWhereUniqueInput | null;
 
   @ApiProperty({
+    required: false,
+    type: () => EmployeeGroupWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeGroupWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeGroupWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeGroup?: EmployeeGroupWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeRoleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeRoleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeRoleWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeRoleId?: EmployeeRoleWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  hireDate?: Date | null;
+
+  @ApiProperty({
     required: true,
     type: Boolean,
   })
@@ -93,16 +181,39 @@ class EmployeeCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => JobTitleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => JobTitleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => JobTitleWhereUniqueInput, {
+    nullable: true,
+  })
+  jobTitle?: JobTitleWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   lastYearBalance?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => LeaveRequestCreateNestedManyWithoutEmployeesInput,
+  })
+  @ValidateNested()
+  @Type(() => LeaveRequestCreateNestedManyWithoutEmployeesInput)
+  @IsOptional()
+  @Field(() => LeaveRequestCreateNestedManyWithoutEmployeesInput, {
+    nullable: true,
+  })
+  leavingPermissionRequests?: LeaveRequestCreateNestedManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: true,
@@ -112,15 +223,6 @@ class EmployeeCreateInput {
   @MaxLength(1000)
   @Field(() => String)
   name!: string;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @Field(() => String)
-  normalizedName!: string;
 
   @ApiProperty({
     required: false,
@@ -136,52 +238,27 @@ class EmployeeCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => PaymentVoucherCreateNestedManyWithoutEmployeesInput,
+    type: () => OverNightRequestCreateNestedManyWithoutEmployeesInput,
   })
   @ValidateNested()
-  @Type(() => PaymentVoucherCreateNestedManyWithoutEmployeesInput)
+  @Type(() => OverNightRequestCreateNestedManyWithoutEmployeesInput)
   @IsOptional()
-  @Field(() => PaymentVoucherCreateNestedManyWithoutEmployeesInput, {
+  @Field(() => OverNightRequestCreateNestedManyWithoutEmployeesInput, {
     nullable: true,
   })
-  paymentVouchers?: PaymentVoucherCreateNestedManyWithoutEmployeesInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ReceiptVoucherCreateNestedManyWithoutEmployeesInput,
-  })
-  @ValidateNested()
-  @Type(() => ReceiptVoucherCreateNestedManyWithoutEmployeesInput)
-  @IsOptional()
-  @Field(() => ReceiptVoucherCreateNestedManyWithoutEmployeesInput, {
-    nullable: true,
-  })
-  receiptVouchers?: ReceiptVoucherCreateNestedManyWithoutEmployeesInput;
+  overNightRequests?: OverNightRequestCreateNestedManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })
   remainingBalance?: Decimal | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalePersonCreateNestedManyWithoutEmployeesInput,
-  })
-  @ValidateNested()
-  @Type(() => SalePersonCreateNestedManyWithoutEmployeesInput)
-  @IsOptional()
-  @Field(() => SalePersonCreateNestedManyWithoutEmployeesInput, {
-    nullable: true,
-  })
-  salePeople?: SalePersonCreateNestedManyWithoutEmployeesInput;
 
   @ApiProperty({
     required: false,
@@ -200,7 +277,6 @@ class EmployeeCreateInput {
     type: Number,
   })
   @IsNumber()
-  @Min(-99999999999)
   @Max(99999999999)
   @IsOptional()
   @Field(() => Float, {

@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 import { Type } from "class-transformer";
+import { WorkOrderUpdateManyWithoutScrapReasonsInput } from "./WorkOrderUpdateManyWithoutScrapReasonsInput";
 
 @InputType()
 class ScrapReasonUpdateInput {
@@ -105,6 +106,18 @@ class ScrapReasonUpdateInput {
     nullable: true,
   })
   tenantId?: TenantWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderUpdateManyWithoutScrapReasonsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderUpdateManyWithoutScrapReasonsInput)
+  @IsOptional()
+  @Field(() => WorkOrderUpdateManyWithoutScrapReasonsInput, {
+    nullable: true,
+  })
+  workOrders?: WorkOrderUpdateManyWithoutScrapReasonsInput;
 }
 
 export { ScrapReasonUpdateInput as ScrapReasonUpdateInput };

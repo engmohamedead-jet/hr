@@ -11,49 +11,74 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
-import { StringFilter } from "../../util/StringFilter";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
-import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { EmployeeWhereUniqueInput } from "../../employee/base/EmployeeWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
+import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
 
 @InputType()
 class AttendanceWhereInput {
   @ApiProperty({
     required: false,
-    type: DateTimeNullableFilter,
+    type: () => UserWhereUniqueInput,
   })
-  @Type(() => DateTimeNullableFilter)
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
   @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
+  @Field(() => UserWhereUniqueInput, {
     nullable: true,
   })
-  attendanceDate?: DateTimeNullableFilter;
+  ApprovedByUserId?: UserWhereUniqueInput;
 
   @ApiProperty({
     required: false,
-    type: DateTimeNullableFilter,
+    type: DateTimeFilter,
   })
-  @Type(() => DateTimeNullableFilter)
+  @Type(() => DateTimeFilter)
   @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
+  @Field(() => DateTimeFilter, {
     nullable: true,
   })
-  checkInTime?: DateTimeNullableFilter;
+  attendanceDate?: DateTimeFilter;
 
   @ApiProperty({
     required: false,
-    type: DateTimeNullableFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => DateTimeNullableFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => DateTimeNullableFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  checkOutTime?: DateTimeNullableFilter;
+  checkInTime?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  checkOutTime?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => EmployeeWhereUniqueInput, {
+    nullable: true,
+  })
+  employeeId?: EmployeeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -68,6 +93,28 @@ class AttendanceWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isActive?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  isAppreoved?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -79,14 +126,14 @@ class AttendanceWhereInput {
 
   @ApiProperty({
     required: false,
-    type: DecimalNullableFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => DecimalNullableFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => DecimalNullableFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  overtimeHours?: DecimalNullableFilter;
+  overtimeHours?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -101,25 +148,37 @@ class AttendanceWhereInput {
 
   @ApiProperty({
     required: false,
-    type: BooleanNullableFilter,
+    type: () => TenantWhereUniqueInput,
   })
-  @Type(() => BooleanNullableFilter)
+  @ValidateNested()
+  @Type(() => TenantWhereUniqueInput)
   @IsOptional()
-  @Field(() => BooleanNullableFilter, {
+  @Field(() => TenantWhereUniqueInput, {
     nullable: true,
   })
-  wasAbsent?: BooleanNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
 
   @ApiProperty({
     required: false,
-    type: BooleanFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => BooleanFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => BooleanFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  wasPresent?: BooleanFilter;
+  wasAbsent?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  wasPresent?: StringFilter;
 }
 
 export { AttendanceWhereInput as AttendanceWhereInput };

@@ -26,7 +26,20 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
-import { Tenant } from "../../tenant/base/Tenant";
+import { AttendanceFindManyArgs } from "../../attendance/base/AttendanceFindManyArgs";
+import { Attendance } from "../../attendance/base/Attendance";
+import { BonusRequestFindManyArgs } from "../../bonusRequest/base/BonusRequestFindManyArgs";
+import { BonusRequest } from "../../bonusRequest/base/BonusRequest";
+import { CheckInOutFindManyArgs } from "../../checkInOut/base/CheckInOutFindManyArgs";
+import { CheckInOut } from "../../checkInOut/base/CheckInOut";
+import { DailyMovementRequestFindManyArgs } from "../../dailyMovementRequest/base/DailyMovementRequestFindManyArgs";
+import { DailyMovementRequest } from "../../dailyMovementRequest/base/DailyMovementRequest";
+import { DayOffRequestFindManyArgs } from "../../dayOffRequest/base/DayOffRequestFindManyArgs";
+import { DayOffRequest } from "../../dayOffRequest/base/DayOffRequest";
+import { LeaveRequestFindManyArgs } from "../../leaveRequest/base/LeaveRequestFindManyArgs";
+import { LeaveRequest } from "../../leaveRequest/base/LeaveRequest";
+import { OverNightRequestFindManyArgs } from "../../overNightRequest/base/OverNightRequestFindManyArgs";
+import { OverNightRequest } from "../../overNightRequest/base/OverNightRequest";
 import { UserService } from "../user.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => User)
@@ -87,15 +100,7 @@ export class UserResolverBase {
   async createUser(@graphql.Args() args: CreateUserArgs): Promise<User> {
     return await this.service.createUser({
       ...args,
-      data: {
-        ...args.data,
-
-        tenantId: args.data.tenantId
-          ? {
-              connect: args.data.tenantId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -110,15 +115,7 @@ export class UserResolverBase {
     try {
       return await this.service.updateUser({
         ...args,
-        data: {
-          ...args.data,
-
-          tenantId: args.data.tenantId
-            ? {
-                connect: args.data.tenantId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -150,21 +147,144 @@ export class UserResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Tenant, {
-    nullable: true,
-    name: "tenantId",
-  })
+  @graphql.ResolveField(() => [Attendance], { name: "attendances" })
   @nestAccessControl.UseRoles({
-    resource: "Tenant",
+    resource: "Attendance",
     action: "read",
     possession: "any",
   })
-  async getTenantId(@graphql.Parent() parent: User): Promise<Tenant | null> {
-    const result = await this.service.getTenantId(parent.id);
+  async findAttendances(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: AttendanceFindManyArgs
+  ): Promise<Attendance[]> {
+    const results = await this.service.findAttendances(parent.id, args);
 
-    if (!result) {
-      return null;
+    if (!results) {
+      return [];
     }
-    return result;
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [BonusRequest], { name: "bonuses" })
+  @nestAccessControl.UseRoles({
+    resource: "BonusRequest",
+    action: "read",
+    possession: "any",
+  })
+  async findBonuses(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: BonusRequestFindManyArgs
+  ): Promise<BonusRequest[]> {
+    const results = await this.service.findBonuses(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [CheckInOut], { name: "checkInOuts" })
+  @nestAccessControl.UseRoles({
+    resource: "CheckInOut",
+    action: "read",
+    possession: "any",
+  })
+  async findCheckInOuts(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: CheckInOutFindManyArgs
+  ): Promise<CheckInOut[]> {
+    const results = await this.service.findCheckInOuts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [DailyMovementRequest], {
+    name: "dailyMovements",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "DailyMovementRequest",
+    action: "read",
+    possession: "any",
+  })
+  async findDailyMovements(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: DailyMovementRequestFindManyArgs
+  ): Promise<DailyMovementRequest[]> {
+    const results = await this.service.findDailyMovements(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [DayOffRequest], { name: "dayOffs" })
+  @nestAccessControl.UseRoles({
+    resource: "DayOffRequest",
+    action: "read",
+    possession: "any",
+  })
+  async findDayOffs(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: DayOffRequestFindManyArgs
+  ): Promise<DayOffRequest[]> {
+    const results = await this.service.findDayOffs(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [LeaveRequest], { name: "leaveRequests" })
+  @nestAccessControl.UseRoles({
+    resource: "LeaveRequest",
+    action: "read",
+    possession: "any",
+  })
+  async findLeaveRequests(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: LeaveRequestFindManyArgs
+  ): Promise<LeaveRequest[]> {
+    const results = await this.service.findLeaveRequests(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [OverNightRequest], { name: "overNights" })
+  @nestAccessControl.UseRoles({
+    resource: "OverNightRequest",
+    action: "read",
+    possession: "any",
+  })
+  async findOverNights(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: OverNightRequestFindManyArgs
+  ): Promise<OverNightRequest[]> {
+    const results = await this.service.findOverNights(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

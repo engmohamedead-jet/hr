@@ -11,326 +11,101 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountUpdateManyWithoutTenantsInput } from "./AccountUpdateManyWithoutTenantsInput";
-import {
-  ValidateNested,
-  IsOptional,
-  IsString,
-  MaxLength,
-  IsBoolean,
-} from "class-validator";
+import { AttendanceUpdateManyWithoutTenantsInput } from "./AttendanceUpdateManyWithoutTenantsInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { ApplicationDependencyUpdateManyWithoutTenantsInput } from "./ApplicationDependencyUpdateManyWithoutTenantsInput";
-import { ApplicationUpdateManyWithoutTenantsInput } from "./ApplicationUpdateManyWithoutTenantsInput";
-import { AttributeValueUpdateManyWithoutTenantsInput } from "./AttributeValueUpdateManyWithoutTenantsInput";
-import { AttributeUpdateManyWithoutTenantsInput } from "./AttributeUpdateManyWithoutTenantsInput";
-import { BankBranchUpdateManyWithoutTenantsInput } from "./BankBranchUpdateManyWithoutTenantsInput";
-import { BankTypeUpdateManyWithoutTenantsInput } from "./BankTypeUpdateManyWithoutTenantsInput";
-import { BarcodeTypeUpdateManyWithoutTenantsInput } from "./BarcodeTypeUpdateManyWithoutTenantsInput";
-import { BillOfMaterialDetailUpdateManyWithoutTenantsInput } from "./BillOfMaterialDetailUpdateManyWithoutTenantsInput";
-import { BillOfMaterialTypeUpdateManyWithoutTenantsInput } from "./BillOfMaterialTypeUpdateManyWithoutTenantsInput";
-import { BillOfMaterialUpdateManyWithoutTenantsInput } from "./BillOfMaterialUpdateManyWithoutTenantsInput";
-import { CashRepositoryUpdateManyWithoutTenantsInput } from "./CashRepositoryUpdateManyWithoutTenantsInput";
-import { CurrencyUpdateManyWithoutTenantsInput } from "./CurrencyUpdateManyWithoutTenantsInput";
-import { CustomerUpdateManyWithoutTenantsInput } from "./CustomerUpdateManyWithoutTenantsInput";
-import { EmployeeClassUpdateManyWithoutTenantsInput } from "./EmployeeClassUpdateManyWithoutTenantsInput";
+import { BonusRequestUpdateManyWithoutTenantsInput } from "./BonusRequestUpdateManyWithoutTenantsInput";
+import { CheckInOutUpdateManyWithoutTenantsInput } from "./CheckInOutUpdateManyWithoutTenantsInput";
+import { DailyMovementRequestUpdateManyWithoutTenantsInput } from "./DailyMovementRequestUpdateManyWithoutTenantsInput";
+import { DayOffRequestUpdateManyWithoutTenantsInput } from "./DayOffRequestUpdateManyWithoutTenantsInput";
 import { EmployeeDepartmentUpdateManyWithoutTenantsInput } from "./EmployeeDepartmentUpdateManyWithoutTenantsInput";
+import { EmployeeGroupUpdateManyWithoutTenantsInput } from "./EmployeeGroupUpdateManyWithoutTenantsInput";
+import { EmployeeRoleUpdateManyWithoutTenantsInput } from "./EmployeeRoleUpdateManyWithoutTenantsInput";
 import { EmployeeUpdateManyWithoutTenantsInput } from "./EmployeeUpdateManyWithoutTenantsInput";
-import { ExpenseItemUpdateManyWithoutTenantsInput } from "./ExpenseItemUpdateManyWithoutTenantsInput";
-import { InstallmentSaleFeeUpdateManyWithoutTenantsInput } from "./InstallmentSaleFeeUpdateManyWithoutTenantsInput";
-import { InvoiceTypeUpdateManyWithoutTenantsInput } from "./InvoiceTypeUpdateManyWithoutTenantsInput";
-import { OrderStatusUpdateManyWithoutTenantsInput } from "./OrderStatusUpdateManyWithoutTenantsInput";
-import { PaymentMethodUpdateManyWithoutTenantsInput } from "./PaymentMethodUpdateManyWithoutTenantsInput";
-import { PaymentStatusUpdateManyWithoutTenantsInput } from "./PaymentStatusUpdateManyWithoutTenantsInput";
-import { PaymentTermUpdateManyWithoutTenantsInput } from "./PaymentTermUpdateManyWithoutTenantsInput";
-import { PaymentTypeUpdateManyWithoutTenantsInput } from "./PaymentTypeUpdateManyWithoutTenantsInput";
-import { PaymentVoucherUpdateManyWithoutTenantsInput } from "./PaymentVoucherUpdateManyWithoutTenantsInput";
-import { PeriodUpdateManyWithoutTenantsInput } from "./PeriodUpdateManyWithoutTenantsInput";
-import { PrintTemplateContentUpdateManyWithoutTenantsInput } from "./PrintTemplateContentUpdateManyWithoutTenantsInput";
-import { PrintTemplateGroupUpdateManyWithoutTenantsInput } from "./PrintTemplateGroupUpdateManyWithoutTenantsInput";
-import { PrintTemplateUpdateManyWithoutTenantsInput } from "./PrintTemplateUpdateManyWithoutTenantsInput";
-import { ProductBarcodeUpdateManyWithoutTenantsInput } from "./ProductBarcodeUpdateManyWithoutTenantsInput";
-import { ProductCategoryUpdateManyWithoutTenantsInput } from "./ProductCategoryUpdateManyWithoutTenantsInput";
-import { ProductDepartmentUpdateManyWithoutTenantsInput } from "./ProductDepartmentUpdateManyWithoutTenantsInput";
-import { ProductGroupUpdateManyWithoutTenantsInput } from "./ProductGroupUpdateManyWithoutTenantsInput";
-import { ProductTypeUpdateManyWithoutTenantsInput } from "./ProductTypeUpdateManyWithoutTenantsInput";
-import { ProductUnitUpdateManyWithoutTenantsInput } from "./ProductUnitUpdateManyWithoutTenantsInput";
-import { ProductVariantUpdateManyWithoutTenantsInput } from "./ProductVariantUpdateManyWithoutTenantsInput";
-import { ProductionAvailabilityUpdateManyWithoutTenantsInput } from "./ProductionAvailabilityUpdateManyWithoutTenantsInput";
-import { ProductionDocumentUpdateManyWithoutTenantsInput } from "./ProductionDocumentUpdateManyWithoutTenantsInput";
-import { ProductionOrderUpdateManyWithoutTenantsInput } from "./ProductionOrderUpdateManyWithoutTenantsInput";
-import { ProductUpdateManyWithoutTenantsInput } from "./ProductUpdateManyWithoutTenantsInput";
-import { PurchaseDetailUpdateManyWithoutTenantsInput } from "./PurchaseDetailUpdateManyWithoutTenantsInput";
-import { PurchasePriceTypeUpdateManyWithoutTenantsInput } from "./PurchasePriceTypeUpdateManyWithoutTenantsInput";
-import { PurchaseReturnDetailUpdateManyWithoutTenantsInput } from "./PurchaseReturnDetailUpdateManyWithoutTenantsInput";
-import { PurchaseReturnUpdateManyWithoutTenantsInput } from "./PurchaseReturnUpdateManyWithoutTenantsInput";
-import { PurchaseUpdateManyWithoutTenantsInput } from "./PurchaseUpdateManyWithoutTenantsInput";
-import { ReceiptVoucherUpdateManyWithoutTenantsInput } from "./ReceiptVoucherUpdateManyWithoutTenantsInput";
-import { ResourceTypeUpdateManyWithoutTenantsInput } from "./ResourceTypeUpdateManyWithoutTenantsInput";
-import { ResourceUpdateManyWithoutTenantsInput } from "./ResourceUpdateManyWithoutTenantsInput";
-import { RoleGroupUpdateManyWithoutTenantsInput } from "./RoleGroupUpdateManyWithoutTenantsInput";
-import { SalaryItemGroupUpdateManyWithoutTenantsInput } from "./SalaryItemGroupUpdateManyWithoutTenantsInput";
-import { SalaryItemTypeUpdateManyWithoutTenantsInput } from "./SalaryItemTypeUpdateManyWithoutTenantsInput";
-import { SalaryItemUpdateManyWithoutTenantsInput } from "./SalaryItemUpdateManyWithoutTenantsInput";
-import { SalaryLawUpdateManyWithoutTenantsInput } from "./SalaryLawUpdateManyWithoutTenantsInput";
-import { SaleDetailUpdateManyWithoutTenantsInput } from "./SaleDetailUpdateManyWithoutTenantsInput";
-import { SaleOrderDetailUpdateManyWithoutTenantsInput } from "./SaleOrderDetailUpdateManyWithoutTenantsInput";
-import { SaleOrderUpdateManyWithoutTenantsInput } from "./SaleOrderUpdateManyWithoutTenantsInput";
-import { SalePaymentUpdateManyWithoutTenantsInput } from "./SalePaymentUpdateManyWithoutTenantsInput";
-import { SalePersonUpdateManyWithoutTenantsInput } from "./SalePersonUpdateManyWithoutTenantsInput";
-import { SalePriceTypeUpdateManyWithoutTenantsInput } from "./SalePriceTypeUpdateManyWithoutTenantsInput";
-import { SaleQuotationDetailUpdateManyWithoutTenantsInput } from "./SaleQuotationDetailUpdateManyWithoutTenantsInput";
-import { SaleQuotationUpdateManyWithoutTenantsInput } from "./SaleQuotationUpdateManyWithoutTenantsInput";
-import { SaleReturnDetailUpdateManyWithoutTenantsInput } from "./SaleReturnDetailUpdateManyWithoutTenantsInput";
-import { SaleReturnUpdateManyWithoutTenantsInput } from "./SaleReturnUpdateManyWithoutTenantsInput";
-import { SaleTaxUpdateManyWithoutTenantsInput } from "./SaleTaxUpdateManyWithoutTenantsInput";
-import { SaleTeamUpdateManyWithoutTenantsInput } from "./SaleTeamUpdateManyWithoutTenantsInput";
-import { SaleUpdateManyWithoutTenantsInput } from "./SaleUpdateManyWithoutTenantsInput";
+import { MachineUpdateManyWithoutTenantsInput } from "./MachineUpdateManyWithoutTenantsInput";
+import { FiscalMonthUpdateManyWithoutTenantsInput } from "./FiscalMonthUpdateManyWithoutTenantsInput";
+import { JobTitleUpdateManyWithoutTenantsInput } from "./JobTitleUpdateManyWithoutTenantsInput";
+import { LeaveRequestTypeUpdateManyWithoutTenantsInput } from "./LeaveRequestTypeUpdateManyWithoutTenantsInput";
+import { LeaveRequestUpdateManyWithoutTenantsInput } from "./LeaveRequestUpdateManyWithoutTenantsInput";
+import { OverNightRequestUpdateManyWithoutTenantsInput } from "./OverNightRequestUpdateManyWithoutTenantsInput";
 import { ScrapReasonUpdateManyWithoutTenantsInput } from "./ScrapReasonUpdateManyWithoutTenantsInput";
-import { SettingGroupUpdateManyWithoutTenantsInput } from "./SettingGroupUpdateManyWithoutTenantsInput";
-import { SettingUpdateManyWithoutTenantsInput } from "./SettingUpdateManyWithoutTenantsInput";
-import { ShiftUpdateManyWithoutTenantsInput } from "./ShiftUpdateManyWithoutTenantsInput";
-import { ShippingStatusUpdateManyWithoutTenantsInput } from "./ShippingStatusUpdateManyWithoutTenantsInput";
-import { StoreLocationUpdateManyWithoutTenantsInput } from "./StoreLocationUpdateManyWithoutTenantsInput";
-import { StoreTypeUpdateManyWithoutTenantsInput } from "./StoreTypeUpdateManyWithoutTenantsInput";
-import { StoreUpdateManyWithoutTenantsInput } from "./StoreUpdateManyWithoutTenantsInput";
-import { SupplierUpdateManyWithoutTenantsInput } from "./SupplierUpdateManyWithoutTenantsInput";
-import { TimeModeUpdateManyWithoutTenantsInput } from "./TimeModeUpdateManyWithoutTenantsInput";
-import { TimeoffTypeUpdateManyWithoutTenantsInput } from "./TimeoffTypeUpdateManyWithoutTenantsInput";
-import { UnitUpdateManyWithoutTenantsInput } from "./UnitUpdateManyWithoutTenantsInput";
-import { UserUpdateManyWithoutTenantsInput } from "./UserUpdateManyWithoutTenantsInput";
-import { VoucherTypeUpdateManyWithoutTenantsInput } from "./VoucherTypeUpdateManyWithoutTenantsInput";
+import { TradingSummaryUpdateManyWithoutTenantsInput } from "./TradingSummaryUpdateManyWithoutTenantsInput";
+import { WorkCenterAlternativeUpdateManyWithoutTenantsInput } from "./WorkCenterAlternativeUpdateManyWithoutTenantsInput";
+import { WorkCenterCapacityUpdateManyWithoutTenantsInput } from "./WorkCenterCapacityUpdateManyWithoutTenantsInput";
+import { WorkCenterProductivityUpdateManyWithoutTenantsInput } from "./WorkCenterProductivityUpdateManyWithoutTenantsInput";
+import { WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput } from "./WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput";
+import { WorkCenterProductivityLossUpdateManyWithoutTenantsInput } from "./WorkCenterProductivityLossUpdateManyWithoutTenantsInput";
 import { WorkCenterRoutingUpdateManyWithoutTenantsInput } from "./WorkCenterRoutingUpdateManyWithoutTenantsInput";
+import { WorkCenterTagUpdateManyWithoutTenantsInput } from "./WorkCenterTagUpdateManyWithoutTenantsInput";
+import { WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput } from "./WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput";
 import { WorkCenterUpdateManyWithoutTenantsInput } from "./WorkCenterUpdateManyWithoutTenantsInput";
+import { WorkOrderDependencyUpdateManyWithoutTenantsInput } from "./WorkOrderDependencyUpdateManyWithoutTenantsInput";
+import { WorkOrderRoutingUpdateManyWithoutTenantsInput } from "./WorkOrderRoutingUpdateManyWithoutTenantsInput";
+import { WorkOrderStatusUpdateManyWithoutTenantsInput } from "./WorkOrderStatusUpdateManyWithoutTenantsInput";
+import { WorkOrderUpdateManyWithoutTenantsInput } from "./WorkOrderUpdateManyWithoutTenantsInput";
+import { WorkSheetTypeUpdateManyWithoutTenantsInput } from "./WorkSheetTypeUpdateManyWithoutTenantsInput";
 
 @InputType()
 class TenantUpdateInput {
   @ApiProperty({
     required: false,
-    type: () => AccountUpdateManyWithoutTenantsInput,
+    type: () => AttendanceUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => AccountUpdateManyWithoutTenantsInput)
+  @Type(() => AttendanceUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => AccountUpdateManyWithoutTenantsInput, {
+  @Field(() => AttendanceUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  accounts?: AccountUpdateManyWithoutTenantsInput;
+  attendances?: AttendanceUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => ApplicationDependencyUpdateManyWithoutTenantsInput,
+    type: () => BonusRequestUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => ApplicationDependencyUpdateManyWithoutTenantsInput)
+  @Type(() => BonusRequestUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => ApplicationDependencyUpdateManyWithoutTenantsInput, {
+  @Field(() => BonusRequestUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  applicationDependencies?: ApplicationDependencyUpdateManyWithoutTenantsInput;
+  bonusRequests?: BonusRequestUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => ApplicationUpdateManyWithoutTenantsInput,
+    type: () => CheckInOutUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => ApplicationUpdateManyWithoutTenantsInput)
+  @Type(() => CheckInOutUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => ApplicationUpdateManyWithoutTenantsInput, {
+  @Field(() => CheckInOutUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  applications?: ApplicationUpdateManyWithoutTenantsInput;
+  checkInOuts?: CheckInOutUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => AttributeValueUpdateManyWithoutTenantsInput,
+    type: () => DailyMovementRequestUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => AttributeValueUpdateManyWithoutTenantsInput)
+  @Type(() => DailyMovementRequestUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => AttributeValueUpdateManyWithoutTenantsInput, {
+  @Field(() => DailyMovementRequestUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  attributeValues?: AttributeValueUpdateManyWithoutTenantsInput;
+  dailyMovements?: DailyMovementRequestUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => AttributeUpdateManyWithoutTenantsInput,
+    type: () => DayOffRequestUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => AttributeUpdateManyWithoutTenantsInput)
+  @Type(() => DayOffRequestUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => AttributeUpdateManyWithoutTenantsInput, {
+  @Field(() => DayOffRequestUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  attributes?: AttributeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => BankBranchUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => BankBranchUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => BankBranchUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  bankBranches?: BankBranchUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => BankTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => BankTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => BankTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  bankTypes?: BankTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => BarcodeTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => BarcodeTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => BarcodeTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  barcodeTypes?: BarcodeTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => BillOfMaterialDetailUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => BillOfMaterialDetailUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => BillOfMaterialDetailUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  billOfMaterialDetails?: BillOfMaterialDetailUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => BillOfMaterialTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => BillOfMaterialTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => BillOfMaterialTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  billOfMaterialTypes?: BillOfMaterialTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => BillOfMaterialUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => BillOfMaterialUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => BillOfMaterialUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  billOfMaterials?: BillOfMaterialUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => CashRepositoryUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => CashRepositoryUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => CashRepositoryUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  cashRepositories?: CashRepositoryUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  code?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  creatorUserId?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => CurrencyUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => CurrencyUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => CurrencyUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  currencies?: CurrencyUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => CustomerUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => CustomerUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => CustomerUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  customers?: CustomerUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  description?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  email?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => EmployeeClassUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => EmployeeClassUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => EmployeeClassUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  employeeClasses?: EmployeeClassUpdateManyWithoutTenantsInput;
+  dayOffs?: DayOffRequestUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -346,6 +121,30 @@ class TenantUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => EmployeeGroupUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeGroupUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => EmployeeGroupUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  employeeGroups?: EmployeeGroupUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => EmployeeRoleUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => EmployeeRoleUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => EmployeeRoleUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  employeeRoles?: EmployeeRoleUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => EmployeeUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -358,662 +157,75 @@ class TenantUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ExpenseItemUpdateManyWithoutTenantsInput,
+    type: () => MachineUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => ExpenseItemUpdateManyWithoutTenantsInput)
+  @Type(() => MachineUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => ExpenseItemUpdateManyWithoutTenantsInput, {
+  @Field(() => MachineUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  expenseItems?: ExpenseItemUpdateManyWithoutTenantsInput;
+  fingerprintMachines?: MachineUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => InstallmentSaleFeeUpdateManyWithoutTenantsInput,
+    type: () => FiscalMonthUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => InstallmentSaleFeeUpdateManyWithoutTenantsInput)
+  @Type(() => FiscalMonthUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => InstallmentSaleFeeUpdateManyWithoutTenantsInput, {
+  @Field(() => FiscalMonthUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  installmentSaleFees?: InstallmentSaleFeeUpdateManyWithoutTenantsInput;
+  fiscalMonths?: FiscalMonthUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => InvoiceTypeUpdateManyWithoutTenantsInput,
+    type: () => JobTitleUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => InvoiceTypeUpdateManyWithoutTenantsInput)
+  @Type(() => JobTitleUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => InvoiceTypeUpdateManyWithoutTenantsInput, {
+  @Field(() => JobTitleUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  invoiceTypes?: InvoiceTypeUpdateManyWithoutTenantsInput;
+  jobTitles?: JobTitleUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @IsOptional()
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  isActive?: boolean;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(256)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  lastModifierUserIdl?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  name?: string;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  normalizedName?: string;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  note?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => OrderStatusUpdateManyWithoutTenantsInput,
+    type: () => LeaveRequestTypeUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => OrderStatusUpdateManyWithoutTenantsInput)
+  @Type(() => LeaveRequestTypeUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => OrderStatusUpdateManyWithoutTenantsInput, {
+  @Field(() => LeaveRequestTypeUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  orderStatuses?: OrderStatusUpdateManyWithoutTenantsInput;
+  leaveRequestTypes?: LeaveRequestTypeUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => PaymentMethodUpdateManyWithoutTenantsInput,
+    type: () => LeaveRequestUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => PaymentMethodUpdateManyWithoutTenantsInput)
+  @Type(() => LeaveRequestUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => PaymentMethodUpdateManyWithoutTenantsInput, {
+  @Field(() => LeaveRequestUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  paymentMethods?: PaymentMethodUpdateManyWithoutTenantsInput;
+  leaveRequests?: LeaveRequestUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => PaymentStatusUpdateManyWithoutTenantsInput,
+    type: () => OverNightRequestUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => PaymentStatusUpdateManyWithoutTenantsInput)
+  @Type(() => OverNightRequestUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => PaymentStatusUpdateManyWithoutTenantsInput, {
+  @Field(() => OverNightRequestUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  paymentStatuses?: PaymentStatusUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PaymentTermUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PaymentTermUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PaymentTermUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  paymentTerms?: PaymentTermUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PaymentTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PaymentTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PaymentTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  paymentTypes?: PaymentTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PaymentVoucherUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PaymentVoucherUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PaymentVoucherUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  paymentVouchers?: PaymentVoucherUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PeriodUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PeriodUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PeriodUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  periods?: PeriodUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PrintTemplateContentUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PrintTemplateContentUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PrintTemplateContentUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  printTemplateContents?: PrintTemplateContentUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PrintTemplateGroupUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PrintTemplateGroupUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PrintTemplateGroupUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  printTemplateGroups?: PrintTemplateGroupUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PrintTemplateUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PrintTemplateUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PrintTemplateUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  printTemplates?: PrintTemplateUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductBarcodeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductBarcodeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductBarcodeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productBarcodes?: ProductBarcodeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductCategoryUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductCategoryUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductCategoryUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productCategories?: ProductCategoryUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductDepartmentUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductDepartmentUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductDepartmentUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productDepartments?: ProductDepartmentUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductGroupUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductGroupUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductGroupUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productGroups?: ProductGroupUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productTypes?: ProductTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductUnitUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductUnitUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductUnitUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productUnits?: ProductUnitUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductVariantUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductVariantUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductVariantUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productVariants?: ProductVariantUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductionAvailabilityUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductionAvailabilityUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductionAvailabilityUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productionAvailabilities?: ProductionAvailabilityUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductionDocumentUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductionDocumentUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductionDocumentUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productionDocuments?: ProductionDocumentUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductionOrderUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductionOrderUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductionOrderUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  productionOrders?: ProductionOrderUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ProductUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  products?: ProductUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PurchaseDetailUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PurchaseDetailUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PurchaseDetailUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  purchaseDetails?: PurchaseDetailUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PurchasePriceTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PurchasePriceTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PurchasePriceTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  purchasePriceTypes?: PurchasePriceTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PurchaseReturnDetailUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PurchaseReturnDetailUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PurchaseReturnDetailUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  purchaseReturnDetails?: PurchaseReturnDetailUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PurchaseReturnUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PurchaseReturnUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PurchaseReturnUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  purchaseReturns?: PurchaseReturnUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PurchaseUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => PurchaseUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => PurchaseUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  purchases?: PurchaseUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ReceiptVoucherUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ReceiptVoucherUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ReceiptVoucherUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  receiptVouchers?: ReceiptVoucherUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ResourceTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ResourceTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ResourceTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  resourceTypes?: ResourceTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ResourceUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => ResourceUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => ResourceUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  resources?: ResourceUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => RoleGroupUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => RoleGroupUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => RoleGroupUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  roleGroups?: RoleGroupUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalaryItemGroupUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SalaryItemGroupUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SalaryItemGroupUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  salaryItemGroups?: SalaryItemGroupUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalaryItemTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SalaryItemTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SalaryItemTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  salaryItemTypes?: SalaryItemTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalaryItemUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SalaryItemUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SalaryItemUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  salaryItems?: SalaryItemUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalaryLawUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SalaryLawUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SalaryLawUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  salaryLaws?: SalaryLawUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleDetailUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleDetailUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleDetailUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  saleDetails?: SaleDetailUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleOrderDetailUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleOrderDetailUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleOrderDetailUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  saleOrderDetails?: SaleOrderDetailUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleOrderUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleOrderUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleOrderUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  saleOrders?: SaleOrderUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalePaymentUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SalePaymentUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SalePaymentUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  salePayments?: SalePaymentUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalePersonUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SalePersonUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SalePersonUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  salePeople?: SalePersonUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SalePriceTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SalePriceTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SalePriceTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  salePriceTypes?: SalePriceTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleQuotationDetailUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleQuotationDetailUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleQuotationDetailUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  saleQuotationDetails?: SaleQuotationDetailUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleQuotationUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleQuotationUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleQuotationUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  saleQuotations?: SaleQuotationUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleReturnDetailUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleReturnDetailUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleReturnDetailUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  saleReturnDetails?: SaleReturnDetailUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleReturnUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleReturnUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleReturnUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  saleReturns?: SaleReturnUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleTaxUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleTaxUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleTaxUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  saleTaxes?: SaleTaxUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleTeamUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleTeamUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleTeamUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  saleTeams?: SaleTeamUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SaleUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SaleUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SaleUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  sales?: SaleUpdateManyWithoutTenantsInput;
+  overNights?: OverNightRequestUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -1029,171 +241,75 @@ class TenantUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => SettingGroupUpdateManyWithoutTenantsInput,
+    type: () => TradingSummaryUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => SettingGroupUpdateManyWithoutTenantsInput)
+  @Type(() => TradingSummaryUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => SettingGroupUpdateManyWithoutTenantsInput, {
+  @Field(() => TradingSummaryUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  settingGroups?: SettingGroupUpdateManyWithoutTenantsInput;
+  tradingSummaries?: TradingSummaryUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => SettingUpdateManyWithoutTenantsInput,
+    type: () => WorkCenterAlternativeUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => SettingUpdateManyWithoutTenantsInput)
+  @Type(() => WorkCenterAlternativeUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => SettingUpdateManyWithoutTenantsInput, {
+  @Field(() => WorkCenterAlternativeUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  settings?: SettingUpdateManyWithoutTenantsInput;
+  workCenterAlternatives?: WorkCenterAlternativeUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => ShiftUpdateManyWithoutTenantsInput,
+    type: () => WorkCenterCapacityUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => ShiftUpdateManyWithoutTenantsInput)
+  @Type(() => WorkCenterCapacityUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => ShiftUpdateManyWithoutTenantsInput, {
+  @Field(() => WorkCenterCapacityUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  shifts?: ShiftUpdateManyWithoutTenantsInput;
+  workCenterCapacities?: WorkCenterCapacityUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => ShippingStatusUpdateManyWithoutTenantsInput,
+    type: () => WorkCenterProductivityUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => ShippingStatusUpdateManyWithoutTenantsInput)
+  @Type(() => WorkCenterProductivityUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => ShippingStatusUpdateManyWithoutTenantsInput, {
+  @Field(() => WorkCenterProductivityUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  shippingStatuses?: ShippingStatusUpdateManyWithoutTenantsInput;
+  workCenterProductivities?: WorkCenterProductivityUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => StoreLocationUpdateManyWithoutTenantsInput,
+    type: () => WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => StoreLocationUpdateManyWithoutTenantsInput)
+  @Type(() => WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => StoreLocationUpdateManyWithoutTenantsInput, {
+  @Field(() => WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  storeLocations?: StoreLocationUpdateManyWithoutTenantsInput;
+  workCenterProductivityLossTypes?: WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
-    type: () => StoreTypeUpdateManyWithoutTenantsInput,
+    type: () => WorkCenterProductivityLossUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
-  @Type(() => StoreTypeUpdateManyWithoutTenantsInput)
+  @Type(() => WorkCenterProductivityLossUpdateManyWithoutTenantsInput)
   @IsOptional()
-  @Field(() => StoreTypeUpdateManyWithoutTenantsInput, {
+  @Field(() => WorkCenterProductivityLossUpdateManyWithoutTenantsInput, {
     nullable: true,
   })
-  storeTypes?: StoreTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => StoreUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => StoreUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => StoreUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  stores?: StoreUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SupplierUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => SupplierUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => SupplierUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  suppliers?: SupplierUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  tenancyName?: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => TimeModeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => TimeModeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => TimeModeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  timeModes?: TimeModeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => TimeoffTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => TimeoffTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => TimeoffTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  timeoffTypes?: TimeoffTypeUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => UnitUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => UnitUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => UnitUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  units?: UnitUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => UserUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => UserUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  users?: UserUpdateManyWithoutTenantsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => VoucherTypeUpdateManyWithoutTenantsInput,
-  })
-  @ValidateNested()
-  @Type(() => VoucherTypeUpdateManyWithoutTenantsInput)
-  @IsOptional()
-  @Field(() => VoucherTypeUpdateManyWithoutTenantsInput, {
-    nullable: true,
-  })
-  voucherTypes?: VoucherTypeUpdateManyWithoutTenantsInput;
+  workCenterProductivityLosses?: WorkCenterProductivityLossUpdateManyWithoutTenantsInput;
 
   @ApiProperty({
     required: false,
@@ -1209,6 +325,30 @@ class TenantUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => WorkCenterTagUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterTagUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterTagUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterTags?: WorkCenterTagUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => WorkCenterUpdateManyWithoutTenantsInput,
   })
   @ValidateNested()
@@ -1218,6 +358,66 @@ class TenantUpdateInput {
     nullable: true,
   })
   workCenters?: WorkCenterUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderDependencyUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderDependencyUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderDependencyUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrderDependencies?: WorkOrderDependencyUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderRoutingUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderRoutingUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderRoutingUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrderRoutings?: WorkOrderRoutingUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderStatusUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderStatusUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderStatusUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrderStatuses?: WorkOrderStatusUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrders?: WorkOrderUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkSheetTypeUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkSheetTypeUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkSheetTypeUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workSheetTypes?: WorkSheetTypeUpdateManyWithoutTenantsInput;
 }
 
 export { TenantUpdateInput as TenantUpdateInput };

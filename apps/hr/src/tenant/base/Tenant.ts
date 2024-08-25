@@ -11,220 +11,68 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Account } from "../../account/base/Account";
-import {
-  ValidateNested,
-  IsOptional,
-  IsString,
-  MaxLength,
-  IsDate,
-  IsBoolean,
-} from "class-validator";
+import { Attendance } from "../../attendance/base/Attendance";
+import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { ApplicationDependency } from "../../applicationDependency/base/ApplicationDependency";
-import { Application } from "../../application/base/Application";
-import { AttributeValue } from "../../attributeValue/base/AttributeValue";
-import { Attribute } from "../../attribute/base/Attribute";
-import { BankBranch } from "../../bankBranch/base/BankBranch";
-import { BankType } from "../../bankType/base/BankType";
-import { BarcodeType } from "../../barcodeType/base/BarcodeType";
-import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
-import { BillOfMaterialType } from "../../billOfMaterialType/base/BillOfMaterialType";
-import { BillOfMaterial } from "../../billOfMaterial/base/BillOfMaterial";
-import { CashRepository } from "../../cashRepository/base/CashRepository";
-import { Currency } from "../../currency/base/Currency";
-import { Customer } from "../../customer/base/Customer";
-import { EmployeeClass } from "../../employeeClass/base/EmployeeClass";
+import { BonusRequest } from "../../bonusRequest/base/BonusRequest";
+import { CheckInOut } from "../../checkInOut/base/CheckInOut";
+import { DailyMovementRequest } from "../../dailyMovementRequest/base/DailyMovementRequest";
+import { DayOffRequest } from "../../dayOffRequest/base/DayOffRequest";
 import { EmployeeDepartment } from "../../employeeDepartment/base/EmployeeDepartment";
+import { EmployeeGroup } from "../../employeeGroup/base/EmployeeGroup";
+import { EmployeeRole } from "../../employeeRole/base/EmployeeRole";
 import { Employee } from "../../employee/base/Employee";
-import { ExpenseItem } from "../../expenseItem/base/ExpenseItem";
-import { InstallmentSaleFee } from "../../installmentSaleFee/base/InstallmentSaleFee";
-import { InvoiceType } from "../../invoiceType/base/InvoiceType";
-import { OrderStatus } from "../../orderStatus/base/OrderStatus";
-import { PaymentMethod } from "../../paymentMethod/base/PaymentMethod";
-import { PaymentStatus } from "../../paymentStatus/base/PaymentStatus";
-import { PaymentTerm } from "../../paymentTerm/base/PaymentTerm";
-import { PaymentType } from "../../paymentType/base/PaymentType";
-import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
-import { Period } from "../../period/base/Period";
-import { PrintTemplateContent } from "../../printTemplateContent/base/PrintTemplateContent";
-import { PrintTemplateGroup } from "../../printTemplateGroup/base/PrintTemplateGroup";
-import { PrintTemplate } from "../../printTemplate/base/PrintTemplate";
-import { ProductBarcode } from "../../productBarcode/base/ProductBarcode";
-import { ProductCategory } from "../../productCategory/base/ProductCategory";
-import { ProductDepartment } from "../../productDepartment/base/ProductDepartment";
-import { ProductGroup } from "../../productGroup/base/ProductGroup";
-import { ProductType } from "../../productType/base/ProductType";
-import { ProductUnit } from "../../productUnit/base/ProductUnit";
-import { ProductVariant } from "../../productVariant/base/ProductVariant";
-import { ProductionAvailability } from "../../productionAvailability/base/ProductionAvailability";
-import { ProductionDocument } from "../../productionDocument/base/ProductionDocument";
-import { ProductionOrder } from "../../productionOrder/base/ProductionOrder";
-import { Product } from "../../product/base/Product";
-import { PurchaseDetail } from "../../purchaseDetail/base/PurchaseDetail";
-import { PurchasePriceType } from "../../purchasePriceType/base/PurchasePriceType";
-import { PurchaseReturnDetail } from "../../purchaseReturnDetail/base/PurchaseReturnDetail";
-import { PurchaseReturn } from "../../purchaseReturn/base/PurchaseReturn";
-import { Purchase } from "../../purchase/base/Purchase";
-import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
-import { ResourceType } from "../../resourceType/base/ResourceType";
-import { Resource } from "../../resource/base/Resource";
-import { RoleGroup } from "../../roleGroup/base/RoleGroup";
-import { SalaryItemGroup } from "../../salaryItemGroup/base/SalaryItemGroup";
-import { SalaryItemType } from "../../salaryItemType/base/SalaryItemType";
-import { SalaryItem } from "../../salaryItem/base/SalaryItem";
-import { SalaryLaw } from "../../salaryLaw/base/SalaryLaw";
-import { SaleDetail } from "../../saleDetail/base/SaleDetail";
-import { SaleOrderDetail } from "../../saleOrderDetail/base/SaleOrderDetail";
-import { SaleOrder } from "../../saleOrder/base/SaleOrder";
-import { SalePayment } from "../../salePayment/base/SalePayment";
-import { SalePerson } from "../../salePerson/base/SalePerson";
-import { SalePriceType } from "../../salePriceType/base/SalePriceType";
-import { SaleQuotationDetail } from "../../saleQuotationDetail/base/SaleQuotationDetail";
-import { SaleQuotation } from "../../saleQuotation/base/SaleQuotation";
-import { SaleReturnDetail } from "../../saleReturnDetail/base/SaleReturnDetail";
-import { SaleReturn } from "../../saleReturn/base/SaleReturn";
-import { SaleTax } from "../../saleTax/base/SaleTax";
-import { SaleTeam } from "../../saleTeam/base/SaleTeam";
-import { Sale } from "../../sale/base/Sale";
+import { Machine } from "../../machine/base/Machine";
+import { FiscalMonth } from "../../fiscalMonth/base/FiscalMonth";
+import { JobTitle } from "../../jobTitle/base/JobTitle";
+import { LeaveRequestType } from "../../leaveRequestType/base/LeaveRequestType";
+import { LeaveRequest } from "../../leaveRequest/base/LeaveRequest";
+import { OverNightRequest } from "../../overNightRequest/base/OverNightRequest";
 import { ScrapReason } from "../../scrapReason/base/ScrapReason";
-import { SettingGroup } from "../../settingGroup/base/SettingGroup";
-import { Setting } from "../../setting/base/Setting";
-import { Shift } from "../../shift/base/Shift";
-import { ShippingStatus } from "../../shippingStatus/base/ShippingStatus";
-import { StoreLocation } from "../../storeLocation/base/StoreLocation";
-import { StoreType } from "../../storeType/base/StoreType";
-import { Store } from "../../store/base/Store";
-import { Supplier } from "../../supplier/base/Supplier";
-import { TimeMode } from "../../timeMode/base/TimeMode";
-import { TimeoffType } from "../../timeoffType/base/TimeoffType";
-import { Unit } from "../../unit/base/Unit";
-import { User } from "../../user/base/User";
-import { VoucherType } from "../../voucherType/base/VoucherType";
+import { TradingSummary } from "../../tradingSummary/base/TradingSummary";
+import { WorkCenterAlternative } from "../../workCenterAlternative/base/WorkCenterAlternative";
+import { WorkCenterCapacity } from "../../workCenterCapacity/base/WorkCenterCapacity";
+import { WorkCenterProductivity } from "../../workCenterProductivity/base/WorkCenterProductivity";
+import { WorkCenterProductivityLossType } from "../../workCenterProductivityLossType/base/WorkCenterProductivityLossType";
+import { WorkCenterProductivityLoss } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLoss";
 import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
+import { WorkCenterTag } from "../../workCenterTag/base/WorkCenterTag";
+import { WorkCenterWorkCenterTag } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTag";
 import { WorkCenter } from "../../workCenter/base/WorkCenter";
+import { WorkOrderDependency } from "../../workOrderDependency/base/WorkOrderDependency";
+import { WorkOrderRouting } from "../../workOrderRouting/base/WorkOrderRouting";
+import { WorkOrderStatus } from "../../workOrderStatus/base/WorkOrderStatus";
+import { WorkOrder } from "../../workOrder/base/WorkOrder";
+import { WorkSheetType } from "../../workSheetType/base/WorkSheetType";
 
 @ObjectType()
 class Tenant {
   @ApiProperty({
     required: false,
-    type: () => [Account],
+    type: () => [Attendance],
   })
   @ValidateNested()
-  @Type(() => Account)
+  @Type(() => Attendance)
   @IsOptional()
-  accounts?: Array<Account>;
+  attendances?: Array<Attendance>;
 
   @ApiProperty({
     required: false,
-    type: () => [ApplicationDependency],
+    type: () => [BonusRequest],
   })
   @ValidateNested()
-  @Type(() => ApplicationDependency)
+  @Type(() => BonusRequest)
   @IsOptional()
-  applicationDependencies?: Array<ApplicationDependency>;
+  bonusRequests?: Array<BonusRequest>;
 
   @ApiProperty({
     required: false,
-    type: () => [Application],
+    type: () => [CheckInOut],
   })
   @ValidateNested()
-  @Type(() => Application)
+  @Type(() => CheckInOut)
   @IsOptional()
-  applications?: Array<Application>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [AttributeValue],
-  })
-  @ValidateNested()
-  @Type(() => AttributeValue)
-  @IsOptional()
-  attributeValues?: Array<AttributeValue>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Attribute],
-  })
-  @ValidateNested()
-  @Type(() => Attribute)
-  @IsOptional()
-  attributes?: Array<Attribute>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [BankBranch],
-  })
-  @ValidateNested()
-  @Type(() => BankBranch)
-  @IsOptional()
-  bankBranches?: Array<BankBranch>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [BankType],
-  })
-  @ValidateNested()
-  @Type(() => BankType)
-  @IsOptional()
-  bankTypes?: Array<BankType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [BarcodeType],
-  })
-  @ValidateNested()
-  @Type(() => BarcodeType)
-  @IsOptional()
-  barcodeTypes?: Array<BarcodeType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [BillOfMaterialDetail],
-  })
-  @ValidateNested()
-  @Type(() => BillOfMaterialDetail)
-  @IsOptional()
-  billOfMaterialDetails?: Array<BillOfMaterialDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [BillOfMaterialType],
-  })
-  @ValidateNested()
-  @Type(() => BillOfMaterialType)
-  @IsOptional()
-  billOfMaterialTypes?: Array<BillOfMaterialType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [BillOfMaterial],
-  })
-  @ValidateNested()
-  @Type(() => BillOfMaterial)
-  @IsOptional()
-  billOfMaterials?: Array<BillOfMaterial>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [CashRepository],
-  })
-  @ValidateNested()
-  @Type(() => CashRepository)
-  @IsOptional()
-  cashRepositories?: Array<CashRepository>;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  code!: string | null;
+  checkInOuts?: Array<CheckInOut>;
 
   @ApiProperty({
     required: true,
@@ -236,65 +84,21 @@ class Tenant {
 
   @ApiProperty({
     required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  creatorUserId!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Currency],
+    type: () => [DailyMovementRequest],
   })
   @ValidateNested()
-  @Type(() => Currency)
+  @Type(() => DailyMovementRequest)
   @IsOptional()
-  currencies?: Array<Currency>;
+  dailyMovements?: Array<DailyMovementRequest>;
 
   @ApiProperty({
     required: false,
-    type: () => [Customer],
+    type: () => [DayOffRequest],
   })
   @ValidateNested()
-  @Type(() => Customer)
+  @Type(() => DayOffRequest)
   @IsOptional()
-  customers?: Array<Customer>;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  description!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  email!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [EmployeeClass],
-  })
-  @ValidateNested()
-  @Type(() => EmployeeClass)
-  @IsOptional()
-  employeeClasses?: Array<EmployeeClass>;
+  dayOffs?: Array<DayOffRequest>;
 
   @ApiProperty({
     required: false,
@@ -307,6 +111,24 @@ class Tenant {
 
   @ApiProperty({
     required: false,
+    type: () => [EmployeeGroup],
+  })
+  @ValidateNested()
+  @Type(() => EmployeeGroup)
+  @IsOptional()
+  employeeGroups?: Array<EmployeeGroup>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [EmployeeRole],
+  })
+  @ValidateNested()
+  @Type(() => EmployeeRole)
+  @IsOptional()
+  employeeRoles?: Array<EmployeeRole>;
+
+  @ApiProperty({
+    required: false,
     type: () => [Employee],
   })
   @ValidateNested()
@@ -316,12 +138,21 @@ class Tenant {
 
   @ApiProperty({
     required: false,
-    type: () => [ExpenseItem],
+    type: () => [Machine],
   })
   @ValidateNested()
-  @Type(() => ExpenseItem)
+  @Type(() => Machine)
   @IsOptional()
-  expenseItems?: Array<ExpenseItem>;
+  fingerprintMachines?: Array<Machine>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [FiscalMonth],
+  })
+  @ValidateNested()
+  @Type(() => FiscalMonth)
+  @IsOptional()
+  fiscalMonths?: Array<FiscalMonth>;
 
   @ApiProperty({
     required: true,
@@ -333,494 +164,39 @@ class Tenant {
 
   @ApiProperty({
     required: false,
-    type: () => [InstallmentSaleFee],
+    type: () => [JobTitle],
   })
   @ValidateNested()
-  @Type(() => InstallmentSaleFee)
+  @Type(() => JobTitle)
   @IsOptional()
-  installmentSaleFees?: Array<InstallmentSaleFee>;
+  jobTitles?: Array<JobTitle>;
 
   @ApiProperty({
     required: false,
-    type: () => [InvoiceType],
+    type: () => [LeaveRequestType],
   })
   @ValidateNested()
-  @Type(() => InvoiceType)
+  @Type(() => LeaveRequestType)
   @IsOptional()
-  invoiceTypes?: Array<InvoiceType>;
-
-  @ApiProperty({
-    required: true,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @Field(() => Boolean)
-  isActive!: boolean;
+  leaveRequestTypes?: Array<LeaveRequestType>;
 
   @ApiProperty({
     required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(256)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  lastModifierUserIdl!: string | null;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @Field(() => String)
-  name!: string;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @Field(() => String)
-  normalizedName!: string;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  note!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [OrderStatus],
+    type: () => [LeaveRequest],
   })
   @ValidateNested()
-  @Type(() => OrderStatus)
+  @Type(() => LeaveRequest)
   @IsOptional()
-  orderStatuses?: Array<OrderStatus>;
+  leaveRequests?: Array<LeaveRequest>;
 
   @ApiProperty({
     required: false,
-    type: () => [PaymentMethod],
+    type: () => [OverNightRequest],
   })
   @ValidateNested()
-  @Type(() => PaymentMethod)
+  @Type(() => OverNightRequest)
   @IsOptional()
-  paymentMethods?: Array<PaymentMethod>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PaymentStatus],
-  })
-  @ValidateNested()
-  @Type(() => PaymentStatus)
-  @IsOptional()
-  paymentStatuses?: Array<PaymentStatus>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PaymentTerm],
-  })
-  @ValidateNested()
-  @Type(() => PaymentTerm)
-  @IsOptional()
-  paymentTerms?: Array<PaymentTerm>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PaymentType],
-  })
-  @ValidateNested()
-  @Type(() => PaymentType)
-  @IsOptional()
-  paymentTypes?: Array<PaymentType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PaymentVoucher],
-  })
-  @ValidateNested()
-  @Type(() => PaymentVoucher)
-  @IsOptional()
-  paymentVouchers?: Array<PaymentVoucher>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Period],
-  })
-  @ValidateNested()
-  @Type(() => Period)
-  @IsOptional()
-  periods?: Array<Period>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PrintTemplateContent],
-  })
-  @ValidateNested()
-  @Type(() => PrintTemplateContent)
-  @IsOptional()
-  printTemplateContents?: Array<PrintTemplateContent>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PrintTemplateGroup],
-  })
-  @ValidateNested()
-  @Type(() => PrintTemplateGroup)
-  @IsOptional()
-  printTemplateGroups?: Array<PrintTemplateGroup>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PrintTemplate],
-  })
-  @ValidateNested()
-  @Type(() => PrintTemplate)
-  @IsOptional()
-  printTemplates?: Array<PrintTemplate>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductBarcode],
-  })
-  @ValidateNested()
-  @Type(() => ProductBarcode)
-  @IsOptional()
-  productBarcodes?: Array<ProductBarcode>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductCategory],
-  })
-  @ValidateNested()
-  @Type(() => ProductCategory)
-  @IsOptional()
-  productCategories?: Array<ProductCategory>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductDepartment],
-  })
-  @ValidateNested()
-  @Type(() => ProductDepartment)
-  @IsOptional()
-  productDepartments?: Array<ProductDepartment>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductGroup],
-  })
-  @ValidateNested()
-  @Type(() => ProductGroup)
-  @IsOptional()
-  productGroups?: Array<ProductGroup>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductType],
-  })
-  @ValidateNested()
-  @Type(() => ProductType)
-  @IsOptional()
-  productTypes?: Array<ProductType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductUnit],
-  })
-  @ValidateNested()
-  @Type(() => ProductUnit)
-  @IsOptional()
-  productUnits?: Array<ProductUnit>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductVariant],
-  })
-  @ValidateNested()
-  @Type(() => ProductVariant)
-  @IsOptional()
-  productVariants?: Array<ProductVariant>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductionAvailability],
-  })
-  @ValidateNested()
-  @Type(() => ProductionAvailability)
-  @IsOptional()
-  productionAvailabilities?: Array<ProductionAvailability>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductionDocument],
-  })
-  @ValidateNested()
-  @Type(() => ProductionDocument)
-  @IsOptional()
-  productionDocuments?: Array<ProductionDocument>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductionOrder],
-  })
-  @ValidateNested()
-  @Type(() => ProductionOrder)
-  @IsOptional()
-  productionOrders?: Array<ProductionOrder>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Product],
-  })
-  @ValidateNested()
-  @Type(() => Product)
-  @IsOptional()
-  products?: Array<Product>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PurchaseDetail],
-  })
-  @ValidateNested()
-  @Type(() => PurchaseDetail)
-  @IsOptional()
-  purchaseDetails?: Array<PurchaseDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PurchasePriceType],
-  })
-  @ValidateNested()
-  @Type(() => PurchasePriceType)
-  @IsOptional()
-  purchasePriceTypes?: Array<PurchasePriceType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PurchaseReturnDetail],
-  })
-  @ValidateNested()
-  @Type(() => PurchaseReturnDetail)
-  @IsOptional()
-  purchaseReturnDetails?: Array<PurchaseReturnDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PurchaseReturn],
-  })
-  @ValidateNested()
-  @Type(() => PurchaseReturn)
-  @IsOptional()
-  purchaseReturns?: Array<PurchaseReturn>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Purchase],
-  })
-  @ValidateNested()
-  @Type(() => Purchase)
-  @IsOptional()
-  purchases?: Array<Purchase>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ReceiptVoucher],
-  })
-  @ValidateNested()
-  @Type(() => ReceiptVoucher)
-  @IsOptional()
-  receiptVouchers?: Array<ReceiptVoucher>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ResourceType],
-  })
-  @ValidateNested()
-  @Type(() => ResourceType)
-  @IsOptional()
-  resourceTypes?: Array<ResourceType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Resource],
-  })
-  @ValidateNested()
-  @Type(() => Resource)
-  @IsOptional()
-  resources?: Array<Resource>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [RoleGroup],
-  })
-  @ValidateNested()
-  @Type(() => RoleGroup)
-  @IsOptional()
-  roleGroups?: Array<RoleGroup>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SalaryItemGroup],
-  })
-  @ValidateNested()
-  @Type(() => SalaryItemGroup)
-  @IsOptional()
-  salaryItemGroups?: Array<SalaryItemGroup>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SalaryItemType],
-  })
-  @ValidateNested()
-  @Type(() => SalaryItemType)
-  @IsOptional()
-  salaryItemTypes?: Array<SalaryItemType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SalaryItem],
-  })
-  @ValidateNested()
-  @Type(() => SalaryItem)
-  @IsOptional()
-  salaryItems?: Array<SalaryItem>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SalaryLaw],
-  })
-  @ValidateNested()
-  @Type(() => SalaryLaw)
-  @IsOptional()
-  salaryLaws?: Array<SalaryLaw>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleDetail],
-  })
-  @ValidateNested()
-  @Type(() => SaleDetail)
-  @IsOptional()
-  saleDetails?: Array<SaleDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleOrderDetail],
-  })
-  @ValidateNested()
-  @Type(() => SaleOrderDetail)
-  @IsOptional()
-  saleOrderDetails?: Array<SaleOrderDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleOrder],
-  })
-  @ValidateNested()
-  @Type(() => SaleOrder)
-  @IsOptional()
-  saleOrders?: Array<SaleOrder>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SalePayment],
-  })
-  @ValidateNested()
-  @Type(() => SalePayment)
-  @IsOptional()
-  salePayments?: Array<SalePayment>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SalePerson],
-  })
-  @ValidateNested()
-  @Type(() => SalePerson)
-  @IsOptional()
-  salePeople?: Array<SalePerson>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SalePriceType],
-  })
-  @ValidateNested()
-  @Type(() => SalePriceType)
-  @IsOptional()
-  salePriceTypes?: Array<SalePriceType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleQuotationDetail],
-  })
-  @ValidateNested()
-  @Type(() => SaleQuotationDetail)
-  @IsOptional()
-  saleQuotationDetails?: Array<SaleQuotationDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleQuotation],
-  })
-  @ValidateNested()
-  @Type(() => SaleQuotation)
-  @IsOptional()
-  saleQuotations?: Array<SaleQuotation>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleReturnDetail],
-  })
-  @ValidateNested()
-  @Type(() => SaleReturnDetail)
-  @IsOptional()
-  saleReturnDetails?: Array<SaleReturnDetail>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleReturn],
-  })
-  @ValidateNested()
-  @Type(() => SaleReturn)
-  @IsOptional()
-  saleReturns?: Array<SaleReturn>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleTax],
-  })
-  @ValidateNested()
-  @Type(() => SaleTax)
-  @IsOptional()
-  saleTaxes?: Array<SaleTax>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [SaleTeam],
-  })
-  @ValidateNested()
-  @Type(() => SaleTeam)
-  @IsOptional()
-  saleTeams?: Array<SaleTeam>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Sale],
-  })
-  @ValidateNested()
-  @Type(() => Sale)
-  @IsOptional()
-  sales?: Array<Sale>;
+  overNights?: Array<OverNightRequest>;
 
   @ApiProperty({
     required: false,
@@ -833,111 +209,12 @@ class Tenant {
 
   @ApiProperty({
     required: false,
-    type: () => [SettingGroup],
+    type: () => [TradingSummary],
   })
   @ValidateNested()
-  @Type(() => SettingGroup)
+  @Type(() => TradingSummary)
   @IsOptional()
-  settingGroups?: Array<SettingGroup>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Setting],
-  })
-  @ValidateNested()
-  @Type(() => Setting)
-  @IsOptional()
-  settings?: Array<Setting>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Shift],
-  })
-  @ValidateNested()
-  @Type(() => Shift)
-  @IsOptional()
-  shifts?: Array<Shift>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ShippingStatus],
-  })
-  @ValidateNested()
-  @Type(() => ShippingStatus)
-  @IsOptional()
-  shippingStatuses?: Array<ShippingStatus>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [StoreLocation],
-  })
-  @ValidateNested()
-  @Type(() => StoreLocation)
-  @IsOptional()
-  storeLocations?: Array<StoreLocation>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [StoreType],
-  })
-  @ValidateNested()
-  @Type(() => StoreType)
-  @IsOptional()
-  storeTypes?: Array<StoreType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Store],
-  })
-  @ValidateNested()
-  @Type(() => Store)
-  @IsOptional()
-  stores?: Array<Store>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Supplier],
-  })
-  @ValidateNested()
-  @Type(() => Supplier)
-  @IsOptional()
-  suppliers?: Array<Supplier>;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @Field(() => String)
-  tenancyName!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => [TimeMode],
-  })
-  @ValidateNested()
-  @Type(() => TimeMode)
-  @IsOptional()
-  timeModes?: Array<TimeMode>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [TimeoffType],
-  })
-  @ValidateNested()
-  @Type(() => TimeoffType)
-  @IsOptional()
-  timeoffTypes?: Array<TimeoffType>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Unit],
-  })
-  @ValidateNested()
-  @Type(() => Unit)
-  @IsOptional()
-  units?: Array<Unit>;
+  tradingSummaries?: Array<TradingSummary>;
 
   @ApiProperty({
     required: true,
@@ -949,21 +226,48 @@ class Tenant {
 
   @ApiProperty({
     required: false,
-    type: () => [User],
+    type: () => [WorkCenterAlternative],
   })
   @ValidateNested()
-  @Type(() => User)
+  @Type(() => WorkCenterAlternative)
   @IsOptional()
-  users?: Array<User>;
+  workCenterAlternatives?: Array<WorkCenterAlternative>;
 
   @ApiProperty({
     required: false,
-    type: () => [VoucherType],
+    type: () => [WorkCenterCapacity],
   })
   @ValidateNested()
-  @Type(() => VoucherType)
+  @Type(() => WorkCenterCapacity)
   @IsOptional()
-  voucherTypes?: Array<VoucherType>;
+  workCenterCapacities?: Array<WorkCenterCapacity>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterProductivity],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivity)
+  @IsOptional()
+  workCenterProductivities?: Array<WorkCenterProductivity>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterProductivityLossType],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossType)
+  @IsOptional()
+  workCenterProductivityLossTypes?: Array<WorkCenterProductivityLossType>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterProductivityLoss],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLoss)
+  @IsOptional()
+  workCenterProductivityLosses?: Array<WorkCenterProductivityLoss>;
 
   @ApiProperty({
     required: false,
@@ -976,12 +280,75 @@ class Tenant {
 
   @ApiProperty({
     required: false,
+    type: () => [WorkCenterTag],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterTag)
+  @IsOptional()
+  workCenterTags?: Array<WorkCenterTag>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterWorkCenterTag],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTag)
+  @IsOptional()
+  workCenterWorkCenterTags?: Array<WorkCenterWorkCenterTag>;
+
+  @ApiProperty({
+    required: false,
     type: () => [WorkCenter],
   })
   @ValidateNested()
   @Type(() => WorkCenter)
   @IsOptional()
   workCenters?: Array<WorkCenter>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkOrderDependency],
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderDependency)
+  @IsOptional()
+  workOrderDependencies?: Array<WorkOrderDependency>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkOrderRouting],
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderRouting)
+  @IsOptional()
+  workOrderRoutings?: Array<WorkOrderRouting>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkOrderStatus],
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderStatus)
+  @IsOptional()
+  workOrderStatuses?: Array<WorkOrderStatus>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkOrder],
+  })
+  @ValidateNested()
+  @Type(() => WorkOrder)
+  @IsOptional()
+  workOrders?: Array<WorkOrder>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkSheetType],
+  })
+  @ValidateNested()
+  @Type(() => WorkSheetType)
+  @IsOptional()
+  workSheetTypes?: Array<WorkSheetType>;
 }
 
 export { Tenant as Tenant };

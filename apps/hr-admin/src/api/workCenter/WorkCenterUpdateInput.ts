@@ -1,6 +1,11 @@
 import { Decimal } from "decimal.js";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { WorkCenterAlternativeUpdateManyWithoutWorkCentersInput } from "./WorkCenterAlternativeUpdateManyWithoutWorkCentersInput";
+import { WorkCenterCapacityUpdateManyWithoutWorkCentersInput } from "./WorkCenterCapacityUpdateManyWithoutWorkCentersInput";
+import { WorkCenterProductivityUpdateManyWithoutWorkCentersInput } from "./WorkCenterProductivityUpdateManyWithoutWorkCentersInput";
+import { WorkCenterProductivityLossUpdateManyWithoutWorkCentersInput } from "./WorkCenterProductivityLossUpdateManyWithoutWorkCentersInput";
 import { WorkCenterRoutingUpdateManyWithoutWorkCentersInput } from "./WorkCenterRoutingUpdateManyWithoutWorkCentersInput";
+import { WorkCenterWorkCenterTagUpdateManyWithoutWorkCentersInput } from "./WorkCenterWorkCenterTagUpdateManyWithoutWorkCentersInput";
 
 export type WorkCenterUpdateInput = {
   analyticDistribution?: string | null;
@@ -19,5 +24,11 @@ export type WorkCenterUpdateInput = {
   stopTime?: Decimal | null;
   tenantId?: TenantWhereUniqueInput | null;
   timeEfficiency?: Decimal | null;
+  workCenterAlternativeWorkCenters?: WorkCenterAlternativeUpdateManyWithoutWorkCentersInput;
+  workCenterAlternatives?: WorkCenterAlternativeUpdateManyWithoutWorkCentersInput;
+  workCenterCapacities?: WorkCenterCapacityUpdateManyWithoutWorkCentersInput;
+  workCenterProductivities?: WorkCenterProductivityUpdateManyWithoutWorkCentersInput;
+  workCenterProductivityLosses?: WorkCenterProductivityLossUpdateManyWithoutWorkCentersInput;
   workCenterRoutings?: WorkCenterRoutingUpdateManyWithoutWorkCentersInput;
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagUpdateManyWithoutWorkCentersInput;
 };

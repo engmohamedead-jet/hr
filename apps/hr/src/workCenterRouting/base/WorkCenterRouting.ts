@@ -11,18 +11,16 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
 
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
   IsDate,
   IsBoolean,
   IsInt,
-  Min,
   Max,
+  ValidateNested,
   IsNumber,
 } from "class-validator";
 
@@ -35,12 +33,15 @@ import { WorkCenter } from "../../workCenter/base/WorkCenter";
 class WorkCenterRouting {
   @ApiProperty({
     required: false,
-    type: () => [BillOfMaterialDetail],
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => BillOfMaterialDetail)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  billOfMaterialDetails?: Array<BillOfMaterialDetail>;
+  @Field(() => String, {
+    nullable: true,
+  })
+  billOfMaterialId!: string | null;
 
   @ApiProperty({
     required: false,
@@ -113,7 +114,6 @@ class WorkCenterRouting {
     type: Number,
   })
   @IsInt()
-  @Min(1)
   @Max(99999999999)
   @Field(() => Number)
   sequence!: number;
@@ -125,7 +125,7 @@ class WorkCenterRouting {
   @ValidateNested()
   @Type(() => Tenant)
   @IsOptional()
-  tenantId?: Tenant | null;
+  tenant?: Tenant | null;
 
   @ApiProperty({
     required: false,
@@ -160,13 +160,12 @@ class WorkCenterRouting {
   updatedAt!: Date;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => WorkCenter,
   })
   @ValidateNested()
   @Type(() => WorkCenter)
-  @IsOptional()
-  workCenterId?: WorkCenter | null;
+  workCenterId?: WorkCenter;
 }
 
 export { WorkCenterRouting as WorkCenterRouting };

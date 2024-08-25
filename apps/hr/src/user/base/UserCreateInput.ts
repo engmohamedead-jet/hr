@@ -11,28 +11,96 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { AttendanceCreateNestedManyWithoutUsersInput } from "./AttendanceCreateNestedManyWithoutUsersInput";
 import {
+  ValidateNested,
+  IsOptional,
   IsString,
   MaxLength,
-  IsOptional,
-  IsBoolean,
-  ValidateNested,
 } from "class-validator";
+import { Type } from "class-transformer";
+import { BonusRequestCreateNestedManyWithoutUsersInput } from "./BonusRequestCreateNestedManyWithoutUsersInput";
+import { CheckInOutCreateNestedManyWithoutUsersInput } from "./CheckInOutCreateNestedManyWithoutUsersInput";
+import { DailyMovementRequestCreateNestedManyWithoutUsersInput } from "./DailyMovementRequestCreateNestedManyWithoutUsersInput";
+import { DayOffRequestCreateNestedManyWithoutUsersInput } from "./DayOffRequestCreateNestedManyWithoutUsersInput";
+import { LeaveRequestCreateNestedManyWithoutUsersInput } from "./LeaveRequestCreateNestedManyWithoutUsersInput";
+import { OverNightRequestCreateNestedManyWithoutUsersInput } from "./OverNightRequestCreateNestedManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
-import { TenantWhereUniqueInput } from "../../tenant/base/TenantWhereUniqueInput";
-import { Type } from "class-transformer";
 
 @InputType()
 class UserCreateInput {
   @ApiProperty({
-    required: true,
+    required: false,
+    type: () => AttendanceCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => AttendanceCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => AttendanceCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  attendances?: AttendanceCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BonusRequestCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => BonusRequestCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => BonusRequestCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  bonuses?: BonusRequestCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CheckInOutCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => CheckInOutCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => CheckInOutCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  checkInOuts?: CheckInOutCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DailyMovementRequestCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => DailyMovementRequestCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => DailyMovementRequestCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  dailyMovements?: DailyMovementRequestCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DayOffRequestCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => DayOffRequestCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => DayOffRequestCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  dayOffs?: DayOffRequestCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
-  @Field(() => String)
-  email!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  email?: string | null;
 
   @ApiProperty({
     required: false,
@@ -47,14 +115,6 @@ class UserCreateInput {
   firstName?: string | null;
 
   @ApiProperty({
-    required: true,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @Field(() => Boolean)
-  isActive!: boolean;
-
-  @ApiProperty({
     required: false,
     type: String,
   })
@@ -65,6 +125,30 @@ class UserCreateInput {
     nullable: true,
   })
   lastName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => LeaveRequestCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => LeaveRequestCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => LeaveRequestCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  leaveRequests?: LeaveRequestCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => OverNightRequestCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => OverNightRequestCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => OverNightRequestCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  overNights?: OverNightRequestCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: true,
@@ -80,18 +164,6 @@ class UserCreateInput {
   @IsJSONValue()
   @Field(() => GraphQLJSON)
   roles!: InputJsonValue;
-
-  @ApiProperty({
-    required: false,
-    type: () => TenantWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => TenantWhereUniqueInput)
-  @IsOptional()
-  @Field(() => TenantWhereUniqueInput, {
-    nullable: true,
-  })
-  tenantId?: TenantWhereUniqueInput | null;
 
   @ApiProperty({
     required: true,

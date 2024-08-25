@@ -1,4 +1,5 @@
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { WorkOrderUpdateManyWithoutScrapReasonsInput } from "./WorkOrderUpdateManyWithoutScrapReasonsInput";
 
 export type ScrapReasonUpdateInput = {
   code?: string | null;
@@ -8,4 +9,5 @@ export type ScrapReasonUpdateInput = {
   normalizedName?: string;
   note?: string | null;
   tenantId?: TenantWhereUniqueInput | null;
+  workOrders?: WorkOrderUpdateManyWithoutScrapReasonsInput;
 };

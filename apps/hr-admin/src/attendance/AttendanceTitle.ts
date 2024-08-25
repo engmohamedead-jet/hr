@@ -1,7 +1,7 @@
 import { Attendance as TAttendance } from "../api/attendance/Attendance";
 
-export const ATTENDANCE_TITLE_FIELD = "reasonForAbsenteeism";
+export const ATTENDANCE_TITLE_FIELD = "checkInTime";
 
 export const AttendanceTitle = (record: TAttendance): string => {
-  return record.reasonForAbsenteeism?.toString() || String(record.id);
+  return record.checkInTime?.toString() || String(record.id);
 };

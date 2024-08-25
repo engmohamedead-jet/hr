@@ -26,14 +26,24 @@ import { EmployeeFindUniqueArgs } from "./EmployeeFindUniqueArgs";
 import { CreateEmployeeArgs } from "./CreateEmployeeArgs";
 import { UpdateEmployeeArgs } from "./UpdateEmployeeArgs";
 import { DeleteEmployeeArgs } from "./DeleteEmployeeArgs";
-import { PaymentVoucherFindManyArgs } from "../../paymentVoucher/base/PaymentVoucherFindManyArgs";
-import { PaymentVoucher } from "../../paymentVoucher/base/PaymentVoucher";
-import { ReceiptVoucherFindManyArgs } from "../../receiptVoucher/base/ReceiptVoucherFindManyArgs";
-import { ReceiptVoucher } from "../../receiptVoucher/base/ReceiptVoucher";
-import { SalePersonFindManyArgs } from "../../salePerson/base/SalePersonFindManyArgs";
-import { SalePerson } from "../../salePerson/base/SalePerson";
-import { EmployeeClass } from "../../employeeClass/base/EmployeeClass";
+import { AttendanceFindManyArgs } from "../../attendance/base/AttendanceFindManyArgs";
+import { Attendance } from "../../attendance/base/Attendance";
+import { BonusRequestFindManyArgs } from "../../bonusRequest/base/BonusRequestFindManyArgs";
+import { BonusRequest } from "../../bonusRequest/base/BonusRequest";
+import { CheckInOutFindManyArgs } from "../../checkInOut/base/CheckInOutFindManyArgs";
+import { CheckInOut } from "../../checkInOut/base/CheckInOut";
+import { DailyMovementRequestFindManyArgs } from "../../dailyMovementRequest/base/DailyMovementRequestFindManyArgs";
+import { DailyMovementRequest } from "../../dailyMovementRequest/base/DailyMovementRequest";
+import { DayOffRequestFindManyArgs } from "../../dayOffRequest/base/DayOffRequestFindManyArgs";
+import { DayOffRequest } from "../../dayOffRequest/base/DayOffRequest";
+import { LeaveRequestFindManyArgs } from "../../leaveRequest/base/LeaveRequestFindManyArgs";
+import { LeaveRequest } from "../../leaveRequest/base/LeaveRequest";
+import { OverNightRequestFindManyArgs } from "../../overNightRequest/base/OverNightRequestFindManyArgs";
+import { OverNightRequest } from "../../overNightRequest/base/OverNightRequest";
 import { EmployeeDepartment } from "../../employeeDepartment/base/EmployeeDepartment";
+import { EmployeeGroup } from "../../employeeGroup/base/EmployeeGroup";
+import { EmployeeRole } from "../../employeeRole/base/EmployeeRole";
+import { JobTitle } from "../../jobTitle/base/JobTitle";
 import { Tenant } from "../../tenant/base/Tenant";
 import { EmployeeService } from "../employee.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -104,15 +114,27 @@ export class EmployeeResolverBase {
       data: {
         ...args.data,
 
-        employeeClassId: args.data.employeeClassId
-          ? {
-              connect: args.data.employeeClassId,
-            }
-          : undefined,
-
         employeeDepartmentId: args.data.employeeDepartmentId
           ? {
               connect: args.data.employeeDepartmentId,
+            }
+          : undefined,
+
+        employeeGroup: args.data.employeeGroup
+          ? {
+              connect: args.data.employeeGroup,
+            }
+          : undefined,
+
+        employeeRoleId: args.data.employeeRoleId
+          ? {
+              connect: args.data.employeeRoleId,
+            }
+          : undefined,
+
+        jobTitle: args.data.jobTitle
+          ? {
+              connect: args.data.jobTitle,
             }
           : undefined,
 
@@ -141,15 +163,27 @@ export class EmployeeResolverBase {
         data: {
           ...args.data,
 
-          employeeClassId: args.data.employeeClassId
-            ? {
-                connect: args.data.employeeClassId,
-              }
-            : undefined,
-
           employeeDepartmentId: args.data.employeeDepartmentId
             ? {
                 connect: args.data.employeeDepartmentId,
+              }
+            : undefined,
+
+          employeeGroup: args.data.employeeGroup
+            ? {
+                connect: args.data.employeeGroup,
+              }
+            : undefined,
+
+          employeeRoleId: args.data.employeeRoleId
+            ? {
+                connect: args.data.employeeRoleId,
+              }
+            : undefined,
+
+          jobTitle: args.data.jobTitle
+            ? {
+                connect: args.data.jobTitle,
               }
             : undefined,
 
@@ -192,17 +226,17 @@ export class EmployeeResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [PaymentVoucher], { name: "paymentVouchers" })
+  @graphql.ResolveField(() => [Attendance], { name: "attendances" })
   @nestAccessControl.UseRoles({
-    resource: "PaymentVoucher",
+    resource: "Attendance",
     action: "read",
     possession: "any",
   })
-  async findPaymentVouchers(
+  async findAttendances(
     @graphql.Parent() parent: Employee,
-    @graphql.Args() args: PaymentVoucherFindManyArgs
-  ): Promise<PaymentVoucher[]> {
-    const results = await this.service.findPaymentVouchers(parent.id, args);
+    @graphql.Args() args: AttendanceFindManyArgs
+  ): Promise<Attendance[]> {
+    const results = await this.service.findAttendances(parent.id, args);
 
     if (!results) {
       return [];
@@ -212,17 +246,17 @@ export class EmployeeResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [ReceiptVoucher], { name: "receiptVouchers" })
+  @graphql.ResolveField(() => [BonusRequest], { name: "bonusRequests" })
   @nestAccessControl.UseRoles({
-    resource: "ReceiptVoucher",
+    resource: "BonusRequest",
     action: "read",
     possession: "any",
   })
-  async findReceiptVouchers(
+  async findBonusRequests(
     @graphql.Parent() parent: Employee,
-    @graphql.Args() args: ReceiptVoucherFindManyArgs
-  ): Promise<ReceiptVoucher[]> {
-    const results = await this.service.findReceiptVouchers(parent.id, args);
+    @graphql.Args() args: BonusRequestFindManyArgs
+  ): Promise<BonusRequest[]> {
+    const results = await this.service.findBonusRequests(parent.id, args);
 
     if (!results) {
       return [];
@@ -232,17 +266,17 @@ export class EmployeeResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [SalePerson], { name: "salePeople" })
+  @graphql.ResolveField(() => [CheckInOut], { name: "checkInOuts" })
   @nestAccessControl.UseRoles({
-    resource: "SalePerson",
+    resource: "CheckInOut",
     action: "read",
     possession: "any",
   })
-  async findSalePeople(
+  async findCheckInOuts(
     @graphql.Parent() parent: Employee,
-    @graphql.Args() args: SalePersonFindManyArgs
-  ): Promise<SalePerson[]> {
-    const results = await this.service.findSalePeople(parent.id, args);
+    @graphql.Args() args: CheckInOutFindManyArgs
+  ): Promise<CheckInOut[]> {
+    const results = await this.service.findCheckInOuts(parent.id, args);
 
     if (!results) {
       return [];
@@ -252,24 +286,93 @@ export class EmployeeResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => EmployeeClass, {
-    nullable: true,
-    name: "employeeClassId",
+  @graphql.ResolveField(() => [DailyMovementRequest], {
+    name: "dailyMovementRequests",
   })
   @nestAccessControl.UseRoles({
-    resource: "EmployeeClass",
+    resource: "DailyMovementRequest",
     action: "read",
     possession: "any",
   })
-  async getEmployeeClassId(
-    @graphql.Parent() parent: Employee
-  ): Promise<EmployeeClass | null> {
-    const result = await this.service.getEmployeeClassId(parent.id);
+  async findDailyMovementRequests(
+    @graphql.Parent() parent: Employee,
+    @graphql.Args() args: DailyMovementRequestFindManyArgs
+  ): Promise<DailyMovementRequest[]> {
+    const results = await this.service.findDailyMovementRequests(
+      parent.id,
+      args
+    );
 
-    if (!result) {
-      return null;
+    if (!results) {
+      return [];
     }
-    return result;
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [DayOffRequest], { name: "dayOffRequests" })
+  @nestAccessControl.UseRoles({
+    resource: "DayOffRequest",
+    action: "read",
+    possession: "any",
+  })
+  async findDayOffRequests(
+    @graphql.Parent() parent: Employee,
+    @graphql.Args() args: DayOffRequestFindManyArgs
+  ): Promise<DayOffRequest[]> {
+    const results = await this.service.findDayOffRequests(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [LeaveRequest], {
+    name: "leavingPermissionRequests",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "LeaveRequest",
+    action: "read",
+    possession: "any",
+  })
+  async findLeavingPermissionRequests(
+    @graphql.Parent() parent: Employee,
+    @graphql.Args() args: LeaveRequestFindManyArgs
+  ): Promise<LeaveRequest[]> {
+    const results = await this.service.findLeavingPermissionRequests(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [OverNightRequest], { name: "overNightRequests" })
+  @nestAccessControl.UseRoles({
+    resource: "OverNightRequest",
+    action: "read",
+    possession: "any",
+  })
+  async findOverNightRequests(
+    @graphql.Parent() parent: Employee,
+    @graphql.Args() args: OverNightRequestFindManyArgs
+  ): Promise<OverNightRequest[]> {
+    const results = await this.service.findOverNightRequests(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -286,6 +389,69 @@ export class EmployeeResolverBase {
     @graphql.Parent() parent: Employee
   ): Promise<EmployeeDepartment | null> {
     const result = await this.service.getEmployeeDepartmentId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => EmployeeGroup, {
+    nullable: true,
+    name: "employeeGroup",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "EmployeeGroup",
+    action: "read",
+    possession: "any",
+  })
+  async getEmployeeGroup(
+    @graphql.Parent() parent: Employee
+  ): Promise<EmployeeGroup | null> {
+    const result = await this.service.getEmployeeGroup(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => EmployeeRole, {
+    nullable: true,
+    name: "employeeRoleId",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "EmployeeRole",
+    action: "read",
+    possession: "any",
+  })
+  async getEmployeeRoleId(
+    @graphql.Parent() parent: Employee
+  ): Promise<EmployeeRole | null> {
+    const result = await this.service.getEmployeeRoleId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => JobTitle, {
+    nullable: true,
+    name: "jobTitle",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "JobTitle",
+    action: "read",
+    possession: "any",
+  })
+  async getJobTitle(
+    @graphql.Parent() parent: Employee
+  ): Promise<JobTitle | null> {
+    const result = await this.service.getJobTitle(parent.id);
 
     if (!result) {
       return null;

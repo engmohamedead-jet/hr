@@ -59,15 +59,6 @@ class EmployeeDepartment {
 
   @ApiProperty({
     required: false,
-    type: () => [EmployeeDepartment],
-  })
-  @ValidateNested()
-  @Type(() => EmployeeDepartment)
-  @IsOptional()
-  employeeDepartments?: Array<EmployeeDepartment>;
-
-  @ApiProperty({
-    required: false,
     type: () => [Employee],
   })
   @ValidateNested()
@@ -120,15 +111,6 @@ class EmployeeDepartment {
     nullable: true,
   })
   note!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => EmployeeDepartment,
-  })
-  @ValidateNested()
-  @Type(() => EmployeeDepartment)
-  @IsOptional()
-  parentEmployeeDepartmentId?: EmployeeDepartment | null;
 
   @ApiProperty({
     required: false,

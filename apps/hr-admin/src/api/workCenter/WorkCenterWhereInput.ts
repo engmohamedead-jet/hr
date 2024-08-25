@@ -1,11 +1,16 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
-import { IntFilter } from "../../util/IntFilter";
-import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { IntFilter } from "../../util/IntFilter";
 import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { WorkCenterAlternativeListRelationFilter } from "../workCenterAlternative/WorkCenterAlternativeListRelationFilter";
+import { WorkCenterCapacityListRelationFilter } from "../workCenterCapacity/WorkCenterCapacityListRelationFilter";
+import { WorkCenterProductivityListRelationFilter } from "../workCenterProductivity/WorkCenterProductivityListRelationFilter";
+import { WorkCenterProductivityLossListRelationFilter } from "../workCenterProductivityLoss/WorkCenterProductivityLossListRelationFilter";
 import { WorkCenterRoutingListRelationFilter } from "../workCenterRouting/WorkCenterRoutingListRelationFilter";
+import { WorkCenterWorkCenterTagListRelationFilter } from "../workCenterWorkCenterTag/WorkCenterWorkCenterTagListRelationFilter";
 
 export type WorkCenterWhereInput = {
   analyticDistribution?: StringNullableFilter;
@@ -13,7 +18,7 @@ export type WorkCenterWhereInput = {
   color?: IntNullableFilter;
   costPerHour?: DecimalNullableFilter;
   defaultCapacity?: DecimalNullableFilter;
-  id?: IntFilter;
+  id?: StringFilter;
   isActive?: BooleanFilter;
   isProductive?: BooleanFilter;
   name?: StringFilter;
@@ -25,5 +30,11 @@ export type WorkCenterWhereInput = {
   stopTime?: DecimalNullableFilter;
   tenantId?: TenantWhereUniqueInput;
   timeEfficiency?: DecimalNullableFilter;
+  workCenterAlternativeWorkCenters?: WorkCenterAlternativeListRelationFilter;
+  workCenterAlternatives?: WorkCenterAlternativeListRelationFilter;
+  workCenterCapacities?: WorkCenterCapacityListRelationFilter;
+  workCenterProductivities?: WorkCenterProductivityListRelationFilter;
+  workCenterProductivityLosses?: WorkCenterProductivityLossListRelationFilter;
   workCenterRoutings?: WorkCenterRoutingListRelationFilter;
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagListRelationFilter;
 };

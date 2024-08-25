@@ -26,12 +26,6 @@ import { FiscalMonth } from "./FiscalMonth";
 import { FiscalMonthFindManyArgs } from "./FiscalMonthFindManyArgs";
 import { FiscalMonthWhereUniqueInput } from "./FiscalMonthWhereUniqueInput";
 import { FiscalMonthUpdateInput } from "./FiscalMonthUpdateInput";
-import { EmployeeSalaryFindManyArgs } from "../../employeeSalary/base/EmployeeSalaryFindManyArgs";
-import { EmployeeSalary } from "../../employeeSalary/base/EmployeeSalary";
-import { EmployeeSalaryWhereUniqueInput } from "../../employeeSalary/base/EmployeeSalaryWhereUniqueInput";
-import { FiscalWeekFindManyArgs } from "../../fiscalWeek/base/FiscalWeekFindManyArgs";
-import { FiscalWeek } from "../../fiscalWeek/base/FiscalWeek";
-import { FiscalWeekWhereUniqueInput } from "../../fiscalWeek/base/FiscalWeekWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -58,27 +52,41 @@ export class FiscalMonthControllerBase {
       data: {
         ...data,
 
-        fiscalYear: {
-          connect: data.fiscalYear,
-        },
+        bonusRequests: data.bonusRequests
+          ? {
+              connect: data.bonusRequests,
+            }
+          : undefined,
+
+        tenantId: data.tenantId
+          ? {
+              connect: data.tenantId,
+            }
+          : undefined,
       },
       select: {
-        code: true,
-        createdAt: true,
-        description: true,
-        endsOn: true,
-
-        fiscalYear: {
+        bonusRequests: {
           select: {
             id: true,
           },
         },
 
+        code: true,
+        createdAt: true,
+        endsOn: true,
         id: true,
-        mormalizedName: true,
+        isActive: true,
         name: true,
+        normalizedName: true,
         note: true,
         startsFrom: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -101,22 +109,28 @@ export class FiscalMonthControllerBase {
     return this.service.fiscalMonths({
       ...args,
       select: {
-        code: true,
-        createdAt: true,
-        description: true,
-        endsOn: true,
-
-        fiscalYear: {
+        bonusRequests: {
           select: {
             id: true,
           },
         },
 
+        code: true,
+        createdAt: true,
+        endsOn: true,
         id: true,
-        mormalizedName: true,
+        isActive: true,
         name: true,
+        normalizedName: true,
         note: true,
         startsFrom: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -140,22 +154,28 @@ export class FiscalMonthControllerBase {
     const result = await this.service.fiscalMonth({
       where: params,
       select: {
-        code: true,
-        createdAt: true,
-        description: true,
-        endsOn: true,
-
-        fiscalYear: {
+        bonusRequests: {
           select: {
             id: true,
           },
         },
 
+        code: true,
+        createdAt: true,
+        endsOn: true,
         id: true,
-        mormalizedName: true,
+        isActive: true,
         name: true,
+        normalizedName: true,
         note: true,
         startsFrom: true,
+
+        tenantId: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -189,27 +209,41 @@ export class FiscalMonthControllerBase {
         data: {
           ...data,
 
-          fiscalYear: {
-            connect: data.fiscalYear,
-          },
+          bonusRequests: data.bonusRequests
+            ? {
+                connect: data.bonusRequests,
+              }
+            : undefined,
+
+          tenantId: data.tenantId
+            ? {
+                connect: data.tenantId,
+              }
+            : undefined,
         },
         select: {
-          code: true,
-          createdAt: true,
-          description: true,
-          endsOn: true,
-
-          fiscalYear: {
+          bonusRequests: {
             select: {
               id: true,
             },
           },
 
+          code: true,
+          createdAt: true,
+          endsOn: true,
           id: true,
-          mormalizedName: true,
+          isActive: true,
           name: true,
+          normalizedName: true,
           note: true,
           startsFrom: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -241,22 +275,28 @@ export class FiscalMonthControllerBase {
       return await this.service.deleteFiscalMonth({
         where: params,
         select: {
-          code: true,
-          createdAt: true,
-          description: true,
-          endsOn: true,
-
-          fiscalYear: {
+          bonusRequests: {
             select: {
               id: true,
             },
           },
 
+          code: true,
+          createdAt: true,
+          endsOn: true,
           id: true,
-          mormalizedName: true,
+          isActive: true,
           name: true,
+          normalizedName: true,
           note: true,
           startsFrom: true,
+
+          tenantId: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -268,219 +308,5 @@ export class FiscalMonthControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/employeeSalaries")
-  @ApiNestedQuery(EmployeeSalaryFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "EmployeeSalary",
-    action: "read",
-    possession: "any",
-  })
-  async findEmployeeSalaries(
-    @common.Req() request: Request,
-    @common.Param() params: FiscalMonthWhereUniqueInput
-  ): Promise<EmployeeSalary[]> {
-    const query = plainToClass(EmployeeSalaryFindManyArgs, request.query);
-    const results = await this.service.findEmployeeSalaries(params.id, {
-      ...query,
-      select: {
-        createdAt: true,
-
-        fiscalMonthId: {
-          select: {
-            id: true,
-          },
-        },
-
-        id: true,
-        netSalary: true,
-        note: true,
-        totalDeserved: true,
-        totalDiscount: true,
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/employeeSalaries")
-  @nestAccessControl.UseRoles({
-    resource: "FiscalMonth",
-    action: "update",
-    possession: "any",
-  })
-  async connectEmployeeSalaries(
-    @common.Param() params: FiscalMonthWhereUniqueInput,
-    @common.Body() body: EmployeeSalaryWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      employeeSalaries: {
-        connect: body,
-      },
-    };
-    await this.service.updateFiscalMonth({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/employeeSalaries")
-  @nestAccessControl.UseRoles({
-    resource: "FiscalMonth",
-    action: "update",
-    possession: "any",
-  })
-  async updateEmployeeSalaries(
-    @common.Param() params: FiscalMonthWhereUniqueInput,
-    @common.Body() body: EmployeeSalaryWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      employeeSalaries: {
-        set: body,
-      },
-    };
-    await this.service.updateFiscalMonth({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/employeeSalaries")
-  @nestAccessControl.UseRoles({
-    resource: "FiscalMonth",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectEmployeeSalaries(
-    @common.Param() params: FiscalMonthWhereUniqueInput,
-    @common.Body() body: EmployeeSalaryWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      employeeSalaries: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateFiscalMonth({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/fiscalWeeks")
-  @ApiNestedQuery(FiscalWeekFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "FiscalWeek",
-    action: "read",
-    possession: "any",
-  })
-  async findFiscalWeeks(
-    @common.Req() request: Request,
-    @common.Param() params: FiscalMonthWhereUniqueInput
-  ): Promise<FiscalWeek[]> {
-    const query = plainToClass(FiscalWeekFindManyArgs, request.query);
-    const results = await this.service.findFiscalWeeks(params.id, {
-      ...query,
-      select: {
-        code: true,
-        createdAt: true,
-        endsOn: true,
-
-        fiscalMonthId: {
-          select: {
-            id: true,
-          },
-        },
-
-        id: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-        startsFrom: true,
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/fiscalWeeks")
-  @nestAccessControl.UseRoles({
-    resource: "FiscalMonth",
-    action: "update",
-    possession: "any",
-  })
-  async connectFiscalWeeks(
-    @common.Param() params: FiscalMonthWhereUniqueInput,
-    @common.Body() body: FiscalWeekWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      fiscalWeeks: {
-        connect: body,
-      },
-    };
-    await this.service.updateFiscalMonth({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/fiscalWeeks")
-  @nestAccessControl.UseRoles({
-    resource: "FiscalMonth",
-    action: "update",
-    possession: "any",
-  })
-  async updateFiscalWeeks(
-    @common.Param() params: FiscalMonthWhereUniqueInput,
-    @common.Body() body: FiscalWeekWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      fiscalWeeks: {
-        set: body,
-      },
-    };
-    await this.service.updateFiscalMonth({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/fiscalWeeks")
-  @nestAccessControl.UseRoles({
-    resource: "FiscalMonth",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectFiscalWeeks(
-    @common.Param() params: FiscalMonthWhereUniqueInput,
-    @common.Body() body: FiscalWeekWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      fiscalWeeks: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateFiscalMonth({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

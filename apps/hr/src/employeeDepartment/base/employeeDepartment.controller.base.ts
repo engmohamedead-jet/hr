@@ -55,12 +55,6 @@ export class EmployeeDepartmentControllerBase {
       data: {
         ...data,
 
-        parentEmployeeDepartmentId: data.parentEmployeeDepartmentId
-          ? {
-              connect: data.parentEmployeeDepartmentId,
-            }
-          : undefined,
-
         tenantId: data.tenantId
           ? {
               connect: data.tenantId,
@@ -76,12 +70,6 @@ export class EmployeeDepartmentControllerBase {
         name: true,
         normalizedName: true,
         note: true,
-
-        parentEmployeeDepartmentId: {
-          select: {
-            id: true,
-          },
-        },
 
         tenantId: {
           select: {
@@ -122,12 +110,6 @@ export class EmployeeDepartmentControllerBase {
         normalizedName: true,
         note: true,
 
-        parentEmployeeDepartmentId: {
-          select: {
-            id: true,
-          },
-        },
-
         tenantId: {
           select: {
             id: true,
@@ -165,12 +147,6 @@ export class EmployeeDepartmentControllerBase {
         name: true,
         normalizedName: true,
         note: true,
-
-        parentEmployeeDepartmentId: {
-          select: {
-            id: true,
-          },
-        },
 
         tenantId: {
           select: {
@@ -211,12 +187,6 @@ export class EmployeeDepartmentControllerBase {
         data: {
           ...data,
 
-          parentEmployeeDepartmentId: data.parentEmployeeDepartmentId
-            ? {
-                connect: data.parentEmployeeDepartmentId,
-              }
-            : undefined,
-
           tenantId: data.tenantId
             ? {
                 connect: data.tenantId,
@@ -232,12 +202,6 @@ export class EmployeeDepartmentControllerBase {
           name: true,
           normalizedName: true,
           note: true,
-
-          parentEmployeeDepartmentId: {
-            select: {
-              id: true,
-            },
-          },
 
           tenantId: {
             select: {
@@ -285,12 +249,6 @@ export class EmployeeDepartmentControllerBase {
           normalizedName: true,
           note: true,
 
-          parentEmployeeDepartmentId: {
-            select: {
-              id: true,
-            },
-          },
-
           tenantId: {
             select: {
               id: true,
@@ -308,120 +266,6 @@ export class EmployeeDepartmentControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/employeeDepartments")
-  @ApiNestedQuery(EmployeeDepartmentFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "EmployeeDepartment",
-    action: "read",
-    possession: "any",
-  })
-  async findEmployeeDepartments(
-    @common.Req() request: Request,
-    @common.Param() params: EmployeeDepartmentWhereUniqueInput
-  ): Promise<EmployeeDepartment[]> {
-    const query = plainToClass(EmployeeDepartmentFindManyArgs, request.query);
-    const results = await this.service.findEmployeeDepartments(params.id, {
-      ...query,
-      select: {
-        code: true,
-        createdAt: true,
-        description: true,
-        id: true,
-        isActive: true,
-        name: true,
-        normalizedName: true,
-        note: true,
-
-        parentEmployeeDepartmentId: {
-          select: {
-            id: true,
-          },
-        },
-
-        tenantId: {
-          select: {
-            id: true,
-          },
-        },
-
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/employeeDepartments")
-  @nestAccessControl.UseRoles({
-    resource: "EmployeeDepartment",
-    action: "update",
-    possession: "any",
-  })
-  async connectEmployeeDepartments(
-    @common.Param() params: EmployeeDepartmentWhereUniqueInput,
-    @common.Body() body: EmployeeDepartmentWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      employeeDepartments: {
-        connect: body,
-      },
-    };
-    await this.service.updateEmployeeDepartment({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/employeeDepartments")
-  @nestAccessControl.UseRoles({
-    resource: "EmployeeDepartment",
-    action: "update",
-    possession: "any",
-  })
-  async updateEmployeeDepartments(
-    @common.Param() params: EmployeeDepartmentWhereUniqueInput,
-    @common.Body() body: EmployeeDepartmentWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      employeeDepartments: {
-        set: body,
-      },
-    };
-    await this.service.updateEmployeeDepartment({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/employeeDepartments")
-  @nestAccessControl.UseRoles({
-    resource: "EmployeeDepartment",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectEmployeeDepartments(
-    @common.Param() params: EmployeeDepartmentWhereUniqueInput,
-    @common.Body() body: EmployeeDepartmentWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      employeeDepartments: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateEmployeeDepartment({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -444,23 +288,36 @@ export class EmployeeDepartmentControllerBase {
         code: true,
         createdAt: true,
 
-        employeeClassId: {
-          select: {
-            id: true,
-          },
-        },
-
         employeeDepartmentId: {
           select: {
             id: true,
           },
         },
 
+        employeeGroup: {
+          select: {
+            id: true,
+          },
+        },
+
+        employeeRoleId: {
+          select: {
+            id: true,
+          },
+        },
+
+        hireDate: true,
         id: true,
         isActive: true,
+
+        jobTitle: {
+          select: {
+            id: true,
+          },
+        },
+
         lastYearBalance: true,
         name: true,
-        normalizedName: true,
         note: true,
         remainingBalance: true,
 

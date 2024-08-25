@@ -1,16 +1,14 @@
-import { EmployeeSalaryCreateNestedManyWithoutFiscalMonthsInput } from "./EmployeeSalaryCreateNestedManyWithoutFiscalMonthsInput";
-import { FiscalWeekCreateNestedManyWithoutFiscalMonthsInput } from "./FiscalWeekCreateNestedManyWithoutFiscalMonthsInput";
-import { FiscalYearWhereUniqueInput } from "../fiscalYear/FiscalYearWhereUniqueInput";
+import { BonusRequestWhereUniqueInput } from "../bonusRequest/BonusRequestWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
 
 export type FiscalMonthCreateInput = {
-  code: string;
-  description?: string | null;
-  employeeSalaries?: EmployeeSalaryCreateNestedManyWithoutFiscalMonthsInput;
-  endsOn?: Date | null;
-  fiscalWeeks?: FiscalWeekCreateNestedManyWithoutFiscalMonthsInput;
-  fiscalYear: FiscalYearWhereUniqueInput;
-  mormalizedName: string;
+  bonusRequests?: BonusRequestWhereUniqueInput | null;
+  code?: string | null;
+  endsOn: Date;
+  isActive: boolean;
   name: string;
+  normalizedName: string;
   note?: string | null;
-  startsFrom?: Date | null;
+  startsFrom: Date;
+  tenantId?: TenantWhereUniqueInput | null;
 };

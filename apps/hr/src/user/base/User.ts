@@ -11,22 +11,54 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { Attendance } from "../../attendance/base/Attendance";
 import {
+  ValidateNested,
+  IsOptional,
   IsDate,
   IsString,
   MaxLength,
-  IsOptional,
-  IsBoolean,
-  ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { BonusRequest } from "../../bonusRequest/base/BonusRequest";
+import { CheckInOut } from "../../checkInOut/base/CheckInOut";
+import { DailyMovementRequest } from "../../dailyMovementRequest/base/DailyMovementRequest";
+import { DayOffRequest } from "../../dayOffRequest/base/DayOffRequest";
+import { LeaveRequest } from "../../leaveRequest/base/LeaveRequest";
+import { OverNightRequest } from "../../overNightRequest/base/OverNightRequest";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
-import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class User {
+  @ApiProperty({
+    required: false,
+    type: () => [Attendance],
+  })
+  @ValidateNested()
+  @Type(() => Attendance)
+  @IsOptional()
+  attendances?: Array<Attendance>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [BonusRequest],
+  })
+  @ValidateNested()
+  @Type(() => BonusRequest)
+  @IsOptional()
+  bonuses?: Array<BonusRequest>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [CheckInOut],
+  })
+  @ValidateNested()
+  @Type(() => CheckInOut)
+  @IsOptional()
+  checkInOuts?: Array<CheckInOut>;
+
   @ApiProperty({
     required: true,
   })
@@ -36,12 +68,33 @@ class User {
   createdAt!: Date;
 
   @ApiProperty({
-    required: true,
+    required: false,
+    type: () => [DailyMovementRequest],
+  })
+  @ValidateNested()
+  @Type(() => DailyMovementRequest)
+  @IsOptional()
+  dailyMovements?: Array<DailyMovementRequest>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [DayOffRequest],
+  })
+  @ValidateNested()
+  @Type(() => DayOffRequest)
+  @IsOptional()
+  dayOffs?: Array<DayOffRequest>;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
-  @Field(() => String)
-  email!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  email!: string | null;
 
   @ApiProperty({
     required: false,
@@ -64,14 +117,6 @@ class User {
   id!: string;
 
   @ApiProperty({
-    required: true,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @Field(() => Boolean)
-  isActive!: boolean;
-
-  @ApiProperty({
     required: false,
     type: String,
   })
@@ -84,20 +129,29 @@ class User {
   lastName!: string | null;
 
   @ApiProperty({
+    required: false,
+    type: () => [LeaveRequest],
+  })
+  @ValidateNested()
+  @Type(() => LeaveRequest)
+  @IsOptional()
+  leaveRequests?: Array<LeaveRequest>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [OverNightRequest],
+  })
+  @ValidateNested()
+  @Type(() => OverNightRequest)
+  @IsOptional()
+  overNights?: Array<OverNightRequest>;
+
+  @ApiProperty({
     required: true,
   })
   @IsJSONValue()
   @Field(() => GraphQLJSON)
   roles!: JsonValue;
-
-  @ApiProperty({
-    required: false,
-    type: () => Tenant,
-  })
-  @ValidateNested()
-  @Type(() => Tenant)
-  @IsOptional()
-  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

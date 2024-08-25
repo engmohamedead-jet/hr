@@ -26,8 +26,6 @@ import { WorkCenterRoutingFindUniqueArgs } from "./WorkCenterRoutingFindUniqueAr
 import { CreateWorkCenterRoutingArgs } from "./CreateWorkCenterRoutingArgs";
 import { UpdateWorkCenterRoutingArgs } from "./UpdateWorkCenterRoutingArgs";
 import { DeleteWorkCenterRoutingArgs } from "./DeleteWorkCenterRoutingArgs";
-import { BillOfMaterialDetailFindManyArgs } from "../../billOfMaterialDetail/base/BillOfMaterialDetailFindManyArgs";
-import { BillOfMaterialDetail } from "../../billOfMaterialDetail/base/BillOfMaterialDetail";
 import { Tenant } from "../../tenant/base/Tenant";
 import { WorkCenter } from "../../workCenter/base/WorkCenter";
 import { WorkCenterRoutingService } from "../workCenterRouting.service";
@@ -99,17 +97,15 @@ export class WorkCenterRoutingResolverBase {
       data: {
         ...args.data,
 
-        tenantId: args.data.tenantId
+        tenant: args.data.tenant
           ? {
-              connect: args.data.tenantId,
+              connect: args.data.tenant,
             }
           : undefined,
 
-        workCenterId: args.data.workCenterId
-          ? {
-              connect: args.data.workCenterId,
-            }
-          : undefined,
+        workCenterId: {
+          connect: args.data.workCenterId,
+        },
       },
     });
   }
@@ -130,17 +126,15 @@ export class WorkCenterRoutingResolverBase {
         data: {
           ...args.data,
 
-          tenantId: args.data.tenantId
+          tenant: args.data.tenant
             ? {
-                connect: args.data.tenantId,
+                connect: args.data.tenant,
               }
             : undefined,
 
-          workCenterId: args.data.workCenterId
-            ? {
-                connect: args.data.workCenterId,
-              }
-            : undefined,
+          workCenterId: {
+            connect: args.data.workCenterId,
+          },
         },
       });
     } catch (error) {
@@ -175,44 +169,19 @@ export class WorkCenterRoutingResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [BillOfMaterialDetail], {
-    name: "billOfMaterialDetails",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "BillOfMaterialDetail",
-    action: "read",
-    possession: "any",
-  })
-  async findBillOfMaterialDetails(
-    @graphql.Parent() parent: WorkCenterRouting,
-    @graphql.Args() args: BillOfMaterialDetailFindManyArgs
-  ): Promise<BillOfMaterialDetail[]> {
-    const results = await this.service.findBillOfMaterialDetails(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Tenant, {
     nullable: true,
-    name: "tenantId",
+    name: "tenant",
   })
   @nestAccessControl.UseRoles({
     resource: "Tenant",
     action: "read",
     possession: "any",
   })
-  async getTenantId(
+  async getTenant(
     @graphql.Parent() parent: WorkCenterRouting
   ): Promise<Tenant | null> {
-    const result = await this.service.getTenantId(parent.id);
+    const result = await this.service.getTenant(parent.id);
 
     if (!result) {
       return null;

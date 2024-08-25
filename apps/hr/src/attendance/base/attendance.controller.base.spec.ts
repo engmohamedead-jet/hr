@@ -19,57 +19,65 @@ const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   attendanceDate: new Date(),
-  checkInTime: new Date(),
-  checkOutTime: new Date(),
+  checkInTime: "exampleCheckInTime",
+  checkOutTime: "exampleCheckOutTime",
   createdAt: new Date(),
   id: "exampleId",
+  isActive: "true",
+  isAppreoved: "true",
   note: "exampleNote",
-  overtimeHours: 42.424242424,
+  overtimeHours: "exampleOvertimeHours",
   reasonForAbsenteeism: "exampleReasonForAbsenteeism",
   updatedAt: new Date(),
-  wasAbsent: "true",
-  wasPresent: "true",
+  wasAbsent: "exampleWasAbsent",
+  wasPresent: "exampleWasPresent",
 };
 const CREATE_RESULT = {
   attendanceDate: new Date(),
-  checkInTime: new Date(),
-  checkOutTime: new Date(),
+  checkInTime: "exampleCheckInTime",
+  checkOutTime: "exampleCheckOutTime",
   createdAt: new Date(),
   id: "exampleId",
+  isActive: "true",
+  isAppreoved: "true",
   note: "exampleNote",
-  overtimeHours: 42.424242424,
+  overtimeHours: "exampleOvertimeHours",
   reasonForAbsenteeism: "exampleReasonForAbsenteeism",
   updatedAt: new Date(),
-  wasAbsent: "true",
-  wasPresent: "true",
+  wasAbsent: "exampleWasAbsent",
+  wasPresent: "exampleWasPresent",
 };
 const FIND_MANY_RESULT = [
   {
     attendanceDate: new Date(),
-    checkInTime: new Date(),
-    checkOutTime: new Date(),
+    checkInTime: "exampleCheckInTime",
+    checkOutTime: "exampleCheckOutTime",
     createdAt: new Date(),
     id: "exampleId",
+    isActive: "true",
+    isAppreoved: "true",
     note: "exampleNote",
-    overtimeHours: 42.424242424,
+    overtimeHours: "exampleOvertimeHours",
     reasonForAbsenteeism: "exampleReasonForAbsenteeism",
     updatedAt: new Date(),
-    wasAbsent: "true",
-    wasPresent: "true",
+    wasAbsent: "exampleWasAbsent",
+    wasPresent: "exampleWasPresent",
   },
 ];
 const FIND_ONE_RESULT = {
   attendanceDate: new Date(),
-  checkInTime: new Date(),
-  checkOutTime: new Date(),
+  checkInTime: "exampleCheckInTime",
+  checkOutTime: "exampleCheckOutTime",
   createdAt: new Date(),
   id: "exampleId",
+  isActive: "true",
+  isAppreoved: "true",
   note: "exampleNote",
-  overtimeHours: 42.424242424,
+  overtimeHours: "exampleOvertimeHours",
   reasonForAbsenteeism: "exampleReasonForAbsenteeism",
   updatedAt: new Date(),
-  wasAbsent: "true",
-  wasPresent: "true",
+  wasAbsent: "exampleWasAbsent",
+  wasPresent: "exampleWasPresent",
 };
 
 const service = {
@@ -155,8 +163,6 @@ describe("Attendance", () => {
       .expect({
         ...CREATE_RESULT,
         attendanceDate: CREATE_RESULT.attendanceDate.toISOString(),
-        checkInTime: CREATE_RESULT.checkInTime.toISOString(),
-        checkOutTime: CREATE_RESULT.checkOutTime.toISOString(),
         createdAt: CREATE_RESULT.createdAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
@@ -170,8 +176,6 @@ describe("Attendance", () => {
         {
           ...FIND_MANY_RESULT[0],
           attendanceDate: FIND_MANY_RESULT[0].attendanceDate.toISOString(),
-          checkInTime: FIND_MANY_RESULT[0].checkInTime.toISOString(),
-          checkOutTime: FIND_MANY_RESULT[0].checkOutTime.toISOString(),
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
@@ -196,8 +200,6 @@ describe("Attendance", () => {
       .expect({
         ...FIND_ONE_RESULT,
         attendanceDate: FIND_ONE_RESULT.attendanceDate.toISOString(),
-        checkInTime: FIND_ONE_RESULT.checkInTime.toISOString(),
-        checkOutTime: FIND_ONE_RESULT.checkOutTime.toISOString(),
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
@@ -212,8 +214,6 @@ describe("Attendance", () => {
       .expect({
         ...CREATE_RESULT,
         attendanceDate: CREATE_RESULT.attendanceDate.toISOString(),
-        checkInTime: CREATE_RESULT.checkInTime.toISOString(),
-        checkOutTime: CREATE_RESULT.checkOutTime.toISOString(),
         createdAt: CREATE_RESULT.createdAt.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })

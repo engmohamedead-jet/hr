@@ -21,11 +21,11 @@ const CREATE_INPUT = {
   balance: 42.424242424,
   code: "exampleCode",
   createdAt: new Date(),
+  hireDate: new Date(),
   id: "exampleId",
   isActive: "true",
   lastYearBalance: 42.424242424,
   name: "exampleName",
-  normalizedName: "exampleNormalizedName",
   note: "exampleNote",
   remainingBalance: 42.424242424,
   updatedAt: new Date(),
@@ -35,11 +35,11 @@ const CREATE_RESULT = {
   balance: 42.424242424,
   code: "exampleCode",
   createdAt: new Date(),
+  hireDate: new Date(),
   id: "exampleId",
   isActive: "true",
   lastYearBalance: 42.424242424,
   name: "exampleName",
-  normalizedName: "exampleNormalizedName",
   note: "exampleNote",
   remainingBalance: 42.424242424,
   updatedAt: new Date(),
@@ -50,11 +50,11 @@ const FIND_MANY_RESULT = [
     balance: 42.424242424,
     code: "exampleCode",
     createdAt: new Date(),
+    hireDate: new Date(),
     id: "exampleId",
     isActive: "true",
     lastYearBalance: 42.424242424,
     name: "exampleName",
-    normalizedName: "exampleNormalizedName",
     note: "exampleNote",
     remainingBalance: 42.424242424,
     updatedAt: new Date(),
@@ -65,11 +65,11 @@ const FIND_ONE_RESULT = {
   balance: 42.424242424,
   code: "exampleCode",
   createdAt: new Date(),
+  hireDate: new Date(),
   id: "exampleId",
   isActive: "true",
   lastYearBalance: 42.424242424,
   name: "exampleName",
-  normalizedName: "exampleNormalizedName",
   note: "exampleNote",
   remainingBalance: 42.424242424,
   updatedAt: new Date(),
@@ -159,6 +159,7 @@ describe("Employee", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        hireDate: CREATE_RESULT.hireDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +172,7 @@ describe("Employee", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          hireDate: FIND_MANY_RESULT[0].hireDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -194,6 +196,7 @@ describe("Employee", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        hireDate: FIND_ONE_RESULT.hireDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -207,6 +210,7 @@ describe("Employee", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        hireDate: CREATE_RESULT.hireDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

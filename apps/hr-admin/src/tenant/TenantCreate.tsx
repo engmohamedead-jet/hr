@@ -1,226 +1,86 @@
 import * as React from "react";
-
 import {
   Create,
   SimpleForm,
   CreateProps,
   ReferenceArrayInput,
   SelectArrayInput,
-  TextInput,
-  BooleanInput,
 } from "react-admin";
-
-import { AccountTitle } from "../account/AccountTitle";
-import { ApplicationDependencyTitle } from "../applicationDependency/ApplicationDependencyTitle";
-import { ApplicationTitle } from "../application/ApplicationTitle";
-import { AttributeValueTitle } from "../attributeValue/AttributeValueTitle";
-import { AttributeTitle } from "../attribute/AttributeTitle";
-import { BankBranchTitle } from "../bankBranch/BankBranchTitle";
-import { BankTypeTitle } from "../bankType/BankTypeTitle";
-import { BarcodeTypeTitle } from "../barcodeType/BarcodeTypeTitle";
-import { BillOfMaterialDetailTitle } from "../billOfMaterialDetail/BillOfMaterialDetailTitle";
-import { BillOfMaterialTypeTitle } from "../billOfMaterialType/BillOfMaterialTypeTitle";
-import { BillOfMaterialTitle } from "../billOfMaterial/BillOfMaterialTitle";
-import { CashRepositoryTitle } from "../cashRepository/CashRepositoryTitle";
-import { CurrencyTitle } from "../currency/CurrencyTitle";
-import { CustomerTitle } from "../customer/CustomerTitle";
-import { EmployeeClassTitle } from "../employeeClass/EmployeeClassTitle";
+import { AttendanceTitle } from "../attendance/AttendanceTitle";
+import { BonusRequestTitle } from "../bonusRequest/BonusRequestTitle";
+import { CheckInOutTitle } from "../checkInOut/CheckInOutTitle";
+import { DailyMovementRequestTitle } from "../dailyMovementRequest/DailyMovementRequestTitle";
+import { DayOffRequestTitle } from "../dayOffRequest/DayOffRequestTitle";
 import { EmployeeDepartmentTitle } from "../employeeDepartment/EmployeeDepartmentTitle";
+import { EmployeeGroupTitle } from "../employeeGroup/EmployeeGroupTitle";
+import { EmployeeRoleTitle } from "../employeeRole/EmployeeRoleTitle";
 import { EmployeeTitle } from "../employee/EmployeeTitle";
-import { ExpenseItemTitle } from "../expenseItem/ExpenseItemTitle";
-import { InstallmentSaleFeeTitle } from "../installmentSaleFee/InstallmentSaleFeeTitle";
-import { InvoiceTypeTitle } from "../invoiceType/InvoiceTypeTitle";
-import { OrderStatusTitle } from "../orderStatus/OrderStatusTitle";
-import { PaymentMethodTitle } from "../paymentMethod/PaymentMethodTitle";
-import { PaymentStatusTitle } from "../paymentStatus/PaymentStatusTitle";
-import { PaymentTermTitle } from "../paymentTerm/PaymentTermTitle";
-import { PaymentTypeTitle } from "../paymentType/PaymentTypeTitle";
-import { PaymentVoucherTitle } from "../paymentVoucher/PaymentVoucherTitle";
-import { PeriodTitle } from "../period/PeriodTitle";
-import { PrintTemplateContentTitle } from "../printTemplateContent/PrintTemplateContentTitle";
-import { PrintTemplateGroupTitle } from "../printTemplateGroup/PrintTemplateGroupTitle";
-import { PrintTemplateTitle } from "../printTemplate/PrintTemplateTitle";
-import { ProductBarcodeTitle } from "../productBarcode/ProductBarcodeTitle";
-import { ProductCategoryTitle } from "../productCategory/ProductCategoryTitle";
-import { ProductDepartmentTitle } from "../productDepartment/ProductDepartmentTitle";
-import { ProductGroupTitle } from "../productGroup/ProductGroupTitle";
-import { ProductTypeTitle } from "../productType/ProductTypeTitle";
-import { ProductUnitTitle } from "../productUnit/ProductUnitTitle";
-import { ProductVariantTitle } from "../productVariant/ProductVariantTitle";
-import { ProductionAvailabilityTitle } from "../productionAvailability/ProductionAvailabilityTitle";
-import { ProductionDocumentTitle } from "../productionDocument/ProductionDocumentTitle";
-import { ProductionOrderTitle } from "../productionOrder/ProductionOrderTitle";
-import { ProductTitle } from "../product/ProductTitle";
-import { PurchaseDetailTitle } from "../purchaseDetail/PurchaseDetailTitle";
-import { PurchasePriceTypeTitle } from "../purchasePriceType/PurchasePriceTypeTitle";
-import { PurchaseReturnDetailTitle } from "../purchaseReturnDetail/PurchaseReturnDetailTitle";
-import { PurchaseReturnTitle } from "../purchaseReturn/PurchaseReturnTitle";
-import { PurchaseTitle } from "../purchase/PurchaseTitle";
-import { ReceiptVoucherTitle } from "../receiptVoucher/ReceiptVoucherTitle";
-import { ResourceTypeTitle } from "../resourceType/ResourceTypeTitle";
-import { ResourceTitle } from "../resource/ResourceTitle";
-import { RoleGroupTitle } from "../roleGroup/RoleGroupTitle";
-import { SalaryItemGroupTitle } from "../salaryItemGroup/SalaryItemGroupTitle";
-import { SalaryItemTypeTitle } from "../salaryItemType/SalaryItemTypeTitle";
-import { SalaryItemTitle } from "../salaryItem/SalaryItemTitle";
-import { SalaryLawTitle } from "../salaryLaw/SalaryLawTitle";
-import { SaleDetailTitle } from "../saleDetail/SaleDetailTitle";
-import { SaleOrderDetailTitle } from "../saleOrderDetail/SaleOrderDetailTitle";
-import { SaleOrderTitle } from "../saleOrder/SaleOrderTitle";
-import { SalePaymentTitle } from "../salePayment/SalePaymentTitle";
-import { SalePersonTitle } from "../salePerson/SalePersonTitle";
-import { SalePriceTypeTitle } from "../salePriceType/SalePriceTypeTitle";
-import { SaleQuotationDetailTitle } from "../saleQuotationDetail/SaleQuotationDetailTitle";
-import { SaleQuotationTitle } from "../saleQuotation/SaleQuotationTitle";
-import { SaleReturnDetailTitle } from "../saleReturnDetail/SaleReturnDetailTitle";
-import { SaleReturnTitle } from "../saleReturn/SaleReturnTitle";
-import { SaleTaxTitle } from "../saleTax/SaleTaxTitle";
-import { SaleTeamTitle } from "../saleTeam/SaleTeamTitle";
-import { SaleTitle } from "../sale/SaleTitle";
+import { MachineTitle } from "../machine/MachineTitle";
+import { FiscalMonthTitle } from "../fiscalMonth/FiscalMonthTitle";
+import { JobTitleTitle } from "../jobTitle/JobTitleTitle";
+import { LeaveRequestTypeTitle } from "../leaveRequestType/LeaveRequestTypeTitle";
+import { LeaveRequestTitle } from "../leaveRequest/LeaveRequestTitle";
+import { OverNightRequestTitle } from "../overNightRequest/OverNightRequestTitle";
 import { ScrapReasonTitle } from "../scrapReason/ScrapReasonTitle";
-import { SettingGroupTitle } from "../settingGroup/SettingGroupTitle";
-import { SettingTitle } from "../setting/SettingTitle";
-import { ShiftTitle } from "../shift/ShiftTitle";
-import { ShippingStatusTitle } from "../shippingStatus/ShippingStatusTitle";
-import { StoreLocationTitle } from "../storeLocation/StoreLocationTitle";
-import { StoreTypeTitle } from "../storeType/StoreTypeTitle";
-import { StoreTitle } from "../store/StoreTitle";
-import { SupplierTitle } from "../supplier/SupplierTitle";
-import { TimeModeTitle } from "../timeMode/TimeModeTitle";
-import { TimeoffTypeTitle } from "../timeoffType/TimeoffTypeTitle";
-import { UnitTitle } from "../unit/UnitTitle";
-import { UserTitle } from "../user/UserTitle";
-import { VoucherTypeTitle } from "../voucherType/VoucherTypeTitle";
+import { TradingSummaryTitle } from "../tradingSummary/TradingSummaryTitle";
+import { WorkCenterAlternativeTitle } from "../workCenterAlternative/WorkCenterAlternativeTitle";
+import { WorkCenterCapacityTitle } from "../workCenterCapacity/WorkCenterCapacityTitle";
+import { WorkCenterProductivityTitle } from "../workCenterProductivity/WorkCenterProductivityTitle";
+import { WorkCenterProductivityLossTypeTitle } from "../workCenterProductivityLossType/WorkCenterProductivityLossTypeTitle";
+import { WorkCenterProductivityLossTitle } from "../workCenterProductivityLoss/WorkCenterProductivityLossTitle";
 import { WorkCenterRoutingTitle } from "../workCenterRouting/WorkCenterRoutingTitle";
+import { WorkCenterTagTitle } from "../workCenterTag/WorkCenterTagTitle";
+import { WorkCenterWorkCenterTagTitle } from "../workCenterWorkCenterTag/WorkCenterWorkCenterTagTitle";
 import { WorkCenterTitle } from "../workCenter/WorkCenterTitle";
+import { WorkOrderDependencyTitle } from "../workOrderDependency/WorkOrderDependencyTitle";
+import { WorkOrderRoutingTitle } from "../workOrderRouting/WorkOrderRoutingTitle";
+import { WorkOrderStatusTitle } from "../workOrderStatus/WorkOrderStatusTitle";
+import { WorkOrderTitle } from "../workOrder/WorkOrderTitle";
+import { WorkSheetTypeTitle } from "../workSheetType/WorkSheetTypeTitle";
 
 export const TenantCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
         <ReferenceArrayInput
-          source="accounts"
-          reference="Account"
+          source="attendances"
+          reference="Attendance"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={AccountTitle} />
+          <SelectArrayInput optionText={AttendanceTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="applicationDependencies"
-          reference="ApplicationDependency"
+          source="bonusRequests"
+          reference="BonusRequest"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={ApplicationDependencyTitle} />
+          <SelectArrayInput optionText={BonusRequestTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="applications"
-          reference="Application"
+          source="checkInOuts"
+          reference="CheckInOut"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={ApplicationTitle} />
+          <SelectArrayInput optionText={CheckInOutTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="attributeValues"
-          reference="AttributeValue"
+          source="dailyMovements"
+          reference="DailyMovementRequest"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={AttributeValueTitle} />
+          <SelectArrayInput optionText={DailyMovementRequestTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="attributes"
-          reference="Attribute"
+          source="dayOffs"
+          reference="DayOffRequest"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={AttributeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="bankBranches"
-          reference="BankBranch"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={BankBranchTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="bankTypes"
-          reference="BankType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={BankTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="barcodeTypes"
-          reference="BarcodeType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={BarcodeTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="billOfMaterialDetails"
-          reference="BillOfMaterialDetail"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={BillOfMaterialDetailTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="billOfMaterialTypes"
-          reference="BillOfMaterialType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={BillOfMaterialTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="billOfMaterials"
-          reference="BillOfMaterial"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={BillOfMaterialTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="cashRepositories"
-          reference="CashRepository"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={CashRepositoryTitle} />
-        </ReferenceArrayInput>
-        <TextInput label="Code" source="code" />
-        <TextInput label="CreatorUserId" source="creatorUserId" />
-        <ReferenceArrayInput
-          source="currencies"
-          reference="Currency"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={CurrencyTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="customers"
-          reference="Customer"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={CustomerTitle} />
-        </ReferenceArrayInput>
-        <TextInput label="Description" multiline source="description" />
-        <TextInput label="Email" source="email" type="email" />
-        <ReferenceArrayInput
-          source="employeeClasses"
-          reference="EmployeeClass"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={EmployeeClassTitle} />
+          <SelectArrayInput optionText={DayOffRequestTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="employeeDepartments"
@@ -231,6 +91,22 @@ export const TenantCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={EmployeeDepartmentTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
+          source="employeeGroups"
+          reference="EmployeeGroup"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={EmployeeGroupTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="employeeRoles"
+          reference="EmployeeRole"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={EmployeeRoleTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
           source="employees"
           reference="Employee"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
@@ -239,409 +115,52 @@ export const TenantCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={EmployeeTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="expenseItems"
-          reference="ExpenseItem"
+          source="fingerprintMachines"
+          reference="Machine"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={ExpenseItemTitle} />
+          <SelectArrayInput optionText={MachineTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="installmentSaleFees"
-          reference="InstallmentSaleFee"
+          source="fiscalMonths"
+          reference="FiscalMonth"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={InstallmentSaleFeeTitle} />
+          <SelectArrayInput optionText={FiscalMonthTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="invoiceTypes"
-          reference="InvoiceType"
+          source="jobTitles"
+          reference="JobTitle"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={InvoiceTypeTitle} />
-        </ReferenceArrayInput>
-        <BooleanInput label="IsActive" source="isActive" />
-        <TextInput label="LastModifierUserId" source="lastModifierUserIdl" />
-        <TextInput label="Name" source="name" />
-        <TextInput label="NormalizedName" source="normalizedName" />
-        <TextInput label="Note" multiline source="note" />
-        <ReferenceArrayInput
-          source="orderStatuses"
-          reference="OrderStatus"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={OrderStatusTitle} />
+          <SelectArrayInput optionText={JobTitleTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="paymentMethods"
-          reference="PaymentMethod"
+          source="leaveRequestTypes"
+          reference="LeaveRequestType"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={PaymentMethodTitle} />
+          <SelectArrayInput optionText={LeaveRequestTypeTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="paymentStatuses"
-          reference="PaymentStatus"
+          source="leaveRequests"
+          reference="LeaveRequest"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={PaymentStatusTitle} />
+          <SelectArrayInput optionText={LeaveRequestTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="paymentTerms"
-          reference="PaymentTerm"
+          source="overNights"
+          reference="OverNightRequest"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={PaymentTermTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="paymentTypes"
-          reference="PaymentType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PaymentTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="paymentVouchers"
-          reference="PaymentVoucher"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PaymentVoucherTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="periods"
-          reference="Period"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PeriodTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="printTemplateContents"
-          reference="PrintTemplateContent"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PrintTemplateContentTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="printTemplateGroups"
-          reference="PrintTemplateGroup"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PrintTemplateGroupTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="printTemplates"
-          reference="PrintTemplate"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PrintTemplateTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productBarcodes"
-          reference="ProductBarcode"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductBarcodeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productCategories"
-          reference="ProductCategory"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductCategoryTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productDepartments"
-          reference="ProductDepartment"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductDepartmentTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productGroups"
-          reference="ProductGroup"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductGroupTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productTypes"
-          reference="ProductType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productUnits"
-          reference="ProductUnit"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductUnitTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productVariants"
-          reference="ProductVariant"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductVariantTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productionAvailabilities"
-          reference="ProductionAvailability"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductionAvailabilityTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productionDocuments"
-          reference="ProductionDocument"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductionDocumentTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="productionOrders"
-          reference="ProductionOrder"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductionOrderTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="products"
-          reference="Product"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="purchaseDetails"
-          reference="PurchaseDetail"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PurchaseDetailTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="purchasePriceTypes"
-          reference="PurchasePriceType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PurchasePriceTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="purchaseReturnDetails"
-          reference="PurchaseReturnDetail"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PurchaseReturnDetailTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="purchaseReturns"
-          reference="PurchaseReturn"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PurchaseReturnTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="purchases"
-          reference="Purchase"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PurchaseTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="receiptVouchers"
-          reference="ReceiptVoucher"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ReceiptVoucherTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="resourceTypes"
-          reference="ResourceType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ResourceTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="resources"
-          reference="Resource"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ResourceTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="roleGroups"
-          reference="RoleGroup"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={RoleGroupTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="salaryItemGroups"
-          reference="SalaryItemGroup"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SalaryItemGroupTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="salaryItemTypes"
-          reference="SalaryItemType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SalaryItemTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="salaryItems"
-          reference="SalaryItem"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SalaryItemTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="salaryLaws"
-          reference="SalaryLaw"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SalaryLawTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="saleDetails"
-          reference="SaleDetail"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleDetailTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="saleOrderDetails"
-          reference="SaleOrderDetail"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleOrderDetailTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="saleOrders"
-          reference="SaleOrder"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleOrderTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="salePayments"
-          reference="SalePayment"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SalePaymentTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="salePeople"
-          reference="SalePerson"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SalePersonTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="salePriceTypes"
-          reference="SalePriceType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SalePriceTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="saleQuotationDetails"
-          reference="SaleQuotationDetail"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleQuotationDetailTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="saleQuotations"
-          reference="SaleQuotation"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleQuotationTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="saleReturnDetails"
-          reference="SaleReturnDetail"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleReturnDetailTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="saleReturns"
-          reference="SaleReturn"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleReturnTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="saleTaxes"
-          reference="SaleTax"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleTaxTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="saleTeams"
-          reference="SaleTeam"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleTeamTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="sales"
-          reference="Sale"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SaleTitle} />
+          <SelectArrayInput optionText={OverNightRequestTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="scrapReasons"
@@ -652,109 +171,52 @@ export const TenantCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={ScrapReasonTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="settingGroups"
-          reference="SettingGroup"
+          source="tradingSummaries"
+          reference="TradingSummary"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={SettingGroupTitle} />
+          <SelectArrayInput optionText={TradingSummaryTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="settings"
-          reference="Setting"
+          source="workCenterAlternatives"
+          reference="WorkCenterAlternative"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={SettingTitle} />
+          <SelectArrayInput optionText={WorkCenterAlternativeTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="shifts"
-          reference="Shift"
+          source="workCenterCapacities"
+          reference="WorkCenterCapacity"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={ShiftTitle} />
+          <SelectArrayInput optionText={WorkCenterCapacityTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="shippingStatuses"
-          reference="ShippingStatus"
+          source="workCenterProductivities"
+          reference="WorkCenterProductivity"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={ShippingStatusTitle} />
+          <SelectArrayInput optionText={WorkCenterProductivityTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="storeLocations"
-          reference="StoreLocation"
+          source="workCenterProductivityLossTypes"
+          reference="WorkCenterProductivityLossType"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={StoreLocationTitle} />
+          <SelectArrayInput optionText={WorkCenterProductivityLossTypeTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
-          source="storeTypes"
-          reference="StoreType"
+          source="workCenterProductivityLosses"
+          reference="WorkCenterProductivityLoss"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={StoreTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="stores"
-          reference="Store"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={StoreTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="suppliers"
-          reference="Supplier"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SupplierTitle} />
-        </ReferenceArrayInput>
-        <TextInput label="TenancyName" source="tenancyName" />
-        <ReferenceArrayInput
-          source="timeModes"
-          reference="TimeMode"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={TimeModeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="timeoffTypes"
-          reference="TimeoffType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={TimeoffTypeTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="units"
-          reference="Unit"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={UnitTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="users"
-          reference="User"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={UserTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="voucherTypes"
-          reference="VoucherType"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={VoucherTypeTitle} />
+          <SelectArrayInput optionText={WorkCenterProductivityLossTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="workCenterRoutings"
@@ -765,12 +227,68 @@ export const TenantCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={WorkCenterRoutingTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
+          source="workCenterTags"
+          reference="WorkCenterTag"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterTagTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenterWorkCenterTags"
+          reference="WorkCenterWorkCenterTag"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterWorkCenterTagTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
           source="workCenters"
           reference="WorkCenter"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={WorkCenterTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workOrderDependencies"
+          reference="WorkOrderDependency"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkOrderDependencyTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workOrderRoutings"
+          reference="WorkOrderRouting"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkOrderRoutingTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workOrderStatuses"
+          reference="WorkOrderStatus"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkOrderStatusTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workOrders"
+          reference="WorkOrder"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkOrderTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workSheetTypes"
+          reference="WorkSheetType"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkSheetTypeTitle} />
         </ReferenceArrayInput>
       </SimpleForm>
     </Create>

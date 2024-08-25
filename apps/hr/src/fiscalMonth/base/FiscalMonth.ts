@@ -11,36 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { BonusRequest } from "../../bonusRequest/base/BonusRequest";
 import {
+  ValidateNested,
+  IsOptional,
   IsString,
   MaxLength,
   IsDate,
-  IsOptional,
-  ValidateNested,
+  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { EmployeeSalary } from "../../employeeSalary/base/EmployeeSalary";
-import { FiscalWeek } from "../../fiscalWeek/base/FiscalWeek";
-import { FiscalYear } from "../../fiscalYear/base/FiscalYear";
+import { Tenant } from "../../tenant/base/Tenant";
 
 @ObjectType()
 class FiscalMonth {
   @ApiProperty({
-    required: true,
-    type: String,
+    required: false,
+    type: () => BonusRequest,
   })
-  @IsString()
-  @MaxLength(100)
-  @Field(() => String)
-  code!: string;
-
-  @ApiProperty({
-    required: true,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @Field(() => Date)
-  createdAt!: Date;
+  @ValidateNested()
+  @Type(() => BonusRequest)
+  @IsOptional()
+  bonusRequests?: BonusRequest | null;
 
   @ApiProperty({
     required: false,
@@ -52,44 +44,23 @@ class FiscalMonth {
   @Field(() => String, {
     nullable: true,
   })
-  description!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [EmployeeSalary],
-  })
-  @ValidateNested()
-  @Type(() => EmployeeSalary)
-  @IsOptional()
-  employeeSalaries?: Array<EmployeeSalary>;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsDate()
-  @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
-  })
-  endsOn!: Date | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [FiscalWeek],
-  })
-  @ValidateNested()
-  @Type(() => FiscalWeek)
-  @IsOptional()
-  fiscalWeeks?: Array<FiscalWeek>;
+  code!: string | null;
 
   @ApiProperty({
     required: true,
-    type: () => FiscalYear,
   })
-  @ValidateNested()
-  @Type(() => FiscalYear)
-  fiscalYear?: FiscalYear;
+  @IsDate()
+  @Type(() => Date)
+  @Field(() => Date)
+  createdAt!: Date;
+
+  @ApiProperty({
+    required: true,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @Field(() => Date)
+  endsOn!: Date;
 
   @ApiProperty({
     required: true,
@@ -101,21 +72,29 @@ class FiscalMonth {
 
   @ApiProperty({
     required: true,
-    type: String,
+    type: Boolean,
   })
-  @IsString()
-  @MaxLength(300)
-  @Field(() => String)
-  mormalizedName!: string;
+  @IsBoolean()
+  @Field(() => Boolean)
+  isActive!: boolean;
 
   @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
-  @MaxLength(300)
+  @MaxLength(1000)
   @Field(() => String)
   name!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  normalizedName!: string;
 
   @ApiProperty({
     required: false,
@@ -130,15 +109,21 @@ class FiscalMonth {
   note!: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
   })
   @IsDate()
   @Type(() => Date)
-  @IsOptional()
-  @Field(() => Date, {
-    nullable: true,
+  @Field(() => Date)
+  startsFrom!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => Tenant,
   })
-  startsFrom!: Date | null;
+  @ValidateNested()
+  @Type(() => Tenant)
+  @IsOptional()
+  tenantId?: Tenant | null;
 
   @ApiProperty({
     required: true,

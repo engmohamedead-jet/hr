@@ -1,0 +1,33 @@
+import { Decimal } from "decimal.js";
+import { ScrapReasonWhereUniqueInput } from "../scrapReason/ScrapReasonWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { WorkOrderDependencyUpdateManyWithoutWorkOrdersInput } from "./WorkOrderDependencyUpdateManyWithoutWorkOrdersInput";
+import { WorkOrderRoutingUpdateManyWithoutWorkOrdersInput } from "./WorkOrderRoutingUpdateManyWithoutWorkOrdersInput";
+
+export type WorkOrderUpdateInput = {
+  barcode?: string | null;
+  code?: string | null;
+  costsPerHour?: Decimal | null;
+  duaration?: Decimal | null;
+  duarationExpected?: Decimal | null;
+  duarationPercent?: Decimal | null;
+  duarationUnit?: Decimal | null;
+  dueDate?: Date | null;
+  endDate?: Date | null;
+  isActive?: boolean;
+  name?: string;
+  normalizedName?: string;
+  note?: string | null;
+  orderQuantity?: Decimal | null;
+  productionDate?: Date | null;
+  quantityProduced?: Decimal | null;
+  quantityReportedFromPreviouseWorkOrder?: Decimal | null;
+  scrapReasonId?: ScrapReasonWhereUniqueInput | null;
+  scrappedQuantity?: Decimal | null;
+  startDate?: Date | null;
+  stockQuantity?: Decimal | null;
+  tenantId?: TenantWhereUniqueInput | null;
+  workOrderBaseDependencies?: WorkOrderDependencyUpdateManyWithoutWorkOrdersInput;
+  workOrderDependencies?: WorkOrderDependencyUpdateManyWithoutWorkOrdersInput;
+  workOrderRoutings?: WorkOrderRoutingUpdateManyWithoutWorkOrdersInput;
+};

@@ -28,6 +28,22 @@ import { JobTitle } from "../../jobTitle/base/JobTitle";
 import { LeaveRequestType } from "../../leaveRequestType/base/LeaveRequestType";
 import { LeaveRequest } from "../../leaveRequest/base/LeaveRequest";
 import { OverNightRequest } from "../../overNightRequest/base/OverNightRequest";
+import { ScrapReason } from "../../scrapReason/base/ScrapReason";
+import { TradingSummary } from "../../tradingSummary/base/TradingSummary";
+import { WorkCenterAlternative } from "../../workCenterAlternative/base/WorkCenterAlternative";
+import { WorkCenterCapacity } from "../../workCenterCapacity/base/WorkCenterCapacity";
+import { WorkCenterProductivity } from "../../workCenterProductivity/base/WorkCenterProductivity";
+import { WorkCenterProductivityLossType } from "../../workCenterProductivityLossType/base/WorkCenterProductivityLossType";
+import { WorkCenterProductivityLoss } from "../../workCenterProductivityLoss/base/WorkCenterProductivityLoss";
+import { WorkCenterRouting } from "../../workCenterRouting/base/WorkCenterRouting";
+import { WorkCenterTag } from "../../workCenterTag/base/WorkCenterTag";
+import { WorkCenterWorkCenterTag } from "../../workCenterWorkCenterTag/base/WorkCenterWorkCenterTag";
+import { WorkCenter } from "../../workCenter/base/WorkCenter";
+import { WorkOrderDependency } from "../../workOrderDependency/base/WorkOrderDependency";
+import { WorkOrderRouting } from "../../workOrderRouting/base/WorkOrderRouting";
+import { WorkOrderStatus } from "../../workOrderStatus/base/WorkOrderStatus";
+import { WorkOrder } from "../../workOrder/base/WorkOrder";
+import { WorkSheetType } from "../../workSheetType/base/WorkSheetType";
 
 @ObjectType()
 class Tenant {
@@ -183,12 +199,156 @@ class Tenant {
   overNights?: Array<OverNightRequest>;
 
   @ApiProperty({
+    required: false,
+    type: () => [ScrapReason],
+  })
+  @ValidateNested()
+  @Type(() => ScrapReason)
+  @IsOptional()
+  scrapReasons?: Array<ScrapReason>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [TradingSummary],
+  })
+  @ValidateNested()
+  @Type(() => TradingSummary)
+  @IsOptional()
+  tradingSummaries?: Array<TradingSummary>;
+
+  @ApiProperty({
     required: true,
   })
   @IsDate()
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterAlternative],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternative)
+  @IsOptional()
+  workCenterAlternatives?: Array<WorkCenterAlternative>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterCapacity],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterCapacity)
+  @IsOptional()
+  workCenterCapacities?: Array<WorkCenterCapacity>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterProductivity],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivity)
+  @IsOptional()
+  workCenterProductivities?: Array<WorkCenterProductivity>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterProductivityLossType],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossType)
+  @IsOptional()
+  workCenterProductivityLossTypes?: Array<WorkCenterProductivityLossType>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterProductivityLoss],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLoss)
+  @IsOptional()
+  workCenterProductivityLosses?: Array<WorkCenterProductivityLoss>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterRouting],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterRouting)
+  @IsOptional()
+  workCenterRoutings?: Array<WorkCenterRouting>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterTag],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterTag)
+  @IsOptional()
+  workCenterTags?: Array<WorkCenterTag>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenterWorkCenterTag],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTag)
+  @IsOptional()
+  workCenterWorkCenterTags?: Array<WorkCenterWorkCenterTag>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkCenter],
+  })
+  @ValidateNested()
+  @Type(() => WorkCenter)
+  @IsOptional()
+  workCenters?: Array<WorkCenter>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkOrderDependency],
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderDependency)
+  @IsOptional()
+  workOrderDependencies?: Array<WorkOrderDependency>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkOrderRouting],
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderRouting)
+  @IsOptional()
+  workOrderRoutings?: Array<WorkOrderRouting>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkOrderStatus],
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderStatus)
+  @IsOptional()
+  workOrderStatuses?: Array<WorkOrderStatus>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkOrder],
+  })
+  @ValidateNested()
+  @Type(() => WorkOrder)
+  @IsOptional()
+  workOrders?: Array<WorkOrder>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [WorkSheetType],
+  })
+  @ValidateNested()
+  @Type(() => WorkSheetType)
+  @IsOptional()
+  workSheetTypes?: Array<WorkSheetType>;
 }
 
 export { Tenant as Tenant };

@@ -23,6 +23,11 @@ import { EMPLOYEEROLE_TITLE_FIELD } from "../employeeRole/EmployeeRoleTitle";
 import { JOBTITLE_TITLE_FIELD } from "../jobTitle/JobTitleTitle";
 import { BONUSREQUEST_TITLE_FIELD } from "../bonusRequest/BonusRequestTitle";
 import { LEAVEREQUESTTYPE_TITLE_FIELD } from "../leaveRequestType/LeaveRequestTypeTitle";
+import { WORKCENTER_TITLE_FIELD } from "../workCenter/WorkCenterTitle";
+import { WORKCENTERPRODUCTIVITYLOSSTYPE_TITLE_FIELD } from "../workCenterProductivityLossType/WorkCenterProductivityLossTypeTitle";
+import { WORKCENTERTAG_TITLE_FIELD } from "../workCenterTag/WorkCenterTagTitle";
+import { WORKORDER_TITLE_FIELD } from "../workOrder/WorkOrderTitle";
+import { SCRAPREASON_TITLE_FIELD } from "../scrapReason/ScrapReasonTitle";
 
 export const TenantShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -559,6 +564,514 @@ export const TenantShow = (props: ShowProps): React.ReactElement => {
             <BooleanField label="IsAppreoved" source="isAppreoved" />
             <TextField label="Note" source="note" />
             <TextField label="StartDateTime" source="startDateTime" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="ScrapReason"
+          target="tenantIdId"
+          label="ScrapReasons"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Description" source="description" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="TradingSummary"
+          target="tenantIdId"
+          label="TradingSummaries"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="FiscalWeekId" source="fiscalWeekId" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <TextField label="PartyId" source="partyId" />
+            <TextField label="Price" source="price" />
+            <TextField label="PriceTotal" source="priceTotal" />
+            <TextField label="ProductId" source="productId" />
+            <TextField label="ProductVariantId" source="productVariantId" />
+            <TextField label="Quantity" source="quantity" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="TransactionDate" source="transactionDate" />
+            <TextField label="TransactionTypeId" source="transactionTypeId" />
+            <TextField label="UnitId" source="unitId" />
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkCenterAlternative"
+          target="tenantIdId"
+          label="WorkCenterAlternatives"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="AlternativeWorkCenterId"
+              source="workcenter.id"
+              reference="WorkCenter"
+            >
+              <TextField source={WORKCENTER_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="WorkCenterId1"
+              source="workcenter.id"
+              reference="WorkCenter"
+            >
+              <TextField source={WORKCENTER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkCenterCapacity"
+          target="tenantIdId"
+          label="WorkCenterCapacities"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Capacity" source="capacity" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <TextField label="StartTime" source="startTime" />
+            <TextField label="StopTime" source="stopTime" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="WorkCenterId"
+              source="workcenter.id"
+              reference="WorkCenter"
+            >
+              <TextField source={WORKCENTER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkCenterProductivity"
+          target="tenantIdId"
+          label="WorkCenterProductivities"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Description" source="description" />
+            <TextField label="Duration" source="duration" />
+            <TextField label="EndDate" source="endDate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <TextField label="StartDate" source="startDate" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="WorkCenterId"
+              source="workcenter.id"
+              reference="WorkCenter"
+            >
+              <TextField source={WORKCENTER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkCenterProductivityLossType"
+          target="tenantIdId"
+          label="WorkCenterProductivityLossTypes"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Description" source="description" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkCenterProductivityLoss"
+          target="tenantIdId"
+          label="WorkCenterProductivityLosses"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsManual" source="isManual" />
+            <TextField label="EffectiveLossType" source="lossType" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="WorkCenterId"
+              source="workcenter.id"
+              reference="WorkCenter"
+            >
+              <TextField source={WORKCENTER_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="WorkCenterProductivityLossTypeId"
+              source="workcenterproductivitylosstype.id"
+              reference="WorkCenterProductivityLossType"
+            >
+              <TextField source={WORKCENTERPRODUCTIVITYLOSSTYPE_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkCenterRouting"
+          target="tenantId"
+          label="WorkCenterRoutings"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="BillOfMaterialId" source="billOfMaterialId" />
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="TimeCycleManual" source="timeCycleManual" />
+            <TextField label="TimeModeBatch" source="timeModeBatch" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="WorkCenterId"
+              source="workcenter.id"
+              reference="WorkCenter"
+            >
+              <TextField source={WORKCENTER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkCenterTag"
+          target="tenantIdId"
+          label="WorkCenterTags"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Desciption" source="Desciption" />
+            <TextField label="Code" source="code" />
+            <TextField label="Color" source="color" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkCenterWorkCenterTag"
+          target="tenantIdId"
+          label="WorkCenterWorkCenterTags"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="WorkCenterId"
+              source="workcenter.id"
+              reference="WorkCenter"
+            >
+              <TextField source={WORKCENTER_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="WorkCenterTagId"
+              source="workcentertag.id"
+              reference="WorkCenterTag"
+            >
+              <TextField source={WORKCENTERTAG_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkCenter"
+          target="tenantIdId"
+          label="WorkCenters"
+        >
+          <Datagrid rowClick="show">
+            <TextField
+              label="AnalyticDistribution"
+              source="analyticDistribution"
+            />
+            <TextField label="Code" source="code" />
+            <TextField label="Color" source="color" />
+            <TextField label="CostPerHour" source="costPerHour" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="DefaultCapacity" source="defaultCapacity" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <BooleanField label="IsProductive" source="isProductive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <TextField label="OeeTareget" source="oeeTareget" />
+            <TextField label="Sequence" source="sequence" />
+            <TextField label="StartTime" source="startTime" />
+            <TextField label="StopTime" source="stopTime" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="TimeEfficiency" source="timeEfficiency" />
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkOrderDependency"
+          target="tenantIdId"
+          label="WorkOrderDependencies"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="BlockedByWorkOrderId"
+              source="workorder.id"
+              reference="WorkOrder"
+            >
+              <TextField source={WORKORDER_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="WorkOrderId"
+              source="workorder.id"
+              reference="WorkOrder"
+            >
+              <TextField source={WORKORDER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkOrderRouting"
+          target="tenantIdId"
+          label="WorkOrderRoutings"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="ActualCost" source="actualCost" />
+            <TextField label="ActualEndDate" source="actualEndDate" />
+            <TextField
+              label="ActualResourceHours"
+              source="actualResourceHours"
+            />
+            <TextField label="ActualStartDate" source="actualStartDate" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Note" source="note" />
+            <TextField label="PlannedCost" source="plannedCost" />
+            <TextField label="ScheduledEndDate" source="scheduledEndDate" />
+            <TextField label="ScheduledStartDate" source="scheduledStartDate" />
+            <TextField label="Sequence" source="sequence" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField
+              label="WorkOrderId"
+              source="workorder.id"
+              reference="WorkOrder"
+            >
+              <TextField source={WORKORDER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkOrderStatus"
+          target="tenantIdId"
+          label="WorkOrderStatuses"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkOrder"
+          target="tenantIdId"
+          label="WorkOrders"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Barcode" source="barcode" />
+            <TextField label="Code" source="code" />
+            <TextField label="CostsPerHour" source="costsPerHour" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Duaration" source="duaration" />
+            <TextField label="DuarationExpected" source="duarationExpected" />
+            <TextField label="DuarationPercent" source="duarationPercent" />
+            <TextField label="DuarationUnit" source="duarationUnit" />
+            <TextField label="DueDate" source="dueDate" />
+            <TextField label="EndDate" source="endDate" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
+            <TextField label="OrderQuantity" source="orderQuantity" />
+            <TextField label="ProductionDate" source="productionDate" />
+            <TextField label="QuantityProduced" source="quantityProduced" />
+            <TextField
+              label="QuantityReportedFromPreviouseWorkOrder"
+              source="quantityReportedFromPreviouseWorkOrder"
+            />
+            <ReferenceField
+              label="ScrapReasonId"
+              source="scrapreason.id"
+              reference="ScrapReason"
+            >
+              <TextField source={SCRAPREASON_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ScrappedQuantity" source="scrappedQuantity" />
+            <TextField label="StartDate" source="startDate" />
+            <TextField label="StockQuantity" source="stockQuantity" />
+            <ReferenceField
+              label="TenantId"
+              source="tenant.id"
+              reference="Tenant"
+            >
+              <TextField source={TENANT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="WorkSheetType"
+          target="tenantId"
+          label="WorkSheetTypes"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="Code" source="code" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="IsActive" source="isActive" />
+            <TextField label="Name" source="name" />
+            <TextField label="NormalizedName" source="normalizedName" />
+            <TextField label="Note" source="note" />
             <ReferenceField
               label="TenantId"
               source="tenant.id"

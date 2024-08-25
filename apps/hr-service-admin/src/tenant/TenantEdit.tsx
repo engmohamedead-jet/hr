@@ -21,6 +21,22 @@ import { JobTitleTitle } from "../jobTitle/JobTitleTitle";
 import { LeaveRequestTypeTitle } from "../leaveRequestType/LeaveRequestTypeTitle";
 import { LeaveRequestTitle } from "../leaveRequest/LeaveRequestTitle";
 import { OverNightRequestTitle } from "../overNightRequest/OverNightRequestTitle";
+import { ScrapReasonTitle } from "../scrapReason/ScrapReasonTitle";
+import { TradingSummaryTitle } from "../tradingSummary/TradingSummaryTitle";
+import { WorkCenterAlternativeTitle } from "../workCenterAlternative/WorkCenterAlternativeTitle";
+import { WorkCenterCapacityTitle } from "../workCenterCapacity/WorkCenterCapacityTitle";
+import { WorkCenterProductivityTitle } from "../workCenterProductivity/WorkCenterProductivityTitle";
+import { WorkCenterProductivityLossTypeTitle } from "../workCenterProductivityLossType/WorkCenterProductivityLossTypeTitle";
+import { WorkCenterProductivityLossTitle } from "../workCenterProductivityLoss/WorkCenterProductivityLossTitle";
+import { WorkCenterRoutingTitle } from "../workCenterRouting/WorkCenterRoutingTitle";
+import { WorkCenterTagTitle } from "../workCenterTag/WorkCenterTagTitle";
+import { WorkCenterWorkCenterTagTitle } from "../workCenterWorkCenterTag/WorkCenterWorkCenterTagTitle";
+import { WorkCenterTitle } from "../workCenter/WorkCenterTitle";
+import { WorkOrderDependencyTitle } from "../workOrderDependency/WorkOrderDependencyTitle";
+import { WorkOrderRoutingTitle } from "../workOrderRouting/WorkOrderRoutingTitle";
+import { WorkOrderStatusTitle } from "../workOrderStatus/WorkOrderStatusTitle";
+import { WorkOrderTitle } from "../workOrder/WorkOrderTitle";
+import { WorkSheetTypeTitle } from "../workSheetType/WorkSheetTypeTitle";
 
 export const TenantEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -145,6 +161,134 @@ export const TenantEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={OverNightRequestTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="scrapReasons"
+          reference="ScrapReason"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ScrapReasonTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="tradingSummaries"
+          reference="TradingSummary"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={TradingSummaryTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenterAlternatives"
+          reference="WorkCenterAlternative"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterAlternativeTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenterCapacities"
+          reference="WorkCenterCapacity"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterCapacityTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenterProductivities"
+          reference="WorkCenterProductivity"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterProductivityTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenterProductivityLossTypes"
+          reference="WorkCenterProductivityLossType"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterProductivityLossTypeTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenterProductivityLosses"
+          reference="WorkCenterProductivityLoss"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterProductivityLossTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenterRoutings"
+          reference="WorkCenterRouting"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterRoutingTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenterTags"
+          reference="WorkCenterTag"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterTagTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenterWorkCenterTags"
+          reference="WorkCenterWorkCenterTag"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterWorkCenterTagTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workCenters"
+          reference="WorkCenter"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkCenterTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workOrderDependencies"
+          reference="WorkOrderDependency"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkOrderDependencyTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workOrderRoutings"
+          reference="WorkOrderRouting"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkOrderRoutingTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workOrderStatuses"
+          reference="WorkOrderStatus"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkOrderStatusTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workOrders"
+          reference="WorkOrder"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkOrderTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="workSheetTypes"
+          reference="WorkSheetType"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={WorkSheetTypeTitle} />
         </ReferenceArrayInput>
       </SimpleForm>
     </Edit>

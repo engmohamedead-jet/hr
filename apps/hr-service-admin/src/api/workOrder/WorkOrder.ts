@@ -1,0 +1,36 @@
+import { Decimal } from "decimal.js";
+import { ScrapReason } from "../scrapReason/ScrapReason";
+import { Tenant } from "../tenant/Tenant";
+import { WorkOrderDependency } from "../workOrderDependency/WorkOrderDependency";
+import { WorkOrderRouting } from "../workOrderRouting/WorkOrderRouting";
+
+export type WorkOrder = {
+  barcode: string | null;
+  code: string | null;
+  costsPerHour: Decimal | null;
+  createdAt: Date;
+  duaration: Decimal | null;
+  duarationExpected: Decimal | null;
+  duarationPercent: Decimal | null;
+  duarationUnit: Decimal | null;
+  dueDate: Date | null;
+  endDate: Date | null;
+  id: string;
+  isActive: boolean;
+  name: string;
+  normalizedName: string;
+  note: string | null;
+  orderQuantity: Decimal | null;
+  productionDate: Date | null;
+  quantityProduced: Decimal | null;
+  quantityReportedFromPreviouseWorkOrder: Decimal | null;
+  scrapReasonId?: ScrapReason | null;
+  scrappedQuantity: Decimal | null;
+  startDate: Date | null;
+  stockQuantity: Decimal | null;
+  tenantId?: Tenant | null;
+  updatedAt: Date;
+  workOrderBaseDependencies?: Array<WorkOrderDependency>;
+  workOrderDependencies?: Array<WorkOrderDependency>;
+  workOrderRoutings?: Array<WorkOrderRouting>;
+};

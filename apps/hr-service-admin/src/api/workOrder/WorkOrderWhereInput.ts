@@ -1,0 +1,38 @@
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { ScrapReasonWhereUniqueInput } from "../scrapReason/ScrapReasonWhereUniqueInput";
+import { TenantWhereUniqueInput } from "../tenant/TenantWhereUniqueInput";
+import { WorkOrderDependencyListRelationFilter } from "../workOrderDependency/WorkOrderDependencyListRelationFilter";
+import { WorkOrderRoutingListRelationFilter } from "../workOrderRouting/WorkOrderRoutingListRelationFilter";
+
+export type WorkOrderWhereInput = {
+  barcode?: StringNullableFilter;
+  code?: StringNullableFilter;
+  costsPerHour?: DecimalNullableFilter;
+  duaration?: DecimalNullableFilter;
+  duarationExpected?: DecimalNullableFilter;
+  duarationPercent?: DecimalNullableFilter;
+  duarationUnit?: DecimalNullableFilter;
+  dueDate?: DateTimeNullableFilter;
+  endDate?: DateTimeNullableFilter;
+  id?: StringFilter;
+  isActive?: BooleanFilter;
+  name?: StringFilter;
+  normalizedName?: StringFilter;
+  note?: StringNullableFilter;
+  orderQuantity?: DecimalNullableFilter;
+  productionDate?: DateTimeNullableFilter;
+  quantityProduced?: DecimalNullableFilter;
+  quantityReportedFromPreviouseWorkOrder?: DecimalNullableFilter;
+  scrapReasonId?: ScrapReasonWhereUniqueInput;
+  scrappedQuantity?: DecimalNullableFilter;
+  startDate?: DateTimeNullableFilter;
+  stockQuantity?: DecimalNullableFilter;
+  tenantId?: TenantWhereUniqueInput;
+  workOrderBaseDependencies?: WorkOrderDependencyListRelationFilter;
+  workOrderDependencies?: WorkOrderDependencyListRelationFilter;
+  workOrderRoutings?: WorkOrderRoutingListRelationFilter;
+};

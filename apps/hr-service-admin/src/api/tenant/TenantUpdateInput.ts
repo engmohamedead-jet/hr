@@ -13,6 +13,22 @@ import { JobTitleUpdateManyWithoutTenantsInput } from "./JobTitleUpdateManyWitho
 import { LeaveRequestTypeUpdateManyWithoutTenantsInput } from "./LeaveRequestTypeUpdateManyWithoutTenantsInput";
 import { LeaveRequestUpdateManyWithoutTenantsInput } from "./LeaveRequestUpdateManyWithoutTenantsInput";
 import { OverNightRequestUpdateManyWithoutTenantsInput } from "./OverNightRequestUpdateManyWithoutTenantsInput";
+import { ScrapReasonUpdateManyWithoutTenantsInput } from "./ScrapReasonUpdateManyWithoutTenantsInput";
+import { TradingSummaryUpdateManyWithoutTenantsInput } from "./TradingSummaryUpdateManyWithoutTenantsInput";
+import { WorkCenterAlternativeUpdateManyWithoutTenantsInput } from "./WorkCenterAlternativeUpdateManyWithoutTenantsInput";
+import { WorkCenterCapacityUpdateManyWithoutTenantsInput } from "./WorkCenterCapacityUpdateManyWithoutTenantsInput";
+import { WorkCenterProductivityUpdateManyWithoutTenantsInput } from "./WorkCenterProductivityUpdateManyWithoutTenantsInput";
+import { WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput } from "./WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput";
+import { WorkCenterProductivityLossUpdateManyWithoutTenantsInput } from "./WorkCenterProductivityLossUpdateManyWithoutTenantsInput";
+import { WorkCenterRoutingUpdateManyWithoutTenantsInput } from "./WorkCenterRoutingUpdateManyWithoutTenantsInput";
+import { WorkCenterTagUpdateManyWithoutTenantsInput } from "./WorkCenterTagUpdateManyWithoutTenantsInput";
+import { WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput } from "./WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput";
+import { WorkCenterUpdateManyWithoutTenantsInput } from "./WorkCenterUpdateManyWithoutTenantsInput";
+import { WorkOrderDependencyUpdateManyWithoutTenantsInput } from "./WorkOrderDependencyUpdateManyWithoutTenantsInput";
+import { WorkOrderRoutingUpdateManyWithoutTenantsInput } from "./WorkOrderRoutingUpdateManyWithoutTenantsInput";
+import { WorkOrderStatusUpdateManyWithoutTenantsInput } from "./WorkOrderStatusUpdateManyWithoutTenantsInput";
+import { WorkOrderUpdateManyWithoutTenantsInput } from "./WorkOrderUpdateManyWithoutTenantsInput";
+import { WorkSheetTypeUpdateManyWithoutTenantsInput } from "./WorkSheetTypeUpdateManyWithoutTenantsInput";
 
 export type TenantUpdateInput = {
   attendances?: AttendanceUpdateManyWithoutTenantsInput;
@@ -30,4 +46,20 @@ export type TenantUpdateInput = {
   leaveRequestTypes?: LeaveRequestTypeUpdateManyWithoutTenantsInput;
   leaveRequests?: LeaveRequestUpdateManyWithoutTenantsInput;
   overNights?: OverNightRequestUpdateManyWithoutTenantsInput;
+  scrapReasons?: ScrapReasonUpdateManyWithoutTenantsInput;
+  tradingSummaries?: TradingSummaryUpdateManyWithoutTenantsInput;
+  workCenterAlternatives?: WorkCenterAlternativeUpdateManyWithoutTenantsInput;
+  workCenterCapacities?: WorkCenterCapacityUpdateManyWithoutTenantsInput;
+  workCenterProductivities?: WorkCenterProductivityUpdateManyWithoutTenantsInput;
+  workCenterProductivityLossTypes?: WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput;
+  workCenterProductivityLosses?: WorkCenterProductivityLossUpdateManyWithoutTenantsInput;
+  workCenterRoutings?: WorkCenterRoutingUpdateManyWithoutTenantsInput;
+  workCenterTags?: WorkCenterTagUpdateManyWithoutTenantsInput;
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput;
+  workCenters?: WorkCenterUpdateManyWithoutTenantsInput;
+  workOrderDependencies?: WorkOrderDependencyUpdateManyWithoutTenantsInput;
+  workOrderRoutings?: WorkOrderRoutingUpdateManyWithoutTenantsInput;
+  workOrderStatuses?: WorkOrderStatusUpdateManyWithoutTenantsInput;
+  workOrders?: WorkOrderUpdateManyWithoutTenantsInput;
+  workSheetTypes?: WorkSheetTypeUpdateManyWithoutTenantsInput;
 };

@@ -28,6 +28,22 @@ import { JobTitleUpdateManyWithoutTenantsInput } from "./JobTitleUpdateManyWitho
 import { LeaveRequestTypeUpdateManyWithoutTenantsInput } from "./LeaveRequestTypeUpdateManyWithoutTenantsInput";
 import { LeaveRequestUpdateManyWithoutTenantsInput } from "./LeaveRequestUpdateManyWithoutTenantsInput";
 import { OverNightRequestUpdateManyWithoutTenantsInput } from "./OverNightRequestUpdateManyWithoutTenantsInput";
+import { ScrapReasonUpdateManyWithoutTenantsInput } from "./ScrapReasonUpdateManyWithoutTenantsInput";
+import { TradingSummaryUpdateManyWithoutTenantsInput } from "./TradingSummaryUpdateManyWithoutTenantsInput";
+import { WorkCenterAlternativeUpdateManyWithoutTenantsInput } from "./WorkCenterAlternativeUpdateManyWithoutTenantsInput";
+import { WorkCenterCapacityUpdateManyWithoutTenantsInput } from "./WorkCenterCapacityUpdateManyWithoutTenantsInput";
+import { WorkCenterProductivityUpdateManyWithoutTenantsInput } from "./WorkCenterProductivityUpdateManyWithoutTenantsInput";
+import { WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput } from "./WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput";
+import { WorkCenterProductivityLossUpdateManyWithoutTenantsInput } from "./WorkCenterProductivityLossUpdateManyWithoutTenantsInput";
+import { WorkCenterRoutingUpdateManyWithoutTenantsInput } from "./WorkCenterRoutingUpdateManyWithoutTenantsInput";
+import { WorkCenterTagUpdateManyWithoutTenantsInput } from "./WorkCenterTagUpdateManyWithoutTenantsInput";
+import { WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput } from "./WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput";
+import { WorkCenterUpdateManyWithoutTenantsInput } from "./WorkCenterUpdateManyWithoutTenantsInput";
+import { WorkOrderDependencyUpdateManyWithoutTenantsInput } from "./WorkOrderDependencyUpdateManyWithoutTenantsInput";
+import { WorkOrderRoutingUpdateManyWithoutTenantsInput } from "./WorkOrderRoutingUpdateManyWithoutTenantsInput";
+import { WorkOrderStatusUpdateManyWithoutTenantsInput } from "./WorkOrderStatusUpdateManyWithoutTenantsInput";
+import { WorkOrderUpdateManyWithoutTenantsInput } from "./WorkOrderUpdateManyWithoutTenantsInput";
+import { WorkSheetTypeUpdateManyWithoutTenantsInput } from "./WorkSheetTypeUpdateManyWithoutTenantsInput";
 
 @InputType()
 class TenantUpdateInput {
@@ -210,6 +226,198 @@ class TenantUpdateInput {
     nullable: true,
   })
   overNights?: OverNightRequestUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ScrapReasonUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => ScrapReasonUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => ScrapReasonUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  scrapReasons?: ScrapReasonUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => TradingSummaryUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => TradingSummaryUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => TradingSummaryUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  tradingSummaries?: TradingSummaryUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterAlternativeUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterAlternativeUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterAlternativeUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterAlternatives?: WorkCenterAlternativeUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterCapacityUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterCapacityUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterCapacityUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterCapacities?: WorkCenterCapacityUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterProductivities?: WorkCenterProductivityUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterProductivityLossTypes?: WorkCenterProductivityLossTypeUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterProductivityLossUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterProductivityLossUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterProductivityLossUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterProductivityLosses?: WorkCenterProductivityLossUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterRoutingUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterRoutingUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterRoutingUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterRoutings?: WorkCenterRoutingUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterTagUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterTagUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterTagUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterTags?: WorkCenterTagUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenterWorkCenterTags?: WorkCenterWorkCenterTagUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkCenterUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkCenterUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkCenterUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workCenters?: WorkCenterUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderDependencyUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderDependencyUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderDependencyUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrderDependencies?: WorkOrderDependencyUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderRoutingUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderRoutingUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderRoutingUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrderRoutings?: WorkOrderRoutingUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderStatusUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderStatusUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderStatusUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrderStatuses?: WorkOrderStatusUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkOrderUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkOrderUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkOrderUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workOrders?: WorkOrderUpdateManyWithoutTenantsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => WorkSheetTypeUpdateManyWithoutTenantsInput,
+  })
+  @ValidateNested()
+  @Type(() => WorkSheetTypeUpdateManyWithoutTenantsInput)
+  @IsOptional()
+  @Field(() => WorkSheetTypeUpdateManyWithoutTenantsInput, {
+    nullable: true,
+  })
+  workSheetTypes?: WorkSheetTypeUpdateManyWithoutTenantsInput;
 }
 
 export { TenantUpdateInput as TenantUpdateInput };
